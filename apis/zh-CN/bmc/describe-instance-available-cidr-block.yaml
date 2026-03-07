@@ -1,0 +1,30 @@
+name: DescribeInstanceAvailableCidrBlock
+product: bmc
+use: describe-instance-available-cidr-block
+short: 查看实例可用的Cidr Block
+long: 查询实例可用的Cidr Block。
+examples:
+- cmd: zeno bmc describe-instance-available-cidr-block --instance-id 123456 --cidr-block-type IPV4
+  desc: ''
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DescribeInstanceAvailableCidrBlock
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: |-
+    实例ID。
+    可通过DescribeInstances接口返回值中的instanceId获取。
+- name: cidr-block-type
+  type: enum
+  required: false
+  sdk-field: cidrBlockType
+  description: CIDR地址块的类型。
+  enum-values:
+  - value: IPV4
+    desc: IPv4。
+  - value: IPV6
+    desc: IPv6。

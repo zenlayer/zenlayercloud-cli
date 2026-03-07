@@ -1,0 +1,42 @@
+name: DescribeEipMonitorData
+product: zec
+use: describe-eip-monitor-data
+short: Queries the performance data of the elastic IP.
+long: query the performance data of the elastic IP.
+examples:
+- cmd: zeno zec describe-eip-monitor-data --eip-id "< EipId >" --metric-type BANDWIDTH --start-time 2025-06-25T01:55:00Z --end-time 2025-06-25T07:55:00Z
+  desc: Query the performance data of the elastic IP.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeEipMonitorData
+parameters:
+- name: eip-id
+  type: string
+  required: true
+  sdk-field: eipId
+  description: Elastic IP ID.
+- name: metric-type
+  type: enum
+  required: true
+  sdk-field: metricType
+  description: Performance metrics.
+  enum-values:
+  - value: BANDWIDTH
+    desc: |-
+      Bandwidth.
+      Unit: bps .
+  - value: PACKETS
+    desc: |-
+      Packet transmission.
+      Unit: pps .
+- name: start-time
+  type: string
+  required: true
+  sdk-field: startTime
+  description: Start time.
+- name: end-time
+  type: string
+  required: true
+  sdk-field: endTime
+  description: End time.

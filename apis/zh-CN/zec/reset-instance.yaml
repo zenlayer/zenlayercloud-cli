@@ -1,0 +1,67 @@
+name: ResetInstance
+product: zec
+use: reset-instance
+short: 重装一台虚拟机实例操作系统
+long: 重装一台虚拟机实例操作系统。
+examples:
+- cmd: zeno zec reset-instance --instance-id <instanceId> --image-id ubuntu2022 --password Example+123 --enable-agent true
+  desc: 重装系统。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ResetInstance
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: 要重装的实例ID。
+- name: password
+  type: string
+  required: false
+  sdk-field: password
+  description: |-
+    实例的新密码。
+    与keyId必须指定其中的一种（Windows和Generic类型的镜像无法指定密码和key）。
+    必须包含以下3种格式的字符：大小写字母: [a-zA-Z]数字: 0-9特殊字符: ~!@$^*-_=+。
+- name: key-id
+  type: string
+  required: false
+  sdk-field: keyId
+  description: |-
+    密钥ID。
+    与password必须指定其中的一种（Windows和Generic类型的镜像无法指定密码和key）。
+    可调用接口DescribeKeyPairs来获得最新的密钥对信息。
+    关联密钥后，就可以通过对应的私钥来访问实例；密钥与密码不能同时指定，同时Windows操作系统不支持指定密钥。
+    示例值：key-YWD2QFOl。
+- name: image-id
+  type: string
+  required: false
+  sdk-field: imageId
+  description: |-
+    指定重装的的镜像ID。
+    可以通过[DescribeImages](describeimages.md)取返回信息中的imageId字段。
+    如果不指定，会根据当前镜像进行重装。
+- name: timezone
+  type: string
+  required: false
+  sdk-field: timezone
+  description: 操作系统时区设置。
+- name: enable-agent
+  type: boolean
+  required: false
+  sdk-field: enableAgent
+  description: 是否启用 QEMU Guest 代理 (QGA)。
+- name: instance-name
+  type: string
+  required: false
+  sdk-field: instanceName
+  description: |-
+    修改的实例名称。
+    2～63个字符。
+    仅支持输入字母、数字、-和英文句点(.)。
+- name: user-data
+  type: string
+  required: false
+  sdk-field: userData
+  description: 初始化命令。

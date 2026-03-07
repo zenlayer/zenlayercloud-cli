@@ -1,0 +1,9 @@
+name: DescribeDiskRegions
+product: zec
+use: describe-disk-regions
+short: Queries the regional information supporting the sale of disks.
+long: query the regional information supporting the sale of disks.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeDiskRegions

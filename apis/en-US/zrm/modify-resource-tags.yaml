@@ -1,0 +1,36 @@
+name: ModifyResourceTags
+product: zrm
+use: modify-resource-tags
+short: Modifies tags of resources in batches.
+long: modify tags of resources in batches.
+examples:
+- cmd: zeno zrm modify-resource-tags --resource-uuid resourceUuid_9a14edb2e71e --replace-tags "{key=key_f2eaf69f2767, value=value_7f72c5d7d053}" --delete-tag-keys deleteTagKeys_3efdc3f0f422
+  desc: Modify tags of resources in batches.
+sdk:
+  service: zrm
+  version: '2025-10-14'
+  action: ModifyResourceTags
+parameters:
+- name: resource-uuid
+  type: string
+  required: true
+  sdk-field: resourceUuid
+  description: Associated resource ID.
+- name: replace-tags
+  type: object-array
+  required: false
+  sdk-field: replaceTags
+  description: List of tags to be modified, including tag keys and tag values.
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'
+- name: delete-tag-keys
+  type: string-array
+  required: false
+  sdk-field: deleteTagKeys
+  description: List of tags to be removed, including tag keys.

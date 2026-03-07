@@ -1,0 +1,18 @@
+name: DeleteCrossRegionBandwidth
+product: zec
+use: delete-cross-region-bandwidth
+short: 删除内网跨区域带宽
+long: 删除内网跨区域带宽。
+examples:
+- cmd: zeno zec delete-cross-region-bandwidth --cross-region-bandwidth-id "<your cross id>"
+  desc: 删除内网跨区域带宽
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DeleteCrossRegionBandwidth
+parameters:
+- name: cross-region-bandwidth-id
+  type: string
+  required: true
+  sdk-field: crossRegionBandwidthId
+  description: 要删除内网跨区域带宽ID。

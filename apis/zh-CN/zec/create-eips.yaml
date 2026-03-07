@@ -1,0 +1,216 @@
+name: CreateEips
+product: zec
+use: create-eips
+short: 创建弹性公网IP。
+long: 创建弹性公网IP。
+examples:
+- cmd: zeno zec create-eips --region-id asia-east-1 --amount 1 --name Test-EIP --internet-charge-type ByTrafficPackage --network-line-type PremiumBGP --bandwidth 50 --flow-package 10
+  desc: 创建一个BGP线路的公网弹性IP, 使用流量包计费。流量包大小为10TB。带宽限速为50Mbps。
+- cmd: zeno zec create-eips --region-id asia-east-1 --amount 2 --name Test-EIP --internet-charge-type ByBandwidth --cidr-id <cidrId> --bandwidth 50
+  desc: 从CIDR里分配2个公网弹性IP, 使用固定带宽计费。带宽限速为50Mbps。
+- cmd: zeno zec create-eips --region-id asia-east-1 --amount 1 --name Test-RemoteIP --internet-charge-type BandwidthCluster --network-line-type PremiumBGP --bandwidth 50 --cluster-id <clusterId> --resource-group-id xxxx --peer-region-id asia-southwest-1
+  desc: 创建一个`Remote IP`,远端节点为`asia-southwest-1`, 使用共享带宽包计费。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CreateEips
+parameters:
+- name: region-id
+  type: string
+  required: true
+  sdk-field: regionId
+  description: 创建EIP所在的节点ID。
+- name: name
+  type: string
+  required: true
+  sdk-field: name
+  description: |-
+    EIP的名称。
+    范围2到63个字符。
+    仅支持输入字母、数字、-/_和英文句点(.)。
+    且必须以数字或字母开头和结尾。
+- name: internet-charge-type
+  type: enum
+  required: true
+  sdk-field: internetChargeType
+  description: 公网弹性IP的网络计费方式。
+  enum-values:
+  - value: ByBandwidth
+    desc: 固定带宽计费方式。
+  - value: ByTrafficPackage
+    desc: 流量包计费方式。
+  - value: BandwidthCluster
+    desc: 共享带宽包计费方式。
+- name: amount
+  type: integer
+  required: false
+  sdk-field: amount
+  description: 需要创建EIP的数量。
+- name: eip-v4-type
+  type: enum
+  required: false
+  sdk-field: eipV4Type
+  description: |-
+    公网弹性IP的线路类型。
+    已废弃，请使用networkLineType。
+  deprecated: true
+  enum-values:
+  - value: BGPLine
+    desc: BGP 线路。
+  - value: CN2Line
+    desc: CN2 回国优化线路。
+  - value: LocalLine
+    desc: 本地IP。
+  - value: ChinaMobile
+    desc: 中国移动线路。
+  - value: ChinaUnicom
+    desc: 中国联通线路。
+  - value: ChinaTelecom
+    desc: 中国电信线路。
+  - value: Cogent
+    desc: Cogent。
+  - value: ThreeLine
+    desc: 三线IP。
+- name: network-line-type
+  type: enum
+  required: false
+  sdk-field: networkLineType
+  description: 公网弹性IP的线路类型。
+  enum-values:
+  - value: PremiumBGP
+    desc: |-
+      优质 BGP。
+      高性能网络。
+  - value: CN2
+    desc: 回国优化线路。
+  - value: LocalLine
+    desc: 本地IP。
+  - value: StandardBGP
+    desc: |-
+      标准 BGP。
+      通用网络，成本优化。
+  - value: CMI
+    desc: 中国移动。
+  - value: CUG
+    desc: 中国联通。
+  - value: CTG
+    desc: 中国电信。
+  - value: ThreeLine
+    desc: 三线IP。
+- name: primary-isp
+  type: enum
+  required: false
+  sdk-field: primaryIsp
+  description: |-
+    主公网IP的运营商。
+    该字段仅作用于三线IP(ThreeLine)。
+  enum-values:
+  - value: CHINA_MOBILE
+    desc: 中国移动。
+  - value: CHINA_UNICOM
+    desc: 中国联通。
+  - value: CHINA_TELECOM
+    desc: 中国电信。
+- name: bandwidth
+  type: integer
+  required: false
+  sdk-field: bandwidth
+  description: |-
+    公网弹性IP的带宽限速。
+    单位：Mbps。
+- name: cidr-id
+  type: string
+  required: false
+  sdk-field: cidrId
+  description: |-
+    指定CIDR ID，使用CIDR内分配弹性IP。
+    该字段和eipV4Type不能同时指定。
+- name: public-ip
+  type: string
+  required: false
+  sdk-field: publicIp
+  description: |-
+    从CIDR里指定公网起始IP地址开始创建弹性IP。
+    该字段仅在指定cidrId时生效。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: 弹性公网IP所放的资源组ID，如不指定则放入默认资源组。
+- name: flow-package
+  type: float
+  required: false
+  sdk-field: flowPackage
+  description: |-
+    公网IPv6的流量包大小。
+    单位为TB。
+    值要求为0或0.1的倍数。
+    当子网的堆栈类型包括V6且为公网时，且网络计费方式是流量计费(ByTrafficPackage)需要指定。
+- name: cluster-id
+  type: string
+  required: false
+  sdk-field: clusterId
+  description: |-
+    公网IPv6所指定的共享带宽包ID。
+    当子网的堆栈类型包括V6且为公网时，且网络计费方式是共享带宽包计费(BandwidthCluster)需要指定。
+- name: peer-region-id
+  type: string
+  required: false
+  sdk-field: peerRegionId
+  description: 远端的节点ID。
+- name: marketing-options
+  type: object
+  required: false
+  sdk-field: marketingOptions
+  description: 市场营销的相关选项。
+  object-schema:
+  - name: discountCode
+    type: string
+    description: |-
+      使用市场发放的折扣码。
+      如果折扣码不存在，最终折扣将不会生效。
+  - name: usePocVoucher
+    type: boolean
+    description: |-
+      是否使用POC代金券。
+      如果系统不存在POC代金券，相关创建流程会失败。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    弹性公网IP绑定的标签。
+    注意：实例关联标签键不能重复。--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。
+- name: instance-ids
+  type: string-array
+  required: false
+  sdk-field: instanceIds
+  description: |-
+    要绑定的实例ID集合。
+    数量需要与amount字段一致。
+- name: bind-type
+  type: enum
+  required: false
+  sdk-field: bindType
+  description: |-
+    绑定类型。
+    当指定定instanceIds时生效。
+    默认为普通NAT模式。
+  enum-values:
+  - value: FullNat
+    desc: 普通NAT模式。
+  - value: Passthrough
+    desc: 高速模式。

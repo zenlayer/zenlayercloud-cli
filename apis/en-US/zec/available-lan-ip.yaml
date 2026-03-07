@@ -1,0 +1,15 @@
+name: AvailableLanIp
+product: zec
+use: available-lan-ip
+short: Obtains the available private IP.
+long: obtain the available private IP.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: AvailableLanIp
+parameters:
+- name: eip-id
+  type: string
+  required: true
+  sdk-field: eipId
+  description: ID of the elastic IP.

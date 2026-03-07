@@ -1,0 +1,30 @@
+name: DescribeAvailableIpv4Resources
+product: bmc
+use: describe-available-ipv4-resources
+short: Queries available IPv4 CIDR blocks.
+long: query available IPv4 CIDR blocks.
+examples:
+- cmd: zeno bmc describe-available-ipv4-resources --charge-type PREPAID
+  desc: ''
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DescribeAvailableIpv4Resources
+parameters:
+- name: charge-type
+  type: enum
+  required: true
+  sdk-field: chargeType
+  description: |-
+    CIDR block pricing model .
+    PREPAID: subscription POSTPAID: pay-as-you-go
+  enum-values:
+  - value: POSTPAID
+    desc: Pay-as-you-go.
+  - value: PREPAID
+    desc: Subscription.
+- name: zone-id
+  type: string
+  required: false
+  sdk-field: zoneId
+  description: Zone ID to which the CIDR blocks belong.

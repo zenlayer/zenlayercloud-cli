@@ -1,0 +1,45 @@
+name: DescribeBandwidthClusters
+product: traffic
+use: describe-bandwidth-clusters
+short: Queries information of one or more bandwidth clusters.
+long: query information of one or more bandwidth clusters. You can filter the query results with bandwidth cluster ID, name, city name and etc.
+examples:
+- cmd: zeno traffic describe-bandwidth-clusters --page-num 1 --page-size 1
+  desc: Query bandwidth cluster list.
+sdk:
+  service: traffic
+  version: '2024-03-26'
+  action: DescribeBandwidthClusters
+parameters:
+- name: bandwidth-cluster-ids
+  type: string-array
+  required: false
+  sdk-field: bandwidthClusterIds
+  description: |-
+    Bandwidth cluster ID.
+    You can query up to 100 IDs in each request.
+- name: bandwidth-cluster-name
+  type: string
+  required: false
+  sdk-field: bandwidthClusterName
+  description: Bandwidth cluster name. Fuzzy search is supported.
+- name: city-name
+  type: string
+  required: false
+  sdk-field: cityName
+  description: Name of city included in the bandwidth cluster.
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    Number of pages returned.
+    Default value: 1.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    Number of items in the current page result.
+    Default value: 20;
+    Maximum value: 1000.

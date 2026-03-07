@@ -1,0 +1,23 @@
+name: ModifyBorderGatewayAsn
+product: zec
+use: modify-border-gateway-asn
+short: 修改边界网关的ASN。
+long: 修改边界网关的ASN。
+examples:
+- cmd: zeno zec modify-border-gateway-asn --zbg-id xxx --asn 65000
+  desc: 批量修改网关的ASN。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyBorderGatewayAsn
+parameters:
+- name: zbg-id
+  type: string
+  required: true
+  sdk-field: zbgId
+  description: 要修改的边界网关ID。
+- name: asn
+  type: integer
+  required: true
+  sdk-field: asn
+  description: ASN。

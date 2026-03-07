@@ -1,0 +1,27 @@
+name: ModifyImagesAttributes
+product: zec
+use: modify-images-attributes
+short: 修改自定义镜像属性
+long: 修改自定义镜像属性。
+examples:
+- cmd: zeno zec modify-images-attributes --image-ids imageId1 --image-ids imageId2 --image-name imageNameX
+  desc: 修改自定义镜像的属性。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyImagesAttributes
+parameters:
+- name: image-ids
+  type: string-array
+  required: true
+  sdk-field: imageIds
+  description: 待修改属性的镜像ID列表。
+- name: image-name
+  type: string
+  required: true
+  sdk-field: imageName
+  description: |-
+    名称。
+    范围2到63个字符。
+    仅支持输入字母、数字、-/_和英文句点(.)。
+    且必须以数字或字母开头和结尾。

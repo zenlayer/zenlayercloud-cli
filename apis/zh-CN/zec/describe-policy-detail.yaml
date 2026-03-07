@@ -1,0 +1,18 @@
+name: DescribePolicyDetail
+product: zec
+use: describe-policy-detail
+short: 获取防护策略详情
+long: 获取防护策略详情
+examples:
+- cmd: zeno zec describe-policy-detail --policy-id <policyId>
+  desc: 获取防护策略详情
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribePolicyDetail
+parameters:
+- name: policy-id
+  type: string
+  required: true
+  sdk-field: policyId
+  description: 防护策略ID。

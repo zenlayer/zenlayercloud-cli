@@ -1,0 +1,17 @@
+name: CancelInstanceBandwidthDowngrade
+product: bmc
+use: cancel-instance-bandwidth-downgrade
+short: Cancels the downgrade of instance bandwidth.
+long: The API is used to cancel bandwidth downgrade order.
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: CancelInstanceBandwidthDowngrade
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: |-
+    Instance ID.
+    To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response.

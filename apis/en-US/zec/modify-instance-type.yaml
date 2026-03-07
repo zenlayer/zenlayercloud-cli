@@ -1,0 +1,24 @@
+name: ModifyInstanceType
+product: zec
+use: modify-instance-type
+short: Modifies the type of an elastic compute instance.
+long: modify the type of an elastic compute instance.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyInstanceType
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: |-
+    Instance ID.
+    To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response.
+- name: instance-type
+  type: string
+  required: true
+  sdk-field: instanceType
+  description: |-
+    The instance type ID to replace.
+    To obtain the instance ID, you can call DescribeZoneInstanceConfigInfos and look for instanceType in the response.

@@ -1,0 +1,118 @@
+name: ModifyListenerAttribute
+product: bmc
+use: modify-listener-attribute
+short: Modifies the listener configurations.
+long: modify the listener configurations.
+examples:
+- cmd: zeno bmc modify-listener-attribute --listener-id xxxx --listener-name xxxx
+  desc: Modify listener configurations.
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: ModifyListenerAttribute
+parameters:
+- name: listener-id
+  type: string
+  required: true
+  sdk-field: listenerId
+  description: The listener ID.
+- name: listener-name
+  type: string
+  required: false
+  sdk-field: listenerName
+  description: |-
+    Listener name.
+    This parameter can contain up to 64 characters. Only letters, numbers, - and periods (.) are supported.
+- name: protocol
+  type: string
+  required: false
+  sdk-field: protocol
+  description: |-
+    Listening protocols.
+    Available values:
+    TCP UDP
+- name: backend-protocol
+  type: string
+  required: false
+  sdk-field: backendProtocol
+  description: |-
+    Backend forwarding protocol.
+    Available values:
+    TCP UDP
+- name: scheduler
+  type: string
+  required: false
+  sdk-field: scheduler
+  description: |-
+    Scheduling algorithm. Available values:
+    wrr (default): Weighted round robin, the higher the weight value of the backend server, the higher the probability of being polled. rr : Round robin, distribute external requests to backend servers in the order of access.
+- name: kind
+  type: enum
+  required: false
+  sdk-field: kind
+  description: |-
+    Forwarding modes.
+    Available values:
+    NAT DR
+  enum-values:
+  - value: DR
+    desc: Direct Routing.
+  - value: FNAT
+    desc: Global Network Address Translation.
+- name: health-check
+  type: object
+  required: false
+  sdk-field: healthCheck
+  description: Information on the health check.
+  object-schema:
+  - name: checkEnabled
+    type: boolean
+    description: Whether to enable health check.
+  - name: checkType
+    type: string
+    description: Health check protocols.
+  - name: checkConnectTimeout
+    type: integer
+    description: Health check timeout period.
+  - name: checkRetry
+    type: integer
+    description: Health check retry count.
+  - name: checkDelayBeforeRetry
+    type: integer
+    description: Interval between health check retries.
+  - name: checkIntervalTime
+    type: integer
+    description: Health check interval.
+  - name: checkPort
+    type: integer
+    description: Health check port.
+  - name: httpVersion
+    type: string
+    description: Health check HTTP protocol version.
+  - name: httpCheckPath
+    type: string
+    description: Health check HTTP request path.
+  - name: httpCheckDigest
+    type: integer
+    description: Health check HTTP digest
+  - name: httpCode
+    type: integer
+    description: Health check HTTP status code
+  - name: miscCheckPath
+    type: string
+    description: Health check MISC request path.
+  - name: miscTimeout
+    type: integer
+    description: Health check MISC timeout.
+- name: notify
+  type: object
+  required: false
+  sdk-field: notify
+  description: Alarm.
+  object-schema:
+  - name: enable
+    type: boolean
+    description: Whether to enable health check alarm.
+  - name: apiAddress
+    type: string
+    description: Alarm address.

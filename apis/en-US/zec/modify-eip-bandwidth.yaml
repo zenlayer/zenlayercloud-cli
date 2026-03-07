@@ -1,0 +1,35 @@
+name: ModifyEipBandwidth
+product: zec
+use: modify-eip-bandwidth
+short: Modifies bandwidth of the elastic IP.
+long: modify bandwidth of the elastic IP.
+examples:
+- cmd: zeno zec modify-eip-bandwidth --eip-id "< EipId >" --bandwidth 10
+  desc: Change bandwidth of the elastic IP to `10` Mbps.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyEipBandwidth
+parameters:
+- name: eip-id
+  type: string
+  required: true
+  sdk-field: eipId
+  description: Elastic IP ID.
+- name: bandwidth
+  type: integer
+  required: true
+  sdk-field: bandwidth
+  description: |-
+    Target bandwidth.
+    Unit: Mbps .
+    Available value range: [1, +) .
+- name: commit-bandwidth
+  type: integer
+  required: false
+  sdk-field: commitBandwidth
+  description: |-
+    Bandwidth commitment.
+    This parameter is configured for the backbone network. The value is only required when the IP type is Remote IP, and the network billing method is Bandwidth Cluster.
+    Unit: Mbps .
+    Available value range: [1, +) .

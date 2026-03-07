@@ -1,0 +1,66 @@
+name: ResetInstances
+product: zec
+use: reset-instances
+short: Reinstalls the operating system on multiple instances.
+long: reinstall the operating system on multiple instances.
+examples:
+- cmd: zeno zec reset-instances --instance-ids <instanceId1> --instance-ids <instanceId2> --image-id ubuntu2022 --password Example+123 --enable-agent true
+  desc: Batch reinstall instances.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ResetInstances
+parameters:
+- name: instance-ids
+  type: string-array
+  required: true
+  sdk-field: instanceIds
+  description: The instance IDs to be reinstalled.
+- name: password
+  type: string
+  required: false
+  sdk-field: password
+  description: |-
+    The new password for the instance.
+    You can set either a password or a keyId, but not both; Windows and Generic images support neither option.
+    The password must contain the following three character types: uppercase and lowercase letters: [a-zA-Z], digits: 0-9, and special characters: ~!@$^*-_=+
+- name: key-id
+  type: string
+  required: false
+  sdk-field: keyId
+  description: |-
+    SSH key pair ID.
+    You can set either a password or a keyId, but not both; Windows and Generic images support neither option.
+    Your SSH key pair contains several public keys that can be placed on your server. You can access your instance with the private key. Call DescribeKeyPairs to obtain key pair information.
+    Example: key-YWD2QFOl.
+- name: image-id
+  type: string
+  required: false
+  sdk-field: imageId
+  description: |-
+    Specify a valid image ID.
+    To obtain valid image ID, you can call [DescribeImages](describeimages.md) and look for imageId in the response.
+    If not specified, the instance will be reinstalled using the current image.
+- name: timezone
+  type: string
+  required: false
+  sdk-field: timezone
+  description: Time zone configuration for the operating system.
+- name: enable-agent
+  type: boolean
+  required: false
+  sdk-field: enableAgent
+  description: Whether QGA is enabled or not.
+- name: instance-name
+  type: string
+  required: false
+  sdk-field: instanceName
+  description: |-
+    The modified instance name.
+    2–63 characters in length.
+    Only letters, numbers, hyphens (-), and periods (.) are allowed.
+- name: user-data
+  type: string
+  required: false
+  sdk-field: userData
+  description: Initialization command.

@@ -1,0 +1,48 @@
+name: CreateImage
+product: zec
+use: create-image
+short: Creates a custom image from an instance.
+long: create a custom image from an instance.
+examples:
+- cmd: zeno zec create-image --instance-id "<instance id>" --image-name imageXXX
+  desc: Create a custom image from an instance.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CreateImage
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: Instance ID from which you create the image.
+- name: image-name
+  type: string
+  required: true
+  sdk-field: imageName
+  description: |-
+    Image name.
+    This parameter must start with a number or a letter, containing 2 to 63 characters. Only letters, numbers, -/_ and periods (.) are supported.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    Resource group ID where the image reside.
+    If the value is empty, the image will be added into the default resource group.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    Bound tags when creating the image.
+    Tag keys must be unique.--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'

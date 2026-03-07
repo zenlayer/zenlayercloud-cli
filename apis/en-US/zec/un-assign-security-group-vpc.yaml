@@ -1,0 +1,18 @@
+name: UnAssignSecurityGroupVpc
+product: zec
+use: un-assign-security-group-vpc
+short: Dissociates a VPC from a security group.
+long: dissociate a VPC from a security group.
+examples:
+- cmd: zeno zec un-assign-security-group-vpc --vpc-id <vpcId>
+  desc: Dissociate the VPC from the security group.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: UnAssignSecurityGroupVpc
+parameters:
+- name: vpc-id
+  type: string
+  required: true
+  sdk-field: vpcId
+  description: VPC ID.

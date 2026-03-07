@@ -1,0 +1,45 @@
+name: DescribeEipTraffic
+product: zec
+use: describe-eip-traffic
+short: Queries the traffic of an elastic IP in a specified time range.
+long: query the traffic of an elastic IP in a specified time range.
+examples:
+- cmd: zeno zec describe-eip-traffic --eip-id 926368879272403391 --start-time 2023-07-11T08:00:011Z --end-time 2023-07-11T08:10:00Z
+  desc: Query the traffic of an elastic IP in a specified time range.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeEipTraffic
+parameters:
+- name: eip-id
+  type: string
+  required: true
+  sdk-field: eipId
+  description: ID of the elastic IP.
+- name: start-time
+  type: string
+  required: true
+  sdk-field: startTime
+  description: |-
+    Start time.
+    Use UTC time according to the ISO8601 standard. Format: YYYY-MM-ddTHH:mm:ssZ .
+- name: end-time
+  type: string
+  required: true
+  sdk-field: endTime
+  description: |-
+    End time.
+    Use UTC time according to the ISO8601 standard. Format: YYYY-MM-ddTHH:mm:ssZ .
+- name: step
+  type: integer
+  required: false
+  sdk-field: step
+  description: |-
+    Time duration.
+    Default value: 5 minutes;
+    Supported values: 1 or 5 minutes.
+- name: wan-ip
+  type: string
+  required: false
+  sdk-field: wanIp
+  description: If the IP is a 3-in-1 elastic IP, the value is required.

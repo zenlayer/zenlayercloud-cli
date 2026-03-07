@@ -1,0 +1,23 @@
+name: AssociateVpcSubnet
+product: bmc
+use: associate-vpc-subnet
+short: Subnet绑定VPC
+long: 本接口用于为VPC添加Subnet。
+examples:
+- cmd: zeno bmc associate-vpc-subnet --subnet-id your-subnet-id --vpc-id your-vpc-id
+  desc: VPC添加Subnet。
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: AssociateVpcSubnet
+parameters:
+- name: subnet-id
+  type: string
+  required: true
+  sdk-field: subnetId
+  description: Subnet的ID。
+- name: vpc-id
+  type: string
+  required: true
+  sdk-field: vpcId
+  description: VPC的ID。

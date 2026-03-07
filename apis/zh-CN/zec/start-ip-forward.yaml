@@ -1,0 +1,18 @@
+name: StartIpForward
+product: zec
+use: start-ip-forward
+short: 开启IP转发
+long: 开启IP转发
+examples:
+- cmd: zeno zec start-ip-forward --instance-id instanceId1
+  desc: 开启实例IP转发。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: StartIpForward
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: 要操作的实例ID。

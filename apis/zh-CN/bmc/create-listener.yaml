@@ -1,0 +1,127 @@
+name: CreateListener
+product: bmc
+use: create-listener
+short: 在网络型负载均衡实例中创建TCP、UDP或TCPSSL监听。
+long: 在网络型负载均衡实例中创建TCP、UDP或TCPSSL监听。
+examples:
+- cmd: zeno bmc create-listener --load-balancer-id xxxx --name xxxx --port-list 80 --client-token xxxx --protocol TCP --backend-protocol TCP
+  desc: 创建Listener
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: CreateListener
+parameters:
+- name: load-balancer-id
+  type: string
+  required: true
+  sdk-field: loadBalancerId
+  description: 负载均衡实例 ID。
+- name: listener-name
+  type: string
+  required: true
+  sdk-field: listenerName
+  description: |-
+    监听器名称。
+    不得超过64个字符。仅支持输入字母、数字、-和英文句点(.)。
+- name: port-list
+  type: integer-array
+  required: true
+  sdk-field: portList
+  description: |-
+    监听端口。取值范围：0~65535。
+    示例值：["6569"]
+- name: client-token
+  type: string
+  required: true
+  sdk-field: clientToken
+  description: 用于保证请求的幂等性。
+- name: protocol
+  type: string
+  required: true
+  sdk-field: protocol
+  description: |-
+    监听协议。取值：
+    <ul><li>TCP</li><li>UDP</li></ul>
+- name: backend-protocol
+  type: string
+  required: true
+  sdk-field: backendProtocol
+  description: |-
+    后端转发协议。取值：
+    <ul><li>TCP</li><li>UDP</li></ul>
+- name: scheduler
+  type: string
+  required: false
+  sdk-field: scheduler
+  description: |-
+    调度算法。取值：
+    <ul><li>wrr（默认值）：加权轮询，权重值越高的后端服务器，被轮询到的概率也越高。</li><li>rr：轮询，按照访问顺序依次将外部请求分发到后端服务器。</li></ul>
+- name: kind
+  type: enum
+  required: false
+  sdk-field: kind
+  description: |-
+    工作模式。取值：
+    <ul><li>FNAT(全局网络地址转换)</li><li>DR(直接路由)</li></ul>
+  enum-values:
+  - value: DR
+    desc: 直接路由（Direct Routing)。
+  - value: FNAT
+    desc: 全局网络地址转换(Full NAT)。
+- name: health-check
+  type: object
+  required: false
+  sdk-field: healthCheck
+  description: 健康检查的信息。
+  object-schema:
+  - name: checkEnabled
+    type: boolean
+    description: 检查开关。
+  - name: checkType
+    type: string
+    description: 检查类型。
+  - name: checkConnectTimeout
+    type: integer
+    description: 连接时间。
+  - name: checkRetry
+    type: integer
+    description: 重试次数。
+  - name: checkDelayBeforeRetry
+    type: integer
+    description: 超时时间。
+  - name: checkIntervalTime
+    type: integer
+    description: 重试间隔。
+  - name: checkPort
+    type: integer
+    description: 检查端口。
+  - name: httpVersion
+    type: string
+    description: Http版本。
+  - name: httpCheckPath
+    type: string
+    description: Http地址。
+  - name: httpCheckDigest
+    type: integer
+    description: Http摘要认证。
+  - name: httpCode
+    type: integer
+    description: 状态码。
+  - name: miscCheckPath
+    type: string
+    description: Misc地址。
+  - name: miscTimeout
+    type: integer
+    description: Misc超时时间。
+- name: notify
+  type: object
+  required: false
+  sdk-field: notify
+  description: 警报。
+  object-schema:
+  - name: enable
+    type: boolean
+    description: 通知开关。
+  - name: apiAddress
+    type: string
+    description: 地址。

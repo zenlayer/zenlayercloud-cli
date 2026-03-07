@@ -1,0 +1,105 @@
+name: InquiryPriceCreateLoadBalancer
+product: zlb
+use: inquiry-price-create-load-balancer
+short: Queries the price for creating a load balancer.
+long: query the price for creating a load balancer.
+examples:
+- cmd: zeno zlb inquiry-price-create-load-balancer --region-id asia-east-1 --vpc-id <vpcId> --internet-charge-type ByBandwidth --ip-network-type BGPLine --bandwidth-mbps 2 --number 1
+  desc: Query the price for creating a public network load balance instance.
+sdk:
+  service: zlb
+  version: '2025-04-01'
+  action: InquiryPriceCreateLoadBalancer
+parameters:
+- name: region-id
+  type: string
+  required: true
+  sdk-field: regionId
+  description: Region ID.
+- name: internet-charge-type
+  type: enum
+  required: false
+  sdk-field: internetChargeType
+  description: IP network billing model.
+  enum-values:
+  - value: ByBandwidth
+    desc: Flat rate billing method.
+  - value: ByTrafficPackage
+    desc: Data transfer package billing method.
+  - value: BandwidthCluster
+    desc: Bandwidth cluster billing method.
+- name: ip-network-type
+  type: enum
+  required: false
+  sdk-field: ipNetworkType
+  description: |-
+    IP network type.
+    Deprecated. Please use networkLineType instead.
+  deprecated: true
+  enum-values:
+  - value: BGPLine
+    desc: BGP network.
+  - value: CN2Line
+    desc: China Telecom Next Carrier Network.
+  - value: LocalLine
+    desc: Local IP provided by a local ISP.
+  - value: ChinaMobile
+    desc: China Mobile network.
+  - value: ChinaUnicom
+    desc: China Unicom network.
+  - value: ChinaTelecom
+    desc: China Telecom network.
+  - value: Cogent
+    desc: Cogent IP network offered by Cogent Communications.
+  - value: ThreeLine
+    desc: 3-in-1 IP Pool.
+- name: network-line-type
+  type: enum
+  required: false
+  sdk-field: networkLineType
+  description: IP network type.
+  enum-values:
+  - value: PremiumBGP
+    desc: |-
+      Premium BGP network.
+      High-performance network.
+  - value: CN2
+    desc: China Telecom CN2 network.
+  - value: LocalLine
+    desc: Provided by a local ISP.
+  - value: StandardBGP
+    desc: |-
+      Standard BGP network.
+      General-purpose network with cost optimization.
+  - value: CMI
+    desc: 1-Line IP China Mobile.
+  - value: CUG
+    desc: 1-Line IP China Unicom.
+  - value: CTG
+    desc: 1-Line IP China Telecom.
+  - value: ThreeLine
+    desc: 3-in-1 IP Pool.
+- name: bandwidth-mbps
+  type: integer
+  required: false
+  sdk-field: bandwidthMbps
+  description: |-
+    Maximum outbound bandwidth of the elastic IP.
+    Unit: Mbps.
+    The maximum limit is usually 10000 Mbps. If you have additional requirements, please contact Support.
+    Available range: [1, +).
+- name: traffic-package-size
+  type: float
+  required: false
+  sdk-field: trafficPackageSize
+  description: |-
+    Data transfer package size.
+    The parameter is only required when internetChargeType is ByTrafficPackage.
+    Available range: [0.0, 999999.0].
+- name: bandwidth-cluster-id
+  type: string
+  required: false
+  sdk-field: bandwidthClusterId
+  description: |-
+    ID of bandwidth cluster.
+    The parameter is only required when internetChargeType is BandwidthCluster.

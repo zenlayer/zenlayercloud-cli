@@ -1,0 +1,58 @@
+name: InquiryPriceCreateCrossRegionBandwidth
+product: zec
+use: inquiry-price-create-cross-region-bandwidth
+short: 创建内网跨区域带宽询价
+long: 创建内网跨区域带宽询价。
+examples:
+- cmd: zeno zec inquiry-price-create-cross-region-bandwidth --internet-charge-type ByBandwidth --region-a asia-east-1 --region-z asia-north-1 --bandwidth 100
+  desc: 创建一个从上海到北京的内网跨区域带宽, 使用固定带宽计费。带宽为100Mbps。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: InquiryPriceCreateCrossRegionBandwidth
+parameters:
+- name: internet-charge-type
+  type: enum
+  required: true
+  sdk-field: internetChargeType
+  description: 网络计费类型。
+  enum-values:
+  - value: ByBandwidth
+    desc: 固定带宽计费方式。
+  - value: ByTrafficPackage
+    desc: 流量包计费方式。
+  - value: BandwidthCluster
+    desc: 共享带宽包计费方式。
+- name: marketing-info
+  type: object
+  required: false
+  sdk-field: marketingInfo
+  description: 市场营销的相关选项。
+  object-schema:
+  - name: discountCode
+    type: string
+    description: |-
+      使用市场发放的折扣码。
+      如果折扣码不存在，最终折扣将不会生效。
+  - name: usePocVoucher
+    type: boolean
+    description: |-
+      是否使用POC代金券。
+      如果系统不存在POC代金券，相关创建流程会失败。
+- name: region-a
+  type: string
+  required: true
+  sdk-field: regionA
+  description: 其中一端的区域连接点（A）。
+- name: region-z
+  type: string
+  required: true
+  sdk-field: regionZ
+  description: 另一端的区域连接点（Z）。
+- name: bandwidth
+  type: integer
+  required: true
+  sdk-field: bandwidth
+  description: |-
+    带宽|保底带宽。
+    单位：Mbps。

@@ -1,0 +1,130 @@
+name: DescribeImages
+product: zec
+use: describe-images
+short: Queries the details of images.
+long: query the details of images.
+examples:
+- cmd: zeno zec describe-images --zone-id asia-east-1a --os-type linux --page-size 3
+  desc: Query images with `linux` images installed in availability zone of `asia-east-1a`.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeImages
+parameters:
+- name: zone-id
+  type: string
+  required: true
+  sdk-field: zoneId
+  description: |-
+    Availability zone ID.
+    Call DescribeZones and find zoneId in the response.
+- name: image-ids
+  type: string-array
+  required: false
+  sdk-field: imageIds
+  description: |-
+    ID list of images.
+    Call DescribeImages and find imageId in the response.
+- name: image-name
+  type: string
+  required: false
+  sdk-field: imageName
+  description: Image name.
+- name: category
+  type: string
+  required: false
+  sdk-field: category
+  description: Image category.
+- name: image-type
+  type: enum
+  required: false
+  sdk-field: imageType
+  description: Image type.
+  enum-values:
+  - value: PUBLIC_IMAGE
+    desc: System image.
+  - value: CUSTOM_IMAGE
+    desc: Custom image.
+- name: image-source
+  type: enum
+  required: false
+  sdk-field: imageSource
+  description: Image source.
+  enum-values:
+  - value: OFFICIAL
+    desc: System image.
+  - value: MARKETING
+    desc: Marketplace image.
+  - value: CUSTOM
+    desc: Custom image.
+- name: os-type
+  type: enum
+  required: false
+  sdk-field: osType
+  description: Operating system type.
+  enum-values:
+  - value: linux
+    desc: Linux operating system.
+  - value: bsd
+    desc: BSD operating system.
+  - value: windows
+    desc: Windows operating system.
+  - value: android
+    desc: Android operating system.
+  - value: any
+    desc: Any other operating systems.
+- name: image-status
+  type: enum
+  required: false
+  sdk-field: imageStatus
+  description: Image status.
+  enum-values:
+  - value: CREATING
+    desc: Image is being created.
+  - value: AVAILABLE
+    desc: Image creation succeeded.
+  - value: UNAVAILABLE
+    desc: Image is unavailable.
+  - value: SYNCING
+    desc: Image is being replicated.
+  - value: FAILED
+    desc: Image creation failed.
+  - value: DELETING
+    desc: Image is being deleted.
+  - value: PROCESSING
+    desc: Image is being operated.
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: Number of pages returned.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    Number of items in the current page result.
+    Default value: 20;
+    Maximum value: 1000.
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    Query using tag keys.
+    A maximum of 20 tag keys can be used.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    Query using tags.
+    A maximum of 20 tags can be used.
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'

@@ -1,0 +1,54 @@
+name: CreateDnatEntry
+product: zec
+use: create-dnat-entry
+short: Creates a DNAT rule.
+long: create a DNAT rule.
+examples:
+- cmd: zeno zec create-dnat-entry --nat-gateway-id <natGatewayId> --eip-id <eipId> --private-ip 10.0.0.2 --protocol TCP --listener-port 1-30 --internal-port 1-30
+  desc: Create a DNAT entry.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CreateDnatEntry
+parameters:
+- name: nat-gateway-id
+  type: string
+  required: true
+  sdk-field: natGatewayId
+  description: NAT gateway ID.
+- name: eip-id
+  type: string
+  required: true
+  sdk-field: eipId
+  description: The elastic IP ID configured in the DNAT rule.
+- name: private-ip
+  type: string
+  required: true
+  sdk-field: privateIp
+  description: The private IP address configured in the DNAT rule.
+- name: protocol
+  type: enum
+  required: true
+  sdk-field: protocol
+  description: The protocol type configured in the DNAT rule.
+  enum-values:
+  - value: TCP
+    desc: TCP protocol.
+  - value: UDP
+    desc: UDP protocol.
+  - value: Any
+    desc: Any protocol.
+- name: listener-port
+  type: string
+  required: false
+  sdk-field: listenerPort
+  description: |-
+    The public port or port range forwarded by the DNAT rule.
+    Valid values: 1–65535.
+- name: internal-port
+  type: string
+  required: false
+  sdk-field: internalPort
+  description: |-
+    The private port or port range forwarded by the DNAT rule.
+    Valid values: 1–65535.

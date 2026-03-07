@@ -1,0 +1,20 @@
+name: RenewInstance
+product: bmc
+use: renew-instance
+short: 续费实例
+long: 本接口用于续费一个实例。
+examples:
+- cmd: zeno bmc renew-instance --instance-id instanceId
+  desc: ''
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: RenewInstance
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: |-
+    待操作的实例ID。
+    可通过DescribeInstances接口返回值中的instanceId获取。

@@ -1,0 +1,121 @@
+name: DescribeEipPrice
+product: zec
+use: describe-eip-price
+short: 创建公网弹性IP询价
+long: 创建公网弹性IP询价。
+examples:
+- cmd: zeno zec describe-eip-price --region-id asia-east-1 --amount 1 --name Test-EIP --internet-charge-type ByTrafficPackage --network-line-type PremiumBGP --bandwidth 50 --flow-package 10
+  desc: 查询一个BGP公网IP的价格，网络计费采用流量包计费。流量包大小为10TB。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeEipPrice
+parameters:
+- name: region-id
+  type: string
+  required: true
+  sdk-field: regionId
+  description: 创建EIP所在的节点ID。
+- name: internet-charge-type
+  type: enum
+  required: true
+  sdk-field: internetChargeType
+  description: 公网弹性IP的网络计费方式。
+  enum-values:
+  - value: ByBandwidth
+    desc: 固定带宽计费方式。
+  - value: ByTrafficPackage
+    desc: 流量包计费方式。
+  - value: BandwidthCluster
+    desc: 共享带宽包计费方式。
+- name: amount
+  type: integer
+  required: false
+  sdk-field: amount
+  description: 需要创建EIP的数量。
+- name: eip-v4-type
+  type: enum
+  required: false
+  sdk-field: eipV4Type
+  description: |-
+    公网弹性IP的线路类型。
+    已废弃，请使用networkLineType。
+  deprecated: true
+  enum-values:
+  - value: BGPLine
+    desc: BGP 线路。
+  - value: CN2Line
+    desc: CN2 回国优化线路。
+  - value: LocalLine
+    desc: 本地IP。
+  - value: ChinaMobile
+    desc: 中国移动线路。
+  - value: ChinaUnicom
+    desc: 中国联通线路。
+  - value: ChinaTelecom
+    desc: 中国电信线路。
+  - value: Cogent
+    desc: Cogent。
+  - value: ThreeLine
+    desc: 三线IP。
+- name: network-line-type
+  type: enum
+  required: false
+  sdk-field: networkLineType
+  description: 公网弹性IP的线路类型。
+  enum-values:
+  - value: PremiumBGP
+    desc: |-
+      优质 BGP。
+      高性能网络。
+  - value: CN2
+    desc: 回国优化线路。
+  - value: LocalLine
+    desc: 本地IP。
+  - value: StandardBGP
+    desc: |-
+      标准 BGP。
+      通用网络，成本优化。
+  - value: CMI
+    desc: 中国移动。
+  - value: CUG
+    desc: 中国联通。
+  - value: CTG
+    desc: 中国电信。
+  - value: ThreeLine
+    desc: 三线IP。
+- name: bandwidth
+  type: integer
+  required: false
+  sdk-field: bandwidth
+  description: |-
+    公网弹性IP的带宽限速。
+    单位：Mbps。
+- name: flow-package
+  type: float
+  required: false
+  sdk-field: flowPackage
+  description: |-
+    公网IPv6的流量包大小。
+    单位为TB。
+    值要求为0或0.1的倍数。
+    当子网的堆栈类型包括V6且为公网时，且网络计费方式是流量计费(ByTrafficPackage)需要指定。
+- name: cidr-id
+  type: string
+  required: false
+  sdk-field: cidrId
+  description: |-
+    指定CIDR ID，使用CIDR内分配弹性IP。
+    该字段和eipV4Type不能同时指定。
+- name: cluster-id
+  type: string
+  required: false
+  sdk-field: clusterId
+  description: |-
+    公网IPv6所指定的共享带宽包ID。
+    当子网的堆栈类型包括V6且为公网时，且网络计费方式是共享带宽包计费(BandwidthCluster)需要指定。
+- name: peer-region-id
+  type: string
+  required: false
+  sdk-field: peerRegionId
+  description: 远端的节点ID。

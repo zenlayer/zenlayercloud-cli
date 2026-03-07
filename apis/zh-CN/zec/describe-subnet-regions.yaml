@@ -1,0 +1,18 @@
+name: DescribeSubnetRegions
+product: zec
+use: describe-subnet-regions
+short: 查询支持创建子网区域
+long: 查询支持创建子网区域以及是否IPv6。
+examples:
+- cmd: zeno zec describe-subnet-regions --region-ids xxx
+  desc: 查询支持创建子网的区域。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeSubnetRegions
+parameters:
+- name: region-ids
+  type: string-array
+  required: false
+  sdk-field: regionIds
+  description: 根据节点ID过滤。

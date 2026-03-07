@@ -1,0 +1,20 @@
+name: TerminateEipAddress
+product: bmc
+use: terminate-eip-address
+short: Returns elastic IPs.
+long: return an elastic IP.
+examples:
+- cmd: zeno bmc terminate-eip-address --eip-id eipId
+  desc: Return a specified elastic IP
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: TerminateEipAddress
+parameters:
+- name: eip-id
+  type: string
+  required: true
+  sdk-field: eipId
+  description: |-
+    ID of an elastic IP.
+    To obtain the elastic IP ID, you can call DescribeEipAddresses and look for eipId in the response.

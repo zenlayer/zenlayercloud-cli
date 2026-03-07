@@ -1,0 +1,36 @@
+name: ModifySnapshotsAttribute
+product: zec
+use: modify-snapshots-attribute
+short: 修改指定快照的属性
+long: 修改指定快照的属性。
+examples:
+- cmd: zeno zec modify-snapshots-attribute --snapshot-ids snapshotId1 --snapshot-ids snapshotId2 --snapshot-name snap_201711301143 --is-permanent true
+  desc: 修改指定快照的属性, 修改名称同时将保留时间设置为永久保存。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifySnapshotsAttribute
+parameters:
+- name: snapshot-ids
+  type: string-array
+  required: true
+  sdk-field: snapshotIds
+  description: 快照ID列表。
+- name: snapshot-name
+  type: string
+  required: false
+  sdk-field: snapshotName
+  description: 快照名称。
+- name: retention-time
+  type: string
+  required: false
+  sdk-field: retentionTime
+  description: |-
+    快照过期时间。
+    格式为：yyyy-MM-ddTHH:mm:ssZ。
+    如果改成永久保留，请设置isPermanent=true，如果设置该时间必须设置为当前时间后24小时。
+- name: is-permanent
+  type: boolean
+  required: false
+  sdk-field: isPermanent
+  description: 该定期快照策略创建的快照是否永久保留。

@@ -1,0 +1,34 @@
+name: TagUnbindResources
+product: zrm
+use: tag-unbind-resources
+short: 标签批量解绑资源
+long: 标签批量解绑资源。
+examples:
+- cmd: zeno zrm tag-unbind-resources --resource-uuids resourceUuids_ef279be49ba4
+  desc: 解绑某一个标签下的资源
+sdk:
+  service: zrm
+  version: '2025-10-14'
+  action: TagUnbindResources
+parameters:
+- name: tag
+  type: object
+  required: true
+  sdk-field: tag
+  description: 标签，包含标签键和值。
+  object-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。
+- name: resource-uuids
+  type: string-array
+  required: true
+  sdk-field: resourceUuids
+  description: 需要解绑的资源唯一标识列表。

@@ -1,0 +1,26 @@
+name: DetachDisks
+product: zec
+use: detach-disks
+short: 卸载云硬盘。
+long: 将云硬盘从主机实例上卸载。
+examples:
+- cmd: zeno zec detach-disks --disk-ids your-disk-id
+  desc: 从云主机实例上卸载单块或多块云硬盘。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DetachDisks
+parameters:
+- name: disk-ids
+  type: string-array
+  required: true
+  sdk-field: diskIds
+  description: 要卸载的云盘ID列表。
+- name: instance-check-flag
+  type: boolean
+  required: false
+  sdk-field: instanceCheckFlag
+  description: |-
+    是否检测实例的运行状态。
+    默认为true，即实例关机才允许被卸载。
+    否则必须实例关机才能调用本接口。

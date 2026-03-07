@@ -1,0 +1,20 @@
+name: CancelInstanceTrafficPackageDowngrade
+product: bmc
+use: cancel-instance-traffic-package-downgrade
+short: 取消流量包降配订单
+long: 取消流量包降配订单。
+examples:
+- cmd: zeno bmc cancel-instance-traffic-package-downgrade --instance-id instanceId
+  desc: 取消实例流量包降配订单
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: CancelInstanceTrafficPackageDowngrade
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: |-
+    待操作的实例ID。
+    可通过DescribeInstances接口返回值中的instanceId获取。

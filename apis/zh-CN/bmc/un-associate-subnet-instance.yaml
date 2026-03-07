@@ -1,0 +1,23 @@
+name: UnAssociateSubnetInstance
+product: bmc
+use: un-associate-subnet-instance
+short: Subnet解绑实例
+long: 本接口用于将某子网下一台实例从Subnet中解绑。
+examples:
+- cmd: zeno bmc un-associate-subnet-instance --subnet-id your-subnet-id --instance-id your-instance-id
+  desc: 实例解绑Subnet。
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: UnAssociateSubnetInstance
+parameters:
+- name: subnet-id
+  type: string
+  required: true
+  sdk-field: subnetId
+  description: Subnet的ID。
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: 实例的ID。

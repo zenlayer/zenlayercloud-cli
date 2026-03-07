@@ -1,0 +1,24 @@
+name: DescribeZones
+product: bmc
+use: describe-zones
+short: 查询可用区信息
+long: 查询可用区信息。​
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DescribeZones
+parameters:
+- name: accept-language
+  type: string
+  required: false
+  sdk-field: acceptLanguage
+  description: |-
+    接收的区域地域的语言。可选值如下：
+    <ul><li>zh-CN：中文</li><li>en-US：英文</li></ul>默认值：en-US。
+- name: is-cloud-router-available
+  type: boolean
+  required: false
+  sdk-field: isCloudRouterAvailable
+  description: |-
+    根据可用区是否支持SDN三层网络进行筛选。可选值如下：
+    <ul><li>true：支持</li><li>false：不支持</li></ul>

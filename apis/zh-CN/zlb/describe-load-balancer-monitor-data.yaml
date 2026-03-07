@@ -1,0 +1,57 @@
+name: DescribeLoadBalancerMonitorData
+product: zlb
+use: describe-load-balancer-monitor-data
+short: 查询负载均衡监控指标数据
+long: 查询负载均衡监控指标数据，包括并发连接数, 新建连接数以及网络带宽等指标数据。
+examples:
+- cmd: zeno zlb describe-load-balancer-monitor-data --load-balancer-id <loadBalancerId> --metric-type NEW_CONNECTIONS --start-time 2025-06-25T01:55:00Z --end-time 2025-06-25T07:55:00Z
+  desc: 查询负载均衡实例的 `并发连接数` 监控指标数据。
+- cmd: zeno zlb describe-load-balancer-monitor-data --load-balancer-id <loadBalancerId> --listener-id <listenerId> --metric-type NEW_CONNECTIONS --start-time 2025-06-25T01:55:00Z --end-time 2025-06-25T07:55:00Z
+  desc: 查询负载均衡实指定监听器的 `并发连接数` 监控指标数据。
+sdk:
+  service: zlb
+  version: '2025-04-01'
+  action: DescribeLoadBalancerMonitorData
+parameters:
+- name: load-balancer-id
+  type: string
+  required: true
+  sdk-field: loadBalancerId
+  description: 负载均衡实例 ID。
+- name: listener-id
+  type: string
+  required: false
+  sdk-field: listenerId
+  description: 负载均衡器的监听器ID。
+- name: metric-type
+  type: enum
+  required: true
+  sdk-field: metricType
+  description: 监控指标类型。
+  enum-values:
+  - value: NEW_CONNECTIONS
+    desc: |-
+      并发连接数。
+      指在特定时间（按分钟计算）内，负载均衡实例同时处理的活动连接数。
+  - value: CONCURRENT_CONNECTIONS
+    desc: |-
+      新建连接数。
+      指负载均衡实例每秒能够处理新建连接的数量。
+  - value: HANDLED_BPS
+    desc: |-
+      网络吞吐率。
+      负载均衡实例在一小时内处理的入向和出向带宽速率之和，单位为 bps。
+- name: start-time
+  type: string
+  required: true
+  sdk-field: startTime
+  description: |-
+    查询开始时间。
+    时间格式：yyyy-MM-ddTHH:mm:ssZ。
+- name: end-time
+  type: string
+  required: true
+  sdk-field: endTime
+  description: |-
+    查询结束时间。
+    时间格式：yyyy-MM-ddTHH:mm:ssZ。

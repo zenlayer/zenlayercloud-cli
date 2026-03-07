@@ -1,0 +1,75 @@
+name: DescribeDhcpOptionsSets
+product: zec
+use: describe-dhcp-options-sets
+short: Queries list of DHCP options sets created.
+long: query the list of DHCP option sets that have been created.
+examples:
+- cmd: zeno zec describe-dhcp-options-sets --dhcp-options-set-name dhcpOptionsSetName1 --page-size 10 --page-num 1
+  desc: Query the list of DHCP option sets created.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeDhcpOptionsSets
+parameters:
+- name: dhcp-options-set-ids
+  type: string-array
+  required: false
+  sdk-field: dhcpOptionsSetIds
+  description: |-
+    ID list of the DHCP options sets.
+    Up to 20 IDs of DHCP options sets can be entered.
+- name: dhcp-options-set-name
+  type: string
+  required: false
+  sdk-field: dhcpOptionsSetName
+  description: |-
+    Name list of the DHCP options sets.
+    This field supports fuzzy search.
+- name: subnet-id
+  type: string
+  required: false
+  sdk-field: subnetId
+  description: Associated subnet ID.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    The returned page size.
+    Default value: 20; Maximum value: 1000.
+    Available range: [1, 1000].
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    Number of pages returned.
+    Default value: 1.
+    Available range: [1, +).
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: Filter by resource group ID.
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    Search by tag key.
+    You can query up to 20 tag keys in each request.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    Search by tag.
+    You can query up to 20 tags in each request.
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'

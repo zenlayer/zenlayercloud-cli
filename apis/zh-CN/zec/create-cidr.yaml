@@ -1,0 +1,134 @@
+name: CreateCidr
+product: zec
+use: create-cidr
+short: 创建IPv4 CIDR地址段。
+long: 创建IPv4 CIDR地址段。
+examples:
+- cmd: zeno zec create-cidr --region-id asia-east-1 --network-line-type PremiumBGP
+  desc: 创建2个`/28`网段的BGP类型的CIDR。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CreateCidr
+parameters:
+- name: region-id
+  type: string
+  required: true
+  sdk-field: regionId
+  description: 节点ID。
+- name: eip-v4-type
+  type: enum
+  required: false
+  sdk-field: eipV4Type
+  description: |-
+    公网IPv4的网络类型。
+    已废弃，请使用networkLineType。
+  deprecated: true
+  enum-values:
+  - value: BGPLine
+    desc: BGP 线路。
+  - value: CN2Line
+    desc: CN2 回国优化线路。
+  - value: LocalLine
+    desc: 本地IP。
+  - value: ChinaMobile
+    desc: 中国移动线路。
+  - value: ChinaUnicom
+    desc: 中国联通线路。
+  - value: ChinaTelecom
+    desc: 中国电信线路。
+  - value: Cogent
+    desc: Cogent。
+  - value: ThreeLine
+    desc: 三线IP。
+- name: network-line-type
+  type: enum
+  required: false
+  sdk-field: networkLineType
+  description: 公网IPv4的网络类型。
+  enum-values:
+  - value: PremiumBGP
+    desc: |-
+      优质 BGP。
+      高性能网络。
+  - value: CN2
+    desc: 回国优化线路。
+  - value: LocalLine
+    desc: 本地IP。
+  - value: StandardBGP
+    desc: |-
+      标准 BGP。
+      通用网络，成本优化。
+  - value: CMI
+    desc: 中国移动。
+  - value: CUG
+    desc: 中国联通。
+  - value: CTG
+    desc: 中国电信。
+  - value: ThreeLine
+    desc: 三线IP。
+- name: netmask
+  type: object
+  required: true
+  sdk-field: netmask
+  description: CIDR掩码、数量。
+  object-schema:
+  - name: netmask
+    type: integer
+    description: 掩码大小。
+  - name: amount
+    type: integer
+    description: CIDR的数量。
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: |-
+    CIDR名称。
+    范围2到63个字符。
+    仅支持输入字母、数字、-/_和英文句点(.)。
+    且必须以数字或字母开头和结尾。
+    默认会将分配的CIDR地址作为名称。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    资源组ID。
+    如果不指定，则会加入默认资源组。
+- name: marketing-options
+  type: object
+  required: false
+  sdk-field: marketingOptions
+  description: 市场营销相关的选项。
+  object-schema:
+  - name: discountCode
+    type: string
+    description: |-
+      使用市场发放的折扣码。
+      如果折扣码不存在，最终折扣将不会生效。
+  - name: usePocVoucher
+    type: boolean
+    description: |-
+      是否使用POC代金券。
+      如果系统不存在POC代金券，相关创建流程会失败。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    创建CIDR时关联的标签。
+    注意：关联标签键不能重复。--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。

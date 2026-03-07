@@ -1,0 +1,27 @@
+name: AssociateEipAddress
+product: bmc
+use: associate-eip-address
+short: Assigns elastic IPs to instances.
+long: bind an elastic IP to an instance in the same zone.
+examples:
+- cmd: zeno bmc associate-eip-address --eip-id eipId1 --instance-id instanceId1
+  desc: Bind an elastic IP to an instance
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: AssociateEipAddress
+parameters:
+- name: eip-id
+  type: string
+  required: true
+  sdk-field: eipId
+  description: |-
+    ID of an elastic IP.
+    To obtain the elastic IP ID, you can call DescribeEipAddresses and look for eipId in the response.
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: |-
+    Instance ID.
+    To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response.

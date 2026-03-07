@@ -1,0 +1,32 @@
+name: ModifySubnetAttribute
+product: zec
+use: modify-subnet-attribute
+short: Modifies the attributes of a subnet under a global VPC.
+long: modify the attributes of a subnet under a global VPC. Only the subnet name and the IPv4 CIDR block to be displayed can be modified for now.
+examples:
+- cmd: zeno zec modify-subnet-attribute --subnet-id <subnetId> --name Test-Subnet --cidr-block 10.0.0.0/23
+  desc: Modify the subnet name and the IPv4 CIDR block.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifySubnetAttribute
+parameters:
+- name: subnet-id
+  type: string
+  required: true
+  sdk-field: subnetId
+  description: Subnet ID.
+- name: subnet-name
+  type: string
+  required: false
+  sdk-field: subnetName
+  description: |-
+    Subnet name.
+    This parameter must start and end with a number or a letter. Only letters, numbers, - and periods (.) are supported.
+- name: cidr-block
+  type: string
+  required: false
+  sdk-field: cidrBlock
+  description: |-
+    IPv4 CIDR block to be modified.
+    Only subnets with an IPv4 stack type are supported.

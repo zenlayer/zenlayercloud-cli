@@ -1,0 +1,78 @@
+name: DescribeCrossRegionBandwidth
+product: zec
+use: describe-cross-region-bandwidth
+short: Queries the list of cross-region bandwidth.
+long: query the private cross-region bandwidth list.
+examples:
+- cmd: zeno zec describe-cross-region-bandwidth --name "<your cross name>" --vpc-id "<your vpc id>"
+  desc: Query the list of private cross-region bandwidth and filter by name and vpcId.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeCrossRegionBandwidth
+parameters:
+- name: cross-region-bandwidth-ids
+  type: string-array
+  required: false
+  sdk-field: crossRegionBandwidthIds
+  description: Filter by unique cross-region bandwidth ID.
+- name: cross-region-bandwidth-name
+  type: string
+  required: false
+  sdk-field: crossRegionBandwidthName
+  description: Filter by cross-region bandwidth name. This field supports fuzzy matching.
+- name: vpc-id
+  type: string
+  required: false
+  sdk-field: vpcId
+  description: Filter by the global VPC ID.
+- name: region-a
+  type: string
+  required: false
+  sdk-field: regionA
+  description: Filter by region A name.
+- name: region-z
+  type: string
+  required: false
+  sdk-field: regionZ
+  description: Filter by region Z name.
+- name: status
+  type: enum
+  required: false
+  sdk-field: status
+  description: Filter by state of cross-region bandwidth.
+  enum-values:
+  - value: CREATING
+    desc: The cross-region bandwidth is being created.
+  - value: AVAILABLE
+    desc: The cross-region bandwidth is available.
+  - value: CHANGING
+    desc: The cross-region bandwidth is being changed.
+  - value: RECYCLING
+    desc: The cross-region bandwidth is being recycled.
+  - value: RECYCLED
+    desc: The cross-region bandwidth is recycled.
+  - value: DELETING
+    desc: The cross-region bandwidth is being deleted.
+  - value: CREATE_FAILED
+    desc: The cross-region bandwidth is creating failed.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    Number of items in the current page result.
+    Default value: 20 ;
+    Maximum value: 1000 .
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    Page number of the current page result.
+    Default value: 1 .
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: Filter by resource group ID.

@@ -1,0 +1,33 @@
+name: AssociateSubnetInstances
+product: bmc
+use: associate-subnet-instances
+short: Adds instances into a subnet.
+long: add one or more instances into a subnet and assign private IPs to instances.
+examples:
+- cmd: zeno bmc associate-subnet-instances --subnet-id 833049815985166808 --subnet-instance-list "{instanceId=820653960707704280, privateIpAddress=10.0.0.2}"
+  desc: ''
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: AssociateSubnetInstances
+parameters:
+- name: subnet-id
+  type: string
+  required: true
+  sdk-field: subnetId
+  description: Subnet ID.
+- name: subnet-instance-list
+  type: object-array
+  required: true
+  sdk-field: subnetInstanceList
+  description: List of instances.
+  array-style: json
+  item-schema:
+  - name: instanceId
+    type: string
+    description: Instance ID.
+  - name: privateIpAddress
+    type: string
+    description: |-
+      Private IPv4 address.
+      The value should be in the range of subnet CIDR block. If the value is not passed in, any available private IP addresses will be assigned to the instance randomly.

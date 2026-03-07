@@ -1,0 +1,47 @@
+name: ModifyVpcAttribute
+product: zec
+use: modify-vpc-attribute
+short: Modifies the attributes of a global VPC.
+long: modify the attributes of a global VPC.
+examples:
+- cmd: zeno zec modify-vpc-attribute --vpc-id <vpcId> --vpc-name TestVpcName --enable-ipv6 true
+  desc: Modify the information of a global VPC, and enable the private IPv6 CIDR block.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyVpcAttribute
+parameters:
+- name: vpc-id
+  type: string
+  required: true
+  sdk-field: vpcId
+  description: Global VPC ID.
+- name: vpc-name
+  type: string
+  required: false
+  sdk-field: vpcName
+  description: |-
+    Global VPC name.
+    This parameter must start and end with a number or a letter, containing 2 to 63 characters. Only letters, numbers, -/_ and periods (.) are supported.
+- name: cidr-block
+  type: string
+  required: false
+  sdk-field: cidrBlock
+  description: |-
+    IPv4 CIDR block to be modified.
+    The IPv4 CIDR block should be a valid subnet within these ranges:
+    10.0.0.0/9 10.128.0.0/9 172.16.0.0/12 192.168.0.0/16
+    If the global VPC has subnets, the new CIDR must include the original CIDR.
+    The default global VPC cannot be modified.
+- name: enable-i-pv6
+  type: boolean
+  required: false
+  sdk-field: enableIPv6
+  description: Whether to enable the private IPv6 CIDR block. Currently, only enabling ( true ) is allowed. Once enabled, private IPv6 CIDR block function cannot be disabled.
+- name: security-group-id
+  type: string
+  required: false
+  sdk-field: securityGroupId
+  description: |-
+    Modifies the security group ID associated to the VPC.
+    If not specified, no changes will be made.

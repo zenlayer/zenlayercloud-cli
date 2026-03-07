@@ -1,0 +1,20 @@
+name: DescribeInstanceAvailableEipResources
+product: bmc
+use: describe-instance-available-eip-resources
+short: Queries list of elastic IPs that can be assigned to instances.
+long: query list of elastic IPs that can be bound to an instance.
+examples:
+- cmd: zeno bmc describe-instance-available-eip-resources --instance-id instanceId1
+  desc: Query list of elastic IPs that can be bound to an instance
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DescribeInstanceAvailableEipResources
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: |-
+    Instance ID.
+    To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response.

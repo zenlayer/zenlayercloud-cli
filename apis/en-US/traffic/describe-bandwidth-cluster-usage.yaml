@@ -1,0 +1,28 @@
+name: DescribeBandwidthClusterUsage
+product: traffic
+use: describe-bandwidth-cluster-usage
+short: Query bandwidth cluster usage
+long: query usage information for a bandwidth cluster.
+examples:
+- cmd: zeno traffic describe-bandwidth-cluster-usage --bandwidth-cluster-id bandwidthClusterId --page-num 1 --page-size 20
+  desc: Query usage information for a bandwidth cluster.
+sdk:
+  service: traffic
+  version: '2024-03-26'
+  action: DescribeBandwidthClusterUsage
+parameters:
+- name: bandwidth-cluster-id
+  type: string
+  required: true
+  sdk-field: bandwidthClusterId
+  description: ID of bandwidth cluster.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: "The returned page size. \nDefault value: 20."
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: Number of pages returned.

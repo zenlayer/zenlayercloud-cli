@@ -1,0 +1,50 @@
+name: ModifyAutoSnapshotPolicy
+product: zec
+use: modify-auto-snapshot-policy
+short: 修改自动快照策略
+long: 修改自动快照策略的基本信息。
+examples:
+- cmd: zeno zec modify-auto-snapshot-policy --auto-snapshot-policy-id <autoSnapshotPolicyId> --auto-snapshot-policy-name Test --retention-days 3
+  desc: 修改快照策略的属性，包括名称，保留天数为3天。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyAutoSnapshotPolicy
+parameters:
+- name: auto-snapshot-policy-id
+  type: string
+  required: true
+  sdk-field: autoSnapshotPolicyId
+  description: 自动快照策略的ID。
+- name: auto-snapshot-policy-name
+  type: string
+  required: false
+  sdk-field: autoSnapshotPolicyName
+  description: |-
+    自动快照策略的名称。
+    范围2到63个字符。
+    仅支持输入字母、数字、-/_和英文句点(.)。
+    且必须以数字或字母开头和结尾。
+- name: repeat-week-days
+  type: integer-array
+  required: false
+  sdk-field: repeatWeekDays
+  description: |-
+    自动快照的重复日期。
+    单位为天，周期为星期，例如 1 表示周一。
+- name: hours
+  type: integer-array
+  required: false
+  sdk-field: hours
+  description: |-
+    指定定期快照策略的触发时间。
+    使用 UTC 时间，单位为小时。
+    00:00 ~ 23:00 共 24 个时间点可选，1表示 01:00，依此类推。
+- name: retention-days
+  type: integer
+  required: false
+  sdk-field: retentionDays
+  description: |-
+    自动快照的保留时间，单位为天。
+    如果该值设置-1，则代表永久保留。
+    取值范围：-1或[1,65535]。

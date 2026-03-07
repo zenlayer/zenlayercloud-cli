@@ -1,0 +1,25 @@
+name: ModifyImagesAttributes
+product: zec
+use: modify-images-attributes
+short: Modifies attributes of custom images.
+long: modify attributes of custom images.
+examples:
+- cmd: zeno zec modify-images-attributes --image-ids imageId1 --image-ids imageId2 --image-name imageNameX
+  desc: Modify attributes of custom images.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyImagesAttributes
+parameters:
+- name: image-ids
+  type: string-array
+  required: true
+  sdk-field: imageIds
+  description: List of image IDs to be modified.
+- name: image-name
+  type: string
+  required: true
+  sdk-field: imageName
+  description: |-
+    Image name.
+    This parameter must start with a number or a letter, containing 2 to 63 characters. Only letters, numbers, -/_ and periods (.) are supported.

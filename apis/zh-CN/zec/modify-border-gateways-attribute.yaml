@@ -1,0 +1,55 @@
+name: ModifyBorderGatewaysAttribute
+product: zec
+use: modify-border-gateways-attribute
+short: 修改边界网关属性。
+long: 修改边界网关的属性，包括名称，路由级别，子网宣告控制等。
+examples:
+- cmd: zeno zec modify-border-gateways-attribute --zbg-ids xxx --name xxx
+  desc: 批量修改网关的名称。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyBorderGatewaysAttribute
+parameters:
+- name: zbg-ids
+  type: string-array
+  required: true
+  sdk-field: zbgIds
+  description: 边界网关的ID列表。
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: 边界网关的名称。
+- name: routing-mode
+  type: enum
+  required: false
+  sdk-field: routingMode
+  description: 路由级别。
+  enum-values:
+  - value: Regional
+    desc: 节点级别路由。
+  - value: Global
+    desc: 全节点级别路由。
+- name: advertised-subnet
+  type: enum
+  required: false
+  sdk-field: advertisedSubnet
+  description: 子网控制。
+  enum-values:
+  - value: ALL
+    desc: 全部宣告。
+  - value: NONE
+    desc: 不宣告。
+  - value: PART
+    desc: 部分宣告。
+- name: advertised-cidrs
+  type: string-array
+  required: false
+  sdk-field: advertisedCidrs
+  description: IPv4 Cidr集合。
+- name: asn
+  type: integer
+  required: false
+  sdk-field: asn
+  description: 边界网关的ASN。

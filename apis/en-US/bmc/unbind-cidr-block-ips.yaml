@@ -1,0 +1,27 @@
+name: UnbindCidrBlockIps
+product: bmc
+use: unbind-cidr-block-ips
+short: Unassigns CIDR block IPs from instances.
+long: |-
+  unbind one or more CIDR block IPs from instances.
+  ***
+examples:
+- cmd: zeno bmc unbind-cidr-block-ips --cidr-block-id cidrBlockId --ip-list 2602:ffe4:1:11::1
+  desc: ''
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: UnbindCidrBlockIps
+parameters:
+- name: ip-list
+  type: string-array
+  required: true
+  sdk-field: ipList
+  description: List of IPs to be unassigned.
+- name: cidr-block-id
+  type: string
+  required: true
+  sdk-field: cidrBlockId
+  description: |-
+    ID of the CIDR block.
+    You can find the cidrBlockId in the response by calling DescribeCidrBlocks .

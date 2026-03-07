@@ -1,0 +1,18 @@
+name: DeleteSnapshots
+product: zec
+use: delete-snapshots
+short: 删除指定快照
+long: 删除指定快照集合。
+examples:
+- cmd: zeno zec delete-snapshots --snapshot-ids snapshotId1 --snapshot-ids snapshotId2
+  desc: 删除快照集合
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DeleteSnapshots
+parameters:
+- name: snapshot-ids
+  type: string-array
+  required: true
+  sdk-field: snapshotIds
+  description: 快照ID列表。

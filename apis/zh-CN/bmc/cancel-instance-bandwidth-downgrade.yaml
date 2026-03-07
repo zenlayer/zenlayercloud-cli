@@ -1,0 +1,17 @@
+name: CancelInstanceBandwidthDowngrade
+product: bmc
+use: cancel-instance-bandwidth-downgrade
+short: 取消带宽降配订单
+long: 取消带宽降配订单。
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: CancelInstanceBandwidthDowngrade
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: |-
+    待操作的实例ID。
+    可通过DescribeInstances接口返回值中的instanceId获取。

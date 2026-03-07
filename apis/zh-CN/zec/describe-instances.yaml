@@ -1,0 +1,120 @@
+name: DescribeInstances
+product: zec
+use: describe-instances
+short: 获取ZEC实例列表
+long: 查询一台或多台虚拟机实例的信息。用户可以根据实例ID、实例名称等条件来查询实例的详细信息。
+examples:
+- cmd: zeno zec describe-instances --instance-ids xxx --page-size 10 --page-num 1
+  desc: 查询虚拟机实例列表
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeInstances
+parameters:
+- name: instance-ids
+  type: string-array
+  required: false
+  sdk-field: instanceIds
+  description: |-
+    根据实例ID列表进行筛选。
+    最大不能超过100个。
+- name: zone-id
+  type: string
+  required: false
+  sdk-field: zoneId
+  description: 实例所属的可用区ID。
+- name: image-id
+  type: string
+  required: false
+  sdk-field: imageId
+  description: 镜像ID。
+- name: ipv4-address
+  type: string
+  required: false
+  sdk-field: ipv4Address
+  description: 根据实例关联的IPv4过滤。
+- name: ipv6-address
+  type: string
+  required: false
+  sdk-field: ipv6Address
+  description: 根据实例关联的IPv6信息过滤。
+- name: status
+  type: enum
+  required: false
+  sdk-field: status
+  description: 根据实例的状态过滤。
+  enum-values:
+  - value: DEPLOYING
+    desc: 创建部署中。
+  - value: REBUILDING
+    desc: 重装系统中。
+  - value: REBOOT
+    desc: 系统重启中。
+  - value: RUNNING
+    desc: 运行开机。
+  - value: STOPPED
+    desc: 已关机状态。
+  - value: BOOTING
+    desc: 系统启动中。
+  - value: RELEASING
+    desc: 实例释放中。
+  - value: STOPPING
+    desc: 系统关机中。
+  - value: RECYCLE
+    desc: 实例处于回收站。
+  - value: RECYCLING
+    desc: 实例回收中。
+  - value: CREATE_FAILED
+    desc: 创建失败。
+  - value: IMAGING
+    desc: 镜像制作中。
+  - value: RESIZING
+    desc: 变更规格大小中。
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: |-
+    根据实例显示名称过滤。
+    该字段支持模糊搜索。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: 返回的分页大小。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: 返回的分页数。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: 根据资源组ID过滤。
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    根据标签键进行搜索。
+    最长不得超过20个标签键。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    根据标签进行搜索。
+    最长不得超过20个标签。
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。

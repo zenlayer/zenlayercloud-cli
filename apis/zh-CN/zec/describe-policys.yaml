@@ -1,0 +1,63 @@
+name: DescribePolicys
+product: zec
+use: describe-policys
+short: 获取防护策略列表
+long: 获取防护策略列表
+examples:
+- cmd: zeno zec describe-policys --policy-ids policyId1 --policy-ids policyId2 --name xxxx --page-size 10 --page-num 1
+  desc: 获取防护策略列表
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribePolicys
+parameters:
+- name: policy-ids
+  type: string-array
+  required: false
+  sdk-field: policyIds
+  description: |-
+    根据防护策略ID列表进行筛选。
+    最大不能超过100个。
+- name: policy-name
+  type: string
+  required: false
+  sdk-field: policyName
+  description: |-
+    根据防护策略名称过滤。
+    该字段支持模糊搜索。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: 返回的分页大小。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: 返回的分页数。
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    根据标签键进行搜索。
+    最长不得超过20个标签键。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    根据标签进行搜索。
+    最长不得超过20个标签。
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。

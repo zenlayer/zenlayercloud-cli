@@ -1,0 +1,25 @@
+name: InquiryPriceModifyCrossRegionBandwidth
+product: zec
+use: inquiry-price-modify-cross-region-bandwidth
+short: Queries the price of modifying the cross-region bandwidth configurations.
+long: query the price of changing the cross-region bandwidth configuration.
+examples:
+- cmd: zeno zec inquiry-price-modify-cross-region-bandwidth --cross-region-bandwidth-id "<your cross id>" --bandwidth 500
+  desc: Query the price of changing the bandwidth cap of cross-region bandwidth into 500Mbps. The network billing model is `ByBandwidth`.
+- cmd: zeno zec inquiry-price-modify-cross-region-bandwidth --cross-region-bandwidth-id "<your cross id>" --bandwidth 500
+  desc: Query the price of changing the bandwidth commitment of cross-region bandwidth into 500 Mbps. The network billing model is `ByInstanceBandwidth95`.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: InquiryPriceModifyCrossRegionBandwidth
+parameters:
+- name: cross-region-bandwidth-id
+  type: string
+  required: true
+  sdk-field: crossRegionBandwidthId
+  description: Cross-region bandwidth ID.
+- name: bandwidth
+  type: integer
+  required: true
+  sdk-field: bandwidth
+  description: Bandwidth cap.

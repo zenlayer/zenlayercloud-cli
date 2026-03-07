@@ -1,0 +1,18 @@
+name: DeleteCommand
+product: zos
+use: delete-command
+short: 删除命令
+long: 删除命令。
+examples:
+- cmd: zeno zos delete-command --command-id <commandId>
+  desc: 删除命令。
+sdk:
+  service: zos
+  version: '2025-10-10'
+  action: DeleteCommand
+parameters:
+- name: command-id
+  type: string
+  required: true
+  sdk-field: commandId
+  description: 需要删除的命令ID。

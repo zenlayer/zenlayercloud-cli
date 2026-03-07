@@ -1,0 +1,20 @@
+name: CancelInstanceTrafficPackageDowngrade
+product: bmc
+use: cancel-instance-traffic-package-downgrade
+short: Cancels the downgrade of instance traffic package.
+long: The API is used to cancel traffic package downgrade order.
+examples:
+- cmd: zeno bmc cancel-instance-traffic-package-downgrade --instance-id instanceId
+  desc: Cancel traffic package downgrade order
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: CancelInstanceTrafficPackageDowngrade
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: |-
+    Instance ID.
+    To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response.

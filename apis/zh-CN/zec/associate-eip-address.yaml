@@ -1,0 +1,59 @@
+name: AssociateEipAddress
+product: zec
+use: associate-eip-address
+short: 绑定弹性公网IP。
+long: 批量将弹性公网IP（EIP）绑定到同地域的云产品实例上。
+examples:
+- cmd: zeno zec associate-eip-address --nic-id <nicId> --lan-ip 10.0.0.2 --eip-ids <eipId1> --eip-ids <eipId2> --bind-type Passthrough
+  desc: 将多个弹性公网IP（EIP）绑定到指定网卡上， 并指定方式为可见模式。
+- cmd: zeno zec associate-eip-address --load-balancer-id <loadBalancerId> --eip-ids <eipId1> --eip-ids <eipId2>
+  desc: 将多个弹性公网IP（EIP）绑定到指定负载均衡时实例上。
+- cmd: zeno zec associate-eip-address --nat-id <natId> --eip-ids <eipId1> --eip-ids <eipId2>
+  desc: 将多个弹性公网IP（EIP）绑定到指定NAT网关上。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: AssociateEipAddress
+parameters:
+- name: load-balancer-id
+  type: string
+  required: false
+  sdk-field: loadBalancerId
+  description: 负载均衡实例的ID。
+- name: nic-id
+  type: string
+  required: false
+  sdk-field: nicId
+  description: 虚拟网卡的ID。
+- name: lan-ip
+  type: string
+  required: false
+  sdk-field: lanIp
+  description: |-
+    要绑定的网卡上的内网IP地址。
+    当IP绑定的是网卡, 则该字段不能为空。
+- name: nat-id
+  type: string
+  required: false
+  sdk-field: natId
+  description: NAT网关的ID。
+- name: eip-ids
+  type: string-array
+  required: true
+  sdk-field: eipIds
+  description: |-
+    要绑定的EIP的ID。
+    EIP 必须是未绑定状态。
+- name: bind-type
+  type: enum
+  required: false
+  sdk-field: bindType
+  description: |-
+    绑定类型。
+    当绑定的是网卡时生效。
+    默认为普通NAT模式。
+  enum-values:
+  - value: FullNat
+    desc: 普通NAT模式。
+  - value: Passthrough
+    desc: 高速模式。

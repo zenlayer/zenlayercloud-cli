@@ -1,0 +1,28 @@
+name: ModifySecurityGroupsAttribute
+product: zec
+use: modify-security-groups-attribute
+short: Modifies the attributes of one or more security groups.
+long: modify the attributes of one or more security groups. Only the security group name to be displayed can be modified for now.
+examples:
+- cmd: zeno zec modify-security-groups-attribute --security-group-ids 791721259766392536 --security-group-name abc12345
+  desc: Batch modify the names of the security groups.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifySecurityGroupsAttribute
+parameters:
+- name: security-group-name
+  type: string
+  required: true
+  sdk-field: securityGroupName
+  description: |-
+    Security group name.
+    The length is 1 to 64 characters. Only letters, numbers, - and periods (.) are supported.
+- name: security-group-ids
+  type: string-array
+  required: true
+  sdk-field: securityGroupIds
+  description: |-
+    Security group ID(s).
+    To obtain the security group ID, you can call DescribeSecurityGroups and look for securityGroupId in the response.
+    The maximum number of security groups in each request is 100.

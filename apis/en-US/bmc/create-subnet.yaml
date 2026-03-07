@@ -1,0 +1,43 @@
+name: CreateSubnet
+product: bmc
+use: create-subnet
+short: Creates subnet.
+long: create a subnet.
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: CreateSubnet
+parameters:
+- name: zone-id
+  type: string
+  required: true
+  sdk-field: zoneId
+  description: Zone ID to which the subnet belongs.
+- name: cidr-block
+  type: string
+  required: true
+  sdk-field: cidrBlock
+  description: |-
+    CIDR block of the subnet. The optional values are as follows:
+    10.0.0.0/16 , 172.16.0.0/16 , 192.168.0.0/16 and their subsets.
+    If the subnet is going to be added into a VPC, the value should be in the range of VPC CIDR block and not overlap with IP ranges of other subnets in this VPC.
+- name: subnet-name
+  type: string
+  required: true
+  sdk-field: subnetName
+  description: |-
+    Subnet name to be displayed.
+    This parameter can contain up to 64 characters. Only letters, numbers, - and periods (.) are supported.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    Resource group ID.
+    If the value is not passed in, the subnet will be put into the default resource group. If no authorized default resource group found, the request will fail.
+    If the subnet is going to be added into a VPC, this parameter will be ignored. The created subnet will be added into the resource group of the VPC.
+- name: vpc-id
+  type: string
+  required: false
+  sdk-field: vpcId
+  description: VPC ID.

@@ -1,0 +1,55 @@
+name: DescribeSubnets
+product: zec
+use: describe-subnets
+short: 查询私有子网列表
+long: 查询子网列表信息。可以根据子网ID, 名称等信息筛选查询子网。
+examples:
+- cmd: zeno zec describe-subnets --cidr-block 10.0.0.0/24 --page-size 10 --page-num 1
+  desc: 查询CidrBlock为`10.0.0.0/24`的Subnet列表。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeSubnets
+parameters:
+- name: subnet-ids
+  type: string-array
+  required: false
+  sdk-field: subnetIds
+  description: 根据子网的ID进行筛选。
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: |-
+    根据子网的名称进行筛选。
+    该字段支持模糊搜索。
+- name: cidr-block
+  type: string
+  required: false
+  sdk-field: cidrBlock
+  description: 根据子网的CIDR进行筛选。
+- name: region-id
+  type: string
+  required: false
+  sdk-field: regionId
+  description: 根据子网所在的节点进行筛选。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: 返回的分页大小。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: 返回的分页数。
+- name: vpc-ids
+  type: string-array
+  required: false
+  sdk-field: vpcIds
+  description: VPC的ID集合。
+- name: dhcp-options-set-id
+  type: string
+  required: false
+  sdk-field: dhcpOptionsSetId
+  description: 子网绑定的DHCP 选项集ID。

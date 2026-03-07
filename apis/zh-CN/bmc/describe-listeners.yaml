@@ -1,0 +1,46 @@
+name: DescribeListeners
+product: bmc
+use: describe-listeners
+short: 查询一台或多台指定Listener的信息
+long: 查询一台或多台指定Listener的信息。用户可以根据负载均衡实例的ID、监听器的ID等信息来搜索监听器的信息。
+examples:
+- cmd: zeno bmc describe-listeners --load-balancer-ids xxxx
+  desc: 根据负载均衡实例ID查询。
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DescribeListeners
+parameters:
+- name: listener-ids
+  type: string-array
+  required: false
+  sdk-field: listenerIds
+  description: |-
+    监听器ID列表。
+    最多支持100个。
+- name: load-balancer-ids
+  type: string-array
+  required: false
+  sdk-field: loadBalancerIds
+  description: |-
+    负载均衡实例ID列表。
+    最多支持100个。
+- name: listener-name
+  type: string
+  required: false
+  sdk-field: listenerName
+  description: |-
+    监听器名称。
+    支持模糊搜索。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: 返回的分页数。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    返回的分页大小。
+    默认为20，最大为1000。

@@ -1,0 +1,85 @@
+name: InquiryPriceCreateInstance
+product: bmc
+use: inquiry-price-create-instance
+short: 创建实例询价
+long: 创建一个实例询价。
+examples:
+- cmd: zeno bmc inquiry-price-create-instance --zone-id SEL-A --instance-type-id M6C --instance-charge-type PREPAID --traffic-package-size 100 --internet-max-bandwidth-out 200 --internet-charge-type ByBandwidth
+  desc: 查询创建预付费实例的询价，带宽计费为固定带宽。
+- cmd: zeno bmc inquiry-price-create-instance --zone-id SEL-A --instance-type-id M6C --instance-charge-type PREPAID --traffic-package-size 100 --internet-max-bandwidth-out 200 --internet-charge-type ByTrafficPackage
+  desc: 查询创建预付费实例的询价，带宽计费为流量包。
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: InquiryPriceCreateInstance
+parameters:
+- name: zone-id
+  type: string
+  required: true
+  sdk-field: zoneId
+  description: 实例所属的可用区ID。
+- name: instance-type-id
+  type: string
+  required: true
+  sdk-field: instanceTypeId
+  description: |-
+    实例机型ID。
+    具体取值可通过调用接口DescribeInstanceTypes来获得最新的规格表。
+- name: instance-charge-type
+  type: enum
+  required: true
+  sdk-field: instanceChargeType
+  description: |-
+    实例计费类型。
+    PREPAID：预付费，即包年包月。 POSTPAID：后付费。
+  enum-values:
+  - value: POSTPAID
+    desc: 后付费。即按量付费。
+  - value: PREPAID
+    desc: 预付费。
+- name: instance-charge-prepaid
+  type: object
+  required: false
+  sdk-field: instanceChargePrepaid
+  description: |-
+    预付费模式，即包年包月相关参数设置。
+    通过该参数可以指定包年包月实例的购买时长等属性。
+    若指定实例的付费模式为预付费则该参数必传。
+  object-schema:
+  - name: period
+    type: integer
+    description: |-
+      购买实例的时长。
+      单位：月。
+- name: traffic-package-size
+  type: float
+  required: false
+  sdk-field: trafficPackageSize
+  description: |-
+    流量包订购大小。
+    单位为TB。该值仅限当 internetChargeType = ByTrafficPackage 生效。
+- name: internet-max-bandwidth-out
+  type: integer
+  required: false
+  sdk-field: internetMaxBandwidthOut
+  description: |-
+    公网出带宽上限。
+    单位：Mbps。
+    默认值：1Mbps。
+    不同机型带宽上限范围不一致，具体限制详见购买网络带宽。
+- name: internet-charge-type
+  type: enum
+  required: true
+  sdk-field: internetChargeType
+  description: 网络计费类型。
+  enum-values:
+  - value: ByBandwidth
+    desc: 按固定带宽计费
+  - value: ByTrafficPackage
+    desc: 购买流量包计费
+  - value: ByInstanceBandwidth95
+    desc: 单实例95计费方式。
+  - value: ByClusterBandwidth95
+    desc: 单产品合并95计费城市带宽组
+  - value: ByBandwidthCluster
+    desc: 跨产品合并95计费的带宽包

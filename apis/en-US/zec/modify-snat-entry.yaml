@@ -1,0 +1,50 @@
+name: ModifySnatEntry
+product: zec
+use: modify-snat-entry
+short: Modifies a SNAT rule.
+long: modify a SNAT rule.
+examples:
+- cmd: zeno zec modify-snat-entry --snat-entry-id <snatEntryId> --subnet-ids <subnetId> --eip-ids <eipId>
+  desc: Modify a SNAT entry of type `subnet`.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifySnatEntry
+parameters:
+- name: snat-entry-id
+  type: string
+  required: true
+  sdk-field: snatEntryId
+  description: SNAT entry ID.
+- name: eip-ids
+  type: string-array
+  required: false
+  sdk-field: eipIds
+  description: The elastic IP ID list configured in the SNAT rule. If the value is empty, it means all the elastic IPs bound to the NAT gateway.
+- name: is-all-eip
+  type: boolean
+  required: false
+  sdk-field: isAllEip
+  description: Whether the public egress IPs are all elastic IPs bound to this NAT gateway
+- name: cidr
+  type: string
+  required: false
+  sdk-field: cidr
+  description: |-
+    CIDR block.
+    Either cidr or subnetIds must be specified.
+- name: source-cidr-blocks
+  type: string-array
+  required: false
+  sdk-field: sourceCidrBlocks
+  description: |-
+    List of source CIDR blocks.
+    One of sourceCidrBlocks or subnetIds must be specified.
+    To use the full address range, specify 0.0.0.0/0.
+- name: subnet-ids
+  type: string-array
+  required: false
+  sdk-field: subnetIds
+  description: |-
+    IDs of subnets.
+    Either cidr or subnetIds must be specified.

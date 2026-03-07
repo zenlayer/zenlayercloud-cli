@@ -1,0 +1,27 @@
+name: ModifyEipAttribute
+product: zec
+use: modify-eip-attribute
+short: 修改弹性公网IP属性。
+long: 修改弹性公网IP属性。
+examples:
+- cmd: zeno zec modify-eip-attribute --eip-id <eipId> --name Test-IP
+  desc: 修改弹性IP的名称。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyEipAttribute
+parameters:
+- name: eip-id
+  type: string
+  required: true
+  sdk-field: eipId
+  description: 公网弹性IP的ID。
+- name: name
+  type: string
+  required: true
+  sdk-field: name
+  description: |-
+    公网弹性IP的名称。
+    范围2到63个字符。
+    仅支持输入字母、数字、-/_和英文句点(.)。
+    且必须以数字或字母开头和结尾。

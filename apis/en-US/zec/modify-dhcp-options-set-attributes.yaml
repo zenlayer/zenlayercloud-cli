@@ -1,0 +1,62 @@
+name: ModifyDhcpOptionsSetAttributes
+product: zec
+use: modify-dhcp-options-set-attributes
+short: Edits configuration information of a DHCP options set.
+long: edit the configuration information of a DHCP options set.
+examples:
+- cmd: zeno zec modify-dhcp-options-set-attributes --dhcp-options-set-id dhcpOptionsSetId1 --dhcp-options-set-name dhcpOptionsSetName1
+  desc: Edit configuration information of a DHCP options set.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyDhcpOptionsSetAttributes
+parameters:
+- name: dhcp-options-set-id
+  type: string
+  required: true
+  sdk-field: dhcpOptionsSetId
+  description: DHCP options set ID.
+- name: dhcp-options-set-name
+  type: string
+  required: false
+  sdk-field: dhcpOptionsSetName
+  description: |-
+    Name of the DHCP options set.
+    The length must be between 1 and 64 characters.
+- name: domain-name-servers
+  type: string
+  required: false
+  sdk-field: domainNameServers
+  description: |-
+    DNS server IP.
+    Up to 4 DNS server IPv4s can be passed in, separated by a comma (,).
+- name: ipv6-domain-name-servers
+  type: string
+  required: false
+  sdk-field: ipv6DomainNameServers
+  description: |-
+    DNS server IP.
+    Up to 4 DNS server IPv6s can be passed in, separated by a comma (,).
+- name: lease-time
+  type: string
+  required: false
+  sdk-field: leaseTime
+  description: |-
+    Lease duration for the IPv4 DHCP options set.
+    Unit: h.
+    Value range: 24 - 1176 or 87600 - 175200 .
+- name: ipv6-lease-time
+  type: string
+  required: false
+  sdk-field: ipv6LeaseTime
+  description: |-
+    Lease duration for the IPv6 DHCP options set.
+    Unit: h.
+    Value range: 24 - 1176 or 87600 - 175200 .
+- name: description
+  type: string
+  required: false
+  sdk-field: description
+  description: |-
+    DHCP options set description information.
+    The length is up to 255 characters.

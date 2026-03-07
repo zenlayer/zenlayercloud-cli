@@ -1,0 +1,33 @@
+name: DescribeEipAvailableResources
+product: bmc
+use: describe-eip-available-resources
+short: 查询区域可用的Elastic IP资源
+long: 查询区域可购买EIP资源。
+examples:
+- cmd: zeno bmc describe-eip-available-resources --eip-charge-type PREPAID --zone-id SEL-A
+  desc: ''
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DescribeEipAvailableResources
+parameters:
+- name: eip-charge-type
+  type: enum
+  required: true
+  sdk-field: eipChargeType
+  description: |-
+    付费类型。
+    PREPAID：预付费，即包年包月。
+    POSTPAID：后付费。
+  enum-values:
+  - value: POSTPAID
+    desc: 后付费。即按量付费。
+  - value: PREPAID
+    desc: 预付费。
+- name: zone-id
+  type: string
+  required: false
+  sdk-field: zoneId
+  description: |-
+    EIP所属的可用区ID。
+    不传则查询所有区域可用的EIP。

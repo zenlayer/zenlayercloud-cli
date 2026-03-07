@@ -1,0 +1,27 @@
+name: ModifyCrossRegionBandwidthAttribute
+product: zec
+use: modify-cross-region-bandwidth-attribute
+short: Modifies the cross-region bandwidth property (name).
+long: modify the cross-region bandwidth property (name).
+examples:
+- cmd: zeno zec modify-cross-region-bandwidth-attribute --cross-region-bandwidth-ids "<your cross id>" --cross-region-bandwidth-name newName
+  desc: Batch modify the cross-region bandwidth properties.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyCrossRegionBandwidthAttribute
+parameters:
+- name: cross-region-bandwidth-ids
+  type: string-array
+  required: true
+  sdk-field: crossRegionBandwidthIds
+  description: ID list of cross-region bandwidth.
+- name: cross-region-bandwidth-name
+  type: string
+  required: true
+  sdk-field: crossRegionBandwidthName
+  description: |-
+    The name of cross-region bandwidth.
+    The length is 2 to 63 characters.
+    Only letters, numbers, -/_ and periods (.) are supported.
+    The name must start and end with a number or a letter.

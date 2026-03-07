@@ -1,0 +1,202 @@
+name: CreateEips
+product: zec
+use: create-eips
+short: Creates one or more elastic IPs.
+long: create one or more elastic IPs.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CreateEips
+parameters:
+- name: region-id
+  type: string
+  required: true
+  sdk-field: regionId
+  description: Region ID.
+- name: name
+  type: string
+  required: true
+  sdk-field: name
+  description: |-
+    Name of the elastic IP.
+    This parameter must start with a number or a letter, containing 2 to 63 characters. Only letters, numbers, - and periods (.) are supported.
+- name: internet-charge-type
+  type: enum
+  required: true
+  sdk-field: internetChargeType
+  description: Network billing methods .
+  enum-values:
+  - value: ByBandwidth
+    desc: Billed by the flat rate bandwidth.
+  - value: ByTrafficPackage
+    desc: Billed by the traffic package size purchased.
+  - value: BandwidthCluster
+    desc: Billed by the burstable 95th bandwidth of all compute resources in a city-based or regional bandwidth cluster with a shared commitment.
+- name: amount
+  type: integer
+  required: false
+  sdk-field: amount
+  description: Quantity.
+- name: eip-v4-type
+  type: enum
+  required: false
+  sdk-field: eipV4Type
+  description: |-
+    Network types of public IPv4.
+    Deprecated. Please use networkLineType instead.
+  deprecated: true
+  enum-values:
+  - value: BGPLine
+    desc: BGP network type.
+  - value: CN2Line
+    desc: CN2 GIA (CN2 Global Internet Access) network type.
+  - value: LocalLine
+    desc: Local IP network type.
+  - value: ChinaMobile
+    desc: China Mobile network type.
+  - value: ChinaUnicom
+    desc: China Unicom network type.
+  - value: ChinaTelecom
+    desc: China Telecom network type.
+  - value: Cogent
+    desc: Cogent Communications network type.
+  - value: ThreeLine
+    desc: 3-in-1 IP pool network type.
+- name: network-line-type
+  type: enum
+  required: false
+  sdk-field: networkLineType
+  description: Network types of public IPv4.
+  enum-values:
+  - value: PremiumBGP
+    desc: |-
+      Premium BGP network.
+      High-performance network.
+  - value: CN2
+    desc: China Telecom CN2 network.
+  - value: LocalLine
+    desc: Provided by a local ISP.
+  - value: StandardBGP
+    desc: |-
+      Standard BGP network.
+      General-purpose network with cost optimization.
+  - value: CMI
+    desc: 1-Line IP China Mobile.
+  - value: CUG
+    desc: 1-Line IP China Unicom.
+  - value: CTG
+    desc: 1-Line IP China Telecom.
+  - value: ThreeLine
+    desc: 3-in-1 IP Pool.
+- name: primary-isp
+  type: enum
+  required: false
+  sdk-field: primaryIsp
+  description: |-
+    If the eipV4Type field is set to ThreeLine , this field is required and must include:
+    CHINA_TELECOM CHINA_UNICOM CHINA_MOBILE
+  enum-values:
+  - value: CHINA_MOBILE
+    desc: China Mobile.
+  - value: CHINA_UNICOM
+    desc: China Unicom.
+  - value: CHINA_TELECOM
+    desc: China Telecom.
+- name: bandwidth
+  type: integer
+  required: false
+  sdk-field: bandwidth
+  description: |-
+    Public outbound bandwidth cap.
+    Unit: Mbps .
+    Bandwidth cap varies by instance size.
+- name: cidr-id
+  type: string
+  required: false
+  sdk-field: cidrId
+  description: |-
+    CIDR ID.
+    If this parameter is specified, eipV4Type must be empty.
+- name: public-ip
+  type: string
+  required: false
+  sdk-field: publicIp
+  description: The starting public IP.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: Resource group.
+- name: flow-package
+  type: float
+  required: false
+  sdk-field: flowPackage
+  description: |-
+    Traffic package size (TB).
+    The parameter is valid only when internetChargeType is ByTrafficPackage .
+    Default value: 0 .
+    The value supports up to one decimal place.
+- name: cluster-id
+  type: string
+  required: false
+  sdk-field: clusterId
+  description: |-
+    Bandwidth cluster ID for the public IPv6 address.
+    This parameter must be specified when the subnet's stack type includes public IPv6, and the network billing model is BandwidthCluster.
+- name: peer-region-id
+  type: string
+  required: false
+  sdk-field: peerRegionId
+  description: Remote region ID.
+- name: marketing-options
+  type: object
+  required: false
+  sdk-field: marketingOptions
+  description: Information on marketing campaigns.
+  object-schema:
+  - name: discountCode
+    type: string
+    description: |-
+      Promo Code.
+      If no Promo Code exists, the final discount will not apply.
+  - name: usePocVoucher
+    type: boolean
+    description: |-
+      Whether to use POC voucher.
+      If no POC voucher exists, the related creation will fail.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    Bound tags when creating the elastic IP.
+    Tag keys must be unique.--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'
+- name: instance-ids
+  type: string-array
+  required: false
+  sdk-field: instanceIds
+  description: |-
+    IDs of instances to be attached.
+    The number of IDs should be the same as diskAmount .
+- name: bind-type
+  type: enum
+  required: false
+  sdk-field: bindType
+  description: |-
+    Elastic IP mode when binding to resources.
+    Effective when specific instanceIds are specified.
+    Defaults to standard NAT mode.
+  enum-values:
+  - value: FullNat
+    desc: NAT mode.
+  - value: Passthrough
+    desc: Bypass mode.

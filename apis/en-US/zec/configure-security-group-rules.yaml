@@ -1,0 +1,67 @@
+name: ConfigureSecurityGroupRules
+product: zec
+use: configure-security-group-rules
+short: Configures the rules of a security group.
+long: configure the rules of a security group.
+examples:
+- cmd: zeno zec configure-security-group-rules --security-group-id your-security-group-id --rule-infos "{direction=ingress, policy=accept, priority=1, ipProtocol=tcp, portRange=22, cidrIp=0.0.0.0/0, desc=aaa}" --rule-infos "{direction=egress, policy=accept, priority=1, ipProtocol=tcp, portRange=22, cidrIp=0.0.0.0/0, desc=xxx}"
+  desc: Configure rules for the security group.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ConfigureSecurityGroupRules
+parameters:
+- name: security-group-id
+  type: string
+  required: true
+  sdk-field: securityGroupId
+  description: Security group ID.
+- name: rule-infos
+  type: object-array
+  required: false
+  sdk-field: ruleInfos
+  description: |-
+    Security group rules.
+    Configured for full overwrite.
+  array-style: json
+  item-schema:
+  - name: direction
+    type: string
+    description: |-
+      Traffic directions.
+      ingress : inbound rules.
+      egress : outbound rules.
+  - name: policy
+    type: string
+    description: |-
+      Access strategy.
+      Available values:
+      accept : allows access by default.
+      Only accept strategy is supported for now.
+  - name: priority
+    type: integer
+    description: |-
+      Priority of rules.
+      Available values:
+      [1,100].
+      Default value: 1.
+  - name: ipProtocol
+    type: string
+    description: |-
+      Transport protocol. The value is case sensitive.
+      Available value:
+      tcp : TCP protocol. udp : UDP protocol. icmp : ICMP protocol. all : all protocols supported.
+  - name: portRange
+    type: string
+    description: |-
+      Destination port range.
+      Available values:
+      For TCP and UDP protocols: The value ranges from 1 to 65535. Use a slash (/) to separate the start port number and the end port number. Examples: 1/200 ; incorrect example: 200/1 . For ICMP protocol: -1/-1 . For all protocols: -1/-1 .
+  - name: cidrIp
+    type: string
+    description: |-
+      Source IP address range.
+      Default value: 0.0.XX.XX/0 .
+  - name: desc
+    type: string
+    description: Description. 255 characters in length.

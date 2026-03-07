@@ -1,0 +1,18 @@
+name: DeleteListener
+product: bmc
+use: delete-listener
+short: 删除负载均衡监听器。
+long: 删除负载均衡监听器。
+examples:
+- cmd: zeno bmc delete-listener --listener-id xxxx
+  desc: 删除负载均衡监听器。
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DeleteListener
+parameters:
+- name: listener-id
+  type: string
+  required: true
+  sdk-field: listenerId
+  description: 监听器的ID。

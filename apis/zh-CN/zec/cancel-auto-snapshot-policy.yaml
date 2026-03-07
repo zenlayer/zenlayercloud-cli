@@ -1,0 +1,23 @@
+name: CancelAutoSnapshotPolicy
+product: zec
+use: cancel-auto-snapshot-policy
+short: 自动快照策略移除云盘
+long: 云硬盘从指定的自动快照策略中移除。
+examples:
+- cmd: zeno zec cancel-auto-snapshot-policy --auto-snapshot-policy-id <autoSnapshotPolicyId> --disk-ids <diskId>
+  desc: 解绑自动快照策略。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CancelAutoSnapshotPolicy
+parameters:
+- name: auto-snapshot-policy-id
+  type: string
+  required: true
+  sdk-field: autoSnapshotPolicyId
+  description: 自动快照策略ID。
+- name: disk-ids
+  type: string-array
+  required: true
+  sdk-field: diskIds
+  description: 要移除的磁盘ID列表。

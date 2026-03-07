@@ -1,0 +1,61 @@
+name: DescribePolicys
+product: zec
+use: describe-policys
+short: Gets a list of protection strategies.
+long: get a list of protection strategies.
+examples:
+- cmd: zeno zec describe-policys --policy-ids policyId1 --policy-ids policyId2 --name xxxx --page-size 10 --page-num 1
+  desc: Get a list of protection strategies.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribePolicys
+parameters:
+- name: policy-ids
+  type: string-array
+  required: false
+  sdk-field: policyIds
+  description: |-
+    Filter by the list of protection strategy IDs.
+    You can query up to 100 protection strategy IDs in each request.
+- name: policy-name
+  type: string
+  required: false
+  sdk-field: policyName
+  description: |-
+    Filter by the protection strategy name.
+    This field supports fuzzy search.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    Number of items in the current page result.
+    Default: 20.
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: Number of pages returned.
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    Search by tag key.
+    You can query up to 20 tag keys in each request.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    Search by tag.
+    You can query up to 20 tags in each request.
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'

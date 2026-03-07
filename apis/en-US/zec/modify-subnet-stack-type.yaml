@@ -1,0 +1,58 @@
+name: ModifySubnetStackType
+product: zec
+use: modify-subnet-stack-type
+short: Modifies the IP stack type of subnet under a global VPC.
+long: modify the IP stack type of subnet under a global VPC.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifySubnetStackType
+parameters:
+- name: subnet-id
+  type: string
+  required: true
+  sdk-field: subnetId
+  description: Subnet ID.
+- name: stack-type
+  type: enum
+  required: false
+  sdk-field: stackType
+  description: |-
+    IP stack type of subnet.
+    The optional values are as follows: IPv4_IPv6
+  enum-values:
+  - value: IPv4
+    desc: IPv4 stack type only.
+  - value: IPv4_IPv6
+    desc: IPv4 and IPv6 stack type.
+  - value: IPv6
+    desc: IPv6 stack type only.
+- name: ipv6-type
+  type: enum
+  required: true
+  sdk-field: ipv6Type
+  description: |-
+    Subnet IPv6 type.
+    The optional values are as follows: Public , Private
+  enum-values:
+  - value: Private
+    desc: Private network.
+  - value: Public
+    desc: Public network.
+- name: ipv6-cidr-block-id
+  type: string
+  required: false
+  sdk-field: ipv6CidrBlockId
+  description: |-
+    ID of the public IPv6 CIDR block.
+    This field can only be specified when ipv6Type is Public.
+    If not specified, it will be allocated from the system's default IP pool.
+- name: ipv6-mask-length
+  type: integer
+  required: false
+  sdk-field: ipv6MaskLength
+  description: |-
+    The size of the IPv6 CIDR prefix assigned to the instance.
+    This parameter must be used together with the ipv6CidrBlockId parameter.
+    The default value is 96 if not explicitly provided.
+    The minimum value must be greater than or equal to the prefix of the specified ipv6CidrBlockId, and the maximum value cannot exceed 96.

@@ -1,0 +1,38 @@
+name: DescribeKeyPairs
+product: ccs
+use: describe-key-pairs
+short: Queries SSH key pair list.
+long: query SSH key pair list.
+examples:
+- cmd: zeno ccs describe-key-pairs
+  desc: Query SSH key pair list without any parameters.
+sdk:
+  service: ccs
+  version: '2025-09-01'
+  action: DescribeKeyPairs
+parameters:
+- name: key-ids
+  type: string-array
+  required: false
+  sdk-field: keyIds
+  description: Key pair ID list.
+- name: key-name
+  type: string
+  required: false
+  sdk-field: keyName
+  description: |-
+    Key pair name.
+    Fuzzy search is supported.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    Number of items in the current page result.
+    Default value: 20;
+    Maximum value: 1000.
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: Number of pages returned.

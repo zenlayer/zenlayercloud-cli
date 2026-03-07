@@ -1,0 +1,27 @@
+name: InquiryPriceModifyCrossRegionBandwidth
+product: zec
+use: inquiry-price-modify-cross-region-bandwidth
+short: 调整内网跨区域带宽询价
+long: 调整内网跨区域带宽询价。
+examples:
+- cmd: zeno zec inquiry-price-modify-cross-region-bandwidth --cross-region-bandwidth-id "<your cross id>" --bandwidth 500
+  desc: 调整计费类型为`ByBandwidth`的内网跨区域带宽询价，带宽调整为500Mbps。
+- cmd: zeno zec inquiry-price-modify-cross-region-bandwidth --cross-region-bandwidth-id "<your cross id>" --bandwidth 500
+  desc: 调整计费类型为`ByInstanceBandwidth95`的内网跨区域带宽询价，保底带宽调整为500Mbps。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: InquiryPriceModifyCrossRegionBandwidth
+parameters:
+- name: cross-region-bandwidth-id
+  type: string
+  required: true
+  sdk-field: crossRegionBandwidthId
+  description: 要修改的内网跨区域带宽ID。
+- name: bandwidth
+  type: integer
+  required: true
+  sdk-field: bandwidth
+  description: |-
+    带宽|保底带宽。
+    单位：Mbps。

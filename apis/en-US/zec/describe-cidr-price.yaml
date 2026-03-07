@@ -1,0 +1,78 @@
+name: DescribeCidrPrice
+product: zec
+use: describe-cidr-price
+short: Queries the price of the CIDR block.
+long: query the price of the CIDR block.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeCidrPrice
+parameters:
+- name: region-id
+  type: string
+  required: true
+  sdk-field: regionId
+  description: Region ID.
+- name: eip-v4-type
+  type: enum
+  required: false
+  sdk-field: eipV4Type
+  description: |-
+    Network types of public IPv4.
+    Deprecated. Please use networkLineType instead.
+  deprecated: true
+  enum-values:
+  - value: BGPLine
+    desc: BGP network type.
+  - value: CN2Line
+    desc: CN2 GIA (CN2 Global Internet Access) network type.
+  - value: LocalLine
+    desc: Local IP network type.
+  - value: ChinaMobile
+    desc: China Mobile network type.
+  - value: ChinaUnicom
+    desc: China Unicom network type.
+  - value: ChinaTelecom
+    desc: China Telecom network type.
+  - value: Cogent
+    desc: Cogent Communications network type.
+  - value: ThreeLine
+    desc: 3-in-1 IP pool network type.
+- name: network-line-type
+  type: enum
+  required: false
+  sdk-field: networkLineType
+  description: Network types of public IPv4.
+  enum-values:
+  - value: PremiumBGP
+    desc: |-
+      Premium BGP network.
+      High-performance network.
+  - value: CN2
+    desc: China Telecom CN2 network.
+  - value: LocalLine
+    desc: Provided by a local ISP.
+  - value: StandardBGP
+    desc: |-
+      Standard BGP network.
+      General-purpose network with cost optimization.
+  - value: CMI
+    desc: 1-Line IP China Mobile.
+  - value: CUG
+    desc: 1-Line IP China Unicom.
+  - value: CTG
+    desc: 1-Line IP China Telecom.
+  - value: ThreeLine
+    desc: 3-in-1 IP Pool.
+- name: netmask
+  type: object
+  required: true
+  sdk-field: netmask
+  description: CIDR block size and quantity.
+  object-schema:
+  - name: netmask
+    type: integer
+    description: CIDR block size.
+  - name: amount
+    type: integer
+    description: CIDR block quantity.

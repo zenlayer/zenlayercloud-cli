@@ -1,0 +1,286 @@
+name: CreateInstances
+product: bmc
+use: create-instances
+short: Creates one or more pay-as-you-go or subscription instances.
+long: create one or more instances with a specified configuration.
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: CreateInstances
+parameters:
+- name: zone-id
+  type: string
+  required: true
+  sdk-field: zoneId
+  description: Zone ID to which the instances belong.
+- name: instance-charge-type
+  type: enum
+  required: true
+  sdk-field: instanceChargeType
+  description: |-
+    Instance pricing model .
+    PREPAID :subscription
+    POSTPAID :pay-as-you-go
+    Only PREPAID is supported currently.If you need POSTPAID ,contact us.
+  enum-values:
+  - value: POSTPAID
+    desc: Pay-as-you-go.
+  - value: PREPAID
+    desc: Subscription.
+- name: instance-charge-prepaid
+  type: object
+  required: false
+  sdk-field: instanceChargePrepaid
+  description: Details of the monthly subscription,including the purchase period,auto-renewal.It is required if the instanceChargeType is PREPAID .
+  object-schema:
+  - name: period
+    type: integer
+    description: |-
+      Period of subscription.
+      Unit: month.
+- name: instance-type-id
+  type: string
+  required: true
+  sdk-field: instanceTypeId
+  description: |-
+    Instance model ID.
+    To view specific values,you can call DescribeInstanceTypes .
+- name: image-id
+  type: string
+  required: false
+  sdk-field: imageId
+  description: |-
+    Valid image ID.
+    To obtain valid image ID,you can call DescribeImages ,pass in instanceTypeId to retrieve the list of images supported by the current model,and then find the imageId in the response.
+    You can also not specify an image and install it later through IPMI.
+    When using iPXE to install OS,pass the value of ipxeUrl ,and leave imageId empty.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: Resource group ID where the instances reside
+- name: instance-name
+  type: string
+  required: false
+  sdk-field: instanceName
+  description: |-
+    Instance name to be displayed.
+    Default value:instance.
+    This parameter can contain up to 64 characters.Only letters,numbers,-and periods(.)are supported.
+    If you purchase multiple instances at the same time,you can specify a pattern string [begin_number,bits] .
+    begin_number :the starting value of an ordered number,value range:[0,99999],default value:0.
+    bits :the number of digits occupied by an ordered value,value range:[1,6],default value:6.
+    For example,if you purchase 1 instance and the instance name body is server_[3,3] ,the instance name will be server003 ;if you purchase 2 instances,the instance names will be server003 , server004 .
+    Note:
+    Spaces are not supported in the pattern string. Multiple pattern strings are supported,such as server_[3,3]_[1,1] .
+- name: hostname
+  type: string
+  required: false
+  sdk-field: hostname
+  description: |-
+    Instance hostname.
+    Default value:hostname.
+    This parameter can contain up to 64 . characters.Only letters,numbers,-and periods(.)are supported.
+    If you purchase multiple instances at the same time,you can specify a pattern string [begin_number,bits] .
+    begin_number :the starting value of an ordered number,value range:[0,99999],default value:0.
+    bits :the number of digits occupied by an ordered value,value range:[1,6],default value:6.
+    For example,if you purchase 1 instance and the instance name body is server_[3,3] ,the instance name will be server003 ;if you purchase 2 instances,the instance names will be server003 , server004 .
+    Note:
+    Spaces are not supported in the pattern string. Multiple pattern strings are supported,such as server_[3,3]_[1,1] .
+- name: amount
+  type: integer
+  required: false
+  sdk-field: amount
+  description: |-
+    The number of instances to be purchased.
+    Value range:[1,100].Default value:1.
+- name: password
+  type: string
+  required: false
+  sdk-field: password
+  description: |-
+    Instance password.
+    The parameter must be 8-16 characters,including uppercase letters,lowercase letters,numbers and special characters like 1~!@$^*-_=+ .This password is also used as the password for IPMI login.Please keep it safe.
+    You must and can only pass the value of either password or keyId .
+- name: key-id
+  type: string
+  required: false
+  sdk-field: keyId
+  description: |-
+    SSH key pair ID.
+    Your SSH key pair contains several public keys that can be placed on your server.You can access your instance with the private key.Call DescribeKeyPairs to obtain key pair information.
+    SSH key pairs and passwords cannot to set at the same time.SSH key pairs are not supported for Windows operating system.
+    For example: key-YWD2QFOl
+    You must and can only pass the value of either password or keyId .
+- name: internet-charge-type
+  type: enum
+  required: true
+  sdk-field: internetChargeType
+  description: Network pricing model.
+  enum-values:
+  - value: ByBandwidth
+    desc: Billed by the flat rate bandwidth.
+  - value: ByTrafficPackage
+    desc: Billed by the traffic package size purchased.
+  - value: ByInstanceBandwidth95
+    desc: Burstable 95th billing.
+  - value: ByClusterBandwidth95
+    desc: Billed by the burstable 95th bandwidth of instances in a city-based bandwidth cluster.
+  - value: ByBandwidthCluster
+    desc: Billed by the burstable 95th bandwidth of all compute resources in a city-based or regional bandwidth cluster with a shared commitment.
+- name: internet-max-bandwidth-out
+  type: integer
+  required: false
+  sdk-field: internetMaxBandwidthOut
+  description: |-
+    Public network bandwidth cap(Mbps).
+    Default value:1 Mbps.
+    The parameter value differs with different instance models.
+- name: traffic-package-size
+  type: float
+  required: false
+  sdk-field: trafficPackageSize
+  description: |-
+    Traffic package size(TB).
+    The parameter is valid only when internetChargeType is ByTrafficPackage .
+    If not passed in,the default value will be the size of the free traffic package.
+- name: subnet-id
+  type: string
+  required: false
+  sdk-field: subnetId
+  description: |-
+    Subnet ID.
+    Call DescribeVpcSubnets to check information on subnets created.
+- name: raid-config
+  type: object
+  required: false
+  sdk-field: raidConfig
+  description: Disk array configuration.
+  object-schema:
+  - name: raidType
+    type: integer
+    description: |-
+      RAID levels for rapid RAID settings.
+      Value possible: 0, 1, 5, 10.
+      Only one of raidType and customRaids can be specified.
+  - name: customRaids
+    type: object-array
+    description: |-
+      RAID levels for custom RAID settings.
+      Only one of raidType and customRaids can be specified.
+- name: partitions
+  type: object-array
+  required: false
+  sdk-field: partitions
+  description: |-
+    Disk partition configuration.
+    If the operating system is not installed,the partition cannot be set.
+  array-style: json
+  item-schema:
+  - name: fsPath
+    type: string
+    description: |-
+      Partition letter.
+      Linux: must start with "/", and the first system partition must be "/".
+      Windows: support C~H, the first system partition must be designated as "C".
+  - name: fsType
+    type: string
+    description: |-
+      File type of partition.
+      Linux: ext2 , ext3 , ext4 , ext type is needed.
+      Windows: NTFS .
+  - name: size
+    type: integer
+    description: |-
+      Partition size.
+      Unit: GiB.
+- name: nic
+  type: object
+  required: false
+  sdk-field: nic
+  description: NIC configuration.
+  object-schema:
+  - name: wanName
+    type: string
+    description: |-
+      Public NIC name.
+      Only numbers, uppercase and lowercase letters are allowed, starting with a letter with a length limit of 4 to 10 characters.
+      For non-high-availability models, the default public NIC name is wan0 . It cannot start with lan .
+      For high-availability models, the default public NIC name is bond0 .
+      Public and private NIC names cannot be the same.
+  - name: lanName
+    type: string
+    description: |-
+      Private NIC name.
+      Only numbers, uppercase and lowercase letters are allowed, starting with a letter with a length limit of 4 to 10 characters.
+      For non-high-availability models, the default private NIC name is lan0 . It cannot start with wan .
+      For high-availability models, the default private NIC name is bond1 .
+      Public and private NIC names cannot be the same.
+- name: ipxe-url
+  type: string
+  required: false
+  sdk-field: ipxeUrl
+  description: |-
+    iPXE URL.
+    Pass in the value and install your OS via IPMI.
+    You can choose to install OS using Netboot.See Deploy a Custom Image Using iPXE for more details.
+- name: user-data
+  type: string
+  required: false
+  sdk-field: userData
+  description: |-
+    User Data.
+    You can specify user data during instance installation. When the instance is launched for the first time, the user data is passed to the server as text and executed. The maximum supported data size is 32 KB.
+- name: enable-primary-i-pv6
+  type: boolean
+  required: false
+  sdk-field: enablePrimaryIPv6
+  description: |-
+    Enable primary IPv6 or not.
+    If the value is false ,the primary IPv6 is not enabled and the elastic IPv6 cannot be configured.
+    The default value is true .
+- name: cluster-id
+  type: string
+  required: false
+  sdk-field: clusterId
+  description: Bandwidth cluster ID.
+- name: marketing-options
+  type: object
+  required: false
+  sdk-field: marketingOptions
+  description: Information on marketing campaigns.
+  object-schema:
+  - name: discountCode
+    type: string
+    description: |-
+      Promo Code.
+      If no Promo Code exists, the final discount will not apply.
+  - name: usePocVoucher
+    type: boolean
+    description: |-
+      Whether to use POC voucher.
+      If no POC voucher exists, the related creation will fail.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    Bound tags when creating resources.
+    Tag keys must be unique.--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 128 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 128 characters.'
+- name: enable-gateway-mode
+  type: boolean
+  required: false
+  sdk-field: enableGatewayMode
+  description: |-
+    Whether to enable Gateway Mode.
+    Enables the host-bound IPs to act as a gateway for downstream traffic. Only elastic IPs are supported. Additional configuration on the host is required; when disabled, standard routing mode applies.
+    Note: Gateway mode is not supported by default. Please contact Console Support if you need to enable this feature.

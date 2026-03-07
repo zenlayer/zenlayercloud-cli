@@ -1,0 +1,65 @@
+name: CreateCommand
+product: zos
+use: create-command
+short: Creates a command.
+long: create a command.
+examples:
+- cmd: zeno zos create-command --name ""Test Command"" --content ""echo 1"" --type SHELL
+  desc: Create a command in `Shell` language.
+sdk:
+  service: zos
+  version: '2025-10-10'
+  action: CreateCommand
+parameters:
+- name: name
+  type: string
+  required: true
+  sdk-field: name
+  description: |-
+    Command name.
+    The length should be no more than 64 characters.
+- name: content
+  type: string
+  required: true
+  sdk-field: content
+  description: |-
+    Script content.
+    The length should be no more than 16K(16384) characters.
+- name: type
+  type: enum
+  required: true
+  sdk-field: type
+  description: Script language type.
+  enum-values:
+  - value: SHELL
+    desc: Shell script running on Linux instances.
+  - value: POWERSHELL
+    desc: PowerShell script running on Windows instances.
+  - value: BAT
+    desc: Bat script running on Windows instances.
+- name: description
+  type: string
+  required: false
+  sdk-field: description
+  description: |-
+    Command note.
+    The length should be no more than 255 characters.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: Resource group ID.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: Bound tags when creating resources.--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'

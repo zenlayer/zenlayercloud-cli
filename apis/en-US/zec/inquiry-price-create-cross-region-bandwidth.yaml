@@ -1,0 +1,56 @@
+name: InquiryPriceCreateCrossRegionBandwidth
+product: zec
+use: inquiry-price-create-cross-region-bandwidth
+short: Queries the price of creating a cross-region bandwidth.
+long: query the price of creating a cross-region bandwidth.
+examples:
+- cmd: zeno zec inquiry-price-create-cross-region-bandwidth --internet-charge-type ByBandwidth --region-a asia-east-1 --region-z asia-north-1 --bandwidth 100
+  desc: Create a private cross-region bandwidth from Shanghai to Beijing, with the network billing model of Flat Rate. The bandwidth cap is 100 Mbps.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: InquiryPriceCreateCrossRegionBandwidth
+parameters:
+- name: internet-charge-type
+  type: enum
+  required: true
+  sdk-field: internetChargeType
+  description: Network billing model.
+  enum-values:
+  - value: ByBandwidth
+    desc: Billed by the flat rate bandwidth.
+  - value: ByTrafficPackage
+    desc: Billed by the traffic package size purchased.
+  - value: BandwidthCluster
+    desc: Billed by the burstable 95th bandwidth of all compute resources in a city-based or regional bandwidth cluster with a shared commitment.
+- name: marketing-info
+  type: object
+  required: false
+  sdk-field: marketingInfo
+  description: Information on marketing campaigns.
+  object-schema:
+  - name: discountCode
+    type: string
+    description: |-
+      Promo Code.
+      If no Promo Code exists, the final discount will not apply.
+  - name: usePocVoucher
+    type: boolean
+    description: |-
+      Whether to use POC voucher.
+      If no POC voucher exists, the related creation will fail.
+- name: region-a
+  type: string
+  required: true
+  sdk-field: regionA
+  description: One end of the cross-region bandwidth.
+- name: region-z
+  type: string
+  required: true
+  sdk-field: regionZ
+  description: The other end of the cross-region bandwidth.
+- name: bandwidth
+  type: integer
+  required: true
+  sdk-field: bandwidth
+  description: Bandwidth cap.

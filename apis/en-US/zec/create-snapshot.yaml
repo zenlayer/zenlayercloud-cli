@@ -1,0 +1,32 @@
+name: CreateSnapshot
+product: zec
+use: create-snapshot
+short: Creates a snapshot of the specified disk.
+long: create a snapshot of the specified disk.
+examples:
+- cmd: zeno zec create-snapshot --disk-id diskId1 --snapshot-name xxx --retention-time 2025-07-16T01:26:39Z
+  desc: Create a snapshot of the disk.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CreateSnapshot
+parameters:
+- name: disk-id
+  type: string
+  required: true
+  sdk-field: diskId
+  description: ID of the disk.
+- name: snapshot-name
+  type: string
+  required: true
+  sdk-field: snapshotName
+  description: Snapshot name.
+- name: retention-time
+  type: string
+  required: false
+  sdk-field: retentionTime
+  description: |-
+    Retention expiration time.
+    Format: YYYY-MM-ddTHH:mm:ssZ.
+    If not transmitted, it means that it is retained indefinitely.
+    The specified time must be 24 hours after the current time.

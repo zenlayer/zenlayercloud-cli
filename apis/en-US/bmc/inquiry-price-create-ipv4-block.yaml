@@ -1,0 +1,65 @@
+name: InquiryPriceCreateIpv4Block
+product: bmc
+use: inquiry-price-create-ipv4-block
+short: Queries the price of creating IPv4 CIDR blocks.
+long: query the price of creating IPv4 CIDR blocks.
+examples:
+- cmd: zeno bmc inquiry-price-create-ipv4-block --zone-id CHI-A --charge-type POSTPAID --netmask 28
+  desc: ''
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: InquiryPriceCreateIpv4Block
+parameters:
+- name: zone-id
+  type: string
+  required: true
+  sdk-field: zoneId
+  description: Zone ID to which the CIDR blocks belong.
+- name: charge-type
+  type: enum
+  required: true
+  sdk-field: chargeType
+  description: |-
+    CIDR block pricing model .
+    PREPAID: subscription POSTPAID: pay-as-you-go
+  enum-values:
+  - value: POSTPAID
+    desc: Pay-as-you-go.
+  - value: PREPAID
+    desc: Subscription.
+- name: cidr-type
+  type: enum
+  required: false
+  sdk-field: cidrType
+  description: CIDR block type.
+  enum-values:
+  - value: BGP
+    desc: BGP IP.
+  - value: Local
+    desc: Local IP.
+- name: charge-prepaid
+  type: object
+  required: false
+  sdk-field: chargePrepaid
+  description: Details of the monthly subscription, including the purchase period, auto-renewal. It is required if the chargeType is PREPAID.
+  object-schema:
+  - name: period
+    type: integer
+    description: |-
+      Period of subscription.
+      Unit: month.
+- name: netmask
+  type: integer
+  required: true
+  sdk-field: netmask
+  description: |-
+    Netmasks you want to purchase.
+    You can find the available netmasks in the response by calling DescribeAvailableIpv4Resource .
+- name: amount
+  type: integer
+  required: false
+  sdk-field: amount
+  description: |-
+    Quantity of IPv4 CIDR blocks you want to purchase.
+    Default value: 1.

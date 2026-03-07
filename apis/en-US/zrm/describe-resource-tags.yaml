@@ -1,0 +1,18 @@
+name: DescribeResourceTags
+product: zrm
+use: describe-resource-tags
+short: Retrieves all tags bound to a specific resource.
+long: retrieve all tags bound to a specific resource.
+examples:
+- cmd: zeno zrm describe-resource-tags --resource-uuid resourceUuid_5250a2c5dc3d
+  desc: Retrieve all tags bound to an instance.
+sdk:
+  service: zrm
+  version: '2025-10-14'
+  action: DescribeResourceTags
+parameters:
+- name: resource-uuid
+  type: string
+  required: true
+  sdk-field: resourceUuid
+  description: The unique ID of the resource.

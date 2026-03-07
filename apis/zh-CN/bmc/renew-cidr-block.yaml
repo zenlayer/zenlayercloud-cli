@@ -1,0 +1,20 @@
+name: RenewCidrBlock
+product: bmc
+use: renew-cidr-block
+short: 续费Cidr Block
+long: 本接口用于续费一个Cidr Block。
+examples:
+- cmd: zeno bmc renew-cidr-block --cidr-block-id cidrBlockId
+  desc: 续费一个Ipv4的Cidr Block
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: RenewCidrBlock
+parameters:
+- name: cidr-block-id
+  type: string
+  required: true
+  sdk-field: cidrBlockId
+  description: |-
+    待操作的Cidr Block ID。
+    可通过DescribeCidrBlocks接口返回值中的cidrBlockId获取。

@@ -1,0 +1,58 @@
+name: DescribeDiskMonitorData
+product: zec
+use: describe-disk-monitor-data
+short: Queries the disk performance metric data.
+long: query disk performance metrics over a specified period.
+examples:
+- cmd: zeno zec describe-disk-monitor-data --disk-id "< diskId >" --metric-type DISK_UTIL --start-time 2025-06-25T01:55:00Z --end-time 2025-06-25T07:55:00Z
+  desc: Query disk performance metric of `DISK_UTIL` over a specified period.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeDiskMonitorData
+parameters:
+- name: disk-id
+  type: string
+  required: true
+  sdk-field: diskId
+  description: Disk ID.
+- name: metric-type
+  type: enum
+  required: true
+  sdk-field: metricType
+  description: Disk performance metric types.
+  enum-values:
+  - value: DISK_WRITE_BYTES
+    desc: |-
+      Disk write throughput.
+      Unit: KiB/s .
+  - value: DISK_READ_BYTES
+    desc: |-
+      Disk read throughput.
+      Unit: KiB/s .
+  - value: DISK_READ_OPS
+    desc: |-
+      Disk read operations.
+      Unit: IOPS .
+  - value: DISK_WRITE_OPS
+    desc: |-
+      Disk write operations.
+      Unit: IOPS .
+  - value: DISK_UTIL
+    desc: |-
+      Disk utilization.
+      Unit: % .
+- name: start-time
+  type: string
+  required: true
+  sdk-field: startTime
+  description: |-
+    Start time.
+    Format: YYYY-MM-ddTHH:mm:ssZ .
+- name: end-time
+  type: string
+  required: true
+  sdk-field: endTime
+  description: |-
+    End time.
+    Format: YYYY-MM-ddTHH:mm:ssZ .

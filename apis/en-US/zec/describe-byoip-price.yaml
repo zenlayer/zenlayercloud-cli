@@ -1,0 +1,29 @@
+name: DescribeByoipPrice
+product: zec
+use: describe-byoip-price
+short: Query the price of a BYOIP CIDR block.
+long: query the price of a BYOIP CIDR block based on parameters such as the advertised IP range, region, and network type.
+examples:
+- cmd: zeno zec describe-byoip-price --byoip-list "{cidrBlock=192.0.2.0/24, networkType=PremiumBGP, regionId=asia-east-1}"
+  desc: Query the price of a BYOIP CIDR block.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeByoipPrice
+parameters:
+- name: byoip-list
+  type: object-array
+  required: true
+  sdk-field: byoipList
+  description: List of BYOIPs to be queried.
+  array-style: json
+  item-schema:
+  - name: cidrBlock
+    type: string
+    description: Advertised IP range.
+  - name: networkType
+    type: enum
+    description: Network type.
+  - name: regionId
+    type: string
+    description: Region ID.

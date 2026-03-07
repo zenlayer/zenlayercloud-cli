@@ -1,0 +1,12 @@
+name: DescribeNatGatewayRegions
+product: zec
+use: describe-nat-gateway-regions
+short: 支持售卖NAT网关的区域信息
+long: 支持售卖NAT网关的区域信息。
+examples:
+- cmd: zeno zec describe-nat-gateway-regions
+  desc: 获取支持售卖NAT网关的区域信息
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeNatGatewayRegions

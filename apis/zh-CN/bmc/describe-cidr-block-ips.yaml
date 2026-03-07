@@ -1,0 +1,32 @@
+name: DescribeCidrBlockIps
+product: bmc
+use: describe-cidr-block-ips
+short: 查看Cidr Block IP列表
+long: 查询一个Cidr Block的IP列表。
+examples:
+- cmd: zeno bmc describe-cidr-block-ips --cidr-block-id aCidrBlockId
+  desc: 查询指定Cidr Block包含的IP
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DescribeCidrBlockIps
+parameters:
+- name: instance-id
+  type: string
+  required: false
+  sdk-field: instanceId
+  description: |-
+    实例ID。
+    可通过DescribeInstances接口返回值中的instanceId获取。
+- name: ip
+  type: string
+  required: false
+  sdk-field: ip
+  description: IP。
+- name: cidr-block-id
+  type: string
+  required: true
+  sdk-field: cidrBlockId
+  description: |-
+    Cidr Block ID。
+    可通过DescribeCidrBlocks接口返回值中的cidrBlockId获取。

@@ -1,0 +1,18 @@
+name: InquiryPriceCreateNatGateway
+product: zec
+use: inquiry-price-create-nat-gateway
+short: 创建NAT网关询价
+long: 查询创建NAT网关的价格。
+examples:
+- cmd: zeno zec inquiry-price-create-nat-gateway --region-id asia-east-1
+  desc: 查询创建一个NAT网关价格。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: InquiryPriceCreateNatGateway
+parameters:
+- name: region-id
+  type: string
+  required: true
+  sdk-field: regionId
+  description: 区域节点ID。

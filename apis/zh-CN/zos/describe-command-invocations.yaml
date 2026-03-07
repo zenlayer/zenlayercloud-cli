@@ -1,0 +1,43 @@
+name: DescribeCommandInvocations
+product: zos
+use: describe-command-invocations
+short: 查询执行记录列表
+long: 查询执行记录列表。
+examples:
+- cmd: zeno zos describe-command-invocations --invocation-ids <invocationId>
+  desc: 根据执行记录ID查询执行记录。
+sdk:
+  service: zos
+  version: '2025-10-10'
+  action: DescribeCommandInvocations
+parameters:
+- name: command-ids
+  type: string-array
+  required: false
+  sdk-field: commandIds
+  description: 根据命令ID进行筛选。
+- name: invocation-ids
+  type: string-array
+  required: false
+  sdk-field: invocationIds
+  description: 根据执行记录ID筛选。
+- name: instance-ids
+  type: string-array
+  required: false
+  sdk-field: instanceIds
+  description: 根据执行的实例ID筛选。
+- name: invocation-statuses
+  type: string-array
+  required: false
+  sdk-field: invocationStatuses
+  description: 根据执行的总状态筛选。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: 返回的分页大小，默认为20，最大为10000。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: 返回的分页数。

@@ -1,0 +1,25 @@
+name: SetSecurityGroupForLoadBalancers
+product: zlb
+use: set-security-group-for-load-balancers
+short: Batch changes the security group of load balancers.
+long: batch change the security group of load balancers.
+examples:
+- cmd: zeno zlb set-security-group-for-load-balancers --security-group-id "<your sg id>" --load-balancer-ids "<your lb id1>" --load-balancer-ids "<your lb id2>"
+  desc: Batch change the security group of load balancers.
+sdk:
+  service: zlb
+  version: '2025-04-01'
+  action: SetSecurityGroupForLoadBalancers
+parameters:
+- name: security-group-id
+  type: string
+  required: true
+  sdk-field: securityGroupId
+  description: |-
+    New security group ID to change to.
+    You can call DescribeSecurityGroups to obtain details.
+- name: load-balancer-ids
+  type: string-array
+  required: true
+  sdk-field: loadBalancerIds
+  description: ID list of load balancers.

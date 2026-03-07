@@ -1,0 +1,25 @@
+name: MigrateBandwidthClusterResources
+product: traffic
+use: migrate-bandwidth-cluster-resources
+short: 共享带宽包资源迁移
+long: 共享带宽包之间的资源迁移。
+examples:
+- cmd: zeno traffic migrate-bandwidth-cluster-resources --resource-id-list <id1> --resource-id-list <id2> --target-bandwidth-cluster-id <targetBandwidthClusterId>
+  desc: 将多个资源前一到同指定带宽包。
+sdk:
+  service: traffic
+  version: '2024-03-26'
+  action: MigrateBandwidthClusterResources
+parameters:
+- name: target-bandwidth-cluster-id
+  type: string
+  required: true
+  sdk-field: targetBandwidthClusterId
+  description: 要迁移的目标共享带宽包的ID。
+- name: resource-id-list
+  type: string-array
+  required: true
+  sdk-field: resourceIdList
+  description: |-
+    要迁移的资源的ID列表。
+    该资源必须属于其他共享带宽包且资源所处的原共享带宽包的IP网络类型以及区域需要和目标带宽包一致。

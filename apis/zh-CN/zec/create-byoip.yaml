@@ -1,0 +1,85 @@
+name: CreateByoip
+product: zec
+use: create-byoip
+short: 创建 BYOIP。
+long: 提交自带 IP 段（BYOIP）创建 CIDR。返回 RPKI/IRR 校验失败列表。
+examples:
+- cmd: zeno zec create-byoip --byoip-list "{cidrBlock=88.0.2.0/24, networkType=PremiumBGP, regionId=asia-east-1, asn=62610}"
+  desc: 创建 BYOIP。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CreateByoip
+parameters:
+- name: byoip-list
+  type: object-array
+  required: true
+  sdk-field: byoipList
+  description: 待创建的 BYOIP 列表。
+  array-style: json
+  item-schema:
+  - name: cidrBlock
+    type: string
+    description: 宣告IPv4或IPv6地址段。
+  - name: networkType
+    type: enum
+    description: |-
+      线路类型。
+      IPv6仅支持PremiumBGP。
+  - name: regionId
+    type: string
+    description: 区域id。
+  - name: asn
+    type: integer
+    description: ASN号。
+  - name: subnetMaskLength
+    type: integer
+    description: |-
+      该参数仅在`cidrBlock`字段为IPv6地址段时生效。
+      分配给子网的掩码长度。
+      必须大于或等于CIDR的掩码长度。
+      与CIDR的掩码长度范围差值小于等于4, 最大值为64。
+      默认为CIDR的掩码长度。
+- name: marketing-info
+  type: object
+  required: false
+  sdk-field: marketingInfo
+  description: 市场营销相关选项。
+  object-schema:
+  - name: discountCode
+    type: string
+    description: |-
+      使用市场发放的折扣码。
+      如果折扣码不存在，最终折扣将不会生效。
+  - name: usePocVoucher
+    type: boolean
+    description: |-
+      是否使用POC代金券。
+      如果系统不存在POC代金券，相关创建流程会失败。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    创建后 BYOIP 所在的资源组ID。
+    如不指定则放入默认资源组。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    创建 BYOIP 时关联的标签。
+    注意：关联「标签键」不能重复。--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。

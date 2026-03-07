@@ -1,0 +1,69 @@
+name: CreateBorderGateway
+product: zec
+use: create-border-gateway
+short: 创建边界网关。
+long: 在某节点为VPC创建一个边界网关。
+examples:
+- cmd: zeno zec create-border-gateway --region-id asia-east-1 --vpc-id <vpcId> --label xxx --asn 65000 --advertised-subnet ALL
+  desc: 创建边界网关，路由级别为节点级别。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CreateBorderGateway
+parameters:
+- name: region-id
+  type: string
+  required: true
+  sdk-field: regionId
+  description: 节点ID。
+- name: vpc-id
+  type: string
+  required: true
+  sdk-field: vpcId
+  description: VPC ID。
+- name: label
+  type: string
+  required: true
+  sdk-field: label
+  description: |-
+    名称。
+    范围2到63个字符。
+    仅支持输入字母、数字、-/_和英文句点(.)。
+    且必须以数字或字母开头和结尾。
+- name: asn
+  type: integer
+  required: true
+  sdk-field: asn
+  description: ASN号。
+- name: routing-mode
+  type: enum
+  required: false
+  sdk-field: routingMode
+  description: 路由级别。
+  enum-values:
+  - value: Regional
+    desc: 节点级别路由。
+  - value: Global
+    desc: 全节点级别路由。
+- name: advertised-subnet
+  type: enum
+  required: false
+  sdk-field: advertisedSubnet
+  description: 子网宣告控制。
+  enum-values:
+  - value: ALL
+    desc: 全部宣告。
+  - value: NONE
+    desc: 不宣告。
+  - value: PART
+    desc: 部分宣告。
+- name: advertised-cidrs
+  type: string-array
+  required: false
+  sdk-field: advertisedCidrs
+  description: IPv4 Cidr集合。
+- name: advertised-route-ids
+  type: string-array
+  required: false
+  sdk-field: advertisedRouteIds
+  description: 自定义路由ID集合。

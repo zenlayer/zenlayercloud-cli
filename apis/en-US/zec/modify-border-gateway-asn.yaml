@@ -1,0 +1,25 @@
+name: ModifyBorderGatewayAsn
+product: zec
+use: modify-border-gateway-asn
+short: Modifies the ASN of a border gateway.
+long: The API is used to modify the ASN of a border gateway.
+examples:
+- cmd: zeno zec modify-border-gateway-asn --zbg-id xxx --asn 65000
+  desc: Modify border gateway ASN.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyBorderGatewayAsn
+parameters:
+- name: zbg-id
+  type: string
+  required: true
+  sdk-field: zbgId
+  description: The ID of the border gateway to be modified.
+- name: asn
+  type: integer
+  required: true
+  sdk-field: asn
+  description: |-
+    Autonomous System Number.
+    The range is from 65000 to 65534 .

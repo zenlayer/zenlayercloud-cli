@@ -1,0 +1,49 @@
+name: DescribeAvailableResources
+product: bmc
+use: describe-available-resources
+short: 查询售卖实例和带宽的可用资源
+long: 查询售卖实例和带宽的可用资源。
+examples:
+- cmd: zeno bmc describe-available-resources --instance-type-id MDE --instance-charge-type PREPAID --zone-id MOW-B
+  desc: 获取所有的可用资源。
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DescribeAvailableResources
+parameters:
+- name: instance-charge-type
+  type: enum
+  required: true
+  sdk-field: instanceChargeType
+  description: |-
+    实例计费类型。
+    PREPAID：预付费，即包年包月。 POSTPAID：后付费。
+  enum-values:
+  - value: POSTPAID
+    desc: 后付费。即按量付费。
+  - value: PREPAID
+    desc: 预付费。
+- name: instance-type-id
+  type: string
+  required: false
+  sdk-field: instanceTypeId
+  description: 实例机型ID。
+- name: zone-id
+  type: string
+  required: false
+  sdk-field: zoneId
+  description: 可用区ID。
+- name: sell-status
+  type: enum
+  required: false
+  sdk-field: sellStatus
+  description: |-
+    售卖的状态。
+    <ul><li>SELL：表示实例可购买，且库存>10。</li><li>SELL_SHORTAGE: 表示可购买，但是库存<10台。</li><li>SOLD_OUT：表示实例已售罄。</li></ul>
+  enum-values:
+  - value: SOLD_OUT
+    desc: 已售罄。
+  - value: SELL_SHORTAGE
+    desc: 可购买，但是库存小于等于10台。
+  - value: SELL
+    desc: 实例可购买，且库存大于10。

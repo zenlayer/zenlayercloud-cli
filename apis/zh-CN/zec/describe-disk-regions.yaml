@@ -1,0 +1,12 @@
+name: DescribeDiskRegions
+product: zec
+use: describe-disk-regions
+short: 支持售卖云硬盘的节点。
+long: 支持售卖云硬盘的节点。
+examples:
+- cmd: zeno zec describe-disk-regions
+  desc: 查询支持售卖云盘的节点。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeDiskRegions

@@ -1,0 +1,44 @@
+name: DescribeBandwidthClusters
+product: traffic
+use: describe-bandwidth-clusters
+short: 查询共享带宽包列表
+long: 查询一个或多个共享带宽包的信息。用户可以根据共享带宽包ID、名称或者城市名称等条件来查询共享带宽包的详细信息。
+examples:
+- cmd: zeno traffic describe-bandwidth-clusters --page-num 1 --page-size 1
+  desc: 分页查询共享带宽包列表
+sdk:
+  service: traffic
+  version: '2024-03-26'
+  action: DescribeBandwidthClusters
+parameters:
+- name: bandwidth-cluster-ids
+  type: string-array
+  required: false
+  sdk-field: bandwidthClusterIds
+  description: |-
+    共享带宽包ID。
+    最多支持100个ID查询。
+- name: bandwidth-cluster-name
+  type: string
+  required: false
+  sdk-field: bandwidthClusterName
+  description: |-
+    共享带宽包显示名称。
+    支持模糊匹配。
+- name: city-name
+  type: string
+  required: false
+  sdk-field: cityName
+  description: 共享带宽包所包含的城市名称。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    返回的分页大小。
+    默认为20，最大为1000。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: 返回的分页数。

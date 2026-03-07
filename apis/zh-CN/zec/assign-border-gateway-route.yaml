@@ -1,0 +1,23 @@
+name: AssignBorderGatewayRoute
+product: zec
+use: assign-border-gateway-route
+short: 边界网关绑定自定义路由。
+long: 边界网关绑定自定义路由。即自定义路由发布到zbg网关。
+examples:
+- cmd: zeno zec assign-border-gateway-route --zbg-id xxx --advertised-route-ids routeId1 --advertised-route-ids routeId2
+  desc: 边界网关添加自定义路由宣告。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: AssignBorderGatewayRoute
+parameters:
+- name: zbg-id
+  type: string
+  required: true
+  sdk-field: zbgId
+  description: 边界网关ID。
+- name: advertised-route-ids
+  type: string-array
+  required: true
+  sdk-field: advertisedRouteIds
+  description: 自定义路由ID集合。

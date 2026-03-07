@@ -1,0 +1,26 @@
+name: ModifyInstancesAttribute
+product: zec
+use: modify-instances-attribute
+short: 修改实例属性（名称）
+long: 修改实例属性（名称）。
+examples:
+- cmd: zeno zec modify-instances-attribute --instance-ids instanceId1 --instance-ids instanceId2 --instance-name Test-Instance
+  desc: 批量修改实例的名称。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyInstancesAttribute
+parameters:
+- name: instance-ids
+  type: string-array
+  required: true
+  sdk-field: instanceIds
+  description: 待修改属性的实例ID列表。
+- name: instance-name
+  type: string
+  required: true
+  sdk-field: instanceName
+  description: |-
+    实例名称。
+    2～63个字符。
+    仅支持输入字母、数字、-和英文句点(.)。

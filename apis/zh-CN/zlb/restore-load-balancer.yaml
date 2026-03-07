@@ -1,0 +1,18 @@
+name: RestoreLoadBalancer
+product: zlb
+use: restore-load-balancer
+short: 恢复负载均衡实例
+long: 将在回收站的负载均衡实例进行恢复。
+examples:
+- cmd: zeno zlb restore-load-balancer --load-balancer-id <loadBalancerId>
+  desc: 恢复一个负载均衡实例。
+sdk:
+  service: zlb
+  version: '2025-04-01'
+  action: RestoreLoadBalancer
+parameters:
+- name: load-balancer-id
+  type: string
+  required: true
+  sdk-field: loadBalancerId
+  description: 负载均衡实例 ID。

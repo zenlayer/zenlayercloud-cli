@@ -1,0 +1,17 @@
+name: RenewEipAddress
+product: bmc
+use: renew-eip-address
+short: Renews an elastic IP.
+long: renew an elastic IP.
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: RenewEipAddress
+parameters:
+- name: eip-id
+  type: string
+  required: true
+  sdk-field: eipId
+  description: |-
+    ID of an elastic IP.
+    To obtain the elastic IP ID, you can call DescribeEipAddresses and look for eipId in the response.

@@ -1,0 +1,35 @@
+name: ModifyNetworkInterfaceAttribute
+product: zec
+use: modify-network-interface-attribute
+short: 修改一张网卡属性
+long: 修改一张网卡的属性。
+examples:
+- cmd: zeno zec modify-network-interface-attribute --nic-id <nicId> --name Test-vNIC --security-group-id <securityGroupId>
+  desc: 修改网卡的名称和安全组。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyNetworkInterfaceAttribute
+parameters:
+- name: nic-id
+  type: string
+  required: true
+  sdk-field: nicId
+  description: 需要修改的网卡ID。
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: |-
+    名称。
+    范围2到63个字符。
+    仅支持输入字母、数字、-/_和英文句点(.)。
+    且必须以数字或字母开头和结尾。
+- name: security-group-id
+  type: string
+  required: false
+  sdk-field: securityGroupId
+  description: |-
+    修改网卡绑定的目标安全组ID。
+    目前一张网卡只能关联一个安全组。
+    指定该字段会解绑网卡原来的安全组。

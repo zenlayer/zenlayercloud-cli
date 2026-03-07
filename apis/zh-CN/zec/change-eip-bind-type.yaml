@@ -1,0 +1,31 @@
+name: ChangeEipBindType
+product: zec
+use: change-eip-bind-type
+short: 更换弹性公网IP绑定模式。
+long: 弹性公网IP（EIP）更换绑定模式。
+examples:
+- cmd: zeno zec change-eip-bind-type --eip-id <eipId1> --bind-type FullNat
+  desc: 更换弹性公网IP绑定模式
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ChangeEipBindType
+parameters:
+- name: eip-id
+  type: string
+  required: true
+  sdk-field: eipId
+  description: 要更换绑定模式的EIP ID。
+- name: bind-type
+  type: enum
+  required: true
+  sdk-field: bindType
+  description: |-
+    绑定类型。
+    当绑定的是网卡时生效。
+    默认为普通NAT模式。
+  enum-values:
+  - value: FullNat
+    desc: 普通NAT模式。
+  - value: Passthrough
+    desc: 高速模式。

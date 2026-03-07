@@ -1,0 +1,20 @@
+name: DescribeInstancesMonitorHealth
+product: bmc
+use: describe-instances-monitor-health
+short: 查询实例硬件状态信息
+long: 查询实例的硬件状态信息。
+examples:
+- cmd: zeno bmc describe-instances-monitor-health --instance-ids instanceId1 --instance-ids instanceId2
+  desc: 查询实例的硬件状态信息。
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DescribeInstancesMonitorHealth
+parameters:
+- name: instance-ids
+  type: string-array
+  required: true
+  sdk-field: instanceIds
+  description: |-
+    一个或多个待操作的实例ID。
+    可通过DescribeInstances接口返回值中的instanceId获取。每次请求批量实例的上限为10。

@@ -1,0 +1,31 @@
+name: UnassignNetworkInterfaceIpv4
+product: zec
+use: unassign-network-interface-ipv4
+short: Unassigns the private IPv4 from the vNIC.
+long: unassign the private IPv4 from the vNIC.
+examples:
+- cmd: zeno zec unassign-network-interface-ipv4 --nic-id <nicId> --ip-addresses 10.0.0.2
+  desc: Unassign the private IPv4 from the vNIC.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: UnassignNetworkInterfaceIpv4
+parameters:
+- name: nic-id
+  type: string
+  required: true
+  sdk-field: nicId
+  description: ID of the vNIC.
+- name: ip-address
+  type: string
+  required: false
+  sdk-field: ipAddress
+  description: |-
+    The IPv4 address to unassign.
+    This field is deprecated; use ipAddresses instead. If both are specified, ipAddresses takes precedence.
+  deprecated: true
+- name: ip-addresses
+  type: string-array
+  required: false
+  sdk-field: ipAddresses
+  description: Private IPv4 to unassign.

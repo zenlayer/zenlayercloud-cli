@@ -1,0 +1,182 @@
+name: CreatePolicy
+product: zec
+use: create-policy
+short: 创建防护策略
+long: 创建防护策略
+examples:
+- cmd: zeno zec create-policy --policy-name policyName --black-ip-list 10.0.0.1 --black-ip-list 10.0.0.2 --white-ip-list 10.0.0.1 --white-ip-list 10.0.0.2 --ip-black-timeout 100 --ports "{protocol=TCP, srcPortStart=1, srcPortEnd=100, dstPortStart=1, dstPortEnd=100, action=Accept}"
+  desc: 创建防护策略
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CreatePolicy
+parameters:
+- name: policy-name
+  type: string
+  required: true
+  sdk-field: policyName
+  description: |-
+    防护策略的名称。
+    范围2到63个字符。
+    仅支持输入字母、数字、-和英文句点(.)。
+    且必须以数字或字母开头和结尾。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: 创建后防护策略所在的资源组ID，如不指定则放入默认资源组。
+- name: black-ip-list
+  type: string-array
+  required: false
+  sdk-field: blackIpList
+  description: 黑名单列表。
+- name: white-ip-list
+  type: string-array
+  required: false
+  sdk-field: whiteIpList
+  description: 白名单列表。
+- name: ip-black-timeout
+  type: integer
+  required: false
+  sdk-field: ipBlackTimeout
+  description: 黑名单超时时间, 单位:分钟。
+- name: ports
+  type: object-array
+  required: false
+  sdk-field: ports
+  description: 端口封禁, 支持TCP和UDP。
+  array-style: json
+  item-schema:
+  - name: protocol
+    type: enum
+    description: |-
+      协议类型。
+      只支持 `UDP` / `TCP` 两种协议。
+  - name: srcPortStart
+    type: integer
+    description: 源端口范围的起始值。
+  - name: srcPortEnd
+    type: integer
+    description: 源端口范围的结束值。
+  - name: dstPortStart
+    type: integer
+    description: 目的端口范围的起始值。
+  - name: dstPortEnd
+    type: integer
+    description: 目的端口范围的结束值。
+  - name: action
+    type: enum
+    description: 匹配后的动作。
+- name: block-protocol
+  type: string-array
+  required: false
+  sdk-field: blockProtocol
+  description: |-
+    开启的封禁协议。
+    不能同时开启UDP和TCP。
+- name: block-regions
+  type: string-array
+  required: false
+  sdk-field: blockRegions
+  description: 封禁的区域。
+- name: finger
+  type: object-array
+  required: false
+  sdk-field: finger
+  description: 指纹过滤相关配置。
+  array-style: json
+  item-schema:
+  - name: protocol
+    type: enum
+    description: 设置指纹的协议。
+  - name: srcPortStart
+    type: integer
+    description: 指纹源端口的范围起始值。
+  - name: srcPortEnd
+    type: integer
+    description: 指纹源端口的范围结束值。
+  - name: dstPortStart
+    type: integer
+    description: 指纹目的端口的范围起始值。
+  - name: dstPortEnd
+    type: integer
+    description: 指纹目的端口的范围结束值。
+  - name: minPktLength
+    type: integer
+    description: 需要过滤出的最小包长。
+  - name: maxPktLength
+    type: integer
+    description: 需要过滤出的最大包长。
+  - name: offset
+    type: integer
+    description: |-
+      报文载荷特征的偏移量。
+      TCP/UDP payload 的偏移 [0-1500]。
+  - name: matchBytes
+    type: string
+    description: |-
+      检测载荷。
+      不含0x 的16进制 小写 补足2位。
+  - name: action
+    type: enum
+    description: 设置指纹匹配后的动作。
+- name: reflect-udp-port
+  type: object-array
+  required: false
+  sdk-field: reflectUdpPort
+  description: 反射攻击防护过滤的端口列表。
+  array-style: json
+  item-schema:
+  - name: port
+    type: integer
+    description: 反射攻击防护过滤的端口。
+- name: traffic-control
+  type: object
+  required: false
+  sdk-field: trafficControl
+  description: 源限速配置。
+  object-schema:
+  - name: bpsEnabled
+    type: boolean
+    description: 是否开启 bps 限速。
+  - name: bps
+    type: integer
+    description: bps 限速值。
+  - name: ppsEnabled
+    type: boolean
+    description: 是否开启 pps 限速。
+  - name: pps
+    type: integer
+    description: pps 限速值。
+  - name: synBPSEnabled
+    type: boolean
+    description: 是否开启 sync bps 限速。
+  - name: synBPS
+    type: integer
+    description: syn bps 限速值。
+  - name: synPPSEnabled
+    type: boolean
+    description: 是否开启 sync pps 限速。
+  - name: synPPS
+    type: integer
+    description: syn pps 限速值。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    创建DDoS时关联的标签。
+    注意：·关联标签键不能重复。--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。

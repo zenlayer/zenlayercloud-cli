@@ -1,0 +1,134 @@
+name: DescribeDisks
+product: zec
+use: describe-disks
+short: Queries the details of disks.
+long: query the details of disks.
+examples:
+- cmd: zeno zec describe-disks --disk-status IN_USE --disk-size 20 --zone-id asia-east-1a
+  desc: Query the details of disks.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeDisks
+parameters:
+- name: disk-ids
+  type: string-array
+  required: false
+  sdk-field: diskIds
+  description: ID list of disks.
+- name: disk-name
+  type: string
+  required: false
+  sdk-field: diskName
+  description: Disk name.
+- name: disk-status
+  type: enum
+  required: false
+  sdk-field: diskStatus
+  description: Disk status.
+  enum-values:
+  - value: CREATING
+    desc: Disk is in creation.
+  - value: IN_USE
+    desc: Disk is active.
+  - value: AVAILABLE
+    desc: Disk is inactive.
+  - value: CHANGING
+    desc: Disk size is changing.
+  - value: ATTACHING
+    desc: Disk is attaching to an instance.
+  - value: DETACHING
+    desc: Disk is detaching from an instance.
+  - value: DELETING
+    desc: Disk is in deletion.
+  - value: RECYCLED
+    desc: Disk is recycled.
+  - value: RECYCLING
+    desc: Disk is being recycled.
+  - value: FAILED
+    desc: Creating a disk failed.
+  - value: SNAPSHOT_CREATING
+    desc: Snapshot is in creation.
+  - value: ROLLING_BACK
+    desc: Reverting to snapshot.
+- name: disk-type
+  type: enum
+  required: false
+  sdk-field: diskType
+  description: |-
+    Storage type.
+    System : the Boot Disk. Data : the Disk.
+  enum-values:
+  - value: SYSTEM
+    desc: Boot disk.
+  - value: DATA
+    desc: Disk.
+- name: disk-category
+  type: string
+  required: false
+  sdk-field: diskCategory
+  description: |-
+    Disk type.
+    Basic NVMe SSD: the Basic NVMe SSD. Standard NVMe SSD: the Standard NVMe SSD.
+    Default value: Standard NVMe SSD.
+    Call DescribeDiskCategory to obtain disk type.
+- name: instance-id
+  type: string
+  required: false
+  sdk-field: instanceId
+  description: Instance ID.
+- name: zone-id
+  type: string
+  required: false
+  sdk-field: zoneId
+  description: Availability zone ID.
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: Number of pages returned.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    Number of items in the current page result.
+    Default value: 20;
+    Maximum value: 1000.
+- name: region-id
+  type: string
+  required: false
+  sdk-field: regionId
+  description: Availability zone ID to which the disk belong.
+- name: snapshot-ability
+  type: boolean
+  required: false
+  sdk-field: snapshotAbility
+  description: Available for snapshot creation or not.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: Resource Group ID.
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    Query using tag keys.
+    A maximum of 20 tag keys can be used.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    Query using tags.
+    A maximum of 20 tags can be used.
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'

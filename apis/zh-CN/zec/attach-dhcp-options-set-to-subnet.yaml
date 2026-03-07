@@ -1,0 +1,23 @@
+name: AttachDhcpOptionsSetToSubnet
+product: zec
+use: attach-dhcp-options-set-to-subnet
+short: 将DHCP选项集关联到Subnet
+long: 将DHCP选项集关联到Subnet。
+examples:
+- cmd: zeno zec attach-dhcp-options-set-to-subnet --dhcp-options-set-id dhcpOptionsSetId1 --subnet-ids subnetId1 --subnet-ids subnetId2
+  desc: 将DHCP选项集关联到Subnet
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: AttachDhcpOptionsSetToSubnet
+parameters:
+- name: dhcp-options-set-id
+  type: string
+  required: true
+  sdk-field: dhcpOptionsSetId
+  description: DHCP 选项集ID。
+- name: subnet-ids
+  type: string-array
+  required: true
+  sdk-field: subnetIds
+  description: 要与 DHCP 选项集关联的 Subnet 的 ID集合。

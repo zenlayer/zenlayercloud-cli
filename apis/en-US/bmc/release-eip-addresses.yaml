@@ -1,0 +1,20 @@
+name: ReleaseEipAddresses
+product: bmc
+use: release-eip-addresses
+short: Releases elastic IPs.
+long: release one or multiple elastic IPs.
+examples:
+- cmd: zeno bmc release-eip-addresses --eip-ids eipId1 --eip-ids eipId2
+  desc: Release two elastic IPs
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: ReleaseEipAddresses
+parameters:
+- name: eip-ids
+  type: string-array
+  required: true
+  sdk-field: eipIds
+  description: |-
+    IDs of elastic IPs.
+    To obtain IDs of the elastic IPs, you can call DescribeEipAddresses and look for eipId in the response.

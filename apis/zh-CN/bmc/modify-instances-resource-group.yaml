@@ -1,0 +1,25 @@
+name: ModifyInstancesResourceGroup
+product: bmc
+use: modify-instances-resource-group
+short: 修改实例所属的资源组
+long: 修改实例所属的资源组。
+examples:
+- cmd: zeno bmc modify-instances-resource-group --instance-ids instanceId1 --instance-ids instanceId2 --resource-group-id resourceGroup1
+  desc: 将实例移动到指定资源组。
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: ModifyInstancesResourceGroup
+parameters:
+- name: instance-ids
+  type: string-array
+  required: true
+  sdk-field: instanceIds
+  description: |-
+    实例ID列表。
+    每次请求允许操作的实例数量上限是100。
+- name: resource-group-id
+  type: string
+  required: true
+  sdk-field: resourceGroupId
+  description: 资源组ID。

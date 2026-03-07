@@ -1,0 +1,23 @@
+name: AssociateVpcSubnet
+product: bmc
+use: associate-vpc-subnet
+short: Add a subnet into a VPC.
+long: add a subnet into a VPC.
+examples:
+- cmd: zeno bmc associate-vpc-subnet --subnet-id 426257512392561112 --vpc-id 835957634816289496
+  desc: ''
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: AssociateVpcSubnet
+parameters:
+- name: subnet-id
+  type: string
+  required: true
+  sdk-field: subnetId
+  description: Subnet ID.
+- name: vpc-id
+  type: string
+  required: true
+  sdk-field: vpcId
+  description: VPC ID.

@@ -1,0 +1,33 @@
+name: ModifyNetworkInterfaceAttribute
+product: zec
+use: modify-network-interface-attribute
+short: Modifies the attributes of the vNIC.
+long: modify the attributes of the vNIC.
+examples:
+- cmd: zeno zec modify-network-interface-attribute --nic-id <nicId> --name Test-vNIC --security-group-id <securityGroupId>
+  desc: Modify the vNIC name and associated security group.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyNetworkInterfaceAttribute
+parameters:
+- name: nic-id
+  type: string
+  required: true
+  sdk-field: nicId
+  description: ID of the vNIC.
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: |-
+    vNIC name.
+    The length is 2 to 63 characters. Only letters, numbers, -/_ and periods (.) are supported. The name must start and end with a number or a letter.
+- name: security-group-id
+  type: string
+  required: false
+  sdk-field: securityGroupId
+  description: |-
+    Target security group ID bound to the vNIC.
+    Currently, a vNIC can be associated with only one security group.
+    Specifying this field will unbind the original security group from the vNIC.

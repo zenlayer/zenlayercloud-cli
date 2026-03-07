@@ -1,0 +1,27 @@
+name: ModifyCidrAttribute
+product: zec
+use: modify-cidr-attribute
+short: Modifies the attributes of a CIDR block.
+long: modify the attributes of a CIDR block. Only the name of the CIDR block can be modified for now.
+examples:
+- cmd: zeno zec modify-cidr-attribute --cidr-id <cidrId> --name TestCidrName
+  desc: Modify the name of a CIDR block.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyCidrAttribute
+parameters:
+- name: cidr-id
+  type: string
+  required: true
+  sdk-field: cidrId
+  description: CIDR block ID.
+- name: name
+  type: string
+  required: true
+  sdk-field: name
+  description: |-
+    CIDR block name to be modified.
+    Length: 2–63 characters.
+    Only letters, numbers, hyphens (-), slashes (/), underscores (_), and periods (.) are allowed.
+    Must start and end with a letter or number.

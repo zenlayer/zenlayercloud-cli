@@ -1,0 +1,18 @@
+name: DescribeSecurityGroupRule
+product: zec
+use: describe-security-group-rule
+short: Queries the security group rules.
+long: query the security group rules.
+examples:
+- cmd: zeno zec describe-security-group-rule --security-group-id 791721259766392536
+  desc: Query the security group rules.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeSecurityGroupRule
+parameters:
+- name: security-group-id
+  type: string
+  required: true
+  sdk-field: securityGroupId
+  description: Security group ID.

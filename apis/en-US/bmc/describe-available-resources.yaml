@@ -1,0 +1,50 @@
+name: DescribeAvailableResources
+product: bmc
+use: describe-available-resources
+short: Queries available instances and resources.
+long: describe the status of available resources.
+examples:
+- cmd: zeno bmc describe-available-resources --instance-type-id MDE --instance-charge-type PREPAID --zone-id MOW-B
+  desc: Query available resources
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DescribeAvailableResources
+parameters:
+- name: instance-charge-type
+  type: enum
+  required: true
+  sdk-field: instanceChargeType
+  description: |-
+    Instance pricing model .
+    PREPAID: subscription
+    POSTPAID: pay-as-you-go
+  enum-values:
+  - value: POSTPAID
+    desc: Pay-as-you-go.
+  - value: PREPAID
+    desc: Subscription.
+- name: instance-type-id
+  type: string
+  required: false
+  sdk-field: instanceTypeId
+  description: Instance model ID.
+- name: zone-id
+  type: string
+  required: false
+  sdk-field: zoneId
+  description: Zone ID.
+- name: sell-status
+  type: enum
+  required: false
+  sdk-field: sellStatus
+  description: |-
+    Status of sale.
+    SELL : available for sale, stock &gt; 10. SELL_SHORTAGE : available for sale, stock &lt; 10. SOLD_OUT : sold out.
+  enum-values:
+  - value: SOLD_OUT
+    desc: Sold out.
+  - value: SELL_SHORTAGE
+    desc: Available for sale, stock <= 10.
+  - value: SELL
+    desc: Available for sale, stock > 10.

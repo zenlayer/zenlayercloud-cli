@@ -1,0 +1,12 @@
+name: DescribeByoipRegions
+product: zec
+use: describe-byoip-regions
+short: 查询支持售卖 BYOIP 的区域列表。
+long: 返回支持售卖 BYOIP 的区域及对应网段、网络类型等信息。
+examples:
+- cmd: zeno zec describe-byoip-regions
+  desc: 查询支持售卖 BYOIP 的区域列表。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeByoipRegions

@@ -1,0 +1,23 @@
+name: StopInstances
+product: zec
+use: stop-instances
+short: 关闭虚拟机实例。
+long: 关闭一台或多台虚拟机实例。
+examples:
+- cmd: zeno zec stop-instances --instance-ids instanceId1 --instance-ids instanceId2 --force-shutdown true
+  desc: 强制关闭2台实例。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: StopInstances
+parameters:
+- name: instance-ids
+  type: string-array
+  required: true
+  sdk-field: instanceIds
+  description: 待关闭的实例ID。
+- name: force-shutdown
+  type: boolean
+  required: false
+  sdk-field: forceShutdown
+  description: 是否强制关机。

@@ -1,0 +1,131 @@
+name: CreateNetworkInterface
+product: zec
+use: create-network-interface
+short: 创建辅助网卡。
+long: 创建一张辅助网卡。
+examples:
+- cmd: zeno zec create-network-interface --name Test-NIC --subnet-id <subnetId>
+  desc: 在IPv4堆栈类型的子网下创建一张辅助网卡。
+- cmd: zeno zec create-network-interface --name Test-NIC --subnet-id <subnetId> --internet-charge-type BandwidthCluster --bandwidth 100 --cluster-id <clusterId>
+  desc: 在IPv4&IPv6堆栈类型的子网下创建一张辅助网卡。且带有公网IPv6。该公网IPv6的计费方式为带宽包计费。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CreateNetworkInterface
+parameters:
+- name: name
+  type: string
+  required: true
+  sdk-field: name
+  description: |-
+    网卡名称。
+    范围2到63个字符。
+    仅支持输入字母、数字、-/_和英文句点(.)。
+    且必须以数字或字母开头和结尾。
+- name: subnet-id
+  type: string
+  required: true
+  sdk-field: subnetId
+  description: 子网的ID。
+- name: nic-stack-type
+  type: enum
+  required: false
+  sdk-field: nicStackType
+  description: |-
+    网卡的IP堆栈类型。
+    如果不指定，会根据子网堆栈类型决定：如果子网是V4,则网卡为V4，如果子网是V6,则网卡为V6。
+    如果网卡要V4&V6，请指定该参数。
+  enum-values:
+  - value: IPv4
+    desc: 仅IPv4。
+  - value: IPv4_IPv6
+    desc: IPv4和IPv6。
+  - value: IPv6
+    desc: 仅IPv6。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: 网卡创建所在的资源组ID，如不指定则放入默认资源组。
+- name: security-group-id
+  type: string
+  required: false
+  sdk-field: securityGroupId
+  description: |-
+    指定安全组ID。
+    目前一个网卡只能关联1个安全组。
+    如果未指定，会默认用VPC关联下的安全组。
+- name: internet-charge-type
+  type: enum
+  required: false
+  sdk-field: internetChargeType
+  description: |-
+    公网IPv6的网络计费方式。
+    当子网的堆栈类型包括V6且为公网时，需要指定。
+  enum-values:
+  - value: ByBandwidth
+    desc: 固定带宽计费方式。
+  - value: ByTrafficPackage
+    desc: 流量包计费方式。
+  - value: BandwidthCluster
+    desc: 共享带宽包计费方式。
+- name: bandwidth
+  type: integer
+  required: false
+  sdk-field: bandwidth
+  description: |-
+    公网IPv6的带宽限速。
+    单位Mbps。
+    当子网的堆栈类型包括V6且为公网时，需要指定。
+- name: package-size
+  type: float
+  required: false
+  sdk-field: packageSize
+  description: |-
+    公网IPv6的流量包大小。
+    单位为TB。
+    值要求为0或0.1的倍数。
+    当子网的堆栈类型包括V6且为公网时，且网络计费方式是流量计费(ByTrafficPackage)需要指定。
+- name: cluster-id
+  type: string
+  required: false
+  sdk-field: clusterId
+  description: |-
+    公网IPv6所指定的共享带宽包ID。
+    当子网的堆栈类型包括V6且为公网时，且网络计费方式是共享带宽包计费(BandwidthCluster)需要指定。
+- name: marketing-options
+  type: object
+  required: false
+  sdk-field: marketingOptions
+  description: 市场营销相关的选项。
+  object-schema:
+  - name: discountCode
+    type: string
+    description: |-
+      使用市场发放的折扣码。
+      如果折扣码不存在，最终折扣将不会生效。
+  - name: usePocVoucher
+    type: boolean
+    description: |-
+      是否使用POC代金券。
+      如果系统不存在POC代金券，相关创建流程会失败。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    创建网卡时关联的标签。
+    注意：·关联标签键不能重复。--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。

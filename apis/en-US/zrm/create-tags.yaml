@@ -1,0 +1,28 @@
+name: CreateTags
+product: zrm
+use: create-tags
+short: Create tags in batches.
+long: create tags in batches.
+examples:
+- cmd: zeno zrm create-tags --tags "{key=key_f7105ccd1a94, value=value_5a4be6ee5544}"
+  desc: Create tags in batches.
+sdk:
+  service: zrm
+  version: '2025-10-14'
+  action: CreateTags
+parameters:
+- name: tags
+  type: object-array
+  required: true
+  sdk-field: tags
+  description: |-
+    Tags to be created in batches.
+    A maximum of 20 tags can be created at a time.
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'

@@ -1,0 +1,50 @@
+name: ModifyDnatEntry
+product: zec
+use: modify-dnat-entry
+short: 修改DNAT规则
+long: 修改DNAT规则。
+examples:
+- cmd: zeno zec modify-dnat-entry --dnat-entry-id <dnatEntryId> --eip-id <eipId> --private-ip 10.0.0.2 --protocol TCP --listener-port 1-30 --internal-port 1-30
+  desc: 修改DNAT规则。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyDnatEntry
+parameters:
+- name: dnat-entry-id
+  type: string
+  required: true
+  sdk-field: dnatEntryId
+  description: DNAT规则 ID。
+- name: eip-id
+  type: string
+  required: true
+  sdk-field: eipId
+  description: 修改DNAT关联的弹性公网IP ID。
+- name: private-ip
+  type: string
+  required: true
+  sdk-field: privateIp
+  description: DNAT规则的内网IP地址。
+- name: protocol
+  type: enum
+  required: true
+  sdk-field: protocol
+  description: DNAT规则的协议类型。
+  enum-values:
+  - value: TCP
+    desc: TCP 协议。
+  - value: UDP
+    desc: UDP 协议。
+  - value: Any
+    desc: Any 所有协议。
+- name: listener-port
+  type: string
+  required: false
+  sdk-field: listenerPort
+  description: DNAT规则端口转发的外部端口或端口段，取值范围1-65535。
+- name: internal-port
+  type: string
+  required: false
+  sdk-field: internalPort
+  description: DNAT规则端口转发的内部端口或端口段，取值范围1-65535。

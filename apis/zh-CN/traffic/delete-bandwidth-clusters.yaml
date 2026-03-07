@@ -1,0 +1,20 @@
+name: DeleteBandwidthClusters
+product: traffic
+use: delete-bandwidth-clusters
+short: 终止共享带宽包
+long: 删除一个或多个共享带宽包。
+examples:
+- cmd: zeno traffic delete-bandwidth-clusters --bandwidth-cluster-ids <bandwidth-cluster-id>
+  desc: 删除一个共享带宽包
+sdk:
+  service: traffic
+  version: '2024-03-26'
+  action: DeleteBandwidthClusters
+parameters:
+- name: bandwidth-cluster-ids
+  type: string-array
+  required: true
+  sdk-field: bandwidthClusterIds
+  description: |-
+    共享带宽包ID列表。
+    最多一次可传20个。

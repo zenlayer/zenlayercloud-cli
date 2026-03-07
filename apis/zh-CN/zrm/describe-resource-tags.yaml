@@ -1,0 +1,18 @@
+name: DescribeResourceTags
+product: zrm
+use: describe-resource-tags
+short: 获取资源绑定标签
+long: 获取某个资源下绑定的所有标签列表。
+examples:
+- cmd: zeno zrm describe-resource-tags --resource-uuid resourceUuid_5250a2c5dc3d
+  desc: 获取某个资源下绑定的所有标签列表
+sdk:
+  service: zrm
+  version: '2025-10-14'
+  action: DescribeResourceTags
+parameters:
+- name: resource-uuid
+  type: string
+  required: true
+  sdk-field: resourceUuid
+  description: 资源的唯一标识。

@@ -1,0 +1,134 @@
+name: CreateLoadBalancer
+product: bmc
+use: create-load-balancer
+short: Creates a load balancing instance.
+long: create a load balancing instance.
+examples:
+- cmd: zeno bmc create-load-balancer --zone-id HKG-A --load-balancer-name xxxx --spec-name xxxx --client-token xxxx --charge-type xxxx --bandwidth 100 --subnet-id xxxx --ip-type IPv4
+  desc: Create a load balancing instance.
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: CreateLoadBalancer
+parameters:
+- name: client-token
+  type: string
+  required: false
+  sdk-field: clientToken
+  description: Used to ensure the idempotency of the request.
+- name: zone-id
+  type: string
+  required: true
+  sdk-field: zoneId
+  description: The zone ID.
+- name: load-balancer-name
+  type: string
+  required: true
+  sdk-field: loadBalancerName
+  description: The name of the load balancer.
+- name: charge-type
+  type: enum
+  required: true
+  sdk-field: chargeType
+  description: |-
+    Pricing model.
+    PREPAID : subscription;
+    POSTPAID : pay-as-you-go.
+  enum-values:
+  - value: POSTPAID
+    desc: Pay-as-you-go.
+  - value: PREPAID
+    desc: Subscription.
+- name: instance-charge-prepaid
+  type: object
+  required: false
+  sdk-field: instanceChargePrepaid
+  description: |-
+    Subscription mode.
+    Details of the monthly or yearly subscription configurations, including the subscription period, auto-renewal, etc.
+    It is required if the pricing model is PREPAID .
+  object-schema:
+  - name: period
+    type: integer
+    description: |-
+      Period of subscription.
+      Unit: month.
+- name: bandwidth
+  type: integer
+  required: true
+  sdk-field: bandwidth
+  description: |-
+    Bandwidth value.
+    Value range: [ 1,1024 ].
+    Unit: Mbps .
+- name: ip-type
+  type: string
+  required: true
+  sdk-field: ipType
+  description: |-
+    Specify the type of IP added to the load balancer.
+    Available values:
+    IPv4 IPv6
+- name: vip-count
+  type: integer
+  required: false
+  sdk-field: vipCount
+  description: |-
+    Number of additional VIPs to be purchased.
+    The load balancer binds 1 IP of the specified type by default.
+- name: subnet-id
+  type: string
+  required: false
+  sdk-field: subnetId
+  description: |-
+    Subnet ID.
+    The subnet ID must be specified when creating a VIP4 type. The primary and secondary IPs of the instance will be obtained in the subnet.
+- name: cidr-block-id
+  type: string
+  required: false
+  sdk-field: cidrBlockId
+  description: |-
+    CIDR block ID.
+    The CIDR block ID needs to be specified when creating a VIP6 type. If there is only one CIDR block in the zone, it can be unspecified and the CIDR will be used by default.
+- name: master-ip
+  type: string
+  required: false
+  sdk-field: masterIp
+  description: Primary IP.
+- name: backup-ip
+  type: string
+  required: false
+  sdk-field: backupIp
+  description: Secondary IP.
+- name: marketing-options
+  type: object
+  required: false
+  sdk-field: marketingOptions
+  description: Information on marketing campaigns.
+  object-schema:
+  - name: discountCode
+    type: string
+    description: |-
+      Promo Code.
+      If no Promo Code exists, the final discount will not apply.
+  - name: usePocVoucher
+    type: boolean
+    description: |-
+      Whether to use POC voucher.
+      If no POC voucher exists, the related creation will fail.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    Bound tags when creating resources.
+    Tag keys must be unique.--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 128 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 128 characters.'

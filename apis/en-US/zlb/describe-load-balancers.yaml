@@ -1,0 +1,84 @@
+name: DescribeLoadBalancers
+product: zlb
+use: describe-load-balancers
+short: Queries the list of load balancer instances.
+long: query the list of load balancer instances.
+examples:
+- cmd: zeno zlb describe-load-balancers
+  desc: Query the list of load balancer instances.
+sdk:
+  service: zlb
+  version: '2025-04-01'
+  action: DescribeLoadBalancers
+parameters:
+- name: region-id
+  type: string
+  required: false
+  sdk-field: regionId
+  description: Region ID.
+- name: vpc-id
+  type: string
+  required: false
+  sdk-field: vpcId
+  description: Filter by the VPC ID to which the load balance backend server belongs.
+- name: load-balancer-ids
+  type: string-array
+  required: false
+  sdk-field: loadBalancerIds
+  description: |-
+    ID list of the load balance instance.
+    The maximum number of instance IDs is 100.
+- name: load-balancer-name
+  type: string
+  required: false
+  sdk-field: loadBalancerName
+  description: |-
+    Load balance instance name.
+    Add * at the end to support fuzzy matching.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    Number of items in the current page result.
+    Default value: 20;
+    Maximum value: 1000.
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: Page number of the current page result.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: Resource Group ID.
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    Query using tag keys.
+    A maximum of 20 tag keys can be used.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    Query using tags.
+    A maximum of 20 tags can be used.
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'
+- name: security-group-id
+  type: string
+  required: false
+  sdk-field: securityGroupId
+  description: |-
+    Security group ID.
+    You can call DescribeSecurityGroups to obtain details.

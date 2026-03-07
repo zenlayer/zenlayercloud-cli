@@ -1,0 +1,23 @@
+name: AttachDisks
+product: zec
+use: attach-disks
+short: Attaches disks to instance.
+long: attach disks to instance.
+examples:
+- cmd: zeno zec attach-disks --disk-ids your-disk-id --instance-id your-instance-id
+  desc: Attach disks to an instance.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: AttachDisks
+parameters:
+- name: disk-ids
+  type: string-array
+  required: true
+  sdk-field: diskIds
+  description: ID list of disks.
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: ID of the instance to which the disks to be attached.

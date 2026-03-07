@@ -1,0 +1,23 @@
+name: DescribeZoneInstanceConfigInfos
+product: zec
+use: describe-zone-instance-config-infos
+short: Queries information on instance size in the zone.
+long: query information on instance size in the zone.
+examples:
+- cmd: zeno zec describe-zone-instance-config-infos --instance-type z2a.cpu.4
+  desc: ''
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeZoneInstanceConfigInfos
+parameters:
+- name: zone-id
+  type: string
+  required: false
+  sdk-field: zoneId
+  description: Availability zone ID.
+- name: instance-type
+  type: string
+  required: false
+  sdk-field: instanceType
+  description: Instance size.

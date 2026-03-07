@@ -1,0 +1,24 @@
+name: ModifyNetworkInterfacesAttribute
+product: zec
+use: modify-network-interfaces-attribute
+short: Modifies the attributes of the vNIC(s).
+long: modify the attributes of the vNIC(s). Only the name of the vNIC can be modified for now.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyNetworkInterfacesAttribute
+parameters:
+- name: nic-ids
+  type: string-array
+  required: true
+  sdk-field: nicIds
+  description: |-
+    ID(s) of the vNIC(s).
+    The maximum number of vNICs in each request is 100.
+- name: name
+  type: string
+  required: true
+  sdk-field: name
+  description: |-
+    vNIC name.
+    The length is 2 to 63 characters. Only letters, numbers, - and periods (.) are supported. The name must start and end with a number or a letter.

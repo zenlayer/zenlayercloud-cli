@@ -1,0 +1,27 @@
+name: ModifyKeyPairAttribute
+product: ccs
+use: modify-key-pair-attribute
+short: Modify the attributes of an SSH key pair.
+long: The API is used to modify the attributes of an SSH key pair.
+examples:
+- cmd: zeno ccs modify-key-pair-attribute --key-id key-xxxx --key-description test-description
+  desc: Modify the attributes of an SSH key pair.
+sdk:
+  service: ccs
+  version: '2025-09-01'
+  action: ModifyKeyPairAttribute
+parameters:
+- name: key-id
+  type: string
+  required: true
+  sdk-field: keyId
+  description: |-
+    Key pair ID.
+    For example: key-xxxxxxxx
+- name: key-description
+  type: string
+  required: false
+  sdk-field: keyDescription
+  description: |-
+    Description of key pair.
+    Up to 255 characters in length are supported.

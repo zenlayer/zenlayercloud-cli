@@ -1,0 +1,18 @@
+name: TerminateLoadBalancer
+product: bmc
+use: terminate-load-balancer
+short: 终止负载均衡实例。
+long: 终止负载均衡实例。
+examples:
+- cmd: zeno bmc terminate-load-balancer --load-balancer-id xxxx
+  desc: 终止负载均衡实例。
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: TerminateLoadBalancer
+parameters:
+- name: load-balancer-id
+  type: string
+  required: true
+  sdk-field: loadBalancerId
+  description: 负载均衡实例的ID。

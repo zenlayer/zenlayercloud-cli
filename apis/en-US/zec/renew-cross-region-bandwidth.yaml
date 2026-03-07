@@ -1,0 +1,18 @@
+name: RenewCrossRegionBandwidth
+product: zec
+use: renew-cross-region-bandwidth
+short: Recovers a cross-region bandwidth.
+long: restore cross-region bandwidth.
+examples:
+- cmd: zeno zec renew-cross-region-bandwidth --cross-region-bandwidth-id "<your cross id>"
+  desc: Restore a cross-region bandwidth.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: RenewCrossRegionBandwidth
+parameters:
+- name: cross-region-bandwidth-id
+  type: string
+  required: true
+  sdk-field: crossRegionBandwidthId
+  description: The cross-region bandwidth ID.

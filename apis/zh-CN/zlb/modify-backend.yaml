@@ -1,0 +1,52 @@
+name: ModifyBackend
+product: zlb
+use: modify-backend
+short: 修改后端服务器
+long: 修改一台或多台绑定在指定监听器上的后端服务的配置，包括权重和和后端服务器转发端口。
+examples:
+- cmd: zeno zlb modify-backend --load-balancer-id <loadBalancerId> --listener-id <listenerId> --backend-servers "{instanceId=<backendServerId>, privateIpAddress=10.0.0.1, weight=50, port=10}"
+  desc: 修改监听器上绑定的后端服务的权重和端口。
+sdk:
+  service: zlb
+  version: '2025-04-01'
+  action: ModifyBackend
+parameters:
+- name: load-balancer-id
+  type: string
+  required: true
+  sdk-field: loadBalancerId
+  description: 负载均衡实例 ID。
+- name: listener-id
+  type: string
+  required: true
+  sdk-field: listenerId
+  description: 负载均衡监听器的 ID。
+- name: backend-servers
+  type: object-array
+  required: true
+  sdk-field: backendServers
+  description: 要修改的后端服务器集合。
+  array-style: json
+  item-schema:
+  - name: instanceId
+    type: string
+    description: |-
+      实例ID。
+      如果是zec实例作为后端服务器，可通过 DescribeInstances 接口返回字段中的 InstanceId 字段获取。
+      解绑时，对于存在实例ID的，该字段必传。
+  - name: privateIpAddress
+    type: string
+    description: 实例上绑定网卡的私网IP地址。
+  - name: weight
+    type: integer
+    description: |-
+      后端服务修改后的转发权重。
+      创建绑定服务器时默认值为100, 修改时如果不指定，则不会进行修改。
+      删除时不需要指定该参数。
+  - name: port
+    type: integer
+    description: |-
+      请求转发和健康检查的目标端口。
+      如果为空，将跟随监听器端口配置。
+      删除时不需要指定该参数。
+      如果监听器转发模式为`DR`，不支持指定目标端口，跟随监听器端口。

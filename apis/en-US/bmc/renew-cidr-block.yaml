@@ -1,0 +1,20 @@
+name: RenewCidrBlock
+product: bmc
+use: renew-cidr-block
+short: Renews a CIDR block.
+long: renew a CIDR block.
+examples:
+- cmd: zeno bmc renew-cidr-block --cidr-block-id cidrBlockId
+  desc: ''
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: RenewCidrBlock
+parameters:
+- name: cidr-block-id
+  type: string
+  required: true
+  sdk-field: cidrBlockId
+  description: |-
+    ID of the CIDR block.
+    You can find the cidrBlockId in the response by calling DescribeCidrBlocks .

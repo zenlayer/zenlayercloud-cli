@@ -1,0 +1,88 @@
+name: DescribeNatGateways
+product: zec
+use: describe-nat-gateways
+short: NAT网关表。
+long: 查询NAT网关列表。
+examples:
+- cmd: zeno zec describe-nat-gateways
+  desc: 查看NAT网关列表。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeNatGateways
+parameters:
+- name: region-id
+  type: string
+  required: false
+  sdk-field: regionId
+  description: 节点ID。
+- name: vpc-id
+  type: string
+  required: false
+  sdk-field: vpcId
+  description: 根据NAT网关所属的VPC网络 ID过滤。
+- name: nat-gateway-ids
+  type: string-array
+  required: false
+  sdk-field: natGatewayIds
+  description: |-
+    NAT网关ID集合。
+    实例ID数量上限为100个。
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: NAT网关名称。
+- name: status
+  type: string
+  required: false
+  sdk-field: status
+  description: NAT网关状态。
+- name: security-group-id
+  type: string
+  required: false
+  sdk-field: securityGroupId
+  description: 根据NAT网关所属的安全组ID过滤。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    返回的分页大小。
+    默认为20，最大为1000。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: 返回的分页页码。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: 资源组ID。
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    根据标签键进行搜索。
+    最长不得超过20个标签键。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    根据标签进行搜索。
+    最长不得超过20个标签。
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。

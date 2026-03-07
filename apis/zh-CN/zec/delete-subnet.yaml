@@ -1,0 +1,18 @@
+name: DeleteSubnet
+product: zec
+use: delete-subnet
+short: 删除私有子网
+long: 删除一个子网。
+examples:
+- cmd: zeno zec delete-subnet --subnet-id <subnetId>
+  desc: 删除子网。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DeleteSubnet
+parameters:
+- name: subnet-id
+  type: string
+  required: true
+  sdk-field: subnetId
+  description: 要删除的子网ID。

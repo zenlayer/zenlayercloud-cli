@@ -1,0 +1,18 @@
+name: DetachDhcpOptionsSetFromSubnet
+product: zec
+use: detach-dhcp-options-set-from-subnet
+short: 将DHCP选项集与Subnet取消关联
+long: 将DHCP选项集与Subnet取消关联。
+examples:
+- cmd: zeno zec detach-dhcp-options-set-from-subnet --subnet-ids subnetId1 --subnet-ids subnetId2
+  desc: 将DHCP选项集与Subnet取消关联
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DetachDhcpOptionsSetFromSubnet
+parameters:
+- name: subnet-ids
+  type: string-array
+  required: true
+  sdk-field: subnetIds
+  description: 要与 DHCP 选项集取消关联的 Subnet 的 ID集合。

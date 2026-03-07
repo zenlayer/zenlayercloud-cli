@@ -1,0 +1,21 @@
+name: DescribeInstancesMonitorHealth
+product: bmc
+use: describe-instances-monitor-health
+short: Query server hardware health information.
+long: query server hardware health information.
+examples:
+- cmd: zeno bmc describe-instances-monitor-health --instance-ids instanceId1 --instance-ids instanceId2
+  desc: Query server hardware health information.
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DescribeInstancesMonitorHealth
+parameters:
+- name: instance-ids
+  type: string-array
+  required: true
+  sdk-field: instanceIds
+  description: |-
+    Instance ID(s).
+    To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response.
+    The maximum number of instances in each request is 10.

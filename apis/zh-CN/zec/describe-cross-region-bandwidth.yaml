@@ -1,0 +1,75 @@
+name: DescribeCrossRegionBandwidth
+product: zec
+use: describe-cross-region-bandwidth
+short: 查询内网跨区域带宽列表
+long: 查询内网跨区域带宽列表。
+examples:
+- cmd: zeno zec describe-cross-region-bandwidth --name "<your cross name>" --vpc-id "<your vpc id>"
+  desc: 查询内网跨区域带宽列表，根据name和vpcId过滤
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeCrossRegionBandwidth
+parameters:
+- name: cross-region-bandwidth-ids
+  type: string-array
+  required: false
+  sdk-field: crossRegionBandwidthIds
+  description: 按照唯一ID过滤。
+- name: cross-region-bandwidth-name
+  type: string
+  required: false
+  sdk-field: crossRegionBandwidthName
+  description: 按照显示名称过滤，该字段支持模糊匹配。
+- name: vpc-id
+  type: string
+  required: false
+  sdk-field: vpcId
+  description: 按照所属的VPC的ID过滤。
+- name: region-a
+  type: string
+  required: false
+  sdk-field: regionA
+  description: 按照其中一端的区域连接点（A）过滤。
+- name: region-z
+  type: string
+  required: false
+  sdk-field: regionZ
+  description: 按照另一端的区域连接点（Z）过滤。
+- name: status
+  type: enum
+  required: false
+  sdk-field: status
+  description: 按照状态过滤。
+  enum-values:
+  - value: CREATING
+    desc: 创建中。
+  - value: AVAILABLE
+    desc: 正常可用。
+  - value: CHANGING
+    desc: 变更中。
+  - value: RECYCLING
+    desc: 回收中。
+  - value: RECYCLED
+    desc: 处于回收站。
+  - value: DELETING
+    desc: 删除中。
+  - value: CREATE_FAILED
+    desc: 创建失败。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    返回的分页大小。
+    默认为20，最大为1000。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: 返回的分页页码。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: 根据资源组ID过滤。

@@ -1,0 +1,25 @@
+name: DescribeDiskCategory
+product: zec
+use: describe-disk-category
+short: Queries supported disk type.
+long: query supported disk type.
+examples:
+- cmd: zeno zec describe-disk-category --zone-id europe-central-1a --disk-category ""Basic NVMe SSD""
+  desc: Query supported disk type.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeDiskCategory
+parameters:
+- name: zone-id
+  type: string
+  required: false
+  sdk-field: zoneId
+  description: Availability zone ID.
+- name: disk-category
+  type: string
+  required: false
+  sdk-field: diskCategory
+  description: |-
+    Disk type.
+    Basic NVMe SSD: the Basic NVMe SSD. Standard NVMe SSD: the Standard NVMe SSD.

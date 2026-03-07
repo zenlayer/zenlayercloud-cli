@@ -1,0 +1,18 @@
+name: DeleteDnatEntry
+product: zec
+use: delete-dnat-entry
+short: 删除DNAT规则
+long: 删除DNAT规则。
+examples:
+- cmd: zeno zec delete-dnat-entry --dnat-entry-id <dnatEntryId>
+  desc: 删除一个DNAT规则。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DeleteDnatEntry
+parameters:
+- name: dnat-entry-id
+  type: string
+  required: true
+  sdk-field: dnatEntryId
+  description: DNAT规则 ID。

@@ -1,0 +1,20 @@
+name: ReleaseEipAddresses
+product: bmc
+use: release-eip-addresses
+short: 释放Elastic IP
+long: 释放一个或多个EIP。
+examples:
+- cmd: zeno bmc release-eip-addresses --eip-ids eipId1 --eip-ids eipId2
+  desc: ''
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: ReleaseEipAddresses
+parameters:
+- name: eip-ids
+  type: string-array
+  required: true
+  sdk-field: eipIds
+  description: |-
+    一个或多个待操作的EIP ID。
+    可通过DescribeEipAddresses接口返回值中的eipId获取。

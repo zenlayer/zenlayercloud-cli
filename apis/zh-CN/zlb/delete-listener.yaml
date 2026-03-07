@@ -1,0 +1,23 @@
+name: DeleteListener
+product: zlb
+use: delete-listener
+short: 删除负载均衡监听器
+long: 查询删除一个负载均衡监听器。
+examples:
+- cmd: zeno zlb delete-listener --load-balancer-id <loadBalancerId> --listener-id <listenerId>
+  desc: 删除一个监听器。
+sdk:
+  service: zlb
+  version: '2025-04-01'
+  action: DeleteListener
+parameters:
+- name: load-balancer-id
+  type: string
+  required: true
+  sdk-field: loadBalancerId
+  description: 负载均衡实例ID。
+- name: listener-id
+  type: string
+  required: true
+  sdk-field: listenerId
+  description: 监听器ID。

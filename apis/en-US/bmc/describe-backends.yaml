@@ -1,0 +1,43 @@
+name: DescribeBackends
+product: bmc
+use: describe-backends
+short: Queries the information of one or more specified backend servers.
+long: query the information of one or more specified backend servers. Users can search for backend server information based on the ID of the listener, the ID of the backend server, and other information.
+examples:
+- cmd: zeno bmc describe-backends --listener-id xxxx
+  desc: Get a list of all backend servers based on the listener ID.
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DescribeBackends
+parameters:
+- name: listener-id
+  type: string
+  required: true
+  sdk-field: listenerId
+  description: The listener ID.
+- name: backend-ids
+  type: string-array
+  required: false
+  sdk-field: backendIds
+  description: ID list of backend servers.
+- name: backend-name
+  type: string
+  required: false
+  sdk-field: backendName
+  description: Backend server name.
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    Number of pages returned.
+    Default value: 1 .
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    Number of items in the current page result.
+    Default value: 20 ;
+    Maximum value: 1000 .

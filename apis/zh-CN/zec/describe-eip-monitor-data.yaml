@@ -1,0 +1,46 @@
+name: DescribeEipMonitorData
+product: zec
+use: describe-eip-monitor-data
+short: 查询弹性公网IP监控指标
+long: 查询一段时间的弹性公网IP监控指标数据。
+examples:
+- cmd: zeno zec describe-eip-monitor-data --eip-id "< EipId >" --metric-type BANDWIDTH --start-time 2025-06-25T01:55:00Z --end-time 2025-06-25T07:55:00Z
+  desc: 查询弹性公网IP监控指标
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeEipMonitorData
+parameters:
+- name: eip-id
+  type: string
+  required: true
+  sdk-field: eipId
+  description: EIP唯一标识ID。
+- name: metric-type
+  type: enum
+  required: true
+  sdk-field: metricType
+  description: EIP监控指标类型。
+  enum-values:
+  - value: BANDWIDTH
+    desc: |-
+      带宽类型。
+      单位bps。
+  - value: PACKETS
+    desc: |-
+      数据包类型。
+      单位pps。
+- name: start-time
+  type: string
+  required: true
+  sdk-field: startTime
+  description: |-
+    查询开始时间。
+    时间格式：yyyy-MM-ddTHH:mm:ssZ。
+- name: end-time
+  type: string
+  required: true
+  sdk-field: endTime
+  description: |-
+    查询结束时间。
+    时间格式：yyyy-MM-ddTHH:mm:ssZ。

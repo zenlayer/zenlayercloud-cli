@@ -1,0 +1,20 @@
+name: TerminateCidrBlock
+product: bmc
+use: terminate-cidr-block
+short: 退还Cidr Block
+long: 本接口用于退还一个Cidr Block。
+examples:
+- cmd: zeno bmc terminate-cidr-block --cidr-block-id cidrBlockId
+  desc: 退还一个Cidr Block
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: TerminateCidrBlock
+parameters:
+- name: cidr-block-id
+  type: string
+  required: true
+  sdk-field: cidrBlockId
+  description: |-
+    待操作的Cidr Block ID。
+    可通过DescribeCidrBlocks接口返回值中的cidrBlockId获取。

@@ -1,0 +1,134 @@
+name: ReinstallInstance
+product: bmc
+use: reinstall-instance
+short: 重装实例
+long: 本接口用于重装一个实例。
+examples:
+- cmd: zeno bmc reinstall-instance --instance-id instanceId1
+  desc: ''
+- cmd: zeno bmc reinstall-instance --instance-id instanceId --image-id bd5faa16-39d2-4bbf-a5c8-b95a193b1626 --hostname myhostname --password Aa_12345 --partitions "{fsPath=/, fsType=ext2, size=1100}" --partitions "{fsPath=/a, fsType=ext2, size=1100}"
+  desc: ''
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: ReinstallInstance
+parameters:
+- name: image-id
+  type: string
+  required: false
+  sdk-field: imageId
+  description: |-
+    指定有效的镜像ID。
+    可通过以下方式获取可用的镜像ID：通过调用接口 DescribeImages ，传入instanceTypeId获取当前机型支持的镜像列表，取返回信息中的imageId字段；也可以不指定镜像，如果不指定镜像，后续可以通过IPMI进行安装。使用iPXE安装镜像，请指定ipxeUrl字段，且该字段不必传。
+- name: hostname
+  type: string
+  required: false
+  sdk-field: hostname
+  description: |-
+    实例的主机名。
+    不得超过64个字符。仅支持输入字母、数字、-和英文句点(.)。
+    默认值为hostname。
+- name: password
+  type: string
+  required: false
+  sdk-field: password
+  description: |-
+    实例的密码。
+    必须是 8-16 个字符，包含大写字母、小写字母、数字和特殊字符。特殊符号可以是：1~!@$^*-_=+。该密码也是作为IPMI登录的密码，请妥善保管。
+    密钥与密码必须并且只能指定其中一个。
+- name: key-id
+  type: string
+  required: false
+  sdk-field: keyId
+  description: |-
+    密钥ID。与password必须指定其中的一种。
+    可调用接口DescribeKeyPairs来获得最新的密钥对信息。
+    关联密钥后，就可以通过对应的私钥来访问实例；密钥与密码不能同时指定，同时Windows操作系统不支持指定密钥。
+    示例值：key-YWD2QFOl
+- name: raid-config
+  type: object
+  required: false
+  sdk-field: raidConfig
+  description: 磁盘阵列配置。
+  object-schema:
+  - name: raidType
+    type: integer
+    description: |-
+      Raid类型。
+      该配置进行快捷raid配置，支持0, 1, 5, 10。
+      raidType和customRaids只能指定其中一个参数。
+  - name: customRaids
+    type: object-array
+    description: |-
+      自定义Raid配置。
+      自定义磁盘进行raid的配置。
+      raidType和customRaids只能指定其中一个参数。
+- name: partitions
+  type: object-array
+  required: false
+  sdk-field: partitions
+  description: |-
+    分区配置。
+    如果未安装操作系统，将不能设置分区。
+  array-style: json
+  item-schema:
+  - name: fsPath
+    type: string
+    description: |-
+      分区盘符。
+      linux系统：必须为/开头，且第一个为系统分区必须为/。
+      windows系统：支持C~H，第一个系统分区必须指定为C。
+  - name: fsType
+    type: string
+    description: |-
+      分区的文件类型。
+      linux系统：支持的值ext2,ext3, ext4, ext类型必须要有。
+      windows系统: 只能为NTFS。
+  - name: size
+    type: integer
+    description: |-
+      分区大小。
+      单位为GB。
+- name: nic
+  type: object
+  required: false
+  sdk-field: nic
+  description: 网卡的配置。
+  object-schema:
+  - name: wanName
+    type: string
+    description: |-
+      公网网卡名称。
+      只能是数字和大小写字母，且必须以字母开头，长度限制为4-10。
+      非高可用机型，默认的公网网卡名称为wan0。且不能为lan开头。
+      高可用机型，默认的公网网卡名称为bond0。
+      公网名称和内网名称不能相同。
+  - name: lanName
+    type: string
+    description: |-
+      内网网卡名称。
+      只能是数字和大小写字母，且必须以字母开头，长度限制为4-10。
+      非高可用机型，默认的内网网卡名称为lan0。且不能为wan开头。
+      高可用机型，默认的内网网卡名称为bond1。
+      公网名称和内网名称不能相同。
+- name: ipxe-url
+  type: string
+  required: false
+  sdk-field: ipxeUrl
+  description: |-
+    iPXE URL 地址。
+    传入参数后，将根据指定URL进行iPXE安装， 如果指定为netboot，将使用netboot iPXE方式进行安装。相关帮助文档：Deploy a Custom Image Using iPXE
+- name: user-data
+  type: string
+  required: false
+  sdk-field: userData
+  description: |-
+    用户数据。
+    在安装实例时可以通过指定用户数据进行配置实例。当实例首次启动时，用户数据将以文本的方式传递到云服务器中，并执行该文本。支持的最大数据大小为 32KB。
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: |-
+    待操作的实例ID。
+    可通过DescribeInstances接口返回值中的instanceId获取。

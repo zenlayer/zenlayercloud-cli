@@ -1,0 +1,67 @@
+name: DescribeAutoSnapshotPolicies
+product: zec
+use: describe-auto-snapshot-policies
+short: Queries the details of snapshot schedules.
+long: query the details of snapshot schedules.
+examples:
+- cmd: zeno zec describe-auto-snapshot-policies
+  desc: Query the list of snapshot schedule.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeAutoSnapshotPolicies
+parameters:
+- name: auto-snapshot-policy-ids
+  type: string-array
+  required: false
+  sdk-field: autoSnapshotPolicyIds
+  description: Filter by the ID of the snapshot schedule.
+- name: zone-ids
+  type: string-array
+  required: false
+  sdk-field: zoneIds
+  description: Filter by the availability zone ID of the snapshot schedule.
+- name: auto-snapshot-policy-name
+  type: string
+  required: false
+  sdk-field: autoSnapshotPolicyName
+  description: |-
+    Filter by the name of the snapshot schedule.
+    This field supports fuzzy search.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: Filter by resource group ID.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: Number of items in the current page result.
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: Number of pages returned.
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    Query using tag keys.
+    A maximum of 20 tag keys can be used.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    Query using tags.
+    A maximum of 20 tags can be used.
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'

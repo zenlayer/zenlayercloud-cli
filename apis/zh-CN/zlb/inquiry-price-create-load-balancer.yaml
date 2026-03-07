@@ -1,0 +1,103 @@
+name: InquiryPriceCreateLoadBalancer
+product: zlb
+use: inquiry-price-create-load-balancer
+short: 创建负载均衡器实例询价
+long: 查询创建负载均衡的价格。
+examples:
+- cmd: zeno zlb inquiry-price-create-load-balancer --region-id asia-east-1 --vpc-id <vpcId> --internet-charge-type ByBandwidth --network-line-type PremiumBGP --bandwidth-mbps 2 --number 1
+  desc: 查询创建一个公网负载均衡实例价格。
+sdk:
+  service: zlb
+  version: '2025-04-01'
+  action: InquiryPriceCreateLoadBalancer
+parameters:
+- name: region-id
+  type: string
+  required: true
+  sdk-field: regionId
+  description: 区域节点ID。
+- name: internet-charge-type
+  type: enum
+  required: false
+  sdk-field: internetChargeType
+  description: IP网络计费模式。
+  enum-values:
+  - value: ByBandwidth
+    desc: 固定带宽计费方式。
+  - value: ByTrafficPackage
+    desc: 流量包计费方式。
+  - value: BandwidthCluster
+    desc: 共享带宽包计费方式。
+- name: ip-network-type
+  type: enum
+  required: false
+  sdk-field: ipNetworkType
+  description: |-
+    IP 的网络类型。
+    已废弃，请使用networkLineType。
+  deprecated: true
+  enum-values:
+  - value: BGPLine
+    desc: BGP 线路。
+  - value: CN2Line
+    desc: CN2 回国优化线路。
+  - value: LocalLine
+    desc: 本地IP。
+  - value: ChinaMobile
+    desc: 中国移动线路。
+  - value: ChinaUnicom
+    desc: 中国联通线路。
+  - value: ChinaTelecom
+    desc: 中国联通线路。
+  - value: Cogent
+    desc: Cogent。
+  - value: ThreeLine
+    desc: 三线IP。
+- name: network-line-type
+  type: enum
+  required: false
+  sdk-field: networkLineType
+  description: IP 的网络类型。
+  enum-values:
+  - value: PremiumBGP
+    desc: |-
+      优质 BGP。
+      高性能网络。
+  - value: CN2
+    desc: 回国优化线路。
+  - value: LocalLine
+    desc: 本地IP。
+  - value: StandardBGP
+    desc: |-
+      标准 BGP。
+      通用网络，成本优化。
+  - value: CMI
+    desc: 中国移动。
+  - value: CUG
+    desc: 中国联通。
+  - value: CTG
+    desc: 中国电信。
+  - value: ThreeLine
+    desc: 三线IP。
+- name: bandwidth-mbps
+  type: integer
+  required: false
+  sdk-field: bandwidthMbps
+  description: |-
+    EIP的最大出带宽。
+    单位为Mbps。
+    最大限制通常为10000，如果有额外要求， 请联系Support。
+- name: traffic-package-size
+  type: float
+  required: false
+  sdk-field: trafficPackageSize
+  description: |-
+    流量包大小。
+    指定此参数时，IP网络计费模式(internetChargeType) 需为ByTrafficPackage, 否则该参数不生效。
+- name: bandwidth-cluster-id
+  type: string
+  required: false
+  sdk-field: bandwidthClusterId
+  description: |-
+    共享带宽包ID。
+    指定此参数时，IP网络计费模式(internetChargeType) 需为BandwidthCluster, 否则该参数不生效。

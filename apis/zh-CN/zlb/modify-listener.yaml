@@ -1,0 +1,134 @@
+name: ModifyListener
+product: zlb
+use: modify-listener
+short: 修改负载均衡监听器属性
+long: 修改负载均衡监听器的属性，包括监听器的名称、健康检查参数、转发方式等。不支持修改监听器的监听协议。
+examples:
+- cmd: zeno zlb modify-listener --load-balancer-id <loadBalancerId> --listener-id <listenerId> --listener-name sampleName --scheduler mh
+  desc: 修改负载均衡监听器的名称、健康检查参数以及转发策略
+sdk:
+  service: zlb
+  version: '2025-04-01'
+  action: ModifyListener
+parameters:
+- name: load-balancer-id
+  type: string
+  required: true
+  sdk-field: loadBalancerId
+  description: 负载均衡器ID。
+- name: listener-id
+  type: string
+  required: true
+  sdk-field: listenerId
+  description: 负载均衡器的监听器ID。
+- name: listener-name
+  type: string
+  required: false
+  sdk-field: listenerName
+  description: |-
+    负载均衡器的监听器名称。
+    不传则不会进行修改。
+- name: health-check
+  type: object
+  required: false
+  sdk-field: healthCheck
+  description: |-
+    负载均衡器的监听器健康检查。
+     不传则不会进行修改，如果开启或关闭，请设置HealthCheck.enabled字段。
+  object-schema:
+  - name: enabled
+    type: boolean
+    description: 是否开启健康检查。
+  - name: checkType
+    type: enum
+    description: |-
+      健康检查使用的协议。
+      当开启健康检查时， 该字段必填。
+  - name: checkPort
+    type: integer
+    description: |-
+      健康检查端口。
+      默认为后端服务的端口，除非您希望指定特定端口，否则建议留空。
+  - name: checkDelayLoop
+    type: integer
+    description: |-
+      健康检查的检查间隔时间。
+      单位:秒。
+  - name: checkConnTimeout
+    type: integer
+    description: |-
+      健康检查的连接超时时间。
+      单位:秒。
+  - name: checkRetry
+    type: integer
+    description: 检查重试次数。
+  - name: checkDelayTry
+    type: integer
+    description: |-
+      健康检查重试的间隔时间。
+      单位:秒。
+  - name: checkHttpGetUrl
+    type: string
+    description: |-
+      健康检查路径。
+      仅适用于HTTP_GET的协议。
+      如果指定，必须以/开头。
+  - name: checkHttpStatusCode
+    type: integer
+    description: |-
+      健康检查状态码。
+      仅适用于HTTP_GET的协议。
+  - name: failOpen
+    type: boolean
+    description: 开启后，当所有后端健康检查均失败时，负载均衡器将暂视所有节点为健康，继续转发流量，以保障业务连续性。
+- name: scheduler
+  type: enum
+  required: false
+  sdk-field: scheduler
+  description: |-
+    负载均衡器的监听器调度方式。
+    不传则不会进行修改。
+  enum-values:
+  - value: mh
+    desc: 磁力哈希方式。
+  - value: rr
+    desc: 轮训方式。
+  - value: wrr
+    desc: 加权轮训方式。
+  - value: lc
+    desc: 最少连接方式。
+  - value: wlc
+    desc: 加权最少连接方式。
+  - value: sh
+    desc: 根据源地址哈希方式。
+  - value: dh
+    desc: 根据目标地址哈希方式。
+- name: port
+  type: string
+  required: false
+  sdk-field: port
+  description: |-
+    监听器端口。
+    多个端口使用,分隔。
+    当端口是范围时用-连接，例如：10000-10005。
+    端口的取值范围为1～65535。
+    不指定将不会进行修改。
+- name: kind
+  type: enum
+  required: false
+  sdk-field: kind
+  description: |-
+    工作模式。
+    如果修改为DR模式，如果后端服务器指定了端口将失效，将跟随监听器的端口。
+  enum-values:
+  - value: FNAT
+    desc: 全局网络地址转换(Full NAT)。
+  - value: DR
+    desc: 直接路由（Direct Routing)。
+  - value: DNAT
+    desc: 目标网络地址转换(Destination NAT)。
+- name: persistent
+  type: integer
+  required: false
+  sdk-field: persistent
+  description: 会话保持时间，单位秒。

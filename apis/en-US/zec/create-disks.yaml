@@ -1,0 +1,112 @@
+name: CreateDisks
+product: zec
+use: create-disks
+short: Creates one or more disks.
+long: create one or more disks.
+examples:
+- cmd: zeno zec create-disks --disk-name Test-Disk --disk-size 30 --disk-amount 1 --zone-id HKG-A
+  desc: Create one or more disks.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CreateDisks
+parameters:
+- name: zone-id
+  type: string
+  required: true
+  sdk-field: zoneId
+  description: ID of availability zone to which the disk belongs.
+- name: disk-name
+  type: string
+  required: true
+  sdk-field: diskName
+  description: |-
+    Disk name.
+    This parameter must start with a number or a letter, containing up to 64 characters.
+    Only letters, numbers, - and periods (.) are supported.
+- name: disk-size
+  type: integer
+  required: true
+  sdk-field: diskSize
+  description: |-
+    Storage space.
+    Unit: GB.
+- name: disk-amount
+  type: integer
+  required: false
+  sdk-field: diskAmount
+  description: Quantity of disks.
+- name: instance-id
+  type: string
+  required: false
+  sdk-field: instanceId
+  description: |-
+    ID of instance to which the disks are attached.
+    Specify the ID of an instance in the current zone to which the disks are attached.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    Resource group ID.
+    If the value is null, the disk will be added into default resource group.
+- name: disk-category
+  type: string
+  required: false
+  sdk-field: diskCategory
+  description: |-
+    Disk type.
+    Basic NVMe SSD : the Basic NVMe SSD. Standard NVMe SSD : the Standard NVMe SSD.
+    Default value: Standard NVMe SSD .
+    Call DescribeDiskCategory to obtain disk type.
+- name: snapshot-id
+  type: string
+  required: false
+  sdk-field: snapshotId
+  description: |-
+    ID of the snapshot to create a disk.
+    If this parameter is specified, the disk will be created from the snapshot. The snapshot’s disk info must be of type disk.
+- name: marketing-options
+  type: object
+  required: false
+  sdk-field: marketingOptions
+  description: Information on marketing campaigns.
+  object-schema:
+  - name: discountCode
+    type: string
+    description: |-
+      Promo Code.
+      If no Promo Code exists, the final discount will not apply.
+  - name: usePocVoucher
+    type: boolean
+    description: |-
+      Whether to use POC voucher.
+      If no POC voucher exists, the related creation will fail.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    Bound tags when creating resources.
+    Tag keys must be unique.--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'
+- name: instance-ids
+  type: string-array
+  required: false
+  sdk-field: instanceIds
+  description: |-
+    IDs of instances to be attached.
+    The number of IDs should be the same as diskAmount .
+- name: bursting-enabled
+  type: boolean
+  required: false
+  sdk-field: burstingEnabled
+  description: Whether to enable disk bursting.

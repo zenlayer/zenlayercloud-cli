@@ -1,0 +1,27 @@
+name: ModifyVpcsAttribute
+product: zec
+use: modify-vpcs-attribute
+short: 批量修改VPC属性
+long: 修改一个或多个VPC的属性。该接口只支持修改VPC的名称。
+examples:
+- cmd: zeno zec modify-vpcs-attribute --vpc-ids your-vpc-id --name 10.0.0.0/9
+  desc: 批量修改VPC的名称。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyVpcsAttribute
+parameters:
+- name: vpc-ids
+  type: string-array
+  required: true
+  sdk-field: vpcIds
+  description: 需要修改的VPC ID列表。
+- name: name
+  type: string
+  required: true
+  sdk-field: name
+  description: |-
+    VPC的名称。
+    范围2到63个字符。
+    仅支持输入字母、数字、-和英文句点(.)。
+    且必须以数字或字母开头和结尾。

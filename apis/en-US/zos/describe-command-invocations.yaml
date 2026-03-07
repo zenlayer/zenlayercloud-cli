@@ -1,0 +1,49 @@
+name: DescribeCommandInvocations
+product: zos
+use: describe-command-invocations
+short: Queries the command execution list.
+long: query the command execution list.
+examples:
+- cmd: zeno zos describe-command-invocations --invocation-ids <invocationId>
+  desc: Query the command execution list according to execution ID.
+sdk:
+  service: zos
+  version: '2025-10-10'
+  action: DescribeCommandInvocations
+parameters:
+- name: command-ids
+  type: string-array
+  required: false
+  sdk-field: commandIds
+  description: Query according to command ID.
+- name: invocation-ids
+  type: string-array
+  required: false
+  sdk-field: invocationIds
+  description: Query according to execution ID.
+- name: instance-ids
+  type: string-array
+  required: false
+  sdk-field: instanceIds
+  description: Query according to instance ID.
+- name: invocation-statuses
+  type: string-array
+  required: false
+  sdk-field: invocationStatuses
+  description: Query according to execution status.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    Number of items in the current page result.
+    Default value: 20;
+    Maximum value: 10000.
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    Number of pages returned.
+    Default value: 1.
+    Value range: [1, +).

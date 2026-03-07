@@ -1,0 +1,18 @@
+name: ConfigEipEgressIp
+product: zec
+use: config-eip-egress-ip
+short: 指定IP作为出口IP。
+long: 指定IP作为出口IP。
+examples:
+- cmd: zeno zec config-eip-egress-ip --eip-id xxx
+  desc: 设置出口EIP。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ConfigEipEgressIp
+parameters:
+- name: eip-id
+  type: string
+  required: true
+  sdk-field: eipId
+  description: 要作为出口的公网弹性IP。

@@ -1,0 +1,31 @@
+name: UnassignNetworkInterfaceIpv4
+product: zec
+use: unassign-network-interface-ipv4
+short: 网卡解绑内网IPv4地址
+long: 将网卡上的内网IPv4地址解绑。
+examples:
+- cmd: zeno zec unassign-network-interface-ipv4 --nic-id <nicId> --ip-addresses 10.0.0.2
+  desc: 网卡解绑内网IPv4地址。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: UnassignNetworkInterfaceIpv4
+parameters:
+- name: nic-id
+  type: string
+  required: true
+  sdk-field: nicId
+  description: 网卡ID。
+- name: ip-address
+  type: string
+  required: false
+  sdk-field: ipAddress
+  description: |-
+    需要解绑的IPv4地址。
+    该字段已过时，请使用ipAddresses，如果两者均指定， 则以ipAddresses为准。
+  deprecated: true
+- name: ip-addresses
+  type: string-array
+  required: false
+  sdk-field: ipAddresses
+  description: 需要解绑的内网IPv4地址。

@@ -1,0 +1,31 @@
+name: DescribeAvailableIpv4Resources
+product: bmc
+use: describe-available-ipv4-resources
+short: 查看可售的Ipv4 Cidr Block资源
+long: 查询可售的Ipv4 Cidr Block资源。
+examples:
+- cmd: zeno bmc describe-available-ipv4-resources --charge-type PREPAID
+  desc: 查询预付费Ipv4 Cidr Block的可用资源
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DescribeAvailableIpv4Resources
+parameters:
+- name: charge-type
+  type: enum
+  required: true
+  sdk-field: chargeType
+  description: |-
+    计费类型。
+    PREPAID：预付费，即包年包月。
+    POSTPAID：后付费。
+  enum-values:
+  - value: POSTPAID
+    desc: 后付费。即按量付费。
+  - value: PREPAID
+    desc: 预付费。
+- name: zone-id
+  type: string
+  required: false
+  sdk-field: zoneId
+  description: Cidr Block所属的可用区ID。

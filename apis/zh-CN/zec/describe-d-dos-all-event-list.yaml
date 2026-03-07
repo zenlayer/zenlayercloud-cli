@@ -1,0 +1,54 @@
+name: DescribeDDosAllEventList
+product: zec
+use: describe-d-dos-all-event-list
+short: 获取攻击事件列表
+long: 获取攻击事件列表
+examples:
+- cmd: zeno zec describe-d-dos-all-event-list --status status --ip-address 10.0.0.2
+  desc: 获取攻击事件列表
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeDDosAllEventList
+parameters:
+- name: status
+  type: enum
+  required: false
+  sdk-field: status
+  description: 攻击状态。
+  enum-values:
+  - value: ATTACKING
+    desc: 攻击中。
+  - value: ATTACKED
+    desc: 攻击结束。
+  - value: BLOCKING
+    desc: 封堵中。
+- name: ip-address
+  type: string
+  required: false
+  sdk-field: ipAddress
+  description: 被攻击的IP。
+- name: start-time
+  type: string
+  required: false
+  sdk-field: startTime
+  description: |-
+    攻击开始时间。
+    时间格式：yyyy-MM-ddTHH:mm:ssZ。
+- name: end-time
+  type: string
+  required: false
+  sdk-field: endTime
+  description: |-
+    攻击结束时间。
+    时间格式：yyyy-MM-ddTHH:mm:ssZ。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: 返回的分页大小。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: 返回的分页数。

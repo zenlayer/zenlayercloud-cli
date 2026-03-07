@@ -1,0 +1,69 @@
+name: DescribeEipRemoteRegions
+product: zec
+use: describe-eip-remote-regions
+short: 查询EIP支持的远程指向的节点信息
+long: 查询EIP支持的远程指向的节点信息。
+examples:
+- cmd: zeno zec describe-eip-remote-regions --region-id asia-east-1 --network-line-type PremiumBGP
+  desc: 查询 `asia-east-1` 节点BGP EIP支持的远端节点信息。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeEipRemoteRegions
+parameters:
+- name: region-id
+  type: string
+  required: true
+  sdk-field: regionId
+  description: 查询的节点ID。
+- name: eip-v4-type
+  type: enum
+  required: false
+  sdk-field: eipV4Type
+  description: |-
+    EIP IP线路类型。
+    已废弃，请使用networkLineType。
+  deprecated: true
+  enum-values:
+  - value: BGPLine
+    desc: BGP 线路。
+  - value: CN2Line
+    desc: CN2 回国优化线路。
+  - value: LocalLine
+    desc: 本地IP。
+  - value: ChinaMobile
+    desc: 中国移动线路。
+  - value: ChinaUnicom
+    desc: 中国联通线路。
+  - value: ChinaTelecom
+    desc: 中国电信线路。
+  - value: Cogent
+    desc: Cogent。
+  - value: ThreeLine
+    desc: 三线IP。
+- name: network-line-type
+  type: enum
+  required: false
+  sdk-field: networkLineType
+  description: EIP IP线路类型。
+  enum-values:
+  - value: PremiumBGP
+    desc: |-
+      优质 BGP。
+      高性能网络。
+  - value: CN2
+    desc: 回国优化线路。
+  - value: LocalLine
+    desc: 本地IP。
+  - value: StandardBGP
+    desc: |-
+      标准 BGP。
+      通用网络，成本优化。
+  - value: CMI
+    desc: 中国移动。
+  - value: CUG
+    desc: 中国联通。
+  - value: CTG
+    desc: 中国电信。
+  - value: ThreeLine
+    desc: 三线IP。

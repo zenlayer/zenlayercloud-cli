@@ -1,0 +1,91 @@
+name: DescribeVpcs
+product: bmc
+use: describe-vpcs
+short: Queries list of VPCs.
+long: query the details of one or more VPCs. You can filter the query results with the VPC ID, VPC name, subnet ID and availability region ID.
+examples:
+- cmd: zeno bmc describe-vpcs --page-size 10 --page-num 1
+  desc: ''
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DescribeVpcs
+parameters:
+- name: vpc-ids
+  type: string-array
+  required: false
+  sdk-field: vpcIds
+  description: |-
+    VPC ID(s).
+    The maximum number of VPCs in each request is 100.
+- name: vpc-name
+  type: string
+  required: false
+  sdk-field: vpcName
+  description: Name of VPC.
+- name: cidr-block
+  type: string
+  required: false
+  sdk-field: cidrBlock
+  description: CIDR block of VPC.
+- name: vpc-status
+  type: enum
+  required: false
+  sdk-field: vpcStatus
+  description: '[Status of VPC](../datastructure.md#vpcstatus).'
+  enum-values:
+  - value: CREATING
+    desc: Creating.
+  - value: CREATE_FAILED
+    desc: Creating failed.
+  - value: AVAILABLE
+    desc: Available.
+  - value: DELETING
+    desc: Deleting.
+- name: vpc-region-id
+  type: string
+  required: false
+  sdk-field: vpcRegionId
+  description: Availability region ID of VPC.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    Resource group ID.
+    If the value is null, then return all the VPCs in the authorized resource groups.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    Number of items in the current page result.
+    Default value: 20;
+    Maximum value: 1000.
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: Number of pages returned.
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    Search by tag key.
+    You can query up to 20 tag keys in each request.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    Search by tag.
+    You can query up to 20 tags in each request.
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 128 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 128 characters.'

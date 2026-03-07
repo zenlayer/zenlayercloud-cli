@@ -1,0 +1,15 @@
+name: DeleteCidr
+product: zec
+use: delete-cidr
+short: Deletes a CIDR block.
+long: delete a CIDR block.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DeleteCidr
+parameters:
+- name: cidr-id
+  type: string
+  required: true
+  sdk-field: cidrId
+  description: CIDR ID.

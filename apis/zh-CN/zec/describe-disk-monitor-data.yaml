@@ -1,0 +1,58 @@
+name: DescribeDiskMonitorData
+product: zec
+use: describe-disk-monitor-data
+short: 查询云硬盘监控指标数据
+long: 查询一段时间的云硬盘的监控指标数据。
+examples:
+- cmd: zeno zec describe-disk-monitor-data --disk-id "< eipId >" --metric-type DISK_UTIL --start-time 2025-06-25T01:55:00Z --end-time 2025-06-25T07:55:00Z
+  desc: 查询某段时间的云硬盘的 `DISK_UTIL` 监控指标数据。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeDiskMonitorData
+parameters:
+- name: disk-id
+  type: string
+  required: true
+  sdk-field: diskId
+  description: 云硬盘唯一标识ID。
+- name: metric-type
+  type: enum
+  required: true
+  sdk-field: metricType
+  description: 云硬盘监控指标类型。
+  enum-values:
+  - value: DISK_WRITE_BYTES
+    desc: |-
+      云硬盘写吞吐量。
+      单位KiB/s。
+  - value: DISK_READ_BYTES
+    desc: |-
+      云硬盘读吞吐量。
+      单位KiB/s。
+  - value: DISK_READ_OPS
+    desc: |-
+      云硬盘读数量。
+      单位IOPS。
+  - value: DISK_WRITE_OPS
+    desc: |-
+      云硬盘写数量。
+      单位IOPS。
+  - value: DISK_UTIL
+    desc: |-
+      云硬盘利用率。
+      单位%。
+- name: start-time
+  type: string
+  required: true
+  sdk-field: startTime
+  description: |-
+    查询开始时间。
+    时间格式：yyyy-MM-ddTHH:mm:ssZ。
+- name: end-time
+  type: string
+  required: true
+  sdk-field: endTime
+  description: |-
+    查询结束时间。
+    时间格式：yyyy-MM-ddTHH:mm:ssZ。

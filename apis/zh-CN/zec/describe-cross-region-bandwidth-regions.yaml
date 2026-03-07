@@ -1,0 +1,12 @@
+name: DescribeCrossRegionBandwidthRegions
+product: zec
+use: describe-cross-region-bandwidth-regions
+short: 查询支持售卖内网跨区域带宽的区域信息
+long: 查询支持售卖内网跨区域带宽的区域信息。
+examples:
+- cmd: zeno zec describe-cross-region-bandwidth-regions
+  desc: 查询支持售卖内网跨区域带宽的区域信息
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeCrossRegionBandwidthRegions

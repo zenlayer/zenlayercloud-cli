@@ -1,0 +1,18 @@
+name: DeregisterBackend
+product: bmc
+use: deregister-backend
+short: Removes a load balance backend server.
+long: remove a load balance backend server.
+examples:
+- cmd: zeno bmc deregister-backend --backend-id xxxx
+  desc: Remove a backend server.
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DeregisterBackend
+parameters:
+- name: backend-id
+  type: string
+  required: true
+  sdk-field: backendId
+  description: Backend server ID.

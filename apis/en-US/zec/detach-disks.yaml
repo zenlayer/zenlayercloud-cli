@@ -1,0 +1,25 @@
+name: DetachDisks
+product: zec
+use: detach-disks
+short: Detaches one or more disks from an instance.
+long: detach one or more disks from an instance.
+examples:
+- cmd: zeno zec detach-disks --disk-ids your-disk-id
+  desc: Detach one or more disks from an instance.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DetachDisks
+parameters:
+- name: disk-ids
+  type: string-array
+  required: true
+  sdk-field: diskIds
+  description: ID list of disks to be detached.
+- name: instance-check-flag
+  type: boolean
+  required: false
+  sdk-field: instanceCheckFlag
+  description: |-
+    Check instance running status.
+    Default value: true , meaning disk detach allowed only when instance is shut down.

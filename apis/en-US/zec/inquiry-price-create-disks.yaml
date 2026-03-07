@@ -1,0 +1,38 @@
+name: InquiryPriceCreateDisks
+product: zec
+use: inquiry-price-create-disks
+short: Queries the price of creating a disk.
+long: query the price of creating a disk.
+examples:
+- cmd: zeno zec inquiry-price-create-disks --zone-id HKG-A --disk-size 2000
+  desc: Query the price of creating a disk.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: InquiryPriceCreateDisks
+parameters:
+- name: zone-id
+  type: string
+  required: true
+  sdk-field: zoneId
+  description: Availability zone ID.
+- name: disk-size
+  type: integer
+  required: true
+  sdk-field: diskSize
+  description: |-
+    Disk size.
+    Unit: GB.
+- name: disk-amount
+  type: integer
+  required: false
+  sdk-field: diskAmount
+  description: Quantity of disks.
+- name: disk-category
+  type: string
+  required: false
+  sdk-field: diskCategory
+  description: |-
+    Basic NVMe SSD: the Basic NVMe SSD. Standard NVMe SSD: the Standard NVMe SSD.
+    Default value: Standard NVMe SSD.
+    Call DescribeDiskCategory to obtain disk type.

@@ -1,0 +1,25 @@
+name: ModifyDisksResourceGroup
+product: zec
+use: modify-disks-resource-group
+short: Changes the resource group of disks.
+long: change the resource group of disks.
+examples:
+- cmd: zeno zec modify-disks-resource-group --disk-ids diskId1 --disk-ids diskId2 --resource-group-id resourceGroup1
+  desc: Move the disk to the specified resource group.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyDisksResourceGroup
+parameters:
+- name: disk-ids
+  type: string-array
+  required: true
+  sdk-field: diskIds
+  description: |-
+    ID list of disks.
+    The maximum number of disks in each request is 100.
+- name: resource-group-id
+  type: string
+  required: true
+  sdk-field: resourceGroupId
+  description: Resource group ID.

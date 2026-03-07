@@ -1,0 +1,180 @@
+name: InquiryPriceCreateInstance
+product: zec
+use: inquiry-price-create-instance
+short: 创建虚拟机实例询价
+long: 创建虚拟机实例询价。
+examples:
+- cmd: zeno zec inquiry-price-create-instance --zone-id SAO-A --instance-type c.1c2g --network-line-type PremiumBGP --internet-charge-type ByBandwidth --bandwidth 1 --instance-count 1
+  desc: 查询实例的询价，带宽计费为固定带宽。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: InquiryPriceCreateInstance
+parameters:
+- name: zone-id
+  type: string
+  required: true
+  sdk-field: zoneId
+  description: 可用区ID。
+- name: instance-type
+  type: string
+  required: true
+  sdk-field: instanceType
+  description: |-
+    实例机型。
+    具体取值可通过调用接口[DescribeZoneInstanceConfigInfos](describezoneinstanceconfiginfos.md)来获得最新的规格表。
+- name: eip-v4-type
+  type: enum
+  required: false
+  sdk-field: eipV4Type
+  description: |-
+    公网IPv4的线路类型。
+    目前不支持三线IP(ThreeLine)。
+    已废弃，请使用networkLineType。
+  deprecated: true
+  enum-values:
+  - value: BGPLine
+    desc: BGP 线路。
+  - value: CN2Line
+    desc: CN2 回国优化线路。
+  - value: LocalLine
+    desc: 本地IP。
+  - value: ChinaMobile
+    desc: 中国移动线路。
+  - value: ChinaUnicom
+    desc: 中国联通线路。
+  - value: ChinaTelecom
+    desc: 中国电信线路。
+  - value: Cogent
+    desc: Cogent。
+  - value: ThreeLine
+    desc: 三线IP。
+- name: network-line-type
+  type: enum
+  required: false
+  sdk-field: networkLineType
+  description: |-
+    公网IPv4的线路类型。
+    目前不支持三线IP(ThreeLine)。
+  enum-values:
+  - value: PremiumBGP
+    desc: |-
+      优质 BGP。
+      高性能网络。
+  - value: CN2
+    desc: 回国优化线路。
+  - value: LocalLine
+    desc: 本地IP。
+  - value: StandardBGP
+    desc: |-
+      标准 BGP。
+      通用网络，成本优化。
+  - value: CMI
+    desc: 中国移动。
+  - value: CUG
+    desc: 中国联通。
+  - value: CTG
+    desc: 中国电信。
+  - value: ThreeLine
+    desc: 三线IP。
+- name: internet-charge-type
+  type: enum
+  required: true
+  sdk-field: internetChargeType
+  description: 公网IP的网络计费类型。
+  enum-values:
+  - value: ByBandwidth
+    desc: 固定带宽计费方式。
+  - value: ByTrafficPackage
+    desc: 流量包计费方式。
+  - value: BandwidthCluster
+    desc: 共享带宽包计费方式。
+- name: traffic-package-size
+  type: float
+  required: false
+  sdk-field: trafficPackageSize
+  description: |-
+    流量包订购大小。
+    单位为TB。
+    该值必须在internetChargeType = ByTrafficPackage时才会生效。
+- name: bandwidth
+  type: integer
+  required: false
+  sdk-field: bandwidth
+  description: |-
+    公网出带宽上限。
+    单位：Mbps。
+- name: instance-count
+  type: integer
+  required: true
+  sdk-field: instanceCount
+  description: 实例数量。
+- name: system-disk
+  type: object
+  required: true
+  sdk-field: systemDisk
+  description: 系统盘相关信息。
+  object-schema:
+  - name: diskId
+    type: string
+    description: |-
+      系统盘ID。
+      该参数目前仅用于`DescribeInstances`等查询类接口的返回参数，不可用于`CreateInstances`等写接口的入参。
+  - name: diskSize
+    type: integer
+    description: |-
+      系统盘大小。
+      单位：GiB。
+  - name: diskCategory
+    type: string
+    description: |-
+      云硬盘种类。
+      Basic NVMe SSD: 经济型 NVMe SSD。
+      Standard NVMe SSD: 标准型 NVMe SSD。
+      默认为Standard NVMe SSD。
+  - name: burstingEnabled
+    type: boolean
+    description: 是否开启性能突发。
+- name: data-disk
+  type: object
+  required: false
+  sdk-field: dataDisk
+  description: 数据盘相关信息。
+  object-schema:
+  - name: diskId
+    type: string
+    description: |-
+      数据盘ID。
+      该参数目前仅用于`DescribeInstances`等查询类接口的返回参数，不可用于`CreateInstances`等写接口的入参。
+  - name: diskName
+    type: string
+    description: |-
+      云盘的名称。
+      该参数目前仅用于DescribeInstances等查询类接口的返回参数。
+  - name: diskSize
+    type: integer
+    description: |-
+      数据盘大小。
+      单位：GiB。
+  - name: diskAmount
+    type: integer
+    description: |-
+      数据盘数量。
+      该参数仅用于`CreateInstances`,`InquiryPriceCreateInstance`等接口的入参使用。
+  - name: portable
+    type: boolean
+    description: |-
+      是否可拆卸。
+      该参数仅用于查询的回参，不用于入参。
+      true代表不会随着实例删除而删除。
+      false代表会随着实例删除而删除。
+  - name: burstingEnabled
+    type: boolean
+    description: 是否开启性能突发。
+  - name: diskCategory
+    type: string
+    description: |-
+      云硬盘种类。
+      Basic NVMe SSD: 经济型 NVMe SSD。
+      Standard NVMe SSD: 标准型 NVMe SSD。
+      默认为Standard NVMe SSD。

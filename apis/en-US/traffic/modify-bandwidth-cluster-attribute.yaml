@@ -1,0 +1,25 @@
+name: ModifyBandwidthClusterAttribute
+product: traffic
+use: modify-bandwidth-cluster-attribute
+short: Modifies the attributes of a bandwidth cluster.
+long: modify the attributes of a bandwidth cluster, including the name.
+examples:
+- cmd: zeno traffic modify-bandwidth-cluster-attribute --bandwidth-cluster-id <bandwidthClusterId> --name Test
+  desc: Modify the name of a bandwidth cluster.
+sdk:
+  service: traffic
+  version: '2024-03-26'
+  action: ModifyBandwidthClusterAttribute
+parameters:
+- name: bandwidth-cluster-id
+  type: string
+  required: true
+  sdk-field: bandwidthClusterId
+  description: Bandwidth cluster ID.
+- name: name
+  type: string
+  required: true
+  sdk-field: name
+  description: |-
+    Bandwidth cluster name to be modified.
+    The length is up to 255 characters.

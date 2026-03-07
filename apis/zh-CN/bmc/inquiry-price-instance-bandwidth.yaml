@@ -1,0 +1,25 @@
+name: InquiryPriceInstanceBandwidth
+product: bmc
+use: inquiry-price-instance-bandwidth
+short: 修改带宽询价
+long: 实例修改带宽询价。
+examples:
+- cmd: zeno bmc inquiry-price-instance-bandwidth --instance-id instanceId --bandwidth-out-mbps 100
+  desc: 实例修改带宽询价
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: InquiryPriceInstanceBandwidth
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: |-
+    待操作的实例ID。
+    可通过DescribeInstances接口返回值中的instanceId获取。
+- name: bandwidth-out-mbps
+  type: integer
+  required: true
+  sdk-field: bandwidthOutMbps
+  description: 带宽大小。

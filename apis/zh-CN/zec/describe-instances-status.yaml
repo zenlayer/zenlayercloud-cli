@@ -1,0 +1,33 @@
+name: DescribeInstancesStatus
+product: zec
+use: describe-instances-status
+short: 查询实例的状态。
+long: 查询实例的状态。
+examples:
+- cmd: zeno zec describe-instances-status
+  desc: 查询实例状态。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeInstancesStatus
+parameters:
+- name: instance-ids
+  type: string-array
+  required: false
+  sdk-field: instanceIds
+  description: 要查询的实例ID列表。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: 分页大小。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: 分页页数。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: 根据资源组ID过滤。

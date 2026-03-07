@@ -1,0 +1,148 @@
+name: DescribeInstanceMonitorData
+product: zec
+use: describe-instance-monitor-data
+short: 查询实例监控指标数据
+long: 查询一段时间的实例的监控指标数据。包括CPU,内存等相关指标数据。
+examples:
+- cmd: zeno zec describe-instance-monitor-data --instance-id "< instanceId >" --metric-type VCPU_TIME --start-time 2025-06-25T01:55:00Z --end-time 2025-06-25T07:55:00Z
+  desc: 查询某段时间的实例的 `VCPU_TIME` 监控指标数据。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeInstanceMonitorData
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: 实例唯一标识ID。
+- name: metric-type
+  type: enum
+  required: true
+  sdk-field: metricType
+  description: 实例监控指标类型。
+  enum-values:
+  - value: CPU_UTILIZATION
+    desc: |-
+      CPU 利用率。
+      单位百分比。
+  - value: HYPERVISOR_IO_WAIT_TIME
+    desc: |-
+      虚拟化层 I/O 等待时间。
+      单位百分比。
+  - value: HYPERVISOR_QUEUE_TIME
+    desc: |-
+      虚拟化层 CPU 队列时间。
+      单位百分比。
+  - value: HYPERVISOR_CPU_USER
+    desc: |-
+      虚拟机对应进程在物理机上的CPU用户态使用率。
+      单位百分比。
+  - value: HYPERVISOR_CPU_TIME
+    desc: |-
+      虚拟机对应进程在物理机上的CPU使用率。
+      单位百分比。
+  - value: HYPERVISOR_CPU_SYSTEM
+    desc: |-
+      虚拟机对应进程在物理机上的CPU内核态使用率。
+      单位百分比。
+  - value: PROC_CPU_USER
+    desc: |-
+      CPU 用户态的比例类型。
+      单位百分比。
+  - value: PROC_CPU_SYSTEM
+    desc: |-
+      CPU 内核态的比例类型。
+      单位百分比。
+  - value: PROC_CPU_IOWAIT
+    desc: |-
+      CPU IOWAIT的比例类型。
+      单位百分比。
+  - value: PROC_CPU_SOFTIRQ
+    desc: |-
+      CPU SOFTIRQ的比例类型。
+      单位百分比。
+  - value: PROC_CPU_IDLE
+    desc: |-
+      CPU 空闲的比例类型。
+      单位百分比。
+  - value: PROC_CPU_OTHER
+    desc: |-
+      CPU 其他的比例类型。
+      单位百分比。
+  - value: LOAD1
+    desc: 系统负载平均值 - 最近 1 分钟。
+  - value: LOAD5
+    desc: 系统负载平均值 - 最近 5 分钟。
+  - value: LOAD15
+    desc: 系统负载平均值 - 最近 15 分钟。
+  - value: MEM_UTIL
+    desc: |-
+      利用率。
+      单位百分比。
+  - value: REALMEM_UTIL
+    desc: |-
+      真实利用率。
+      单位百分比。
+  - value: TCP_ESTABLISHED
+    desc: |-
+      TCP连接数。
+      单位个。
+  - value: SWAP_TOTAL
+    desc: |-
+      虚拟机系统配置的swap总容量。
+      用于评估系统支持的最大交换空间容量。
+      单位KiB。
+  - value: SWAP_FREE
+    desc: |-
+      当前剩余可用的swap空间大小。
+      用于评估交换区剩余可用资源。
+      单位KiB。
+  - value: SWAP_IN
+    desc: 系统启动以来从swap空间读入内存的页面总数 单位页。
+  - value: SWAP_OUT
+    desc: 系统启动以来从内存写入swap空间的页面总数 单位页。
+  - value: KSWAPD_STEAL
+    desc: 由kswapd内核线程回收的页面总数 单位页。
+  - value: KSWAPD_LHWM
+    desc: |-
+      kswapd刚完成内存回收后，系统快速再次触发低水位线的次数。
+      单位次。
+  - value: RX_PACKETS
+    desc: |-
+      虚拟机VF网卡的每秒接收包量。
+      单位Packets。
+  - value: TX_PACKETS
+    desc: |-
+      虚拟机VF网卡的每秒发送包量。
+      单位Packets。
+  - value: RX_DROPPED
+    desc: |-
+      该Nic的VF网卡+Virtio网卡入方向相加的每秒丢包数量。
+      单位Packets。
+  - value: TX_DROPPED
+    desc: |-
+      该Nic的VF网卡+Virtio网卡出方向相加的每秒丢包数量。
+      单位Packets。
+  - value: RX_ERRORS
+    desc: |-
+      该Nic的VF网卡+Virtio网卡入方向相加的每秒错误包数量。
+      单位Packets。
+  - value: TX_ERRORS
+    desc: |-
+      该Nic的VF网卡+Virtio网卡出方向相加的每秒错误包数量。
+      单位Packets。
+- name: start-time
+  type: string
+  required: true
+  sdk-field: startTime
+  description: |-
+    查询开始时间。
+    时间格式：yyyy-MM-ddTHH:mm:ssZ。
+- name: end-time
+  type: string
+  required: true
+  sdk-field: endTime
+  description: |-
+    查询结束时间。
+    时间格式：yyyy-MM-ddTHH:mm:ssZ。

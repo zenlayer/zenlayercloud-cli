@@ -1,0 +1,32 @@
+name: CreateTags
+product: zrm
+use: create-tags
+short: 批量创建标签
+long: 批量创建标签。
+examples:
+- cmd: zeno zrm create-tags --tags "{key=key_f7105ccd1a94, value=value_5a4be6ee5544}"
+  desc: 创建一组标签。
+sdk:
+  service: zrm
+  version: '2025-10-14'
+  action: CreateTags
+parameters:
+- name: tags
+  type: object-array
+  required: true
+  sdk-field: tags
+  description: |-
+    创建的标签。
+    一次性最多创建20个标签。
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。

@@ -1,0 +1,43 @@
+name: DescribeBandwidthClusterTraffic
+product: traffic
+use: describe-bandwidth-cluster-traffic
+short: 查询共享带宽包带宽数据
+long: 查询带宽组指定时间段内的流量信息。
+examples:
+- cmd: zeno traffic describe-bandwidth-cluster-traffic --bandwidth-cluster-id bandwidthClusterId --start-time 2024-01-01T00:00:00Z --end-time 2024-01-01T23:59:59Z
+  desc: 查询共享带宽包一天内的流量数据。
+sdk:
+  service: traffic
+  version: '2024-03-26'
+  action: DescribeBandwidthClusterTraffic
+parameters:
+- name: bandwidth-cluster-id
+  type: string
+  required: true
+  sdk-field: bandwidthClusterId
+  description: 共享带宽包ID。
+- name: start-time
+  type: string
+  required: true
+  sdk-field: startTime
+  description: |-
+    查询开始时间。
+    按照ISO8601标准表示，并且使用UTC时间。
+    格式为：YYYY-MM-ddTHH:mm:ssZ。
+- name: end-time
+  type: string
+  required: true
+  sdk-field: endTime
+  description: |-
+    查询结束时间。
+    按照ISO8601标准表示，并且使用UTC时间。
+    格式为：YYYY-MM-ddTHH:mm:ssZ。
+- name: city
+  type: string
+  required: false
+  sdk-field: city
+  description: |-
+    按城市进行过滤，如LAX。
+    该值可以是城市英文名也可以是城市码。
+    指定该值，将会只返回该城市的带宽流量数据。
+    当前带宽组的城市码和城市名称可以在[DescribeBandwidthClusters](../bandwidth-cluster/describebandwidthclusters.md)中的cities字段中查看。

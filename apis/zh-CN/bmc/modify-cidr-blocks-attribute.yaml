@@ -1,0 +1,28 @@
+name: ModifyCidrBlocksAttribute
+product: bmc
+use: modify-cidr-blocks-attribute
+short: 修改Cidr Block属性
+long: 本接口用于修改一个或多个Cidr Block的属性（目前只支持修改名称）。
+examples:
+- cmd: zeno bmc modify-cidr-blocks-attribute --cidr-block-ids cidrBlockId1 --cidr-block-ids cidrBlockId2 --name myCidrBlockName
+  desc: ''
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: ModifyCidrBlocksAttribute
+parameters:
+- name: name
+  type: string
+  required: true
+  sdk-field: name
+  description: |-
+    Cidr Block的名称。
+    不得超过64个字符。
+- name: cidr-block-ids
+  type: string-array
+  required: true
+  sdk-field: cidrBlockIds
+  description: |-
+    一个或多个待操作的Cidr Block ID。
+    可通过DescribeCidrBlocks接口返回值中的cidrBlockId获取。
+    每次请求批量实例的上限为100。

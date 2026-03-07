@@ -1,0 +1,32 @@
+name: DescribeCidrBlockIps
+product: bmc
+use: describe-cidr-block-ips
+short: Queries list of CIDR block IPs.
+long: query the IPs of a CIDR block.
+examples:
+- cmd: zeno bmc describe-cidr-block-ips --cidr-block-id aCidrBlockId
+  desc: ''
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DescribeCidrBlockIps
+parameters:
+- name: instance-id
+  type: string
+  required: false
+  sdk-field: instanceId
+  description: |-
+    ID of the instance.
+    You can find the instanceId in the response by calling DescribeInstances .
+- name: ip
+  type: string
+  required: false
+  sdk-field: ip
+  description: IP address.
+- name: cidr-block-id
+  type: string
+  required: true
+  sdk-field: cidrBlockId
+  description: |-
+    ID of the CIDR block.
+    You can find the cidrBlockId in the response by calling DescribeCidrBlocks .

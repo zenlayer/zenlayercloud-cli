@@ -1,0 +1,18 @@
+name: DescribeAvailableBorderGateway
+product: zec
+use: describe-available-border-gateway
+short: 获取可绑定NAT的边界网关
+long: 获取可绑定NAT的边界网关。
+examples:
+- cmd: zeno zec describe-available-border-gateway --nat-gateway-id <natGatewayId>
+  desc: 获取可绑定NAT的边界网关
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeAvailableBorderGateway
+parameters:
+- name: nat-gateway-id
+  type: string
+  required: true
+  sdk-field: natGatewayId
+  description: NAT网关 ID。

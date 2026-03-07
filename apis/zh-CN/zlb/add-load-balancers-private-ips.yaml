@@ -1,0 +1,32 @@
+name: AddLoadBalancersPrivateIps
+product: zlb
+use: add-load-balancers-private-ips
+short: 为负载均衡器实例添加内网IP
+long: 为负载均衡器实例添加内网IP。
+examples:
+- cmd: zeno zlb add-load-balancers-private-ips --private-ips 10.0.0.0 --load-balancer-id "<your lb id>" --subnet-id "<your subnet id>"
+  desc: 为负载均衡器实例添加内网IP
+sdk:
+  service: zlb
+  version: '2025-04-01'
+  action: AddLoadBalancersPrivateIps
+parameters:
+- name: private-ips
+  type: string-array
+  required: true
+  sdk-field: privateIps
+  description: |-
+    要加入的内网Ip。
+    单次最多20个。
+- name: load-balancer-id
+  type: string
+  required: true
+  sdk-field: loadBalancerId
+  description: 负载均衡ID。
+- name: subnet-id
+  type: string
+  required: true
+  sdk-field: subnetId
+  description: |-
+    作为内网ip的subnetId。
+    可以通过[DescribeSubnets](../../zec/vpc-network/describesubnets.md)接口获取。

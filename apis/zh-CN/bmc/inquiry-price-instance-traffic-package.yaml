@@ -1,0 +1,27 @@
+name: InquiryPriceInstanceTrafficPackage
+product: bmc
+use: inquiry-price-instance-traffic-package
+short: 修改流量包询价
+long: 实例修改流量包询价。
+examples:
+- cmd: zeno bmc inquiry-price-instance-traffic-package --instance-id instanceId --traffic-package-size 100
+  desc: 实例修改流量包询价
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: InquiryPriceInstanceTrafficPackage
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: |-
+    待操作的实例ID。
+    可通过DescribeInstances接口返回值中的instanceId获取。
+- name: traffic-package-size
+  type: float
+  required: true
+  sdk-field: trafficPackageSize
+  description: |-
+    流量包大小。
+    必须是0.05的倍数。

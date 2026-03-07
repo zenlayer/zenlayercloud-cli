@@ -1,0 +1,33 @@
+name: InquiryPricePublicIpv6
+product: zec
+use: inquiry-price-public-ipv6
+short: 公网Ipv6流量包或固定带宽询价
+long: 公网Ipv6流量包或固定带宽询价。
+examples:
+- cmd: zeno zec inquiry-price-public-ipv6 --region-id asia-east-1 --package-size 10
+  desc: 在asia-east-1节点，公网Ipv6流量计费10TB的询价。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: InquiryPricePublicIpv6
+parameters:
+- name: region-id
+  type: string
+  required: true
+  sdk-field: regionId
+  description: 节点ID。
+- name: package-size
+  type: float
+  required: false
+  sdk-field: packageSize
+  description: |-
+    流量包订购大小。
+    单位为TB。
+- name: bandwidth
+  type: integer
+  required: false
+  sdk-field: bandwidth
+  description: |-
+    公网出带宽上限。
+    单位：Mbps。
+    不同机型带宽上限范围不一致，具体限制详见购买网络带宽。

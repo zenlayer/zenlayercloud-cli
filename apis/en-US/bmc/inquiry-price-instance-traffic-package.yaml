@@ -1,0 +1,27 @@
+name: InquiryPriceInstanceTrafficPackage
+product: bmc
+use: inquiry-price-instance-traffic-package
+short: Queries the price of instance traffic package.
+long: query the price of modified instance traffic package.
+examples:
+- cmd: zeno bmc inquiry-price-instance-traffic-package --instance-id instanceId --traffic-package-size 100
+  desc: Query the price of modified instance traffic package
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: InquiryPriceInstanceTrafficPackage
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: |-
+    Instance ID.
+    To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response.
+- name: traffic-package-size
+  type: float
+  required: true
+  sdk-field: trafficPackageSize
+  description: |-
+    Traffic package size.
+    The value must be a multiple of 0.05.

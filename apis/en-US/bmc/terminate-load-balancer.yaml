@@ -1,0 +1,18 @@
+name: TerminateLoadBalancer
+product: bmc
+use: terminate-load-balancer
+short: Terminates a load balancer.
+long: terminate a load balancer.
+examples:
+- cmd: zeno bmc terminate-load-balancer --load-balancer-id xxxx
+  desc: Terminate a load balancer.
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: TerminateLoadBalancer
+parameters:
+- name: load-balancer-id
+  type: string
+  required: true
+  sdk-field: loadBalancerId
+  description: The ID of the load balance instance.

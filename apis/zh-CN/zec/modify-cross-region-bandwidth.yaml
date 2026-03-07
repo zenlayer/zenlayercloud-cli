@@ -1,0 +1,38 @@
+name: ModifyCrossRegionBandwidth
+product: zec
+use: modify-cross-region-bandwidth
+short: 调整内网跨区域带宽
+long: 调整内网跨区域带宽。
+examples:
+- cmd: zeno zec modify-cross-region-bandwidth --cross-region-bandwidth-id "<your cross id>" --bandwidth 500
+  desc: 调整网络模式为`ByBandwidth`的内网跨区域带宽，修改带宽为500Mbps
+- cmd: zeno zec modify-cross-region-bandwidth --cross-region-bandwidth-id "<your cross id>" --bandwidth 500 --bandwidth-cap 1000
+  desc: 调整网络模式为`ByInstanceBandwidth95`的内网跨区域带宽，修改保底带宽为500Mbps，突发带宽为1000Mbps
+- cmd: zeno zec modify-cross-region-bandwidth --cross-region-bandwidth-id "<your cross id>" --bandwidth 500
+  desc: 调整网络模式为`ByInstanceBandwidth95`的内网跨区域带宽，修改保底带宽为500Mbps，突发带宽不变
+- cmd: zeno zec modify-cross-region-bandwidth --cross-region-bandwidth-id "<your cross id>" --bandwidth-cap 1000
+  desc: 调整网络模式为`ByInstanceBandwidth95`的内网跨区域带宽，保底带宽不变，修改突发带宽为1000Mbps
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyCrossRegionBandwidth
+parameters:
+- name: cross-region-bandwidth-id
+  type: string
+  required: true
+  sdk-field: crossRegionBandwidthId
+  description: 要调整的内网跨区域带宽ID。
+- name: bandwidth
+  type: integer
+  required: true
+  sdk-field: bandwidth
+  description: |-
+    带宽|保底带宽。
+    单位：Mbps。
+- name: bandwidth-cap
+  type: integer
+  required: false
+  sdk-field: bandwidthCap
+  description: |-
+    突发带宽。
+    单位：Mbps。

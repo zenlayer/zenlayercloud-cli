@@ -1,0 +1,88 @@
+name: DescribeCidrs
+product: zec
+use: describe-cidrs
+short: Queries the information of one or more specified CIDR blocks.
+long: query the information of one or more specified CIDR blocks. Users can search for CIDR block information based on CIDR block ID, CIDR block name, etc.
+examples:
+- cmd: zeno zec describe-cidrs --cidr-ids xxx --region-id asia-east-1 --cidr-block 128.0.0.0/24 --page-size 10 --page-num 1
+  desc: Query CIDR block list with IP range of `10.0.0.0/24`.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeCidrs
+parameters:
+- name: cidr-ids
+  type: string-array
+  required: false
+  sdk-field: cidrIds
+  description: CIDR block ID(s).
+- name: region-id
+  type: string
+  required: false
+  sdk-field: regionId
+  description: Region ID.
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: |-
+    CIDR block name.
+    Fuzzy search supported.
+- name: cidr-block
+  type: string
+  required: false
+  sdk-field: cidrBlock
+  description: |-
+    CIDR IP range.
+    Fuzzy search supported.
+- name: source
+  type: enum
+  required: false
+  sdk-field: source
+  description: IP type. IP leasing or BYOIP.
+  enum-values:
+  - value: CONSOLE
+    desc: CIDR block created on Console.
+  - value: BYOIP
+    desc: Bring your own IP (BYOIP).
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: Resource Group ID.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    Number of items in the current page result.
+    Default value: 20;
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    Number of pages returned.
+    Default value: 1.
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    Query using tag keys.
+    A maximum of 20 tag keys can be used.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    Query using tags.
+    A maximum of 20 tags can be used.
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'

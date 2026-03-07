@@ -1,0 +1,50 @@
+name: ModifyVpcAttribute
+product: zec
+use: modify-vpc-attribute
+short: 修改VPC属性。
+long: 修改私有网络（VPC）的相关属性。
+examples:
+- cmd: zeno zec modify-vpc-attribute --vpc-id <vpcId> --vpc-name TestVpcName --enable-ipv6 true
+  desc: 修改VPC属性, 开启IPv6。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyVpcAttribute
+parameters:
+- name: vpc-id
+  type: string
+  required: true
+  sdk-field: vpcId
+  description: VPC的ID。
+- name: vpc-name
+  type: string
+  required: false
+  sdk-field: vpcName
+  description: |-
+    VPC的名称。
+    范围2到63个字符。
+    仅支持输入字母、数字、-/_和英文句点(.)。
+    且必须以数字或字母开头和结尾。
+- name: cidr-block
+  type: string
+  required: false
+  sdk-field: cidrBlock
+  description: |-
+    需要修改的IPv4 CIDR。
+    需要满足以下4种内网段内(10.0.0.0/9, 10.128.0.0/9, 172.16.0.0/12以及192.168.0.0/16)。
+    如果VPC存在子网，则修改的CIDR范围必须包含原VPC CIDR。
+    默认VPC不支持修改。
+- name: enable-i-pv6
+  type: boolean
+  required: false
+  sdk-field: enableIPv6
+  description: |-
+    是否开启IPv6内网CIDR。
+    当前仅允许打开(true)，一旦设置IPv6, 将无法关闭。
+- name: security-group-id
+  type: string
+  required: false
+  sdk-field: securityGroupId
+  description: |-
+    修改VPC绑定的安全组ID。
+    如果不指定，则不会修改。

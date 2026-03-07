@@ -1,0 +1,30 @@
+name: DeleteTags
+product: zrm
+use: delete-tags
+short: 批量删除标签
+long: 批量删除标签。
+examples:
+- cmd: zeno zrm delete-tags --tags "{key=key_d0added9da9d, value=value_be1fe7b89b0a}"
+  desc: 删除一组标签
+sdk:
+  service: zrm
+  version: '2025-10-14'
+  action: DeleteTags
+parameters:
+- name: tags
+  type: object-array
+  required: true
+  sdk-field: tags
+  description: 需要删除的标签。
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。

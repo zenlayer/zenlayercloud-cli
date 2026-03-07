@@ -1,0 +1,61 @@
+name: ModifyBorderGatewaysAttribute
+product: zec
+use: modify-border-gateways-attribute
+short: Modifies the attributes of one or more border gateways.
+long: The API is used to modify the attributes of one or more border gateways. Only the border gateway name to be displayed can be modified for now.
+examples:
+- cmd: zeno zec modify-border-gateways-attribute --zbg-ids xxx --name xxx
+  desc: Modify border gateway name in batches.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyBorderGatewaysAttribute
+parameters:
+- name: zbg-ids
+  type: string-array
+  required: true
+  sdk-field: zbgIds
+  description: |-
+    Border gateway ID(s).
+    The maximum number of border gateways in each request is 100.
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: |-
+    Border gateway name to be displayed.
+    This parameter must start and end with a number or a letter, containing 2 to 63 characters. Only letters, numbers, - and periods (.) are supported.
+- name: routing-mode
+  type: enum
+  required: false
+  sdk-field: routingMode
+  description: Dynamic route mode.
+  enum-values:
+  - value: Regional
+    desc: Regional routing. Learn routes only within the region it was created in.
+  - value: Global
+    desc: Global routing. Dynamically learn and distribute routes across all regions using a single VPN or Interconnect.
+- name: advertised-subnet
+  type: enum
+  required: false
+  sdk-field: advertisedSubnet
+  description: |-
+    Subnet route advertisement.
+    Default value: Advertise All .
+  enum-values:
+  - value: ALL
+    desc: Advertise all.
+  - value: NONE
+    desc: Do not advertise.
+  - value: PART
+    desc: Advertise partial.
+- name: advertised-cidrs
+  type: string-array
+  required: false
+  sdk-field: advertisedCidrs
+  description: Custom IPv4 CIDR block list.
+- name: asn
+  type: integer
+  required: false
+  sdk-field: asn
+  description: ASN of the border gateway.

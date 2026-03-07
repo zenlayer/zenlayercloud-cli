@@ -1,0 +1,18 @@
+name: RenewDisk
+product: zec
+use: renew-disk
+short: 恢复云硬盘
+long: 恢复云硬盘
+examples:
+- cmd: zeno zec renew-disk --disk-id your-disk-id
+  desc: 用户恢复云硬盘。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: RenewDisk
+parameters:
+- name: disk-id
+  type: string
+  required: true
+  sdk-field: diskId
+  description: 要恢复的云硬盘ID。

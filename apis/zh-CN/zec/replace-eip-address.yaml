@@ -1,0 +1,33 @@
+name: ReplaceEipAddress
+product: zec
+use: replace-eip-address
+short: 替换弹性公网IP
+long: 替换一个或者多个弹性公网IP地址。
+examples:
+- cmd: zeno zec replace-eip-address --replace-ips {eipId=<eipId>}
+  desc: 替换公网IP。系统随机分配。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ReplaceEipAddress
+parameters:
+- name: replace-ips
+  type: object-array
+  required: true
+  sdk-field: replaceIps
+  description: 需要替换的弹性公网IP信息。
+  array-style: json
+  item-schema:
+  - name: eipId
+    type: string
+    description: 需要替换的弹性公网IP ID。
+  - name: ownIp
+    type: string
+    description: |-
+      原IP。
+      当IP是三线IP(IP线路类型为`ThreeLine`)时需要指定。
+  - name: targetIp
+    type: string
+    description: |-
+      需要变更的目标IP。
+      如果未指定，将由系统随机分配。

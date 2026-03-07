@@ -1,0 +1,35 @@
+name: DescribeSecurityGroups
+product: zec
+use: describe-security-groups
+short: 查询安全组列表。
+long: 查询安全组列表。
+examples:
+- cmd: zeno zec describe-security-groups --security-group-name --page-size 5 --page-num 1
+  desc: 查询安全组列表。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeSecurityGroups
+parameters:
+- name: security-group-ids
+  type: string-array
+  required: false
+  sdk-field: securityGroupIds
+  description: 根据安全组ID列表筛选。
+- name: security-group-name
+  type: string
+  required: false
+  sdk-field: securityGroupName
+  description: |-
+    根据安全组名称筛选。
+    支持模糊搜索。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: 返回的分页大小。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: 返回的分页数。

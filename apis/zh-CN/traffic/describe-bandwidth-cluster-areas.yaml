@@ -1,0 +1,12 @@
+name: DescribeBandwidthClusterAreas
+product: traffic
+use: describe-bandwidth-cluster-areas
+short: 获取共享带宽包可售卖的区域
+long: 查询共享带宽包的地区信息。
+examples:
+- cmd: zeno traffic describe-bandwidth-cluster-areas
+  desc: 查询可开通共享带宽包区域。
+sdk:
+  service: traffic
+  version: '2024-03-26'
+  action: DescribeBandwidthClusterAreas

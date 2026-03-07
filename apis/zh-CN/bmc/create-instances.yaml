@@ -1,0 +1,270 @@
+name: CreateInstances
+product: bmc
+use: create-instances
+short: 创建实例
+long: 创建一个或多个指定配置的实例。
+examples:
+- cmd: zeno bmc create-instances --instance-charge-type PREPAID --amount 2 --instance-name SEL-M6C-[1,2] --hostname SEL-M6C-[1,2] --internet-max-bandwidth-out 10 --password Password-12345~ --instance-type-id M6C --internet-charge-type ByBandwidth --zone-id SEL-A --image-id 5ace1756-2230-4d1d-8fc6-84f1897ef397
+  desc: ''
+- cmd: zeno bmc create-instances --instance-charge-type PREPAID --amount 2 --instance-name SEL-M6C-[1,2] --hostname SEL-M6C-[1,2] --internet-max-bandwidth-out 10 --password Password-12345~ --instance-type-id M6C --internet-charge-type ByBandwidth --zone-id SEL-A --image-id 5ace1756-2230-4d1d-8fc6-84f1897ef397 --traffic-package-size 10
+  desc: ''
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: CreateInstances
+parameters:
+- name: zone-id
+  type: string
+  required: true
+  sdk-field: zoneId
+  description: 实例所属的可用区ID。
+- name: instance-charge-type
+  type: enum
+  required: true
+  sdk-field: instanceChargeType
+  description: |-
+    付费类型。
+    PREPAID：预付费，即包年包月 POSTPAID：后付费
+    默认只支持预付费计费方式， 如果需要后付费， 请联系Support开通后付费权限。
+  enum-values:
+  - value: POSTPAID
+    desc: 后付费。即按量付费。
+  - value: PREPAID
+    desc: 预付费。
+- name: instance-charge-prepaid
+  type: object
+  required: false
+  sdk-field: instanceChargePrepaid
+  description: |-
+    预付费模式。
+    即包年包月相关参数设置。通过该参数可以指定包年包月实例的购买时长等属性。若指定实例的付费模式为预付费则该参数必传。
+  object-schema:
+  - name: period
+    type: integer
+    description: |-
+      购买实例的时长。
+      单位：月。
+- name: instance-type-id
+  type: string
+  required: true
+  sdk-field: instanceTypeId
+  description: |-
+    实例机型ID。
+    具体取值可通过调用接口DescribeInstanceTypes来获得最新的规格表。
+- name: image-id
+  type: string
+  required: false
+  sdk-field: imageId
+  description: |-
+    指定有效的镜像ID。
+    可通过以下方式获取可用的镜像ID：通过调用接口 DescribeImages
+                    ，传入InstanceType获取当前机型支持的镜像列表，取返回信息中的ImageId字段。
+                    也可以不指定镜像，如果不指定镜像，后续可以通过IPMI进行安装。使用iPXE安装镜像，请指定ipxeUrl字段，且该字段不必传。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: 实例所在的资源组ID。
+- name: instance-name
+  type: string
+  required: false
+  sdk-field: instanceName
+  description: "实例显示名称。\n不得超过64个字符。仅支持输入字母、数字、-和英文句点(.)。\n购买多台实例，可以指定模式串[begin_number,bits]。begin_number：有序数值的起始值，取值支持[0,99999]，默认值为0。bits：有序数值所占的位数，取值支持[1,6]，默认值为6。注意模式串中不得有空格。购买1台时，例如server_[3,3]实例显示为server003；购买2台时，实例显示名分别为server003，server004。支持指定多个模式串，如server_[3,3]_[1,1]。\n                \n默认值为 instance。"
+- name: hostname
+  type: string
+  required: false
+  sdk-field: hostname
+  description: "实例的主机名。\n不得超过64个字符。仅支持输入字母、数字、-和英文句点(.) 。\n购买多台实例，可以指定模式串[begin_number,bits]。begin_number：有序数值的起始值，取值支持[0,99999]，默认值为0。bits：有序数值所占的位数，取值支持[1,6]，默认值为6。注意模式串中不得有空格。购买1台时，例如server_[3,3]主机名为server003；购买2台时，实例主机名分别为server003，server004。支持指定多个模式串，如server_[3,3]_[1,1]。\n                \n默认值为hostname。"
+- name: amount
+  type: integer
+  required: false
+  sdk-field: amount
+  description: 指定创建实例的数量。
+- name: password
+  type: string
+  required: false
+  sdk-field: password
+  description: |-
+    实例的密码。
+    必须是 8-16 个字符，包含大写字母、小写字母、数字和特殊字符。特殊符号可以是：1~!@$^*-_=+。该密码也是作为IPMI登录的密码。请妥善保管。
+    密钥ID与密码必须并且只能指定其中一个。
+- name: key-id
+  type: string
+  required: false
+  sdk-field: keyId
+  description: "密钥ID。与password必须指定其中的一种。\n可调用接口DescribeKeyPairs来获得最新的密钥对信息。\n                \n关联密钥后，就可以通过对应的私钥来访问实例；密钥与密码不能同时指定，同时Windows操作系统不支持指定密钥。\n示例值：key-YWD2QFOl"
+- name: internet-charge-type
+  type: enum
+  required: true
+  sdk-field: internetChargeType
+  description: 网络计费类型。
+  enum-values:
+  - value: ByBandwidth
+    desc: 按固定带宽计费
+  - value: ByTrafficPackage
+    desc: 购买流量包计费
+  - value: ByInstanceBandwidth95
+    desc: 单实例95计费方式。
+  - value: ByClusterBandwidth95
+    desc: 单产品合并95计费城市带宽组
+  - value: ByBandwidthCluster
+    desc: 跨产品合并95计费的带宽包
+- name: internet-max-bandwidth-out
+  type: integer
+  required: false
+  sdk-field: internetMaxBandwidthOut
+  description: |-
+    公网出带宽上限。
+    单位：Mbps。默认值：1Mbps。不同机型带宽上限范围不一致，具体限制详见购买网络带宽。
+- name: traffic-package-size
+  type: float
+  required: false
+  sdk-field: trafficPackageSize
+  description: |-
+    流量包订购大小。
+    单位为TB。该值仅限当 internetChargeType = ByTrafficPackage 生效。
+    如果没有传则会默认以赠送的流量包大小
+- name: subnet-id
+  type: string
+  required: false
+  sdk-field: subnetId
+  description: |-
+    虚拟子网ID 。
+    您可以调用DescribeVpcSubnets查询已创建的交换机的相关信息。
+- name: raid-config
+  type: object
+  required: false
+  sdk-field: raidConfig
+  description: 磁盘阵列配置。
+  object-schema:
+  - name: raidType
+    type: integer
+    description: |-
+      Raid类型。
+      该配置进行快捷raid配置，支持0, 1, 5, 10。
+      raidType和customRaids只能指定其中一个参数。
+  - name: customRaids
+    type: object-array
+    description: |-
+      自定义Raid配置。
+      自定义磁盘进行raid的配置。
+      raidType和customRaids只能指定其中一个参数。
+- name: partitions
+  type: object-array
+  required: false
+  sdk-field: partitions
+  description: |-
+    分区配置。
+    如果未安装操作系统，将不能设置分区
+  array-style: json
+  item-schema:
+  - name: fsPath
+    type: string
+    description: |-
+      分区盘符。
+      linux系统：必须为/开头，且第一个为系统分区必须为/。
+      windows系统：支持C~H，第一个系统分区必须指定为C。
+  - name: fsType
+    type: string
+    description: |-
+      分区的文件类型。
+      linux系统：支持的值ext2,ext3, ext4, ext类型必须要有。
+      windows系统: 只能为NTFS。
+  - name: size
+    type: integer
+    description: |-
+      分区大小。
+      单位为GB。
+- name: nic
+  type: object
+  required: false
+  sdk-field: nic
+  description: 网卡配置。
+  object-schema:
+  - name: wanName
+    type: string
+    description: |-
+      公网网卡名称。
+      只能是数字和大小写字母，且必须以字母开头，长度限制为4-10。
+      非高可用机型，默认的公网网卡名称为wan0。且不能为lan开头。
+      高可用机型，默认的公网网卡名称为bond0。
+      公网名称和内网名称不能相同。
+  - name: lanName
+    type: string
+    description: |-
+      内网网卡名称。
+      只能是数字和大小写字母，且必须以字母开头，长度限制为4-10。
+      非高可用机型，默认的内网网卡名称为lan0。且不能为wan开头。
+      高可用机型，默认的内网网卡名称为bond1。
+      公网名称和内网名称不能相同。
+- name: ipxe-url
+  type: string
+  required: false
+  sdk-field: ipxeUrl
+  description: |-
+    iPXE URL 地址。
+    传入参数后，将根据指定URL进行iPXE安装， 如果指定为netboot，将使用netboot iPXE方式进行安装。相关帮助文档：Deploy
+                        a Custom Image Using iPXE
+- name: user-data
+  type: string
+  required: false
+  sdk-field: userData
+  description: |-
+    用户数据。
+    在安装实例时可以通过指定用户数据进行配置实例。当实例首次启动时，用户数据将以文本的方式传递到云服务器中，并执行该文本。支持的最大数据大小为 32KB。
+- name: enable-primary-i-pv6
+  type: boolean
+  required: false
+  sdk-field: enablePrimaryIPv6
+  description: |-
+    是否启用实例主IPv6。
+    false为不启用主IPv6，此时将不能为实例配置弹性IPv6。默认为true。
+- name: cluster-id
+  type: string
+  required: false
+  sdk-field: clusterId
+  description: 带宽组ID。当 internetChargeType = ByBandwidthCluster 时必传。
+- name: marketing-options
+  type: object
+  required: false
+  sdk-field: marketingOptions
+  description: 市场营销活动相关信息。
+  object-schema:
+  - name: discountCode
+    type: string
+    description: |-
+      使用市场发放的折扣码。
+      如果折扣码不存在，最终折扣将不会生效。
+  - name: usePocVoucher
+    type: boolean
+    description: |-
+      是否使用POC代金券。
+      如果系统不存在POC代金券，相关创建流程会失败。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    创建实例时关联的标签。
+    注意: 关联标签键不能重复。--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～128字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～128字符。
+- name: enable-gateway-mode
+  type: boolean
+  required: false
+  sdk-field: enableGatewayMode
+  description: |-
+    是否启用网关模式。
+    启用后，该机器上绑定的IP将作为网关模式使用，用于转发下游网络流量，且仅支持绑定EIP掩码段类IP。开启后需要进入机器完成进一步配置。若未开启则是普通路由模式。
+    请注意：网关模式默认为不支持，如需使用请联系Console Support。

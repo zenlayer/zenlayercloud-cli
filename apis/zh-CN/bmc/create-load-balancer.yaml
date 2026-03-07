@@ -1,0 +1,136 @@
+name: CreateLoadBalancer
+product: bmc
+use: create-load-balancer
+short: 创建负载均衡实例。
+long: 创建负载均衡实例。
+examples:
+- cmd: zeno bmc create-load-balancer --zone-id HKG-A --load-balancer-name xxxx --spec-name xxxx --client-token xxxx --charge-type xxxx --bandwidth 100 --subnet-id xxxx --ip-type IPv4
+  desc: 创建负载均衡实例。
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: CreateLoadBalancer
+parameters:
+- name: client-token
+  type: string
+  required: false
+  sdk-field: clientToken
+  description: 用于保证请求的幂等性。
+- name: zone-id
+  type: string
+  required: true
+  sdk-field: zoneId
+  description: 可用区的节点ID。
+- name: load-balancer-name
+  type: string
+  required: true
+  sdk-field: loadBalancerName
+  description: 负载均衡名称。
+- name: charge-type
+  type: enum
+  required: true
+  sdk-field: chargeType
+  description: |-
+    付费类型。
+    PREPAID：预付费，即包年包月 POSTPAID：后付费。
+  enum-values:
+  - value: POSTPAID
+    desc: 后付费。即按量付费。
+  - value: PREPAID
+    desc: 预付费。
+- name: instance-charge-prepaid
+  type: object
+  required: false
+  sdk-field: instanceChargePrepaid
+  description: |-
+    预付费模式。
+    即包年包月相关参数设置。通过该参数可以指定包年包月实例的购买时长等属性。若指定实例的付费模式为预付费则该参数必传。
+  object-schema:
+  - name: period
+    type: integer
+    description: |-
+      购买实例的时长。
+      单位：月。
+- name: bandwidth
+  type: integer
+  required: true
+  sdk-field: bandwidth
+  description: |-
+    带宽值。
+    取值范围：1-1024。
+    单位：Mbps
+- name: ip-type
+  type: string
+  required: true
+  sdk-field: ipType
+  description: |-
+    指定负载均衡绑定的IP的类型:
+    可用值：
+    <ul><li>IPv4</li><li>IPv6</li></ul>
+- name: vip-count
+  type: integer
+  required: false
+  sdk-field: vipCount
+  description: |-
+    额外购买VIP数量。
+    负载均衡会默认绑定1个指定类型的IP。
+- name: subnet-id
+  type: string
+  required: false
+  sdk-field: subnetId
+  description: |-
+    子网ID。
+    若是创建VIP4类型时，必须指定子网ID。该实例的主备IP将在该子网中获取。
+- name: cidr-block-id
+  type: string
+  required: false
+  sdk-field: cidrBlockId
+  description: |-
+    CIDR ID。
+    创建VIP6类型时需要指定CIDR ID。如果该可用区中存在唯一一个CIDR则可以不指定，默认使用该CIDR。
+- name: master-ip
+  type: string
+  required: false
+  sdk-field: masterIp
+  description: 主IP。
+- name: backup-ip
+  type: string
+  required: false
+  sdk-field: backupIp
+  description: 备IP。
+- name: marketing-options
+  type: object
+  required: false
+  sdk-field: marketingOptions
+  description: 市场营销活动相关信息。
+  object-schema:
+  - name: discountCode
+    type: string
+    description: |-
+      使用市场发放的折扣码。
+      如果折扣码不存在，最终折扣将不会生效。
+  - name: usePocVoucher
+    type: boolean
+    description: |-
+      是否使用POC代金券。
+      如果系统不存在POC代金券，相关创建流程会失败。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    创建负载均衡时关联的标签。
+    注意: 关联标签键不能重复。--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～128字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～128字符。

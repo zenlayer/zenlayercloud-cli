@@ -1,0 +1,28 @@
+name: ModifyCidrBlocksAttribute
+product: bmc
+use: modify-cidr-blocks-attribute
+short: Modifies the information about CIDR blocks, such as the names.
+long: The API is used to modify the attributes of one or more CIDR blocks. Only the CIDR block name to be displayed can be modified for now.
+examples:
+- cmd: zeno bmc modify-cidr-blocks-attribute --cidr-block-ids cidrBlockId1 --cidr-block-ids cidrBlockId2 --name myCidrBlockName
+  desc: ''
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: ModifyCidrBlocksAttribute
+parameters:
+- name: name
+  type: string
+  required: true
+  sdk-field: name
+  description: |-
+    CIDR block name to be displayed.
+    This parameter can contain up to 64 characters.
+- name: cidr-block-ids
+  type: string-array
+  required: true
+  sdk-field: cidrBlockIds
+  description: |-
+    CIDR block ID(s).
+    To obtain the CIDR block IDs, you can call DescribeCidrBlocks and look for cidrBlockId in the response.
+    The maximum number of CIDR blocks in each request is 100.

@@ -1,0 +1,32 @@
+name: ChangeNicNetworkType
+product: zec
+use: change-nic-network-type
+short: 更改网卡模式
+long: 更改实例的网卡模式。
+examples:
+- cmd: zeno zec change-nic-network-type --instance-id <instanceId> --nic-network-type FailOver
+  desc: 修改实例网卡模式到故障转移模式。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ChangeNicNetworkType
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: 待操作的实例ID。
+- name: nic-network-type
+  type: enum
+  required: true
+  sdk-field: nicNetworkType
+  description: 要更改的网卡模式。
+  enum-values:
+  - value: Auto
+    desc: 默认模式(镜像自适应)。
+  - value: FailOver
+    desc: 故障转移模式。
+  - value: VirtioOnly
+    desc: 软件模拟模式。
+  - value: VfOnly
+    desc: 物理直通模式。

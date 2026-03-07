@@ -1,0 +1,12 @@
+name: DescribeEipRegions
+product: zec
+use: describe-eip-regions
+short: 查询支持售卖EIP的区域信息
+long: 查询支持售卖EIP的区域信息。
+examples:
+- cmd: zeno zec describe-eip-regions
+  desc: 查询支持售卖EIP的区域信息。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeEipRegions

@@ -1,0 +1,55 @@
+name: DescribeLoadBalancerMonitorData
+product: zlb
+use: describe-load-balancer-monitor-data
+short: Queries the monitor data of a load balancer.
+long: query the monitor data of a load balancer, including Concurrent Connections (Counts/min), CPS (Counts/s), Network Throughput and Data Transfer.
+examples:
+- cmd: zeno zlb describe-load-balancer-monitor-data --load-balancer-id <loadBalancerId> --metric-type NEW_CONNECTIONS --start-time 2025-06-25T01:55:00Z --end-time 2025-06-25T07:55:00Z
+  desc: Query `Concurrent Connections` data of a load balancer.
+sdk:
+  service: zlb
+  version: '2025-04-01'
+  action: DescribeLoadBalancerMonitorData
+parameters:
+- name: load-balancer-id
+  type: string
+  required: true
+  sdk-field: loadBalancerId
+  description: Load balancer ID.
+- name: listener-id
+  type: string
+  required: false
+  sdk-field: listenerId
+  description: Load balance listener ID.
+- name: metric-type
+  type: enum
+  required: true
+  sdk-field: metricType
+  description: Monitor metric type.
+  enum-values:
+  - value: NEW_CONNECTIONS
+    desc: |-
+      Concurrent connections.
+      The number of connections that are active and being handled simultaneously by a load balancing instance at a given time (per minutes).
+  - value: CONCURRENT_CONNECTIONS
+    desc: |-
+      Connections Per Second (CPS).
+      The number of new connections that a load balancing instance can handle in one second.
+  - value: HANDLED_BPS
+    desc: |-
+      Network Throughput.
+      The combined inbound and outbound bandwidth rate processed by a load balancing instance within one hour, measured in bits per second (bps).
+- name: start-time
+  type: string
+  required: true
+  sdk-field: startTime
+  description: |-
+    Start time.
+    Format: yyyy-MM-ddTHH:mm:ssZ.
+- name: end-time
+  type: string
+  required: true
+  sdk-field: endTime
+  description: |-
+    End time.
+    Format: yyyy-MM-ddTHH:mm:ssZ.

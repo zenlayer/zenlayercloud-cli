@@ -1,0 +1,18 @@
+name: DescribeAvailableNats
+product: zec
+use: describe-available-nats
+short: 获取可绑定边界网关的NAT网关列表。
+long: 获取可绑定边界网关的NAT网关列表。
+examples:
+- cmd: zeno zec describe-available-nats --request-id TBFC01FCF-6439-4530-ADBC-16809F0C3E8F
+  desc: 获取可绑定边界网关的NAT网关集合。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeAvailableNats
+parameters:
+- name: zbg-id
+  type: string
+  required: true
+  sdk-field: zbgId
+  description: 要查询需要绑定的边界网关ID。

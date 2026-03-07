@@ -1,0 +1,12 @@
+name: DescribeCrossRegionBandwidthRegions
+product: zec
+use: describe-cross-region-bandwidth-regions
+short: Queries the region information supporting the sale of cross-region bandwidth.
+long: query the region information supporting the sale of the cross-region bandwidth.
+examples:
+- cmd: zeno zec describe-cross-region-bandwidth-regions
+  desc: Query the region information supporting the sale of cross-region bandwidth.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeCrossRegionBandwidthRegions

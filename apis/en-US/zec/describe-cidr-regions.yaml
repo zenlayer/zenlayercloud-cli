@@ -1,0 +1,9 @@
+name: DescribeCidrRegions
+product: zec
+use: describe-cidr-regions
+short: Queries the regional information supporting the sale of CIDR blocks.
+long: query the regional information supporting the sale of CIDR blocks.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeCidrRegions

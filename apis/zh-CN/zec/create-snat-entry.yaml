@@ -1,0 +1,49 @@
+name: CreateSnatEntry
+product: zec
+use: create-snat-entry
+short: 创建SNAT规则
+long: 创建SNAT规则。
+examples:
+- cmd: zeno zec create-snat-entry --nat-gateway-id <natGatewayId> --subnet-ids <subnetId> --eip-ids <eipId>
+  desc: 创建一个子网类型的SNAT。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CreateSnatEntry
+parameters:
+- name: nat-gateway-id
+  type: string
+  required: true
+  sdk-field: natGatewayId
+  description: NAT网关 ID。
+- name: eip-ids
+  type: string-array
+  required: false
+  sdk-field: eipIds
+  description: |-
+    SNAT规则添加的弹性公网IP集合。
+    指定的公网IP ID必须属于NAT网关上绑定的公网弹性IP。
+    为空则代表与该NAT网关绑定的所有的弹性公网IP。
+- name: cidr
+  type: string
+  required: false
+  sdk-field: cidr
+  description: |-
+    源CIDR网段。
+    该字段已废弃，请使用sourceCidrBlocks。
+- name: source-cidr-blocks
+  type: string-array
+  required: false
+  sdk-field: sourceCidrBlocks
+  description: |-
+    源CIDR地址段列表。
+    与subnetIds必须指定其中的一种。
+    如果使用全地址段，指定为0.0.0.0/0。
+- name: subnet-ids
+  type: string-array
+  required: false
+  sdk-field: subnetIds
+  description: |-
+    指定子网ID集合。
+    该参数表示该子网内的实例均可以通过SNAT规则访问外部网络。
+    与sourceCidrBlocks必须指定其中的一种。

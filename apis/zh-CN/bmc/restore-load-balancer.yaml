@@ -1,0 +1,18 @@
+name: RestoreLoadBalancer
+product: bmc
+use: restore-load-balancer
+short: 恢复被删除的负载均衡实例。
+long: 恢复被删除的负载均衡实例。
+examples:
+- cmd: zeno bmc restore-load-balancer --load-balancer-id xxxx
+  desc: 恢复负载均衡实例。
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: RestoreLoadBalancer
+parameters:
+- name: load-balancer-id
+  type: string
+  required: true
+  sdk-field: loadBalancerId
+  description: 负载均衡实例的ID。

@@ -1,0 +1,82 @@
+name: CreateDhcpOptionsSet
+product: zec
+use: create-dhcp-options-set
+short: Creates a DHCP options set.
+long: create a DHCP options set.
+examples:
+- cmd: zeno zec create-dhcp-options-set --dhcp-options-set-name dhcpOptionsSetName-1 --domain-name-servers 88.88.88.88 --lease-time 168
+  desc: Create a DHCP options set.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CreateDhcpOptionsSet
+parameters:
+- name: dhcp-options-set-name
+  type: string
+  required: true
+  sdk-field: dhcpOptionsSetName
+  description: |-
+    Name of the DHCP options set.
+    The length must be between 1 and 64 characters.
+- name: domain-name-servers
+  type: string
+  required: true
+  sdk-field: domainNameServers
+  description: |-
+    DNS server IP.
+    Up to 4 DNS server IPv4s can be passed in, separated by a comma (,).
+- name: ipv6-domain-name-servers
+  type: string
+  required: false
+  sdk-field: ipv6DomainNameServers
+  description: |-
+    DNS server IP.
+    Up to 4 DNS server IPv6s can be passed in, separated by a comma (,).
+- name: lease-time
+  type: string
+  required: false
+  sdk-field: leaseTime
+  description: |-
+    Lease duration for the IPv4 DHCP options set.
+    Unit: h.
+    Value range: 24 - 1176 or 87600 - 175200 .
+    Default value: 24.
+- name: ipv6-lease-time
+  type: string
+  required: false
+  sdk-field: ipv6LeaseTime
+  description: |-
+    Lease duration for the IPv6 DHCP options set.
+    Unit: h.
+    Value range: 24 - 1176 or 87600 - 175200 .
+    Default value: 24.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    The tags associated with creating resources.
+    Note: The associated tag keys must be unique.--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    Resource Group ID
+    If not specified, it will belong to the default resource group.
+- name: description
+  type: string
+  required: false
+  sdk-field: description
+  description: |-
+    DHCP options set description information.
+    The length is up to 255 characters.

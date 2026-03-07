@@ -1,0 +1,108 @@
+name: DescribeCidrBlocks
+product: bmc
+use: describe-cidr-blocks
+short: Queries list of CIDR blocks.
+long: query the details of CIDR blocks.
+examples:
+- cmd: zeno bmc describe-cidr-blocks --page-num 1 --page-size 1
+  desc: ''
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DescribeCidrBlocks
+parameters:
+- name: cidr-block-ids
+  type: string-array
+  required: false
+  sdk-field: cidrBlockIds
+  description: |-
+    IDs of the CIDR blocks.
+    You can query up to 100 CIDR blocks in each request.
+- name: cidr-block
+  type: string
+  required: false
+  sdk-field: cidrBlock
+  description: IP range of CIDR block.
+- name: cidr-block-name
+  type: string
+  required: false
+  sdk-field: cidrBlockName
+  description: Name of CIDR block.
+- name: zone-id
+  type: string
+  required: false
+  sdk-field: zoneId
+  description: Zone ID to which the CIDR blocks belong.
+- name: cidr-block-type
+  type: enum
+  required: false
+  sdk-field: cidrBlockType
+  description: |-
+    Type of CIDR block. The optional values are as follows:
+    IPv4 IPv6
+  enum-values:
+  - value: IPV4
+    desc: IPv4.
+  - value: IPV6
+    desc: IPv6.
+- name: gateway
+  type: string
+  required: false
+  sdk-field: gateway
+  description: IP address of the gateway.
+- name: charge-type
+  type: enum
+  required: false
+  sdk-field: chargeType
+  description: |-
+    CIDR block pricing model .
+    PREPAID: subscription POSTPAID: pay-as-you-go
+  enum-values:
+  - value: POSTPAID
+    desc: Pay-as-you-go.
+  - value: PREPAID
+    desc: Subscription.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    Resource group ID.
+    If the value is null, then return all the CIDR blocks in the authorized resource groups.
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    Number of pages returned.
+    Default value: 1.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    Number of items in the current page result.
+    Default value: 20;
+    Maximum value: 1000.
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    Query according to tag key.
+    You can query up to 20 tag keys in each request.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    Query according to tag.
+    You can query up to 20 tags in each request.
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 128 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 128 characters.'

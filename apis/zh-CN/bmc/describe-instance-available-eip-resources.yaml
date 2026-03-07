@@ -1,0 +1,20 @@
+name: DescribeInstanceAvailableEipResources
+product: bmc
+use: describe-instance-available-eip-resources
+short: 查询实例可绑定的Elastic IP列表
+long: 查询实例可绑定的EIP列表。
+examples:
+- cmd: zeno bmc describe-instance-available-eip-resources --instance-id instanceId1
+  desc: 获取机器实例可用的EIP列表
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DescribeInstanceAvailableEipResources
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: |-
+    机器实例ID 。
+    可通过DescribeInstances接口返回的instanceId获取。

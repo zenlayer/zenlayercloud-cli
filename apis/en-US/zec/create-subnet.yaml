@@ -1,0 +1,80 @@
+name: CreateSubnet
+product: zec
+use: create-subnet
+short: Creates a subnet under a global VPC.
+long: create a subnet under a VPC.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CreateSubnet
+parameters:
+- name: vpc-id
+  type: string
+  required: true
+  sdk-field: vpcId
+  description: VPC ID.
+- name: name
+  type: string
+  required: true
+  sdk-field: name
+  description: |-
+    Subnet name to be displayed.
+    This parameter must start and end with a number or a letter, containing 2 to 63 characters. Only letters, numbers, - and periods (.) are supported.
+- name: region-id
+  type: string
+  required: true
+  sdk-field: regionId
+  description: Region ID.
+- name: stack-type
+  type: enum
+  required: true
+  sdk-field: stackType
+  description: Subnet IP stack type.
+  enum-values:
+  - value: IPv4
+    desc: IPv4 stack type only.
+  - value: IPv4_IPv6
+    desc: IPv4 and IPv6 stack type.
+  - value: IPv6
+    desc: IPv6 stack type only.
+- name: cidr-block
+  type: string
+  required: false
+  sdk-field: cidrBlock
+  description: |-
+    CIDR block of the subnet.
+    If the specified stack type ( stackType ) includes IPv4, this field is required. The specified CIDR block must fall within the VPC’s CIDR range.
+- name: ipv6-type
+  type: enum
+  required: false
+  sdk-field: ipv6Type
+  description: |-
+    Subnet IPv6 type.
+    If the specified stack type ( stackType ) includes IPv6, this field is required.
+  enum-values:
+  - value: Private
+    desc: Private network.
+  - value: Public
+    desc: Public network.
+- name: dhcp-options-set-id
+  type: string
+  required: false
+  sdk-field: dhcpOptionsSetId
+  description: DHCP options set to be associated.
+- name: ipv6-cidr-block-id
+  type: string
+  required: false
+  sdk-field: ipv6CidrBlockId
+  description: |-
+    ID of the public IPv6 CIDR block.
+    This field can only be specified when ipv6Type is Public.
+    If not specified, it will be allocated from the system's default IP pool.
+- name: ipv6-mask-length
+  type: integer
+  required: false
+  sdk-field: ipv6MaskLength
+  description: |-
+    The size of the IPv6 CIDR prefix assigned to the instance.
+    This parameter must be used together with the ipv6CidrBlockId parameter.
+    The default value is 96 if not explicitly provided.
+    The minimum value must be greater than or equal to the prefix of the specified ipv6CidrBlockId, and the maximum value cannot exceed 96.

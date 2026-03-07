@@ -1,0 +1,25 @@
+name: UnbindCidrBlockIps
+product: bmc
+use: unbind-cidr-block-ips
+short: 实例解绑Cidr Block IP
+long: 实例解绑一个或多个Cidr Block IP。
+examples:
+- cmd: zeno bmc unbind-cidr-block-ips --cidr-block-id cidrBlockId --ip-list 2602:ffe4:1:11::1
+  desc: 解绑指定Cidr Block的一个IP
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: UnbindCidrBlockIps
+parameters:
+- name: ip-list
+  type: string-array
+  required: true
+  sdk-field: ipList
+  description: 待解绑的IP列表。
+- name: cidr-block-id
+  type: string
+  required: true
+  sdk-field: cidrBlockId
+  description: |-
+    待操作的Cidr Block ID。
+    可通过DescribeCidrBlocks接口返回值中的cidrBlockId获取。

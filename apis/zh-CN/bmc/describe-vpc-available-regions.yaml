@@ -1,0 +1,23 @@
+name: DescribeVpcAvailableRegions
+product: bmc
+use: describe-vpc-available-regions
+short: 查询支持VPC组网的节点区域信息
+long: 本接口用于查询支持VPC组网的节点区域信息。
+examples:
+- cmd: zeno bmc describe-vpc-available-regions --vpc-region-id SIN3
+  desc: 查询vpcRegionId为SIN3下的可用区ID
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DescribeVpcAvailableRegions
+parameters:
+- name: zone-id
+  type: string
+  required: false
+  sdk-field: zoneId
+  description: 所属的可用区ID。
+- name: vpc-region-id
+  type: string
+  required: false
+  sdk-field: vpcRegionId
+  description: VPC的节点ID。

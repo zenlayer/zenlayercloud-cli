@@ -1,0 +1,20 @@
+name: StartInstances
+product: zec
+use: start-instances
+short: Starts one or more elastic compute instances.
+long: start one or more elastic compute instances.
+examples:
+- cmd: zeno zec start-instances --instance-ids instanceId1 --instance-ids instanceId2
+  desc: Start an instance of the specified ID.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: StartInstances
+parameters:
+- name: instance-ids
+  type: string-array
+  required: true
+  sdk-field: instanceIds
+  description: |-
+    Instance ID(s).
+    To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response. The maximum number of instances in each request is 100.

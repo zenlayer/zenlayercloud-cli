@@ -1,0 +1,18 @@
+name: DescribeZones
+product: zec
+use: describe-zones
+short: Queries available zones.
+long: query availability zones available.
+examples:
+- cmd: zeno zec describe-zones --zone-ids asia-east-1a --zone-ids asia-south-1a
+  desc: Query available zone list.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeZones
+parameters:
+- name: zone-ids
+  type: string-array
+  required: false
+  sdk-field: zoneIds
+  description: List of availability zone IDs.

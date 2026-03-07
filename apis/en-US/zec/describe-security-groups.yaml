@@ -1,0 +1,40 @@
+name: DescribeSecurityGroups
+product: zec
+use: describe-security-groups
+short: Queries the information of one or more specified security groups.
+long: query the information of one or more specified security groups. Users can search for security group information based on information such as security group ID, security group name, etc.
+examples:
+- cmd: zeno zec describe-security-groups --security-group-name --page-size 5 --page-num 1
+  desc: Obtain all security group information. Query all security groups without any parameters.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeSecurityGroups
+parameters:
+- name: security-group-ids
+  type: string-array
+  required: false
+  sdk-field: securityGroupIds
+  description: |-
+    The security group ID.
+    Values can consist of multiple security group IDs. The maximum number of IDs in each request is 100.
+- name: security-group-name
+  type: string
+  required: false
+  sdk-field: securityGroupName
+  description: Security group name.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    Number of items in the current page result.
+    Default value: 20 ;
+    Maximum value: 1000 .
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    Number of pages returned.
+    Default value: 1 .

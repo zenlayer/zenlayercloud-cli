@@ -1,0 +1,53 @@
+name: AssociateEipAddress
+product: zec
+use: associate-eip-address
+short: Associates elastic IPs to resources in the same region.
+long: associate elastic IPs to resources in the same region.
+examples:
+- cmd: zeno zec associate-eip-address --nic-id <nicId> --lan-ip 10.0.0.2 --eip-ids <eipId1> --eip-ids <eipId2> --bind-type Passthrough
+  desc: Associate elastic IPs to a specified vNIC with the Cut-through Mode.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: AssociateEipAddress
+parameters:
+- name: load-balancer-id
+  type: string
+  required: false
+  sdk-field: loadBalancerId
+  description: Load balancer ID.
+- name: nic-id
+  type: string
+  required: false
+  sdk-field: nicId
+  description: vNIC ID.
+- name: lan-ip
+  type: string
+  required: false
+  sdk-field: lanIp
+  description: |-
+    Private IP.
+    If nicId is provided, this field is required.
+- name: nat-id
+  type: string
+  required: false
+  sdk-field: natId
+  description: NAT gateway ID.
+- name: eip-ids
+  type: string-array
+  required: true
+  sdk-field: eipIds
+  description: ID list of elastic IPs.
+- name: bind-type
+  type: enum
+  required: false
+  sdk-field: bindType
+  description: |-
+    Elastic IP mode.
+    Default value: FullNat .
+    Effective when the elastic IP is assigned to a vNIC.
+  enum-values:
+  - value: FullNat
+    desc: NAT mode.
+  - value: Passthrough
+    desc: Bypass mode.

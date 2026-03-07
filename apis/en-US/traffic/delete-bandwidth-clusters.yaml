@@ -1,0 +1,20 @@
+name: DeleteBandwidthClusters
+product: traffic
+use: delete-bandwidth-clusters
+short: Deletes one or more bandwidth clusters.
+long: delete one or more bandwidth clusters.
+examples:
+- cmd: zeno traffic delete-bandwidth-clusters --bandwidth-cluster-ids <bandwidth-cluster-id>
+  desc: Delete a bandwidth cluster.
+sdk:
+  service: traffic
+  version: '2024-03-26'
+  action: DeleteBandwidthClusters
+parameters:
+- name: bandwidth-cluster-ids
+  type: string-array
+  required: true
+  sdk-field: bandwidthClusterIds
+  description: |-
+    ID list of bandwidth clusters.
+    A maximum of 20 bandwidth clusters can be deleted in a single operation.

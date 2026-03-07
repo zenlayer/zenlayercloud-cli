@@ -1,0 +1,30 @@
+name: DescribeBandwidthClusterUsage
+product: traffic
+use: describe-bandwidth-cluster-usage
+short: 查询共享带宽包用量
+long: 查询共享带宽包的用量信息。
+examples:
+- cmd: zeno traffic describe-bandwidth-cluster-usage --bandwidth-cluster-id bandwidthClusterId --page-num 1 --page-size 20
+  desc: 查询共享带宽包的用量信息。
+sdk:
+  service: traffic
+  version: '2024-03-26'
+  action: DescribeBandwidthClusterUsage
+parameters:
+- name: bandwidth-cluster-id
+  type: string
+  required: true
+  sdk-field: bandwidthClusterId
+  description: 共享带宽包ID。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    返回的分页大小。
+    默认为20。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: 返回的分页数。

@@ -1,0 +1,57 @@
+name: CreateVpc
+product: bmc
+use: create-vpc
+short: 创建VPC
+long: 本接口用于创建一个私有网络VPC。
+examples:
+- cmd: zeno bmc create-vpc --vpc-region-id CHI1 --cidr-block 10.0.0.0/8 --vpc-name Test-VPC
+  desc: 创建CHI1节点的VPC。
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: CreateVpc
+parameters:
+- name: vpc-region-id
+  type: string
+  required: true
+  sdk-field: vpcRegionId
+  description: VPC的节点ID。
+- name: cidr-block
+  type: string
+  required: true
+  sdk-field: cidrBlock
+  description: VPC的CIDR。
+- name: vpc-name
+  type: string
+  required: true
+  sdk-field: vpcName
+  description: |-
+    VPC的名称。
+    范围1到64个字符。仅支持输入字母、数字、-和英文句点(.)。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    VPC所在的资源组ID。
+    如果不指定，则会放入默认资源组， 如果用户没有默认资源组权限， 则请求将会失败。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    创建VPC时关联的标签。
+    注意: 关联标签键不能重复。--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～128字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～128字符。

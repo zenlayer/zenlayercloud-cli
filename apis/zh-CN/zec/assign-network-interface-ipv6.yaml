@@ -1,0 +1,58 @@
+name: AssignNetworkInterfaceIpv6
+product: zec
+use: assign-network-interface-ipv6
+short: 给网卡添加IPv6。
+long: 给网卡添加IPv6。
+examples:
+- cmd: zeno zec assign-network-interface-ipv6 --nic-id <nicId>
+  desc: 网卡添加的是内网IPv6地址。
+- cmd: zeno zec assign-network-interface-ipv6 --nic-id <nicId> --internet-charge-type BandwidthCluster --bandwidth 100 --cluster-id <clusterId>
+  desc: 网卡添加的是公网IPv6地址。且计费类型为共享带宽包计费。带宽限速设置为100Mbps。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: AssignNetworkInterfaceIpv6
+parameters:
+- name: nic-id
+  type: string
+  required: true
+  sdk-field: nicId
+  description: 要添加IPv6的网卡ID。
+- name: internet-charge-type
+  type: enum
+  required: false
+  sdk-field: internetChargeType
+  description: |-
+    公网IPv6的网络计费方式。
+    当子网的堆栈类型包括V6且为公网时，需要指定。
+  enum-values:
+  - value: ByBandwidth
+    desc: 固定带宽计费方式。
+  - value: ByTrafficPackage
+    desc: 流量包计费方式。
+  - value: BandwidthCluster
+    desc: 共享带宽包计费方式。
+- name: bandwidth
+  type: integer
+  required: false
+  sdk-field: bandwidth
+  description: |-
+    公网IPv6的带宽限速。
+    单位Mbps。
+    当子网的堆栈类型包括V6且为公网时，需要指定。
+- name: package-size
+  type: float
+  required: false
+  sdk-field: packageSize
+  description: |-
+    公网IPv6的流量包大小。
+    单位为TB。
+    值要求为0或0.1的倍数。
+    当子网的堆栈类型包括V6且为公网时，且网络计费方式是流量计费(ByTrafficPackage)需要指定。
+- name: cluster-id
+  type: string
+  required: false
+  sdk-field: clusterId
+  description: |-
+    公网IPv6所指定的共享带宽包ID。
+    当子网的堆栈类型包括V6且为公网时，且网络计费方式是共享带宽包计费(BandwidthCluster)需要指定。

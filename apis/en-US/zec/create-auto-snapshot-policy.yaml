@@ -1,0 +1,74 @@
+name: CreateAutoSnapshotPolicy
+product: zec
+use: create-auto-snapshot-policy
+short: Creates a snapshot schedule.
+long: create a snapshot schedule.
+examples:
+- cmd: zeno zec create-auto-snapshot-policy --zone-id asia-east-1a --auto-snapshot-policy-name week3-policy --repeat-week-days 3 --hours 0 --retention-days 10
+  desc: Create a snapshot schedule. The schedule is executed every Wednesday at 00:00. Retention time is 10 days.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CreateAutoSnapshotPolicy
+parameters:
+- name: zone-id
+  type: string
+  required: true
+  sdk-field: zoneId
+  description: Availability zone ID.
+- name: auto-snapshot-policy-name
+  type: string
+  required: true
+  sdk-field: autoSnapshotPolicyName
+  description: |-
+    The name of the snapshot schedule.
+    The length is 2 to 63 characters.
+    Only letters, numbers, -/_ and periods (.) are supported.
+    The name must start and end with a number or a letter.
+- name: repeat-week-days
+  type: integer-array
+  required: true
+  sdk-field: repeatWeekDays
+  description: |-
+    The backup date of the schedule.
+    Unit: day, cycle: week (e.g., 1 = Monday).
+    Available range: [1, 7].
+- name: hours
+  type: integer-array
+  required: true
+  sdk-field: hours
+  description: |-
+    Specify the start time of the snapshot schedule.
+    UTC time is used. Unit: hour.
+    24 time points are available from 00:00 to 23:00, 1 = 01:00, and so on.
+    Available range: [0, 23].
+- name: retention-days
+  type: integer
+  required: false
+  sdk-field: retentionDays
+  description: |-
+    Retention time of automatic snapshots. Unit: day.
+    If the value is set to -1, it means that it is retained indefinitely.
+    The default is indefinite.
+    Value range: -1 or [1,65535].
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: Resource group ID.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    Bound tags when creating the auto snapshot policy.
+    Tag keys must be unique.--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'

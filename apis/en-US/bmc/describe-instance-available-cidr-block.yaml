@@ -1,0 +1,32 @@
+name: DescribeInstanceAvailableCidrBlock
+product: bmc
+use: describe-instance-available-cidr-block
+short: Queries available CIDR blocks for the instance.
+long: query available CIDR blocks for the instance.
+examples:
+- cmd: zeno bmc describe-instance-available-cidr-block --instance-id 123456 --cidr-block-type IPV4
+  desc: ''
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DescribeInstanceAvailableCidrBlock
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: |-
+    ID of the instance.
+    You can find the instanceId in the response by calling DescribeInstances .
+- name: cidr-block-type
+  type: enum
+  required: false
+  sdk-field: cidrBlockType
+  description: |-
+    Type of CIDR block. The optional values are as follows:
+    IPv4 IPv6
+  enum-values:
+  - value: IPV4
+    desc: IPv4.
+  - value: IPV6
+    desc: IPv6.

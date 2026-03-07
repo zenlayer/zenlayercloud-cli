@@ -1,0 +1,18 @@
+name: RenewDisk
+product: zec
+use: renew-disk
+short: Restores a disk.
+long: restore a disk.
+examples:
+- cmd: zeno zec renew-disk --disk-id your-disk-id
+  desc: Restore a disk.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: RenewDisk
+parameters:
+- name: disk-id
+  type: string
+  required: true
+  sdk-field: diskId
+  description: Disk ID.

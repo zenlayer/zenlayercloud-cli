@@ -1,0 +1,18 @@
+name: UnAssignSecurityGroupVpc
+product: zec
+use: un-assign-security-group-vpc
+short: VPC解绑安全组。
+long: VPC解绑安全组。
+examples:
+- cmd: zeno zec un-assign-security-group-vpc --vpc-id <vpcId>
+  desc: VPC 解绑安全组。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: UnAssignSecurityGroupVpc
+parameters:
+- name: vpc-id
+  type: string
+  required: true
+  sdk-field: vpcId
+  description: 要解绑的VPC ID。

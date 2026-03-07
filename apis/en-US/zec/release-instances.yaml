@@ -1,0 +1,20 @@
+name: ReleaseInstances
+product: zec
+use: release-instances
+short: Releases one or more elastic compute instances.
+long: release one or more elastic compute instances.
+examples:
+- cmd: zeno zec release-instances --instance-ids instanceId1 --instance-ids instanceId2
+  desc: Release instances in batches.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ReleaseInstances
+parameters:
+- name: instance-ids
+  type: string-array
+  required: true
+  sdk-field: instanceIds
+  description: |-
+    Instance ID(s).
+    To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response. The maximum number of instances in each request is 100.

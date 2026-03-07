@@ -1,0 +1,18 @@
+name: DeleteEip
+product: zec
+use: delete-eip
+short: 删除指定的弹性公网IP。
+long: 删除指定的弹性公网IP。
+examples:
+- cmd: zeno zec delete-eip --eip-id xxx
+  desc: 释放弹性公网IP。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DeleteEip
+parameters:
+- name: eip-id
+  type: string
+  required: true
+  sdk-field: eipId
+  description: 要删除弹性公网IP的ID。

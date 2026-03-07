@@ -1,0 +1,86 @@
+name: DescribeSnapshots
+product: zec
+use: describe-snapshots
+short: 查询快照的信息。
+long: 查询快照的详细信息。
+examples:
+- cmd: zeno zec describe-snapshots --snapshot-ids snapshotId1 --snapshot-ids snapshotId2 --zone-id asia-east-1a --status AVAILABLE --snapshot-name snapshot-state --page-size 20 --page-num 1
+  desc: 查询快照列表
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeSnapshots
+parameters:
+- name: snapshot-ids
+  type: string-array
+  required: false
+  sdk-field: snapshotIds
+  description: 根据快照ID列表进行过滤。
+- name: zone-id
+  type: string
+  required: false
+  sdk-field: zoneId
+  description: 快照所属的可用区ID。
+- name: status
+  type: enum
+  required: false
+  sdk-field: status
+  description: 根据快照的状态过滤。
+  enum-values:
+  - value: CREATING
+    desc: 创建中。
+  - value: AVAILABLE
+    desc: 创建成功。
+  - value: FAILED
+    desc: 创建失败。
+  - value: ROLLING_BACK
+    desc: 回滚到此快照中。
+  - value: DELETING
+    desc: 释放中。
+- name: disk-ids
+  type: string-array
+  required: false
+  sdk-field: diskIds
+  description: 按照快照所属的Disk ID列表 过滤。
+- name: disk-type
+  type: enum
+  required: false
+  sdk-field: diskType
+  description: 根据快照的云盘类型过滤。
+  enum-values:
+  - value: SYSTEM
+    desc: 代表系统盘。
+  - value: DATA
+    desc: 代表数据盘。
+- name: snapshot-type
+  type: enum
+  required: false
+  sdk-field: snapshotType
+  description: 根据快照类型过滤。
+  enum-values:
+  - value: Auto
+    desc: 自动创建快照。
+  - value: Manual
+    desc: 手动创建快照。
+- name: snapshot-name
+  type: string
+  required: false
+  sdk-field: snapshotName
+  description: |-
+    根据快照显示名称过滤。
+    该字段支持模糊搜索。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: 返回的分页大小。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: 返回的分页数。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: 根据资源组ID过滤。

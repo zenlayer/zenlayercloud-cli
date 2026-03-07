@@ -1,0 +1,18 @@
+name: StartAgentMonitor
+product: zec
+use: start-agent-monitor
+short: 开启Agent监控采集。
+long: 开启Agent监控采集。
+examples:
+- cmd: zeno zec start-agent-monitor --instance-id <instanceId>
+  desc: 开启实例Agent采集监控。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: StartAgentMonitor
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: 要操作的实例ID。

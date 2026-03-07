@@ -1,0 +1,20 @@
+name: DeleteKeyPairs
+product: ccs
+use: delete-key-pairs
+short: Delete one or more key pairs.
+long: The API is used to delete one or more key pairs.
+examples:
+- cmd: zeno ccs delete-key-pairs --key-ids key-zCcHQB9u
+  desc: Delete one or more key pairs.
+sdk:
+  service: ccs
+  version: '2025-09-01'
+  action: DeleteKeyPairs
+parameters:
+- name: key-ids
+  type: string-array
+  required: true
+  sdk-field: keyIds
+  description: |-
+    Key pair IDs.
+    You can query up to 100 key pairs in each request.

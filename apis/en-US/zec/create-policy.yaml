@@ -1,0 +1,211 @@
+name: CreatePolicy
+product: zec
+use: create-policy
+short: Creates a protection strategy.
+long: create a protection strategy.
+examples:
+- cmd: zeno zec create-policy --policy-name policyName --black-ip-list 10.0.0.1 --black-ip-list 10.0.0.2 --white-ip-list 10.0.0.1 --white-ip-list 10.0.0.2 --ip-black-timeout 100 --ports "{protocol=TCP, srcPortStart=1, srcPortEnd=100, dstPortStart=1, dstPortEnd=100, action=Accept}"
+  desc: Create a protection strategy.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CreatePolicy
+parameters:
+- name: policy-name
+  type: string
+  required: true
+  sdk-field: policyName
+  description: |-
+    The name of the protection strategy.
+    The length is 2 to 63 characters.
+    Only letters, numbers, - and periods (.) are supported.
+    The name must start and end with a number or a letter.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: Resource group ID. If the value is null, the protection strategy will be added into default resource group.
+- name: black-ip-list
+  type: string-array
+  required: false
+  sdk-field: blackIpList
+  description: IP deny list.
+- name: white-ip-list
+  type: string-array
+  required: false
+  sdk-field: whiteIpList
+  description: IP allow list.
+- name: ip-black-timeout
+  type: integer
+  required: false
+  sdk-field: ipBlackTimeout
+  description: |-
+    IP deny timeout. Unit: minutes.
+    Available range: [1, 10080].
+- name: ports
+  type: object-array
+  required: false
+  sdk-field: ports
+  description: Port blocking, supports TCP and UDP.
+  array-style: json
+  item-schema:
+  - name: protocol
+    type: enum
+    description: |-
+      Supported protocols of port blocking.
+      Only UDP and TCP are supported.
+  - name: srcPortStart
+    type: integer
+    description: |-
+      Start value of the source port range for port blocking.
+      Valid range: [0, 65535].
+  - name: srcPortEnd
+    type: integer
+    description: |-
+      End value of the source port range for port blocking.
+      Valid range: [0, 65535].
+  - name: dstPortStart
+    type: integer
+    description: |-
+      Start value of the destination port range for port blocking.
+      Valid range: [0, 65535].
+  - name: dstPortEnd
+    type: integer
+    description: |-
+      End value of the destination port range for port blocking.
+      Valid range: [0, 65535].
+  - name: action
+    type: enum
+    description: Action to perform after the port blocking is matched.
+- name: block-protocol
+  type: string-array
+  required: false
+  sdk-field: blockProtocol
+  description: |-
+    Enabled protocol blocking.
+    UDP and TCP cannot be enabled at the same time.
+- name: block-regions
+  type: string-array
+  required: false
+  sdk-field: blockRegions
+  description: Regions blocked.
+- name: finger
+  type: object-array
+  required: false
+  sdk-field: finger
+  description: Fingerprint filtering configurations.
+  array-style: json
+  item-schema:
+  - name: protocol
+    type: enum
+    description: Supported protocols of the fingerprint.
+  - name: srcPortStart
+    type: integer
+    description: |-
+      Start value of the source port range for the fingerprint.
+      Valid range: [0, 65535].
+  - name: srcPortEnd
+    type: integer
+    description: |-
+      End value of the source port range for the fingerprint.
+      Valid range: [0, 65535].
+  - name: dstPortStart
+    type: integer
+    description: |-
+      Start value of the destination port range for the fingerprint.
+      Valid range: [0, 65535].
+  - name: dstPortEnd
+    type: integer
+    description: |-
+      End value of the destination port range for the fingerprint.
+      Valid range: [0, 65535].
+  - name: minPktLength
+    type: integer
+    description: |-
+      Minimum packet length to be filtered.
+      Valid range: [1, 1500].
+  - name: maxPktLength
+    type: integer
+    description: |-
+      Maximum packet length to be filtered.
+      Valid range: [1, 1500].
+  - name: offset
+    type: integer
+    description: |-
+      Byte offset of the payload signature.
+      Offset within TCP/UDP payload: [0–1500].
+      Valid range: [0, 1500].
+  - name: matchBytes
+    type: string
+    description: |-
+      Payload pattern to match.
+      Hex string in lowercase, padded to 2 digits, without 0x prefix.
+  - name: action
+    type: enum
+    description: Action to perform after the fingerprint is matched.
+- name: reflect-udp-port
+  type: object-array
+  required: false
+  sdk-field: reflectUdpPort
+  description: Port list for reflection attack filtering.
+  array-style: json
+  item-schema:
+  - name: port
+    type: integer
+    description: |-
+      Custom UDP reflection source port.
+      Valid range: [0, 65535].
+- name: traffic-control
+  type: object
+  required: false
+  sdk-field: trafficControl
+  description: Source IP rate limiting configurations.
+  object-schema:
+  - name: bpsEnabled
+    type: boolean
+    description: Enable bandwidth rate limit or not.
+  - name: bps
+    type: integer
+    description: |-
+      Limited bandwidth value.
+      Valid range: [8192, 2147483648].
+  - name: ppsEnabled
+    type: boolean
+    description: Enable packet rate limit or not.
+  - name: pps
+    type: integer
+    description: |-
+      Limited packet rate value.
+      Valid range: [32, 50000].
+  - name: synBPSEnabled
+    type: boolean
+    description: Enable SYN bandwidth limit or not.
+  - name: synBPS
+    type: integer
+    description: |-
+      Limited SYN traffic value.
+      Valid range: [8192, 2147483648].
+  - name: synPPSEnabled
+    type: boolean
+    description: Enable SYN packet rate limit or not.
+  - name: synPPS
+    type: integer
+    description: |-
+      Limited SYN packet rate value.
+      Valid range: [1, 100000].
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    Bound tags when creating resources.
+    Tag keys must be unique.--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'

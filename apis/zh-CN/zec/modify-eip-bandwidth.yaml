@@ -1,0 +1,33 @@
+name: ModifyEipBandwidth
+product: zec
+use: modify-eip-bandwidth
+short: 调整弹性公网IP带宽
+long: 调整弹性公网IP的带宽限速。
+examples:
+- cmd: zeno zec modify-eip-bandwidth --eip-id "< EipId >" --bandwidth 10
+  desc: 调整EIP带宽限速到10Mbps。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyEipBandwidth
+parameters:
+- name: eip-id
+  type: string
+  required: true
+  sdk-field: eipId
+  description: EIP唯一标识ID。
+- name: bandwidth
+  type: integer
+  required: true
+  sdk-field: bandwidth
+  description: |-
+    调整带宽限速的目标值。
+    单位Mbps。
+- name: commit-bandwidth
+  type: integer
+  required: false
+  sdk-field: commitBandwidth
+  description: |-
+    保底带宽。
+    单位Mbps。
+    有且仅当为Remote IP，且为选择带宽包计费, 需要指定专线部分的保底带宽。

@@ -1,0 +1,26 @@
+name: DeleteTags
+product: zrm
+use: delete-tags
+short: Deletes tags in batches.
+long: delete tags in batches.
+examples:
+- cmd: zeno zrm delete-tags --tags "{key=key_d0added9da9d, value=value_be1fe7b89b0a}"
+  desc: Delete tags in batches.
+sdk:
+  service: zrm
+  version: '2025-10-14'
+  action: DeleteTags
+parameters:
+- name: tags
+  type: object-array
+  required: true
+  sdk-field: tags
+  description: Tags to be deleted in batches.
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'

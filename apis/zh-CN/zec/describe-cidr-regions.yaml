@@ -1,0 +1,12 @@
+name: DescribeCidrRegions
+product: zec
+use: describe-cidr-regions
+short: 查询支持售卖CIDR地址块的节点信息
+long: 支持售卖CIDR的节点信息。
+examples:
+- cmd: zeno zec describe-cidr-regions
+  desc: 查询支持售卖CIDR的区域信息。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeCidrRegions

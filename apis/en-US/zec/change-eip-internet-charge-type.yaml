@@ -1,0 +1,34 @@
+name: ChangeEipInternetChargeType
+product: zec
+use: change-eip-internet-charge-type
+short: Changes the network billing method of an elastic IP.
+long: change the network billing method of an elastic IP.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ChangeEipInternetChargeType
+parameters:
+- name: eip-id
+  type: string
+  required: true
+  sdk-field: eipId
+  description: ID of the elastic IP.
+- name: internet-charge-type
+  type: enum
+  required: true
+  sdk-field: internetChargeType
+  description: Network billing methods.
+  enum-values:
+  - value: ByBandwidth
+    desc: Billed by the flat rate bandwidth.
+  - value: ByTrafficPackage
+    desc: Billed by the traffic package size purchased.
+  - value: BandwidthCluster
+    desc: Billed by the burstable 95th bandwidth of all compute resources in a city-based or regional bandwidth cluster with a shared commitment.
+- name: cluster-id
+  type: string
+  required: false
+  sdk-field: clusterId
+  description: |-
+    Bandwidth cluster ID.
+    Must be specified if changing to bandwidth cluster billing.

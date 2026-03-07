@@ -1,0 +1,25 @@
+name: SetSecurityGroupForLoadBalancers
+product: zlb
+use: set-security-group-for-load-balancers
+short: 批量更换负载器均衡的安全组
+long: 批量更换负载器均衡的安全组。
+examples:
+- cmd: zeno zlb set-security-group-for-load-balancers --security-group-id "<your sg id>" --load-balancer-ids "<your lb id1>" --load-balancer-ids "<your lb id2>"
+  desc: 批量更换负载器均衡的安全组
+sdk:
+  service: zlb
+  version: '2025-04-01'
+  action: SetSecurityGroupForLoadBalancers
+parameters:
+- name: security-group-id
+  type: string
+  required: true
+  sdk-field: securityGroupId
+  description: |-
+    要更换的安全组Id。
+    可以通过[DescribeSecurityGroups](../../zec/security-group/describesecuritygroups.md)接口获取。
+- name: load-balancer-ids
+  type: string-array
+  required: true
+  sdk-field: loadBalancerIds
+  description: 要更换安全组的负载均衡ID集合。

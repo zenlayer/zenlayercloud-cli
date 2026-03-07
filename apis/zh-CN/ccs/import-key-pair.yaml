@@ -1,0 +1,36 @@
+name: ImportKeyPair
+product: ccs
+use: import-key-pair
+short: 导入密钥对。
+long: 导入公钥到密钥对。
+examples:
+- cmd: zeno ccs import-key-pair --key-name my-key --public-key ""ssh-rsa XXXXXXXXXXXX== example""
+  desc: 导入一个密钥对。
+sdk:
+  service: ccs
+  version: '2025-09-01'
+  action: ImportKeyPair
+parameters:
+- name: key-name
+  type: string
+  required: true
+  sdk-field: keyName
+  description: |-
+    密钥对名称。
+    可由数字，大小写字母和-组成，长度不超过32个字符，不能和账号下其他的密钥对重名。
+    示例值：my_key, my-key。
+- name: key-description
+  type: string
+  required: false
+  sdk-field: keyDescription
+  description: |-
+    密钥对描述信息。
+    不超过255个字符。
+- name: public-key
+  type: string
+  required: true
+  sdk-field: publicKey
+  description: |-
+    密钥对的公钥内容，OpenSSH 格式。
+    公钥内容至多传5个公钥，通过换行(\n)分隔。
+    示例值：ssh-rsa XXXXXXXXXXXX key。

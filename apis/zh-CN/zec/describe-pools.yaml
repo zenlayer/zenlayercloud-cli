@@ -1,0 +1,40 @@
+name: DescribePools
+product: zec
+use: describe-pools
+short: 查询公网IP池列表。
+long: 查询公网IP池列表。
+examples:
+- cmd: zeno zec describe-pools --pool-ids xxx --region-id asia-east-1 --page-size 10 --page-num 1
+  desc: 查询公网IP池列表。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribePools
+parameters:
+- name: pool-ids
+  type: string-array
+  required: false
+  sdk-field: poolIds
+  description: 根据公网IP池的ID。
+- name: region-id
+  type: string
+  required: false
+  sdk-field: regionId
+  description: 根据公网IP池的所在节点ID过滤。
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: |-
+    根据公网IP池的名称过滤。
+    支持模糊查询。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: 返回的分页大小，默认为20，最大为1000。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: 返回的分页数。

@@ -1,0 +1,35 @@
+name: BindCidrBlockIps
+product: bmc
+use: bind-cidr-block-ips
+short: Assigns CIDR block IPs to instances.
+long: bind one or more CIDR block IPs to instances.
+examples:
+- cmd: zeno bmc bind-cidr-block-ips --cidr-block-id cidrBlockId --ip-bind-list "{instanceId=instanceId1, ip=1111:1111:2:25::2}" --ip-bind-list "{instanceId=instanceId2, ip=1.1.1.1}"
+  desc: ''
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: BindCidrBlockIps
+parameters:
+- name: ip-bind-list
+  type: object-array
+  required: true
+  sdk-field: ipBindList
+  description: List of IPs to be assigned.
+  array-style: json
+  item-schema:
+  - name: instanceId
+    type: string
+    description: Instance ID.
+  - name: ip
+    type: string
+    description: |-
+      CIDR block IP.
+      To obtain the CIDR block IP, you can call DescribeInstanceAvailableCidrBlock and look for availableIps in the response.
+- name: cidr-block-id
+  type: string
+  required: true
+  sdk-field: cidrBlockId
+  description: |-
+    ID of the CIDR block.
+    You can find the cidrBlockId in the response by calling DescribeCidrBlocks .

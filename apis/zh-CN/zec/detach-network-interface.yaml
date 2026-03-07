@@ -1,0 +1,18 @@
+name: DetachNetworkInterface
+product: zec
+use: detach-network-interface
+short: 网卡解绑实例
+long: 将一张网卡从实例上解绑。
+examples:
+- cmd: zeno zec detach-network-interface --nic-id <nicId>
+  desc: 网卡解绑实例
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DetachNetworkInterface
+parameters:
+- name: nic-id
+  type: string
+  required: true
+  sdk-field: nicId
+  description: 需要操作的网卡ID。

@@ -1,0 +1,30 @@
+name: TagUnbindResources
+product: zrm
+use: tag-unbind-resources
+short: Unbinds resources to a tag in batches.
+long: unbind resources to a tag in batches
+examples:
+- cmd: zeno zrm tag-unbind-resources --resource-uuids resourceUuids_ef279be49ba4
+  desc: Unbind an instance from a tag.
+sdk:
+  service: zrm
+  version: '2025-10-14'
+  action: TagUnbindResources
+parameters:
+- name: tag
+  type: object
+  required: true
+  sdk-field: tag
+  description: Tag, including tag key and tag value.
+  object-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'
+- name: resource-uuids
+  type: string-array
+  required: true
+  sdk-field: resourceUuids
+  description: List of resource IDs to be unbound.

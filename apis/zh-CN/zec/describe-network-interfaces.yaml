@@ -1,0 +1,123 @@
+name: DescribeNetworkInterfaces
+product: zec
+use: describe-network-interfaces
+short: 网卡列表
+long: 查询一个或多个指定网卡的信息。用户可以根据 网卡ID、网卡名称等信息来搜索网卡信息。
+examples:
+- cmd: zeno zec describe-network-interfaces --nic-type Secondary --page-size 1 --page-num 1
+  desc: 查询辅助网卡列表。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeNetworkInterfaces
+parameters:
+- name: nic-ids
+  type: string-array
+  required: false
+  sdk-field: nicIds
+  description: |-
+    根据网卡ID过滤。
+    最多传入100个ID。
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: |-
+    根据网卡所属的名称过滤。
+    该字段支持模糊搜索。
+- name: region-id
+  type: string
+  required: false
+  sdk-field: regionId
+  description: 根据网卡所属的节点 ID过滤。
+- name: vpc-id
+  type: string
+  required: false
+  sdk-field: vpcId
+  description: 根据网卡所属的VPC ID过滤。
+- name: subnet-id
+  type: string
+  required: false
+  sdk-field: subnetId
+  description: 根据网卡所属的子网ID过滤。
+- name: instance-id
+  type: string
+  required: false
+  sdk-field: instanceId
+  description: 网卡关联的实例ID过滤。
+- name: status
+  type: enum
+  required: false
+  sdk-field: status
+  description: 根据网卡的状态过滤。
+  enum-values:
+  - value: PENDING
+    desc: 网卡创建中。
+  - value: AVAILABLE
+    desc: 可用未绑定实例的。
+  - value: ATTACHING
+    desc: 绑定实例过程中。
+  - value: DETACHING
+    desc: 解绑实例过程中。
+  - value: DELETING
+    desc: 删除中。
+  - value: CREATE_FAILED
+    desc: 创建失败的。
+  - value: USED
+    desc: 已经绑定实例的。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: 返回的分页大小。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: 返回的分页数。
+- name: nic-type
+  type: enum
+  required: false
+  sdk-field: nicType
+  description: 根据网卡的类型筛选过滤。
+  enum-values:
+  - value: Primary
+    desc: 主网卡类型。
+  - value: Secondary
+    desc: 辅助网卡类型。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: 根据网卡所属的资源组ID过滤。
+- name: security-group-id
+  type: string
+  required: false
+  sdk-field: securityGroupId
+  description: 根据网卡所属的安全组ID过滤。
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    根据标签键进行搜索。
+    最长不得超过20个标签键。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    根据标签进行搜索。
+    最长不得超过20个标签。
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。

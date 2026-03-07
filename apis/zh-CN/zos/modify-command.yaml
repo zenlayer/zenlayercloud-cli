@@ -1,0 +1,39 @@
+name: ModifyCommand
+product: zos
+use: modify-command
+short: 修改命令。
+long: 修改一个命令。
+examples:
+- cmd: zeno zos modify-command --command-id <commandId> --name Test --content ""echo 2""
+  desc: 修改命令内容和名称。
+sdk:
+  service: zos
+  version: '2025-10-10'
+  action: ModifyCommand
+parameters:
+- name: command-id
+  type: string
+  required: true
+  sdk-field: commandId
+  description: 需要修改的命令ID。
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: |-
+    命令名称。
+    长度不能超过64个字符。
+- name: content
+  type: string
+  required: false
+  sdk-field: content
+  description: |-
+    命令内容。
+    长度不能超过16K(16384)个字符。
+- name: description
+  type: string
+  required: false
+  sdk-field: description
+  description: |-
+    命令的描述信息。
+    长度不能超过255个字符。

@@ -1,0 +1,53 @@
+name: CreateVpc
+product: bmc
+use: create-vpc
+short: Creates VPC.
+long: create a VPC.
+examples:
+- cmd: zeno bmc create-vpc --vpc-region-id CHI1 --cidr-block 10.0.0.0/8 --vpc-name 1122
+  desc: ''
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: CreateVpc
+parameters:
+- name: vpc-region-id
+  type: string
+  required: true
+  sdk-field: vpcRegionId
+  description: Availability region ID of VPC.
+- name: cidr-block
+  type: string
+  required: true
+  sdk-field: cidrBlock
+  description: CIDR block of VPC.
+- name: vpc-name
+  type: string
+  required: true
+  sdk-field: vpcName
+  description: |-
+    VPC name to be displayed.
+    This parameter can contain up to 64 characters. Only letters, numbers, - and periods (.) are supported.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    Resource group ID.
+    If the value is not passed in, the VPC will be put into the default resource group. If no authorized default resource group found, the request will fail.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    Bound tags when creating resources.
+    Tag keys must be unique.--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 128 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 128 characters.'

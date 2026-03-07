@@ -1,0 +1,113 @@
+name: CreateDisks
+product: zec
+use: create-disks
+short: 批量创建云硬盘
+long: 创建一个或多个云硬盘。
+examples:
+- cmd: zeno zec create-disks --disk-name Test-Disk --disk-size 30 --disk-amount 1 --zone-id asia-east-1a
+  desc: 创建1块30G大小的云硬盘。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CreateDisks
+parameters:
+- name: zone-id
+  type: string
+  required: true
+  sdk-field: zoneId
+  description: 云硬盘所属的可用区ID。
+- name: disk-name
+  type: string
+  required: true
+  sdk-field: diskName
+  description: |-
+    云盘名称。
+    范围1到64个字符。
+    仅支持输入字母、数字、-/_和英文句点(.)。
+    且必须以数字或字母开头和结尾。
+- name: disk-size
+  type: integer
+  required: true
+  sdk-field: diskSize
+  description: 云硬盘大小，单位GiB。
+- name: disk-amount
+  type: integer
+  required: false
+  sdk-field: diskAmount
+  description: 需要创建的云硬盘的数量。
+- name: instance-id
+  type: string
+  required: false
+  sdk-field: instanceId
+  description: 云硬盘挂载的实例ID。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    云硬盘所在的资源组ID。
+    如不指定则放入默认资源组。
+- name: disk-category
+  type: string
+  required: false
+  sdk-field: diskCategory
+  description: |-
+    云硬盘种类。
+    Basic NVMe SSD: 经济型 NVMe SSD。
+    Standard NVMe SSD: 标准型 NVMe SSD。
+    默认为Standard NVMe SSD。
+- name: snapshot-id
+  type: string
+  required: false
+  sdk-field: snapshotId
+  description: |-
+    使用快照ID进行创建。
+    如果传入则根据此快照创建云硬盘，快照的云盘类型必须为数据盘快照。
+- name: marketing-options
+  type: object
+  required: false
+  sdk-field: marketingOptions
+  description: 市场营销的相关选项。
+  object-schema:
+  - name: discountCode
+    type: string
+    description: |-
+      使用市场发放的折扣码。
+      如果折扣码不存在，最终折扣将不会生效。
+  - name: usePocVoucher
+    type: boolean
+    description: |-
+      是否使用POC代金券。
+      如果系统不存在POC代金券，相关创建流程会失败。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    创建云硬盘时关联的标签。
+    注意：·关联标签键不能重复。--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。
+- name: instance-ids
+  type: string-array
+  required: false
+  sdk-field: instanceIds
+  description: |-
+    要绑定的实例ID。
+    数量需要与diskAmount字段一致。
+- name: bursting-enabled
+  type: boolean
+  required: false
+  sdk-field: burstingEnabled
+  description: 是否开启性能突发。

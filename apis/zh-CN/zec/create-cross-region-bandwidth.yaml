@@ -1,0 +1,82 @@
+name: CreateCrossRegionBandwidth
+product: zec
+use: create-cross-region-bandwidth
+short: 创建内网跨区域带宽。
+long: 创建内网跨区域带宽。
+examples:
+- cmd: zeno zec create-cross-region-bandwidth --vpc-id "<your vpc id>" --internet-charge-type ByBandwidth --cross-region-bandwidth-name Test-Cross1 --region-a asia-east-1 --region-z asia-north-1 --bandwidth 100
+  desc: 创建一个从上海到北京的内网跨区域带宽, 使用固定带宽计费。突发带宽为100Mbps。
+- cmd: zeno zec create-cross-region-bandwidth --vpc-id "<your vpc id>" --internet-charge-type ByInstanceBandwidth95 --cross-region-bandwidth-name Test-Cross2 --region-a asia-north-1 --region-z asia-east-1 --bandwidth 100 --bandwidth-cap 120
+  desc: 创建一个从北京到上海的内网跨区域带宽, 使用单实例95计费。保底带宽为100Mbps，突发带宽为120Mbps。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CreateCrossRegionBandwidth
+parameters:
+- name: vpc-id
+  type: string
+  required: true
+  sdk-field: vpcId
+  description: 创建内网跨区域带宽所在的VPC ID。
+- name: internet-charge-type
+  type: enum
+  required: true
+  sdk-field: internetChargeType
+  description: 网络计费类型。
+  enum-values:
+  - value: ByBandwidth
+    desc: 固定带宽计费方式。
+  - value: ByTrafficPackage
+    desc: 流量包计费方式。
+  - value: BandwidthCluster
+    desc: 共享带宽包计费方式。
+- name: cross-region-bandwidth-name
+  type: string
+  required: true
+  sdk-field: crossRegionBandwidthName
+  description: |-
+    内网跨区域带宽的名称。
+    范围2到63个字符。
+    仅支持输入字母、数字、-/_和英文句点(.)。
+    且必须以数字或字母开头和结尾。
+- name: marketing-info
+  type: object
+  required: false
+  sdk-field: marketingInfo
+  description: 市场营销的相关选项。
+  object-schema:
+  - name: discountCode
+    type: string
+    description: |-
+      使用市场发放的折扣码。
+      如果折扣码不存在，最终折扣将不会生效。
+  - name: usePocVoucher
+    type: boolean
+    description: |-
+      是否使用POC代金券。
+      如果系统不存在POC代金券，相关创建流程会失败。
+- name: region-a
+  type: string
+  required: true
+  sdk-field: regionA
+  description: 其中一端的区域连接点（A）。
+- name: region-z
+  type: string
+  required: true
+  sdk-field: regionZ
+  description: 另一端的区域连接点（Z）。
+- name: bandwidth
+  type: integer
+  required: true
+  sdk-field: bandwidth
+  description: |-
+    带宽|保底带宽。
+    单位：Mbps。
+- name: bandwidth-cap
+  type: integer
+  required: false
+  sdk-field: bandwidthCap
+  description: |-
+    突发带宽。
+    单位：Mbps。
+    当且仅当internetChargeType为ByInstanceBandwidth95时此字段必填。

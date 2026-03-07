@@ -1,0 +1,103 @@
+name: CreateRoute
+product: zec
+use: create-route
+short: 创建自定义路由
+long: 创建一个自定义路由。
+examples:
+- cmd: zeno zec create-route --vpc-id <vpcId> --ip-version IPv4 --route-type RouteTypeStatic --destination-cidr-block 10.0.0.0/8 --priority 2 --next-hop-id <nicId> --name Test
+  desc: 创建一条IPv4的静态路由。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CreateRoute
+parameters:
+- name: vpc-id
+  type: string
+  required: true
+  sdk-field: vpcId
+  description: VPC的ID。
+- name: ip-version
+  type: enum
+  required: true
+  sdk-field: ipVersion
+  description: |-
+    IP类型。
+    支持IPv4和IPv6两种类型。
+  enum-values:
+  - value: IPv4
+    desc: IPv4。
+  - value: IPv6
+    desc: IPv6。
+- name: route-type
+  type: enum
+  required: true
+  sdk-field: routeType
+  description: 路由类型。
+  enum-values:
+  - value: RouteTypeSubnet
+    desc: |-
+      子网路由。
+      该路由为系统生成的路由。
+  - value: RouteTypeStatic
+    desc: |-
+      静态路由。
+      可以通过创建自定义路由。
+  - value: RouteTypePolicy
+    desc: |-
+      策略路由。
+      可以通过创建自定义路由。
+  - value: RouteTypeNatGw
+    desc: NAT 网关路由。
+  - value: RouteTypeTransit
+    desc: 动态路由。
+- name: source-cidr-block
+  type: string
+  required: false
+  sdk-field: sourceCidrBlock
+  description: |-
+    源IP地址CIDR。
+    路由类型配置RouteTypePolicy(策略路由)时需指定。
+- name: destination-cidr-block
+  type: string
+  required: false
+  sdk-field: destinationCidrBlock
+  description: |-
+    IPv4或IPv6的目标网段。
+    例如：10.0.1.0/24。
+- name: cidr-block
+  type: string
+  required: false
+  sdk-field: cidrBlock
+  description: |-
+    IPv4或IPv6的目标网段。
+    例如：10.0.1.0/24。
+    该字段已废弃，请使用destinationCidrBlock。
+- name: priority
+  type: integer
+  required: true
+  sdk-field: priority
+  description: |-
+    路由优先级。
+    数值越小，优先级越高。
+- name: next-hop-id
+  type: string
+  required: false
+  sdk-field: nextHopId
+  description: |-
+    下一跳资源ID。
+    目前只支持网卡ID。
+- name: next-hot-id
+  type: string
+  required: false
+  sdk-field: nextHotId
+  description: |-
+    下一跳资源ID。
+    目前只支持网卡ID。
+    该字段已废弃， 请使用nextHopId。
+- name: name
+  type: string
+  required: true
+  sdk-field: name
+  description: |-
+    路由名称。
+    名称长度为 2 到 63 个字符，仅支持字母、数字、连字符 (-) 、下划线(_) 、斜杠(/) 、和句点 (.)，且开头和结尾必须是字母或数字。

@@ -1,0 +1,18 @@
+name: DeleteBorderGateway
+product: zec
+use: delete-border-gateway
+short: Deletes a border gateway.
+long: delete a border gateway.
+examples:
+- cmd: zeno zec delete-border-gateway --zbg-id xxx
+  desc: Delete a border gateway.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DeleteBorderGateway
+parameters:
+- name: zbg-id
+  type: string
+  required: true
+  sdk-field: zbgId
+  description: Border gateway ID.

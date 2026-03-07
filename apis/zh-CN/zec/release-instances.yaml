@@ -1,0 +1,18 @@
+name: ReleaseInstances
+product: zec
+use: release-instances
+short: 销毁虚拟机实例
+long: 销毁一台或多台虚拟机实例。
+examples:
+- cmd: zeno zec release-instances --instance-ids instanceId1 --instance-ids instanceId2
+  desc: 批量释放实例。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ReleaseInstances
+parameters:
+- name: instance-ids
+  type: string-array
+  required: true
+  sdk-field: instanceIds
+  description: 要释放的实例ID列表。

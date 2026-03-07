@@ -1,0 +1,18 @@
+name: DeleteIpv6Cidr
+product: zec
+use: delete-ipv6-cidr
+short: 删除IPv6 CIDR地址块。
+long: 删除IPv6 CIDR地址块。
+examples:
+- cmd: zeno zec delete-ipv6-cidr --cidr-id <cidrId>
+  desc: 删除指定的CIDR地址段。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DeleteIpv6Cidr
+parameters:
+- name: cidr-id
+  type: string
+  required: true
+  sdk-field: cidrId
+  description: IPv6 地址块ID。

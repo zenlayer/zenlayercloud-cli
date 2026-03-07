@@ -1,0 +1,34 @@
+name: BatchAssignNetworkInterfaceIpv4
+product: zec
+use: batch-assign-network-interface-ipv4
+short: 网卡绑定内网IPv4地址
+long: 将一张网卡额外添加内网IPv4地址。
+examples:
+- cmd: zeno zec batch-assign-network-interface-ipv4 --nic-id <nicId> --ip-addresses 10.0.0.3 --ip-addresses 10.0.0.4
+  desc: 网卡批量绑定指定内网IPv4。
+- cmd: zeno zec batch-assign-network-interface-ipv4 --nic-id <nicId> --ip-address-count 2
+  desc: 网卡额外绑定2个内网IP。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: BatchAssignNetworkInterfaceIpv4
+parameters:
+- name: nic-id
+  type: string
+  required: true
+  sdk-field: nicId
+  description: 要操作的网卡ID。
+- name: ip-addresses
+  type: string-array
+  required: false
+  sdk-field: ipAddresses
+  description: |-
+    内网IP地址列表。
+    IP地址必须在网卡所属子网CIDR范围内，且不能是网关/广播/网络地址。
+- name: ip-address-count
+  type: integer
+  required: false
+  sdk-field: ipAddressCount
+  description: |-
+    指定额外绑定的内网IP数量。
+    该字段和ipAddresses必须指定其一，如果都指定，则会以 ipAddresses 有效。

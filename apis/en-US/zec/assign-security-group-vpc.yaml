@@ -1,0 +1,23 @@
+name: AssignSecurityGroupVpc
+product: zec
+use: assign-security-group-vpc
+short: Associates a VPC to a security group.
+long: associate a VPC to a security group.
+examples:
+- cmd: zeno zec assign-security-group-vpc --vpc-id your-vpc-id --security-group-id your-security-group-id
+  desc: Associate a VPC to a security group.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: AssignSecurityGroupVpc
+parameters:
+- name: vpc-id
+  type: string
+  required: true
+  sdk-field: vpcId
+  description: VPC ID.
+- name: security-group-id
+  type: string
+  required: true
+  sdk-field: securityGroupId
+  description: Security group ID.

@@ -1,0 +1,66 @@
+name: CreateNatGateway
+product: zec
+use: create-nat-gateway
+short: Creates a NAT gateway.
+long: create a NAT gateway.
+examples:
+- cmd: zeno zec create-nat-gateway --region-id asia-east-1 --vpc-id <vpcId> --name name --subnet-ids <subnet> --subnet-ids <subnet> --resource-group-id <resourceGroupId>
+  desc: Create a NAT gateway.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CreateNatGateway
+parameters:
+- name: region-id
+  type: string
+  required: true
+  sdk-field: regionId
+  description: Region ID.
+- name: vpc-id
+  type: string
+  required: true
+  sdk-field: vpcId
+  description: VPC network ID to which the NAT gateway belongs.
+- name: name
+  type: string
+  required: true
+  sdk-field: name
+  description: |-
+    The name of the NAT gateway.
+    Length must be between 2 and 63 characters.
+    Available range: [2.0, +).
+- name: subnet-ids
+  type: string-array
+  required: false
+  sdk-field: subnetIds
+  description: Subnet ID list to which the NAT gateway belongs.
+- name: security-group-id
+  type: string
+  required: false
+  sdk-field: securityGroupId
+  description: |-
+    ID of the security group.
+    If not specified, the security group associated with global VPC will be used by default.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    Resource Group ID
+    If not specified, it will belong to the default resource group.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    Bound tags when creating the NAT gateway.
+    Tag keys must be unique.--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'

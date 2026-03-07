@@ -1,0 +1,20 @@
+name: DeleteKeyPairs
+product: ccs
+use: delete-key-pairs
+short: 删除一个或多个密钥对。
+long: 删除一个或多个密钥对。
+examples:
+- cmd: zeno ccs delete-key-pairs --key-ids key-zCcHQB9u
+  desc: 删除一个或多个密钥对。
+sdk:
+  service: ccs
+  version: '2025-09-01'
+  action: DeleteKeyPairs
+parameters:
+- name: key-ids
+  type: string-array
+  required: true
+  sdk-field: keyIds
+  description: |-
+    一个或多个待操作的密钥对ID。
+    每次请求批量密钥对的上限为100。

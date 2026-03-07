@@ -1,0 +1,41 @@
+name: DescribeBandwidthClusterTraffic
+product: traffic
+use: describe-bandwidth-cluster-traffic
+short: Queries bandwidth information of a bandwidth cluster.
+long: query bandwidth information of a bandwidth cluster in the specified date range.
+examples:
+- cmd: zeno traffic describe-bandwidth-cluster-traffic --bandwidth-cluster-id bandwidthClusterId --start-time 2024-01-01T00:00:00Z --end-time 2024-01-01T23:59:59Z
+  desc: Query the bandwidth information of a bandwidth cluster in one day.
+sdk:
+  service: traffic
+  version: '2024-03-26'
+  action: DescribeBandwidthClusterTraffic
+parameters:
+- name: bandwidth-cluster-id
+  type: string
+  required: true
+  sdk-field: bandwidthClusterId
+  description: Bandwidth cluster ID.
+- name: start-time
+  type: string
+  required: true
+  sdk-field: startTime
+  description: |-
+    Start time.
+    Use UTC time according to the ISO8601 standard. Format: YYYY-MM-ddTHH:mm:ssZ.
+- name: end-time
+  type: string
+  required: true
+  sdk-field: endTime
+  description: |-
+    End time.
+    Use UTC time according to the ISO8601 standard. Format: YYYY-MM-ddTHH:mm:ssZ.
+- name: city
+  type: string
+  required: false
+  sdk-field: city
+  description: |-
+    Filter by city, such as LAX.
+    This value can be the name of the city or the city code.
+    By specifying this value, only the bandwidth traffic data for that city will be returned.
+    The city code and city name of the current bandwidth cluster can be viewed in the cities field of DescribeBandwidthClusters.

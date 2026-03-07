@@ -1,0 +1,143 @@
+name: DescribeEips
+product: zec
+use: describe-eips
+short: Queries the information of one or more specified elastic IPs.
+long: query the information of one or more specified elastic IPs. You can search for elastic IP information based on elastic IP ID, elastic IP name, etc.
+examples:
+- cmd: zeno zec describe-eips --ip-address 128.0.0.1
+  desc: Query the list of IPs based on public IP.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeEips
+parameters:
+- name: eip-ids
+  type: string-array
+  required: false
+  sdk-field: eipIds
+  description: Elastic IP ID(s).
+- name: region-id
+  type: string
+  required: false
+  sdk-field: regionId
+  description: Region ID
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: |-
+    Elastic IP name.
+    Fuzzy search supported.
+- name: status
+  type: enum
+  required: false
+  sdk-field: status
+  description: Status of the elastic IP.
+  enum-values:
+  - value: CREATING
+    desc: Creating.
+  - value: DELETING
+    desc: Deleting.
+  - value: ASSIGNING
+    desc: Binding.
+  - value: BINDED
+    desc: Bound.
+  - value: RECYCLING
+    desc: Recycling.
+  - value: RECYCLED
+    desc: Recycled.
+  - value: UNBIND
+    desc: Unbound.
+  - value: CREATE_FAILED
+    desc: Creating failed.
+- name: is-default
+  type: boolean
+  required: false
+  sdk-field: isDefault
+  description: Whether the elastic IP is the default public IP.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    Number of items in the current page result.
+    Default value: 20;
+    Maximum value: 1000.
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    Number of pages returned.
+    Default value: 1.
+- name: private-ip-address
+  type: string
+  required: false
+  sdk-field: privateIpAddress
+  description: Filter by private IP bound to the elastic IP.
+- name: ip-address
+  type: string
+  required: false
+  sdk-field: ipAddress
+  description: Filter by elastic IP address.
+- name: ip-addresses
+  type: string-array
+  required: false
+  sdk-field: ipAddresses
+  description: Filter by elastic IP addresses.
+- name: instance-id
+  type: string
+  required: false
+  sdk-field: instanceId
+  description: |-
+    Filter by instance ID bound to the elastic IP.
+    This field filters the elastic IPs bound to the instance's vNIC.
+- name: associated-id
+  type: string
+  required: false
+  sdk-field: associatedId
+  description: Filter by resource ID bound to the elastic IP.
+- name: cidr-ids
+  type: string-array
+  required: false
+  sdk-field: cidrIds
+  description: Filter by CIDR IDs to which the EIP belongs.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: Resource Group ID.
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    Query using tag keys.
+    A maximum of 20 tag keys can be used.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    Query using tags.
+    A maximum of 20 tags can be used.
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'
+- name: internet-charge-type
+  type: enum
+  required: false
+  sdk-field: internetChargeType
+  description: Filter by the network billing model of the elastic IP.
+  enum-values:
+  - value: ByBandwidth
+    desc: Billed by the flat rate bandwidth.
+  - value: ByTrafficPackage
+    desc: Billed by the traffic package size purchased.
+  - value: BandwidthCluster
+    desc: Billed by the burstable 95th bandwidth of all compute resources in a city-based or regional bandwidth cluster with a shared commitment.

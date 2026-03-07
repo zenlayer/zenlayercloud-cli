@@ -1,0 +1,37 @@
+name: DescribeKeyPairs
+product: ccs
+use: describe-key-pairs
+short: 查询密钥对列表。
+long: 查询密钥对列表。
+examples:
+- cmd: zeno ccs describe-key-pairs
+  desc: 获取密钥对列表。
+sdk:
+  service: ccs
+  version: '2025-09-01'
+  action: DescribeKeyPairs
+parameters:
+- name: key-ids
+  type: string-array
+  required: false
+  sdk-field: keyIds
+  description: 根据密钥对ID列表进行筛选。
+- name: key-name
+  type: string
+  required: false
+  sdk-field: keyName
+  description: |-
+    根据密钥对名称进行筛选。
+    该字段支持模糊搜索。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    返回的分页大小。
+    默认为20，最大为1000。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: 返回的分页数。

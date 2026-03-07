@@ -1,0 +1,20 @@
+name: RebootInstances
+product: zec
+use: reboot-instances
+short: Restarts one or more elastic compute instances.
+long: restart one or more elastic compute instances.
+examples:
+- cmd: zeno zec reboot-instances --instance-ids instanceId1 --instance-ids instanceId2
+  desc: Batch restart instances
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: RebootInstances
+parameters:
+- name: instance-ids
+  type: string-array
+  required: true
+  sdk-field: instanceIds
+  description: |-
+    Instance ID(s).
+    To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response. The maximum number of instances in each request is 100.

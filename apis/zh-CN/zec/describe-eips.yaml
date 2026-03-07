@@ -1,0 +1,142 @@
+name: DescribeEips
+product: zec
+use: describe-eips
+short: 查询弹性IP列表
+long: 指定条件查询已创建的弹性IPv4的信息。用户可以根据ID、名称等信息来搜索。
+examples:
+- cmd: zeno zec describe-eips --ip-address 128.0.0.1
+  desc: 1. 根据公网IP查询匹配的IP列表。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeEips
+parameters:
+- name: eip-ids
+  type: string-array
+  required: false
+  sdk-field: eipIds
+  description: 按照 EIP 的唯一 ID 过滤。
+- name: region-id
+  type: string
+  required: false
+  sdk-field: regionId
+  description: 按照 EIP 所属节点ID过滤。
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: 按照 EIP 的显示名称过滤，该字段支持模糊匹配。
+- name: status
+  type: enum
+  required: false
+  sdk-field: status
+  description: 按照 EIP 的状态过滤。
+  enum-values:
+  - value: CREATING
+    desc: 创建过程中。
+  - value: DELETING
+    desc: 删除过程中。
+  - value: ASSIGNING
+    desc: 绑定过程中。
+  - value: BINDED
+    desc: 已绑定资源状态。
+  - value: RECYCLING
+    desc: 回收状态中。
+  - value: RECYCLED
+    desc: 处于回收站中。
+  - value: UNBIND
+    desc: 未绑定状态中。
+  - value: CREATE_FAILED
+    desc: 创建失败的。
+- name: is-default
+  type: boolean
+  required: false
+  sdk-field: isDefault
+  description: 按照 EIP 的默认属性进行过滤。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    返回的分页大小。
+    默认为20，最大为1000。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: 返回的分页页码。
+- name: private-ip-address
+  type: string
+  required: false
+  sdk-field: privateIpAddress
+  description: 按照 EIP 绑定的内网 IP 过滤。
+- name: ip-address
+  type: string
+  required: false
+  sdk-field: ipAddress
+  description: 按照 IP地址过滤。
+- name: ip-addresses
+  type: string-array
+  required: false
+  sdk-field: ipAddresses
+  description: 按照 EIP 的 IP列表过滤。
+- name: instance-id
+  type: string
+  required: false
+  sdk-field: instanceId
+  description: |-
+    按照 EIP 绑定的实例 ID 过滤。
+    该字段过滤出该实例所绑定的网卡上的 EIP。
+- name: associated-id
+  type: string
+  required: false
+  sdk-field: associatedId
+  description: 按照 EIP 绑定的资源 ID 过滤。
+- name: cidr-ids
+  type: string-array
+  required: false
+  sdk-field: cidrIds
+  description: 按照 EIP 所属的CIDR ID列表 过滤。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: 按照 EIP 所属的资源组ID过滤。
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    根据标签键进行搜索。
+    最长不得超过20个标签键。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    根据标签进行搜索。
+    最长不得超过20个标签。
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。
+- name: internet-charge-type
+  type: enum
+  required: false
+  sdk-field: internetChargeType
+  description: 按照 EIP 的网络计费方式过滤。
+  enum-values:
+  - value: ByBandwidth
+    desc: 固定带宽计费方式。
+  - value: ByTrafficPackage
+    desc: 流量包计费方式。
+  - value: BandwidthCluster
+    desc: 共享带宽包计费方式。

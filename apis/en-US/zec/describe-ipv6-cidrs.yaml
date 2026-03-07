@@ -1,0 +1,70 @@
+name: DescribeIpv6Cidrs
+product: zec
+use: describe-ipv6-cidrs
+short: Queries the list of IPv6 CIDR blocks.
+long: query the list of IPv6 CIDR blocks.
+examples:
+- cmd: zeno zec describe-ipv6-cidrs --cidr-ids xxx --region-id asia-east-1 --cidr-block 2400:8a00::/28 --page-size 10 --page-num 1
+  desc: Query the list of CIDR blocks within `2400:8a00::/28`.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeIpv6Cidrs
+parameters:
+- name: cidr-ids
+  type: string-array
+  required: false
+  sdk-field: cidrIds
+  description: Filter by one or more CIDR block IDs.
+- name: region-id
+  type: string
+  required: false
+  sdk-field: regionId
+  description: Filter by the region ID where the CIDR block is located.
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: Filter by CIDR block name. Fuzzy search is supported.
+- name: cidr-block
+  type: string
+  required: false
+  sdk-field: cidrBlock
+  description: Filter by CIDR block address.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: Filter by resource group ID.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: 'The returned page size. Default value: 20. Maximum  value: 1000.'
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: Number of pages returned.
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    Search by tag key.
+    You can query up to 20 tag keys in each request.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    Search by tag.
+    You can query up to 20 tags in each request.
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'

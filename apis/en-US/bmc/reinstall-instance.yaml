@@ -1,0 +1,135 @@
+name: ReinstallInstance
+product: bmc
+use: reinstall-instance
+short: Reinstalls an instance.
+long: reinstall the operating system of the specified instance.
+examples:
+- cmd: zeno bmc reinstall-instance --instance-id instanceId
+  desc: ''
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: ReinstallInstance
+parameters:
+- name: image-id
+  type: string
+  required: false
+  sdk-field: imageId
+  description: |-
+    Valid image ID.
+    To obtain valid image ID,you can call DescribeImages ,pass in instanceTypeId to retrieve the list of images supported by the current model,and then find the imageId in the response.
+    You can also not specify an image and install it later through IPMI.
+    When using iPXE to install OS,pass the value of ipxeUrl ,and leave imageId empty.
+- name: hostname
+  type: string
+  required: false
+  sdk-field: hostname
+  description: |-
+    Instance hostname.
+    Default value:hostname.
+    This parameter can contain up to 64 . characters.Only letters,numbers,-and periods(.)are supported.
+- name: password
+  type: string
+  required: false
+  sdk-field: password
+  description: |-
+    Instance password.
+    The parameter must be 8-16 characters,including uppercase letters,lowercase letters,numbers and special characters like 1~!@$^*-_=+ .This password is also used as the password for IPMI login.Please keep it safe.
+    You must and can only pass the value of either password or keyId .
+- name: key-id
+  type: string
+  required: false
+  sdk-field: keyId
+  description: |-
+    SSH key pair ID.
+    Your SSH key pair contains several public keys that can be placed on your server.You can access your instance with the private key.Call DescribeKeyPairs to obtain key pair information.
+    SSH key pairs and passwords cannot to set at the same time.SSH key pairs are not supported for Windows operating system.
+    For example: key-YWD2QFOl
+    You must and can only pass the value of either password or keyId .
+- name: raid-config
+  type: object
+  required: false
+  sdk-field: raidConfig
+  description: Disk array configuration.
+  object-schema:
+  - name: raidType
+    type: integer
+    description: |-
+      RAID levels for rapid RAID settings.
+      Value possible: 0, 1, 5, 10.
+      Only one of raidType and customRaids can be specified.
+  - name: customRaids
+    type: object-array
+    description: |-
+      RAID levels for custom RAID settings.
+      Only one of raidType and customRaids can be specified.
+- name: partitions
+  type: object-array
+  required: false
+  sdk-field: partitions
+  description: |-
+    Disk partition configuration.
+    If the operating system is not installed,the partition cannot be set.
+  array-style: json
+  item-schema:
+  - name: fsPath
+    type: string
+    description: |-
+      Partition letter.
+      Linux: must start with "/", and the first system partition must be "/".
+      Windows: support C~H, the first system partition must be designated as "C".
+  - name: fsType
+    type: string
+    description: |-
+      File type of partition.
+      Linux: ext2 , ext3 , ext4 , ext type is needed.
+      Windows: NTFS .
+  - name: size
+    type: integer
+    description: |-
+      Partition size.
+      Unit: GiB.
+- name: nic
+  type: object
+  required: false
+  sdk-field: nic
+  description: NIC configuration.
+  object-schema:
+  - name: wanName
+    type: string
+    description: |-
+      Public NIC name.
+      Only numbers, uppercase and lowercase letters are allowed, starting with a letter with a length limit of 4 to 10 characters.
+      For non-high-availability models, the default public NIC name is wan0 . It cannot start with lan .
+      For high-availability models, the default public NIC name is bond0 .
+      Public and private NIC names cannot be the same.
+  - name: lanName
+    type: string
+    description: |-
+      Private NIC name.
+      Only numbers, uppercase and lowercase letters are allowed, starting with a letter with a length limit of 4 to 10 characters.
+      For non-high-availability models, the default private NIC name is lan0 . It cannot start with wan .
+      For high-availability models, the default private NIC name is bond1 .
+      Public and private NIC names cannot be the same.
+- name: ipxe-url
+  type: string
+  required: false
+  sdk-field: ipxeUrl
+  description: |-
+    iPXE URL.
+    Pass in the value and install your OS via IPMI.
+    You can choose to install OS using Netboot.See Deploy a Custom Image Using iPXE for more details.
+- name: user-data
+  type: string
+  required: false
+  sdk-field: userData
+  description: |-
+    User Data.
+    You can specify user data during instance installation. When the instance is launched for the first time, the user data is passed to the server as text and executed. The maximum supported data size is 32 KB.
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: |-
+    Instance ID.
+    To obtain the instance ID,you can call DescribeInstances and look for instanceId in the response.

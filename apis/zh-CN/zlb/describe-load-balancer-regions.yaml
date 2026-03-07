@@ -1,0 +1,12 @@
+name: DescribeLoadBalancerRegions
+product: zlb
+use: describe-load-balancer-regions
+short: 查询支持负载均衡售卖的区域
+long: 查询支持购买负载均衡的区域。
+examples:
+- cmd: zeno zlb describe-load-balancer-regions
+  desc: 获取负载均衡售卖的区域。
+sdk:
+  service: zlb
+  version: '2025-04-01'
+  action: DescribeLoadBalancerRegions

@@ -1,0 +1,81 @@
+name: InquiryPriceCreateInstance
+product: bmc
+use: inquiry-price-create-instance
+short: Queries the price of a creating instance.
+long: query the price of creating instance.
+examples:
+- cmd: zeno bmc inquiry-price-create-instance --zone-id SEL-A --instance-type-id M6C --instance-charge-type PREPAID --traffic-package-size 100 --internet-max-bandwidth-out 200 --internet-charge-type ByBandwidth
+  desc: Query the price of a subscription instance with the billing method of flat rate
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: InquiryPriceCreateInstance
+parameters:
+- name: zone-id
+  type: string
+  required: true
+  sdk-field: zoneId
+  description: Zone ID of the instance.
+- name: instance-type-id
+  type: string
+  required: true
+  sdk-field: instanceTypeId
+  description: |-
+    Instance model ID.
+    To view specific values, you can call DescribeInstanceTypes .
+- name: instance-charge-type
+  type: enum
+  required: true
+  sdk-field: instanceChargeType
+  description: |-
+    Instance pricing model .
+    PREPAID: subscription
+    POSTPAID: pay-as-you-go
+  enum-values:
+  - value: POSTPAID
+    desc: Pay-as-you-go.
+  - value: PREPAID
+    desc: Subscription.
+- name: instance-charge-prepaid
+  type: object
+  required: false
+  sdk-field: instanceChargePrepaid
+  description: Details of the monthly subscription, including the purchase period, auto-renewal. It is required if the chargeType is PREPAID.
+  object-schema:
+  - name: period
+    type: integer
+    description: |-
+      Period of subscription.
+      Unit: month.
+- name: traffic-package-size
+  type: float
+  required: false
+  sdk-field: trafficPackageSize
+  description: |-
+    Traffic package size (TB).
+    The parameter is valid only when internetChargeType is ByTrafficPackage .
+    If not passed in, the default value will be the size of the free traffic package.
+- name: internet-max-bandwidth-out
+  type: integer
+  required: false
+  sdk-field: internetMaxBandwidthOut
+  description: |-
+    Public network bandwidth cap (Mbps).
+    Default value: 1 Mbps.
+    The parameter value differs by different instance models.
+- name: internet-charge-type
+  type: enum
+  required: true
+  sdk-field: internetChargeType
+  description: Network pricing model.
+  enum-values:
+  - value: ByBandwidth
+    desc: Billed by the flat rate bandwidth.
+  - value: ByTrafficPackage
+    desc: Billed by the traffic package size purchased.
+  - value: ByInstanceBandwidth95
+    desc: Burstable 95th billing.
+  - value: ByClusterBandwidth95
+    desc: Billed by the burstable 95th bandwidth of instances in a city-based bandwidth cluster.
+  - value: ByBandwidthCluster
+    desc: Billed by the burstable 95th bandwidth of all compute resources in a city-based or regional bandwidth cluster with a shared commitment.

@@ -1,0 +1,23 @@
+name: ModifyDisksResourceGroup
+product: zec
+use: modify-disks-resource-group
+short: 修改云硬盘所属的资源组。
+long: 修改云硬盘所属的资源组。
+examples:
+- cmd: zeno zec modify-disks-resource-group --disk-ids diskId1 --disk-ids diskId2 --resource-group-id resourceGroup1
+  desc: 将云盘移动到指定资源组。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyDisksResourceGroup
+parameters:
+- name: disk-ids
+  type: string-array
+  required: true
+  sdk-field: diskIds
+  description: 要迁移资源组的云盘ID列表。
+- name: resource-group-id
+  type: string
+  required: true
+  sdk-field: resourceGroupId
+  description: 目标资源组ID。

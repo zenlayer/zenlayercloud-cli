@@ -1,0 +1,23 @@
+name: DeleteLoadBalancersPrivateIps
+product: zlb
+use: delete-load-balancers-private-ips
+short: 为负载均衡器实例删除内网IP
+long: 为负载均衡器实例删除内网IP。
+examples:
+- cmd: zeno zlb delete-load-balancers-private-ips --private-ips 10.0.0.0 --load-balancer-id "<your lb id>"
+  desc: 为负载均衡器实例删除内网IP
+sdk:
+  service: zlb
+  version: '2025-04-01'
+  action: DeleteLoadBalancersPrivateIps
+parameters:
+- name: private-ips
+  type: string-array
+  required: true
+  sdk-field: privateIps
+  description: 要删除的内网IP集合。
+- name: load-balancer-id
+  type: string
+  required: true
+  sdk-field: loadBalancerId
+  description: 负载均衡ID。

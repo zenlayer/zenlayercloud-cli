@@ -1,0 +1,57 @@
+name: DescribeImages
+product: bmc
+use: describe-images
+short: Queries the details of one or more images.
+long: view the list of images.
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DescribeImages
+parameters:
+- name: image-ids
+  type: string-array
+  required: false
+  sdk-field: imageIds
+  description: List of image IDs.
+- name: image-name
+  type: string
+  required: false
+  sdk-field: imageName
+  description: Image name.
+- name: catalog
+  type: string
+  required: false
+  sdk-field: catalog
+  description: |-
+    Image catalog. The optional values are as follows:
+    CentOS Windows Ubuntu Debian ESXi
+- name: image-type
+  type: enum
+  required: false
+  sdk-field: imageType
+  description: |-
+    Image type. The optional values are as follows:
+    PUBLIC_IMAGE: public images CUSTOM_IMAGE: custom images
+    You cannot create a custom image by yourself currently. If necessary, please submit a ticket.
+  enum-values:
+  - value: PUBLIC_IMAGE
+    desc: System image.
+  - value: CUSTOM_IMAGE
+    desc: Custom image.
+- name: os-type
+  type: enum
+  required: false
+  sdk-field: osType
+  description: |-
+    Operating system type. The optional values are as follows:
+    Windows Linux
+  enum-values:
+  - value: windows
+    desc: Windows.
+  - value: linux
+    desc: Linux.
+- name: instance-type-id
+  type: string
+  required: false
+  sdk-field: instanceTypeId
+  description: Supported instance model ID.

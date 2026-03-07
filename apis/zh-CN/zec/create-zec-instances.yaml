@@ -1,0 +1,386 @@
+name: CreateZecInstances
+product: zec
+use: create-zec-instances
+short: 创建虚拟机实例
+long: 创建一台或多台虚拟机实例。
+examples:
+- cmd: zeno zec create-zec-instances --zone-id asia-east-1a --instance-type z2a.cpu.1 --image-id ubuntu2404_20240712 --instance-name Test-InstanceName --key-id key-rcfljdP5 --subnet-id 1272168087751233112 --nic-network-type Auto
+  desc: 使用最简单的参数创建实例。不分配公网IP地址。
+- cmd: zeno zec create-zec-instances --zone-id asia-east-1a --instance-type z2a.cpu.1 --image-id ubuntu2404_20240712 --instance-name Test-InstanceName --key-id key-rcfljdP5 --subnet-id 1272168087751233112 --internet-charge-type BandwidthCluster --bandwidth 10 --cluster-id <clusterId> --network-line-type PremiumBGP
+  desc: 创建2台实例，分配公网IP。线路类型为BGP, 网络计费使用共享带宽包。带宽限速为10Mbps。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CreateZecInstances
+parameters:
+- name: zone-id
+  type: string
+  required: true
+  sdk-field: zoneId
+  description: 可用区ID。
+- name: image-id
+  type: string
+  required: true
+  sdk-field: imageId
+  description: |-
+    指定有效的镜像ID。
+    可以通过[DescribeImages](../image/describeimages.md)取返回信息中的imageId字段。
+- name: time-zone
+  type: string
+  required: false
+  sdk-field: timeZone
+  description: 设置操作系统的时区。
+- name: instance-type
+  type: string
+  required: true
+  sdk-field: instanceType
+  description: |-
+    实例机型。
+    具体取值可通过调用接口[DescribeZoneInstanceConfigInfos](describezoneinstanceconfiginfos.md)来获得最新的规格表。
+- name: instance-name
+  type: string
+  required: false
+  sdk-field: instanceName
+  description: |-
+    实例显示名称。
+    范围2到63个字符。
+    仅支持输入字母、数字、-和英文句点(.)。
+    且必须以数字或字母开头和结尾。
+    购买多台实例，可以指定模式串[begin_number,bits]。
+    begin_number：有序数值的起始值，取值支持[0,99999]，默认值为0。
+    bits：有序数值所占的位数，取值支持[1,6]，默认值为6。
+    注意模式串中不得有空格。
+    购买1台时，例如server-[3,3]实例显示为server003；购买2台时，实例显示名分别为server003，server004。
+    支持指定多个模式串，如server-[3,3]-[1,1]。
+    默认值为 instance。
+- name: password
+  type: string
+  required: false
+  sdk-field: password
+  description: |-
+    实例的密码。
+    与keyId必须指定其中的一种（Windows和Generic类型的镜像无法指定密码和key）。
+    必须包含以下3种格式的字符：大小写字母: [a-zA-Z]数字: 0-9特殊字符: ~!@$^*-_=+。
+- name: key-id
+  type: string
+  required: false
+  sdk-field: keyId
+  description: |-
+    密钥ID。
+    与password必须指定其中的一种（Windows和Generic类型的镜像无法指定密码和key）。
+    可调用接口DescribeKeyPairs来获得最新的密钥对信息。
+    关联密钥后，就可以通过对应的私钥来访问实例；密钥与密码不能同时指定，同时Windows操作系统不支持指定密钥。
+    示例值：key-YWD2QFOl。
+- name: nic-network-type
+  type: enum
+  required: false
+  sdk-field: nicNetworkType
+  description: 网卡模式。
+  enum-values:
+  - value: Auto
+    desc: 默认模式(镜像自适应)。
+  - value: FailOver
+    desc: 故障转移模式。
+  - value: VirtioOnly
+    desc: 软件模拟模式。
+  - value: VfOnly
+    desc: 物理直通模式。
+- name: instance-count
+  type: integer
+  required: true
+  sdk-field: instanceCount
+  description: 要创建的实例数量。
+- name: system-disk
+  type: object
+  required: false
+  sdk-field: systemDisk
+  description: |-
+    实例系统盘配置信息。
+    若不指定该参数，则按照系统默认值进行分配。
+    即操作系统要求的最小大小。
+  object-schema:
+  - name: diskId
+    type: string
+    description: |-
+      系统盘ID。
+      该参数目前仅用于`DescribeInstances`等查询类接口的返回参数，不可用于`CreateInstances`等写接口的入参。
+  - name: diskSize
+    type: integer
+    description: |-
+      系统盘大小。
+      单位：GiB。
+  - name: diskCategory
+    type: string
+    description: |-
+      云硬盘种类。
+      Basic NVMe SSD: 经济型 NVMe SSD。
+      Standard NVMe SSD: 标准型 NVMe SSD。
+      默认为Standard NVMe SSD。
+  - name: burstingEnabled
+    type: boolean
+    description: 是否开启性能突发。
+- name: data-disks
+  type: object-array
+  required: false
+  sdk-field: dataDisks
+  description: |-
+    实例数据盘配置信息。
+    若不指定该参数，则默认不额外购买数据盘。
+    目前只能附带1个数据盘。
+  array-style: json
+  item-schema:
+  - name: diskId
+    type: string
+    description: |-
+      数据盘ID。
+      该参数目前仅用于`DescribeInstances`等查询类接口的返回参数，不可用于`CreateInstances`等写接口的入参。
+  - name: diskName
+    type: string
+    description: |-
+      云盘的名称。
+      该参数目前仅用于DescribeInstances等查询类接口的返回参数。
+  - name: diskSize
+    type: integer
+    description: |-
+      数据盘大小。
+      单位：GiB。
+  - name: diskAmount
+    type: integer
+    description: |-
+      数据盘数量。
+      该参数仅用于`CreateInstances`,`InquiryPriceCreateInstance`等接口的入参使用。
+  - name: portable
+    type: boolean
+    description: |-
+      是否可拆卸。
+      该参数仅用于查询的回参，不用于入参。
+      true代表不会随着实例删除而删除。
+      false代表会随着实例删除而删除。
+  - name: burstingEnabled
+    type: boolean
+    description: 是否开启性能突发。
+  - name: diskCategory
+    type: string
+    description: |-
+      云硬盘种类。
+      Basic NVMe SSD: 经济型 NVMe SSD。
+      Standard NVMe SSD: 标准型 NVMe SSD。
+      默认为Standard NVMe SSD。
+- name: security-group-id
+  type: string
+  required: false
+  sdk-field: securityGroupId
+  description: |-
+    要配置在实例主网卡的安全组ID。
+    目前只能关联1个安全组。
+    如果未指定，会默认用VPC关联的安全组。
+- name: subnet-id
+  type: string
+  required: true
+  sdk-field: subnetId
+  description: 子网ID。
+- name: lan-ip
+  type: string
+  required: false
+  sdk-field: lanIp
+  description: |-
+    分配的内网起始IP。
+    如果内网IP被使用,则会往后分配。
+- name: enable-agent
+  type: boolean
+  required: false
+  sdk-field: enableAgent
+  description: 是否安装启动Agent。
+- name: enable-ip-forward
+  type: boolean
+  required: false
+  sdk-field: enableIpForward
+  description: 是否开启IP转发。
+- name: internet-charge-type
+  type: enum
+  required: false
+  sdk-field: internetChargeType
+  description: |-
+    公网IP的网络计费类型。
+    如果不指定，则不会分配公网IP地址。
+  enum-values:
+  - value: ByBandwidth
+    desc: 固定带宽计费方式。
+  - value: ByTrafficPackage
+    desc: 流量包计费方式。
+  - value: BandwidthCluster
+    desc: 共享带宽包计费方式。
+- name: traffic-package-size
+  type: float
+  required: false
+  sdk-field: trafficPackageSize
+  description: |-
+    流量包订购大小。
+    单位为TB。
+    该值必须在internetChargeType = ByTrafficPackage时才会生效。
+    当IpStackType = IPv4_IPv6时，流量包大小作用于IPv4。
+- name: bandwidth
+  type: integer
+  required: false
+  sdk-field: bandwidth
+  description: |-
+    公网出带宽上限。
+    单位：Mbps。
+    当分配公网IP时需要指定。
+- name: eip-bind-type
+  type: enum
+  required: false
+  sdk-field: eipBindType
+  description: |-
+    公网IP的绑定模式。
+    当分配公网IP时需要指定。
+  enum-values:
+  - value: FullNat
+    desc: 普通NAT模式。
+  - value: Passthrough
+    desc: 高速模式。
+- name: eip-v4-type
+  type: enum
+  required: false
+  sdk-field: eipV4Type
+  description: |-
+    公网IPv4的线路类型。
+    当分配公网IP时需要指定。
+    请确保所选子网的堆栈类型支持IPv4。
+    目前不支持三线IP随实例一起创建。
+    已废弃，请使用networkLineType。
+  deprecated: true
+  enum-values:
+  - value: BGPLine
+    desc: BGP 线路。
+  - value: CN2Line
+    desc: CN2 回国优化线路。
+  - value: LocalLine
+    desc: 本地IP。
+  - value: ChinaMobile
+    desc: 中国移动线路。
+  - value: ChinaUnicom
+    desc: 中国联通线路。
+  - value: ChinaTelecom
+    desc: 中国电信线路。
+  - value: Cogent
+    desc: Cogent。
+  - value: ThreeLine
+    desc: 三线IP。
+- name: ip-stack-type
+  type: enum
+  required: false
+  sdk-field: ipStackType
+  description: |-
+    设置IP堆栈类型。
+    如果不指定，当子网堆栈类型IPv4或IPv4_IPv6时，默认使用IPv4。
+  enum-values:
+  - value: IPv4
+    desc: 仅IPv4。
+  - value: IPv4_IPv6
+    desc: IPv4和IPv6。
+  - value: IPv6
+    desc: 仅IPv6。
+- name: network-line-type
+  type: enum
+  required: false
+  sdk-field: networkLineType
+  description: |-
+    公网IPv4的线路类型。
+    当分配公网IP时需要指定。
+    请确保所选子网的堆栈类型支持IPv4。
+    目前不支持三线IP随实例一起创建。
+  enum-values:
+  - value: PremiumBGP
+    desc: |-
+      优质 BGP。
+      高性能网络。
+  - value: CN2
+    desc: 回国优化线路。
+  - value: LocalLine
+    desc: 本地IP。
+  - value: StandardBGP
+    desc: |-
+      标准 BGP。
+      通用网络，成本优化。
+  - value: CMI
+    desc: 中国移动。
+  - value: CUG
+    desc: 中国联通。
+  - value: CTG
+    desc: 中国电信。
+  - value: ThreeLine
+    desc: 三线IP。
+- name: cluster-id
+  type: string
+  required: false
+  sdk-field: clusterId
+  description: |-
+    共享带宽包ID。
+    当网络计费方式是共享带宽包计费(BandwidthCluster)时需要指定。
+- name: ipv6-cluster-id
+  type: string
+  required: false
+  sdk-field: ipv6ClusterId
+  description: |-
+    公网IPv6加入的共享带宽包ID。
+    网络计费方式是共享带宽包计费(BandwidthCluster)时且ipStackType设定为IPv4_IPv6时需要指定。
+    如果不指定，则默认使用clusterId。
+    该字段一般用于IPv4/IPv6所属不同共享带宽包。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: 创建后实例所在的资源组ID，如不指定则放入默认资源组。
+- name: marketing-options
+  type: object
+  required: false
+  sdk-field: marketingOptions
+  description: 市场营销的相关选项。
+  object-schema:
+  - name: discountCode
+    type: string
+    description: |-
+      使用市场发放的折扣码。
+      如果折扣码不存在，最终折扣将不会生效。
+  - name: usePocVoucher
+    type: boolean
+    description: |-
+      是否使用POC代金券。
+      如果系统不存在POC代金券，相关创建流程会失败。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    创建实例时关联的标签。
+    注意：·关联标签键不能重复。--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。
+- name: user-data
+  type: string
+  required: false
+  sdk-field: userData
+  description: 初始化命令。
+- name: instance-options
+  type: object
+  required: false
+  sdk-field: instanceOptions
+  description: 实例选项配置。
+  object-schema:
+  - name: nestedVirtualization
+    type: boolean
+    description: |-
+      是否启用嵌套虚拟化。
+      如果要开启嵌套虚拟化，需要联系Support开通,否则设置无效。

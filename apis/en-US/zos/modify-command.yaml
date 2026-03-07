@@ -1,0 +1,39 @@
+name: ModifyCommand
+product: zos
+use: modify-command
+short: Edits a command.
+long: edit a command.
+examples:
+- cmd: zeno zos modify-command --command-id <commandId> --name Test --content ""echo 2""
+  desc: Edit command name and script content.
+sdk:
+  service: zos
+  version: '2025-10-10'
+  action: ModifyCommand
+parameters:
+- name: command-id
+  type: string
+  required: true
+  sdk-field: commandId
+  description: Command ID to be edited.
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: |-
+    Command name.
+    The length should be no more than 64 characters.
+- name: content
+  type: string
+  required: false
+  sdk-field: content
+  description: |-
+    Script content.
+    The length should be no more than 16K(16384) characters.
+- name: description
+  type: string
+  required: false
+  sdk-field: description
+  description: |-
+    Command note.
+    The length should be no more than 255 characters.

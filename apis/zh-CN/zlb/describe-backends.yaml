@@ -1,0 +1,27 @@
+name: DescribeBackends
+product: zlb
+use: describe-backends
+short: 后端服务器列表
+long: 查询负载均衡实例的绑定的后端服务列表。
+examples:
+- cmd: zeno zlb describe-backends --load-balancer-id <loadBalancerId>
+  desc: 查询负载均衡实例上绑定的所有后端服务。
+- cmd: zeno zlb describe-backends --load-balancer-id <loadBalancerId> --listener-id <listenerId>
+  desc: 查询负载均衡实例上指定监听器上绑定的后端服务。
+sdk:
+  service: zlb
+  version: '2025-04-01'
+  action: DescribeBackends
+parameters:
+- name: load-balancer-id
+  type: string
+  required: true
+  sdk-field: loadBalancerId
+  description: 负载均衡实例 ID。
+- name: listener-id
+  type: string
+  required: false
+  sdk-field: listenerId
+  description: |-
+    负载均衡监听器的 ID。
+    如果未指定，则查询所有后端。

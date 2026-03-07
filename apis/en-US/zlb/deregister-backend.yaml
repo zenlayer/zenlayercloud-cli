@@ -1,0 +1,53 @@
+name: DeregisterBackend
+product: zlb
+use: deregister-backend
+short: Removes one or more backend servers from a load balance listener.
+long: remove one or more backend servers from a load balance listener.
+examples:
+- cmd: zeno zlb deregister-backend --load-balancer-id <loadBalancerId> --listener-id <listenerId> --backend-servers "{instanceId=<backendServerId>, privateIpAddress=10.0.0.1}"
+  desc: Remove a backend server from a listener.
+sdk:
+  service: zlb
+  version: '2025-04-01'
+  action: DeregisterBackend
+parameters:
+- name: load-balancer-id
+  type: string
+  required: true
+  sdk-field: loadBalancerId
+  description: Load balance instance ID.
+- name: listener-id
+  type: string
+  required: true
+  sdk-field: listenerId
+  description: The listener ID of the load balancer.
+- name: backend-servers
+  type: object-array
+  required: true
+  sdk-field: backendServers
+  description: List of backend servers to be removed.
+  array-style: json
+  item-schema:
+  - name: instanceId
+    type: string
+    description: |-
+      Instance ID.
+      If the backend server is an elastic compute instance, you can call DescribeInstances, and find InstanceId in the response to obtain valid instance ID.
+      When unbinding, this field is required if an instance ID is present.
+  - name: privateIpAddress
+    type: string
+    description: Private IP address of the network interface attached to the instance.
+  - name: weight
+    type: integer
+    description: |-
+      Forwarding weight of the backend server.
+      The default value is 100 when adding a server. If not specified during modification, the value will remain unchanged.
+      This parameter is not required when deleting a server.
+      Optional range: [0, 65535].
+  - name: port
+    type: integer
+    description: |-
+      Target port for request forwarding and health checks.
+      If left empty, it will follow the listener's port configuration.
+      This parameter is not required when deleting a server.
+      Optional range: [1, 65535].

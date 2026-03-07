@@ -1,0 +1,63 @@
+name: CreateVpc
+product: zec
+use: create-vpc
+short: Creates a global VPC.
+long: create a global VPC.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CreateVpc
+parameters:
+- name: name
+  type: string
+  required: true
+  sdk-field: name
+  description: |-
+    Global VPC name to be displayed.
+    This parameter must start and end with a number or a letter, containing 2 to 63 characters. Only letters, numbers, - and periods (.) are supported.
+- name: cidr-block
+  type: string
+  required: true
+  sdk-field: cidrBlock
+  description: |-
+    CIDR block of the global VPC.
+    The IPv4 CIDR block should be a valid subnet within these ranges:
+    10.0.0.0/9 10.128.0.0/9 172.16.0.0/12 192.168.0.0/16
+- name: mtu
+  type: integer
+  required: true
+  sdk-field: mtu
+  description: |-
+    Maximum Transmission Unit (MTU).
+    The optional values are as follows: 1300 , 1500 , 9000
+- name: enable-pri-ipv6
+  type: boolean
+  required: false
+  sdk-field: enablePriIpv6
+  description: |-
+    Enable private IPv6 or not. Private IPv6 is disabled by default.
+    Default value: false .
+    Once enabled, private IPv6 CIDR block function cannot be disabled.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    Resource group ID where the global VPC resides.
+    If the value is empty, the global VPC will belong to the Default Resource Group.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    Bound tags when creating the VPC.
+    Tag keys must be unique.--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'

@@ -1,0 +1,72 @@
+name: DescribeLoadBalancers
+product: bmc
+use: describe-load-balancers
+short: Queries the information of one or more specified load balancing instances.
+long: query the information of one or more specified load balancing instances. Users can search for load balancer information based on the ID of the load balancer, the zone, and other information.
+examples:
+- cmd: zeno bmc describe-load-balancers --load-balancer-ids xxxx
+  desc: Query the information of the load balancer instance by ID.
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DescribeLoadBalancers
+parameters:
+- name: load-balancer-ids
+  type: string-array
+  required: false
+  sdk-field: loadBalancerIds
+  description: ID list of the load balance instance.
+- name: zone-id
+  type: string
+  required: false
+  sdk-field: zoneId
+  description: Zone ID.
+- name: load-balancer-name
+  type: string
+  required: false
+  sdk-field: loadBalancerName
+  description: |-
+    The name of the load balancer instance.
+    Fuzzy search supported.
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    Number of pages returned.
+    Default value: 1 .
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    Number of items in the current page result.
+    Default value: 20 ;
+    Maximum value: 1000 .
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: The ID of the resource group.
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    Query according to tag key.
+    You can query up to 20 tag keys in each request.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    Query according to tag.
+    You can query up to 20 tags in each request.
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 128 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 128 characters.'

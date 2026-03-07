@@ -1,0 +1,93 @@
+name: AllocateEipAddresses
+product: bmc
+use: allocate-eip-addresses
+short: Creates elastic IPs.
+long: apply for one or multiple elastic IPs.
+examples:
+- cmd: zeno bmc allocate-eip-addresses --eip-charge-type POSTPAID --zone-id SEL-A
+  desc: 'Create a pay-as-you -go elastic IP with the simplest parameters in zone: SEL-A'
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: AllocateEipAddresses
+parameters:
+- name: zone-id
+  type: string
+  required: true
+  sdk-field: zoneId
+  description: Zone ID to which the elastic IPs belong.
+- name: eip-charge-type
+  type: enum
+  required: true
+  sdk-field: eipChargeType
+  description: |-
+    Elastic IP pricing model .
+    PREPAID: subscription
+    POSTPAID: pay-as-you-go
+  enum-values:
+  - value: POSTPAID
+    desc: Pay-as-you-go.
+  - value: PREPAID
+    desc: Subscription.
+- name: eip-charge-prepaid
+  type: object
+  required: false
+  sdk-field: eipChargePrepaid
+  description: Details of the monthly subscription, including the purchase period, auto-renewal. It is required if the eipChargeType is PREPAID .
+  object-schema:
+  - name: period
+    type: integer
+    description: |-
+      Period of subscription.
+      Unit: month.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    Resource group ID
+    If the value is not passed in, the elastic IP will be put into the default resource group. If no authorized default resource group found, the request will fail.
+- name: amount
+  type: integer
+  required: false
+  sdk-field: amount
+  description: Quantity of elastic IPs.
+- name: netmask
+  type: integer
+  required: false
+  sdk-field: netmask
+  description: |-
+    The purchased netmask.
+    You can obtain the list of available netmasks from the DescribeEipAvailableResources API.
+- name: marketing-options
+  type: object
+  required: false
+  sdk-field: marketingOptions
+  description: Information on marketing campaigns.
+  object-schema:
+  - name: discountCode
+    type: string
+    description: |-
+      Promo Code.
+      If no Promo Code exists, the final discount will not apply.
+  - name: usePocVoucher
+    type: boolean
+    description: |-
+      Whether to use POC voucher.
+      If no POC voucher exists, the related creation will fail.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    Bound tags when creating resources.
+    Tag keys must be unique.--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 128 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 128 characters.'

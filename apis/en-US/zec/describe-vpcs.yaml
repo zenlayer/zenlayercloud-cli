@@ -1,0 +1,74 @@
+name: DescribeVpcs
+product: zec
+use: describe-vpcs
+short: Queries the details of global VPCs.
+long: query the details of one or more global VPCs. You can filter the query results with the VPC ID and name.
+examples:
+- cmd: zeno zec describe-vpcs --cidr-block 10.0.0.0/24 --page-size 10 --page-num 1
+  desc: Query all the available global VPCs with a CIDR block of `10.0.0.0/24`.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeVpcs
+parameters:
+- name: vpc-ids
+  type: string-array
+  required: false
+  sdk-field: vpcIds
+  description: Global VPC IDs.
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: |-
+    Global VPC name.
+    Fuzzy query is supported.
+- name: cidr-block
+  type: string
+  required: false
+  sdk-field: cidrBlock
+  description: |-
+    CIDR block of the subnet.
+    Fuzzy query is supported.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    Number of items in the current page result.
+    Default value: 20;
+    Maximum value: 1000.
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    Number of pages returned.
+    Default value: 1.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: Resource group id.
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    Query using tag keys.
+    A maximum of 20 tag keys can be used.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    Query using tags.
+    A maximum of 20 tags can be used.
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'

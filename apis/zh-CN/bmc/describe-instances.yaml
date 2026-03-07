@@ -1,0 +1,157 @@
+name: DescribeInstances
+product: bmc
+use: describe-instances
+short: 查看实例列表
+long: 查询一台或多台实例的信息。用户可以根据实例ID、实例名称或者实例计费模式等条件来查询实例的详细信息。
+examples:
+- cmd: zeno bmc describe-instances --page-num 1 --page-size 1
+  desc: 分页查询实例列表
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DescribeInstances
+parameters:
+- name: instance-ids
+  type: string-array
+  required: false
+  sdk-field: instanceIds
+  description: |-
+    实例ID。
+    最多支持100个ID查询。
+- name: zone-id
+  type: string
+  required: false
+  sdk-field: zoneId
+  description: 实例所属的可用区ID。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    资源组的ID。
+    如果不传，则返回该用户可见的所有资源组内的实例。
+- name: instance-type-id
+  type: string
+  required: false
+  sdk-field: instanceTypeId
+  description: |-
+    实例机型ID。
+    具体取值可通过调用接口DescribeInstanceTypes来获得最新的规格表。
+- name: internet-charge-type
+  type: enum
+  required: false
+  sdk-field: internetChargeType
+  description: 网络计费类型。
+  enum-values:
+  - value: ByBandwidth
+    desc: 按固定带宽计费
+  - value: ByTrafficPackage
+    desc: 购买流量包计费
+  - value: ByInstanceBandwidth95
+    desc: 单实例95计费方式。
+  - value: ByClusterBandwidth95
+    desc: 单产品合并95计费城市带宽组
+  - value: ByBandwidthCluster
+    desc: 跨产品合并95计费的带宽包
+- name: image-id
+  type: string
+  required: false
+  sdk-field: imageId
+  description: 镜像ID。
+- name: subnet-id
+  type: string
+  required: false
+  sdk-field: subnetId
+  description: |-
+    虚拟子网ID 。
+    可以调用DescribeVpcSubnets查询已创建交换机的相关信息。
+- name: instance-status
+  type: enum
+  required: false
+  sdk-field: instanceStatus
+  description: |-
+    实例状态。
+    状态类型详见实例状态。
+  enum-values:
+  - value: PENDING
+    desc: 待创建
+  - value: CREATING
+    desc: 创建中
+  - value: CREATE_FAILED
+    desc: 创建失败
+  - value: INSTALLING
+    desc: 安装中
+  - value: INSTALL_FAILED
+    desc: 安装失败
+  - value: RUNNING
+    desc: 运行中
+  - value: STOPPED
+    desc: 关机
+  - value: BOOTING
+    desc: 启动中
+  - value: STOPPING
+    desc: 关机中
+  - value: RECYCLE
+    desc: 在回收站中
+- name: instance-name
+  type: string
+  required: false
+  sdk-field: instanceName
+  description: |-
+    实例显示名称。
+    如果该值以*结尾，则对instanceName进行模糊匹配，否则将进行精确匹配。
+- name: hostname
+  type: string
+  required: false
+  sdk-field: hostname
+  description: |-
+    实例的主机名。
+    如果该值以*结尾，则对hostname进行模糊匹配，否则将进行精确匹配。
+- name: public-ip-addresses
+  type: string-array
+  required: false
+  sdk-field: publicIpAddresses
+  description: 公网ipv4地址。
+- name: private-ip-addresses
+  type: string-array
+  required: false
+  sdk-field: privateIpAddresses
+  description: 内网子网的ipv4地址。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: 返回的分页数。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    返回的分页大小。
+    默认为20，最大为1000。
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    根据标签键进行搜索。
+    最长不得超过20个标签键。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    根据标签进行搜索。
+    最长不得超过20个标签。
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～128字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～128字符。

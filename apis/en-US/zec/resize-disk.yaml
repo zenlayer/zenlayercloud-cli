@@ -1,0 +1,28 @@
+name: ResizeDisk
+product: zec
+use: resize-disk
+short: Expands a cloud volume to a specified size.
+long: expand a cloud volume to a specified size.
+examples:
+- cmd: zeno zec resize-disk --disk-id "<Disk ID>" --disk-size 100
+  desc: Expand a cloud volume to 100 GB.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ResizeDisk
+parameters:
+- name: disk-id
+  type: string
+  required: true
+  sdk-field: diskId
+  description: |-
+    Disk ID.
+    Call DescribeDisks to get the disk ID.
+- name: disk-size
+  type: integer
+  required: true
+  sdk-field: diskSize
+  description: |-
+    New disk size after expansion.
+    Unit: GB .
+    Must be greater than the current size Maximum limit: 32,768 GB (32 TB). Valid range: [1, ∞).

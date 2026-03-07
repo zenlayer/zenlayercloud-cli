@@ -1,0 +1,68 @@
+name: InquiryPriceCreateIpv4Block
+product: bmc
+use: inquiry-price-create-ipv4-block
+short: 创建IPv4 地址块询价
+long: 创建Ipv4 CidrBlock询价。
+examples:
+- cmd: zeno bmc inquiry-price-create-ipv4-block --zone-id CHI-A --charge-type POSTPAID --netmask 28
+  desc: ''
+- cmd: zeno bmc inquiry-price-create-ipv4-block --zone-id HKG-A --charge-type PREPAID --netmask 29 --amount 2
+  desc: ''
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: InquiryPriceCreateIpv4Block
+parameters:
+- name: zone-id
+  type: string
+  required: true
+  sdk-field: zoneId
+  description: cidr Block所属的可用区ID。
+- name: charge-type
+  type: enum
+  required: true
+  sdk-field: chargeType
+  description: |-
+    付费类型。
+    PREPAID：预付费，即包年包月
+    POSTPAID：后付费。
+  enum-values:
+  - value: POSTPAID
+    desc: 后付费。即按量付费。
+  - value: PREPAID
+    desc: 预付费。
+- name: cidr-type
+  type: enum
+  required: false
+  sdk-field: cidrType
+  description: CIDR地址块的类型。
+  enum-values:
+  - value: BGP
+    desc: BGP IP。
+  - value: Local
+    desc: 本地 IP。
+- name: charge-prepaid
+  type: object
+  required: false
+  sdk-field: chargePrepaid
+  description: |-
+    预付费模式。
+    即包年包月相关参数设置。通过该参数可以指定包年包月实例的购买时长等属性。若指定Cidr Block的付费模式为预付费则该参数必传。
+  object-schema:
+  - name: period
+    type: integer
+    description: |-
+      购买实例的时长。
+      单位：月。
+- name: netmask
+  type: integer
+  required: true
+  sdk-field: netmask
+  description: |-
+    购买的掩码。
+    可以从DescribeAvailableIpv4Resource接口中获取可用的掩码列表。
+- name: amount
+  type: integer
+  required: false
+  sdk-field: amount
+  description: 购买的数量。

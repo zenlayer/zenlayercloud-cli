@@ -1,0 +1,35 @@
+name: DescribeListeners
+product: zlb
+use: describe-listeners
+short: 查询负载均衡监听器列表
+long: 本接口接口可根据负载均衡器 ID、监听器的协议作为过滤条件获取监听器列表。如果不指定任何过滤条件，则返回指定负载均衡实例下的所有监听器。
+examples:
+- cmd: zeno zlb describe-listeners --load-balancer-id <loadBalancerId>
+  desc: 查询指定负载均衡实例下所有的监听器。
+- cmd: zeno zlb describe-listeners --load-balancer-id <loadBalancerId> --protocol TCP
+  desc: 指定监听器和监听协议过滤查询监听器。
+sdk:
+  service: zlb
+  version: '2025-04-01'
+  action: DescribeListeners
+parameters:
+- name: load-balancer-id
+  type: string
+  required: true
+  sdk-field: loadBalancerId
+  description: 负载均衡实例的ID。
+- name: listener-ids
+  type: string-array
+  required: false
+  sdk-field: listenerIds
+  description: 要查询的负载均衡监听器 ID列表。
+- name: protocol
+  type: enum
+  required: false
+  sdk-field: protocol
+  description: 要查询的监听器协议类型。
+  enum-values:
+  - value: TCP
+    desc: TCP 协议。
+  - value: UDP
+    desc: UDP 协议。

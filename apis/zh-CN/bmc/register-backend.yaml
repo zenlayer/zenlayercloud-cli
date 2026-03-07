@@ -1,0 +1,45 @@
+name: RegisterBackend
+product: bmc
+use: register-backend
+short: 创建将一台后端服务绑定到负载均衡的监听器。
+long: 创建将一台后端服务绑定到负载均衡的监听器。
+examples:
+- cmd: zeno bmc register-backend --listener-id xxxx --backend-name xxxx --port-list 80 --client-token xxxx --weight 100 --instance-id xxxx
+  desc: 将一台后端服务绑定到负载均衡的监听器
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: RegisterBackend
+parameters:
+- name: listener-id
+  type: string
+  required: true
+  sdk-field: listenerId
+  description: 监听器的ID。
+- name: backend-name
+  type: string
+  required: true
+  sdk-field: backendName
+  description: |-
+    后端配置服务器名称。
+    不得超过64个字符。仅支持输入字母、数字、-和英文句点(.)。
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: 裸金属实例ID。
+- name: client-token
+  type: string
+  required: true
+  sdk-field: clientToken
+  description: 用于保证请求的幂等性。
+- name: port-list
+  type: integer-array
+  required: false
+  sdk-field: portList
+  description: 端口列表。
+- name: weight
+  type: integer
+  required: false
+  sdk-field: weight
+  description: 权重。

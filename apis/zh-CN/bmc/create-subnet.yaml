@@ -1,0 +1,43 @@
+name: CreateSubnet
+product: bmc
+use: create-subnet
+short: 创建子网
+long: 本接口用于创建一个私有网络Subnet。
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: CreateSubnet
+parameters:
+- name: zone-id
+  type: string
+  required: true
+  sdk-field: zoneId
+  description: 可用区的节点ID。
+- name: cidr-block
+  type: string
+  required: true
+  sdk-field: cidrBlock
+  description: |-
+    子网的CIDR。
+    可选值10.0.0.0/16、172.16.0.0/16和192.168.0.0/16及它们包含的子网。
+    如果指定了VPC ID，那么子网网段必须在VPC的CIDR范围之内，且不能和VPC下其他子网网段有重叠。
+- name: subnet-name
+  type: string
+  required: true
+  sdk-field: subnetName
+  description: |-
+    子网的名称。
+    范围1到64个字符。仅支持输入字母、数字、-和英文句点(.)。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    子网所在的资源组ID。
+    如果不指定，则会放入默认资源组， 如果用户没有默认资源组权限， 则请求将会失败。
+    如果指定VPC，则会忽略该参数自动使用与VPC相同的资源组。
+- name: vpc-id
+  type: string
+  required: false
+  sdk-field: vpcId
+  description: VPC的ID。

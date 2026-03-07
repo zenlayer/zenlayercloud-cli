@@ -1,0 +1,23 @@
+name: UnAssociateSubnetInstance
+product: bmc
+use: un-associate-subnet-instance
+short: Remove instances from a subnet.
+long: remove an instance from a subnet.
+examples:
+- cmd: zeno bmc un-associate-subnet-instance --subnet-id 833049815985166808 --instance-id 820653960707704280
+  desc: ''
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: UnAssociateSubnetInstance
+parameters:
+- name: subnet-id
+  type: string
+  required: true
+  sdk-field: subnetId
+  description: Subnet ID.
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: Instance ID.

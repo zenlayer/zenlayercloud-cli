@@ -1,0 +1,33 @@
+name: InvokeCommand
+product: zos
+use: invoke-command
+short: 执行一个已经创建并保存的命令
+long: 执行一个已经创建并保存的命令。
+examples:
+- cmd: zeno zos invoke-command --command-id <commandId> --timeout 30 --instance-ids <instanceId> --instance-ids <instanceId>
+  desc: 执行命令。
+sdk:
+  service: zos
+  version: '2025-10-10'
+  action: InvokeCommand
+parameters:
+- name: command-id
+  type: string
+  required: true
+  sdk-field: commandId
+  description: 需要执行的命令ID。
+- name: instance-ids
+  type: string-array
+  required: true
+  sdk-field: instanceIds
+  description: |-
+    执行的实例ID列表。
+    目前只支持ZEC实例。
+    最多不得超过200个实例。
+- name: timeout
+  type: integer
+  required: false
+  sdk-field: timeout
+  description: |-
+    每台实例执行命令的超时时间。
+    单位秒。

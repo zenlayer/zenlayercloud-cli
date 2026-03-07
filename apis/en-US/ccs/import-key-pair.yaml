@@ -1,0 +1,37 @@
+name: ImportKeyPair
+product: ccs
+use: import-key-pair
+short: Imports an SSH key key pair
+long: The API is used to import an SSH key pair to log in to a `Linux` instance.
+examples:
+- cmd: zeno ccs import-key-pair --key-name my-key --public-key ""ssh-rsa XXXXXXXXXXXX== example""
+  desc: Import an SSH key pair.
+sdk:
+  service: ccs
+  version: '2025-09-01'
+  action: ImportKeyPair
+parameters:
+- name: key-name
+  type: string
+  required: true
+  sdk-field: keyName
+  description: |-
+    Key pair name.
+    Up to 32 characters in length are supported, containing letters, digits and special character -_
+    The names cannot be duplicated.
+    For example: my_key, my-key
+- name: key-description
+  type: string
+  required: false
+  sdk-field: keyDescription
+  description: |-
+    Description of key pair.
+    Up to 255 characters in length are allowed.
+- name: public-key
+  type: string
+  required: true
+  sdk-field: publicKey
+  description: |-
+    Public SSH keys in OpenSSH format.
+    Up to 5 public keys are allowed, separated by pressing ENTER key.
+    For example: ssh-rsa XXXXXXXXXXXX key

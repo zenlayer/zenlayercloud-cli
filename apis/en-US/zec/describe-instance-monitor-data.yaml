@@ -1,0 +1,148 @@
+name: DescribeInstanceMonitorData
+product: zec
+use: describe-instance-monitor-data
+short: Queries the performance data of the instance.
+long: query the performance data of the elastic compute instance.
+examples:
+- cmd: zeno zec describe-instance-monitor-data --instance-id "< instanceId >" --metric-type VCPU_TIME --start-time 2025-06-25T01:55:00Z --end-time 2025-06-25T07:55:00Z
+  desc: Query the performance data of the elastic compute instance.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeInstanceMonitorData
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: Instance ID.
+- name: metric-type
+  type: enum
+  required: true
+  sdk-field: metricType
+  description: Performance metrics.
+  enum-values:
+  - value: CPU_UTILIZATION
+    desc: |-
+      CPU utilization.
+      Unit: % .
+  - value: HYPERVISOR_IO_WAIT_TIME
+    desc: |-
+      Hypervisor I/O wait time.
+      Unit: % .
+  - value: HYPERVISOR_QUEUE_TIME
+    desc: |-
+      Hypervisor CPU queue time.
+      Unit: % .
+  - value: HYPERVISOR_CPU_USER
+    desc: |-
+      Hypervisor CPU user.
+      Unit: % .
+  - value: HYPERVISOR_CPU_TIME
+    desc: |-
+      Hypervisor CPU time.
+      Unit: % .
+  - value: HYPERVISOR_CPU_SYSTEM
+    desc: |-
+      Hypervisor CPU system.
+      Unit: % .
+  - value: PROC_CPU_USER
+    desc: |-
+      CPU user.
+      Unit: % .
+  - value: PROC_CPU_SYSTEM
+    desc: |-
+      CPU system.
+      Unit: % .
+  - value: PROC_CPU_IOWAIT
+    desc: |-
+      CPU IOWait.
+      Unit: % .
+  - value: PROC_CPU_SOFTIRQ
+    desc: |-
+      CPU SoftIRQ.
+      Unit: % .
+  - value: PROC_CPU_IDLE
+    desc: |-
+      CPU idle.
+      Unit: % .
+  - value: PROC_CPU_OTHER
+    desc: |-
+      CPU other.
+      Unit: % .
+  - value: LOAD1
+    desc: System Load Average - Last 1 Minute.
+  - value: LOAD5
+    desc: System Load Average - Last 5 Minutes.
+  - value: LOAD15
+    desc: System Load Average - Last 15 Minutes.
+  - value: MEM_UTIL
+    desc: |-
+      Memory utilization
+      Unit: % .
+  - value: REALMEM_UTIL
+    desc: |-
+      Memory real utilization
+      Unit: % .
+  - value: TCP_ESTABLISHED
+    desc: |-
+      Established TCP connections.
+      Unit: count .
+  - value: SWAP_TOTAL
+    desc: |-
+      The total configured swap space on the instance, which is used to assess the max swappable capacity.
+      Unit: KiB .
+  - value: SWAP_FREE
+    desc: |-
+      The currently available swap space, which is used to evaluate how much swap is still free.
+      Unit: KiB .
+  - value: SWAP_IN
+    desc: |-
+      Pages read from swap into memory, which indicates system memory pressure.
+      Unit: pages .
+  - value: SWAP_OUT
+    desc: |-
+      Pages written from memory to swap, which reflects inactive data being moved to disk.
+      Unit: pages .
+  - value: KSWAPD_STEAL
+    desc: |-
+      Pages successfully reclaimed by kswapd from memory, which indicates memory pressure.
+      Unit: pages .
+  - value: KSWAPD_LHWM
+    desc: |-
+      Number of times memory reclaim was triggered due to low watermarks.
+      Unit: count .
+  - value: RX_PACKETS
+    desc: |-
+      Packets received per second on the vNIC’s VF interface
+      Unit: packets .
+  - value: TX_PACKETS
+    desc: |-
+      Packets transmitted per second on the vNIC’s VF interface
+      Unit: packets .
+  - value: RX_DROPPED
+    desc: |-
+      Total inbound packet loss per second for the vNIC’s VF and Virtio interfaces.
+      Unit: packets .
+  - value: TX_DROPPED
+    desc: |-
+      Total outbound packet loss per second for the vNIC’s VF and Virtio interfaces.
+      Unit: packets .
+  - value: RX_ERRORS
+    desc: |-
+      Total inbound error packets per second for the vNIC’s VF and Virtio interfaces.
+      Unit: packets .
+  - value: TX_ERRORS
+    desc: |-
+      Total outbound error packets per second for the vNIC’s VF and Virtio interfaces.
+      Unit: packets .
+- name: start-time
+  type: string
+  required: true
+  sdk-field: startTime
+  description: Start time.
+- name: end-time
+  type: string
+  required: true
+  sdk-field: endTime
+  description: End time.

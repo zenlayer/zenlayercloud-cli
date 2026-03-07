@@ -1,0 +1,28 @@
+name: ModifyVpcsAttribute
+product: bmc
+use: modify-vpcs-attribute
+short: 修改VPC属性
+long: 本接口用于修改VPC的属性（目前只支持修改VPC的名称）。
+examples:
+- cmd: zeno bmc modify-vpcs-attribute --vpc-ids your-vpc-id --vpc-name Test-VPC
+  desc: 批量修改VPC的名称。
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: ModifyVpcsAttribute
+parameters:
+- name: vpc-name
+  type: string
+  required: true
+  sdk-field: vpcName
+  description: |-
+    VPC名称。
+    范围1到64个字符。仅支持输入字母、数字、-和英文句点(.)。
+- name: vpc-ids
+  type: string-array
+  required: true
+  sdk-field: vpcIds
+  description: |-
+    一个或多个待操作的VPC ID。
+    可通过DescribeVpcs接口返回值中的vpcId获取。
+    每次请求批量VPC的上限为100。

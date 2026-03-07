@@ -1,0 +1,46 @@
+name: DescribeCrossRegionBandwidthMonitorData
+product: zec
+use: describe-cross-region-bandwidth-monitor-data
+short: Queries the performance metric data of the cross-region bandwidth.
+long: query the performance metric data of cross-region bandwidth.
+examples:
+- cmd: zeno zec describe-cross-region-bandwidth-monitor-data --cross-region-bandwidth-id "<your cross id>" --metric-type BANDWIDTH --start-time 2025-06-25T01:55:00Z --end-time 2025-06-25T02:05:00Z
+  desc: Query the performance metric data of the cross-region bandwidth with the billing model of `BANDWIDTH`.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeCrossRegionBandwidthMonitorData
+parameters:
+- name: cross-region-bandwidth-id
+  type: string
+  required: true
+  sdk-field: crossRegionBandwidthId
+  description: Cross-region bandwidth ID.
+- name: metric-type
+  type: enum
+  required: true
+  sdk-field: metricType
+  description: Cross-region bandwidth performance metric type.
+  enum-values:
+  - value: BANDWIDTH
+    desc: |-
+      Bandwidth.
+      Unit: bps .
+  - value: PACKETS
+    desc: |-
+      Data transfer.
+      Unit: pps .
+- name: start-time
+  type: string
+  required: true
+  sdk-field: startTime
+  description: |-
+    Start time.
+    Time format: yyyy-MM-ddTHH: mm: ssZ .
+- name: end-time
+  type: string
+  required: true
+  sdk-field: endTime
+  description: |-
+    End time.
+    Time format: yyyy-MM-ddTHH: mm: ssZ .

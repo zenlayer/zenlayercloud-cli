@@ -1,0 +1,79 @@
+name: CreateByoip
+product: zec
+use: create-byoip
+short: Creates a BYOIP CIDR block.
+long: Create a BYOIP CIDR block . Returns the list of RPKI/IRR validation failures.
+examples:
+- cmd: zeno zec create-byoip --byo-ip-list "{cidrBlock=88.0.2.0/24, networkType=PremiumBGP, regionId=asia-east-1, asn=62610}"
+  desc: Create a BYOIP CIDR block.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CreateByoip
+parameters:
+- name: byoip-list
+  type: object-array
+  required: true
+  sdk-field: byoipList
+  description: The list of BYOIPs to be created.
+  array-style: json
+  item-schema:
+  - name: cidrBlock
+    type: string
+    description: Advertise an IPv4 or IPv6 BYOIP prefix.
+  - name: networkType
+    type: enum
+    description: |-
+      Network type.
+      Only Premium BGP is supported for IPv6.
+  - name: regionId
+    type: string
+    description: Region ID.
+  - name: asn
+    type: integer
+    description: ASN number.
+  - name: subnetMaskLength
+    type: integer
+    description: |-
+      Subnet mask length.
+      Must be greater than or equal to the CIDR mask length, with a maximum difference of 4.
+      The maximum value is 64. Defaults to the CIDR mask length.
+- name: marketing-info
+  type: object
+  required: false
+  sdk-field: marketingInfo
+  description: Information on marketing campaigns.
+  object-schema:
+  - name: discountCode
+    type: string
+    description: |-
+      Promo Code.
+      If no Promo Code exists, the final discount will not apply.
+  - name: usePocVoucher
+    type: boolean
+    description: |-
+      Whether to use POC voucher.
+      If no POC voucher exists, the related creation will fail.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    The ID of the resource group where the BYOIP CIDR block will reside after creation.
+    If the value is not passed in, the BYOIP CIDR block will be put into the default resource group.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    Tags associated when creating resources.
+    Note: The associated tag key cannot be duplicated.--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'

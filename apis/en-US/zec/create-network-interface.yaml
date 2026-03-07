@@ -1,0 +1,123 @@
+name: CreateNetworkInterface
+product: zec
+use: create-network-interface
+short: Creates an elastic vNIC.
+long: create an elastic vNIC.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CreateNetworkInterface
+parameters:
+- name: name
+  type: string
+  required: true
+  sdk-field: name
+  description: |-
+    The name of the vNIC.
+    The length is 2 to 63 characters. Only letters, numbers, - and periods (.) are supported. The name must start and end with a number or a letter.
+- name: subnet-id
+  type: string
+  required: true
+  sdk-field: subnetId
+  description: ID of the subnet.
+- name: nic-stack-type
+  type: enum
+  required: false
+  sdk-field: nicStackType
+  description: |-
+    The IP stack type of the vNIC.
+    If not specified, it will be determined by the subnet’s stack type: IPv4 for an IPv4 subnet, and IPv6 for an IPv6 subnet.
+    Specify this parameter if you need IPv4_IPv6 vNIC IP stack type.
+  enum-values:
+  - value: IPv4
+    desc: IPv4 stack type only.
+  - value: IPv4_IPv6
+    desc: IPv4 and IPv6 stack type.
+  - value: IPv6
+    desc: IPv6 stack type only.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    The resource group ID of the vNIC.
+    If you do not specify a resource group, it is placed in the default resource group.
+- name: security-group-id
+  type: string
+  required: false
+  sdk-field: securityGroupId
+  description: |-
+    ID of the security group deployed on the primary vNIC.
+    Currently only one security group can be deployed.
+    If not specified, the security group associated with global VPC will be used by default.
+- name: internet-charge-type
+  type: enum
+  required: false
+  sdk-field: internetChargeType
+  description: |-
+    Network billing model.
+    See InternetChargeType for available values.
+    If the subnet stack type is IPv6 and the type is Public , this value is required.
+  enum-values:
+  - value: ByBandwidth
+    desc: Billed by the flat rate bandwidth.
+  - value: ByTrafficPackage
+    desc: Billed by the traffic package size purchased.
+  - value: BandwidthCluster
+    desc: Billed by the burstable 95th bandwidth of all compute resources in a city-based or regional bandwidth cluster with a shared commitment.
+- name: bandwidth
+  type: integer
+  required: false
+  sdk-field: bandwidth
+  description: |-
+    Outbound public network bandwidth cap (Mbps). Unit: Mbps.
+    The value differs with different instance types.
+- name: package-size
+  type: float
+  required: false
+  sdk-field: packageSize
+  description: |-
+    Data transfer package size(TB).
+    The unit is TB.
+    This value takes effect only when internetChargeType is set to ByTrafficPackage .
+    The default value is 0.
+    Maximum of one decimal place.
+- name: cluster-id
+  type: string
+  required: false
+  sdk-field: clusterId
+  description: |-
+    Bandwidth cluster ID.
+    If the value of internetChargeType is BandwidthCluster , the parameter is required.
+- name: marketing-options
+  type: object
+  required: false
+  sdk-field: marketingOptions
+  description: Information on marketing campaigns.
+  object-schema:
+  - name: discountCode
+    type: string
+    description: |-
+      Promo Code.
+      If no Promo Code exists, the final discount will not apply.
+  - name: usePocVoucher
+    type: boolean
+    description: |-
+      Whether to use POC voucher.
+      If no POC voucher exists, the related creation will fail.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    Bound tags when creating the vNIC.
+    Tag keys must be unique.--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'

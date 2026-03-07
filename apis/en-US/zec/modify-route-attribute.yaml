@@ -1,0 +1,25 @@
+name: ModifyRouteAttribute
+product: zec
+use: modify-route-attribute
+short: Modifies basic informations of a route
+long: modify basic informations of a route, including the route name.
+examples:
+- cmd: zeno zec modify-route-attribute --route-id <routeId> --name Test
+  desc: Modify the route name.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyRouteAttribute
+parameters:
+- name: route-id
+  type: string
+  required: true
+  sdk-field: routeId
+  description: Route ID.
+- name: name
+  type: string
+  required: true
+  sdk-field: name
+  description: |-
+    Route name.
+    This parameter must start and end with a number or a letter, containing 2 to 63 characters. Only letters, numbers, - and periods (.) are supported.

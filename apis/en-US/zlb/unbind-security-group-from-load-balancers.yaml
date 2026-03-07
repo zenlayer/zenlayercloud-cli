@@ -1,0 +1,18 @@
+name: UnbindSecurityGroupFromLoadBalancers
+product: zlb
+use: unbind-security-group-from-load-balancers
+short: Batch disassociates security groups from load balancers.
+long: batch disassociate security groups from load balancers.
+examples:
+- cmd: zeno zlb unbind-security-group-from-load-balancers --load-balancer-ids "<your lb id1>" --load-balancer-ids "<your lb id2>"
+  desc: Batch disassociate security groups from load balancers.
+sdk:
+  service: zlb
+  version: '2025-04-01'
+  action: UnbindSecurityGroupFromLoadBalancers
+parameters:
+- name: load-balancer-ids
+  type: string-array
+  required: true
+  sdk-field: loadBalancerIds
+  description: ID list of load balancers to disassociate security groups.

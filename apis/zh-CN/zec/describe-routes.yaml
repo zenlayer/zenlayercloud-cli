@@ -1,0 +1,83 @@
+name: DescribeRoutes
+product: zec
+use: describe-routes
+short: 查询路由列表
+long: 查询路由列表。用户可以根据ID、名称等信息来搜索Route信息。路由列表包括系统生成的以及用户创建的路由。
+examples:
+- cmd: zeno zec describe-routes
+  desc: 查询路由列表。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeRoutes
+parameters:
+- name: route-ids
+  type: string-array
+  required: false
+  sdk-field: routeIds
+  description: |-
+    根据路由ID过滤。
+    最多同时传入100个ID。
+- name: vpc-id
+  type: string
+  required: false
+  sdk-field: vpcId
+  description: 根据路由关联的VPC ID过滤。
+- name: ip-version
+  type: enum
+  required: false
+  sdk-field: ipVersion
+  description: |-
+    根据IP类型过滤。
+    支持IPv4和IPv6两种类型。
+  enum-values:
+  - value: IPv4
+    desc: IPv4。
+  - value: IPv6
+    desc: IPv6。
+- name: route-type
+  type: enum
+  required: false
+  sdk-field: routeType
+  description: 根据路由类型过滤。
+  enum-values:
+  - value: RouteTypeSubnet
+    desc: |-
+      子网路由。
+      该路由为系统生成的路由。
+  - value: RouteTypeStatic
+    desc: |-
+      静态路由。
+      可以通过创建自定义路由。
+  - value: RouteTypePolicy
+    desc: |-
+      策略路由。
+      可以通过创建自定义路由。
+  - value: RouteTypeNatGw
+    desc: NAT 网关路由。
+  - value: RouteTypeTransit
+    desc: 动态路由。
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: |-
+    根据名称类型过滤。
+    该字段支持模糊搜索。
+- name: destination-cidr-block
+  type: string
+  required: false
+  sdk-field: destinationCidrBlock
+  description: |-
+    根据Ipv4或IPv6的目标网段过滤。
+    例如：10.0.1.0/24。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: 返回的分页大小。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: 返回的分页数。

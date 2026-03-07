@@ -1,0 +1,27 @@
+name: ModifyKeyPairAttribute
+product: ccs
+use: modify-key-pair-attribute
+short: 修改一个密钥对的属性。
+long: 修改一个密钥对的属性。
+examples:
+- cmd: zeno ccs modify-key-pair-attribute --key-id key-xxxx --key-description test-description
+  desc: 修改密钥对描述信息。
+sdk:
+  service: ccs
+  version: '2025-09-01'
+  action: ModifyKeyPairAttribute
+parameters:
+- name: key-id
+  type: string
+  required: true
+  sdk-field: keyId
+  description: |-
+    密钥对ID。
+    示例值：key-xxxxxxxx。
+- name: key-description
+  type: string
+  required: false
+  sdk-field: keyDescription
+  description: |-
+    密钥对描述信息。
+    不超过255个字符。

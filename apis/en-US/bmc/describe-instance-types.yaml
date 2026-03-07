@@ -1,0 +1,92 @@
+name: DescribeInstanceTypes
+product: bmc
+use: describe-instance-types
+short: Queries instance types.
+long: query the model configuration of an instance.
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DescribeInstanceTypes
+parameters:
+- name: image-id
+  type: string
+  required: false
+  sdk-field: imageId
+  description: Instance models that support specified image.
+- name: instance-type-ids
+  type: string-array
+  required: false
+  sdk-field: instanceTypeIds
+  description: |-
+    Instance model ID.
+    Maximum number: 100
+- name: minimum-cpu-core-count
+  type: integer
+  required: false
+  sdk-field: minimumCpuCoreCount
+  description: |-
+    Desired minimum number of CPU cores.
+    Value range: positive integer.
+- name: maximum-cpu-core-count
+  type: integer
+  required: false
+  sdk-field: maximumCpuCoreCount
+  description: |-
+    Desired maximum number of CPU cores.
+    Value range: positive integer.
+- name: minimum-memory-size
+  type: integer
+  required: false
+  sdk-field: minimumMemorySize
+  description: |-
+    Desired minimum memory size.
+    Value range: positive integer.
+    Unit: GB.
+- name: maximum-memory-size
+  type: integer
+  required: false
+  sdk-field: maximumMemorySize
+  description: |-
+    Desired maximum memory size.
+    Value range: positive integer.
+    Unit: GB.
+- name: minimum-bandwidth
+  type: integer
+  required: false
+  sdk-field: minimumBandwidth
+  description: |-
+    Desired minimum public inbound bandwidth cap.
+    Unit: Mbps.
+- name: support-raids
+  type: integer-array
+  required: false
+  sdk-field: supportRaids
+  description: |-
+    Supported RAID levels.
+    Value range: 0, 1, 5, 10.
+- name: support-subnet
+  type: boolean
+  required: false
+  sdk-field: supportSubnet
+  description: Subnet supported or not.
+- name: minimum-disk-size
+  type: integer
+  required: false
+  sdk-field: minimumDiskSize
+  description: |-
+    Desired minimum disk size.
+    Value range: positive integer.
+    Unit: GB.
+- name: maximum-disk-size
+  type: integer
+  required: false
+  sdk-field: maximumDiskSize
+  description: |-
+    Desired maximum memory size.
+    Value range: positive integer.
+    Unit: GB.
+- name: is-h-a
+  type: boolean
+  required: false
+  sdk-field: isHA
+  description: High availability supported or not.

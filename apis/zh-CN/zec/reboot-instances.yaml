@@ -1,0 +1,18 @@
+name: RebootInstances
+product: zec
+use: reboot-instances
+short: 重启虚拟机实例
+long: 重启虚拟机实例。
+examples:
+- cmd: zeno zec reboot-instances --instance-ids instanceId1 --instance-ids instanceId2
+  desc: 批量重启实例。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: RebootInstances
+parameters:
+- name: instance-ids
+  type: string-array
+  required: true
+  sdk-field: instanceIds
+  description: 待重启虚拟机实例ID列表。

@@ -1,0 +1,24 @@
+name: ModifyInstanceBandwidth
+product: bmc
+use: modify-instance-bandwidth
+short: 修改实例带宽
+long: 修改实例带宽。
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: ModifyInstanceBandwidth
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: |-
+    待操作的实例ID。
+    可通过DescribeInstances接口返回值中的instanceId获取。
+- name: bandwidth-out-mbps
+  type: integer
+  required: true
+  sdk-field: bandwidthOutMbps
+  description: |-
+    带宽。
+    范围：1~机型最大。

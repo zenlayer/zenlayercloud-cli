@@ -1,0 +1,52 @@
+name: AssignNetworkInterfaceIpv6
+product: zec
+use: assign-network-interface-ipv6
+short: Assigns the IPv6 to the vNIC.
+long: assign IPv6 to the vNIC.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: AssignNetworkInterfaceIpv6
+parameters:
+- name: nic-id
+  type: string
+  required: true
+  sdk-field: nicId
+  description: ID of the vNIC.
+- name: internet-charge-type
+  type: enum
+  required: false
+  sdk-field: internetChargeType
+  description: |-
+    Network billing model.
+    See InternetChargeType for available values.
+    If the subnet stack type is IPv4_IPv6 and the IPv6 access type is Public , this value is required.
+  enum-values:
+  - value: ByBandwidth
+    desc: Billed by the flat rate bandwidth.
+  - value: ByTrafficPackage
+    desc: Billed by the traffic package size purchased.
+  - value: BandwidthCluster
+    desc: Billed by the burstable 95th bandwidth of all compute resources in a city-based or regional bandwidth cluster with a shared commitment.
+- name: bandwidth
+  type: integer
+  required: false
+  sdk-field: bandwidth
+  description: |-
+    Outbound public network bandwidth cap (Mbps). Unit: Mbps.
+    The value differs with different instance types.
+- name: package-size
+  type: float
+  required: false
+  sdk-field: packageSize
+  description: |-
+    Traffic package size (TB). The unit is TB.
+    This value takes effect only when internetChargeType is set to ByTrafficPackage .
+    The default value is 0 . Maximum of one decimal place.
+- name: cluster-id
+  type: string
+  required: false
+  sdk-field: clusterId
+  description: |-
+    The ID of the bandwidth cluster assigned to the public IPv6.
+    This parameter must be specified when the subnet's stack type includes public IPv6, and the network billing model is BandwidthCluster.

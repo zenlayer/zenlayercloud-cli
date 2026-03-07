@@ -1,0 +1,32 @@
+name: CreateSnapshot
+product: zec
+use: create-snapshot
+short: 云盘创建快照
+long: 对指定云盘创建快照。
+examples:
+- cmd: zeno zec create-snapshot --disk-id diskId1 --snapshot-name xxx --retention-time 2025-07-16T01:26:39Z
+  desc: 云盘创建快照。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CreateSnapshot
+parameters:
+- name: disk-id
+  type: string
+  required: true
+  sdk-field: diskId
+  description: 云硬盘ID。
+- name: snapshot-name
+  type: string
+  required: true
+  sdk-field: snapshotName
+  description: 快照名称。
+- name: retention-time
+  type: string
+  required: false
+  sdk-field: retentionTime
+  description: |-
+    保留的到期时间。
+    格式为：yyyy-MM-ddTHH:mm:ssZ。
+    如果不传，则代表永久保留。
+    指定时间必须在当前时间24小时后。

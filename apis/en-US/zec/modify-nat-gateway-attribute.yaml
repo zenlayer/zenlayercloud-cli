@@ -1,0 +1,50 @@
+name: ModifyNatGatewayAttribute
+product: zec
+use: modify-nat-gateway-attribute
+short: Modifies the attributes of the NAT gateway.
+long: modify the attributes of the NAT gateway.
+examples:
+- cmd: zeno zec modify-nat-gateway-attribute --nat-gateway-id natGatewayId --subnet-ids subnetId1 --subnet-ids subnetId2
+  desc: Modify the attributes of the NAT gateway by attaching to specified subnets.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyNatGatewayAttribute
+parameters:
+- name: nat-gateway-id
+  type: string
+  required: true
+  sdk-field: natGatewayId
+  description: NAT gateway ID.
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: |-
+    NAT gateway name.
+    The length is 2 to 63 characters.
+- name: subnet-ids
+  type: string-array
+  required: false
+  sdk-field: subnetIds
+  description: Subnet ID associated withe the NAT gateway.
+- name: is-all-subnet
+  type: boolean
+  required: false
+  sdk-field: isAllSubnet
+  description: |-
+    Whether the NAT gateway applies to all subnets.
+    This field cannot be set together with subnetIds .
+- name: icmp-reply-enabled
+  type: boolean
+  required: false
+  sdk-field: icmpReplyEnabled
+  description: Whether to enable ICMP echo reply or not.
+- name: security-group-id
+  type: string
+  required: false
+  sdk-field: securityGroupId
+  description: |-
+    Target security group ID bound to the NAT gateway.
+    Currently, a NAT gateway can be associated with only one security group.
+    Specifying this field will unbind the original security group from the NAT gateway.

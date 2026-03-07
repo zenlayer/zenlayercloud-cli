@@ -1,0 +1,70 @@
+name: DescribeCommands
+product: zos
+use: describe-commands
+short: Queries command list.
+long: query command list.
+examples:
+- cmd: zeno zos describe-commands
+  desc: Query command list.
+sdk:
+  service: zos
+  version: '2025-10-10'
+  action: DescribeCommands
+parameters:
+- name: command-ids
+  type: string-array
+  required: false
+  sdk-field: commandIds
+  description: |-
+    Query according to command ID.
+    You can query up to 100 commands in each request.
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: |-
+    Query according to command name.
+    Fuzzy search supported.
+- name: types
+  type: string-array
+  required: false
+  sdk-field: types
+  description: Query according to command script language.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    Number of items in the current page result.
+    Default value: 20;
+    Maximum value: 1000.
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    Number of pages returned.
+    Default value: 1.
+    Value range: [1, +).
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    Query according to tag key.
+    You can query up to 20 tag keys in each request.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    Query according to tag.
+    You can query up to 20 tags in each request.
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'

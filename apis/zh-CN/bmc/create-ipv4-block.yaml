@@ -1,0 +1,118 @@
+name: CreateIpv4Block
+product: bmc
+use: create-ipv4-block
+short: 创建Ipv4 Cidr Block
+long: 创建一个或多个Ipv4 Cidr Block。
+examples:
+- cmd: zeno bmc create-ipv4-block --zone-id IST-B --name example1 --charge-type POSTPAID --netmask 29
+  desc: ''
+- cmd: zeno bmc create-ipv4-block --zone-id AMS-D --name example2 --charge-type PREPAID --netmask 29 --amount 1
+  desc: ''
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: CreateIpv4Block
+parameters:
+- name: zone-id
+  type: string
+  required: true
+  sdk-field: zoneId
+  description: Cidr Block所属的可用区ID。
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: |-
+    Cidr Block的名称。
+    不得超过64个字符。
+- name: cidr-type
+  type: enum
+  required: false
+  sdk-field: cidrType
+  description: CIDR地址块的类型
+  enum-values:
+  - value: BGP
+    desc: BGP IP。
+  - value: Local
+    desc: 本地 IP。
+- name: charge-type
+  type: enum
+  required: true
+  sdk-field: chargeType
+  description: |-
+    付费类型。
+    PREPAID：预付费，即包年包月
+    POSTPAID：后付费。
+  enum-values:
+  - value: POSTPAID
+    desc: 后付费。即按量付费。
+  - value: PREPAID
+    desc: 预付费。
+- name: charge-prepaid
+  type: object
+  required: false
+  sdk-field: chargePrepaid
+  description: |-
+    预付费模式。
+    即包年包月相关参数设置。通过该参数可以指定包年包月实例的购买时长等属性。若指定Cidr Block的付费模式为预付费则该参数必传。
+  object-schema:
+  - name: period
+    type: integer
+    description: |-
+      购买实例的时长。
+      单位：月。
+- name: netmask
+  type: integer
+  required: true
+  sdk-field: netmask
+  description: |-
+    购买的掩码。
+    可以从DescribeAvailableIpv4Resource接口中获取可用的掩码列表。
+- name: amount
+  type: integer
+  required: false
+  sdk-field: amount
+  description: 购买的数量。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    Cidr Block所属的资源组ID。
+    如果指定的区域内存在可用的VLAN，则会忽略该参数自动使用与VLAN相同的资源组。
+- name: marketing-options
+  type: object
+  required: false
+  sdk-field: marketingOptions
+  description: 市场营销活动相关信息。
+  object-schema:
+  - name: discountCode
+    type: string
+    description: |-
+      使用市场发放的折扣码。
+      如果折扣码不存在，最终折扣将不会生效。
+  - name: usePocVoucher
+    type: boolean
+    description: |-
+      是否使用POC代金券。
+      如果系统不存在POC代金券，相关创建流程会失败。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    创建Cidr时关联的标签。
+    注意: 关联标签键不能重复。--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～128字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～128字符。

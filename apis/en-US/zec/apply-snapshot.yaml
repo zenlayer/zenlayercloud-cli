@@ -1,0 +1,23 @@
+name: ApplySnapshot
+product: zec
+use: apply-snapshot
+short: Reverts to a snapshot.
+long: revert to a snapshot.
+examples:
+- cmd: zeno zec apply-snapshot --snapshot-id snapshotId1 --disk-id disk1
+  desc: Revert to a snapshot.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ApplySnapshot
+parameters:
+- name: snapshot-id
+  type: string
+  required: true
+  sdk-field: snapshotId
+  description: The unique ID of the snapshot.
+- name: disk-id
+  type: string
+  required: true
+  sdk-field: diskId
+  description: ID of the disk.

@@ -1,0 +1,75 @@
+name: InquiryBandwidthClusterPrice
+product: traffic
+use: inquiry-bandwidth-cluster-price
+short: 询价创建带宽包
+long: 查询共享带宽包价格。
+examples:
+- cmd: zeno traffic inquiry-bandwidth-cluster-price --area-code SHA --charge-type POSTPAID --commit-bandwidth-mbps 100 --network-type BGP --internet-charge-type MonthlyPercent95Bandwidth
+  desc: 查询上海（SHA)地区共享带宽包 100 M保底，IP线路为BGP，计费类型为月95的价格。
+sdk:
+  service: traffic
+  version: '2024-03-26'
+  action: InquiryBandwidthClusterPrice
+parameters:
+- name: area-code
+  type: string
+  required: true
+  sdk-field: areaCode
+  description: |-
+    共享带宽包所属地域。
+    具体地域信息可以查询[DescribeBandwidthClusterAreas](../bandwidth-cluster/describebandwidthclusterareas.md)中的areaCode获取。
+- name: commit-bandwidth-mbps
+  type: integer
+  required: false
+  sdk-field: commitBandwidthMbps
+  description: |-
+    保底带宽值。
+    单位: Mbps。
+- name: network-type
+  type: enum
+  required: false
+  sdk-field: networkType
+  description: IP 网络类型。
+  enum-values:
+  - value: BGP
+    desc: BGP。
+  - value: Cogent
+    desc: Cogent。
+  - value: CN2
+    desc: 回国优化线路。
+  - value: CMI
+    desc: 中国移动。
+  - value: CUG
+    desc: 中国联通。
+  - value: CTG
+    desc: 中国电信。
+- name: internet-charge-type
+  type: enum
+  required: true
+  sdk-field: internetChargeType
+  description: |-
+    带宽计费方式。
+    默认为月95计费，如果需要日峰值计费，请联系Support开通相关权限。
+  enum-values:
+  - value: MonthlyPercent95Bandwidth
+    desc: 月95带宽计费。
+  - value: DayPeakBandwidth
+    desc: 日峰值带宽计费。
+- name: product
+  type: enum
+  required: false
+  sdk-field: product
+  description: 城市带宽包所属的产品线范围。
+  enum-values:
+  - value: AllProduct
+    desc: |-
+      全算力产品范围。
+      该范围可能会在未来移除。
+  - value: BMC
+    desc: 裸金属产品范围。
+  - value: ZEC
+    desc: 弹性算力产品凡范围。
+  - value: VM
+    desc: 虚拟机产品范围。
+  - value: OFFLINE
+    desc: 线下产品范围。

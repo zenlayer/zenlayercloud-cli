@@ -1,0 +1,143 @@
+name: ModifyListener
+product: zlb
+use: modify-listener
+short: Queries the properties of a load balance listener.
+long: modify the properties of a load balance listener, including its name, health check parameters, and forwarding rules. The listening protocol cannot be modified.
+examples:
+- cmd: zeno zlb modify-listener --load-balancer-id <loadBalancerId> --listener-id <listenerId> --listener-name sampleName --scheduler mh
+  desc: Modify the name, health check parameters, and forwarding rules of a load balance listener.
+sdk:
+  service: zlb
+  version: '2025-04-01'
+  action: ModifyListener
+parameters:
+- name: load-balancer-id
+  type: string
+  required: true
+  sdk-field: loadBalancerId
+  description: Load balancer ID.
+- name: listener-id
+  type: string
+  required: true
+  sdk-field: listenerId
+  description: The listener ID of the load balancer.
+- name: listener-name
+  type: string
+  required: false
+  sdk-field: listenerName
+  description: |-
+    The name of the listener for the load balancer.
+    It will not be modified if not passed in.
+- name: health-check
+  type: object
+  required: false
+  sdk-field: healthCheck
+  description: |-
+    The health check for the listener of the load balancer.
+    It will not be modified if not passed in. To enable or disable it, please set the HealthCheck.enabled field.
+  object-schema:
+  - name: enabled
+    type: boolean
+    description: Whether to enable health check.
+  - name: checkType
+    type: enum
+    description: |-
+      Health check protocols.
+      When health check is enabled, the value is required.
+  - name: checkPort
+    type: integer
+    description: |-
+      Health check port.
+      Defaults to the backend server port. Unless you need a specific port, it is recommended to leave this field empty.
+      Optional range: [1, 65535].
+  - name: checkDelayLoop
+    type: integer
+    description: |-
+      Health check interval.
+      Unit: seconds.
+      Optional range: [3, 30].
+      Default: 3.
+  - name: checkConnTimeout
+    type: integer
+    description: |-
+      Health check timeout period.
+      Unit: seconds.
+      Optional range: [1, 15].
+      Default: 2.
+  - name: checkRetry
+    type: integer
+    description: |-
+      Health check retry count.
+      Optional range: [1, 5].
+      Default: 2.
+  - name: checkDelayTry
+    type: integer
+    description: |-
+      Interval between health check retries.
+      Unit: seconds.
+      Optional range: [1, 15].
+      Default: 2.
+  - name: checkHttpGetUrl
+    type: string
+    description: |-
+      Health check path.
+      Applicable only for the HTTP_GET protocol.
+      If specified, it must start with a forward slash (/).
+  - name: checkHttpStatusCode
+    type: integer
+    description: |-
+      Health check status code.
+      Applicable only for the HTTP_GET protocol.
+      Optional range: [100, 599].
+  - name: failOpen
+    type: boolean
+    description: If all backends fail health checks, the load balancer will fail open and continue forwarding traffic to all servers to maintain service continuity.
+- name: scheduler
+  type: enum
+  required: false
+  sdk-field: scheduler
+  description: |-
+    The scheduling method for the listener of the load balancer.
+    It will not be modified if not passed in.
+  enum-values:
+  - value: mh
+    desc: Maglev Hashing (mh).
+  - value: rr
+    desc: Round Robin (rr).
+  - value: wrr
+    desc: Weighted Round Robin (wrr).
+  - value: lc
+    desc: Least Connections (lc).
+  - value: wlc
+    desc: Weighted Least Connections (wlc).
+  - value: sh
+    desc: Source Hashing (sh).
+  - value: dh
+    desc: Destination Hashing (dh).
+- name: port
+  type: string
+  required: false
+  sdk-field: port
+  description: |-
+    Listening port.
+    Multiple ports are separated by commas.
+    When the port is a range, connect with -, for example: 10000-10005.
+    The value range of the port is 1 to 65535.
+    It will not be modified if not specified.
+- name: kind
+  type: enum
+  required: false
+  sdk-field: kind
+  description: Forwarding mode.
+  enum-values:
+  - value: FNAT
+    desc: Full NAT.
+  - value: DR
+    desc: Direct Routing.
+  - value: DNAT
+    desc: Destination NAT.
+- name: persistent
+  type: integer
+  required: false
+  sdk-field: persistent
+  description: Session persistence duration, in seconds.

@@ -1,0 +1,71 @@
+name: DescribeAutoSnapshotPolicies
+product: zec
+use: describe-auto-snapshot-policies
+short: 自动快照策略列表。
+long: 查询自动快照策略的列表数据。
+examples:
+- cmd: zeno zec describe-auto-snapshot-policies
+  desc: 查询策略列表。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeAutoSnapshotPolicies
+parameters:
+- name: auto-snapshot-policy-ids
+  type: string-array
+  required: false
+  sdk-field: autoSnapshotPolicyIds
+  description: 根据自动快照策略的ID进行过滤。
+- name: zone-ids
+  type: string-array
+  required: false
+  sdk-field: zoneIds
+  description: 根据自动快照策略的可用区ID进行过滤。
+- name: auto-snapshot-policy-name
+  type: string
+  required: false
+  sdk-field: autoSnapshotPolicyName
+  description: |-
+    根据自动快照策略的名称进行过滤。
+    该字段支持模糊搜索。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: 根据资源组ID进行过滤。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: 返回的分页大小。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: 返回的分页数。
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    根据标签键进行搜索。
+    最长不得超过20个标签键。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    根据标签进行搜索。
+    最长不得超过20个标签。
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。

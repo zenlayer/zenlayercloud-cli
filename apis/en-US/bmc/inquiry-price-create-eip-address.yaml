@@ -1,0 +1,57 @@
+name: InquiryPriceCreateEipAddress
+product: bmc
+use: inquiry-price-create-eip-address
+short: Queries the price of creating elastic IP.
+long: query the price of creating elastic IP.
+examples:
+- cmd: zeno bmc inquiry-price-create-eip-address --zone-id SEL-A --eip-charge-type POSTPAID
+  desc: Query the pay-as-you-go price of creating an elastic IP
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: InquiryPriceCreateEipAddress
+parameters:
+- name: zone-id
+  type: string
+  required: true
+  sdk-field: zoneId
+  description: Zone ID to which the elastic IP belongs.
+- name: eip-charge-type
+  type: enum
+  required: true
+  sdk-field: eipChargeType
+  description: |-
+    Elastic IP pricing model .
+    PREPAID: subscription
+    POSTPAID: pay-as-you-go
+  enum-values:
+  - value: POSTPAID
+    desc: Pay-as-you-go.
+  - value: PREPAID
+    desc: Subscription.
+- name: eip-charge-prepaid
+  type: object
+  required: false
+  sdk-field: eipChargePrepaid
+  description: Details of the monthly subscription, including the purchase period, auto-renewal. It is required if the eipChargeType is PREPAID.
+  object-schema:
+  - name: period
+    type: integer
+    description: |-
+      Period of subscription.
+      Unit: month.
+- name: amount
+  type: integer
+  required: false
+  sdk-field: amount
+  description: |-
+    Quantity of elastic IPs.
+    Value range: 1-100.
+    Default value: 1.
+- name: netmask
+  type: integer
+  required: false
+  sdk-field: netmask
+  description: |-
+    The netmask.
+    You can obtain the list of available netmasks from the DescribeEipAvailableResources API.

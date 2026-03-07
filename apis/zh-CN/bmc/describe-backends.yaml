@@ -1,0 +1,38 @@
+name: DescribeBackends
+product: bmc
+use: describe-backends
+short: 查询一台或多台指定后端配置服务器的信息。
+long: 查询一台或多台指定后端配置服务器的信息。用户可以根据监听器的ID、后端配置服务器的ID等信息来搜索后端配置服务器的信息。
+examples:
+- cmd: zeno bmc describe-backends --listener-id xxxx
+  desc: 根据监听器的ID获取下面所有后端配置服务器列表。
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DescribeBackends
+parameters:
+- name: listener-id
+  type: string
+  required: true
+  sdk-field: listenerId
+  description: 监听器的ID。
+- name: backend-ids
+  type: string-array
+  required: false
+  sdk-field: backendIds
+  description: 后端配置服务器的ID集合。
+- name: backend-name
+  type: string
+  required: false
+  sdk-field: backendName
+  description: 后端配置服务器的名称。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: 返回的分页数。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: 返回的分页大小。默认为20，最大为1000。

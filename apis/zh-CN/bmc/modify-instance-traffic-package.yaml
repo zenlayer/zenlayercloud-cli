@@ -1,0 +1,27 @@
+name: ModifyInstanceTrafficPackage
+product: bmc
+use: modify-instance-traffic-package
+short: 修改实例流量包
+long: 修改实例流量包。
+examples:
+- cmd: zeno bmc modify-instance-traffic-package --instance-id instanceId --traffic-package-size 100
+  desc: 升配实例流量包
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: ModifyInstanceTrafficPackage
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: |-
+    待操作的实例ID。
+    可通过DescribeInstances接口返回值中的instanceId获取。
+- name: traffic-package-size
+  type: float
+  required: true
+  sdk-field: trafficPackageSize
+  description: |-
+    流量包大小。
+    必须是0.05的倍数。

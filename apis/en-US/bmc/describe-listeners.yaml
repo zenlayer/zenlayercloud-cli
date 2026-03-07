@@ -1,0 +1,49 @@
+name: DescribeListeners
+product: bmc
+use: describe-listeners
+short: Queries the information of one or more specified listeners.
+long: query the information of one or more specified listeners. Users can search for listener information based on the ID of the load balancer, the ID of the listener, and other information.
+examples:
+- cmd: zeno bmc describe-listeners --load-balancer-ids xxxx
+  desc: by load balancer instance ID.
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DescribeListeners
+parameters:
+- name: listener-ids
+  type: string-array
+  required: false
+  sdk-field: listenerIds
+  description: |-
+    List of listener IDs.
+    Up to 100 requests are supported.
+- name: load-balancer-ids
+  type: string-array
+  required: false
+  sdk-field: loadBalancerIds
+  description: |-
+    List of load balancer instance IDs.
+    Up to 100 requests are supported.
+- name: listener-name
+  type: string
+  required: false
+  sdk-field: listenerName
+  description: |-
+    Listener name.
+    Fuzzy search supported.
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    Number of pages returned.
+    Default value: 1 .
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    Number of items in the current page result.
+    Default value: 20 ;
+    Maximum value: 1000 .

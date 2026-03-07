@@ -1,0 +1,30 @@
+name: ConfigEipProbe
+product: zec
+use: config-eip-probe
+short: 弹性公网IP探测配置。
+long: 弹性公网IP（EIP）探测配置。
+examples:
+- cmd: zeno zec config-eip-probe --eip-id eipId1 --disable-icmp true --tcp-port 20
+  desc: EIP探测配置
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ConfigEipProbe
+parameters:
+- name: eip-id
+  type: string
+  required: true
+  sdk-field: eipId
+  description: 配置公网探测的EIP ID。
+- name: disable-icmp
+  type: boolean
+  required: true
+  sdk-field: disableIcmp
+  description: 是否禁用ICMP。
+- name: tcp-port
+  type: integer
+  required: false
+  sdk-field: tcpPort
+  description: |-
+    TCP探测端口, [1-65535]。
+    不传表示不开启。

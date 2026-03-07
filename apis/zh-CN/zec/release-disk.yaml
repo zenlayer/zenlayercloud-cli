@@ -1,0 +1,18 @@
+name: ReleaseDisk
+product: zec
+use: release-disk
+short: 释放云硬盘
+long: 删除释放一块云硬盘。
+examples:
+- cmd: zeno zec release-disk --disk-id your-disk-id
+  desc: 释放云硬盘。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ReleaseDisk
+parameters:
+- name: disk-id
+  type: string
+  required: true
+  sdk-field: diskId
+  description: 要删除的云硬盘ID。

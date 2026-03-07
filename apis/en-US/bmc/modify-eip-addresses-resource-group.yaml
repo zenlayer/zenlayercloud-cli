@@ -1,0 +1,25 @@
+name: ModifyEipAddressesResourceGroup
+product: bmc
+use: modify-eip-addresses-resource-group
+short: Modify the resource group to which the EIP belong.
+long: modify the resource group to which the EIP belong.
+examples:
+- cmd: zeno bmc modify-eip-addresses-resource-group --eip-ids eipId1 --eip-ids eipId2 --resource-group-id resourceGroup1
+  desc: Move EIP to the specified resource group
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: ModifyEipAddressesResourceGroup
+parameters:
+- name: eip-ids
+  type: string-array
+  required: true
+  sdk-field: eipIds
+  description: |-
+    List of EIP IDs.
+    The maximum number of eip in each request is 100.
+- name: resource-group-id
+  type: string
+  required: true
+  sdk-field: resourceGroupId
+  description: Resource group ID.

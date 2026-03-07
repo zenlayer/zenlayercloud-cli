@@ -1,0 +1,32 @@
+name: ChangeNicNetworkType
+product: zec
+use: change-nic-network-type
+short: Modifies the vNIC mode of the instance.
+long: modify the network interface mode of the instance.
+examples:
+- cmd: zeno zec change-nic-network-type --instance-id instanceId1 --nic-network-type FailOver
+  desc: Modify the network interface mode of the instance.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ChangeNicNetworkType
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: ID of the instance.
+- name: nic-network-type
+  type: enum
+  required: true
+  sdk-field: nicNetworkType
+  description: Network interface mode.
+  enum-values:
+  - value: Auto
+    desc: Default mode auto-adapted to image.
+  - value: FailOver
+    desc: Failover mode.
+  - value: VirtioOnly
+    desc: Virtio-net mode.
+  - value: VfOnly
+    desc: VFIO mode.

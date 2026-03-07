@@ -1,0 +1,27 @@
+name: ModifySubnetsAttribute
+product: zec
+use: modify-subnets-attribute
+short: 修改私有子网属性
+long: 批量修改子网的属性。
+examples:
+- cmd: zeno zec modify-subnets-attribute --subnet-ids your-vpc-id --name 10.0.0.0/9
+  desc: 批量修改子网的名称。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifySubnetsAttribute
+parameters:
+- name: subnet-ids
+  type: string-array
+  required: true
+  sdk-field: subnetIds
+  description: 需要修改的子网ID列表。
+- name: name
+  type: string
+  required: true
+  sdk-field: name
+  description: |-
+    修改的子网名称。
+    范围2到63个字符。
+    仅支持输入字母、数字、-/_和英文句点(.)。
+    且必须以数字或字母开头和结尾。

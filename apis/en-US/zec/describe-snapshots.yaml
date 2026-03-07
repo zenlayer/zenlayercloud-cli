@@ -1,0 +1,86 @@
+name: DescribeSnapshots
+product: zec
+use: describe-snapshots
+short: Queries the details of snapshots.
+long: query the details of snapshots.
+examples:
+- cmd: zeno zec describe-snapshots --snapshot-ids snapshotId1 --snapshot-ids snapshotId2 --zone-id asia-east-1a --status AVAILABLE --snapshot-name snapshot-state --page-size 20 --page-num 1
+  desc: Query the list of snapshots.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeSnapshots
+parameters:
+- name: snapshot-ids
+  type: string-array
+  required: false
+  sdk-field: snapshotIds
+  description: Filter by the list of snapshot IDs.
+- name: zone-id
+  type: string
+  required: false
+  sdk-field: zoneId
+  description: Availability zone ID to which the snapshot belongs.
+- name: status
+  type: enum
+  required: false
+  sdk-field: status
+  description: Filter by the state of the snapshot.
+  enum-values:
+  - value: CREATING
+    desc: Creating.
+  - value: AVAILABLE
+    desc: Creating succeeded.
+  - value: FAILED
+    desc: Creating failed.
+  - value: ROLLING_BACK
+    desc: Reverting to the snapshot.
+  - value: DELETING
+    desc: Deleting.
+- name: disk-ids
+  type: string-array
+  required: false
+  sdk-field: diskIds
+  description: Filter by the list of disk IDs to which the snapshot belongs.
+- name: disk-type
+  type: enum
+  required: false
+  sdk-field: diskType
+  description: Filter by the disk type of the snapshot.
+  enum-values:
+  - value: SYSTEM
+    desc: Boot disk.
+  - value: DATA
+    desc: Disk.
+- name: snapshot-type
+  type: enum
+  required: false
+  sdk-field: snapshotType
+  description: Filter by the snapshot type.
+  enum-values:
+  - value: Auto
+    desc: Automatic snapshot.
+  - value: Manual
+    desc: Manual snapshot.
+- name: snapshot-name
+  type: string
+  required: false
+  sdk-field: snapshotName
+  description: |-
+    Filter by the snapshot name.
+    This field supports fuzzy search.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: Number of items in the current page result.
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: Number of pages returned.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: Filter by resource group ID.

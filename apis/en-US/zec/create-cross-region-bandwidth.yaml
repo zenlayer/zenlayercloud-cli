@@ -1,0 +1,81 @@
+name: CreateCrossRegionBandwidth
+product: zec
+use: create-cross-region-bandwidth
+short: Creates a cross-region bandwidth.
+long: create a private cross-region bandwidth.
+examples:
+- cmd: zeno zec create-cross-region-bandwidth --vpc-id "<your vpc id>" --internet-charge-type ByBandwidth --cross-region-bandwidth-name Test-Cross1 --region-a asia-east-1 --region-z asia-north-1 --bandwidth 100
+  desc: Create a cross-region bandwidth from Shanghai to Beijing, with the network billing model of Flat Rate. Burst bandwidth is 100 Mbps.
+- cmd: zeno zec create-cross-region-bandwidth --vpc-id "<your vpc id>" --internet-charge-type ByInstanceBandwidth95 --cross-region-bandwidth-name Test-Cross2 --region-a asia-north-1 --region-z asia-east-1 --bandwidth 100 --bandwidth-cap 120
+  desc: Create a cross-region bandwidth from Beijing to Shanghai, with the network billing model of Burstable 95th. Bandwidth commitment is 100 Mbps and the burst bandwidth is 120 Mbps.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CreateCrossRegionBandwidth
+parameters:
+- name: vpc-id
+  type: string
+  required: true
+  sdk-field: vpcId
+  description: Global VPC ID where the private cross-region bandwidth is located.
+- name: internet-charge-type
+  type: enum
+  required: true
+  sdk-field: internetChargeType
+  description: Network billing model.
+  enum-values:
+  - value: ByBandwidth
+    desc: Billed by the flat rate bandwidth.
+  - value: ByTrafficPackage
+    desc: Billed by the traffic package size purchased.
+  - value: BandwidthCluster
+    desc: Billed by the burstable 95th bandwidth of all compute resources in a city-based or regional bandwidth cluster with a shared commitment.
+- name: cross-region-bandwidth-name
+  type: string
+  required: true
+  sdk-field: crossRegionBandwidthName
+  description: |-
+    The name of cross-region bandwidth.
+    The length is 2 to 63 characters.
+    Only letters, numbers, -/_ and periods (.) are supported.
+    The name must start and end with a number or a letter.
+- name: marketing-info
+  type: object
+  required: false
+  sdk-field: marketingInfo
+  description: Information on marketing campaigns.
+  object-schema:
+  - name: discountCode
+    type: string
+    description: |-
+      Promo Code.
+      If no Promo Code exists, the final discount will not apply.
+  - name: usePocVoucher
+    type: boolean
+    description: |-
+      Whether to use POC voucher.
+      If no POC voucher exists, the related creation will fail.
+- name: region-a
+  type: string
+  required: true
+  sdk-field: regionA
+  description: One end of the cross-region bandwidth.
+- name: region-z
+  type: string
+  required: true
+  sdk-field: regionZ
+  description: The other end of the cross-region bandwidth.
+- name: bandwidth
+  type: integer
+  required: true
+  sdk-field: bandwidth
+  description: Bandwidth cap.
+- name: bandwidth-cap
+  type: integer
+  required: false
+  sdk-field: bandwidthCap
+  description: |-
+    Burst bandwidth.
+    Unit: Mbps.
+    This field is required only when internetChargeType is set to ByInstanceBandwidth95 .
+    Available range: [1, +).

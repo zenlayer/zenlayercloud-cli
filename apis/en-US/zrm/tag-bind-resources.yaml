@@ -1,0 +1,30 @@
+name: TagBindResources
+product: zrm
+use: tag-bind-resources
+short: Binds resources to a tag in batches.
+long: bind resources to a tag in batches.
+examples:
+- cmd: zeno zrm tag-bind-resources --resource-uuids resourceUuids_19b06df9eaac
+  desc: Bind an instance to a tag.
+sdk:
+  service: zrm
+  version: '2025-10-14'
+  action: TagBindResources
+parameters:
+- name: tag
+  type: object
+  required: true
+  sdk-field: tag
+  description: Tag, including tag key and tag value.
+  object-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'
+- name: resource-uuids
+  type: string-array
+  required: true
+  sdk-field: resourceUuids
+  description: List of resource IDs to be bound.

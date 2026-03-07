@@ -1,0 +1,27 @@
+name: DescribeZoneInstanceConfigInfos
+product: zec
+use: describe-zone-instance-config-infos
+short: 查询可用区售卖的机型信息
+long: 查询可用区售卖的机型信息
+examples:
+- cmd: zeno zec describe-zone-instance-config-infos --instance-type z2a.cpu.4
+  desc: 获取规格为z2a.cpu.4的可用配置。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeZoneInstanceConfigInfos
+parameters:
+- name: zone-id
+  type: string
+  required: false
+  sdk-field: zoneId
+  description: |-
+    要查询的可用区ID。
+    例如：asia-east-1a。
+- name: instance-type
+  type: string
+  required: false
+  sdk-field: instanceType
+  description: |-
+    要查询的实例规格。
+    例如：z2a.cpu.1。

@@ -1,0 +1,20 @@
+name: TerminateEipAddress
+product: bmc
+use: terminate-eip-address
+short: 退还Elastic IP
+long: 本接口用于退还一个EIP。
+examples:
+- cmd: zeno bmc terminate-eip-address --eip-id eipId
+  desc: ''
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: TerminateEipAddress
+parameters:
+- name: eip-id
+  type: string
+  required: true
+  sdk-field: eipId
+  description: |-
+    一个EIP ID。
+    可通过DescribeEipAddresses接口返回值中的eipId获取。

@@ -1,0 +1,108 @@
+name: CreateBandwidthCluster
+product: traffic
+use: create-bandwidth-cluster
+short: Creates a bandwidth cluster.
+long: create a bandwidth cluster.
+examples:
+- cmd: zeno traffic create-bandwidth-cluster --area-code SHA --charge-type POSTPAID --commit-bandwidth-mbps 1000 --network-type CMI --internet-charge-type MonthlyPercent95Bandwidth --name sample
+  desc: Create a bandwidth cluster with the China Mobile network in Shanghai (SHA), whose bandwidth commitment is `1 Gbps`.
+sdk:
+  service: traffic
+  version: '2024-03-26'
+  action: CreateBandwidthCluster
+parameters:
+- name: area-code
+  type: string
+  required: true
+  sdk-field: areaCode
+  description: |-
+    Location of the bandwidth cluster.
+    To obtain code, you can call DescribeBandwidthClusterAreas, and find areaCode in the response.
+- name: commit-bandwidth-mbps
+  type: integer
+  required: false
+  sdk-field: commitBandwidthMbps
+  description: |-
+    Bandwidth commitment.
+    Unit: Mbps.
+    Available value range: [0, 100000].
+    Default value: 0.
+- name: network-line-type
+  type: enum
+  required: false
+  sdk-field: networkLineType
+  description: |-
+    IP network type.
+    This field is required for city bandwidth cluster.
+  enum-values:
+  - value: PremiumBGP
+    desc: Premium BGP for optimized network performance.
+  - value: StandardBGP
+    desc: Standard BGP for general use with cost optimization.
+  - value: CN2
+    desc: China Telecom Next Carrier Network.
+  - value: CMI
+    desc: China Mobile.
+  - value: CUG
+    desc: China Unicom.
+  - value: CTG
+    desc: China Telecom.
+- name: network-type
+  type: enum
+  required: false
+  sdk-field: networkType
+  description: |-
+    IP network type.
+    The value is required for the bandwidth cluster by city.
+  deprecated: true
+  enum-values:
+  - value: BGP
+    desc: BGP network.
+  - value: Cogent
+    desc: Cogent network.
+  - value: CN2
+    desc: China Telecom Next Carrier Network.
+  - value: CMI
+    desc: China Mobile network.
+  - value: CUG
+    desc: China Unicom network.
+  - value: CTG
+    desc: China Telecom network.
+- name: internet-charge-type
+  type: enum
+  required: true
+  sdk-field: internetChargeType
+  description: |-
+    Network billing method.
+    The default billing method is Monthly Burstable 95th, if you need Daily Peak billing, please contact us.
+    Default value: MonthlyPercent95Bandwidth.
+  enum-values:
+  - value: MonthlyPercent95Bandwidth
+    desc: Monthly Burstable 95th billing method.
+  - value: DayPeakBandwidth
+    desc: Daily Peak billing method.
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: |-
+    Bandwidth cluster name.
+    If not specified, the default name will be based on the location name.
+- name: product
+  type: enum
+  required: false
+  sdk-field: product
+  description: Service type covered by the bandwidth cluster.
+  enum-values:
+  - value: AllProduct
+    desc: |-
+      All compute services.
+      This service type maybe unavailable in the future.
+  - value: BMC
+    desc: Bare metal service.
+  - value: ZEC
+    desc: Elastic compute service.
+  - value: VM
+    desc: Virtual machine service.
+  - value: OFFLINE
+    desc: Offline serveice.

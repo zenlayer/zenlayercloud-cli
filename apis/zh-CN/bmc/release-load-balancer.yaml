@@ -1,0 +1,18 @@
+name: ReleaseLoadBalancer
+product: bmc
+use: release-load-balancer
+short: 释放负载均衡实例。
+long: 释放负载均衡实例。
+examples:
+- cmd: zeno bmc release-load-balancer --load-balancer-id xxxx
+  desc: 释放负载均衡实例。
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: ReleaseLoadBalancer
+parameters:
+- name: load-balancer-id
+  type: string
+  required: true
+  sdk-field: loadBalancerId
+  description: 负载均衡实例的ID。

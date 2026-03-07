@@ -1,0 +1,184 @@
+name: CreateLoadBalancer
+product: zlb
+use: create-load-balancer
+short: Creates a load balancer instance.
+long: create a load balancer instance.
+examples:
+- cmd: zeno zlb create-load-balancer --region-id asia-east-1 --vpc-id <vpcId> --security-group-id <securityGroupId> --load-balancer-name sample --internet-charge-type ByBandwidth --ip-network-type BGPLine --bandwidth-mbps 2 --bandwidth-cluster-id --number 1
+  desc: Create a public network load balancer. IP billing method is flat rate.
+sdk:
+  service: zlb
+  version: '2025-04-01'
+  action: CreateLoadBalancer
+parameters:
+- name: region-id
+  type: string
+  required: true
+  sdk-field: regionId
+  description: Region ID.
+- name: vpc-id
+  type: string
+  required: true
+  sdk-field: vpcId
+  description: VPC ID to which the load balance backend server belongs.
+- name: load-balancer-name
+  type: string
+  required: true
+  sdk-field: loadBalancerName
+  description: |-
+    Load balance instance name.
+    Containing 1 to 64 characters.
+    Available range: [1.0, +).
+- name: internet-charge-type
+  type: enum
+  required: false
+  sdk-field: internetChargeType
+  description: IP network billing model.
+  enum-values:
+  - value: ByBandwidth
+    desc: Flat rate billing method.
+  - value: ByTrafficPackage
+    desc: Data transfer package billing method.
+  - value: BandwidthCluster
+    desc: Bandwidth cluster billing method.
+- name: ip-network-type
+  type: enum
+  required: false
+  sdk-field: ipNetworkType
+  description: |-
+    IP network type.
+    Deprecated. Please use networkLineType instead.
+  deprecated: true
+  enum-values:
+  - value: BGPLine
+    desc: BGP network.
+  - value: CN2Line
+    desc: China Telecom Next Carrier Network.
+  - value: LocalLine
+    desc: Local IP provided by a local ISP.
+  - value: ChinaMobile
+    desc: China Mobile network.
+  - value: ChinaUnicom
+    desc: China Unicom network.
+  - value: ChinaTelecom
+    desc: China Telecom network.
+  - value: Cogent
+    desc: Cogent IP network offered by Cogent Communications.
+  - value: ThreeLine
+    desc: 3-in-1 IP Pool.
+- name: network-line-type
+  type: enum
+  required: false
+  sdk-field: networkLineType
+  description: IP network type.
+  enum-values:
+  - value: PremiumBGP
+    desc: |-
+      Premium BGP network.
+      High-performance network.
+  - value: CN2
+    desc: China Telecom CN2 network.
+  - value: LocalLine
+    desc: Provided by a local ISP.
+  - value: StandardBGP
+    desc: |-
+      Standard BGP network.
+      General-purpose network with cost optimization.
+  - value: CMI
+    desc: 1-Line IP China Mobile.
+  - value: CUG
+    desc: 1-Line IP China Unicom.
+  - value: CTG
+    desc: 1-Line IP China Telecom.
+  - value: ThreeLine
+    desc: 3-in-1 IP Pool.
+- name: bandwidth-mbps
+  type: integer
+  required: false
+  sdk-field: bandwidthMbps
+  description: |-
+    Maximum outbound bandwidth of the elastic IP.
+    Unit: Mbps.
+    The maximum limit is usually 10000 Mbps. If you have additional requirements, please contact Support.
+    Available range: [1, +).
+- name: traffic-package-size
+  type: float
+  required: false
+  sdk-field: trafficPackageSize
+  description: |-
+    Data transfer package size.
+    The parameter is only required when internetChargeType is ByTrafficPackage.
+    Available range: [0.0, 999999.0].
+- name: bandwidth-cluster-id
+  type: string
+  required: false
+  sdk-field: bandwidthClusterId
+  description: |-
+    ID of bandwidth cluster.
+    The parameter is only required when internetChargeType is BandwidthCluster.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    Resource Group ID
+    If not specified, the load balance instance will belong to the default resource group.
+- name: number
+  type: integer
+  required: false
+  sdk-field: number
+  description: The number of created load balancers.
+- name: marketing-options
+  type: object
+  required: false
+  sdk-field: marketingOptions
+  description: Information on marketing campaigns.
+  object-schema:
+  - name: discountCode
+    type: string
+    description: |-
+      Promo Code.
+      If no Promo Code exists, the final discount will not apply.
+  - name: usePocVoucher
+    type: boolean
+    description: |-
+      Whether to use POC voucher.
+      If no POC voucher exists, the related creation will fail.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    Bound tags when creating the load balancer.
+    Tag keys must be unique.--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'
+- name: subnet-id
+  type: string
+  required: false
+  sdk-field: subnetId
+  description: |-
+    ID of the subnet where the health check private source IP belong.
+    You can call DescribeSubnets to obtain details.
+- name: health-check-private-ips
+  type: string-array
+  required: false
+  sdk-field: healthCheckPrivateIps
+  description: |-
+    Health probe private IP.
+    When subnetId is specified, this parameter is required with a quantity of 2.
+    If subnetId is not specified, this parameter is invalid. When this value is left empty, IP addresses will be allocated automatically.
+- name: security-group-id
+  type: string
+  required: false
+  sdk-field: securityGroupId
+  description: |-
+    Security group ID.
+    You can call DescribeSecurityGroups to obtain details.

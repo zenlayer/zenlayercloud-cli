@@ -1,0 +1,50 @@
+name: ModifyAutoSnapshotPolicy
+product: zec
+use: modify-auto-snapshot-policy
+short: Modifies the basic information of the snapshot schedule.
+long: modify the basic information of the snapshot schedule.
+examples:
+- cmd: zeno zec modify-auto-snapshot-policy --auto-snapshot-policy-id <autoSnapshotPolicyId> --auto-snapshot-policy-name Test --retention-days 3
+  desc: Modify the attributes of the snapshot schedule, including the name, and set the retention time to 3 days.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyAutoSnapshotPolicy
+parameters:
+- name: auto-snapshot-policy-id
+  type: string
+  required: true
+  sdk-field: autoSnapshotPolicyId
+  description: The ID of the snapshot schedule.
+- name: auto-snapshot-policy-name
+  type: string
+  required: false
+  sdk-field: autoSnapshotPolicyName
+  description: |-
+    The name of the snapshot schedule.
+    The length is 2 to 63 characters.
+    Only letters, numbers, -/_ and periods (.) are supported.
+    The name must start and end with a number or a letter.
+- name: repeat-week-days
+  type: integer-array
+  required: false
+  sdk-field: repeatWeekDays
+  description: |-
+    The backup date of the schedule.
+    Unit: day, cycle: week (e.g., 1 = Monday).
+- name: hours
+  type: integer-array
+  required: false
+  sdk-field: hours
+  description: |-
+    Specify the start time of the snapshot schedule.
+    UTC time is used. Unit: hour.
+    24 time points are available from 00:00 to 23:00, 1 = 01:00, and so on.
+- name: retention-days
+  type: integer
+  required: false
+  sdk-field: retentionDays
+  description: |-
+    Retention time of automatic snapshots. Unit: day.
+    If the value is set to -1, it means that it is retained indefinitely.
+    Value range: -1 or [1,65535].

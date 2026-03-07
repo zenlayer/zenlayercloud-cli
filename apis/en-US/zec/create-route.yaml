@@ -1,0 +1,103 @@
+name: CreateRoute
+product: zec
+use: create-route
+short: Creates a route.
+long: create a route.
+examples:
+- cmd: zeno zec create-route --vpc-id <vpcId> --ip-version IPv4 --route-type RouteTypeStatic --destination-cidr-block 10.0.0.0/8 --priority 2 --next-hop-id <nicId> --name Test
+  desc: Create an IPv4 static route.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CreateRoute
+parameters:
+- name: vpc-id
+  type: string
+  required: true
+  sdk-field: vpcId
+  description: VPC ID.
+- name: ip-version
+  type: enum
+  required: true
+  sdk-field: ipVersion
+  description: |-
+    IP stack type.
+    The optional values are as follows:
+    IPv4 , IPv6
+  enum-values:
+  - value: IPv4
+    desc: IPv4 address.
+  - value: IPv6
+    desc: IPv6 address.
+- name: route-type
+  type: enum
+  required: true
+  sdk-field: routeType
+  description: Route type.
+  enum-values:
+  - value: RouteTypeSubnet
+    desc: |-
+      Subnet route.
+      Subnet route is auto-generated when a subnet is created.
+  - value: RouteTypeStatic
+    desc: |-
+      Static route.
+      Static route is a kind of custom route.
+  - value: RouteTypePolicy
+    desc: |-
+      Policy-based route.
+      Policy-based route is a kind of custom route.
+  - value: RouteTypeNatGw
+    desc: NAT gateway route.
+  - value: RouteTypeTransit
+    desc: Dynamic route.
+- name: source-cidr-block
+  type: string
+  required: false
+  sdk-field: sourceCidrBlock
+  description: |-
+    Source CIDR block.
+    This field is applicable only when the route type is RouteTypePolicy (policy-based route).
+- name: destination-cidr-block
+  type: string
+  required: false
+  sdk-field: destinationCidrBlock
+  description: |-
+    Destination CIDR block for IPv4 or IPv6.
+    For example: 10.0.1.0/24 .
+- name: cidr-block
+  type: string
+  required: false
+  sdk-field: cidrBlock
+  description: |-
+    CIDR block destination address.
+    This field is deprecated. Please use destinationCidrBlock instead.
+- name: priority
+  type: integer
+  required: true
+  sdk-field: priority
+  description: |-
+    Priority.
+    The optional values are integers range from 1 to 65534 .
+- name: next-hop-id
+  type: string
+  required: false
+  sdk-field: nextHopId
+  description: |-
+    Next-hop resource ID.
+    Currently, only network interface IDs are supported.
+- name: next-hot-id
+  type: string
+  required: false
+  sdk-field: nextHotId
+  description: |-
+    Next-hop resource ID.
+    Currently, only network interface IDs are supported.
+    This field is deprecated. Please use nextHopId instead.
+- name: name
+  type: string
+  required: true
+  sdk-field: name
+  description: |-
+    Route name.
+    This parameter must start and end with a number or a letter, containing 2 to 63 characters. Only letters, numbers, - and periods (.) are supported.

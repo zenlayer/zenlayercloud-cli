@@ -1,0 +1,25 @@
+name: UpdateBandwidthClusterCommitBandwidth
+product: traffic
+use: update-bandwidth-cluster-commit-bandwidth
+short: Modifies the bandwidth commitment of the bandwidth cluster.
+long: modify the bandwidth commitment of the bandwidth cluster.
+examples:
+- cmd: zeno traffic update-bandwidth-cluster-commit-bandwidth --bandwidth-cluster-id <bandwidth-cluster-id> --commit-bandwidth-mbps 100
+  desc: Change the bandwidth commitment of the bandwidth cluster to `100` Mbps.
+sdk:
+  service: traffic
+  version: '2024-03-26'
+  action: UpdateBandwidthClusterCommitBandwidth
+parameters:
+- name: bandwidth-cluster-id
+  type: string
+  required: true
+  sdk-field: bandwidthClusterId
+  description: Bandwidth cluster ID.
+- name: commit-bandwidth-mbps
+  type: integer
+  required: true
+  sdk-field: commitBandwidthMbps
+  description: |-
+    Bandwidth commitment.
+    Available range: [0, 100000].

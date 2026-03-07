@@ -1,0 +1,73 @@
+name: DescribeSubnets
+product: bmc
+use: describe-subnets
+short: 查看Subnet列表
+long: 本接口用于查询一台或多台指定Subnet的信息。用户可以根据Subnet ID、VPC ID、 区域、Subnet 名称等信息来搜索Subnet信息。
+examples:
+- cmd: zeno bmc describe-subnets --cidr-block 10.0.0.0/8 --page-size 10 --page-num 1
+  desc: 分页查询CidrBlock为“10.0.0.0/8”的Subnet列表
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DescribeSubnets
+parameters:
+- name: subnet-ids
+  type: string-array
+  required: false
+  sdk-field: subnetIds
+  description: |-
+    Subnet ID。
+    取值可以由多个Subnet ID组成一个。最多支持100个ID查询。
+- name: subnet-name
+  type: string
+  required: false
+  sdk-field: subnetName
+  description: Subnet的名称。
+- name: cidr-block
+  type: string
+  required: false
+  sdk-field: cidrBlock
+  description: Subnet的CIDR。
+- name: subnet-status
+  type: enum
+  required: false
+  sdk-field: subnetStatus
+  description: Subnet的状态。
+  enum-values:
+  - value: CREATING
+    desc: 创建中。
+  - value: CREATE_FAILED
+    desc: 创建失败。
+  - value: AVAILABLE
+    desc: 可用。
+  - value: DELETING
+    desc: 删除中。
+- name: zone-id
+  type: string
+  required: false
+  sdk-field: zoneId
+  description: Subnet所属的可用区ID。
+- name: vpc-id
+  type: string
+  required: false
+  sdk-field: vpcId
+  description: VPC ID。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    资源组的ID。
+    如果不传，则返回该用户可见的所有资源组内的Subnet。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    返回的分页大小。
+    默认为20，最大为1000。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: 返回的分页数。

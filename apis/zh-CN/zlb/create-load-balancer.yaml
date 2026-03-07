@@ -1,0 +1,186 @@
+name: CreateLoadBalancer
+product: zlb
+use: create-load-balancer
+short: 创建负载均衡器实例
+long: 创建负载均衡器实例。
+examples:
+- cmd: zeno zlb create-load-balancer --region-id asia-east-1 --vpc-id <vpcId> --security-group-id <securityGroupId> --load-balancer-name sample --internet-charge-type ByBandwidth --network-line-type PremiumBGP --bandwidth-mbps 2 --bandwidth-cluster-id --number 1
+  desc: 创建一个公网负载均衡实例。 IP计费方式为固定带宽。
+sdk:
+  service: zlb
+  version: '2025-04-01'
+  action: CreateLoadBalancer
+parameters:
+- name: region-id
+  type: string
+  required: true
+  sdk-field: regionId
+  description: 区域节点ID。
+- name: vpc-id
+  type: string
+  required: true
+  sdk-field: vpcId
+  description: 负载均衡后端服务器所属的VPC网络 ID。
+- name: load-balancer-name
+  type: string
+  required: true
+  sdk-field: loadBalancerName
+  description: |-
+    负载均衡实例名称。
+    长度为1～64个字符。
+- name: internet-charge-type
+  type: enum
+  required: false
+  sdk-field: internetChargeType
+  description: IP网络计费模式。
+  enum-values:
+  - value: ByBandwidth
+    desc: 固定带宽计费方式。
+  - value: ByTrafficPackage
+    desc: 流量包计费方式。
+  - value: BandwidthCluster
+    desc: 共享带宽包计费方式。
+- name: ip-network-type
+  type: enum
+  required: false
+  sdk-field: ipNetworkType
+  description: |-
+    IP 的网络类型。
+    已废弃，请使用networkLineType。
+  deprecated: true
+  enum-values:
+  - value: BGPLine
+    desc: BGP 线路。
+  - value: CN2Line
+    desc: CN2 回国优化线路。
+  - value: LocalLine
+    desc: 本地IP。
+  - value: ChinaMobile
+    desc: 中国移动线路。
+  - value: ChinaUnicom
+    desc: 中国联通线路。
+  - value: ChinaTelecom
+    desc: 中国联通线路。
+  - value: Cogent
+    desc: Cogent。
+  - value: ThreeLine
+    desc: 三线IP。
+- name: network-line-type
+  type: enum
+  required: false
+  sdk-field: networkLineType
+  description: IP 的网络类型。
+  enum-values:
+  - value: PremiumBGP
+    desc: |-
+      优质 BGP。
+      高性能网络。
+  - value: CN2
+    desc: 回国优化线路。
+  - value: LocalLine
+    desc: 本地IP。
+  - value: StandardBGP
+    desc: |-
+      标准 BGP。
+      通用网络，成本优化。
+  - value: CMI
+    desc: 中国移动。
+  - value: CUG
+    desc: 中国联通。
+  - value: CTG
+    desc: 中国电信。
+  - value: ThreeLine
+    desc: 三线IP。
+- name: bandwidth-mbps
+  type: integer
+  required: false
+  sdk-field: bandwidthMbps
+  description: |-
+    EIP的最大出带宽。
+    单位为Mbps。
+    最大限制通常为10000，如果有额外要求， 请联系Support。
+- name: traffic-package-size
+  type: float
+  required: false
+  sdk-field: trafficPackageSize
+  description: |-
+    流量包大小。
+    指定此参数时，IP网络计费模式(internetChargeType) 需为ByTrafficPackage, 否则该参数不生效。
+- name: bandwidth-cluster-id
+  type: string
+  required: false
+  sdk-field: bandwidthClusterId
+  description: |-
+    共享带宽包ID。
+    指定此参数时，IP网络计费模式(internetChargeType) 需为BandwidthCluster, 否则该参数不生效。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    资源组ID。
+    如果不指定，则会创建在默认资源组。
+- name: number
+  type: integer
+  required: false
+  sdk-field: number
+  description: 创建负载均衡的个数。
+- name: marketing-options
+  type: object
+  required: false
+  sdk-field: marketingOptions
+  description: 市场活动的相关信息。
+  object-schema:
+  - name: discountCode
+    type: string
+    description: |-
+      使用市场发放的折扣码。
+      如果折扣码不存在，最终折扣将不会生效。
+  - name: usePocVoucher
+    type: boolean
+    description: |-
+      是否使用POC代金券。
+       如果系统不存在POC代金券，相关创建流程会失败。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    创建负载均衡时关联的标签。
+    注意：·关联标签键不能重复。--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。
+- name: subnet-id
+  type: string
+  required: false
+  sdk-field: subnetId
+  description: |-
+    健康检查内网源IP所属的subnetId。
+    可以通过[DescribeSubnets](../../zec/vpc-network/describesubnets.md)接口获取。
+- name: health-check-private-ips
+  type: string-array
+  required: false
+  sdk-field: healthCheckPrivateIps
+  description: |-
+    健康检查内网IP地址。
+    指定subnetId时，此参数必填，且数量必须为2。
+    不指定subnetId时，此参数无效。
+    不填时系统将自动分配。
+- name: security-group-id
+  type: string
+  required: false
+  sdk-field: securityGroupId
+  description: |-
+    负载均衡实例绑定的安全组ID。
+    可以通过[DescribeSecurityGroups](../../zec/security-group/describesecuritygroups.md)接口获取。

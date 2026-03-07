@@ -1,0 +1,23 @@
+name: DescribeVpcAvailableRegions
+product: bmc
+use: describe-vpc-available-regions
+short: Queries information about availability regions for VPCs.
+long: query information about availability regions for VPCs.
+examples:
+- cmd: zeno bmc describe-vpc-available-regions --vpc-region-id SIN3
+  desc: ''
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DescribeVpcAvailableRegions
+parameters:
+- name: zone-id
+  type: string
+  required: false
+  sdk-field: zoneId
+  description: Zone ID to which the VPCs belong.
+- name: vpc-region-id
+  type: string
+  required: false
+  sdk-field: vpcRegionId
+  description: IDs of availability regions for VPCs.

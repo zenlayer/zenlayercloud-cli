@@ -1,0 +1,35 @@
+name: InvokeCommand
+product: zos
+use: invoke-command
+short: Run an existing command.
+long: run an existing command.
+examples:
+- cmd: zeno zos invoke-command --command-id <commandId> --timeout 30 --instance-ids <instanceId> --instance-ids <instanceId>
+  desc: Run a command.
+sdk:
+  service: zos
+  version: '2025-10-10'
+  action: InvokeCommand
+parameters:
+- name: command-id
+  type: string
+  required: true
+  sdk-field: commandId
+  description: Command ID to run.
+- name: instance-ids
+  type: string-array
+  required: true
+  sdk-field: instanceIds
+  description: |-
+    Instance ID to run command on.
+    Only elastic compute instances are supported currently.
+    You can run command on up to 200 instances.
+- name: timeout
+  type: integer
+  required: false
+  sdk-field: timeout
+  description: |-
+    The timeout for command execution on each instance.
+    Unit: seconds.
+    Valid range: [1, 60].
+    Default: 30.

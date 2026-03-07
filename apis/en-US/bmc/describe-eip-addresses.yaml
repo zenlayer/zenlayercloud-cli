@@ -1,0 +1,117 @@
+name: DescribeEipAddresses
+product: bmc
+use: describe-eip-addresses
+short: Queries list of elastic IPs.
+long: query the list of elastic IPs. You can query information on elastic IPs according to ID or IP of the elastic IP, and the pricing model.
+examples:
+- cmd: zeno bmc describe-eip-addresses --eip-charge-type PREPAID
+  desc: ''
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DescribeEipAddresses
+parameters:
+- name: eip-ids
+  type: string-array
+  required: false
+  sdk-field: eipIds
+  description: |-
+    ID list of elastic IPs.
+    The maximum number of elastic IPs in each request is 100.
+- name: eip-charge-type
+  type: enum
+  required: false
+  sdk-field: eipChargeType
+  description: |-
+    Elastic IP pricing model .
+    PREPAID: subscription
+    POSTPAID: pay-as-you-go
+  enum-values:
+  - value: POSTPAID
+    desc: Pay-as-you-go.
+  - value: PREPAID
+    desc: Subscription.
+- name: ip-address
+  type: string
+  required: false
+  sdk-field: ipAddress
+  description: IP address.
+- name: zone-id
+  type: string
+  required: false
+  sdk-field: zoneId
+  description: Zone ID to which the elastic IPs belong.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    Resource group ID.
+    If this parameter is not passed in, all the elastic IPs in authorized resource group return.
+- name: eip-status
+  type: enum
+  required: false
+  sdk-field: eipStatus
+  description: '[Status of elastic IPs](../datastructure.md#eipstatus).'
+  enum-values:
+  - value: CREATING
+    desc: Creating.
+  - value: CREATE_FAILED
+    desc: Creating failed.
+  - value: ASSOCIATING
+    desc: Assigning.
+  - value: UNASSOCIATING
+    desc: Unassigning.
+  - value: ASSOCIATED
+    desc: Assigned.
+  - value: AVAILABLE
+    desc: Available.
+  - value: RECYCLING
+    desc: Recycling.
+  - value: RECYCLE
+    desc: Recycled.
+- name: instance-id
+  type: string
+  required: false
+  sdk-field: instanceId
+  description: Instance ID.
+- name: instance-name
+  type: string
+  required: false
+  sdk-field: instanceName
+  description: Instance name.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    Number of items in the current page result.
+    Default value: 20
+    Maximum value: 1000
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: Number of pages returned.
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    Query according to tag key.
+    You can query up to 20 tag keys in each request.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    Query according to tag.
+    You can query up to 20 tags in each request.
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 128 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 128 characters.'

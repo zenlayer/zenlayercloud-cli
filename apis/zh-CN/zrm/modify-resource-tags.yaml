@@ -1,0 +1,40 @@
+name: ModifyResourceTags
+product: zrm
+use: modify-resource-tags
+short: 修改资源的标签
+long: 修改某个资源的标签。
+examples:
+- cmd: zeno zrm modify-resource-tags --resource-uuid resourceUuid_9a14edb2e71e --replace-tags "{key=key_f2eaf69f2767, value=value_7f72c5d7d053}" --delete-tag-keys deleteTagKeys_3efdc3f0f422
+  desc: 修改某个资源的标签
+sdk:
+  service: zrm
+  version: '2025-10-14'
+  action: ModifyResourceTags
+parameters:
+- name: resource-uuid
+  type: string
+  required: true
+  sdk-field: resourceUuid
+  description: 需要绑定的资源唯一标识。
+- name: replace-tags
+  type: object-array
+  required: false
+  sdk-field: replaceTags
+  description: 需要更新的标签列表，包含标签键和值。
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。
+- name: delete-tag-keys
+  type: string-array
+  required: false
+  sdk-field: deleteTagKeys
+  description: 需要解绑的标签列表，包含标签键。

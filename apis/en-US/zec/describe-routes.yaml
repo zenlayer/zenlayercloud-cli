@@ -1,0 +1,86 @@
+name: DescribeRoutes
+product: zec
+use: describe-routes
+short: Modifies the attributes of one or more routes.
+long: query the details of routes. You can filter the query results with the route ID or name. The route list includes both system-generated routes and user-created routes.
+examples:
+- cmd: zeno zec describe-routes
+  desc: Query all the available routes.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeRoutes
+parameters:
+- name: route-ids
+  type: string-array
+  required: false
+  sdk-field: routeIds
+  description: Route ID(s).
+- name: vpc-id
+  type: string
+  required: false
+  sdk-field: vpcId
+  description: Global VPC ID.
+- name: ip-version
+  type: enum
+  required: false
+  sdk-field: ipVersion
+  description: |-
+    IP type.
+    The optional values are as follows:
+    IPv4 , IPv6
+  enum-values:
+  - value: IPv4
+    desc: IPv4 address.
+  - value: IPv6
+    desc: IPv6 address.
+- name: route-type
+  type: enum
+  required: false
+  sdk-field: routeType
+  description: Route type.
+  enum-values:
+  - value: RouteTypeSubnet
+    desc: |-
+      Subnet route.
+      Subnet route is auto-generated when a subnet is created.
+  - value: RouteTypeStatic
+    desc: |-
+      Static route.
+      Static route is a kind of custom route.
+  - value: RouteTypePolicy
+    desc: |-
+      Policy-based route.
+      Policy-based route is a kind of custom route.
+  - value: RouteTypeNatGw
+    desc: NAT gateway route.
+  - value: RouteTypeTransit
+    desc: Dynamic route.
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: |-
+    Route name.
+    Fuzzy query is supported.
+- name: destination-cidr-block
+  type: string
+  required: false
+  sdk-field: destinationCidrBlock
+  description: |-
+    Destination CIDR block for IPv4 or IPv6.
+    For example: 10.0.1.0/24 .
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    Number of items in the current page result.
+    Available value range: [1, 1000].
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    Number of pages returned.
+    Available value range: [1, +).

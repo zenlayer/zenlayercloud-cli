@@ -1,0 +1,20 @@
+name: RenewInstance
+product: bmc
+use: renew-instance
+short: Renews an instance.
+long: renew an instance.
+examples:
+- cmd: zeno bmc renew-instance --instance-id instanceId
+  desc: ''
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: RenewInstance
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: |-
+    Instance ID.
+    To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response.

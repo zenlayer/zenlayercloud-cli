@@ -1,0 +1,18 @@
+name: DeleteNatGateway
+product: zec
+use: delete-nat-gateway
+short: Deletes a specified NAT gateway.
+long: delete a specified NAT gateway.
+examples:
+- cmd: zeno zec delete-nat-gateway --nat-gateway-id sample
+  desc: Delete a specified NAT gateway.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DeleteNatGateway
+parameters:
+- name: nat-gateway-id
+  type: string
+  required: true
+  sdk-field: natGatewayId
+  description: NAT gateway ID.

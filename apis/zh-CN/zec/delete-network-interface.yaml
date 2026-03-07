@@ -1,0 +1,18 @@
+name: DeleteNetworkInterface
+product: zec
+use: delete-network-interface
+short: 删除网卡
+long: 删除一张辅助网卡。
+examples:
+- cmd: zeno zec delete-network-interface --nic-id XXX
+  desc: 删除网卡。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DeleteNetworkInterface
+parameters:
+- name: nic-id
+  type: string
+  required: true
+  sdk-field: nicId
+  description: 要删除的网卡ID。

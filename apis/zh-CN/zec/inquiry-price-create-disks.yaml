@@ -1,0 +1,39 @@
+name: InquiryPriceCreateDisks
+product: zec
+use: inquiry-price-create-disks
+short: 云硬盘询价
+long: 创建一块或多块云硬盘的询价。
+examples:
+- cmd: zeno zec inquiry-price-create-disks --zone-id asia-east-1a --disk-size 2000
+  desc: 创建1个2000GiB的云硬盘询价。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: InquiryPriceCreateDisks
+parameters:
+- name: zone-id
+  type: string
+  required: true
+  sdk-field: zoneId
+  description: 可用区ID。
+- name: disk-size
+  type: integer
+  required: true
+  sdk-field: diskSize
+  description: |-
+    云硬盘大小。
+    单位：GiB。
+- name: disk-amount
+  type: integer
+  required: false
+  sdk-field: diskAmount
+  description: 云硬盘数量。
+- name: disk-category
+  type: string
+  required: false
+  sdk-field: diskCategory
+  description: |-
+    云硬盘种类。
+    Basic NVMe SSD: 经济型 NVMe SSD。
+    Standard NVMe SSD: 标准型 NVMe SSD。
+    默认为Standard NVMe SSD。

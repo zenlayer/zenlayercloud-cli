@@ -1,0 +1,18 @@
+name: ReleaseDisk
+product: zec
+use: release-disk
+short: Releases a disk.
+long: release a disk.
+examples:
+- cmd: zeno zec release-disk --disk-id your-disk-id
+  desc: Release a disk.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ReleaseDisk
+parameters:
+- name: disk-id
+  type: string
+  required: true
+  sdk-field: diskId
+  description: Disk ID.

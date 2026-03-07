@@ -1,0 +1,23 @@
+name: DeleteLoadBalancersPrivateIps
+product: zlb
+use: delete-load-balancers-private-ips
+short: Unbinds private IPs from a load balancer.
+long: unbind private IPs from a load balancer.
+examples:
+- cmd: zeno zlb delete-load-balancers-private-ips --private-ips 10.0.0.0 --load-balancer-id "<your lb id>"
+  desc: Unbind private IPs from a load balancer.
+sdk:
+  service: zlb
+  version: '2025-04-01'
+  action: DeleteLoadBalancersPrivateIps
+parameters:
+- name: private-ips
+  type: string-array
+  required: true
+  sdk-field: privateIps
+  description: The private IPs to be unbound.
+- name: load-balancer-id
+  type: string
+  required: true
+  sdk-field: loadBalancerId
+  description: Load balancer ID.

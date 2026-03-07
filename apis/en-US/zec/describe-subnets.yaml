@@ -1,0 +1,58 @@
+name: DescribeSubnets
+product: zec
+use: describe-subnets
+short: Queries the details of subnets under a global VPC.
+long: query the details of subnets. You can filter the query results with the subnet ID or name.
+examples:
+- cmd: zeno zec describe-subnets --cidr-block 10.0.0.0/24 --page-size 10 --page-num 1
+  desc: Query all the available subnets with a CIDR block of `10.0.0.0/24`.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeSubnets
+parameters:
+- name: subnet-ids
+  type: string-array
+  required: false
+  sdk-field: subnetIds
+  description: Subnet ID(s).
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: Subnet name. Fuzzy query is supported.
+- name: cidr-block
+  type: string
+  required: false
+  sdk-field: cidrBlock
+  description: |-
+    CIDR block of the subnet.
+    Fuzzy query is supported.
+- name: region-id
+  type: string
+  required: false
+  sdk-field: regionId
+  description: Region ID of the subnet.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    Number of items in the current page result.
+    Default value: 20;
+    Maximum value: 1000.
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: Number of pages returned.
+- name: vpc-ids
+  type: string-array
+  required: false
+  sdk-field: vpcIds
+  description: ID list of global VPCs.
+- name: dhcp-options-set-id
+  type: string
+  required: false
+  sdk-field: dhcpOptionsSetId
+  description: ID of the associated DHCP options set.

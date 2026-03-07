@@ -1,0 +1,28 @@
+name: StopInstances
+product: zec
+use: stop-instances
+short: Shuts down one or more elastic compute instances.
+long: shut down one or more elastic compute instances.
+examples:
+- cmd: zeno zec stop-instances --instance-ids instanceId1 --instance-ids instanceId2 --force-shutdown true
+  desc: Shut down instances of the specified IDs.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: StopInstances
+parameters:
+- name: instance-ids
+  type: string-array
+  required: true
+  sdk-field: instanceIds
+  description: |-
+    Instance ID(s).
+    To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response.
+    The maximum number of instances in each request is 100.
+- name: force-shutdown
+  type: boolean
+  required: false
+  sdk-field: forceShutdown
+  description: |-
+    Whether to force shutdown.
+    If the value is empty, a forced shutdown will be performed by default.

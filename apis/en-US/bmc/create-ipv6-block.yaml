@@ -1,0 +1,55 @@
+name: CreateIpv6Block
+product: bmc
+use: create-ipv6-block
+short: Creates IPv6 CIDR blocks.
+long: create one or more IPv6 CIDR blocks.
+examples:
+- cmd: zeno bmc create-ipv6-block --zone-id ISB-B --name example --amount 1
+  desc: ''
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: CreateIpv6Block
+parameters:
+- name: zone-id
+  type: string
+  required: true
+  sdk-field: zoneId
+  description: Zone ID to which the CIDR blocks belong.
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: |-
+    CIDR block name to be displayed.
+    This parameter can contain up to 64 characters.
+- name: amount
+  type: integer
+  required: false
+  sdk-field: amount
+  description: |-
+    Quantity of IPv6 CIDR blocks you want to purchase.
+    Default value: 1.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    Resource group ID where the CIDR blocks reside.
+    If an available VLAN exists in the specified zone, this parameter will be ignored. The created CIDR blocks will be added to the resource group of the VLAN.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    Bound tags when creating resources.
+    Tag keys must be unique.--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 128 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 128 characters.'

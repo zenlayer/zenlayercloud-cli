@@ -1,0 +1,18 @@
+name: DescribeNatGatewayDetail
+product: zec
+use: describe-nat-gateway-detail
+short: Queries the NAT rule details of a NAT gateway.
+long: query the NAT rule details of a NAT gateway.
+examples:
+- cmd: zeno zec describe-nat-gateway-detail --nat-gateway-id <natGatewayId>
+  desc: Query NAT rule details.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeNatGatewayDetail
+parameters:
+- name: nat-gateway-id
+  type: string
+  required: true
+  sdk-field: natGatewayId
+  description: NAT gateway ID.

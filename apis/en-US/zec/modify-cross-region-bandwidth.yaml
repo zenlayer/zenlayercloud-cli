@@ -1,0 +1,37 @@
+name: ModifyCrossRegionBandwidth
+product: zec
+use: modify-cross-region-bandwidth
+short: Modifies the configurations of the cross-region bandwidth.
+long: modify the configurations of the cross-region bandwidth.
+examples:
+- cmd: zeno zec modify-cross-region-bandwidth --cross-region-bandwidth-id "<your cross id>" --bandwidth 500
+  desc: For a cross-region bandwidth with the network billing model of `ByBandwidth`, modify the bandwidth cap to 500 Mbps.
+- cmd: zeno zec modify-cross-region-bandwidth --cross-region-bandwidth-id "<your cross id>" --bandwidth 500 --bandwidth-cap 1000
+  desc: For a cross-region bandwidth with the network billing model of `ByInstanceBandwidth95`, modify the bandwidth commitment to 500 Mbps and the burst bandwidth to 1000 Mbps.
+- cmd: zeno zec modify-cross-region-bandwidth --cross-region-bandwidth-id "<your cross id>" --bandwidth 500
+  desc: For a cross-region bandwidth with the network model of `ByInstanceBandwidth95`, modify the bandwidth commitment to 500 Mbps and leave the burst bandwidth unchanged.
+- cmd: zeno zec modify-cross-region-bandwidth --cross-region-bandwidth-id "<your cross id>" --bandwidth-cap 1000
+  desc: For a cross-region bandwidth with the network model of `ByInstanceBandwidth95`, modify the burst bandwidth to 1000 Mbps and leave the bandwidth commitment unchanged.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyCrossRegionBandwidth
+parameters:
+- name: cross-region-bandwidth-id
+  type: string
+  required: true
+  sdk-field: crossRegionBandwidthId
+  description: Cross-region bandwidth ID.
+- name: bandwidth
+  type: integer
+  required: true
+  sdk-field: bandwidth
+  description: Bandwidth cap.
+- name: bandwidth-cap
+  type: integer
+  required: false
+  sdk-field: bandwidthCap
+  description: |-
+    Burst bandwidth.
+    Unit: Mbps.
+    Available range: [1, +).

@@ -1,0 +1,31 @@
+name: ChangeEipBindType
+product: zec
+use: change-eip-bind-type
+short: Changes elastic IP mode.
+long: change elastic IP mode.
+examples:
+- cmd: zeno zec change-eip-bind-type --eip-id <eipId1> --bind-type FullNat
+  desc: Change elastic IP mode.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ChangeEipBindType
+parameters:
+- name: eip-id
+  type: string
+  required: true
+  sdk-field: eipId
+  description: ID of elastic IP.
+- name: bind-type
+  type: enum
+  required: true
+  sdk-field: bindType
+  description: |-
+    Elastic mode.
+    Only effective when the elastic IP is bound to a vNIC.
+    Default value: NAT mode.
+  enum-values:
+  - value: FullNat
+    desc: NAT mode.
+  - value: Passthrough
+    desc: Bypass mode.

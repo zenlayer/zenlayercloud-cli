@@ -1,0 +1,42 @@
+version: 2
+
+project_name: zeno
+
+builds:
+  - id: zeno
+    main: .
+    binary: zeno
+    ldflags:
+      - -s -w
+      - -X github.com/zenlayer/zenlayercloud-cli/internal/version.Version={{.Version}}
+      - -X github.com/zenlayer/zenlayercloud-cli/internal/version.GitCommit={{.FullCommit}}
+      - -X github.com/zenlayer/zenlayercloud-cli/internal/version.BuildTime={{.Date}}
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ignore:
+      - goos: windows
+        goarch: arm64
+
+# Mac Universal Binary (Intel + Apple Silicon)
+universal_binaries:
+  - id: zeno
+    replace: true
+
+archives:
+  - id: default
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}"
+    format_overrides:
+      - goos: windows
+        format: zip
+    format: tar.gz
+
+checksum:
+  name_template: checksums.txt
+
+snapshot:
+  version_template: "{{ incpatch .Version }}-next"

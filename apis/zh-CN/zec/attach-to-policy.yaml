@@ -1,0 +1,23 @@
+name: AttachToPolicy
+product: zec
+use: attach-to-policy
+short: 防护对象关联防护策略
+long: 防护对象关联防护策略
+examples:
+- cmd: zeno zec attach-to-policy --policy-id <policyId> --ipv4-id-list eipId1 --ipv4-id-list eipId2
+  desc: 防护对象关联防护策略
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: AttachToPolicy
+parameters:
+- name: policy-id
+  type: string
+  required: true
+  sdk-field: policyId
+  description: 防护策略ID。
+- name: ipv4-id-list
+  type: string-array
+  required: false
+  sdk-field: ipv4IdList
+  description: 防护对象列表。

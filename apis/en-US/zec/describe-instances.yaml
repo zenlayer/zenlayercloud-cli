@@ -1,0 +1,116 @@
+name: DescribeInstances
+product: zec
+use: describe-instances
+short: Queries the details of instances.
+long: query the details of instances. You can filter the query results with the instance ID, name, or billing method.
+examples:
+- cmd: zeno zec describe-instances --instance-ids xxx --page-size 10 --page-num 1
+  desc: Query list of elastic compute instances.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeInstances
+parameters:
+- name: instance-ids
+  type: string-array
+  required: false
+  sdk-field: instanceIds
+  description: |-
+    Instance IDs.
+    You can query up to 100 instances in each request.
+- name: zone-id
+  type: string
+  required: false
+  sdk-field: zoneId
+  description: Zone ID to which the instances belong.
+- name: image-id
+  type: string
+  required: false
+  sdk-field: imageId
+  description: Image ID.
+- name: ipv4-address
+  type: string
+  required: false
+  sdk-field: ipv4Address
+  description: IPv4 addresses.
+- name: ipv6-address
+  type: string
+  required: false
+  sdk-field: ipv6Address
+  description: IPv6 addresses.
+- name: status
+  type: enum
+  required: false
+  sdk-field: status
+  description: Instance status.
+  enum-values:
+  - value: DEPLOYING
+    desc: Creating.
+  - value: REBUILDING
+    desc: Rebuilding.
+  - value: REBOOT
+    desc: Rebooting.
+  - value: RUNNING
+    desc: Running.
+  - value: STOPPED
+    desc: Powered off.
+  - value: BOOTING
+    desc: Powered on.
+  - value: RELEASING
+    desc: Releasing.
+  - value: STOPPING
+    desc: Powering off.
+  - value: RECYCLE
+    desc: Recycled.
+  - value: RECYCLING
+    desc: Recycling.
+  - value: CREATE_FAILED
+    desc: Creating failed.
+  - value: IMAGING
+    desc: Image creating.
+  - value: RESIZING
+    desc: Resizing.
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: Instance name.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    Number of items in the current page result.
+    Maximum value: 1000.
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: Number of pages returned.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: Resource Group ID.
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    Query using tag keys.
+    A maximum of 20 tag keys can be used.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    Query using tags.
+    A maximum of 20 tags can be used.
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'

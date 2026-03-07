@@ -1,0 +1,23 @@
+name: AssignBorderGateway
+product: zec
+use: assign-border-gateway
+short: 边界网关绑定NAT网关。
+long: 边界网关绑定NAT网关。
+examples:
+- cmd: zeno zec assign-border-gateway --zbg-id <zbgId> --nat-id <natId>
+  desc: 边界网关绑定NAT网关。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: AssignBorderGateway
+parameters:
+- name: zbg-id
+  type: string
+  required: true
+  sdk-field: zbgId
+  description: 边界网关ID。
+- name: nat-id
+  type: string
+  required: true
+  sdk-field: natId
+  description: NAT网关ID。

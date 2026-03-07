@@ -1,0 +1,20 @@
+name: StartInstances
+product: bmc
+use: start-instances
+short: Starts one or more instances.
+long: start instances.
+examples:
+- cmd: zeno bmc start-instances --instance-ids instanceId1 --instance-ids instanceId2
+  desc: Start two instances with specified IDs
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: StartInstances
+parameters:
+- name: instance-ids
+  type: string-array
+  required: true
+  sdk-field: instanceIds
+  description: |-
+    Instance ID(s).
+    To obtain the instance IDs, you can call DescribeInstances and look for instanceId in the response. The maximum number of instances in each request is 100.

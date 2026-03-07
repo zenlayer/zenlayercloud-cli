@@ -1,0 +1,151 @@
+name: CreateListener
+product: zlb
+use: create-listener
+short: Creates a load balance listener.
+long: create a load balance listener.
+examples:
+- cmd: zeno zlb create-listener --load-balancer-id <loadBalancerId> --listener-name sample --protocol TCP --scheduler mh --port 8080-9000,8000
+  desc: Create a TCP load balance listener to listen to ports `8080-9000` and `8000` without enabling health check.
+- cmd: zeno zlb create-listener --load-balancer-id <loadBalancerId> --listener-name sample --protocol TCP --scheduler mh --port 8080
+  desc: Create a TCP load balance listener and enable health check at the same time.
+sdk:
+  service: zlb
+  version: '2025-04-01'
+  action: CreateListener
+parameters:
+- name: load-balancer-id
+  type: string
+  required: true
+  sdk-field: loadBalancerId
+  description: Load balance instance ID.
+- name: listener-name
+  type: string
+  required: true
+  sdk-field: listenerName
+  description: |-
+    Name of the listener to be created.
+    Only letters, numbers, hyphens (-), and periods (.) are supported, and the beginning and end must be letters or numbers.
+- name: health-check
+  type: object
+  required: false
+  sdk-field: healthCheck
+  description: |-
+    Parameters related to health check.
+    If this parameter is not passed or healthCheck.enable = false, the health check will be disabled.
+  object-schema:
+  - name: enabled
+    type: boolean
+    description: Whether to enable health check.
+  - name: checkType
+    type: enum
+    description: |-
+      Health check protocols.
+      When health check is enabled, the value is required.
+  - name: checkPort
+    type: integer
+    description: |-
+      Health check port.
+      Defaults to the backend server port. Unless you need a specific port, it is recommended to leave this field empty.
+      Optional range: [1, 65535].
+  - name: checkDelayLoop
+    type: integer
+    description: |-
+      Health check interval.
+      Unit: seconds.
+      Optional range: [3, 30].
+      Default: 3.
+  - name: checkConnTimeout
+    type: integer
+    description: |-
+      Health check timeout period.
+      Unit: seconds.
+      Optional range: [1, 15].
+      Default: 2.
+  - name: checkRetry
+    type: integer
+    description: |-
+      Health check retry count.
+      Optional range: [1, 5].
+      Default: 2.
+  - name: checkDelayTry
+    type: integer
+    description: |-
+      Interval between health check retries.
+      Unit: seconds.
+      Optional range: [1, 15].
+      Default: 2.
+  - name: checkHttpGetUrl
+    type: string
+    description: |-
+      Health check path.
+      Applicable only for the HTTP_GET protocol.
+      If specified, it must start with a forward slash (/).
+  - name: checkHttpStatusCode
+    type: integer
+    description: |-
+      Health check status code.
+      Applicable only for the HTTP_GET protocol.
+      Optional range: [100, 599].
+  - name: failOpen
+    type: boolean
+    description: If all backends fail health checks, the load balancer will fail open and continue forwarding traffic to all servers to maintain service continuity.
+- name: protocol
+  type: enum
+  required: true
+  sdk-field: protocol
+  description: Listening protocols.
+  enum-values:
+  - value: TCP
+    desc: TCP protocol.
+  - value: UDP
+    desc: UDP protocol.
+- name: scheduler
+  type: enum
+  required: true
+  sdk-field: scheduler
+  description: Listening forwarding rules.
+  enum-values:
+  - value: mh
+    desc: Maglev Hashing (mh).
+  - value: rr
+    desc: Round Robin (rr).
+  - value: wrr
+    desc: Weighted Round Robin (wrr).
+  - value: lc
+    desc: Least Connections (lc).
+  - value: wlc
+    desc: Weighted Least Connections (wlc).
+  - value: sh
+    desc: Source Hashing (sh).
+  - value: dh
+    desc: Destination Hashing (dh).
+- name: port
+  type: string
+  required: true
+  sdk-field: port
+  description: |-
+    Listening port.
+    Multiple ports are separated by commas.
+    When the port is a range, connect with -, for example: 10000-10005.
+    The value range of the port is 1 to 65535.
+    Please note that the port cannot overlap with other ports of the listener.
+- name: kind
+  type: enum
+  required: false
+  sdk-field: kind
+  description: |-
+    Forwarding mode.
+    If this parameter is not specified, a default value will be applied according to the region where the load balancer instance resides.
+    Default value: DNAT or FNAT.
+  enum-values:
+  - value: FNAT
+    desc: Full NAT.
+  - value: DR
+    desc: Direct Routing.
+  - value: DNAT
+    desc: Destination NAT.
+- name: persistent
+  type: integer
+  required: false
+  sdk-field: persistent
+  description: Session persistence duration, in seconds.

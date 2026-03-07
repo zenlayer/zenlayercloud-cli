@@ -1,0 +1,76 @@
+name: CreateAutoSnapshotPolicy
+product: zec
+use: create-auto-snapshot-policy
+short: 创建自动快照策略。
+long: 创建一个自动快照策略。
+examples:
+- cmd: zeno zec create-auto-snapshot-policy --zone-id asia-east-1a --auto-snapshot-policy-name week3-policy --repeat-week-days 3 --hours 0 --retention-days 10
+  desc: 创建自动快照策略。该策略为每周三0点执行。保留时间10天。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CreateAutoSnapshotPolicy
+parameters:
+- name: zone-id
+  type: string
+  required: true
+  sdk-field: zoneId
+  description: 可用区ID。
+- name: auto-snapshot-policy-name
+  type: string
+  required: true
+  sdk-field: autoSnapshotPolicyName
+  description: |-
+    自动快照策略的名称。
+    范围2到63个字符。
+    仅支持输入字母、数字、-/_和英文句点(.)。
+    且必须以数字或字母开头和结尾。
+- name: repeat-week-days
+  type: integer-array
+  required: true
+  sdk-field: repeatWeekDays
+  description: |-
+    自动快照的重复日期。
+    单位为天，周期为星期，例如 1 表示周一。
+- name: hours
+  type: integer-array
+  required: true
+  sdk-field: hours
+  description: |-
+    指定定期快照策略的触发时间。
+    使用 UTC 时间，单位为小时。
+    00:00 ~ 23:00 共 24 个时间点可选，1表示 01:00，依此类推。
+- name: retention-days
+  type: integer
+  required: false
+  sdk-field: retentionDays
+  description: |-
+    自动快照的保留时间，单位为天。
+    如果该值设置-1，则代表永久保留。
+    默认为永久保存。
+    取值范围：-1或[1,65535]。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: 资源组ID。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    创建自动快照时关联的标签。
+    注意：·关联标签键不能重复。--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。

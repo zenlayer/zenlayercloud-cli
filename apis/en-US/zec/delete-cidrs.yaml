@@ -1,0 +1,18 @@
+name: DeleteCidrs
+product: zec
+use: delete-cidrs
+short: Deletes one or more CIDR blocks.
+long: delete one or more CIDR blocks.
+examples:
+- cmd: zeno zec delete-cidrs --cidr-ids cidrId1 --cidr-ids cidrId2
+  desc: Delete CIDR blocks in batch.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DeleteCidrs
+parameters:
+- name: cidr-ids
+  type: string-array
+  required: true
+  sdk-field: cidrIds
+  description: List of CIDR IDs.

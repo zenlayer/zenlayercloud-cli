@@ -1,0 +1,27 @@
+name: ModifyNetworkInterfacesAttribute
+product: zec
+use: modify-network-interfaces-attribute
+short: 修改网卡属性。
+long: 修改网卡的属性，目前只支持修改网卡的名称。
+examples:
+- cmd: zeno zec modify-network-interfaces-attribute --nic-ids your-nic-id --name xxx
+  desc: 批量修改网卡名称。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyNetworkInterfacesAttribute
+parameters:
+- name: nic-ids
+  type: string-array
+  required: true
+  sdk-field: nicIds
+  description: 需要修改的网卡ID列表。
+- name: name
+  type: string
+  required: true
+  sdk-field: name
+  description: |-
+    名称。
+    范围2到63个字符。
+    仅支持输入字母、数字、-/_和英文句点(.)。
+    且必须以数字或字母开头和结尾。

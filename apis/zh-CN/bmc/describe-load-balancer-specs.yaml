@@ -1,0 +1,30 @@
+name: DescribeLoadBalancerSpecs
+product: bmc
+use: describe-load-balancer-specs
+short: 查询可用区节点下可用的负载均衡规格列表。
+long: 查询可用区节点下可用的负载均衡规格列表。
+examples:
+- cmd: zeno bmc describe-load-balancer-specs --zone-id HKG-A --charge-type POSTPAID
+  desc: 查询后付费HKG-A节点支持的规格列表。
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DescribeLoadBalancerSpecs
+parameters:
+- name: charge-type
+  type: enum
+  required: true
+  sdk-field: chargeType
+  description: |-
+    付费类型。
+    PREPAID：预付费，即包年包月 POSTPAID：后付费。
+  enum-values:
+  - value: POSTPAID
+    desc: 后付费。即按量付费。
+  - value: PREPAID
+    desc: 预付费。
+- name: zone-id
+  type: string
+  required: true
+  sdk-field: zoneId
+  description: 可用区的节点ID。

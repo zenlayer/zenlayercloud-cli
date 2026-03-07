@@ -1,0 +1,28 @@
+name: ModifySubnetsAttribute
+product: bmc
+use: modify-subnets-attribute
+short: Modifies the information about subnets.
+long: The API is used to modify the attributes of one or more subnets. Only the subnet name to be displayed can be modified for now.
+examples:
+- cmd: zeno bmc modify-subnets-attribute --subnet-ids 827235796401527000 --subnet-name 123
+  desc: ''
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: ModifySubnetsAttribute
+parameters:
+- name: subnet-name
+  type: string
+  required: true
+  sdk-field: subnetName
+  description: |-
+    Subnet name to be displayed.
+    This parameter can contain up to 64 characters. Only letters, numbers, - and periods (.) are supported.
+- name: subnet-ids
+  type: string-array
+  required: true
+  sdk-field: subnetIds
+  description: |-
+    Subnet ID(s).
+    To obtain the subnet IDs, you can call DescribeSubnets and look for subnetId in the response.
+    The maximum number of subnets in each request is 100.

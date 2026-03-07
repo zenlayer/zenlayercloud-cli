@@ -1,0 +1,21 @@
+name: ReleaseCidrBlocks
+product: bmc
+use: release-cidr-blocks
+short: Releases one or more CIDR blocks
+long: release one or more IPv4 CIDR blocks.
+examples:
+- cmd: zeno bmc release-cidr-blocks --cidr-block-ids cidrBlockId1 --cidr-block-ids cidrBlockId2
+  desc: ''
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: ReleaseCidrBlocks
+parameters:
+- name: cidr-block-ids
+  type: string-array
+  required: true
+  sdk-field: cidrBlockIds
+  description: |-
+    CIDR block ID(s).
+    To obtain the CIDR block IDs, you can call DescribeCidrBlocks and look for cidrBlockId in the response.
+    The maximum number of CIDR blocks in each request is 100.

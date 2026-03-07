@@ -1,0 +1,78 @@
+name: InquiryBandwidthClusterPrice
+product: traffic
+use: inquiry-bandwidth-cluster-price
+short: Queries the price of the bandwidth cluster.
+long: query the price of the bandwidth cluster.
+examples:
+- cmd: zeno traffic inquiry-bandwidth-cluster-price --area-code SHA --charge-type POSTPAID --commit-bandwidth-mbps 100 --network-type BGP --internet-charge-type MonthlyPercent95Bandwidth
+  desc: Query the price of the bandwidth cluster in Shanghai (SHA), with a bandwidth cluster of `100` Mbps, `BGP` network type and `Monthly Burstable 95th` billing method.
+sdk:
+  service: traffic
+  version: '2024-03-26'
+  action: InquiryBandwidthClusterPrice
+parameters:
+- name: area-code
+  type: string
+  required: true
+  sdk-field: areaCode
+  description: |-
+    Location of bandwidth cluster.
+    To obtain code, you can call DescribeBandwidthClusterAreas, and find areaCode in the response.
+- name: commit-bandwidth-mbps
+  type: integer
+  required: false
+  sdk-field: commitBandwidthMbps
+  description: |-
+    Bandwidth cluster.
+    Unit: Mbps.
+    Available range: [0, 100000].
+    Default value: 0.
+- name: network-type
+  type: enum
+  required: false
+  sdk-field: networkType
+  description: IP network type.
+  enum-values:
+  - value: BGP
+    desc: BGP network.
+  - value: Cogent
+    desc: Cogent network.
+  - value: CN2
+    desc: China Telecom Next Carrier Network.
+  - value: CMI
+    desc: China Mobile network.
+  - value: CUG
+    desc: China Unicom network.
+  - value: CTG
+    desc: China Telecom network.
+- name: internet-charge-type
+  type: enum
+  required: true
+  sdk-field: internetChargeType
+  description: |-
+    Network billing method.
+    The default billing method is Monthly Burstable 95th, if you need Daily Peak billing, please contact us.
+    Default value: MonthlyPercent95Bandwidth.
+  enum-values:
+  - value: MonthlyPercent95Bandwidth
+    desc: Monthly Burstable 95th billing method.
+  - value: DayPeakBandwidth
+    desc: Daily Peak billing method.
+- name: product
+  type: enum
+  required: false
+  sdk-field: product
+  description: Service type covered by the bandwidth cluster.
+  enum-values:
+  - value: AllProduct
+    desc: |-
+      All compute services.
+      This service type maybe unavailable in the future.
+  - value: BMC
+    desc: Bare metal service.
+  - value: ZEC
+    desc: Elastic compute service.
+  - value: VM
+    desc: Virtual machine service.
+  - value: OFFLINE
+    desc: Offline serveice.

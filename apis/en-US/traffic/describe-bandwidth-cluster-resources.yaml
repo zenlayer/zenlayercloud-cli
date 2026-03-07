@@ -1,0 +1,18 @@
+name: DescribeBandwidthClusterResources
+product: traffic
+use: describe-bandwidth-cluster-resources
+short: Queries resources in a bandwidth cluster.
+long: query resources in a bandwidth cluster.
+examples:
+- cmd: zeno traffic describe-bandwidth-cluster-resources --bandwidth-cluster-id <bandwidthClusterId>
+  desc: Query resources in a bandwidth cluster.
+sdk:
+  service: traffic
+  version: '2024-03-26'
+  action: DescribeBandwidthClusterResources
+parameters:
+- name: bandwidth-cluster-id
+  type: string
+  required: true
+  sdk-field: bandwidthClusterId
+  description: Bandwidth cluster ID.

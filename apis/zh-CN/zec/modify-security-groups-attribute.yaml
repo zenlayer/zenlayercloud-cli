@@ -1,0 +1,26 @@
+name: ModifySecurityGroupsAttribute
+product: zec
+use: modify-security-groups-attribute
+short: 修改安全组的属性。
+long: 修改安全组的属性（目前只支持修改安全组的名称）。
+examples:
+- cmd: zeno zec modify-security-groups-attribute --security-group-ids <securityGroupId> --security-group-name Test-SecurityGroup
+  desc: 修改安全组的名称。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifySecurityGroupsAttribute
+parameters:
+- name: security-group-name
+  type: string
+  required: true
+  sdk-field: securityGroupName
+  description: |-
+    安全组名称。
+    范围2到63个字符。
+    仅支持输入字母、数字、-和英文句点(.)。
+- name: security-group-ids
+  type: string-array
+  required: true
+  sdk-field: securityGroupIds
+  description: 要操作的安全组ID列表。

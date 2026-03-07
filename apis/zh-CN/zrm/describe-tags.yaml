@@ -1,0 +1,57 @@
+name: DescribeTags
+product: zrm
+use: describe-tags
+short: 标签分页列表
+long: 获取某个资源下绑定的所有标签列表。
+examples:
+- cmd: zeno zrm describe-tags --page-num 1 --page-size 20 --created-date-sort ascend --tag-keys tagKeys_0a847c6582a7 --tags "{key=key_e8a77c6a9fab, value=value_b1c085a59870}"
+  desc: 获取一页标签集合
+sdk:
+  service: zrm
+  version: '2025-10-14'
+  action: DescribeTags
+parameters:
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: 页码。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: 每页面展示数量。
+- name: key-sort
+  type: string
+  required: false
+  sdk-field: keySort
+  description: 标签键排序方式：ascend（正序），descend（倒序）。
+- name: created-date-sort
+  type: string
+  required: false
+  sdk-field: createdDateSort
+  description: |-
+    创建时间排序方式：ascend（正序），descend（倒序）。
+    默认倒序。
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: 筛选的标签键集合。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: 筛选的标签集合。
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。

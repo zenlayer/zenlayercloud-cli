@@ -1,0 +1,62 @@
+name: ModifyDhcpOptionsSetAttributes
+product: zec
+use: modify-dhcp-options-set-attributes
+short: 修改DHCP选项集配置信息
+long: 修改DHCP选项集配置信息。
+examples:
+- cmd: zeno zec modify-dhcp-options-set-attributes --dhcp-options-set-id dhcpOptionsSetId1 --dhcp-options-set-name dhcpOptionsSetName1
+  desc: 修改DHCP选项集配置信息
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyDhcpOptionsSetAttributes
+parameters:
+- name: dhcp-options-set-id
+  type: string
+  required: true
+  sdk-field: dhcpOptionsSetId
+  description: DHCP 选项集ID。
+- name: dhcp-options-set-name
+  type: string
+  required: false
+  sdk-field: dhcpOptionsSetName
+  description: |-
+    DHCP 选项集的名称。
+    长度为1～64个字符。
+- name: domain-name-servers
+  type: string
+  required: false
+  sdk-field: domainNameServers
+  description: |-
+    DNS 服务器 IP。
+    最多传入 4 个 DNS 服务器 Ipv4，DNS 服务器 IP 之间用半角逗号（,）隔开。
+- name: ipv6-domain-name-servers
+  type: string
+  required: false
+  sdk-field: ipv6DomainNameServers
+  description: |-
+    DNS 服务器 IP。
+    最多传入 4 个 DNS 服务器 Ipv6，DNS 服务器 IP 之间用半角逗号（,）隔开。
+- name: lease-time
+  type: string
+  required: false
+  sdk-field: leaseTime
+  description: |-
+    IPv4 DHCP 选项集的租赁时间。
+    单位：h。
+    取值范围：**24~1176**，**87600~175200**。
+- name: ipv6-lease-time
+  type: string
+  required: false
+  sdk-field: ipv6LeaseTime
+  description: |-
+    IPv6 DHCP 选项集的租赁时间。
+    单位：h。
+    取值范围：**24~1176**，**87600~175200**。
+- name: description
+  type: string
+  required: false
+  sdk-field: description
+  description: |-
+    DHCP选项集 描述信息。
+    最长不超过255个字符。

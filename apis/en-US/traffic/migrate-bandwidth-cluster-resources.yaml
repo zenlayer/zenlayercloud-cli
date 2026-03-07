@@ -1,0 +1,25 @@
+name: MigrateBandwidthClusterResources
+product: traffic
+use: migrate-bandwidth-cluster-resources
+short: Migrates resources between bandwidth clusters.
+long: migrate resources between bandwidth clusters.
+examples:
+- cmd: zeno traffic migrate-bandwidth-cluster-resources --resource-id-list <id1> --resource-id-list <id2> --target-bandwidth-cluster-id <targetBandwidthClusterId>
+  desc: Migrate resources to a specified target bandwidth cluster.
+sdk:
+  service: traffic
+  version: '2024-03-26'
+  action: MigrateBandwidthClusterResources
+parameters:
+- name: target-bandwidth-cluster-id
+  type: string
+  required: true
+  sdk-field: targetBandwidthClusterId
+  description: Target bandwidth cluster ID.
+- name: resource-id-list
+  type: string-array
+  required: true
+  sdk-field: resourceIdList
+  description: |-
+    IDs of resources to migrate.
+    Resources must belong to a different bandwidth cluster, and networkType and areaCode of the original bandwidth cluster must match those of the target cluster.

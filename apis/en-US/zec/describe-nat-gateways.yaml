@@ -1,0 +1,87 @@
+name: DescribeNatGateways
+product: zec
+use: describe-nat-gateways
+short: Queries the NAT gateway list.
+long: query the NAT gateway list.
+examples:
+- cmd: zeno zec describe-nat-gateways
+  desc: Query the NAT gateway list.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeNatGateways
+parameters:
+- name: region-id
+  type: string
+  required: false
+  sdk-field: regionId
+  description: Region ID.
+- name: vpc-id
+  type: string
+  required: false
+  sdk-field: vpcId
+  description: Filter by VPC network ID to which the NAT gateway belongs.
+- name: nat-gateway-ids
+  type: string-array
+  required: false
+  sdk-field: natGatewayIds
+  description: |-
+    NAT gateway ID list.
+    The maximum number of instance IDs is 100 .
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: NAT gateway name.
+- name: status
+  type: string
+  required: false
+  sdk-field: status
+  description: NAT gateway state.
+- name: security-group-id
+  type: string
+  required: false
+  sdk-field: securityGroupId
+  description: Filter by the security group ID to which the NAT gateway belongs.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    Number of items in the current page result.
+    Default value: 20 ;
+    Maximum value: 1000 .
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    Page number of the current page result.
+    Default value: 1 .
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: Resource Group ID.
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    Query using tag keys.
+    A maximum of 20 tag keys can be used.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    Query using tags.
+    A maximum of 20 tags can be used.
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'

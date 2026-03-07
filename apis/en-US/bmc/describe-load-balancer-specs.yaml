@@ -1,0 +1,31 @@
+name: DescribeLoadBalancerSpecs
+product: bmc
+use: describe-load-balancer-specs
+short: Queries the list of available load balancer specifications in the zone.
+long: query the list of available load balancer specifications in the zone.
+examples:
+- cmd: zeno bmc describe-load-balancer-specs --zone-id HKG-A --charge-type POSTPAID
+  desc: Query the list of specifications of pay-as-you-go instances supported in HKG-A.
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DescribeLoadBalancerSpecs
+parameters:
+- name: charge-type
+  type: enum
+  required: true
+  sdk-field: chargeType
+  description: |-
+    Pricing model.
+    PREPAID : subscription;
+    POSTPAID : pay-as-you-go.
+  enum-values:
+  - value: POSTPAID
+    desc: Pay-as-you-go.
+  - value: PREPAID
+    desc: Subscription.
+- name: zone-id
+  type: string
+  required: true
+  sdk-field: zoneId
+  description: The zone ID.

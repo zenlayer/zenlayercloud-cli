@@ -1,0 +1,32 @@
+name: AddLoadBalancersPrivateIps
+product: zlb
+use: add-load-balancers-private-ips
+short: Adds private IPs to a load balancer.
+long: add private IPs to a load balancer.
+examples:
+- cmd: zeno zlb add-load-balancers-private-ips --private-ips 10.0.0.0 --load-balancer-id "<your lb id>" --subnet-id "<your subnet id>"
+  desc: Add private IPs to a load balancer.
+sdk:
+  service: zlb
+  version: '2025-04-01'
+  action: AddLoadBalancersPrivateIps
+parameters:
+- name: private-ips
+  type: string-array
+  required: true
+  sdk-field: privateIps
+  description: |-
+    The private IPs to be added.
+    You can add up to 20 private IPs at a time.
+- name: load-balancer-id
+  type: string
+  required: true
+  sdk-field: loadBalancerId
+  description: Load balancer ID.
+- name: subnet-id
+  type: string
+  required: true
+  sdk-field: subnetId
+  description: |-
+    Subnet ID of the private IPs.
+    You can call DescribeSubnets to obtain details.

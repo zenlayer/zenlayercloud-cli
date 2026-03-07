@@ -1,0 +1,71 @@
+name: CreateVpc
+product: zec
+use: create-vpc
+short: 创建全球VPC。
+long: 创建全球VPC。
+examples:
+- cmd: zeno zec create-vpc --name vpcXXX --cidr-block 10.0.0.0/9 --mtu 1300
+  desc: 创建VPC。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CreateVpc
+parameters:
+- name: name
+  type: string
+  required: true
+  sdk-field: name
+  description: |-
+    VPC的名称。
+    范围2到63个字符。
+    仅支持输入字母、数字、-和英文句点(.)。
+    且必须以数字或字母开头和结尾。
+- name: cidr-block
+  type: string
+  required: true
+  sdk-field: cidrBlock
+  description: |-
+    VPC的CIDR地址段。
+    需要满足以下4种内网段内(10.0.0.0/9, 10.128.0.0/9, 172.16.0.0/12以及192.168.0.0/16)。
+- name: mtu
+  type: integer
+  required: true
+  sdk-field: mtu
+  description: |-
+    VPC的传输单元 MTU。
+    支持：1300、1500、9000。
+- name: enable-pri-ipv6
+  type: boolean
+  required: false
+  sdk-field: enablePriIpv6
+  description: |-
+    是否开启内网IPv6。
+    一旦开启，后续无法关闭。
+    默认为关闭。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    VPC所在的资源组ID。
+    如果不指定资源组，则会放到默认的资源组中。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    创建VPC时关联的标签。
+    注意：·关联标签键不能重复。--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。

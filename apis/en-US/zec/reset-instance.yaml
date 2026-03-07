@@ -1,0 +1,67 @@
+name: ResetInstance
+product: zec
+use: reset-instance
+short: Reinstalls the operating system on an elastic compute instance.
+long: reinstall the operating system on an elastic compute instance.
+examples:
+- cmd: zeno zec reset-instance --instance-id <instanceId> --image-id ubuntu2022 --password Example+123 --enable-agent true
+  desc: Reinstall operating system.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ResetInstance
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: |-
+    Instance ID(s).
+    To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response.
+- name: password
+  type: string
+  required: false
+  sdk-field: password
+  description: |-
+    Instance password.
+    The parameter must be 8-16 characters, including:
+    lowercase letters: [a-z] uppercase letters: [A-Z] digits: 0-9 special characters: ~!@$^*-_=+|;:,.?
+    You can set either a password or a keyId , but not both; Windows and Generic images support neither option.
+- name: key-id
+  type: string
+  required: false
+  sdk-field: keyId
+  description: |-
+    SSH key pair ID. For example: key-YWD2QFOl .
+    Your SSH key pair contains several public keys that can be placed on your server. You can access your instance with the private key. Call DescribeKeyPairs to obtain key pair information.
+    You can set either a password or a keyId , but not both; Windows and Generic images support neither option.
+- name: image-id
+  type: string
+  required: false
+  sdk-field: imageId
+  description: |-
+    Specify a valid image ID.
+    To obtain valid image ID, you can call DescribeImages and look for imageId in the response. You can also reinstall it according to the original image.
+- name: timezone
+  type: string
+  required: false
+  sdk-field: timezone
+  description: If not specified, the instance will be reinstalled using its original time zone.
+- name: enable-agent
+  type: boolean
+  required: false
+  sdk-field: enableAgent
+  description: Whether QGA is enabled or not.
+- name: instance-name
+  type: string
+  required: false
+  sdk-field: instanceName
+  description: |-
+    The modified instance name.
+    2–63 characters in length.
+    Only letters, numbers, hyphens (-), and periods (.) are allowed.
+- name: user-data
+  type: string
+  required: false
+  sdk-field: userData
+  description: Initialization command.

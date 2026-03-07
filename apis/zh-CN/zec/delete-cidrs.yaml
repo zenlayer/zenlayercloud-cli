@@ -1,0 +1,18 @@
+name: DeleteCidrs
+product: zec
+use: delete-cidrs
+short: 删除一个或多个IPv4 CIDR地址块。
+long: 删除一个或多个IPv4 CIDR地址块。
+examples:
+- cmd: zeno zec delete-cidrs --cidr-ids cidrId1 --cidr-ids cidrId2
+  desc: 批量删除CIDR。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DeleteCidrs
+parameters:
+- name: cidr-ids
+  type: string-array
+  required: true
+  sdk-field: cidrIds
+  description: 要删除的cidrId列表。

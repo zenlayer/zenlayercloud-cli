@@ -1,0 +1,46 @@
+name: DescribeCrossRegionBandwidthMonitorData
+product: zec
+use: describe-cross-region-bandwidth-monitor-data
+short: 查询内网跨区域带宽监控指标数据
+long: 查询内网跨区域带宽监控指标数据。
+examples:
+- cmd: zeno zec describe-cross-region-bandwidth-monitor-data --cross-region-bandwidth-id "<your cross id>" --metric-type BANDWIDTH --start-time 2025-06-25T01:55:00Z --end-time 2025-06-25T02:05:00Z
+  desc: 查询某段时间的内网跨区域带宽类型为"BANDWIDTH"的监控指标数据。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeCrossRegionBandwidthMonitorData
+parameters:
+- name: cross-region-bandwidth-id
+  type: string
+  required: true
+  sdk-field: crossRegionBandwidthId
+  description: 要查询的内网跨区域带宽ID。
+- name: metric-type
+  type: enum
+  required: true
+  sdk-field: metricType
+  description: 内网跨区域带宽监控指标类型。
+  enum-values:
+  - value: BANDWIDTH
+    desc: |-
+      带宽类型。
+      单位bps。
+  - value: PACKETS
+    desc: |-
+      数据包类型。
+      单位pps。
+- name: start-time
+  type: string
+  required: true
+  sdk-field: startTime
+  description: |-
+    查询开始时间。
+    时间格式：yyyy-MM-ddTHH:mm:ssZ。
+- name: end-time
+  type: string
+  required: true
+  sdk-field: endTime
+  description: |-
+    查询结束时间。
+    时间格式：yyyy-MM-ddTHH:mm:ssZ。

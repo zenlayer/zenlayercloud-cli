@@ -1,0 +1,150 @@
+name: DescribeInstances
+product: bmc
+use: describe-instances
+short: Queries the details of one or more instances.
+long: query the details of instances. You can filter the query results with the instance ID, name, or billing method.
+examples:
+- cmd: zeno bmc describe-instances --page-num 1 --page-size 1
+  desc: ''
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DescribeInstances
+parameters:
+- name: instance-ids
+  type: string-array
+  required: false
+  sdk-field: instanceIds
+  description: |-
+    Instance IDs.
+    You can query up to 100 instances in each request.
+- name: zone-id
+  type: string
+  required: false
+  sdk-field: zoneId
+  description: Zone ID to which the instances belong.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    Resource group ID.
+    If the value is null, then return all the instances in the authorized resource groups.
+- name: instance-type-id
+  type: string
+  required: false
+  sdk-field: instanceTypeId
+  description: Instance model ID.btain the latest specification.
+- name: internet-charge-type
+  type: enum
+  required: false
+  sdk-field: internetChargeType
+  description: Network pricing model.
+  enum-values:
+  - value: ByBandwidth
+    desc: Billed by the flat rate bandwidth.
+  - value: ByTrafficPackage
+    desc: Billed by the traffic package size purchased.
+  - value: ByInstanceBandwidth95
+    desc: Burstable 95th billing.
+  - value: ByClusterBandwidth95
+    desc: Billed by the burstable 95th bandwidth of instances in a city-based bandwidth cluster.
+  - value: ByBandwidthCluster
+    desc: Billed by the burstable 95th bandwidth of all compute resources in a city-based or regional bandwidth cluster with a shared commitment.
+- name: image-id
+  type: string
+  required: false
+  sdk-field: imageId
+  description: Image ID.
+- name: subnet-id
+  type: string
+  required: false
+  sdk-field: subnetId
+  description: Subnet ID.uery information on subnet.
+- name: instance-status
+  type: enum
+  required: false
+  sdk-field: instanceStatus
+  description: Instance status.
+  enum-values:
+  - value: PENDING
+    desc: To be created.
+  - value: CREATING
+    desc: Creating.
+  - value: CREATE_FAILED
+    desc: Creating failed.
+  - value: INSTALLING
+    desc: Installing.
+  - value: INSTALL_FAILED
+    desc: Installing failed.
+  - value: RUNNING
+    desc: Running.
+  - value: STOPPED
+    desc: Powered off.
+  - value: BOOTING
+    desc: Powered on.
+  - value: STOPPING
+    desc: Powering off.
+  - value: RECYCLE
+    desc: Recycled.
+- name: instance-name
+  type: string
+  required: false
+  sdk-field: instanceName
+  description: |-
+    Instance name.
+    If the value ends with * , a fuzzy match will be performed on instanceName, otherwise an exact match will be performed.
+- name: hostname
+  type: string
+  required: false
+  sdk-field: hostname
+  description: |-
+    Instance hostname.
+    If the value ends with * , a fuzzy match will be performed on hostname, otherwise an exact match will be performed.
+- name: public-ip-addresses
+  type: string-array
+  required: false
+  sdk-field: publicIpAddresses
+  description: List of public IPs of the instance.
+- name: private-ip-addresses
+  type: string-array
+  required: false
+  sdk-field: privateIpAddresses
+  description: List of private IPs of the instance.
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    Number of pages returned.
+    Default value: 1
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    Number of items in the current page result.
+    Default value: 20
+    Maximum value: 1000
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    Query according to tag key.
+    You can query up to 20 tag keys in each request.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    Query according to tag.
+    You can query up to 20 tags in each request.
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 128 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 128 characters.'

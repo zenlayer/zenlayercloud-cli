@@ -1,0 +1,69 @@
+name: DescribeLoadBalancers
+product: bmc
+use: describe-load-balancers
+short: 查询一台或多台指定负载均衡实例的信息。
+long: 查询一台或多台指定负载均衡实例的信息。用户可以根据负载均衡实例的ID、可用区等信息来搜索负载均衡实例的信息。
+examples:
+- cmd: zeno bmc describe-load-balancers --load-balancer-ids xxxx
+  desc: 根据ID查询负载均衡实例的信息。
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DescribeLoadBalancers
+parameters:
+- name: load-balancer-ids
+  type: string-array
+  required: false
+  sdk-field: loadBalancerIds
+  description: 负载均衡实例ID集合。
+- name: zone-id
+  type: string
+  required: false
+  sdk-field: zoneId
+  description: 可用区 ID。
+- name: load-balancer-name
+  type: string
+  required: false
+  sdk-field: loadBalancerName
+  description: 负载均衡实例的名称。支持模糊搜索。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: 返回的分页数。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: 返回的分页大小。默认为20，最大为1000。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: 资源组ID。
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    根据标签键进行搜索。
+    最长不得超过20个标签键。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    根据标签进行搜索。
+    最长不得超过20个标签。
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～128字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～128字符。

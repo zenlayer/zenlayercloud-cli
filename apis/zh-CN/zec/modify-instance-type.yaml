@@ -1,0 +1,23 @@
+name: ModifyInstanceType
+product: zec
+use: modify-instance-type
+short: 变更实例的规格
+long: 变更实例的规格
+examples:
+- cmd: zeno zec modify-instance-type --instance-id instanceId --instance-type z2a.cpu.4
+  desc: 变更实例的规格。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyInstanceType
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: 要变更的实例ID。
+- name: instance-type
+  type: string
+  required: true
+  sdk-field: instanceType
+  description: 变更的目标实例规格。

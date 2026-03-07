@@ -1,0 +1,12 @@
+name: DescribeBandwidthClusterAreas
+product: traffic
+use: describe-bandwidth-cluster-areas
+short: Queries the location information of the bandwidth cluster.
+long: query the location information of the bandwidth cluster.
+examples:
+- cmd: zeno traffic describe-bandwidth-cluster-areas
+  desc: Query the location information of the bandwidth cluster.
+sdk:
+  service: traffic
+  version: '2024-03-26'
+  action: DescribeBandwidthClusterAreas

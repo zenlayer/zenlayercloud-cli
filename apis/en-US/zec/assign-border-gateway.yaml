@@ -1,0 +1,23 @@
+name: AssignBorderGateway
+product: zec
+use: assign-border-gateway
+short: Binds a NAT gateway to a border gateway.
+long: bind a NAT gateway to a border gateway.
+examples:
+- cmd: zeno zec assign-border-gateway --zbg-id xxx --nat-id xxx
+  desc: Bind a NAT gateway to a border gateway.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: AssignBorderGateway
+parameters:
+- name: zbg-id
+  type: string
+  required: true
+  sdk-field: zbgId
+  description: Border gateway ID.
+- name: nat-id
+  type: string
+  required: true
+  sdk-field: natId
+  description: NAT gateway ID.

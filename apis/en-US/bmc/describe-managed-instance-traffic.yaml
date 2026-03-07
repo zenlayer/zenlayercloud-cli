@@ -1,0 +1,32 @@
+name: DescribeManagedInstanceTraffic
+product: bmc
+use: describe-managed-instance-traffic
+short: Queries the data transfer in the specified date range.
+long: query the data transfer in the specified date range.
+examples:
+- cmd: zeno bmc describe-managed-instance-traffic --instance-id instanceId --start-time 2023-01-01T00:00:00Z --end-time 2023-01-01T23:59:59Z
+  desc: Query the data transfer of the instance in one day.
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DescribeManagedInstanceTraffic
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: Instance ID.
+- name: start-time
+  type: string
+  required: true
+  sdk-field: startTime
+  description: |-
+    Start time.
+    Use UTC time according to the ISO8601 standard. Format: YYYY-MM-ddTHH:mm:ssZ .
+- name: end-time
+  type: string
+  required: true
+  sdk-field: endTime
+  description: |-
+    End time.
+    Use UTC time according to the ISO8601 standard. Format: YYYY-MM-ddTHH:mm:ssZ .

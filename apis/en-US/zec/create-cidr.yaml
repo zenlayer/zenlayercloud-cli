@@ -1,0 +1,122 @@
+name: CreateCidr
+product: zec
+use: create-cidr
+short: Creates a CIDR block.
+long: create a CIDR block.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CreateCidr
+parameters:
+- name: region-id
+  type: string
+  required: true
+  sdk-field: regionId
+  description: Region ID.
+- name: eip-v4-type
+  type: enum
+  required: false
+  sdk-field: eipV4Type
+  description: |-
+    Network types of public IPv4.
+    Deprecated. Please use networkLineType instead.
+  deprecated: true
+  enum-values:
+  - value: BGPLine
+    desc: BGP network type.
+  - value: CN2Line
+    desc: CN2 GIA (CN2 Global Internet Access) network type.
+  - value: LocalLine
+    desc: Local IP network type.
+  - value: ChinaMobile
+    desc: China Mobile network type.
+  - value: ChinaUnicom
+    desc: China Unicom network type.
+  - value: ChinaTelecom
+    desc: China Telecom network type.
+  - value: Cogent
+    desc: Cogent Communications network type.
+  - value: ThreeLine
+    desc: 3-in-1 IP pool network type.
+- name: network-line-type
+  type: enum
+  required: false
+  sdk-field: networkLineType
+  description: Network types of public IPv4.
+  enum-values:
+  - value: PremiumBGP
+    desc: |-
+      Premium BGP network.
+      High-performance network.
+  - value: CN2
+    desc: China Telecom CN2 network.
+  - value: LocalLine
+    desc: Provided by a local ISP.
+  - value: StandardBGP
+    desc: |-
+      Standard BGP network.
+      General-purpose network with cost optimization.
+  - value: CMI
+    desc: 1-Line IP China Mobile.
+  - value: CUG
+    desc: 1-Line IP China Unicom.
+  - value: CTG
+    desc: 1-Line IP China Telecom.
+  - value: ThreeLine
+    desc: 3-in-1 IP Pool.
+- name: netmask
+  type: object
+  required: true
+  sdk-field: netmask
+  description: CIDR block size and quantity.
+  object-schema:
+  - name: netmask
+    type: integer
+    description: CIDR block size.
+  - name: amount
+    type: integer
+    description: CIDR block quantity.
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: |-
+    CIDR block name.
+    Length: 2–63 characters. Allowed characters: letters (A–Z, a–z), numbers (0–9), hyphen ( - ), slash ( / ), underscore ( _ ), and period ( . ) Must start and end with a letter or number. If not specified, the assigned CIDR address will be used as the default name.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: Resource group ID.
+- name: marketing-options
+  type: object
+  required: false
+  sdk-field: marketingOptions
+  description: Information on marketing campaigns.
+  object-schema:
+  - name: discountCode
+    type: string
+    description: |-
+      Promo Code.
+      If no Promo Code exists, the final discount will not apply.
+  - name: usePocVoucher
+    type: boolean
+    description: |-
+      Whether to use POC voucher.
+      If no POC voucher exists, the related creation will fail.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    Bound tags when creating the cidr block.
+    Tag keys must be unique.--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'

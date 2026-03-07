@@ -1,0 +1,52 @@
+name: ModifyNatGatewayAttribute
+product: zec
+use: modify-nat-gateway-attribute
+short: 修改NAT网关的属性。
+long: 修改NAT网关的属性。
+examples:
+- cmd: zeno zec modify-nat-gateway-attribute --nat-gateway-id natGatewayId --subnet-ids subnetId1 --subnet-ids subnetId2
+  desc: 修改NAT网关属性, 修改指定的子网。
+- cmd: zeno zec modify-nat-gateway-attribute --nat-gateway-id natGatewayId --is-all-subnets true
+  desc: 修改NAT网关属性, 修改为全部子网。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyNatGatewayAttribute
+parameters:
+- name: nat-gateway-id
+  type: string
+  required: true
+  sdk-field: natGatewayId
+  description: NAT网关 ID。
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: |-
+    NAT网关的名称。
+    长度为2～63个字符。
+- name: subnet-ids
+  type: string-array
+  required: false
+  sdk-field: subnetIds
+  description: NAT网关的子网ID。
+- name: is-all-subnet
+  type: boolean
+  required: false
+  sdk-field: isAllSubnet
+  description: |-
+    NAT网关对应的子网是否应用所有子网。
+    该字段不能和subnetIds同时设置。
+- name: icmp-reply-enabled
+  type: boolean
+  required: false
+  sdk-field: icmpReplyEnabled
+  description: 是否开启ICMP代回。
+- name: security-group-id
+  type: string
+  required: false
+  sdk-field: securityGroupId
+  description: |-
+    修改NAT网关绑定的目标安全组ID。
+    目前一张NAT网关只能关联一个安全组。
+    指定该字段会解绑NAT网关原来的安全组。

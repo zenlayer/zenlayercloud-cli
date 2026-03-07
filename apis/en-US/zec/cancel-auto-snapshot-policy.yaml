@@ -1,0 +1,23 @@
+name: CancelAutoSnapshotPolicy
+product: zec
+use: cancel-auto-snapshot-policy
+short: Detaches a disk from the specified snapshot schedule.
+long: detach a disk from the specified snapshot schedule.
+examples:
+- cmd: zeno zec cancel-auto-snapshot-policy --auto-snapshot-policy-id <autoSnapshotPolicyId> --disk-ids <diskId>
+  desc: Detach disks from the snapshot schedule.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CancelAutoSnapshotPolicy
+parameters:
+- name: auto-snapshot-policy-id
+  type: string
+  required: true
+  sdk-field: autoSnapshotPolicyId
+  description: Snapshot schedule ID.
+- name: disk-ids
+  type: string-array
+  required: true
+  sdk-field: diskIds
+  description: ID list of disks to be detached.

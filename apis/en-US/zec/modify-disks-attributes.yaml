@@ -1,0 +1,26 @@
+name: ModifyDisksAttributes
+product: zec
+use: modify-disks-attributes
+short: Modifies the attributes of one or more disks.
+long: modify the attributes of one or more disks.
+examples:
+- cmd: zeno zec modify-disks-attributes --disk-ids your-disk-id --disk-name newDiskName
+  desc: Modify the attributes of one or more disks.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyDisksAttributes
+parameters:
+- name: disk-ids
+  type: string-array
+  required: true
+  sdk-field: diskIds
+  description: ID list of disks to be modified.
+- name: disk-name
+  type: string
+  required: true
+  sdk-field: diskName
+  description: |-
+    New disk name to be displayed.
+    The name must start with a number or a letter, containing up to 64 characters.
+    Only letters, numbers, - and periods (.) are supported.

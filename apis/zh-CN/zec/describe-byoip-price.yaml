@@ -1,0 +1,29 @@
+name: DescribeByoipPrice
+product: zec
+use: describe-byoip-price
+short: BYOIP 询价。
+long: 根据宣告 IP 段、区域、线路类型等查询 BYOIP 价格。
+examples:
+- cmd: zeno zec describe-byoip-price --byoip-list "{cidrBlock=192.0.2.0/24, networkType=PremiumBGP, regionId=asia-east-1}"
+  desc: BYOIP 询价。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeByoipPrice
+parameters:
+- name: byoip-list
+  type: object-array
+  required: true
+  sdk-field: byoipList
+  description: 待询价的 BYOIP 列表。
+  array-style: json
+  item-schema:
+  - name: cidrBlock
+    type: string
+    description: 宣告ip段。
+  - name: networkType
+    type: enum
+    description: 线路类型。
+  - name: regionId
+    type: string
+    description: 区域id。

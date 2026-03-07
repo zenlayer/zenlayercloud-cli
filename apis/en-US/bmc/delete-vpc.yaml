@@ -1,0 +1,18 @@
+name: DeleteVpc
+product: bmc
+use: delete-vpc
+short: Deletes VPC.
+long: delete a VPC.
+examples:
+- cmd: zeno bmc delete-vpc --vpc-id 835957634816289496
+  desc: ''
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DeleteVpc
+parameters:
+- name: vpc-id
+  type: string
+  required: true
+  sdk-field: vpcId
+  description: VPC ID.

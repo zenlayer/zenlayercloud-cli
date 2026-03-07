@@ -1,0 +1,61 @@
+name: DescribeManagedInstances
+product: bmc
+use: describe-managed-instances
+short: Queries the details of one or more instances.
+long: query the details of one or more instances. You can filter the query results with the instance ID, or name.
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DescribeManagedInstances
+parameters:
+- name: instance-ids
+  type: string-array
+  required: false
+  sdk-field: instanceIds
+  description: |-
+    Instance IDs.
+    You can query up to 100 instances in each request.
+- name: instance-name
+  type: string
+  required: false
+  sdk-field: instanceName
+  description: Instance name.
+- name: ip
+  type: string
+  required: false
+  sdk-field: ip
+  description: Public IP address.
+- name: lan-ip
+  type: string
+  required: false
+  sdk-field: lanIp
+  description: Public IP address.
+- name: fac-name
+  type: string
+  required: false
+  sdk-field: facName
+  description: Location name.
+- name: city-code
+  type: string
+  required: false
+  sdk-field: cityCode
+  description: City code.
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: Number of pages returned.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    Number of items in the current page result.
+    Default value: 20
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    Resource group ID.
+    If the value is null, then return all the instances in the authorized resource groups.

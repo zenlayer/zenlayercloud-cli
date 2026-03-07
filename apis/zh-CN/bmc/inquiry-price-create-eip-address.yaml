@@ -1,0 +1,58 @@
+name: InquiryPriceCreateEipAddress
+product: bmc
+use: inquiry-price-create-eip-address
+short: 创建Elastic IP询价
+long: 创建EIP询价。
+examples:
+- cmd: zeno bmc inquiry-price-create-eip-address --zone-id SEL-A --eip-charge-type POSTPAID
+  desc: EIP后付费询价
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: InquiryPriceCreateEipAddress
+parameters:
+- name: zone-id
+  type: string
+  required: true
+  sdk-field: zoneId
+  description: EIP所属的可用区ID。
+- name: eip-charge-type
+  type: enum
+  required: true
+  sdk-field: eipChargeType
+  description: |-
+    付费类型。
+    PREPAID：预付费，即包年包月。
+    POSTPAID：后付费。
+  enum-values:
+  - value: POSTPAID
+    desc: 后付费。即按量付费。
+  - value: PREPAID
+    desc: 预付费。
+- name: eip-charge-prepaid
+  type: object
+  required: false
+  sdk-field: eipChargePrepaid
+  description: |-
+    预付费模式。
+    即包年包月相关参数设置。
+    通过该参数可以指定包年包月实例的购买时长等属性。
+    若指定实例的付费模式为预付费则该参数必传。
+  object-schema:
+  - name: period
+    type: integer
+    description: |-
+      购买实例的时长。
+      单位：月。
+- name: amount
+  type: integer
+  required: false
+  sdk-field: amount
+  description: 指定创建EIP的数量。
+- name: netmask
+  type: integer
+  required: false
+  sdk-field: netmask
+  description: |-
+    购买的掩码。
+    可以从DescribeEipAvailableResources接口中获取可用的掩码列表。

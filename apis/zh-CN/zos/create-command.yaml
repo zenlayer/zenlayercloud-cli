@@ -1,0 +1,69 @@
+name: CreateCommand
+product: zos
+use: create-command
+short: 创建命令
+long: 创建一个命令。
+examples:
+- cmd: zeno zos create-command --name ""Test Command"" --content ""echo 1"" --type SHELL
+  desc: 创建一个Shell命令。
+sdk:
+  service: zos
+  version: '2025-10-10'
+  action: CreateCommand
+parameters:
+- name: name
+  type: string
+  required: true
+  sdk-field: name
+  description: |-
+    命令名称。
+    长度不能超过64个字符。
+- name: content
+  type: string
+  required: true
+  sdk-field: content
+  description: |-
+    命令内容。
+    长度不能超过16K(16384)个字符。
+- name: type
+  type: enum
+  required: true
+  sdk-field: type
+  description: 命令类型。
+  enum-values:
+  - value: SHELL
+    desc: 在 Linux 实例中运行的 Shell 脚本。
+  - value: POWERSHELL
+    desc: 在 Windows 中运行的 PowerShell 类型。
+  - value: BAT
+    desc: 在 Windows 中运行的 Bat 脚本。
+- name: description
+  type: string
+  required: false
+  sdk-field: description
+  description: |-
+    命令描述信息。
+    最长不超过255个字符。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: 命令关联的资源组ID。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: 命令绑定的标签信息。--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。

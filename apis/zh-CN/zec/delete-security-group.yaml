@@ -1,0 +1,18 @@
+name: DeleteSecurityGroup
+product: zec
+use: delete-security-group
+short: 删除安全组。
+long: 删除一个安全组。
+examples:
+- cmd: zeno zec delete-security-group --security-group-id your-security-group-id
+  desc: 删除一个安全组。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DeleteSecurityGroup
+parameters:
+- name: security-group-id
+  type: string
+  required: true
+  sdk-field: securityGroupId
+  description: 要删除的安全组ID。

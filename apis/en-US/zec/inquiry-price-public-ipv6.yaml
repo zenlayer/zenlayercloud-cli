@@ -1,0 +1,34 @@
+name: InquiryPricePublicIpv6
+product: zec
+use: inquiry-price-public-ipv6
+short: Queries the price of data transfer or bandwidth for the public IPv6.
+long: query the price of data transfer or bandwidth for the public IPv6.
+examples:
+- cmd: zeno zec inquiry-price-public-ipv6 --region-id xxx --package-size 10
+  desc: ''
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: InquiryPricePublicIpv6
+parameters:
+- name: region-id
+  type: string
+  required: true
+  sdk-field: regionId
+  description: Region ID.
+- name: package-size
+  type: float
+  required: false
+  sdk-field: packageSize
+  description: |-
+    Traffic package size (TB). The unit is TB.
+    This value takes effect only when internetChargeType is set to ByTrafficPackage .
+    The default value is 0.
+    Maximum of one decimal place.
+- name: bandwidth
+  type: integer
+  required: false
+  sdk-field: bandwidth
+  description: |-
+    Outbound public network bandwidth cap (Mbps). Unit: Mbps.
+    The value differs with different instance types.

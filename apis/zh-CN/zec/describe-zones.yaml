@@ -1,0 +1,18 @@
+name: DescribeZones
+product: zec
+use: describe-zones
+short: 查询可用区信息
+long: 查询可用区信息。包括名称，所属的节点等。
+examples:
+- cmd: zeno zec describe-zones --zone-ids asia-east-1a --zone-ids asia-south-1a
+  desc: 查询可用区列表。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeZones
+parameters:
+- name: zone-ids
+  type: string-array
+  required: false
+  sdk-field: zoneIds
+  description: 根据可用区ID过滤。

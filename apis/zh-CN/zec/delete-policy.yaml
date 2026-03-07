@@ -1,0 +1,18 @@
+name: DeletePolicy
+product: zec
+use: delete-policy
+short: 删除防护策略
+long: 删除防护策略
+examples:
+- cmd: zeno zec delete-policy --policy-id <policyId>
+  desc: 删除防护策略
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DeletePolicy
+parameters:
+- name: policy-id
+  type: string
+  required: true
+  sdk-field: policyId
+  description: 防护策略ID。

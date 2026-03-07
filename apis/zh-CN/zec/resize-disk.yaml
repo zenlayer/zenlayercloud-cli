@@ -1,0 +1,29 @@
+name: ResizeDisk
+product: zec
+use: resize-disk
+short: 扩容云硬盘
+long: 将一个云硬盘扩容到指定大小。
+examples:
+- cmd: zeno zec resize-disk --disk-id "<Disk ID>" --disk-size 100
+  desc: 扩容弹性云盘到100GiB。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ResizeDisk
+parameters:
+- name: disk-id
+  type: string
+  required: true
+  sdk-field: diskId
+  description: |-
+    云硬盘ID。
+    通过DescribeDisks接口查询。
+- name: disk-size
+  type: integer
+  required: true
+  sdk-field: diskSize
+  description: |-
+    云硬盘扩容后的大小。
+    单位GiB。
+    必须大于当前云硬盘大小。
+    云盘最大限制为32768GB(32TB)。

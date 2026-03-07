@@ -1,0 +1,25 @@
+name: DescribeBackends
+product: zlb
+use: describe-backends
+short: Queries the list of backend servers added to a load balancer instance.
+long: query the list of backend servers added to a load balancer instance.
+examples:
+- cmd: zeno zlb describe-backends --load-balancer-id <loadBalancerId>
+  desc: Query all backend servers added to a load balancer instance.
+sdk:
+  service: zlb
+  version: '2025-04-01'
+  action: DescribeBackends
+parameters:
+- name: load-balancer-id
+  type: string
+  required: true
+  sdk-field: loadBalancerId
+  description: Load balance instance ID.
+- name: listener-id
+  type: string
+  required: false
+  sdk-field: listenerId
+  description: |-
+    The listener ID of the load balancer.
+    If not specified, all backend servers will be queried.

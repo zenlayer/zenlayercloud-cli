@@ -1,0 +1,18 @@
+name: StopIpForward
+product: zec
+use: stop-ip-forward
+short: 关闭IP转发
+long: 关闭IP转发
+examples:
+- cmd: zeno zec stop-ip-forward --instance-id instanceId1
+  desc: 关闭实例IP转发。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: StopIpForward
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: 要操作的实例ID。

@@ -1,0 +1,45 @@
+name: CreateSnatEntry
+product: zec
+use: create-snat-entry
+short: Creates a SNAT rule.
+long: create a SNAT rule.
+examples:
+- cmd: zeno zec create-snat-entry --nat-gateway-id <natGatewayId> --subnet-ids <subnetId> --eip-ids <eipId>
+  desc: Create a SNAT entry of type `subnet`.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CreateSnatEntry
+parameters:
+- name: nat-gateway-id
+  type: string
+  required: true
+  sdk-field: natGatewayId
+  description: NAT gateway ID.
+- name: eip-ids
+  type: string-array
+  required: false
+  sdk-field: eipIds
+  description: The elastic IP ID configured in the SNAT rule. If the value is empty, it means all the elastic IPs bound to the NAT gateway.
+- name: cidr
+  type: string
+  required: false
+  sdk-field: cidr
+  description: |-
+    CIDR block.
+    Either cidr or subnetIds must be specified.
+- name: source-cidr-blocks
+  type: string-array
+  required: false
+  sdk-field: sourceCidrBlocks
+  description: |-
+    List of source CIDR blocks.
+    One of sourceCidrBlocks and subnetIds must be specified.
+    To use the entire address range, specify 0.0.0.0/0.
+- name: subnet-ids
+  type: string-array
+  required: false
+  sdk-field: subnetIds
+  description: |-
+    IDs of subnets.
+    Either cidr or subnetIds must be specified.
