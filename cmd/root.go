@@ -46,7 +46,8 @@ func Execute(fsys embed.FS) error {
 func init() {
 	cobra.OnInitialize(initConfig)
 
-	// Global flags
+	// Global flags (including -h/--help so it appears under Global Flags for all subcommands)
+	rootCmd.PersistentFlags().BoolP("help", "h", false, "help for this command")
 	rootCmd.PersistentFlags().StringVarP(&cfgProfile, "profile", "p", "", "profile name to use (default: from config)")
 	rootCmd.PersistentFlags().StringVarP(&cfgOutput, "output", "o", "", "output format: json, table (default: from config)")
 	rootCmd.PersistentFlags().StringVar(&cfgAccessKeyID, "access-key-id", "", "access key ID (overrides config)")
