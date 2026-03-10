@@ -24,7 +24,7 @@ func TestFormatTo(t *testing.T) {
 			name:     "table format outputs key-value table",
 			format:   "table",
 			data:     map[string]string{"key": "value"},
-			contains: []string{"key", "value", "Key", "Value"},
+			contains: []string{"key", "value"},
 		},
 		{
 			name:    "unsupported format returns error",

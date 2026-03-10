@@ -1,0 +1,43 @@
+name: DescribeLoadBalancerMonitorData
+product: zlb
+use: describe-load-balancer-monitor-data
+short: 查询负载均衡监控指标数据
+long: 查询负载均衡监控指标数据，包括并发连接数, 新建连接数以及网络带宽等指标数据。
+sdk:
+  service: zlb
+  version: '2025-04-01'
+  action: DescribeLoadBalancerMonitorData
+parameters:
+- name: load-balancer-id
+  type: string
+  required: true
+  sdk-field: loadBalancerId
+  description: 负载均衡实例 ID。
+- name: listener-id
+  type: string
+  required: false
+  sdk-field: listenerId
+  description: 负载均衡器的监听器ID。
+- name: metric-type
+  type: enum
+  required: true
+  sdk-field: metricType
+  description: 监控指标类型。
+  enum-values:
+  - NEW_CONNECTIONS
+  - CONCURRENT_CONNECTIONS
+  - HANDLED_BPS
+- name: start-time
+  type: string
+  required: true
+  sdk-field: startTime
+  description: |-
+    查询开始时间。
+    时间格式：yyyy-MM-ddTHH:mm:ssZ。
+- name: end-time
+  type: string
+  required: true
+  sdk-field: endTime
+  description: |-
+    查询结束时间。
+    时间格式：yyyy-MM-ddTHH:mm:ssZ。

@@ -1,0 +1,21 @@
+name: ModifyLoadBalancersAttribute
+product: zlb
+use: modify-load-balancers-attribute
+short: Modifies the properties of a load balancer instance.
+long: Modify the properties of a load balancer instance. Only the name of the load
+  balancer instance can be modified for now.
+sdk:
+  service: zlb
+  version: '2025-04-01'
+  action: ModifyLoadBalancersAttribute
+parameters:
+- name: load-balancer-ids
+  type: string-array
+  required: true
+  sdk-field: loadBalancerIds
+  description: List of load balancer instance IDs.
+- name: load-balancer-name
+  type: string
+  required: true
+  sdk-field: loadBalancerName
+  description: The name of the load balancer instance.

@@ -1,0 +1,44 @@
+name: DescribeLoadBalancerMonitorData
+product: zlb
+use: describe-load-balancer-monitor-data
+short: Queries the monitor data of a load balancer.
+long: Query the monitor data of a load balancer, including Concurrent Connections
+  (Counts/min), CPS (Counts/s), Network Throughput and Data Transfer.
+sdk:
+  service: zlb
+  version: '2025-04-01'
+  action: DescribeLoadBalancerMonitorData
+parameters:
+- name: load-balancer-id
+  type: string
+  required: true
+  sdk-field: loadBalancerId
+  description: Load balancer ID.
+- name: listener-id
+  type: string
+  required: false
+  sdk-field: listenerId
+  description: Load balance listener ID.
+- name: metric-type
+  type: enum
+  required: true
+  sdk-field: metricType
+  description: Monitor metric type.
+  enum-values:
+  - NEW_CONNECTIONS
+  - CONCURRENT_CONNECTIONS
+  - HANDLED_BPS
+- name: start-time
+  type: string
+  required: true
+  sdk-field: startTime
+  description: |-
+    Start time.
+    Format: yyyy-MM-ddTHH:mm:ssZ.
+- name: end-time
+  type: string
+  required: true
+  sdk-field: endTime
+  description: |-
+    End time.
+    Format: yyyy-MM-ddTHH:mm:ssZ.

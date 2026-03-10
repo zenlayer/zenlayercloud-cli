@@ -1,0 +1,20 @@
+name: DeleteListener
+product: zlb
+use: delete-listener
+short: Deletes a load balance listener.
+long: Delete a load balance listener.
+sdk:
+  service: zlb
+  version: '2025-04-01'
+  action: DeleteListener
+parameters:
+- name: load-balancer-id
+  type: string
+  required: true
+  sdk-field: loadBalancerId
+  description: Load balance instance ID.
+- name: listener-id
+  type: string
+  required: true
+  sdk-field: listenerId
+  description: Listener ID.

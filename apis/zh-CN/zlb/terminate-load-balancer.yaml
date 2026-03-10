@@ -1,0 +1,15 @@
+name: TerminateLoadBalancer
+product: zlb
+use: terminate-load-balancer
+short: 删除负载均衡器实例
+long: 本接口用户删除一个指定的负载均衡器实例。
+sdk:
+  service: zlb
+  version: '2025-04-01'
+  action: TerminateLoadBalancer
+parameters:
+- name: load-balancer-id
+  type: string
+  required: true
+  sdk-field: loadBalancerId
+  description: 负载均衡实例 ID。

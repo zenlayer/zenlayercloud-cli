@@ -1,0 +1,30 @@
+name: DescribeListeners
+product: zlb
+use: describe-listeners
+short: Queries the list of listeners.
+long: Get the list of listeners by the load balancer ID and the listener protocol
+  as filtering conditions. If no filtering conditions are specified, all listeners
+  under the specified load balancer instance will be returned.
+sdk:
+  service: zlb
+  version: '2025-04-01'
+  action: DescribeListeners
+parameters:
+- name: load-balancer-id
+  type: string
+  required: true
+  sdk-field: loadBalancerId
+  description: The ID of the load balance instance.
+- name: listener-ids
+  type: string-array
+  required: false
+  sdk-field: listenerIds
+  description: The list of load balancer listener IDs to query.
+- name: protocol
+  type: enum
+  required: false
+  sdk-field: protocol
+  description: The type of the queried listener protocol.
+  enum-values:
+  - TCP
+  - UDP

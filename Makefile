@@ -1,9 +1,11 @@
-.PHONY: build test lint clean run fmt deps build-all help
+.PHONY: build test lint clean run fmt deps build-all build-mac-universal help
 
 # Variables
 BINARY_NAME=zencli
 BUILD_DIR=bin
-VERSION?=dev
+# Version from git tag (strip 'v' prefix). Override with TAG= or VERSION=.
+TAG ?= $(shell git describe --tags --exact-match 2>/dev/null || echo "")
+VERSION ?= $(shell tag="$(TAG)"; [ -z "$$tag" ] && tag=$$(git describe --tags --exact-match 2>/dev/null); [ -n "$$tag" ] && echo "$${tag#v}" || echo "dev")
 GIT_COMMIT=$(shell git rev-parse --short HEAD 2>/dev/null || echo "none")
 BUILD_TIME=$(shell date -u +%Y-%m-%dT%H:%M:%SZ)
 LDFLAGS=-ldflags "-X github.com/zenlayer/zenlayercloud-cli/internal/version.Version=$(VERSION) \
@@ -58,6 +60,16 @@ build-all:
 	GOOS=darwin GOARCH=arm64 go build $(LDFLAGS) -o $(BUILD_DIR)/$(BINARY_NAME)-darwin-arm64 .
 	GOOS=windows GOARCH=amd64 go build $(LDFLAGS) -o $(BUILD_DIR)/$(BINARY_NAME)-windows-amd64.exe .
 
+# Mac Universal Binary (fat binary for Intel + Apple Silicon, requires macOS with lipo)
+build-mac-universal:
+	@mkdir -p $(BUILD_DIR)
+	GOOS=darwin GOARCH=arm64 go build $(LDFLAGS) -o $(BUILD_DIR)/$(BINARY_NAME)-darwin-arm64 .
+	GOOS=darwin GOARCH=amd64 go build $(LDFLAGS) -o $(BUILD_DIR)/$(BINARY_NAME)-darwin-amd64 .
+	lipo -create -output $(BUILD_DIR)/$(BINARY_NAME)-darwin-universal \
+		$(BUILD_DIR)/$(BINARY_NAME)-darwin-arm64 \
+		$(BUILD_DIR)/$(BINARY_NAME)-darwin-amd64
+	@echo "Universal binary: $(BUILD_DIR)/$(BINARY_NAME)-darwin-universal"
+
 # Install locally
 install: build
 	cp $(BUILD_DIR)/$(BINARY_NAME) $(GOPATH)/bin/$(BINARY_NAME)
@@ -77,6 +89,7 @@ help:
 	@echo "  run           - Build and run the application"
 	@echo "  clean         - Clean build artifacts"
 	@echo "  deps          - Download and tidy dependencies"
-	@echo "  build-all     - Build for all platforms"
+	@echo "  build-all          - Build for all platforms"
+	@echo "  build-mac-universal - Build Mac Universal binary (Intel + Apple Silicon)"
 	@echo "  install       - Install to GOPATH/bin"
 	@echo "  help          - Show this help"

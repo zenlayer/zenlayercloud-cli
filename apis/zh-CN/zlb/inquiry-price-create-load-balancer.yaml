@@ -1,0 +1,77 @@
+name: InquiryPriceCreateLoadBalancer
+product: zlb
+use: inquiry-price-create-load-balancer
+short: 创建负载均衡器实例询价
+long: 查询创建负载均衡的价格。
+sdk:
+  service: zlb
+  version: '2025-04-01'
+  action: InquiryPriceCreateLoadBalancer
+parameters:
+- name: region-id
+  type: string
+  required: true
+  sdk-field: regionId
+  description: 区域节点ID。
+- name: internet-charge-type
+  type: enum
+  required: false
+  sdk-field: internetChargeType
+  description: IP网络计费模式。
+  enum-values:
+  - ByBandwidth
+  - ByTrafficPackage
+  - BandwidthCluster
+- name: ip-network-type
+  type: enum
+  required: false
+  sdk-field: ipNetworkType
+  description: |-
+    IP 的网络类型。
+    已废弃，请使用`networkLineType`。
+  deprecated: true
+  enum-values:
+  - BGPLine
+  - CN2Line
+  - LocalLine
+  - ChinaMobile
+  - ChinaUnicom
+  - ChinaTelecom
+  - Cogent
+  - ThreeLine
+- name: network-line-type
+  type: enum
+  required: false
+  sdk-field: networkLineType
+  description: IP 的网络类型。
+  enum-values:
+  - PremiumBGP
+  - CN2
+  - LocalLine
+  - StandardBGP
+  - CMI
+  - CUG
+  - CTG
+  - ThreeLine
+- name: bandwidth-mbps
+  type: integer
+  required: false
+  sdk-field: bandwidthMbps
+  description: |-
+    EIP的最大出带宽。
+    单位为Mbps。
+    最大限制通常为10000，如果有额外要求， 请联系Support。
+- name: traffic-package-size
+  type: integer
+  required: false
+  sdk-field: trafficPackageSize
+  description: |-
+    流量包大小。
+    指定此参数时，IP网络计费模式(`internetChargeType`) 需为`ByTrafficPackage`, 否则该参数不生效。
+- name: bandwidth-cluster-id
+  type: string
+  required: false
+  sdk-field: bandwidthClusterId
+  description: |-
+    共享带宽包ID。
+    指定此参数时，IP网络计费模式(`internetChargeType`) 需为`BandwidthCluster`, 否则该参数不生效。

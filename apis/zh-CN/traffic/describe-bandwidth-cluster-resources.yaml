@@ -1,0 +1,15 @@
+name: DescribeBandwidthClusterResources
+product: traffic
+use: describe-bandwidth-cluster-resources
+short: 查询共享带宽包里的资源
+long: 查询一个共享带宽包里的资源。
+sdk:
+  service: traffic
+  version: '2024-03-26'
+  action: DescribeBandwidthClusterResources
+parameters:
+- name: bandwidth-cluster-id
+  type: string
+  required: true
+  sdk-field: bandwidthClusterId
+  description: 共享带宽包ID。

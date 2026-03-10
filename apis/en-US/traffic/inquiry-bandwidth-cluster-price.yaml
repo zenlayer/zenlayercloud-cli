@@ -1,0 +1,60 @@
+name: InquiryBandwidthClusterPrice
+product: traffic
+use: inquiry-bandwidth-cluster-price
+short: Queries the price of the bandwidth cluster.
+long: Query the price of the bandwidth cluster.
+sdk:
+  service: traffic
+  version: '2024-03-26'
+  action: InquiryBandwidthClusterPrice
+parameters:
+- name: area-code
+  type: string
+  required: true
+  sdk-field: areaCode
+  description: |-
+    Location of bandwidth cluster.
+    To obtain code, you can call DescribeBandwidthClusterAreas, and find areaCode in the response.
+- name: commit-bandwidth-mbps
+  type: integer
+  required: false
+  sdk-field: commitBandwidthMbps
+  description: |-
+    Bandwidth cluster.
+    Unit: Mbps.
+    Available range: [0, 100000].
+    Default value: 0.
+- name: network-type
+  type: enum
+  required: false
+  sdk-field: networkType
+  description: IP network type.
+  enum-values:
+  - BGP
+  - Cogent
+  - CN2
+  - CMI
+  - CUG
+  - CTG
+- name: internet-charge-type
+  type: enum
+  required: true
+  sdk-field: internetChargeType
+  description: |-
+    Network billing method.
+    The default billing method is Monthly Burstable 95th, if you need Daily Peak billing, please contact us.
+    Default value: MonthlyPercent95Bandwidth.
+  enum-values:
+  - MonthlyPercent95Bandwidth
+  - DayPeakBandwidth
+- name: product
+  type: enum
+  required: false
+  sdk-field: product
+  description: Service type covered by the bandwidth cluster.
+  enum-values:
+  - AllProduct
+  - BMC
+  - ZEC
+  - VM
+  - OFFLINE

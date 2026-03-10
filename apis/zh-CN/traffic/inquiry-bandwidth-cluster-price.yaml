@@ -1,0 +1,57 @@
+name: InquiryBandwidthClusterPrice
+product: traffic
+use: inquiry-bandwidth-cluster-price
+short: 询价创建带宽包
+long: 查询共享带宽包价格。
+sdk:
+  service: traffic
+  version: '2024-03-26'
+  action: InquiryBandwidthClusterPrice
+parameters:
+- name: area-code
+  type: string
+  required: true
+  sdk-field: areaCode
+  description: |-
+    共享带宽包所属地域。
+    具体地域信息可以查询[DescribeBandwidthClusterAreas](../bandwidth-cluster/describebandwidthclusterareas.md)中的`areaCode`获取。
+- name: commit-bandwidth-mbps
+  type: integer
+  required: false
+  sdk-field: commitBandwidthMbps
+  description: |-
+    保底带宽值。
+    单位: Mbps。
+- name: network-type
+  type: enum
+  required: false
+  sdk-field: networkType
+  description: IP 网络类型。
+  enum-values:
+  - BGP
+  - Cogent
+  - CN2
+  - CMI
+  - CUG
+  - CTG
+- name: internet-charge-type
+  type: enum
+  required: true
+  sdk-field: internetChargeType
+  description: |-
+    带宽计费方式。
+    默认为月95计费，如果需要日峰值计费，请联系Support开通相关权限。
+  enum-values:
+  - MonthlyPercent95Bandwidth
+  - DayPeakBandwidth
+- name: product
+  type: enum
+  required: false
+  sdk-field: product
+  description: 城市带宽包所属的产品线范围。
+  enum-values:
+  - AllProduct
+  - BMC
+  - ZEC
+  - VM
+  - OFFLINE

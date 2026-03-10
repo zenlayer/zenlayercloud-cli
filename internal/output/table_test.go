@@ -6,22 +6,16 @@ import (
 	"testing"
 )
 
-type testPerson struct {
-	Name string `json:"name"`
-	Age  int    `json:"age"`
-}
-
-type testNoTag struct {
-	ID   int
-	Name string
+func TestTableFormatter_ImplementsFormatter(t *testing.T) {
+	var _ Formatter = &TableFormatter{}
 }
 
 func TestTableFormatter_Format_MapStringString(t *testing.T) {
 	tests := []struct {
 		name     string
 		data     map[string]string
-		wantOut  string
 		wantNoop bool
+		contains []string
 	}{
 		{
 			name:     "empty map returns no output",
@@ -29,19 +23,14 @@ func TestTableFormatter_Format_MapStringString(t *testing.T) {
 			wantNoop: true,
 		},
 		{
-			name: "single key-value pair",
-			data: map[string]string{"key": "value"},
-			wantOut: "Key  Value\n" +
-				"---  -----\n" +
-				"key  value\n",
+			name:     "single key-value pair",
+			data:     map[string]string{"key": "value"},
+			contains: []string{"key", "value"},
 		},
 		{
-			name: "multiple key-value pairs sorted alphabetically",
-			data: map[string]string{"name": "Alice", "age": "30"},
-			wantOut: "Key   Value\n" +
-				"----  -----\n" +
-				"age   30\n" +
-				"name  Alice\n",
+			name:     "multiple key-value pairs rendered sorted",
+			data:     map[string]string{"name": "Alice", "age": "30"},
+			contains: []string{"age", "name", "30", "Alice"},
 		},
 	}
 
@@ -49,8 +38,7 @@ func TestTableFormatter_Format_MapStringString(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			f := &TableFormatter{}
 			var buf bytes.Buffer
-			err := f.Format(&buf, tt.data)
-			if err != nil {
+			if err := f.Format(&buf, tt.data); err != nil {
 				t.Fatalf("Format() error = %v", err)
 			}
 			if tt.wantNoop {
@@ -59,8 +47,11 @@ func TestTableFormatter_Format_MapStringString(t *testing.T) {
 				}
 				return
 			}
-			if got := buf.String(); got != tt.wantOut {
-				t.Errorf("Format() =\n%q\nwant\n%q", got, tt.wantOut)
+			got := buf.String()
+			for _, want := range tt.contains {
+				if !strings.Contains(got, want) {
+					t.Errorf("Format() output %q does not contain %q", got, want)
+				}
 			}
 		})
 	}
@@ -81,12 +72,37 @@ func TestTableFormatter_Format_MapStringInterface(t *testing.T) {
 		{
 			name:     "single string value",
 			data:     map[string]interface{}{"key": "value"},
-			contains: []string{"key", "value", "Key", "Value"},
+			contains: []string{"key", "value"},
 		},
 		{
 			name:     "integer value",
 			data:     map[string]interface{}{"count": 42},
 			contains: []string{"count", "42"},
+		},
+		{
+			name: "nested object renders as section",
+			data: map[string]interface{}{
+				"name": "Alice",
+				"disk": map[string]interface{}{"size": 50, "category": "ssd"},
+			},
+			contains: []string{"name", "Alice", "disk", "size", "ssd"},
+		},
+		{
+			name: "array of objects renders as table",
+			data: map[string]interface{}{
+				"instances": []interface{}{
+					map[string]interface{}{"id": "ins-1", "status": "RUNNING"},
+					map[string]interface{}{"id": "ins-2", "status": "STOPPED"},
+				},
+			},
+			contains: []string{"id", "status", "ins-1", "RUNNING", "ins-2", "STOPPED"},
+		},
+		{
+			name: "scalar array renders as list",
+			data: map[string]interface{}{
+				"tags": []interface{}{"env=prod", "region=asia"},
+			},
+			contains: []string{"tags", "env=prod", "region=asia"},
 		},
 	}
 
@@ -94,8 +110,7 @@ func TestTableFormatter_Format_MapStringInterface(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			f := &TableFormatter{}
 			var buf bytes.Buffer
-			err := f.Format(&buf, tt.data)
-			if err != nil {
+			if err := f.Format(&buf, tt.data); err != nil {
 				t.Fatalf("Format() error = %v", err)
 			}
 			if tt.wantNoop {
@@ -114,67 +129,123 @@ func TestTableFormatter_Format_MapStringInterface(t *testing.T) {
 	}
 }
 
-func TestTableFormatter_Format_Struct(t *testing.T) {
-	t.Run("struct with json tags", func(t *testing.T) {
-		f := &TableFormatter{}
-		var buf bytes.Buffer
-		err := f.Format(&buf, testPerson{Name: "Alice", Age: 30})
-		if err != nil {
-			t.Fatalf("Format() error = %v", err)
-		}
-		got := buf.String()
-		want := "Key   Value\n" +
-			"----  -----\n" +
-			"name  Alice\n" +
-			"age   30\n"
-		if got != want {
-			t.Errorf("Format() =\n%q\nwant\n%q", got, want)
-		}
-	})
-
-	t.Run("pointer to struct", func(t *testing.T) {
-		f := &TableFormatter{}
-		var buf bytes.Buffer
-		err := f.Format(&buf, &testPerson{Name: "Bob", Age: 25})
-		if err != nil {
-			t.Fatalf("Format() error = %v", err)
-		}
-		got := buf.String()
-		if !strings.Contains(got, "Bob") || !strings.Contains(got, "25") {
-			t.Errorf("Format() = %q, want output containing 'Bob' and '25'", got)
-		}
-	})
-
-	t.Run("struct without json tags uses field name", func(t *testing.T) {
-		f := &TableFormatter{}
-		var buf bytes.Buffer
-		err := f.Format(&buf, testNoTag{ID: 1, Name: "Charlie"})
-		if err != nil {
-			t.Fatalf("Format() error = %v", err)
-		}
-		got := buf.String()
-		if !strings.Contains(got, "ID") || !strings.Contains(got, "Name") {
-			t.Errorf("Format() = %q, want output containing field names 'ID' and 'Name'", got)
-		}
-		if !strings.Contains(got, "Charlie") || !strings.Contains(got, "1") {
-			t.Errorf("Format() = %q, want output containing values '1' and 'Charlie'", got)
-		}
-	})
-
-	t.Run("non-struct falls back to string representation", func(t *testing.T) {
-		f := &TableFormatter{}
-		var buf bytes.Buffer
-		err := f.Format(&buf, 42)
-		if err != nil {
-			t.Fatalf("Format() error = %v", err)
-		}
-		got := buf.String()
-		if got != "42\n" {
-			t.Errorf("Format() = %q, want %q", got, "42\n")
-		}
-	})
+func TestTableFormatter_Format_Nil(t *testing.T) {
+	f := &TableFormatter{}
+	var buf bytes.Buffer
+	if err := f.Format(&buf, nil); err != nil {
+		t.Fatalf("Format() error = %v", err)
+	}
+	if !strings.Contains(buf.String(), "<nil>") {
+		t.Errorf("Format(nil) = %q, want output containing '<nil>'", buf.String())
+	}
 }
 
-func TestTableFormatter_ImplementsFormatter(t *testing.T) {
-	var _ Formatter = &TableFormatter{}
+func TestTableFormatter_Format_Scalar(t *testing.T) {
+	f := &TableFormatter{}
+	var buf bytes.Buffer
+	if err := f.Format(&buf, 42); err != nil {
+		t.Fatalf("Format() error = %v", err)
+	}
+	if !strings.Contains(buf.String(), "42") {
+		t.Errorf("Format(42) = %q, want output containing '42'", buf.String())
+	}
+}
+
+func TestTableFormatter_Format_ObjectArrayWithNestedFields(t *testing.T) {
+	f := &TableFormatter{}
+	var buf bytes.Buffer
+	data := map[string]interface{}{
+		"list": []interface{}{
+			map[string]interface{}{
+				"id":   "a",
+				"meta": map[string]interface{}{"region": "us"},
+			},
+		},
+	}
+	if err := f.Format(&buf, data); err != nil {
+		t.Fatalf("Format() error = %v", err)
+	}
+	got := buf.String()
+	if !strings.Contains(got, "id") || !strings.Contains(got, "meta") {
+		t.Errorf("Format() = %q, want 'id' and 'meta'", got)
+	}
+}
+
+// TestTableFormatter_BorderStyle verifies the tccli-style box-drawing borders.
+func TestTableFormatter_BorderStyle(t *testing.T) {
+	f := &TableFormatter{}
+	var buf bytes.Buffer
+	data := map[string]interface{}{
+		"instances": []interface{}{
+			map[string]interface{}{"id": "ins-1", "status": "RUNNING"},
+			map[string]interface{}{"id": "ins-2", "status": "STOPPED"},
+		},
+	}
+	if err := f.Format(&buf, data); err != nil {
+		t.Fatalf("Format() error = %v", err)
+	}
+	got := buf.String()
+
+	// Top border should be a run of dashes.
+	firstLine := strings.SplitN(got, "\n", 2)[0]
+	if !strings.HasPrefix(firstLine, "---") {
+		t.Errorf("expected top border of dashes, got first line: %q", firstLine)
+	}
+
+	// Output must contain box-drawing characters.
+	if !strings.Contains(got, "+") {
+		t.Error("expected '+' corners in row separators")
+	}
+	if !strings.Contains(got, "|") {
+		t.Error("expected '|' column dividers")
+	}
+
+	// Section title "instances" must be present.
+	if !strings.Contains(got, "instances") {
+		t.Error("expected section title 'instances'")
+	}
+}
+
+// TestTableFormatter_VerticalKeyValue verifies that a single-scalar dict
+// renders as a 2-column key | value table (no horizontal header).
+func TestTableFormatter_VerticalKeyValue(t *testing.T) {
+	f := &TableFormatter{}
+	var buf bytes.Buffer
+	data := map[string]interface{}{"region": "ap-southeast-1"}
+	if err := f.Format(&buf, data); err != nil {
+		t.Fatalf("Format() error = %v", err)
+	}
+	got := buf.String()
+	if !strings.Contains(got, "region") || !strings.Contains(got, "ap-southeast-1") {
+		t.Errorf("Format() = %q, want 'region' and 'ap-southeast-1'", got)
+	}
+}
+
+// TestTableFormatter_ConsistentLineWidth verifies every non-empty line has the
+// same rune-width (the global max width), ensuring a clean rectangular table.
+func TestTableFormatter_ConsistentLineWidth(t *testing.T) {
+	f := &TableFormatter{}
+	var buf bytes.Buffer
+	data := map[string]interface{}{
+		"totalCount": 2,
+		"instanceSet": []interface{}{
+			map[string]interface{}{"id": "ins-001", "status": "RUNNING"},
+			map[string]interface{}{"id": "ins-002", "status": "STOPPED"},
+		},
+	}
+	if err := f.Format(&buf, data); err != nil {
+		t.Fatalf("Format() error = %v", err)
+	}
+
+	lines := strings.Split(strings.TrimRight(buf.String(), "\n"), "\n")
+	if len(lines) == 0 {
+		t.Fatal("expected output, got none")
+	}
+
+	expected := len([]rune(lines[0]))
+	for i, line := range lines {
+		if got := len([]rune(line)); got != expected {
+			t.Errorf("line %d width = %d, want %d: %q", i, got, expected, line)
+		}
+	}
 }

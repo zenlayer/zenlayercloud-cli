@@ -1,8 +1,44 @@
 # Zenlayer Cloud CLI
 
-The official command line interface for [Zenlayer Cloud](https://www.zenlayer.com/).
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Go Report Card](https://goreportcard.com/badge/github.com/zenlayer/zenlayercloud-cli)](https://goreportcard.com/report/github.com/zenlayer/zenlayercloud-cli)
+[![Go Version](https://img.shields.io/badge/Go-1.21%2B-00ADD8?logo=go)](https://golang.org/dl/)
+
+The official command line interface for [Zenlayer Cloud](https://console.zenlayer.com/).
+
+**[English](README.md)** | **[简体中文](README_zh-CN.md)**
+
+## Overview
+
+Zenlayer Cloud CLI (`zencli`) is a powerful command-line tool that enables you to manage your Zenlayer Cloud resources efficiently. It provides a unified interface to interact with various Zenlayer Cloud services including:
+
+- **Load Balancer (ZLB)** - Manage load balancers, listeners, and backends
+- **Bandwidth Cluster** - Manage bandwidth clusters and traffic monitoring
+
+## Features
+
+- 🚀 **Easy to Use** - Intuitive command structure with helpful prompts
+- 🔐 **Secure** - Credentials stored with restricted file permissions
+- 📝 **Multiple Output Formats** - JSON and table output support
+- 🔄 **Multi-Profile Support** - Manage multiple environments easily
+- 🌐 **Cross-Platform** - Support for Linux, macOS, and Windows
+- 💻 **Shell Completion** - Auto-completion for Bash, Zsh, Fish, and PowerShell
+- 🐛 **Debug Mode** - Detailed logging for troubleshooting
 
 ## Installation
+
+### Pre-built Binaries
+
+Download pre-built binaries from the [Releases](https://github.com/zenlayer/zenlayercloud-cli/releases) page.
+
+Choose the appropriate binary for your platform:
+
+| Platform | Architecture | Binary |
+|----------|-------------|--------|
+| Linux | amd64 | `zencli_linux_amd64` |
+| Linux | arm64 | `zencli_linux_arm64` |
+| macOS | Universal | `zencli_darwin_all` |
+| Windows | amd64 | `zencli_windows_amd64.exe` |
 
 ### From Source
 
@@ -16,13 +52,15 @@ make build
 
 The binary will be available at `bin/zencli`.
 
-### Pre-built Binaries
+### Verify Installation
 
-Download pre-built binaries from the [Releases](https://github.com/zenlayer/zenlayercloud-cli/releases) page.
+```bash
+zencli version
+```
 
 ## Quick Start
 
-### Configure Credentials
+### 1. Configure Credentials
 
 Run the interactive configuration:
 
@@ -37,10 +75,17 @@ This will prompt you for:
 - Language preference (en/zh)
 - Output format (json/table)
 
-### Verify Installation
+### 2. Start Using the CLI
 
 ```bash
-zencli version
+# List load balancers
+zencli describe-load-balancers
+
+# Create a load balancer
+zencli create-load-balancer --help
+
+# Get bandwidth cluster information
+zencli describe-bandwidth-clusters
 ```
 
 ## Configuration
@@ -60,7 +105,7 @@ zencli configure
 # Enter "prod" when prompted for profile name
 
 # Use a specific profile
-zencli --profile prod <command>
+zencli --profile prod describe-load-balancers
 
 # Or set via environment variable
 export ZENLAYER_PROFILE=prod
@@ -107,6 +152,37 @@ zencli configure set <key> <value>
 zencli version
 ```
 
+### Load Balancer Commands
+
+```bash
+# List load balancers
+zencli describe-load-balancers
+
+# Create a load balancer
+zencli create-load-balancer [flags]
+
+# Modify load balancer attributes
+zencli modify-load-balancers-attribute [flags]
+
+# Delete load balancers
+zencli terminate-load-balancer [flags]
+```
+
+### Bandwidth Cluster Commands
+
+```bash
+# List bandwidth clusters
+zencli describe-bandwidth-clusters
+
+# Create a bandwidth cluster
+zencli create-bandwidth-cluster [flags]
+
+# Get cluster usage
+zencli describe-bandwidth-cluster-usage [flags]
+```
+
+Use `zencli [command] --help` for more information about a command.
+
 ## Shell Completion
 
 Enable tab completion for commands, subcommands, and flags.
@@ -148,7 +224,7 @@ zencli completion powershell | Out-String | Invoke-Expression
 
 Restart your shell after setup for the changes to take effect.
 
-### Uninstall
+### Uninstall Completion
 
 ```bash
 zencli completion --uninstall                    # uninstall all (bash, zsh, fish, powershell)
@@ -166,6 +242,7 @@ Removes completion from standard installation paths. Restart your shell after un
 | `--access-key-id` | | Access Key ID (overrides config) |
 | `--access-key-secret` | | Access Key Secret (overrides config) |
 | `--debug` | | Enable debug mode |
+| `--help` | `-h` | Help for command |
 
 ## Development
 
@@ -198,6 +275,63 @@ make lint
 make build-all
 ```
 
+### Build Mac Universal Binary
+
+On macOS, build a fat binary for both Intel and Apple Silicon:
+
+```bash
+make build-mac-universal
+```
+
+### Version
+
+Version is set via `-ldflags` during build. When building from a git tag (e.g. `v1.0.0`), the binary version will be `1.0.0` (the `v` prefix is stripped). For untagged commits, version defaults to `dev`.
+
+```bash
+# Build with explicit version
+make build VERSION=1.0.0
+
+# Or pass TAG (v prefix stripped automatically)
+make build TAG=v1.0.0
+```
+
+## Contributing
+
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+
+### Development Workflow
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+### Code of Conduct
+
+This project adheres to the [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
+
+## Security
+
+If you discover a security vulnerability, please report it by emailing security@zenlayer.com. Do not open a public issue.
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for a list of changes.
+
 ## License
 
-Apache License 2.0. See [LICENSE](LICENSE) for details.
+This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
+
+## Support
+
+- 📖 [Documentation](https://docs.zenlayer.com)
+- 💬 [GitHub Issues](https://github.com/zenlayer/zenlayercloud-cli/issues)
+- 📧 [Email Support](mailto:support@zenlayer.com)
+
+## Acknowledgments
+
+This project uses the following open source packages:
+
+- [Cobra](https://github.com/spf13/cobra) - A Commander for modern Go CLI interactions
+- [Zenlayer Cloud SDK for Go](https://github.com/zenlayer/zenlayercloud-sdk-go) - Official Zenlayer Cloud SDK

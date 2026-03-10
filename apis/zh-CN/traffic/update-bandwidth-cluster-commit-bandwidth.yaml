@@ -1,0 +1,20 @@
+name: UpdateBandwidthClusterCommitBandwidth
+product: traffic
+use: update-bandwidth-cluster-commit-bandwidth
+short: 变更共享带宽包保底带宽
+long: 修改带宽包的保底带宽。
+sdk:
+  service: traffic
+  version: '2024-03-26'
+  action: UpdateBandwidthClusterCommitBandwidth
+parameters:
+- name: bandwidth-cluster-id
+  type: string
+  required: true
+  sdk-field: bandwidthClusterId
+  description: 共享带宽包ID。
+- name: commit-bandwidth-mbps
+  type: integer
+  required: true
+  sdk-field: commitBandwidthMbps
+  description: 保底带宽。

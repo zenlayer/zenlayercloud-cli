@@ -1,0 +1,84 @@
+name: CreateBandwidthCluster
+product: traffic
+use: create-bandwidth-cluster
+short: Creates a bandwidth cluster.
+long: Create a bandwidth cluster.
+sdk:
+  service: traffic
+  version: '2024-03-26'
+  action: CreateBandwidthCluster
+parameters:
+- name: area-code
+  type: string
+  required: true
+  sdk-field: areaCode
+  description: |-
+    Location of the bandwidth cluster.
+    To obtain code, you can call DescribeBandwidthClusterAreas, and find areaCode in the response.
+- name: commit-bandwidth-mbps
+  type: integer
+  required: false
+  sdk-field: commitBandwidthMbps
+  description: |-
+    Bandwidth commitment.
+    Unit: Mbps.
+    Available value range: [0, 100000].
+    Default value: 0.
+- name: network-line-type
+  type: enum
+  required: false
+  sdk-field: networkLineType
+  description: |-
+    IP network type.
+    This field is required for city bandwidth cluster.
+  enum-values:
+  - PremiumBGP
+  - StandardBGP
+  - CN2
+  - CMI
+  - CUG
+  - CTG
+- name: network-type
+  type: enum
+  required: false
+  sdk-field: networkType
+  description: |-
+    IP network type.
+    The value is required for the bandwidth cluster by city.
+  deprecated: true
+  enum-values:
+  - BGP
+  - Cogent
+  - CN2
+  - CMI
+  - CUG
+  - CTG
+- name: internet-charge-type
+  type: enum
+  required: true
+  sdk-field: internetChargeType
+  description: |-
+    Network billing method.
+    The default billing method is Monthly Burstable 95th, if you need Daily Peak billing, please contact us.
+    Default value: MonthlyPercent95Bandwidth.
+  enum-values:
+  - MonthlyPercent95Bandwidth
+  - DayPeakBandwidth
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: |-
+    Bandwidth cluster name.
+    If not specified, the default name will be based on the location name.
+- name: product
+  type: enum
+  required: false
+  sdk-field: product
+  description: Service type covered by the bandwidth cluster.
+  enum-values:
+  - AllProduct
+  - BMC
+  - ZEC
+  - VM
+  - OFFLINE

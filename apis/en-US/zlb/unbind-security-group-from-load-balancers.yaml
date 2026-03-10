@@ -1,0 +1,15 @@
+name: UnbindSecurityGroupFromLoadBalancers
+product: zlb
+use: unbind-security-group-from-load-balancers
+short: Batch disassociates security groups from load balancers.
+long: Batch disassociate security groups from load balancers.
+sdk:
+  service: zlb
+  version: '2025-04-01'
+  action: UnbindSecurityGroupFromLoadBalancers
+parameters:
+- name: load-balancer-ids
+  type: string-array
+  required: true
+  sdk-field: loadBalancerIds
+  description: ID list of load balancers to disassociate security groups.

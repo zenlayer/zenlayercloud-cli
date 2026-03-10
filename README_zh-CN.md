@@ -1,0 +1,337 @@
+# Zenlayer Cloud CLI
+
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Go Report Card](https://goreportcard.com/badge/github.com/zenlayer/zenlayercloud-cli)](https://goreportcard.com/report/github.com/zenlayer/zenlayercloud-cli)
+[![Go Version](https://img.shields.io/badge/Go-1.21%2B-00ADD8?logo=go)](https://golang.org/dl/)
+
+[Zenlayer Cloud](https://console.zenlayer.com/) 官方命令行工具。
+
+**[English](README.md)** | **[简体中文](README_zh-CN.md)**
+
+## 概述
+
+Zenlayer Cloud CLI (`zencli`) 是一个功能强大的命令行工具，可帮助您高效管理 Zenlayer Cloud 资源。它提供统一的界面来与各种 Zenlayer Cloud 服务交互，包括：
+
+- **负载均衡器 (ZLB)** - 管理负载均衡器、监听器和后端服务器
+- **带宽集群** - 管理带宽集群和流量监控
+
+## 特性
+
+- 🚀 **易于使用** - 直观的命令结构和友好的提示
+- 🔐 **安全可靠** - 凭证以受限文件权限存储
+- 📝 **多种输出格式** - 支持 JSON 和表格输出
+- 🔄 **多配置文件支持** - 轻松管理多个环境
+- 🌐 **跨平台** - 支持 Linux、macOS 和 Windows
+- 💻 **Shell 自动补全** - 支持 Bash、Zsh、Fish 和 PowerShell
+- 🐛 **调试模式** - 详细的日志记录便于故障排查
+
+## 安装
+
+### 预编译二进制文件
+
+从 [Releases](https://github.com/zenlayer/zenlayercloud-cli/releases) 页面下载预编译的二进制文件。
+
+根据您的平台选择相应的二进制文件：
+
+| 平台 | 架构 | 二进制文件 |
+|----------|-------------|--------|
+| Linux | amd64 | `zencli_linux_amd64` |
+| Linux | arm64 | `zencli_linux_arm64` |
+| macOS | Universal | `zencli_darwin_all` |
+| Windows | amd64 | `zencli_windows_amd64.exe` |
+
+### 从源码编译
+
+需要 Go 1.21 或更高版本。
+
+```bash
+git clone https://github.com/zenlayer/zenlayercloud-cli.git
+cd zenlayercloud-cli
+make build
+```
+
+编译后的二进制文件位于 `bin/zencli`。
+
+### 验证安装
+
+```bash
+zencli version
+```
+
+## 快速开始
+
+### 1. 配置凭证
+
+运行交互式配置：
+
+```bash
+zencli configure
+```
+
+系统将提示您输入：
+- 配置文件名称（默认：`default`）
+- Access Key ID
+- Access Key Secret
+- 语言偏好（en/zh）
+- 输出格式（json/table）
+
+### 2. 开始使用 CLI
+
+```bash
+# 列出负载均衡器
+zencli describe-load-balancers
+
+# 创建负载均衡器
+zencli create-load-balancer --help
+
+# 获取带宽集群信息
+zencli describe-bandwidth-clusters
+```
+
+## 配置
+
+配置文件存储在 `~/.zenlayer/` 目录中：
+
+- `config.json` - 通用设置（语言、输出格式）
+- `credentials.json` - 访问凭证（具有受限权限）
+
+### 多配置文件
+
+您可以配置多个配置文件以管理不同的环境：
+
+```bash
+# 配置新的配置文件
+zencli configure
+# 在提示输入配置文件名称时输入 "prod"
+
+# 使用指定的配置文件
+zencli --profile prod describe-load-balancers
+
+# 或通过环境变量设置
+export ZENLAYER_PROFILE=prod
+```
+
+### 配置优先级
+
+设置按以下优先级应用（从高到低）：
+
+1. 命令行标志（`--profile`、`--output` 等）
+2. 环境变量（`ZENLAYER_PROFILE`、`ZENLAYER_ACCESS_KEY_ID` 等）
+3. 配置文件
+
+### 环境变量
+
+| 变量 | 描述 |
+|----------|-------------|
+| `ZENLAYER_PROFILE` | 使用的配置文件名称 |
+| `ZENLAYER_ACCESS_KEY_ID` | Access Key ID |
+| `ZENLAYER_ACCESS_KEY_SECRET` | Access Key Secret |
+| `ZENLAYER_DEBUG` | 启用调试模式（`true`/`false`） |
+
+## 命令
+
+### 配置命令
+
+```bash
+# 交互式配置
+zencli configure
+
+# 列出当前配置
+zencli configure list
+
+# 获取配置值
+zencli configure get <key>
+
+# 设置配置值
+zencli configure set <key> <value>
+```
+
+### 版本命令
+
+```bash
+zencli version
+```
+
+### 负载均衡器命令
+
+```bash
+# 列出负载均衡器
+zencli describe-load-balancers
+
+# 创建负载均衡器
+zencli create-load-balancer [flags]
+
+# 修改负载均衡器属性
+zencli modify-load-balancers-attribute [flags]
+
+# 删除负载均衡器
+zencli terminate-load-balancer [flags]
+```
+
+### 带宽集群命令
+
+```bash
+# 列出带宽集群
+zencli describe-bandwidth-clusters
+
+# 创建带宽集群
+zencli create-bandwidth-cluster [flags]
+
+# 获取集群使用情况
+zencli describe-bandwidth-cluster-usage [flags]
+```
+
+使用 `zencli [command] --help` 查看命令的更多信息。
+
+## Shell 自动补全
+
+启用命令、子命令和标志的 Tab 补全功能。
+
+### Bash
+
+```bash
+# Linux
+zencli completion bash > /etc/bash_completion.d/zencli
+
+# macOS（需要 bash-completion）
+zencli completion bash > $(brew --prefix)/etc/bash_completion.d/zencli
+```
+
+### Zsh
+
+```bash
+# 选项 1：使用默认 fpath（可能需要 sudo）
+zencli completion zsh > "${fpath[1]}/_zencli"
+
+# 选项 2：使用自定义补全目录
+mkdir -p ~/.zsh/completions
+zencli completion zsh > ~/.zsh/completions/_zencli
+echo 'fpath=(~/.zsh/completions $fpath)' >> ~/.zshrc
+echo 'autoload -U compinit; compinit' >> ~/.zshrc
+```
+
+### Fish
+
+```bash
+zencli completion fish > ~/.config/fish/completions/zencli.fish
+```
+
+### PowerShell
+
+```powershell
+zencli completion powershell | Out-String | Invoke-Expression
+```
+
+设置完成后重启您的 Shell 以使更改生效。
+
+### 卸载补全
+
+```bash
+zencli completion --uninstall                    # 卸载所有（bash、zsh、fish、powershell）
+zencli completion --uninstall [bash|zsh|fish|powershell]  # 卸载特定 shell
+```
+
+从标准安装路径中移除补全。卸载后请重启您的 Shell。
+
+## 全局标志
+
+| 标志 | 简写 | 描述 |
+|------|-------|-------------|
+| `--profile` | `-p` | 使用的配置文件名称 |
+| `--output` | `-o` | 输出格式：json、table |
+| `--access-key-id` | | Access Key ID（覆盖配置） |
+| `--access-key-secret` | | Access Key Secret（覆盖配置） |
+| `--debug` | | 启用调试模式 |
+| `--help` | `-h` | 命令帮助 |
+
+## 开发
+
+### 前置要求
+
+- Go 1.21+
+- golangci-lint（用于代码检查）
+
+### 编译
+
+```bash
+make build
+```
+
+### 测试
+
+```bash
+make test
+```
+
+### 代码检查
+
+```bash
+make lint
+```
+
+### 编译所有平台
+
+```bash
+make build-all
+```
+
+### 编译 macOS 通用二进制文件
+
+在 macOS 上，为 Intel 和 Apple Silicon 编译通用二进制文件：
+
+```bash
+make build-mac-universal
+```
+
+### 版本
+
+版本通过编译时的 `-ldflags` 设置。当从 git 标签（如 `v1.0.0`）编译时，二进制文件版本为 `1.0.0`（`v` 前缀会被去除）。对于未打标签的提交，版本默认为 `dev`。
+
+```bash
+# 使用显式版本编译
+make build VERSION=1.0.0
+
+# 或传递 TAG（v 前缀会自动去除）
+make build TAG=v1.0.0
+```
+
+## 贡献
+
+我们欢迎贡献！请参阅我们的[贡献指南](CONTRIBUTING.md)了解详情。
+
+### 开发流程
+
+1. Fork 本仓库
+2. 创建您的特性分支（`git checkout -b feature/amazing-feature`）
+3. 提交您的更改（`git commit -m 'Add some amazing feature'`）
+4. 推送到分支（`git push origin feature/amazing-feature`）
+5. 创建 Pull Request
+
+### 行为准则
+
+本项目遵循[贡献者行为准则](CODE_OF_CONDUCT.md)。参与本项目即表示您同意遵守该准则。
+
+## 安全
+
+如果您发现安全漏洞，请通过 security@zenlayer.com 发送邮件报告。不要公开创建 issue。
+
+## 更新日志
+
+查看 [CHANGELOG.md](CHANGELOG.md) 了解更改列表。
+
+## 许可证
+
+本项目采用 Apache License 2.0 许可证 - 详见 [LICENSE](LICENSE) 文件。
+
+## 支持
+
+- 📖 [文档](https://docs.zenlayer.com)
+- 💬 [GitHub Issues](https://github.com/zenlayer/zenlayercloud-cli/issues)
+- 📧 [邮件支持](mailto:support@zenlayer.com)
+
+## 致谢
+
+本项目使用了以下开源软件包：
+
+- [Cobra](https://github.com/spf13/cobra) - 现代 Go CLI 交互的命令行框架
+- [Zenlayer Cloud SDK for Go](https://github.com/zenlayer/zenlayercloud-sdk-go) - Zenlayer Cloud 官方 SDK

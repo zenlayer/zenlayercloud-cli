@@ -2,13 +2,16 @@
 package main
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/zenlayer/zenlayercloud-cli/cmd"
 )
 
 func main() {
-	if err := cmd.Execute(); err != nil {
+	if err := cmd.Execute(ApisFS); err != nil {
+		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Run 'zencli --help' for usage.\n")
 		os.Exit(1)
 	}
 }

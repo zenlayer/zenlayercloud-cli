@@ -2,11 +2,13 @@
 package cmd
 
 import (
+	"embed"
 	"fmt"
 	"os"
 
 	"github.com/spf13/cobra"
 	"github.com/zenlayer/zenlayercloud-cli/internal/config"
+	"github.com/zenlayer/zenlayercloud-cli/internal/loader"
 )
 
 var (
@@ -14,7 +16,9 @@ var (
 	cfgOutput       string
 	cfgAccessKeyID  string
 	cfgAccessSecret string
+	cfgEndpoint     string
 	cfgDebug        bool
+	apisFS          embed.FS
 )
 
 // rootCmd represents the base command when called without any subcommands.
@@ -32,8 +36,10 @@ To get started, run 'zencli configure' to set up your credentials.`,
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
-// This is called by main.main(). It only needs to happen once to the rootCmd.
-func Execute() error {
+// fsys must be the embed.FS containing the apis/ directory, declared in main.
+func Execute(fsys embed.FS) error {
+	apisFS = fsys
+	registerProductCommands()
 	return rootCmd.Execute()
 }
 
@@ -45,6 +51,7 @@ func init() {
 	rootCmd.PersistentFlags().StringVarP(&cfgOutput, "output", "o", "", "output format: json, table (default: from config)")
 	rootCmd.PersistentFlags().StringVar(&cfgAccessKeyID, "access-key-id", "", "access key ID (overrides config)")
 	rootCmd.PersistentFlags().StringVar(&cfgAccessSecret, "access-key-secret", "", "access key secret (overrides config)")
+	rootCmd.PersistentFlags().StringVar(&cfgEndpoint, "endpoint", "", "API domain/endpoint (overrides default)")
 	rootCmd.PersistentFlags().BoolVar(&cfgDebug, "debug", false, "enable debug mode")
 
 	// Flag value completions
@@ -103,6 +110,33 @@ func GetAccessKeyID() string {
 		return envKey
 	}
 	return config.GetAccessKeyID()
+}
+
+// registerProductCommands loads all YAML-defined product API commands into rootCmd.
+func registerProductCommands() {
+	err := loader.RegisterAll(
+		rootCmd,
+		apisFS,
+		GetAccessKeyID,
+		GetAccessKeySecret,
+		func() interface{} { return GetOutput() },
+		func() interface{} { return GetDebug() },
+		func() interface{} { return GetEndpoint() },
+	)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Warning: failed to register product commands: %v\n", err)
+	}
+}
+
+// GetEndpoint returns the API domain/endpoint, applying priority: CLI flag > env.
+func GetEndpoint() string {
+	if cfgEndpoint != "" {
+		return cfgEndpoint
+	}
+	if envEndpoint := os.Getenv("ZENLAYER_ENDPOINT"); envEndpoint != "" {
+		return envEndpoint
+	}
+	return ""
 }
 
 // GetAccessKeySecret returns the access key secret, applying priority: CLI flag > env > config.

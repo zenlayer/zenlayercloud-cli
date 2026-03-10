@@ -1,0 +1,22 @@
+name: DescribeBackendHealth
+product: zlb
+use: describe-backend-health
+short: Queries the bound backend server list of a load balancer.
+long: Query the bound backend server list of a load balancer.
+sdk:
+  service: zlb
+  version: '2025-04-01'
+  action: DescribeBackendHealth
+parameters:
+- name: load-balancer-id
+  type: string
+  required: true
+  sdk-field: loadBalancerId
+  description: Load balance instance ID.
+- name: listener-id
+  type: string
+  required: false
+  sdk-field: listenerId
+  description: |-
+    Load balance listener ID.
+    If not specified, all backend servers will be queried.
