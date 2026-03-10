@@ -3,6 +3,9 @@ product: traffic
 use: describe-bandwidth-clusters
 short: 查询共享带宽包列表
 long: 查询一个或多个共享带宽包的信息。用户可以根据共享带宽包ID、名称或者城市名称等条件来查询共享带宽包的详细信息。
+examples:
+- cmd: zencli traffic describe-bandwidth-clusters --page-num 1 --page-size 1
+  desc: 分页查询共享带宽包列表
 sdk:
   service: traffic
   version: '2024-03-26'

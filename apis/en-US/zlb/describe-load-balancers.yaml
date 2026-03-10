@@ -2,7 +2,10 @@ name: DescribeLoadBalancers
 product: zlb
 use: describe-load-balancers
 short: Queries the list of load balancer instances.
-long: Query the list of load balancer instances.
+long: query the list of load balancer instances.
+examples:
+- cmd: zencli zlb describe-load-balancers
+  desc: Query the list of load balancer instances.
 sdk:
   service: zlb
   version: '2025-04-01'
@@ -64,7 +67,7 @@ parameters:
   description: |-
     Query using tags.
     A maximum of 20 tags can be used.
-  array-style: object
+  array-style: json
   item-schema:
   - name: key
     type: string

@@ -158,6 +158,7 @@ func TestMakeAPICommand_Basic(t *testing.T) {
 		func() string { return "" },
 		func() string { return "" },
 		func() interface{} { return "" },
+		func() interface{} { return "" },   // getQuery
 		func() interface{} { return false },
 		func() interface{} { return "" },
 	)
@@ -196,6 +197,7 @@ func TestMakeAPICommand_WithExamples(t *testing.T) {
 		func() string { return "" },
 		func() string { return "" },
 		func() interface{} { return "" },
+		func() interface{} { return "" },   // getQuery
 		func() interface{} { return false },
 		func() interface{} { return "" },
 	)
@@ -223,6 +225,7 @@ func TestMakeAPICommand_NoExamples(t *testing.T) {
 		func() string { return "" },
 		func() string { return "" },
 		func() interface{} { return "" },
+		func() interface{} { return "" },   // getQuery
 		func() interface{} { return false },
 		func() interface{} { return "" },
 	)

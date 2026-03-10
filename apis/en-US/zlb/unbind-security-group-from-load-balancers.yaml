@@ -2,7 +2,11 @@ name: UnbindSecurityGroupFromLoadBalancers
 product: zlb
 use: unbind-security-group-from-load-balancers
 short: Batch disassociates security groups from load balancers.
-long: Batch disassociate security groups from load balancers.
+long: batch disassociate security groups from load balancers.
+examples:
+- cmd: zencli zlb unbind-security-group-from-load-balancers --load-balancer-ids "<your
+    lb id1>,<your lb id2>"
+  desc: Batch disassociate security groups from load balancers.
 sdk:
   service: zlb
   version: '2025-04-01'

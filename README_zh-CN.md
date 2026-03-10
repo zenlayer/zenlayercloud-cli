@@ -239,10 +239,43 @@ zencli completion --uninstall [bash|zsh|fish|powershell]  # 卸载特定 shell
 |------|-------|-------------|
 | `--profile` | `-p` | 使用的配置文件名称 |
 | `--output` | `-o` | 输出格式：json、table |
+| `--query` | `-q` | 使用 JMESPath 过滤响应（见下文） |
 | `--access-key-id` | | Access Key ID（覆盖配置） |
 | `--access-key-secret` | | Access Key Secret（覆盖配置） |
 | `--debug` | | 启用调试模式 |
 | `--help` | `-h` | 命令帮助 |
+
+### 使用 --query 过滤响应
+
+使用 `--query`（或 `-q`）标志可通过 [JMESPath](https://jmespath.org/) 语法过滤和转换 API 响应输出。适用于提取特定字段、过滤数组或为脚本与管道格式化输出。
+
+**示例：**
+
+```bash
+# 提取 dataSet 数组中所有实例 ID
+zencli zec describe-instances --query "dataSet[*].instanceId"
+
+# 筛选状态为 RUNNING 的实例
+zencli zec describe-instances --query "dataSet[?state=='RUNNING']"
+
+# 仅获取负载均衡器名称
+zencli zlb describe-load-balancers -o json -q "loadBalancerSet[*].loadBalancerName"
+
+# 从响应中提取 requestId
+zencli zec describe-instances --query "requestId"
+
+# 按状态筛选带宽集群
+zencli traffic describe-bandwidth-clusters -q "dataSet[?status=='active']"
+```
+
+**JMESPath 快速参考：**
+- `foo` - 访问字段 `foo`
+- `foo.bar` - 嵌套路径
+- `items[*].id` - 投影：获取 `items` 中每个元素的 `id`
+- `items[?status=='active']` - 过滤：`status` 等于 `active` 的元素
+- `items[0]` - 数组的第一个元素
+
+完整语法请参阅 [JMESPath 教程](https://jmespath.org/tutorial.html)。
 
 ## 开发
 

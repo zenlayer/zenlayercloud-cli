@@ -3,6 +3,11 @@ product: zlb
 use: inquiry-price-create-load-balancer
 short: 创建负载均衡器实例询价
 long: 查询创建负载均衡的价格。
+examples:
+- cmd: zencli zlb inquiry-price-create-load-balancer --region-id asia-east-1 --vpc-id
+    <vpcId> --internet-charge-type ByBandwidth --network-line-type PremiumBGP --bandwidth-mbps
+    2 --number 1
+  desc: 查询创建一个公网负载均衡实例价格。
 sdk:
   service: zlb
   version: '2025-04-01'
@@ -28,7 +33,7 @@ parameters:
   sdk-field: ipNetworkType
   description: |-
     IP 的网络类型。
-    已废弃，请使用`networkLineType`。
+    已废弃，请使用networkLineType。
   deprecated: true
   enum-values:
   - BGPLine
@@ -67,11 +72,11 @@ parameters:
   sdk-field: trafficPackageSize
   description: |-
     流量包大小。
-    指定此参数时，IP网络计费模式(`internetChargeType`) 需为`ByTrafficPackage`, 否则该参数不生效。
+    指定此参数时，IP网络计费模式(internetChargeType) 需为ByTrafficPackage, 否则该参数不生效。
 - name: bandwidth-cluster-id
   type: string
   required: false
   sdk-field: bandwidthClusterId
   description: |-
     共享带宽包ID。
-    指定此参数时，IP网络计费模式(`internetChargeType`) 需为`BandwidthCluster`, 否则该参数不生效。
+    指定此参数时，IP网络计费模式(internetChargeType) 需为BandwidthCluster, 否则该参数不生效。

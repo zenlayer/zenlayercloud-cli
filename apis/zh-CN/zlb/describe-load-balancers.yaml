@@ -3,6 +3,9 @@ product: zlb
 use: describe-load-balancers
 short: 负载均衡列表
 long: 查询负载均衡实例列表。
+examples:
+- cmd: zencli zlb describe-load-balancers
+  desc: 查看负载均衡实例列表。
 sdk:
   service: zlb
   version: '2025-04-01'
@@ -63,7 +66,7 @@ parameters:
   description: |-
     根据标签进行搜索。
      最长不得超过20个标签。
-  array-style: object
+  array-style: json
   item-schema:
   - name: key
     type: string

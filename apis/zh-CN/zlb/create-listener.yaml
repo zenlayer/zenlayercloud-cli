@@ -3,6 +3,13 @@ product: zlb
 use: create-listener
 short: 创建负载均衡监听器
 long: 查询创建负载均衡监听器。
+examples:
+- cmd: zencli zlb create-listener --load-balancer-id <loadBalancerId> --listener-name
+    sample --protocol TCP --scheduler mh --port 8080-9000,8000
+  desc: 创建一个TCP负载均衡监听器，监听8080-9000以及8000端口。不开启健康检查。
+- cmd: zencli zlb create-listener --load-balancer-id <loadBalancerId> --listener-name
+    sample --protocol TCP --scheduler mh --port 8080
+  desc: 创建一个TCP负载均衡监听器的同时设置健康检查信息。
 sdk:
   service: zlb
   version: '2025-04-01'
@@ -101,7 +108,7 @@ parameters:
   description: |-
     监听器端口。
     多个端口使用,分隔。
-    当端口是范围时用`-`连接，例如：10000-10005。
+    当端口是范围时用-连接，例如：10000-10005。
     端口的取值范围为1～65535。
     请注意端口不能和该监听器的其他端口有重叠。
 - name: kind

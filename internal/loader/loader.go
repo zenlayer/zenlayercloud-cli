@@ -61,7 +61,7 @@ func setTestFS(fsys fs.FS) { apisFS = fsys }
 //
 // fsys must contain an "apis/en-US/" subtree (and optionally "apis/zh-CN/").
 // Pass the embed.FS declared in the root main package.
-func RegisterAll(root *cobra.Command, fsys embed.FS, getAccessKeyID, getAccessKeySecret func() string, getOutput, getDebug, getEndpoint func() interface{}) error {
+func RegisterAll(root *cobra.Command, fsys embed.FS, getAccessKeyID, getAccessKeySecret func() string, getOutput, getQuery, getDebug, getEndpoint func() interface{}) error {
 	apisFS = fsys
 	lang := langDir(config.GetLanguage())
 
@@ -116,7 +116,7 @@ func RegisterAll(root *cobra.Command, fsys embed.FS, getAccessKeyID, getAccessKe
 			root.AddCommand(prodCmd)
 		}
 
-		apiCmd := makeAPICommand(def, getAccessKeyID, getAccessKeySecret, getOutput, getDebug, getEndpoint)
+		apiCmd := makeAPICommand(def, getAccessKeyID, getAccessKeySecret, getOutput, getQuery, getDebug, getEndpoint)
 		prodCmd.AddCommand(apiCmd)
 	}
 
@@ -171,7 +171,7 @@ func listYAMLFiles(root string) ([]string, error) {
 }
 
 // makeAPICommand builds a cobra.Command for a single API definition.
-func makeAPICommand(def *APIDefinition, getAccessKeyID, getAccessKeySecret func() string, getOutput, getDebug, getEndpoint func() interface{}) *cobra.Command {
+func makeAPICommand(def *APIDefinition, getAccessKeyID, getAccessKeySecret func() string, getOutput, getQuery, getDebug, getEndpoint func() interface{}) *cobra.Command {
 	// Build examples string.
 	var exampleLines []string
 	for _, ex := range def.Examples {
@@ -230,7 +230,16 @@ func makeAPICommand(def *APIDefinition, getAccessKeyID, getAccessKeySecret func(
 			outFmt = of
 		}
 
-		return output.FormatTo(os.Stdout, outFmt, result)
+		var toFormat interface{} = result
+		if q, ok := getQuery().(string); ok && q != "" {
+			filtered, err := output.ApplyQuery(q, result)
+			if err != nil {
+				return err
+			}
+			toFormat = filtered
+		}
+
+		return output.FormatTo(os.Stdout, outFmt, toFormat)
 	}
 
 	return cmd

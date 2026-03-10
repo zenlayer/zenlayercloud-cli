@@ -239,10 +239,43 @@ Removes completion from standard installation paths. Restart your shell after un
 |------|-------|-------------|
 | `--profile` | `-p` | Profile name to use |
 | `--output` | `-o` | Output format: json, table |
+| `--query` | `-q` | JMESPath query to filter response (see below) |
 | `--access-key-id` | | Access Key ID (overrides config) |
 | `--access-key-secret` | | Access Key Secret (overrides config) |
 | `--debug` | | Enable debug mode |
 | `--help` | `-h` | Help for command |
+
+### Response Filtering with --query
+
+Use the `--query` (or `-q`) flag to filter and transform API response output using [JMESPath](https://jmespath.org/) syntax. This is useful for extracting specific fields, filtering arrays, or formatting output for scripts and pipelines.
+
+**Examples:**
+
+```bash
+# Extract all instance IDs from the dataSet array
+zencli zec describe-instances --query "dataSet[*].instanceId"
+
+# Filter instances with state RUNNING
+zencli zec describe-instances --query "dataSet[?state=='RUNNING']"
+
+# Get only load balancer names
+zencli zlb describe-load-balancers -o json -q "loadBalancerSet[*].loadBalancerName"
+
+# Extract requestId from response
+zencli zec describe-instances --query "requestId"
+
+# Filter bandwidth clusters by status
+zencli traffic describe-bandwidth-clusters -q "dataSet[?status=='active']"
+```
+
+**JMESPath Quick Reference:**
+- `foo` - Access field `foo`
+- `foo.bar` - Nested path
+- `items[*].id` - Project: get `id` from each element in `items`
+- `items[?status=='active']` - Filter: elements where `status` equals `active`
+- `items[0]` - First element of array
+
+See [JMESPath Tutorial](https://jmespath.org/tutorial.html) for full syntax.
 
 ## Development
 

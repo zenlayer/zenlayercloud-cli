@@ -3,6 +3,11 @@ product: traffic
 use: inquiry-bandwidth-cluster-price
 short: 询价创建带宽包
 long: 查询共享带宽包价格。
+examples:
+- cmd: zencli traffic inquiry-bandwidth-cluster-price --area-code SHA --charge-type
+    POSTPAID --commit-bandwidth-mbps 100 --network-type BGP --internet-charge-type
+    MonthlyPercent95Bandwidth
+  desc: 查询上海（SHA)地区共享带宽包 100 M保底，IP线路为BGP，计费类型为月95的价格。
 sdk:
   service: traffic
   version: '2024-03-26'
@@ -14,7 +19,7 @@ parameters:
   sdk-field: areaCode
   description: |-
     共享带宽包所属地域。
-    具体地域信息可以查询[DescribeBandwidthClusterAreas](../bandwidth-cluster/describebandwidthclusterareas.md)中的`areaCode`获取。
+    具体地域信息可以查询[DescribeBandwidthClusterAreas](../bandwidth-cluster/describebandwidthclusterareas.md)中的areaCode获取。
 - name: commit-bandwidth-mbps
   type: integer
   required: false

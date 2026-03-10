@@ -2,8 +2,13 @@ name: ModifyBackend
 product: zlb
 use: modify-backend
 short: Modifies the configurations of one or more backend servers.
-long: Modify the configurations of one or more backend servers added to a specified
+long: modify the configurations of one or more backend servers added to a specified
   listener, including the weight and forwarding port.
+examples:
+- cmd: zencli zlb modify-backend --load-balancer-id <loadBalancerId> --listener-id
+    <listenerId> --backend-servers "{instanceId=<backendServerId>, privateIpAddress=10.0.0.1,
+    weight=50, port=10}"
+  desc: Modify the weight and port of the backend server added to a listener.
 sdk:
   service: zlb
   version: '2025-04-01'
@@ -24,7 +29,7 @@ parameters:
   required: true
   sdk-field: backendServers
   description: List of backend servers to be modified.
-  array-style: object
+  array-style: json
   item-schema:
   - name: instanceId
     type: string

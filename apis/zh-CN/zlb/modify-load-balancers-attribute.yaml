@@ -3,6 +3,10 @@ product: zlb
 use: modify-load-balancers-attribute
 short: 修改负载均衡的属性
 long: 修改负载均衡实例的属性。目前仅支持修改负载均衡实例的名称。
+examples:
+- cmd: zencli zlb modify-load-balancers-attribute --load-balancer-ids <loadBalancerId>
+    --load-balancer-name sample-name
+  desc: 修改负载均衡器名称。
 sdk:
   service: zlb
   version: '2025-04-01'

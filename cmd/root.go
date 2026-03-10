@@ -14,6 +14,7 @@ import (
 var (
 	cfgProfile      string
 	cfgOutput       string
+	cfgQuery        string
 	cfgAccessKeyID  string
 	cfgAccessSecret string
 	cfgEndpoint     string
@@ -39,6 +40,19 @@ To get started, run 'zencli configure' to set up your credentials.`,
 // fsys must be the embed.FS containing the apis/ directory, declared in main.
 func Execute(fsys embed.FS) error {
 	apisFS = fsys
+
+	// Load config before registering commands so loader can use config.GetLanguage()
+	// for help text and autocomplete (zh-CN vs en-US). initConfig runs later when
+	// cobra.ParseFlags executes, which is too late for command registration.
+	if err := config.Load(); err != nil {
+		if cfgDebug {
+			fmt.Fprintf(os.Stderr, "Warning: failed to load config: %v\n", err)
+		}
+	}
+	if envProfile := os.Getenv("ZENLAYER_PROFILE"); envProfile != "" && cfgProfile == "" {
+		config.SetCurrentProfile(envProfile)
+	}
+
 	registerProductCommands()
 	return rootCmd.Execute()
 }
@@ -50,6 +64,7 @@ func init() {
 	rootCmd.PersistentFlags().BoolP("help", "h", false, "help for this command")
 	rootCmd.PersistentFlags().StringVarP(&cfgProfile, "profile", "p", "", "profile name to use (default: from config)")
 	rootCmd.PersistentFlags().StringVarP(&cfgOutput, "output", "o", "", "output format: json, table (default: from config)")
+	rootCmd.PersistentFlags().StringVarP(&cfgQuery, "query", "q", "", "JMESPath query to filter response (e.g. dataSet[*].instanceId)")
 	rootCmd.PersistentFlags().StringVar(&cfgAccessKeyID, "access-key-id", "", "access key ID (overrides config)")
 	rootCmd.PersistentFlags().StringVar(&cfgAccessSecret, "access-key-secret", "", "access key secret (overrides config)")
 	rootCmd.PersistentFlags().StringVar(&cfgEndpoint, "endpoint", "", "API domain/endpoint (overrides default)")
@@ -94,6 +109,11 @@ func GetDebug() bool {
 	return cfgDebug
 }
 
+// GetQuery returns the JMESPath query string if set.
+func GetQuery() string {
+	return cfgQuery
+}
+
 // GetOutput returns the output format, applying priority: CLI flag > env > config.
 func GetOutput() string {
 	if cfgOutput != "" {
@@ -121,6 +141,7 @@ func registerProductCommands() {
 		GetAccessKeyID,
 		GetAccessKeySecret,
 		func() interface{} { return GetOutput() },
+		func() interface{} { return GetQuery() },
 		func() interface{} { return GetDebug() },
 		func() interface{} { return GetEndpoint() },
 	)

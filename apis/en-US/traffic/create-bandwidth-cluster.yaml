@@ -2,7 +2,13 @@ name: CreateBandwidthCluster
 product: traffic
 use: create-bandwidth-cluster
 short: Creates a bandwidth cluster.
-long: Create a bandwidth cluster.
+long: create a bandwidth cluster.
+examples:
+- cmd: zencli traffic create-bandwidth-cluster --area-code SHA --charge-type POSTPAID
+    --commit-bandwidth-mbps 1000 --network-type CMI --internet-charge-type MonthlyPercent95Bandwidth
+    --name sample
+  desc: Create a bandwidth cluster with the China Mobile network in Shanghai (SHA),
+    whose bandwidth commitment is `1 Gbps`.
 sdk:
   service: traffic
   version: '2024-03-26'

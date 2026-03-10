@@ -3,6 +3,11 @@ product: traffic
 use: create-bandwidth-cluster
 short: 创建共享带宽包
 long: 创建一个共享带宽包。
+examples:
+- cmd: zencli traffic create-bandwidth-cluster --area-code SHA --charge-type POSTPAID
+    --commit-bandwidth-mbps 1000 --network-type CMI --internet-charge-type MonthlyPercent95Bandwidth
+    --name sample
+  desc: 在上海（SHA) 开通中国移动线路的共享带宽包， 保底设置为1G。
 sdk:
   service: traffic
   version: '2024-03-26'
@@ -14,7 +19,7 @@ parameters:
   sdk-field: areaCode
   description: |-
     共享带宽包所属地域。
-    具体地域信息可以查询[DescribeBandwidthClusterAreas](../bandwidth-cluster/describebandwidthclusterareas.md)中的`areaCode`获取。
+    具体地域信息可以查询[DescribeBandwidthClusterAreas](../bandwidth-cluster/describebandwidthclusterareas.md)中的areaCode获取。
 - name: commit-bandwidth-mbps
   type: integer
   required: false
@@ -42,7 +47,7 @@ parameters:
   sdk-field: networkType
   description: |-
     IP网络类型。
-    请使用`networkLineType`代替。
+    请使用networkLineType代替。
   deprecated: true
   enum-values:
   - BGP

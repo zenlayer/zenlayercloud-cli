@@ -2,7 +2,10 @@ name: RestoreLoadBalancer
 product: zlb
 use: restore-load-balancer
 short: Restores the load balancer in the recycle bin.
-long: Restore the load balancer in the recycle bin.
+long: restore the load balancer in the recycle bin.
+examples:
+- cmd: zencli zlb restore-load-balancer --load-balancer-id <loadBalancerId>
+  desc: Restore a load balancer.
 sdk:
   service: zlb
   version: '2025-04-01'

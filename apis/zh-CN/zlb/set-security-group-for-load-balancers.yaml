@@ -3,6 +3,10 @@ product: zlb
 use: set-security-group-for-load-balancers
 short: 批量更换负载器均衡的安全组
 long: 批量更换负载器均衡的安全组。
+examples:
+- cmd: zencli zlb set-security-group-for-load-balancers --security-group-id "<your
+    sg id>" --load-balancer-ids "<your lb id1>,<your lb id2>"
+  desc: 批量更换负载器均衡的安全组
 sdk:
   service: zlb
   version: '2025-04-01'

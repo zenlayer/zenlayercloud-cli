@@ -3,6 +3,9 @@ product: zlb
 use: terminate-load-balancer
 short: 删除负载均衡器实例
 long: 本接口用户删除一个指定的负载均衡器实例。
+examples:
+- cmd: zencli zlb terminate-load-balancer --load-balancer-id <loadBalancerId>
+  desc: 终止一个负载均衡器。
 sdk:
   service: zlb
   version: '2025-04-01'

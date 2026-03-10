@@ -3,6 +3,10 @@ product: traffic
 use: migrate-bandwidth-cluster-resources
 short: 共享带宽包资源迁移
 long: 共享带宽包之间的资源迁移。
+examples:
+- cmd: zencli traffic migrate-bandwidth-cluster-resources --resource-id-list <id1>,<id2>
+    --target-bandwidth-cluster-id <targetBandwidthClusterId>
+  desc: 将多个资源前一到同指定带宽包。
 sdk:
   service: traffic
   version: '2024-03-26'
@@ -19,4 +23,4 @@ parameters:
   sdk-field: resourceIdList
   description: |-
     要迁移的资源的ID列表。
-    该资源必须属于其他共享带宽包且资源所处的原共享带宽包的`IP网络类型`以及`区域`需要和目标带宽包一致。
+    该资源必须属于其他共享带宽包且资源所处的原共享带宽包的IP网络类型以及区域需要和目标带宽包一致。

@@ -3,6 +3,10 @@ product: zlb
 use: modify-listener
 short: 修改负载均衡监听器属性
 long: 修改负载均衡监听器的属性，包括监听器的名称、健康检查参数、转发方式等。不支持修改监听器的监听协议。
+examples:
+- cmd: zencli zlb modify-listener --load-balancer-id <loadBalancerId> --listener-id
+    <listenerId> --listener-name sampleName --scheduler mh
+  desc: 修改负载均衡监听器的名称、健康检查参数以及转发策略
 sdk:
   service: zlb
   version: '2025-04-01'
@@ -31,7 +35,7 @@ parameters:
   sdk-field: healthCheck
   description: |-
     负载均衡器的监听器健康检查。
-     不传则不会进行修改，如果开启或关闭，请设置`HealthCheck.enabled`字段。
+     不传则不会进行修改，如果开启或关闭，请设置HealthCheck.enabled字段。
   object-schema:
   - name: enabled
     type: boolean
@@ -100,7 +104,7 @@ parameters:
   description: |-
     监听器端口。
     多个端口使用,分隔。
-    当端口是范围时用`-`连接，例如：10000-10005。
+    当端口是范围时用-连接，例如：10000-10005。
     端口的取值范围为1～65535。
     不指定将不会进行修改。
 - name: kind
@@ -109,7 +113,7 @@ parameters:
   sdk-field: kind
   description: |-
     工作模式。
-    如果修改为`DR`模式，如果后端服务器指定了端口将失效，将跟随监听器的端口。
+    如果修改为DR模式，如果后端服务器指定了端口将失效，将跟随监听器的端口。
   enum-values:
   - FNAT
   - DR
