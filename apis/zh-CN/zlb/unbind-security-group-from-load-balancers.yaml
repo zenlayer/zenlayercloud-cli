@@ -4,8 +4,7 @@ use: unbind-security-group-from-load-balancers
 short: 批量解绑负载器均衡的安全组。
 long: 批量解绑负载器均衡的安全组。
 examples:
-- cmd: zencli zlb unbind-security-group-from-load-balancers --load-balancer-ids "<your
-    lb id1>,<your lb id2>"
+- cmd: zencli zlb unbind-security-group-from-load-balancers --load-balancer-ids "<your lb id1>" --load-balancer-ids "<your lb id2>"
   desc: 批量解绑负载器均衡的安全组
 sdk:
   service: zlb

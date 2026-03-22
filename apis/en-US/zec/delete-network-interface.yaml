@@ -1,0 +1,15 @@
+name: DeleteNetworkInterface
+product: zec
+use: delete-network-interface
+short: Deletes an elastic vNIC.
+long: delete an elastic vNIC.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DeleteNetworkInterface
+parameters:
+- name: nic-id
+  type: string
+  required: true
+  sdk-field: nicId
+  description: ID of the vNIC.

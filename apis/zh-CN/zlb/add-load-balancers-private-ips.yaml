@@ -4,8 +4,7 @@ use: add-load-balancers-private-ips
 short: 为负载均衡器实例添加内网IP
 long: 为负载均衡器实例添加内网IP。
 examples:
-- cmd: zencli zlb add-load-balancers-private-ips --private-ips 10.0.0.0 --load-balancer-id
-    "<your lb id>" --subnet-id "<your subnet id>"
+- cmd: zencli zlb add-load-balancers-private-ips --private-ips 10.0.0.0 --load-balancer-id "<your lb id>" --subnet-id "<your subnet id>"
   desc: 为负载均衡器实例添加内网IP
 sdk:
   service: zlb

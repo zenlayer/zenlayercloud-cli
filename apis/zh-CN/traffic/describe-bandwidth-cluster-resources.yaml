@@ -4,8 +4,7 @@ use: describe-bandwidth-cluster-resources
 short: 查询共享带宽包里的资源
 long: 查询一个共享带宽包里的资源。
 examples:
-- cmd: zencli traffic describe-bandwidth-cluster-resources --bandwidth-cluster-id
-    <bandwidthClusterId>
+- cmd: zencli traffic describe-bandwidth-cluster-resources --bandwidth-cluster-id <bandwidthClusterId>
   desc: 查询共享带宽包的资源。
 sdk:
   service: traffic

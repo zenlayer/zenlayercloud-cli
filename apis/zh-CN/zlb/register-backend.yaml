@@ -4,9 +4,7 @@ use: register-backend
 short: 绑定后端机器到监听器上
 long: 将一台或多台后端服务绑定到负载均衡的监听器。
 examples:
-- cmd: zencli zlb register-backend --load-balancer-id <loadBalancerId> --listener-id
-    <listenerId> --backend-servers "{instanceId=<instanceId>, privateIpAddress=10.0.0.1,
-    weight=100}"
+- cmd: zencli zlb register-backend --load-balancer-id <loadBalancerId> --listener-id <listenerId> --backend-servers "{instanceId=<instanceId>, privateIpAddress=10.0.0.1, weight=100}"
   desc: 绑定一个后端机器到监听器上。
 sdk:
   service: zlb

@@ -1,0 +1,61 @@
+name: DescribeCidrPrice
+product: zec
+use: describe-cidr-price
+short: 查询IPv4 CIDR地址块售卖价格。
+long: 查询IPv4 CIDR地址块售卖价格。
+examples:
+- cmd: zencli zec describe-cidr-price --region-id asia-east-1 --network-line-type PremiumBGP
+  desc: 查询2个`/28`的BGP线路的CIDR的总价格。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeCidrPrice
+parameters:
+- name: region-id
+  type: string
+  required: true
+  sdk-field: regionId
+  description: 查询CIDR所在的节点ID。
+- name: eip-v4-type
+  type: enum
+  required: false
+  sdk-field: eipV4Type
+  description: |-
+    查询CIDR的IP线路类型。
+    已废弃，请使用networkLineType。
+  deprecated: true
+  enum-values:
+  - BGPLine
+  - CN2Line
+  - LocalLine
+  - ChinaMobile
+  - ChinaUnicom
+  - ChinaTelecom
+  - Cogent
+  - ThreeLine
+- name: network-line-type
+  type: enum
+  required: false
+  sdk-field: networkLineType
+  description: 查询CIDR的IP线路类型。
+  enum-values:
+  - PremiumBGP
+  - CN2
+  - LocalLine
+  - StandardBGP
+  - CMI
+  - CUG
+  - CTG
+  - ThreeLine
+- name: netmask
+  type: object
+  required: true
+  sdk-field: netmask
+  description: 需要查询的CIDR子网数量和掩码信息。
+  object-schema:
+  - name: netmask
+    type: integer
+    description: 掩码大小。
+  - name: amount
+    type: integer
+    description: CIDR的数量。

@@ -4,8 +4,7 @@ use: migrate-bandwidth-cluster-resources
 short: 共享带宽包资源迁移
 long: 共享带宽包之间的资源迁移。
 examples:
-- cmd: zencli traffic migrate-bandwidth-cluster-resources --resource-id-list <id1>,<id2>
-    --target-bandwidth-cluster-id <targetBandwidthClusterId>
+- cmd: zencli traffic migrate-bandwidth-cluster-resources --resource-id-list <id1> --resource-id-list <id2> --target-bandwidth-cluster-id <targetBandwidthClusterId>
   desc: 将多个资源前一到同指定带宽包。
 sdk:
   service: traffic

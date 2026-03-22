@@ -1,0 +1,39 @@
+name: DescribePools
+product: zec
+use: describe-pools
+short: Queries the information of one or more specified IP pools.
+long: query the information of one or more IP pools. Users can search for IP pool information based on pool ID, pool name, etc.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribePools
+parameters:
+- name: pool-ids
+  type: string-array
+  required: false
+  sdk-field: poolIds
+  description: Pool ID(s).
+- name: region-id
+  type: string
+  required: false
+  sdk-field: regionId
+  description: Region ID.
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: |-
+    Pool name.
+    Fuzzy search supported.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    Number of items in the current page result.
+    Default value: 20;
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: Number of pages returned.

@@ -1,0 +1,114 @@
+name: DescribeImages
+product: zec
+use: describe-images
+short: 镜像列表
+long: 查询某节点支持的镜像列表。
+examples:
+- cmd: zencli zec describe-images --zone-id asia-east-1a --os-type linux --page-size 3
+  desc: 查询`asia-east-1a`区域下，操作系统类型为`linux`的镜像。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeImages
+parameters:
+- name: zone-id
+  type: string
+  required: true
+  sdk-field: zoneId
+  description: 查询镜像所在的可用区ID。
+- name: image-ids
+  type: string-array
+  required: false
+  sdk-field: imageIds
+  description: 镜像ID列表。
+- name: image-name
+  type: string
+  required: false
+  sdk-field: imageName
+  description: |-
+    根据镜像名称过滤。
+    该字段支持模糊搜索。
+- name: category
+  type: string
+  required: false
+  sdk-field: category
+  description: 镜像所属分类。
+- name: image-type
+  type: enum
+  required: false
+  sdk-field: imageType
+  description: 镜像类型。
+  enum-values:
+  - PUBLIC_IMAGE
+  - CUSTOM_IMAGE
+- name: image-source
+  type: enum
+  required: false
+  sdk-field: imageSource
+  description: 镜像来源。
+  enum-values:
+  - OFFICIAL
+  - MARKETING
+  - CUSTOM
+- name: os-type
+  type: enum
+  required: false
+  sdk-field: osType
+  description: 操作系统类型。
+  enum-values:
+  - linux
+  - bsd
+  - windows
+  - android
+  - any
+- name: image-status
+  type: enum
+  required: false
+  sdk-field: imageStatus
+  description: 镜像的状态。
+  enum-values:
+  - CREATING
+  - AVAILABLE
+  - UNAVAILABLE
+  - SYNCING
+  - FAILED
+  - DELETING
+  - PROCESSING
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: 返回的分页页码。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    返回的分页大小。
+    默认为20，最大为1000。
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    根据标签键进行搜索。
+    最长不得超过20个标签键。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    根据标签进行搜索。
+    最长不得超过20个标签。
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。

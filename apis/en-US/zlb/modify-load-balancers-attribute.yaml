@@ -2,11 +2,9 @@ name: ModifyLoadBalancersAttribute
 product: zlb
 use: modify-load-balancers-attribute
 short: Modifies the properties of a load balancer instance.
-long: modify the properties of a load balancer instance. Only the name of the load
-  balancer instance can be modified for now.
+long: modify the properties of a load balancer instance. Only the name of the load balancer instance can be modified for now.
 examples:
-- cmd: zencli zlb modify-load-balancers-attribute --load-balancer-ids <loadBalancerId>
-    --load-balancer-name sample-name
+- cmd: zencli zlb modify-load-balancers-attribute --load-balancer-ids <loadBalancerId> --load-balancer-name sample-name
   desc: Modify the name of a load balancer.
 sdk:
   service: zlb

@@ -1,0 +1,26 @@
+name: ReplaceEipAddress
+product: zec
+use: replace-eip-address
+short: Replaces the elastic IP addresses.
+long: replace the elastic IP addresses.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ReplaceEipAddress
+parameters:
+- name: replace-ips
+  type: object-array
+  required: true
+  sdk-field: replaceIps
+  description: Lists of the original and target elastic IPs.
+  array-style: json
+  item-schema:
+  - name: eipId
+    type: string
+    description: Elastic IP ID.
+  - name: ownIp
+    type: string
+    description: Source IP.
+  - name: targetIp
+    type: string
+    description: Target IP.

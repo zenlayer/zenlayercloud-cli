@@ -2,13 +2,10 @@ name: ModifyListener
 product: zlb
 use: modify-listener
 short: Queries the properties of a load balance listener.
-long: modify the properties of a load balance listener, including its name, health
-  check parameters, and forwarding rules. The listening protocol cannot be modified.
+long: modify the properties of a load balance listener, including its name, health check parameters, and forwarding rules. The listening protocol cannot be modified.
 examples:
-- cmd: zencli zlb modify-listener --load-balancer-id <loadBalancerId> --listener-id
-    <listenerId> --listener-name sampleName --scheduler mh
-  desc: Modify the name, health check parameters, and forwarding rules of a load balance
-    listener.
+- cmd: zencli zlb modify-listener --load-balancer-id <loadBalancerId> --listener-id <listenerId> --listener-name sampleName --scheduler mh
+  desc: Modify the name, health check parameters, and forwarding rules of a load balance listener.
 sdk:
   service: zlb
   version: '2025-04-01'
@@ -94,8 +91,7 @@ parameters:
       Optional range: [100, 599].
   - name: failOpen
     type: boolean
-    description: If all backends fail health checks, the load balancer will fail open
-      and continue forwarding traffic to all servers to maintain service continuity.
+    description: If all backends fail health checks, the load balancer will fail open and continue forwarding traffic to all servers to maintain service continuity.
 - name: scheduler
   type: enum
   required: false

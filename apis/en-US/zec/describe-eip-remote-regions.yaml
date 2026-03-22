@@ -1,0 +1,46 @@
+name: DescribeEipRemoteRegions
+product: zec
+use: describe-eip-remote-regions
+short: Queries the information on remote regions supporting the sale of elastic IPs.
+long: query the information on remote regions supporting the sale of elastic IPs.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeEipRemoteRegions
+parameters:
+- name: region-id
+  type: string
+  required: true
+  sdk-field: regionId
+  description: Region ID.
+- name: eip-v4-type
+  type: enum
+  required: false
+  sdk-field: eipV4Type
+  description: |-
+    Network types of public IPv4.
+    Deprecated. Please use networkLineType instead.
+  deprecated: true
+  enum-values:
+  - BGPLine
+  - CN2Line
+  - LocalLine
+  - ChinaMobile
+  - ChinaUnicom
+  - ChinaTelecom
+  - Cogent
+  - ThreeLine
+- name: network-line-type
+  type: enum
+  required: false
+  sdk-field: networkLineType
+  description: Network types of public IPv4.
+  enum-values:
+  - PremiumBGP
+  - CN2
+  - LocalLine
+  - StandardBGP
+  - CMI
+  - CUG
+  - CTG
+  - ThreeLine

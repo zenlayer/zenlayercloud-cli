@@ -4,9 +4,7 @@ use: modify-backend
 short: 修改后端服务器
 long: 修改一台或多台绑定在指定监听器上的后端服务的配置，包括权重和和后端服务器转发端口。
 examples:
-- cmd: zencli zlb modify-backend --load-balancer-id <loadBalancerId> --listener-id
-    <listenerId> --backend-servers "{instanceId=<backendServerId>, privateIpAddress=10.0.0.1,
-    weight=50, port=10}"
+- cmd: zencli zlb modify-backend --load-balancer-id <loadBalancerId> --listener-id <listenerId> --backend-servers "{instanceId=<backendServerId>, privateIpAddress=10.0.0.1, weight=50, port=10}"
   desc: 修改监听器上绑定的后端服务的权重和端口。
 sdk:
   service: zlb

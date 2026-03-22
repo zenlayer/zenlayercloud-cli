@@ -172,7 +172,7 @@ func listYAMLFiles(root string) ([]string, error) {
 
 // makeAPICommand builds a cobra.Command for a single API definition.
 func makeAPICommand(def *APIDefinition, getAccessKeyID, getAccessKeySecret func() string, getOutput, getQuery, getDebug, getEndpoint func() interface{}) *cobra.Command {
-	// Build examples string.
+	// Build examples string for backward compatibility.
 	var exampleLines []string
 	for _, ex := range def.Examples {
 		if ex.Desc != "" {
@@ -182,11 +182,17 @@ func makeAPICommand(def *APIDefinition, getAccessKeyID, getAccessKeySecret func(
 	}
 
 	cmd := &cobra.Command{
-		Use:     def.Use + " [--param1 value1] [flags]",
+		Use:     def.Use,
 		Short:   def.Short,
 		Long:    def.Long,
 		Example: strings.Join(exampleLines, "\n"),
 	}
+
+	// Use custom help function to generate structured help output with pager support
+	cmd.SetHelpFunc(func(c *cobra.Command, args []string) {
+		help := GenerateHelp(def, c.InheritedFlags())
+		OutputWithPager(c.OutOrStdout(), help)
+	})
 
 	store := bindFlags(cmd, def)
 

@@ -4,12 +4,9 @@ use: create-listener
 short: Creates a load balance listener.
 long: create a load balance listener.
 examples:
-- cmd: zencli zlb create-listener --load-balancer-id <loadBalancerId> --listener-name
-    sample --protocol TCP --scheduler mh --port 8080-9000,8000
-  desc: Create a TCP load balance listener to listen to ports `8080-9000` and `8000`
-    without enabling health check.
-- cmd: zencli zlb create-listener --load-balancer-id <loadBalancerId> --listener-name
-    sample --protocol TCP --scheduler mh --port 8080
+- cmd: zencli zlb create-listener --load-balancer-id <loadBalancerId> --listener-name sample --protocol TCP --scheduler mh --port 8080-9000,8000
+  desc: Create a TCP load balance listener to listen to ports `8080-9000` and `8000` without enabling health check.
+- cmd: zencli zlb create-listener --load-balancer-id <loadBalancerId> --listener-name sample --protocol TCP --scheduler mh --port 8080
   desc: Create a TCP load balance listener and enable health check at the same time.
 sdk:
   service: zlb
@@ -91,8 +88,7 @@ parameters:
       Optional range: [100, 599].
   - name: failOpen
     type: boolean
-    description: If all backends fail health checks, the load balancer will fail open
-      and continue forwarding traffic to all servers to maintain service continuity.
+    description: If all backends fail health checks, the load balancer will fail open and continue forwarding traffic to all servers to maintain service continuity.
 - name: protocol
   type: enum
   required: true

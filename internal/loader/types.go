@@ -2,6 +2,8 @@
 // and dynamically registers cobra commands for every product/API combination.
 package loader
 
+import "gopkg.in/yaml.v3"
+
 // APIDefinition represents a single YAML API definition file.
 type APIDefinition struct {
 	Name       string      `yaml:"name"`
@@ -43,9 +45,42 @@ type Parameter struct {
 	ItemSchema   []SchemaField `yaml:"item-schema"`
 }
 
+// EnumOption represents an enum value with optional description.
+type EnumOption struct {
+	Value       string `yaml:"value"`
+	Description string `yaml:"desc"`
+}
+
+// EnumOptions is a slice of EnumOption that supports both formats:
+// - Simple: ["value1", "value2"]
+// - With desc: [{value: "value1", desc: "desc1"}]
+type EnumOptions []EnumOption
+
+// UnmarshalYAML implements custom unmarshaling to support both formats.
+func (e *EnumOptions) UnmarshalYAML(node *yaml.Node) error {
+	// Try structured format first: [{value: "v1", desc: "d1"}]
+	var structured []EnumOption
+	if err := node.Decode(&structured); err == nil && len(structured) > 0 && structured[0].Value != "" {
+		*e = structured
+		return nil
+	}
+	// Fall back to simple string array: ["v1", "v2"]
+	var simple []string
+	if err := node.Decode(&simple); err != nil {
+		return err
+	}
+	*e = make(EnumOptions, len(simple))
+	for i, v := range simple {
+		(*e)[i] = EnumOption{Value: v}
+	}
+	return nil
+}
+
 // SchemaField describes a field inside an object or object-array parameter.
 type SchemaField struct {
-	Name        string `yaml:"name"`
-	Type        string `yaml:"type"`
-	Description string `yaml:"description"`
+	Name        string      `yaml:"name"`
+	Type        string      `yaml:"type"`
+	Description string      `yaml:"description"`
+	Required    bool        `yaml:"required"`
+	EnumValues  EnumOptions `yaml:"enum-values"`
 }

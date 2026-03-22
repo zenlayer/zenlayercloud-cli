@@ -4,10 +4,7 @@ use: create-load-balancer
 short: 创建负载均衡器实例
 long: 创建负载均衡器实例。
 examples:
-- cmd: zencli zlb create-load-balancer --region-id asia-east-1 --vpc-id <vpcId> --security-group-id
-    <securityGroupId> --load-balancer-name sample --internet-charge-type ByBandwidth
-    --network-line-type PremiumBGP --bandwidth-mbps 2 --bandwidth-cluster-id --number
-    1
+- cmd: zencli zlb create-load-balancer --region-id asia-east-1 --vpc-id <vpcId> --security-group-id <securityGroupId> --load-balancer-name sample --internet-charge-type ByBandwidth --network-line-type PremiumBGP --bandwidth-mbps 2 --bandwidth-cluster-id --number 1
   desc: 创建一个公网负载均衡实例。 IP计费方式为固定带宽。
 sdk:
   service: zlb

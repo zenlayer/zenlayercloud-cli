@@ -1,0 +1,49 @@
+name: DescribeEipRemoteRegions
+product: zec
+use: describe-eip-remote-regions
+short: 查询EIP支持的远程指向的节点信息
+long: 查询EIP支持的远程指向的节点信息。
+examples:
+- cmd: zencli zec describe-eip-remote-regions --region-id asia-east-1 --network-line-type PremiumBGP
+  desc: 查询 `asia-east-1` 节点BGP EIP支持的远端节点信息。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeEipRemoteRegions
+parameters:
+- name: region-id
+  type: string
+  required: true
+  sdk-field: regionId
+  description: 查询的节点ID。
+- name: eip-v4-type
+  type: enum
+  required: false
+  sdk-field: eipV4Type
+  description: |-
+    EIP IP线路类型。
+    已废弃，请使用networkLineType。
+  deprecated: true
+  enum-values:
+  - BGPLine
+  - CN2Line
+  - LocalLine
+  - ChinaMobile
+  - ChinaUnicom
+  - ChinaTelecom
+  - Cogent
+  - ThreeLine
+- name: network-line-type
+  type: enum
+  required: false
+  sdk-field: networkLineType
+  description: EIP IP线路类型。
+  enum-values:
+  - PremiumBGP
+  - CN2
+  - LocalLine
+  - StandardBGP
+  - CMI
+  - CUG
+  - CTG
+  - ThreeLine

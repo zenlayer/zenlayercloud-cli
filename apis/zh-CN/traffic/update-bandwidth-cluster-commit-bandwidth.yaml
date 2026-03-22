@@ -4,8 +4,7 @@ use: update-bandwidth-cluster-commit-bandwidth
 short: 变更共享带宽包保底带宽
 long: 修改带宽包的保底带宽。
 examples:
-- cmd: zencli traffic update-bandwidth-cluster-commit-bandwidth --bandwidth-cluster-id
-    <bandwidth-cluster-id> --commit-bandwidth-mbps 100
+- cmd: zencli traffic update-bandwidth-cluster-commit-bandwidth --bandwidth-cluster-id <bandwidth-cluster-id> --commit-bandwidth-mbps 100
   desc: 将共享带宽包保底带宽100Mbps。
 sdk:
   service: traffic

@@ -1,6 +1,7 @@
 package loader
 
 import (
+	"encoding/json"
 	"fmt"
 	"strings"
 	"unicode"
@@ -74,13 +75,9 @@ func collectParams(store *flagStore, def *APIDefinition, sensitiveValues map[str
 
 		case "object-array":
 			if v, ok := store.stringArrays[name]; ok && len(*v) > 0 {
-				var items []map[string]interface{}
-				for _, raw := range *v {
-					parsed, err := parseObjectValue(raw, param.ItemSchema)
-					if err != nil {
-						return nil, fmt.Errorf("flag --%s: %w", name, err)
-					}
-					items = append(items, parsed)
+				items, err := parseObjectArrayValue(*v, param.ItemSchema)
+				if err != nil {
+					return nil, fmt.Errorf("flag --%s: %w", name, err)
 				}
 				if param.SDKWrapper != "" {
 					result[key] = map[string]interface{}{param.SDKWrapper: items}
@@ -184,6 +181,18 @@ func kebabToCamel(s string) string {
 // parseObjectValue parses a kv string like "category=ssd,size=50" into a map.
 // If the input starts with '{' it is treated as JSON.
 func parseObjectValue(raw string, schema []SchemaField) (map[string]interface{}, error) {
+	raw = strings.TrimSpace(raw)
+
+	// JSON format detection
+	if strings.HasPrefix(raw, "{") {
+		var result map[string]interface{}
+		if err := json.Unmarshal([]byte(raw), &result); err != nil {
+			return nil, fmt.Errorf("invalid JSON: %w", err)
+		}
+		return result, nil
+	}
+
+	// KV format parsing
 	result := make(map[string]interface{})
 
 	// Build type lookup from schema
@@ -229,6 +238,34 @@ func parseObjectValue(raw string, schema []SchemaField) (map[string]interface{},
 		}
 	}
 	return result, nil
+}
+
+// parseObjectArrayValue parses object-array values supporting both JSON array and KV formats.
+// If the input is a single element starting with '[', it's parsed as a JSON array.
+// Otherwise, each element is parsed as a KV string.
+func parseObjectArrayValue(rawItems []string, schema []SchemaField) ([]map[string]interface{}, error) {
+	// Check for JSON array format: single element starting with '['
+	if len(rawItems) == 1 {
+		trimmed := strings.TrimSpace(rawItems[0])
+		if strings.HasPrefix(trimmed, "[") {
+			var result []map[string]interface{}
+			if err := json.Unmarshal([]byte(trimmed), &result); err != nil {
+				return nil, fmt.Errorf("invalid JSON array: %w", err)
+			}
+			return result, nil
+		}
+	}
+
+	// Parse each element as KV or JSON object
+	var items []map[string]interface{}
+	for _, raw := range rawItems {
+		parsed, err := parseObjectValue(raw, schema)
+		if err != nil {
+			return nil, err
+		}
+		items = append(items, parsed)
+	}
+	return items, nil
 }
 
 // validateEnum checks that value is one of the allowed enumValues.

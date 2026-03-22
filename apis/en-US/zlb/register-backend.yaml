@@ -4,9 +4,7 @@ use: register-backend
 short: Adds one or more backend servers to a load balance listener.
 long: add one or more backend servers to a load balance listener.
 examples:
-- cmd: zencli zlb register-backend --load-balancer-id <loadBalancerId> --listener-id
-    <listenerId> --backend-servers "{instanceId=<instanceId>, privateIpAddress=10.0.0.1,
-    weight=100}"
+- cmd: zencli zlb register-backend --load-balancer-id <loadBalancerId> --listener-id <listenerId> --backend-servers "{instanceId=<instanceId>, privateIpAddress=10.0.0.1, weight=100}"
   desc: Add a backend server to a listener.
 sdk:
   service: zlb

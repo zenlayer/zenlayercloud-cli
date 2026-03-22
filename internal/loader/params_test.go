@@ -825,3 +825,180 @@ func TestValidateRequired_MultipleErrors(t *testing.T) {
 		t.Errorf("error %q should list all missing fields", errMsg)
 	}
 }
+
+// JSON format parsing tests
+
+func TestParseObjectValue_JSON(t *testing.T) {
+	schema := []SchemaField{
+		{Name: "diskCategory", Type: "string"},
+		{Name: "diskSize", Type: "integer"},
+	}
+
+	t.Run("valid JSON object", func(t *testing.T) {
+		result, err := parseObjectValue(`{"diskCategory":"ssd","diskSize":100}`, schema)
+		if err != nil {
+			t.Fatalf("parseObjectValue() error = %v", err)
+		}
+		if result["diskCategory"] != "ssd" {
+			t.Errorf("diskCategory = %v, want 'ssd'", result["diskCategory"])
+		}
+		// JSON numbers are float64
+		if result["diskSize"] != float64(100) {
+			t.Errorf("diskSize = %v, want 100", result["diskSize"])
+		}
+	})
+
+	t.Run("JSON with whitespace", func(t *testing.T) {
+		result, err := parseObjectValue(`  { "diskCategory" : "nvme" }  `, schema)
+		if err != nil {
+			t.Fatalf("parseObjectValue() error = %v", err)
+		}
+		if result["diskCategory"] != "nvme" {
+			t.Errorf("diskCategory = %v, want 'nvme'", result["diskCategory"])
+		}
+	})
+
+	t.Run("invalid JSON", func(t *testing.T) {
+		_, err := parseObjectValue(`{"diskCategory":"ssd"`, schema)
+		if err == nil {
+			t.Error("expected error for invalid JSON")
+		}
+	})
+}
+
+func TestParseObjectArrayValue_JSONArray(t *testing.T) {
+	schema := []SchemaField{
+		{Name: "key", Type: "string"},
+		{Name: "value", Type: "string"},
+	}
+
+	t.Run("valid JSON array", func(t *testing.T) {
+		rawItems := []string{`[{"key":"env","value":"prod"},{"key":"team","value":"backend"}]`}
+		result, err := parseObjectArrayValue(rawItems, schema)
+		if err != nil {
+			t.Fatalf("parseObjectArrayValue() error = %v", err)
+		}
+		if len(result) != 2 {
+			t.Fatalf("len(result) = %d, want 2", len(result))
+		}
+		if result[0]["key"] != "env" {
+			t.Errorf("result[0][key] = %v, want 'env'", result[0]["key"])
+		}
+		if result[1]["key"] != "team" {
+			t.Errorf("result[1][key] = %v, want 'team'", result[1]["key"])
+		}
+	})
+
+	t.Run("JSON array with whitespace", func(t *testing.T) {
+		rawItems := []string{`  [ { "key" : "env" , "value" : "dev" } ]  `}
+		result, err := parseObjectArrayValue(rawItems, schema)
+		if err != nil {
+			t.Fatalf("parseObjectArrayValue() error = %v", err)
+		}
+		if len(result) != 1 {
+			t.Fatalf("len(result) = %d, want 1", len(result))
+		}
+		if result[0]["key"] != "env" {
+			t.Errorf("result[0][key] = %v, want 'env'", result[0]["key"])
+		}
+	})
+
+	t.Run("invalid JSON array", func(t *testing.T) {
+		rawItems := []string{`[{"key":"env"`}
+		_, err := parseObjectArrayValue(rawItems, schema)
+		if err == nil {
+			t.Error("expected error for invalid JSON array")
+		}
+	})
+
+	t.Run("KV format still works", func(t *testing.T) {
+		rawItems := []string{"key=env,value=prod", "key=team,value=backend"}
+		result, err := parseObjectArrayValue(rawItems, schema)
+		if err != nil {
+			t.Fatalf("parseObjectArrayValue() error = %v", err)
+		}
+		if len(result) != 2 {
+			t.Fatalf("len(result) = %d, want 2", len(result))
+		}
+		if result[0]["key"] != "env" {
+			t.Errorf("result[0][key] = %v, want 'env'", result[0]["key"])
+		}
+	})
+
+	t.Run("single JSON object element", func(t *testing.T) {
+		rawItems := []string{`{"key":"name","value":"test"}`}
+		result, err := parseObjectArrayValue(rawItems, schema)
+		if err != nil {
+			t.Fatalf("parseObjectArrayValue() error = %v", err)
+		}
+		if len(result) != 1 {
+			t.Fatalf("len(result) = %d, want 1", len(result))
+		}
+		if result[0]["key"] != "name" {
+			t.Errorf("result[0][key] = %v, want 'name'", result[0]["key"])
+		}
+	})
+}
+
+func TestCollectParams_ObjectJSON(t *testing.T) {
+	def := &APIDefinition{
+		Parameters: []Parameter{
+			{
+				Name: "system-disk",
+				Type: "object",
+				ObjectSchema: []SchemaField{
+					{Name: "diskCategory", Type: "string"},
+					{Name: "diskSize", Type: "integer"},
+				},
+			},
+		},
+	}
+	store := newFlagStore()
+	v := `{"diskCategory":"ssd","diskSize":100}`
+	store.strings["system-disk"] = &v
+
+	params, err := collectParams(store, def, nil)
+	if err != nil {
+		t.Fatalf("collectParams() error = %v", err)
+	}
+	obj, ok := params["systemDisk"].(map[string]interface{})
+	if !ok {
+		t.Fatalf("systemDisk type = %T, want map[string]interface{}", params["systemDisk"])
+	}
+	if obj["diskCategory"] != "ssd" {
+		t.Errorf("diskCategory = %v, want 'ssd'", obj["diskCategory"])
+	}
+}
+
+func TestCollectParams_ObjectArrayJSON(t *testing.T) {
+	def := &APIDefinition{
+		Parameters: []Parameter{
+			{
+				Name: "tags",
+				Type: "object-array",
+				ItemSchema: []SchemaField{
+					{Name: "key", Type: "string"},
+					{Name: "value", Type: "string"},
+				},
+			},
+		},
+	}
+	store := newFlagStore()
+	tags := []string{`[{"key":"env","value":"prod"},{"key":"team","value":"backend"}]`}
+	store.stringArrays["tags"] = &tags
+
+	params, err := collectParams(store, def, nil)
+	if err != nil {
+		t.Fatalf("collectParams() error = %v", err)
+	}
+	arr, ok := params["tags"].([]map[string]interface{})
+	if !ok {
+		t.Fatalf("tags type = %T, want []map[string]interface{}", params["tags"])
+	}
+	if len(arr) != 2 {
+		t.Fatalf("tags len = %d, want 2", len(arr))
+	}
+	if arr[0]["key"] != "env" {
+		t.Errorf("tags[0][key] = %v, want 'env'", arr[0]["key"])
+	}
+}

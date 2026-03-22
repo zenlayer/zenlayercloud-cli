@@ -4,8 +4,7 @@ use: deregister-backend
 short: 从负载均衡监听器上解绑后端服务
 long: 将一台或多台绑定在指定监听器上的后端服务解绑。
 examples:
-- cmd: zencli zlb deregister-backend --load-balancer-id <loadBalancerId> --listener-id
-    <listenerId> --backend-servers "{instanceId=<backendServerId>, privateIpAddress=10.0.0.1}"
+- cmd: zencli zlb deregister-backend --load-balancer-id <loadBalancerId> --listener-id <listenerId> --backend-servers "{instanceId=<backendServerId>, privateIpAddress=10.0.0.1}"
   desc: 监听器中解绑一个云服务器。
 sdk:
   service: zlb

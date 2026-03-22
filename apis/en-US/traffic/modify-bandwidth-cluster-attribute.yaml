@@ -4,8 +4,7 @@ use: modify-bandwidth-cluster-attribute
 short: Modifies the attributes of a bandwidth cluster.
 long: modify the attributes of a bandwidth cluster, including the name.
 examples:
-- cmd: zencli traffic modify-bandwidth-cluster-attribute --bandwidth-cluster-id <bandwidthClusterId>
-    --name Test
+- cmd: zencli traffic modify-bandwidth-cluster-attribute --bandwidth-cluster-id <bandwidthClusterId> --name Test
   desc: Modify the name of a bandwidth cluster.
 sdk:
   service: traffic

@@ -1,0 +1,15 @@
+name: DescribeSubnetRegions
+product: zec
+use: describe-subnet-regions
+short: Queries regions supporting subnet creation.
+long: query regions supporting subnet creation.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeSubnetRegions
+parameters:
+- name: region-ids
+  type: string-array
+  required: false
+  sdk-field: regionIds
+  description: Region ID(s).

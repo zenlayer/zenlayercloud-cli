@@ -4,8 +4,7 @@ use: deregister-backend
 short: Removes one or more backend servers from a load balance listener.
 long: remove one or more backend servers from a load balance listener.
 examples:
-- cmd: zencli zlb deregister-backend --load-balancer-id <loadBalancerId> --listener-id
-    <listenerId> --backend-servers "{instanceId=<backendServerId>, privateIpAddress=10.0.0.1}"
+- cmd: zencli zlb deregister-backend --load-balancer-id <loadBalancerId> --listener-id <listenerId> --backend-servers "{instanceId=<backendServerId>, privateIpAddress=10.0.0.1}"
   desc: Remove a backend server from a listener.
 sdk:
   service: zlb

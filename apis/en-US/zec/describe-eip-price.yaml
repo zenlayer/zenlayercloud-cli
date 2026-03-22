@@ -1,0 +1,87 @@
+name: DescribeEipPrice
+product: zec
+use: describe-eip-price
+short: Queries the price of elastic IPs.
+long: query the price of elastic IPs.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeEipPrice
+parameters:
+- name: region-id
+  type: string
+  required: true
+  sdk-field: regionId
+  description: Region ID
+- name: internet-charge-type
+  type: enum
+  required: true
+  sdk-field: internetChargeType
+  description: Network billing methods.
+  enum-values:
+  - ByBandwidth
+  - ByTrafficPackage
+  - BandwidthCluster
+- name: amount
+  type: integer
+  required: false
+  sdk-field: amount
+  description: Quantity.
+- name: eip-v4-type
+  type: enum
+  required: false
+  sdk-field: eipV4Type
+  description: |-
+    Network types of public IPv4.
+    Deprecated. Please use networkLineType instead.
+  deprecated: true
+  enum-values:
+  - BGPLine
+  - CN2Line
+  - LocalLine
+  - ChinaMobile
+  - ChinaUnicom
+  - ChinaTelecom
+  - Cogent
+  - ThreeLine
+- name: network-line-type
+  type: enum
+  required: false
+  sdk-field: networkLineType
+  description: Network types of public IPv4.
+  enum-values:
+  - PremiumBGP
+  - CN2
+  - LocalLine
+  - StandardBGP
+  - CMI
+  - CUG
+  - CTG
+  - ThreeLine
+- name: bandwidth
+  type: integer
+  required: false
+  sdk-field: bandwidth
+  description: Bandwidth
+- name: flow-package
+  type: integer
+  required: false
+  sdk-field: flowPackage
+  description: Data transfer package.
+- name: cidr-id
+  type: string
+  required: false
+  sdk-field: cidrId
+  description: CIDR ID.
+- name: cluster-id
+  type: string
+  required: false
+  sdk-field: clusterId
+  description: |-
+    Bandwidth cluster ID.
+    If the value of internetChargeType is Bandwidth , clusterld is required.
+- name: peer-region-id
+  type: string
+  required: false
+  sdk-field: peerRegionId
+  description: Remote region ID.

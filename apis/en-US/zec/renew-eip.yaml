@@ -1,0 +1,15 @@
+name: RenewEip
+product: zec
+use: renew-eip
+short: Restores an elastic IP..
+long: restore an elastic IP.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: RenewEip
+parameters:
+- name: eip-id
+  type: string
+  required: true
+  sdk-field: eipId
+  description: ID of elastic IP.

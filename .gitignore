@@ -42,3 +42,4 @@ Thumbs.db
 # CLI config (local dev)
 .zenlayer/
 .cursor/
+docs/
