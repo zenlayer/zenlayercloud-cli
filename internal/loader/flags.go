@@ -172,7 +172,8 @@ func bindFlag(cmd *cobra.Command, param *Parameter, store *flagStore) {
 	case "object-array":
 		v := new([]string)
 		store.stringArrays[name] = v
-		cmd.Flags().StringArrayVar(v, name, nil, desc)
+		store.arrayFlagNames = append(store.arrayFlagNames, name)
+		cmd.Flags().Var(newStringSliceValue(v), name, desc)
 		keys := extractSchemaKeys(param.ItemSchema)
 		cmd.RegisterFlagCompletionFunc(name, schemaKeyComp(keys))
 	}

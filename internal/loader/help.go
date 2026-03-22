@@ -392,7 +392,10 @@ func OutputWithPager(w io.Writer, content string) {
 	// Try less with options for better UX
 	var cmd *exec.Cmd
 	if pager == "less" {
-		cmd = exec.Command("less", "-R", "-F", "-X")
+		// -R: interpret ANSI color codes
+		// -F: quit if content fits on one screen
+		// No --mouse to allow normal text selection for copying
+		cmd = exec.Command("less", "-R", "-F")
 	} else {
 		cmd = exec.Command(pager)
 	}

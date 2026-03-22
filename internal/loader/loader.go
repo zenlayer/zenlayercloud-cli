@@ -112,6 +112,14 @@ func RegisterAll(root *cobra.Command, fsys embed.FS, getAccessKeyID, getAccessKe
 				},
 			}
 			prodCmd.SetUsageTemplate(productUsageTemplate)
+			// Use pager for product help output
+			prodCmd.SetHelpFunc(func(c *cobra.Command, args []string) {
+				var buf strings.Builder
+				c.SetOut(&buf)
+				// Generate default help using usage template
+				c.UsageFunc()(c)
+				OutputWithPager(os.Stdout, buf.String())
+			})
 			productCmds[product] = prodCmd
 			root.AddCommand(prodCmd)
 		}
