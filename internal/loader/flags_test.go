@@ -27,6 +27,9 @@ func TestNewFlagStore(t *testing.T) {
 	if store.bools == nil {
 		t.Error("bools map is nil")
 	}
+	if store.arrayFlagNames == nil {
+		t.Error("arrayFlagNames is nil")
+	}
 }
 
 func TestBuildFlagDescription(t *testing.T) {
@@ -49,6 +52,16 @@ func TestBuildFlagDescription(t *testing.T) {
 			name:  "enum without values",
 			param: Parameter{Type: "enum", Description: "A mode"},
 			want:  "A mode",
+		},
+		{
+			name:  "string-array",
+			param: Parameter{Type: "string-array", Description: "Instance IDs"},
+			want:  "Instance IDs (one or more strings separated by spaces, quote items containing spaces)",
+		},
+		{
+			name:  "integer-array",
+			param: Parameter{Type: "integer-array", Description: "Port numbers"},
+			want:  "Port numbers (one or more integers separated by spaces)",
 		},
 		{
 			name: "object with empty ArrayStyle (default kv)",
@@ -352,5 +365,240 @@ func TestBindFlag_ObjectArraySchemaCompletion(t *testing.T) {
 
 	if cmd.Flags().Lookup("data-disks") == nil {
 		t.Fatal("flag --data-disks not registered")
+	}
+}
+
+func TestStringSliceValue_Set(t *testing.T) {
+	tests := []struct {
+		name   string
+		inputs []string
+		want   []string
+	}{
+		{
+			name:   "single value",
+			inputs: []string{"a"},
+			want:   []string{"a"},
+		},
+		{
+			name:   "multiple calls",
+			inputs: []string{"a", "b", "c"},
+			want:   []string{"a", "b", "c"},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var v []string
+			s := newStringSliceValue(&v)
+			for _, input := range tt.inputs {
+				if err := s.Set(input); err != nil {
+					t.Fatalf("Set(%q) error = %v", input, err)
+				}
+			}
+			if len(v) != len(tt.want) {
+				t.Fatalf("got %v, want %v", v, tt.want)
+			}
+			for i, got := range v {
+				if got != tt.want[i] {
+					t.Errorf("v[%d] = %q, want %q", i, got, tt.want[i])
+				}
+			}
+		})
+	}
+}
+
+func TestStringSliceValue_String(t *testing.T) {
+	var v []string
+	s := newStringSliceValue(&v)
+	if s.String() != "" {
+		t.Errorf("empty slice String() = %q, want empty", s.String())
+	}
+	v = []string{"a", "b", "c"}
+	if s.String() != "a b c" {
+		t.Errorf("String() = %q, want 'a b c'", s.String())
+	}
+}
+
+func TestStringSliceValue_Type(t *testing.T) {
+	var v []string
+	s := newStringSliceValue(&v)
+	if s.Type() != "strings" {
+		t.Errorf("Type() = %q, want 'strings'", s.Type())
+	}
+}
+
+func TestIntSliceValue_Set(t *testing.T) {
+	tests := []struct {
+		name    string
+		inputs  []string
+		want    []int
+		wantErr bool
+	}{
+		{
+			name:   "single value",
+			inputs: []string{"1"},
+			want:   []int{1},
+		},
+		{
+			name:   "multiple calls",
+			inputs: []string{"1", "2", "3"},
+			want:   []int{1, 2, 3},
+		},
+		{
+			name:    "invalid integer",
+			inputs:  []string{"abc"},
+			wantErr: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var v []int
+			s := newIntSliceValue(&v)
+			var err error
+			for _, input := range tt.inputs {
+				if err = s.Set(input); err != nil {
+					break
+				}
+			}
+			if tt.wantErr {
+				if err == nil {
+					t.Fatal("expected error, got nil")
+				}
+				return
+			}
+			if err != nil {
+				t.Fatalf("Set() error = %v", err)
+			}
+			if len(v) != len(tt.want) {
+				t.Fatalf("got %v, want %v", v, tt.want)
+			}
+			for i, got := range v {
+				if got != tt.want[i] {
+					t.Errorf("v[%d] = %d, want %d", i, got, tt.want[i])
+				}
+			}
+		})
+	}
+}
+
+func TestIntSliceValue_String(t *testing.T) {
+	var v []int
+	s := newIntSliceValue(&v)
+	if s.String() != "" {
+		t.Errorf("empty slice String() = %q, want empty", s.String())
+	}
+	v = []int{1, 2, 3}
+	if s.String() != "1 2 3" {
+		t.Errorf("String() = %q, want '1 2 3'", s.String())
+	}
+}
+
+func TestIntSliceValue_Type(t *testing.T) {
+	var v []int
+	s := newIntSliceValue(&v)
+	if s.Type() != "ints" {
+		t.Errorf("Type() = %q, want 'ints'", s.Type())
+	}
+}
+
+func TestExpandTrailingArgs(t *testing.T) {
+	tests := []struct {
+		name      string
+		flagArgs  []string
+		trailing  []string
+		wantVals  []string
+		wantErr   bool
+		errSubstr string
+	}{
+		{
+			name:     "no trailing args",
+			flagArgs: []string{"--ids", "a"},
+			trailing: nil,
+			wantVals: []string{"a"},
+		},
+		{
+			name:     "with trailing args",
+			flagArgs: []string{"--ids", "a"},
+			trailing: []string{"b", "c"},
+			wantVals: []string{"a", "b", "c"},
+		},
+		{
+			name:      "trailing args without array flag",
+			flagArgs:  nil,
+			trailing:  []string{"a", "b"},
+			wantErr:   true,
+			errSubstr: "unexpected arguments",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			// Build a command with a string-array flag.
+			cmd := &cobra.Command{Use: "test"}
+			var ids []string
+			store := newFlagStore()
+			store.stringArrays["ids"] = &ids
+			store.arrayFlagNames = []string{"ids"}
+			cmd.Flags().Var(newStringSliceValue(&ids), "ids", "IDs")
+
+			// Parse the flags.
+			if len(tt.flagArgs) > 0 {
+				if err := cmd.Flags().Parse(tt.flagArgs); err != nil {
+					t.Fatalf("Flags().Parse() error = %v", err)
+				}
+			}
+
+			// Expand trailing args.
+			err := expandTrailingArgs(cmd, tt.trailing, store)
+			if tt.wantErr {
+				if err == nil {
+					t.Fatal("expected error, got nil")
+				}
+				if tt.errSubstr != "" && !strings.Contains(err.Error(), tt.errSubstr) {
+					t.Errorf("error %q should contain %q", err.Error(), tt.errSubstr)
+				}
+				return
+			}
+			if err != nil {
+				t.Fatalf("expandTrailingArgs() error = %v", err)
+			}
+
+			if len(ids) != len(tt.wantVals) {
+				t.Fatalf("got %v, want %v", ids, tt.wantVals)
+			}
+			for i, got := range ids {
+				if got != tt.wantVals[i] {
+					t.Errorf("ids[%d] = %q, want %q", i, got, tt.wantVals[i])
+				}
+			}
+		})
+	}
+}
+
+func TestArrayFlagNamesTracked(t *testing.T) {
+	params := []Parameter{
+		{Name: "zone-id", Type: "string", Description: "Zone"},
+		{Name: "instance-ids", Type: "string-array", Description: "Instance IDs"},
+		{Name: "ports", Type: "integer-array", Description: "Ports"},
+		{Name: "count", Type: "integer", Description: "Count"},
+	}
+	def := &APIDefinition{Parameters: params}
+	cmd := &cobra.Command{Use: "test"}
+	store := bindFlags(cmd, def)
+
+	// Verify arrayFlagNames contains the array types.
+	if len(store.arrayFlagNames) != 2 {
+		t.Fatalf("len(arrayFlagNames) = %d, want 2", len(store.arrayFlagNames))
+	}
+	found := make(map[string]bool)
+	for _, name := range store.arrayFlagNames {
+		found[name] = true
+	}
+	if !found["instance-ids"] {
+		t.Error("arrayFlagNames missing 'instance-ids'")
+	}
+	if !found["ports"] {
+		t.Error("arrayFlagNames missing 'ports'")
 	}
 }

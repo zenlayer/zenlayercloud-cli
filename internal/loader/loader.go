@@ -191,6 +191,11 @@ func makeAPICommand(def *APIDefinition, getAccessKeyID, getAccessKeySecret func(
 	store := bindFlags(cmd, def)
 
 	cmd.RunE = func(cmd *cobra.Command, args []string) error {
+		// Handle space-separated trailing args for array flags.
+		if err := expandTrailingArgs(cmd, args, store); err != nil {
+			return err
+		}
+
 		// Collect sensitive values from env (not from flags, to avoid exposure).
 		sensitiveValues := collectSensitiveFromEnv(def)
 
