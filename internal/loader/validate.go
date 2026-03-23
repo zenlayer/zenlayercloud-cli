@@ -65,8 +65,8 @@ func validateConsistency(enDef, zhDef *APIDefinition, path string) error {
 			if ep.Deprecated != zp.Deprecated {
 				issues = append(issues, fmt.Sprintf("%s.deprecated: en-US=%v, zh-CN=%v", prefix, ep.Deprecated, zp.Deprecated))
 			}
-			if !stringSliceEqual(ep.EnumValues, zp.EnumValues) {
-				issues = append(issues, fmt.Sprintf("%s.enum-values: en-US=%v, zh-CN=%v", prefix, ep.EnumValues, zp.EnumValues))
+			if !ep.EnumValues.Equal(zp.EnumValues) {
+				issues = append(issues, fmt.Sprintf("%s.enum-values: en-US=%v, zh-CN=%v", prefix, ep.EnumValues.Values(), zp.EnumValues.Values()))
 			}
 		}
 	}

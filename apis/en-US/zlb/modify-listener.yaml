@@ -100,13 +100,20 @@ parameters:
     The scheduling method for the listener of the load balancer.
     It will not be modified if not passed in.
   enum-values:
-  - mh
-  - rr
-  - wrr
-  - lc
-  - wlc
-  - sh
-  - dh
+  - value: mh
+    desc: Maglev Hashing (mh).
+  - value: rr
+    desc: Round Robin (rr).
+  - value: wrr
+    desc: Weighted Round Robin (wrr).
+  - value: lc
+    desc: Least Connections (lc).
+  - value: wlc
+    desc: Weighted Least Connections (wlc).
+  - value: sh
+    desc: Source Hashing (sh).
+  - value: dh
+    desc: Destination Hashing (dh).
 - name: port
   type: string
   required: false
@@ -123,9 +130,12 @@ parameters:
   sdk-field: kind
   description: Forwarding mode.
   enum-values:
-  - FNAT
-  - DR
-  - DNAT
+  - value: FNAT
+    desc: Full NAT.
+  - value: DR
+    desc: Direct Routing.
+  - value: DNAT
+    desc: Destination NAT.
 - name: persistent
   type: integer
   required: false

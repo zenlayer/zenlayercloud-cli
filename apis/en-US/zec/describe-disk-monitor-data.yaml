@@ -22,11 +22,26 @@ parameters:
   sdk-field: metricType
   description: Disk performance metric types.
   enum-values:
-  - DISK_WRITE_BYTES
-  - DISK_READ_BYTES
-  - DISK_READ_OPS
-  - DISK_WRITE_OPS
-  - DISK_UTIL
+  - value: DISK_WRITE_BYTES
+    desc: |-
+      Disk write throughput.
+      Unit: KiB/s .
+  - value: DISK_READ_BYTES
+    desc: |-
+      Disk read throughput.
+      Unit: KiB/s .
+  - value: DISK_READ_OPS
+    desc: |-
+      Disk read operations.
+      Unit: IOPS .
+  - value: DISK_WRITE_OPS
+    desc: |-
+      Disk write operations.
+      Unit: IOPS .
+  - value: DISK_UTIL
+    desc: |-
+      Disk utilization.
+      Unit: % .
 - name: start-time
   type: string
   required: true

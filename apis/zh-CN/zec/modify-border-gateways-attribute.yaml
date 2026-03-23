@@ -27,17 +27,22 @@ parameters:
   sdk-field: routingMode
   description: 路由级别。
   enum-values:
-  - Regional
-  - Global
+  - value: Regional
+    desc: 节点级别路由。
+  - value: Global
+    desc: 全节点级别路由。
 - name: advertised-subnet
   type: enum
   required: false
   sdk-field: advertisedSubnet
   description: 子网控制。
   enum-values:
-  - ALL
-  - NONE
-  - PART
+  - value: ALL
+    desc: 全部宣告。
+  - value: NONE
+    desc: 不宣告。
+  - value: PART
+    desc: 部分宣告。
 - name: advertised-cidrs
   type: string-array
   required: false

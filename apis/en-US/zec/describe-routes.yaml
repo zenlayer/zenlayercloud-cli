@@ -30,19 +30,32 @@ parameters:
     The optional values are as follows:
     IPv4 , IPv6
   enum-values:
-  - IPv4
-  - IPv6
+  - value: IPv4
+    desc: IPv4 address.
+  - value: IPv6
+    desc: IPv6 address.
 - name: route-type
   type: enum
   required: false
   sdk-field: routeType
   description: Route type.
   enum-values:
-  - RouteTypeSubnet
-  - RouteTypeStatic
-  - RouteTypePolicy
-  - RouteTypeNatGw
-  - RouteTypeTransit
+  - value: RouteTypeSubnet
+    desc: |-
+      Subnet route.
+      Subnet route is auto-generated when a subnet is created.
+  - value: RouteTypeStatic
+    desc: |-
+      Static route.
+      Static route is a kind of custom route.
+  - value: RouteTypePolicy
+    desc: |-
+      Policy-based route.
+      Policy-based route is a kind of custom route.
+  - value: RouteTypeNatGw
+    desc: NAT gateway route.
+  - value: RouteTypeTransit
+    desc: Dynamic route.
 - name: name
   type: string
   required: false

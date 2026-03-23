@@ -31,9 +31,12 @@ parameters:
   sdk-field: stackType
   description: Subnet IP stack type.
   enum-values:
-  - IPv4
-  - IPv4_IPv6
-  - IPv6
+  - value: IPv4
+    desc: IPv4 stack type only.
+  - value: IPv4_IPv6
+    desc: IPv4 and IPv6 stack type.
+  - value: IPv6
+    desc: IPv6 stack type only.
 - name: cidr-block
   type: string
   required: false
@@ -49,8 +52,10 @@ parameters:
     Subnet IPv6 type.
     If the specified stack type ( stackType ) includes IPv6, this field is required.
   enum-values:
-  - Private
-  - Public
+  - value: Private
+    desc: Private network.
+  - value: Public
+    desc: Public network.
 - name: dhcp-options-set-id
   type: string
   required: false

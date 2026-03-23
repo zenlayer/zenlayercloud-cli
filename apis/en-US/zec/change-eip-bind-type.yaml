@@ -25,5 +25,7 @@ parameters:
     Only effective when the elastic IP is bound to a vNIC.
     Default value: NAT mode.
   enum-values:
-  - FullNat
-  - Passthrough
+  - value: FullNat
+    desc: NAT mode.
+  - value: Passthrough
+    desc: Bypass mode.

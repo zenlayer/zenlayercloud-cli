@@ -47,5 +47,7 @@ parameters:
     Default value: FullNat .
     Effective when the elastic IP is assigned to a vNIC.
   enum-values:
-  - FullNat
-  - Passthrough
+  - value: FullNat
+    desc: NAT mode.
+  - value: Passthrough
+    desc: Bypass mode.

@@ -17,9 +17,12 @@ parameters:
   sdk-field: status
   description: 攻击状态。
   enum-values:
-  - ATTACKING
-  - ATTACKED
-  - BLOCKING
+  - value: ATTACKING
+    desc: 攻击中。
+  - value: ATTACKED
+    desc: 攻击结束。
+  - value: BLOCKING
+    desc: 封堵中。
 - name: ip-address
   type: string
   required: false

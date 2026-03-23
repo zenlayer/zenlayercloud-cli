@@ -22,8 +22,14 @@ parameters:
   sdk-field: metricType
   description: Performance metrics.
   enum-values:
-  - BANDWIDTH
-  - PACKETS
+  - value: BANDWIDTH
+    desc: |-
+      Bandwidth.
+      Unit: bps .
+  - value: PACKETS
+    desc: |-
+      Packet transmission.
+      Unit: pps .
 - name: start-time
   type: string
   required: true

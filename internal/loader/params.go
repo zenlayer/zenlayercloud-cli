@@ -28,7 +28,7 @@ func collectParams(store *flagStore, def *APIDefinition, sensitiveValues map[str
 			}
 			if v, ok := store.strings[name]; ok && *v != "" {
 				if param.Type == "enum" {
-					if err := validateEnum(*v, param.EnumValues); err != nil {
+					if err := validateEnum(*v, param.EnumValues.Values()); err != nil {
 						return nil, fmt.Errorf("flag --%s: %w", name, err)
 					}
 				}

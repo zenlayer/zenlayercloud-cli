@@ -33,12 +33,18 @@ parameters:
   sdk-field: networkType
   description: IP network type.
   enum-values:
-  - BGP
-  - Cogent
-  - CN2
-  - CMI
-  - CUG
-  - CTG
+  - value: BGP
+    desc: BGP network.
+  - value: Cogent
+    desc: Cogent network.
+  - value: CN2
+    desc: China Telecom Next Carrier Network.
+  - value: CMI
+    desc: China Mobile network.
+  - value: CUG
+    desc: China Unicom network.
+  - value: CTG
+    desc: China Telecom network.
 - name: internet-charge-type
   type: enum
   required: true
@@ -48,16 +54,25 @@ parameters:
     The default billing method is Monthly Burstable 95th, if you need Daily Peak billing, please contact us.
     Default value: MonthlyPercent95Bandwidth.
   enum-values:
-  - MonthlyPercent95Bandwidth
-  - DayPeakBandwidth
+  - value: MonthlyPercent95Bandwidth
+    desc: Monthly Burstable 95th billing method.
+  - value: DayPeakBandwidth
+    desc: Daily Peak billing method.
 - name: product
   type: enum
   required: false
   sdk-field: product
   description: Service type covered by the bandwidth cluster.
   enum-values:
-  - AllProduct
-  - BMC
-  - ZEC
-  - VM
-  - OFFLINE
+  - value: AllProduct
+    desc: |-
+      All compute services.
+      This service type maybe unavailable in the future.
+  - value: BMC
+    desc: Bare metal service.
+  - value: ZEC
+    desc: Elastic compute service.
+  - value: VM
+    desc: Virtual machine service.
+  - value: OFFLINE
+    desc: Offline serveice.

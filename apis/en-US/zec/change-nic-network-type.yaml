@@ -22,7 +22,11 @@ parameters:
   sdk-field: nicNetworkType
   description: Network interface mode.
   enum-values:
-  - Auto
-  - FailOver
-  - VirtioOnly
-  - VfOnly
+  - value: Auto
+    desc: Default mode auto-adapted to image.
+  - value: FailOver
+    desc: Failover mode.
+  - value: VirtioOnly
+    desc: Virtio-net mode.
+  - value: VfOnly
+    desc: VFIO mode.

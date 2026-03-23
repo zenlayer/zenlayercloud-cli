@@ -41,8 +41,10 @@ parameters:
   sdk-field: source
   description: IP type. IP leasing or BYOIP.
   enum-values:
-  - CONSOLE
-  - BYOIP
+  - value: CONSOLE
+    desc: CIDR block created on Console.
+  - value: BYOIP
+    desc: Bring your own IP (BYOIP).
 - name: resource-group-id
   type: string
   required: false

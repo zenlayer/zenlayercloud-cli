@@ -29,9 +29,18 @@ parameters:
   sdk-field: metricType
   description: 监控指标类型。
   enum-values:
-  - NEW_CONNECTIONS
-  - CONCURRENT_CONNECTIONS
-  - HANDLED_BPS
+  - value: NEW_CONNECTIONS
+    desc: |-
+      并发连接数。
+      指在特定时间（按分钟计算）内，负载均衡实例同时处理的活动连接数。
+  - value: CONCURRENT_CONNECTIONS
+    desc: |-
+      新建连接数。
+      指负载均衡实例每秒能够处理新建连接的数量。
+  - value: HANDLED_BPS
+    desc: |-
+      网络吞吐率。
+      负载均衡实例在一小时内处理的入向和出向带宽速率之和，单位为 bps。
 - name: start-time
   type: string
   required: true

@@ -32,14 +32,22 @@ parameters:
   sdk-field: status
   description: 按照 EIP 的状态过滤。
   enum-values:
-  - CREATING
-  - DELETING
-  - ASSIGNING
-  - BINDED
-  - RECYCLING
-  - RECYCLED
-  - UNBIND
-  - CREATE_FAILED
+  - value: CREATING
+    desc: 创建过程中。
+  - value: DELETING
+    desc: 删除过程中。
+  - value: ASSIGNING
+    desc: 绑定过程中。
+  - value: BINDED
+    desc: 已绑定资源状态。
+  - value: RECYCLING
+    desc: 回收状态中。
+  - value: RECYCLED
+    desc: 处于回收站中。
+  - value: UNBIND
+    desc: 未绑定状态中。
+  - value: CREATE_FAILED
+    desc: 创建失败的。
 - name: is-default
   type: boolean
   required: false
@@ -126,6 +134,9 @@ parameters:
   sdk-field: internetChargeType
   description: 按照 EIP 的网络计费方式过滤。
   enum-values:
-  - ByBandwidth
-  - ByTrafficPackage
-  - BandwidthCluster
+  - value: ByBandwidth
+    desc: 固定带宽计费方式。
+  - value: ByTrafficPackage
+    desc: 流量包计费方式。
+  - value: BandwidthCluster
+    desc: 共享带宽包计费方式。

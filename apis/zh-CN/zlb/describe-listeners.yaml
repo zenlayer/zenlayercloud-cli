@@ -29,5 +29,7 @@ parameters:
   sdk-field: protocol
   description: 要查询的监听器协议类型。
   enum-values:
-  - TCP
-  - UDP
+  - value: TCP
+    desc: TCP 协议。
+  - value: UDP
+    desc: UDP 协议。

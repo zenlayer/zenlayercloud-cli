@@ -22,8 +22,14 @@ parameters:
   sdk-field: metricType
   description: Cross-region bandwidth performance metric type.
   enum-values:
-  - BANDWIDTH
-  - PACKETS
+  - value: BANDWIDTH
+    desc: |-
+      Bandwidth.
+      Unit: bps .
+  - value: PACKETS
+    desc: |-
+      Data transfer.
+      Unit: pps .
 - name: start-time
   type: string
   required: true

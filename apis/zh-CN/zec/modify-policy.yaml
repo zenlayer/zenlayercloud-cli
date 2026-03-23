@@ -31,13 +31,20 @@ parameters:
   sdk-field: configType
   description: 配置类型。
   enum-values:
-  - UdpReflect
-  - TrafficControl
-  - Port
-  - BlockProtocol
-  - IpList
-  - BlockRegion
-  - Fingerprint
+  - value: UdpReflect
+    desc: 更新反射攻击防护过滤的端口。
+  - value: TrafficControl
+    desc: 更新源IP限速限制。
+  - value: Port
+    desc: 更新端口封禁规则。
+  - value: BlockProtocol
+    desc: 更新封禁的协议。
+  - value: IpList
+    desc: 更新黑白名单IP。
+  - value: BlockRegion
+    desc: 更新区域封禁的区域。
+  - value: Fingerprint
+    desc: 更新指纹过滤规则。
 - name: black-ip-list
   type: string-array
   required: false

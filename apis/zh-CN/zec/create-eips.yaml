@@ -35,9 +35,12 @@ parameters:
   sdk-field: internetChargeType
   description: 公网弹性IP的网络计费方式。
   enum-values:
-  - ByBandwidth
-  - ByTrafficPackage
-  - BandwidthCluster
+  - value: ByBandwidth
+    desc: 固定带宽计费方式。
+  - value: ByTrafficPackage
+    desc: 流量包计费方式。
+  - value: BandwidthCluster
+    desc: 共享带宽包计费方式。
 - name: amount
   type: integer
   required: false
@@ -52,28 +55,48 @@ parameters:
     已废弃，请使用networkLineType。
   deprecated: true
   enum-values:
-  - BGPLine
-  - CN2Line
-  - LocalLine
-  - ChinaMobile
-  - ChinaUnicom
-  - ChinaTelecom
-  - Cogent
-  - ThreeLine
+  - value: BGPLine
+    desc: BGP 线路。
+  - value: CN2Line
+    desc: CN2 回国优化线路。
+  - value: LocalLine
+    desc: 本地IP。
+  - value: ChinaMobile
+    desc: 中国移动线路。
+  - value: ChinaUnicom
+    desc: 中国联通线路。
+  - value: ChinaTelecom
+    desc: 中国电信线路。
+  - value: Cogent
+    desc: Cogent。
+  - value: ThreeLine
+    desc: 三线IP。
 - name: network-line-type
   type: enum
   required: false
   sdk-field: networkLineType
   description: 公网弹性IP的线路类型。
   enum-values:
-  - PremiumBGP
-  - CN2
-  - LocalLine
-  - StandardBGP
-  - CMI
-  - CUG
-  - CTG
-  - ThreeLine
+  - value: PremiumBGP
+    desc: |-
+      优质 BGP。
+      高性能网络。
+  - value: CN2
+    desc: 回国优化线路。
+  - value: LocalLine
+    desc: 本地IP。
+  - value: StandardBGP
+    desc: |-
+      标准 BGP。
+      通用网络，成本优化。
+  - value: CMI
+    desc: 中国移动。
+  - value: CUG
+    desc: 中国联通。
+  - value: CTG
+    desc: 中国电信。
+  - value: ThreeLine
+    desc: 三线IP。
 - name: primary-isp
   type: enum
   required: false
@@ -82,9 +105,12 @@ parameters:
     主公网IP的运营商。
     该字段仅作用于三线IP(ThreeLine)。
   enum-values:
-  - CHINA_MOBILE
-  - CHINA_UNICOM
-  - CHINA_TELECOM
+  - value: CHINA_MOBILE
+    desc: 中国移动。
+  - value: CHINA_UNICOM
+    desc: 中国联通。
+  - value: CHINA_TELECOM
+    desc: 中国电信。
 - name: bandwidth
   type: integer
   required: false
@@ -184,5 +210,7 @@ parameters:
     当指定定instanceIds时生效。
     默认为普通NAT模式。
   enum-values:
-  - FullNat
-  - Passthrough
+  - value: FullNat
+    desc: 普通NAT模式。
+  - value: Passthrough
+    desc: 高速模式。

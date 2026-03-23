@@ -27,11 +27,16 @@ parameters:
   sdk-field: status
   description: Filter by the state of the snapshot.
   enum-values:
-  - CREATING
-  - AVAILABLE
-  - FAILED
-  - ROLLING_BACK
-  - DELETING
+  - value: CREATING
+    desc: Creating.
+  - value: AVAILABLE
+    desc: Creating succeeded.
+  - value: FAILED
+    desc: Creating failed.
+  - value: ROLLING_BACK
+    desc: Reverting to the snapshot.
+  - value: DELETING
+    desc: Deleting.
 - name: disk-ids
   type: string-array
   required: false
@@ -43,16 +48,20 @@ parameters:
   sdk-field: diskType
   description: Filter by the disk type of the snapshot.
   enum-values:
-  - SYSTEM
-  - DATA
+  - value: SYSTEM
+    desc: Boot disk.
+  - value: DATA
+    desc: Disk.
 - name: snapshot-type
   type: enum
   required: false
   sdk-field: snapshotType
   description: Filter by the snapshot type.
   enum-values:
-  - Auto
-  - Manual
+  - value: Auto
+    desc: Automatic snapshot.
+  - value: Manual
+    desc: Manual snapshot.
 - name: snapshot-name
   type: string
   required: false

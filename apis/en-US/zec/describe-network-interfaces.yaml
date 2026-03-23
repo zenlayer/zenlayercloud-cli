@@ -49,13 +49,20 @@ parameters:
   sdk-field: status
   description: vNIC state.
   enum-values:
-  - PENDING
-  - AVAILABLE
-  - ATTACHING
-  - DETACHING
-  - DELETING
-  - CREATE_FAILED
-  - USED
+  - value: PENDING
+    desc: Creating.
+  - value: AVAILABLE
+    desc: Available. Not bound to any instance.
+  - value: ATTACHING
+    desc: Binding.
+  - value: DETACHING
+    desc: Unbinding.
+  - value: DELETING
+    desc: Deleting.
+  - value: CREATE_FAILED
+    desc: Creating failed.
+  - value: USED
+    desc: Bound.
 - name: page-size
   type: integer
   required: false
@@ -74,8 +81,10 @@ parameters:
   sdk-field: nicType
   description: vNIC type.
   enum-values:
-  - Primary
-  - Secondary
+  - value: Primary
+    desc: Primary network interface.
+  - value: Secondary
+    desc: Secondary network interface.
 - name: resource-group-id
   type: string
   required: false

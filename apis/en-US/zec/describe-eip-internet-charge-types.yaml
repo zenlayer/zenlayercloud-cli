@@ -22,25 +22,45 @@ parameters:
     Deprecated. Please use networkLineType instead.
   deprecated: true
   enum-values:
-  - BGPLine
-  - CN2Line
-  - LocalLine
-  - ChinaMobile
-  - ChinaUnicom
-  - ChinaTelecom
-  - Cogent
-  - ThreeLine
+  - value: BGPLine
+    desc: BGP network type.
+  - value: CN2Line
+    desc: CN2 GIA (CN2 Global Internet Access) network type.
+  - value: LocalLine
+    desc: Local IP network type.
+  - value: ChinaMobile
+    desc: China Mobile network type.
+  - value: ChinaUnicom
+    desc: China Unicom network type.
+  - value: ChinaTelecom
+    desc: China Telecom network type.
+  - value: Cogent
+    desc: Cogent Communications network type.
+  - value: ThreeLine
+    desc: 3-in-1 IP pool network type.
 - name: network-line-type
   type: enum
   required: false
   sdk-field: networkLineType
   description: Network types of public IPv4.
   enum-values:
-  - PremiumBGP
-  - CN2
-  - LocalLine
-  - StandardBGP
-  - CMI
-  - CUG
-  - CTG
-  - ThreeLine
+  - value: PremiumBGP
+    desc: |-
+      Premium BGP network.
+      High-performance network.
+  - value: CN2
+    desc: China Telecom CN2 network.
+  - value: LocalLine
+    desc: Provided by a local ISP.
+  - value: StandardBGP
+    desc: |-
+      Standard BGP network.
+      General-purpose network with cost optimization.
+  - value: CMI
+    desc: 1-Line IP China Mobile.
+  - value: CUG
+    desc: 1-Line IP China Unicom.
+  - value: CTG
+    desc: 1-Line IP China Telecom.
+  - value: ThreeLine
+    desc: 3-in-1 IP Pool.

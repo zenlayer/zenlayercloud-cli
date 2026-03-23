@@ -34,9 +34,12 @@ parameters:
     DNAT规则的协议类型。
     如果要转发所有流量，端口不变，请指定协议类型为Any且内部端口和公网外部端口不要设置。
   enum-values:
-  - TCP
-  - UDP
-  - Any
+  - value: TCP
+    desc: TCP 协议。
+  - value: UDP
+    desc: UDP 协议。
+  - value: Any
+    desc: Any 所有协议。
 - name: listener-port
   type: string
   required: false

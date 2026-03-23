@@ -45,7 +45,7 @@ func TestBuildFlagDescription(t *testing.T) {
 		},
 		{
 			name:  "enum with values",
-			param: Parameter{Type: "enum", Description: "A mode", EnumValues: []string{"fast", "slow"}},
+			param: Parameter{Type: "enum", Description: "A mode", EnumValues: EnumOptions{{Value: "fast"}, {Value: "slow"}}},
 			want:  "A mode (fast|slow)",
 		},
 		{
@@ -227,7 +227,7 @@ func TestSchemaKeyComp_Empty(t *testing.T) {
 func TestBindFlags_AllTypes(t *testing.T) {
 	params := []Parameter{
 		{Name: "zone-id", Type: "string", Description: "Zone"},
-		{Name: "mode", Type: "enum", EnumValues: []string{"auto", "manual"}, Description: "Mode"},
+		{Name: "mode", Type: "enum", EnumValues: EnumOptions{{Value: "auto"}, {Value: "manual"}}, Description: "Mode"},
 		{Name: "tags", Type: "string-array", Description: "Tags"},
 		{Name: "count", Type: "integer", Description: "Count"},
 		{Name: "ports", Type: "integer-array", Description: "Ports"},
@@ -313,7 +313,7 @@ func TestBindFlag_EnumCompletion(t *testing.T) {
 	param := Parameter{
 		Name:       "nic-type",
 		Type:       "enum",
-		EnumValues: []string{"Auto", "Manual"},
+		EnumValues: EnumOptions{{Value: "Auto"}, {Value: "Manual"}},
 		Description: "NIC type",
 	}
 	cmd := &cobra.Command{Use: "test"}

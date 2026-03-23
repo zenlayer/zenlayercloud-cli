@@ -77,10 +77,14 @@ parameters:
   sdk-field: nicNetworkType
   description: 网卡模式。
   enum-values:
-  - Auto
-  - FailOver
-  - VirtioOnly
-  - VfOnly
+  - value: Auto
+    desc: 默认模式(镜像自适应)。
+  - value: FailOver
+    desc: 故障转移模式。
+  - value: VirtioOnly
+    desc: 软件模拟模式。
+  - value: VfOnly
+    desc: 物理直通模式。
 - name: instance-count
   type: integer
   required: true
@@ -200,9 +204,12 @@ parameters:
     公网IP的网络计费类型。
     如果不指定，则不会分配公网IP地址。
   enum-values:
-  - ByBandwidth
-  - ByTrafficPackage
-  - BandwidthCluster
+  - value: ByBandwidth
+    desc: 固定带宽计费方式。
+  - value: ByTrafficPackage
+    desc: 流量包计费方式。
+  - value: BandwidthCluster
+    desc: 共享带宽包计费方式。
 - name: traffic-package-size
   type: integer
   required: false
@@ -228,8 +235,10 @@ parameters:
     公网IP的绑定模式。
     当分配公网IP时需要指定。
   enum-values:
-  - FullNat
-  - Passthrough
+  - value: FullNat
+    desc: 普通NAT模式。
+  - value: Passthrough
+    desc: 高速模式。
 - name: eip-v4-type
   type: enum
   required: false
@@ -242,14 +251,22 @@ parameters:
     已废弃，请使用networkLineType。
   deprecated: true
   enum-values:
-  - BGPLine
-  - CN2Line
-  - LocalLine
-  - ChinaMobile
-  - ChinaUnicom
-  - ChinaTelecom
-  - Cogent
-  - ThreeLine
+  - value: BGPLine
+    desc: BGP 线路。
+  - value: CN2Line
+    desc: CN2 回国优化线路。
+  - value: LocalLine
+    desc: 本地IP。
+  - value: ChinaMobile
+    desc: 中国移动线路。
+  - value: ChinaUnicom
+    desc: 中国联通线路。
+  - value: ChinaTelecom
+    desc: 中国电信线路。
+  - value: Cogent
+    desc: Cogent。
+  - value: ThreeLine
+    desc: 三线IP。
 - name: ip-stack-type
   type: enum
   required: false
@@ -258,9 +275,12 @@ parameters:
     设置IP堆栈类型。
     如果不指定，当子网堆栈类型IPv4或IPv4_IPv6时，默认使用IPv4。
   enum-values:
-  - IPv4
-  - IPv4_IPv6
-  - IPv6
+  - value: IPv4
+    desc: 仅IPv4。
+  - value: IPv4_IPv6
+    desc: IPv4和IPv6。
+  - value: IPv6
+    desc: 仅IPv6。
 - name: network-line-type
   type: enum
   required: false
@@ -271,14 +291,26 @@ parameters:
     请确保所选子网的堆栈类型支持IPv4。
     目前不支持三线IP随实例一起创建。
   enum-values:
-  - PremiumBGP
-  - CN2
-  - LocalLine
-  - StandardBGP
-  - CMI
-  - CUG
-  - CTG
-  - ThreeLine
+  - value: PremiumBGP
+    desc: |-
+      优质 BGP。
+      高性能网络。
+  - value: CN2
+    desc: 回国优化线路。
+  - value: LocalLine
+    desc: 本地IP。
+  - value: StandardBGP
+    desc: |-
+      标准 BGP。
+      通用网络，成本优化。
+  - value: CMI
+    desc: 中国移动。
+  - value: CUG
+    desc: 中国联通。
+  - value: CTG
+    desc: 中国电信。
+  - value: ThreeLine
+    desc: 三线IP。
 - name: cluster-id
   type: string
   required: false

@@ -37,8 +37,10 @@ parameters:
   sdk-field: source
   description: 根据CIDR来源进行过滤。
   enum-values:
-  - CONSOLE
-  - BYOIP
+  - value: CONSOLE
+    desc: 归属于Zenlayer创建的IP。
+  - value: BYOIP
+    desc: 客户自带IP(bring your own IP)。
 - name: resource-group-id
   type: string
   required: false

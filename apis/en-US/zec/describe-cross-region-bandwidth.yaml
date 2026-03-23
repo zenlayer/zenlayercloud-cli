@@ -42,13 +42,20 @@ parameters:
   sdk-field: status
   description: Filter by state of cross-region bandwidth.
   enum-values:
-  - CREATING
-  - AVAILABLE
-  - CHANGING
-  - RECYCLING
-  - RECYCLED
-  - DELETING
-  - CREATE_FAILED
+  - value: CREATING
+    desc: The cross-region bandwidth is being created.
+  - value: AVAILABLE
+    desc: The cross-region bandwidth is available.
+  - value: CHANGING
+    desc: The cross-region bandwidth is being changed.
+  - value: RECYCLING
+    desc: The cross-region bandwidth is being recycled.
+  - value: RECYCLED
+    desc: The cross-region bandwidth is recycled.
+  - value: DELETING
+    desc: The cross-region bandwidth is being deleted.
+  - value: CREATE_FAILED
+    desc: The cross-region bandwidth is creating failed.
 - name: page-size
   type: integer
   required: false

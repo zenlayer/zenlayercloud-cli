@@ -34,14 +34,22 @@ parameters:
   sdk-field: status
   description: Status of the elastic IP.
   enum-values:
-  - CREATING
-  - DELETING
-  - ASSIGNING
-  - BINDED
-  - RECYCLING
-  - RECYCLED
-  - UNBIND
-  - CREATE_FAILED
+  - value: CREATING
+    desc: Creating.
+  - value: DELETING
+    desc: Deleting.
+  - value: ASSIGNING
+    desc: Binding.
+  - value: BINDED
+    desc: Bound.
+  - value: RECYCLING
+    desc: Recycling.
+  - value: RECYCLED
+    desc: Recycled.
+  - value: UNBIND
+    desc: Unbound.
+  - value: CREATE_FAILED
+    desc: Creating failed.
 - name: is-default
   type: boolean
   required: false
@@ -127,6 +135,9 @@ parameters:
   sdk-field: internetChargeType
   description: Filter by the network billing model of the elastic IP.
   enum-values:
-  - ByBandwidth
-  - ByTrafficPackage
-  - BandwidthCluster
+  - value: ByBandwidth
+    desc: Billed by the flat rate bandwidth.
+  - value: ByTrafficPackage
+    desc: Billed by the traffic package size purchased.
+  - value: BandwidthCluster
+    desc: Billed by the burstable 95th bandwidth of all compute resources in a city-based or regional bandwidth cluster with a shared commitment.

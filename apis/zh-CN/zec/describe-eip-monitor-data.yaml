@@ -22,8 +22,14 @@ parameters:
   sdk-field: metricType
   description: EIP监控指标类型。
   enum-values:
-  - BANDWIDTH
-  - PACKETS
+  - value: BANDWIDTH
+    desc: |-
+      带宽类型。
+      单位bps。
+  - value: PACKETS
+    desc: |-
+      数据包类型。
+      单位pps。
 - name: start-time
   type: string
   required: true

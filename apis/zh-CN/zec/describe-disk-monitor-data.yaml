@@ -22,11 +22,26 @@ parameters:
   sdk-field: metricType
   description: 云硬盘监控指标类型。
   enum-values:
-  - DISK_WRITE_BYTES
-  - DISK_READ_BYTES
-  - DISK_READ_OPS
-  - DISK_WRITE_OPS
-  - DISK_UTIL
+  - value: DISK_WRITE_BYTES
+    desc: |-
+      云硬盘写吞吐量。
+      单位KiB/s。
+  - value: DISK_READ_BYTES
+    desc: |-
+      云硬盘读吞吐量。
+      单位KiB/s。
+  - value: DISK_READ_OPS
+    desc: |-
+      云硬盘读数量。
+      单位IOPS。
+  - value: DISK_WRITE_OPS
+    desc: |-
+      云硬盘写数量。
+      单位IOPS。
+  - value: DISK_UTIL
+    desc: |-
+      云硬盘利用率。
+      单位%。
 - name: start-time
   type: string
   required: true

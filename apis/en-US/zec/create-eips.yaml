@@ -26,9 +26,12 @@ parameters:
   sdk-field: internetChargeType
   description: Network billing methods .
   enum-values:
-  - ByBandwidth
-  - ByTrafficPackage
-  - BandwidthCluster
+  - value: ByBandwidth
+    desc: Billed by the flat rate bandwidth.
+  - value: ByTrafficPackage
+    desc: Billed by the traffic package size purchased.
+  - value: BandwidthCluster
+    desc: Billed by the burstable 95th bandwidth of all compute resources in a city-based or regional bandwidth cluster with a shared commitment.
 - name: amount
   type: integer
   required: false
@@ -43,28 +46,48 @@ parameters:
     Deprecated. Please use networkLineType instead.
   deprecated: true
   enum-values:
-  - BGPLine
-  - CN2Line
-  - LocalLine
-  - ChinaMobile
-  - ChinaUnicom
-  - ChinaTelecom
-  - Cogent
-  - ThreeLine
+  - value: BGPLine
+    desc: BGP network type.
+  - value: CN2Line
+    desc: CN2 GIA (CN2 Global Internet Access) network type.
+  - value: LocalLine
+    desc: Local IP network type.
+  - value: ChinaMobile
+    desc: China Mobile network type.
+  - value: ChinaUnicom
+    desc: China Unicom network type.
+  - value: ChinaTelecom
+    desc: China Telecom network type.
+  - value: Cogent
+    desc: Cogent Communications network type.
+  - value: ThreeLine
+    desc: 3-in-1 IP pool network type.
 - name: network-line-type
   type: enum
   required: false
   sdk-field: networkLineType
   description: Network types of public IPv4.
   enum-values:
-  - PremiumBGP
-  - CN2
-  - LocalLine
-  - StandardBGP
-  - CMI
-  - CUG
-  - CTG
-  - ThreeLine
+  - value: PremiumBGP
+    desc: |-
+      Premium BGP network.
+      High-performance network.
+  - value: CN2
+    desc: China Telecom CN2 network.
+  - value: LocalLine
+    desc: Provided by a local ISP.
+  - value: StandardBGP
+    desc: |-
+      Standard BGP network.
+      General-purpose network with cost optimization.
+  - value: CMI
+    desc: 1-Line IP China Mobile.
+  - value: CUG
+    desc: 1-Line IP China Unicom.
+  - value: CTG
+    desc: 1-Line IP China Telecom.
+  - value: ThreeLine
+    desc: 3-in-1 IP Pool.
 - name: primary-isp
   type: enum
   required: false
@@ -73,9 +96,12 @@ parameters:
     If the eipV4Type field is set to ThreeLine , this field is required and must include:
     CHINA_TELECOM CHINA_UNICOM CHINA_MOBILE
   enum-values:
-  - CHINA_MOBILE
-  - CHINA_UNICOM
-  - CHINA_TELECOM
+  - value: CHINA_MOBILE
+    desc: China Mobile.
+  - value: CHINA_UNICOM
+    desc: China Unicom.
+  - value: CHINA_TELECOM
+    desc: China Telecom.
 - name: bandwidth
   type: integer
   required: false
@@ -170,5 +196,7 @@ parameters:
     Effective when specific instanceIds are specified.
     Defaults to standard NAT mode.
   enum-values:
-  - FullNat
-  - Passthrough
+  - value: FullNat
+    desc: NAT mode.
+  - value: Passthrough
+    desc: Bypass mode.

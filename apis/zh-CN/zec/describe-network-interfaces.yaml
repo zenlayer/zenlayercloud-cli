@@ -51,13 +51,20 @@ parameters:
   sdk-field: status
   description: 根据网卡的状态过滤。
   enum-values:
-  - PENDING
-  - AVAILABLE
-  - ATTACHING
-  - DETACHING
-  - DELETING
-  - CREATE_FAILED
-  - USED
+  - value: PENDING
+    desc: 网卡创建中。
+  - value: AVAILABLE
+    desc: 可用未绑定实例的。
+  - value: ATTACHING
+    desc: 绑定实例过程中。
+  - value: DETACHING
+    desc: 解绑实例过程中。
+  - value: DELETING
+    desc: 删除中。
+  - value: CREATE_FAILED
+    desc: 创建失败的。
+  - value: USED
+    desc: 已经绑定实例的。
 - name: page-size
   type: integer
   required: false
@@ -74,8 +81,10 @@ parameters:
   sdk-field: nicType
   description: 根据网卡的类型筛选过滤。
   enum-values:
-  - Primary
-  - Secondary
+  - value: Primary
+    desc: 主网卡类型。
+  - value: Secondary
+    desc: 辅助网卡类型。
 - name: resource-group-id
   type: string
   required: false

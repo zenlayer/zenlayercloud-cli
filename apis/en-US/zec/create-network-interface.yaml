@@ -29,9 +29,12 @@ parameters:
     If not specified, it will be determined by the subnet’s stack type: IPv4 for an IPv4 subnet, and IPv6 for an IPv6 subnet.
     Specify this parameter if you need IPv4_IPv6 vNIC IP stack type.
   enum-values:
-  - IPv4
-  - IPv4_IPv6
-  - IPv6
+  - value: IPv4
+    desc: IPv4 stack type only.
+  - value: IPv4_IPv6
+    desc: IPv4 and IPv6 stack type.
+  - value: IPv6
+    desc: IPv6 stack type only.
 - name: resource-group-id
   type: string
   required: false
@@ -56,9 +59,12 @@ parameters:
     See InternetChargeType for available values.
     If the subnet stack type is IPv6 and the type is Public , this value is required.
   enum-values:
-  - ByBandwidth
-  - ByTrafficPackage
-  - BandwidthCluster
+  - value: ByBandwidth
+    desc: Billed by the flat rate bandwidth.
+  - value: ByTrafficPackage
+    desc: Billed by the traffic package size purchased.
+  - value: BandwidthCluster
+    desc: Billed by the burstable 95th bandwidth of all compute resources in a city-based or regional bandwidth cluster with a shared commitment.
 - name: bandwidth
   type: integer
   required: false

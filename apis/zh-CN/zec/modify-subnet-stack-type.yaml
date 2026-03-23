@@ -24,17 +24,22 @@ parameters:
     子网堆栈类型。
     目前只支持IPv4_IPv6。
   enum-values:
-  - IPv4
-  - IPv4_IPv6
-  - IPv6
+  - value: IPv4
+    desc: 仅IPv4。
+  - value: IPv4_IPv6
+    desc: IPv4和IPv6。
+  - value: IPv6
+    desc: 仅IPv6。
 - name: ipv6-type
   type: enum
   required: true
   sdk-field: ipv6Type
   description: IPv6的类型。
   enum-values:
-  - Private
-  - Public
+  - value: Private
+    desc: 内网类型。
+  - value: Public
+    desc: 公网类型。
 - name: ipv6-cidr-block-id
   type: string
   required: false

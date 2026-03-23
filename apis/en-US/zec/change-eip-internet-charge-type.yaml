@@ -19,9 +19,12 @@ parameters:
   sdk-field: internetChargeType
   description: Network billing methods.
   enum-values:
-  - ByBandwidth
-  - ByTrafficPackage
-  - BandwidthCluster
+  - value: ByBandwidth
+    desc: Billed by the flat rate bandwidth.
+  - value: ByTrafficPackage
+    desc: Billed by the traffic package size purchased.
+  - value: BandwidthCluster
+    desc: Billed by the burstable 95th bandwidth of all compute resources in a city-based or regional bandwidth cluster with a shared commitment.
 - name: cluster-id
   type: string
   required: false

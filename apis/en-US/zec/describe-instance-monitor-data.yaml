@@ -22,36 +22,120 @@ parameters:
   sdk-field: metricType
   description: Performance metrics.
   enum-values:
-  - CPU_UTILIZATION
-  - HYPERVISOR_IO_WAIT_TIME
-  - HYPERVISOR_QUEUE_TIME
-  - HYPERVISOR_CPU_USER
-  - HYPERVISOR_CPU_TIME
-  - HYPERVISOR_CPU_SYSTEM
-  - PROC_CPU_USER
-  - PROC_CPU_SYSTEM
-  - PROC_CPU_IOWAIT
-  - PROC_CPU_SOFTIRQ
-  - PROC_CPU_IDLE
-  - PROC_CPU_OTHER
-  - LOAD1
-  - LOAD5
-  - LOAD15
-  - MEM_UTIL
-  - REALMEM_UTIL
-  - TCP_ESTABLISHED
-  - SWAP_TOTAL
-  - SWAP_FREE
-  - SWAP_IN
-  - SWAP_OUT
-  - KSWAPD_STEAL
-  - KSWAPD_LHWM
-  - RX_PACKETS
-  - TX_PACKETS
-  - RX_DROPPED
-  - TX_DROPPED
-  - RX_ERRORS
-  - TX_ERRORS
+  - value: CPU_UTILIZATION
+    desc: |-
+      CPU utilization.
+      Unit: % .
+  - value: HYPERVISOR_IO_WAIT_TIME
+    desc: |-
+      Hypervisor I/O wait time.
+      Unit: % .
+  - value: HYPERVISOR_QUEUE_TIME
+    desc: |-
+      Hypervisor CPU queue time.
+      Unit: % .
+  - value: HYPERVISOR_CPU_USER
+    desc: |-
+      Hypervisor CPU user.
+      Unit: % .
+  - value: HYPERVISOR_CPU_TIME
+    desc: |-
+      Hypervisor CPU time.
+      Unit: % .
+  - value: HYPERVISOR_CPU_SYSTEM
+    desc: |-
+      Hypervisor CPU system.
+      Unit: % .
+  - value: PROC_CPU_USER
+    desc: |-
+      CPU user.
+      Unit: % .
+  - value: PROC_CPU_SYSTEM
+    desc: |-
+      CPU system.
+      Unit: % .
+  - value: PROC_CPU_IOWAIT
+    desc: |-
+      CPU IOWait.
+      Unit: % .
+  - value: PROC_CPU_SOFTIRQ
+    desc: |-
+      CPU SoftIRQ.
+      Unit: % .
+  - value: PROC_CPU_IDLE
+    desc: |-
+      CPU idle.
+      Unit: % .
+  - value: PROC_CPU_OTHER
+    desc: |-
+      CPU other.
+      Unit: % .
+  - value: LOAD1
+    desc: System Load Average - Last 1 Minute.
+  - value: LOAD5
+    desc: System Load Average - Last 5 Minutes.
+  - value: LOAD15
+    desc: System Load Average - Last 15 Minutes.
+  - value: MEM_UTIL
+    desc: |-
+      Memory utilization
+      Unit: % .
+  - value: REALMEM_UTIL
+    desc: |-
+      Memory real utilization
+      Unit: % .
+  - value: TCP_ESTABLISHED
+    desc: |-
+      Established TCP connections.
+      Unit: count .
+  - value: SWAP_TOTAL
+    desc: |-
+      The total configured swap space on the instance, which is used to assess the max swappable capacity.
+      Unit: KiB .
+  - value: SWAP_FREE
+    desc: |-
+      The currently available swap space, which is used to evaluate how much swap is still free.
+      Unit: KiB .
+  - value: SWAP_IN
+    desc: |-
+      Pages read from swap into memory, which indicates system memory pressure.
+      Unit: pages .
+  - value: SWAP_OUT
+    desc: |-
+      Pages written from memory to swap, which reflects inactive data being moved to disk.
+      Unit: pages .
+  - value: KSWAPD_STEAL
+    desc: |-
+      Pages successfully reclaimed by kswapd from memory, which indicates memory pressure.
+      Unit: pages .
+  - value: KSWAPD_LHWM
+    desc: |-
+      Number of times memory reclaim was triggered due to low watermarks.
+      Unit: count .
+  - value: RX_PACKETS
+    desc: |-
+      Packets received per second on the vNIC’s VF interface
+      Unit: packets .
+  - value: TX_PACKETS
+    desc: |-
+      Packets transmitted per second on the vNIC’s VF interface
+      Unit: packets .
+  - value: RX_DROPPED
+    desc: |-
+      Total inbound packet loss per second for the vNIC’s VF and Virtio interfaces.
+      Unit: packets .
+  - value: TX_DROPPED
+    desc: |-
+      Total outbound packet loss per second for the vNIC’s VF and Virtio interfaces.
+      Unit: packets .
+  - value: RX_ERRORS
+    desc: |-
+      Total inbound error packets per second for the vNIC’s VF and Virtio interfaces.
+      Unit: packets .
+  - value: TX_ERRORS
+    desc: |-
+      Total outbound error packets per second for the vNIC’s VF and Virtio interfaces.
+      Unit: packets .
 - name: start-time
   type: string
   required: true

@@ -122,8 +122,9 @@ func bindFlag(cmd *cobra.Command, param *Parameter, store *flagStore) {
 		cmd.Flags().StringVar(v, name, "", desc)
 
 		if param.Type == "enum" {
+			enumVals := param.EnumValues.Values()
 			cmd.RegisterFlagCompletionFunc(name, func(_ *cobra.Command, _ []string, _ string) ([]string, cobra.ShellCompDirective) {
-				return param.EnumValues, cobra.ShellCompDirectiveNoFileComp
+				return enumVals, cobra.ShellCompDirectiveNoFileComp
 			})
 		} else {
 			cmd.RegisterFlagCompletionFunc(name, noFileComp)
@@ -189,7 +190,7 @@ func buildFlagDescription(param *Parameter) string {
 	switch param.Type {
 	case "enum":
 		if len(param.EnumValues) > 0 {
-			desc = fmt.Sprintf("%s (%s)", desc, strings.Join(param.EnumValues, "|"))
+			desc = fmt.Sprintf("%s (%s)", desc, strings.Join(param.EnumValues.Values(), "|"))
 		}
 	case "string-array":
 		desc += " (one or more strings separated by spaces, quote items containing spaces)"

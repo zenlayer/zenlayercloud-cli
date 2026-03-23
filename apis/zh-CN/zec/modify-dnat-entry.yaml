@@ -32,9 +32,12 @@ parameters:
   sdk-field: protocol
   description: DNAT规则的协议类型。
   enum-values:
-  - TCP
-  - UDP
-  - Any
+  - value: TCP
+    desc: TCP 协议。
+  - value: UDP
+    desc: UDP 协议。
+  - value: Any
+    desc: Any 所有协议。
 - name: listener-port
   type: string
   required: false

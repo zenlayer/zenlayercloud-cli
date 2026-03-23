@@ -137,7 +137,7 @@ func TestValidateConsistency_ParameterFieldMismatches(t *testing.T) {
 				SDKWrapper: "wrapper",
 				Sensitive:  true,
 				Deprecated: false,
-				EnumValues: []string{"A", "B"},
+				EnumValues: EnumOptions{{Value: "A"}, {Value: "B"}},
 			},
 		},
 	}
@@ -216,7 +216,7 @@ func TestValidateConsistency_ParameterFieldMismatches(t *testing.T) {
 		t.Setenv("STRICT_VALIDATE", "true")
 		zh := *base
 		p := base.Parameters[0]
-		p.EnumValues = []string{"X", "Y", "Z"}
+		p.EnumValues = EnumOptions{{Value: "X"}, {Value: "Y"}, {Value: "Z"}}
 		zh.Parameters = []Parameter{p}
 		err := validateConsistency(base, &zh, "zh-CN/zec/test.yaml")
 		if err == nil {

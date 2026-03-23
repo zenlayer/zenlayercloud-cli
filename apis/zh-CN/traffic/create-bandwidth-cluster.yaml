@@ -33,12 +33,22 @@ parameters:
     IP网络类型。
     城市共享带宽包该字段必填。
   enum-values:
-  - PremiumBGP
-  - StandardBGP
-  - CN2
-  - CMI
-  - CUG
-  - CTG
+  - value: PremiumBGP
+    desc: |-
+      精品 BGP。
+      高性能网络。
+  - value: StandardBGP
+    desc: |-
+      标准 BGP。
+      通用网络，成本优化。
+  - value: CN2
+    desc: 回国优化线路。
+  - value: CMI
+    desc: 中国移动。
+  - value: CUG
+    desc: 中国联通。
+  - value: CTG
+    desc: 中国电信。
 - name: network-type
   type: enum
   required: false
@@ -48,12 +58,18 @@ parameters:
     请使用networkLineType代替。
   deprecated: true
   enum-values:
-  - BGP
-  - Cogent
-  - CN2
-  - CMI
-  - CUG
-  - CTG
+  - value: BGP
+    desc: BGP。
+  - value: Cogent
+    desc: Cogent。
+  - value: CN2
+    desc: 回国优化线路。
+  - value: CMI
+    desc: 中国移动。
+  - value: CUG
+    desc: 中国联通。
+  - value: CTG
+    desc: 中国电信。
 - name: internet-charge-type
   type: enum
   required: true
@@ -62,8 +78,10 @@ parameters:
     带宽计费方式。
     默认为月95计费，如果需要日峰值计费，请联系Support开通相关权限。
   enum-values:
-  - MonthlyPercent95Bandwidth
-  - DayPeakBandwidth
+  - value: MonthlyPercent95Bandwidth
+    desc: 月95带宽计费。
+  - value: DayPeakBandwidth
+    desc: 日峰值带宽计费。
 - name: name
   type: string
   required: false
@@ -77,8 +95,15 @@ parameters:
   sdk-field: product
   description: 城市带宽包所属的产品线范围。
   enum-values:
-  - AllProduct
-  - BMC
-  - ZEC
-  - VM
-  - OFFLINE
+  - value: AllProduct
+    desc: |-
+      全算力产品范围。
+      该范围可能会在未来移除。
+  - value: BMC
+    desc: 裸金属产品范围。
+  - value: ZEC
+    desc: 弹性算力产品凡范围。
+  - value: VM
+    desc: 虚拟机产品范围。
+  - value: OFFLINE
+    desc: 线下产品范围。

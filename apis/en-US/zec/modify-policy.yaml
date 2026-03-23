@@ -31,13 +31,20 @@ parameters:
   sdk-field: configType
   description: Configuration type.
   enum-values:
-  - UdpReflect
-  - TrafficControl
-  - Port
-  - BlockProtocol
-  - IpList
-  - BlockRegion
-  - Fingerprint
+  - value: UdpReflect
+    desc: Modify UDP reflection source ports.
+  - value: TrafficControl
+    desc: Modify source IP rate limiting.
+  - value: Port
+    desc: Modify port blocking rules.
+  - value: BlockProtocol
+    desc: Modify protocol blocking.
+  - value: IpList
+    desc: Modify IP allow/deny list.
+  - value: BlockRegion
+    desc: Modify regions in geo-blocking.
+  - value: Fingerprint
+    desc: Modify fingerprint filtering rules.
 - name: black-ip-list
   type: string-array
   required: false

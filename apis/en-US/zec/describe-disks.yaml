@@ -27,18 +27,30 @@ parameters:
   sdk-field: diskStatus
   description: Disk status.
   enum-values:
-  - CREATING
-  - IN_USE
-  - AVAILABLE
-  - CHANGING
-  - ATTACHING
-  - DETACHING
-  - DELETING
-  - RECYCLED
-  - RECYCLING
-  - FAILED
-  - SNAPSHOT_CREATING
-  - ROLLING_BACK
+  - value: CREATING
+    desc: Disk is in creation.
+  - value: IN_USE
+    desc: Disk is active.
+  - value: AVAILABLE
+    desc: Disk is inactive.
+  - value: CHANGING
+    desc: Disk size is changing.
+  - value: ATTACHING
+    desc: Disk is attaching to an instance.
+  - value: DETACHING
+    desc: Disk is detaching from an instance.
+  - value: DELETING
+    desc: Disk is in deletion.
+  - value: RECYCLED
+    desc: Disk is recycled.
+  - value: RECYCLING
+    desc: Disk is being recycled.
+  - value: FAILED
+    desc: Creating a disk failed.
+  - value: SNAPSHOT_CREATING
+    desc: Snapshot is in creation.
+  - value: ROLLING_BACK
+    desc: Reverting to snapshot.
 - name: disk-type
   type: enum
   required: false
@@ -47,8 +59,10 @@ parameters:
     Storage type.
     System : the Boot Disk. Data : the Disk.
   enum-values:
-  - SYSTEM
-  - DATA
+  - value: SYSTEM
+    desc: Boot disk.
+  - value: DATA
+    desc: Disk.
 - name: disk-category
   type: string
   required: false

@@ -25,5 +25,7 @@ parameters:
     当绑定的是网卡时生效。
     默认为普通NAT模式。
   enum-values:
-  - FullNat
-  - Passthrough
+  - value: FullNat
+    desc: 普通NAT模式。
+  - value: Passthrough
+    desc: 高速模式。

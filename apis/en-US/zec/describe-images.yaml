@@ -41,41 +41,58 @@ parameters:
   sdk-field: imageType
   description: Image type.
   enum-values:
-  - PUBLIC_IMAGE
-  - CUSTOM_IMAGE
+  - value: PUBLIC_IMAGE
+    desc: System image.
+  - value: CUSTOM_IMAGE
+    desc: Custom image.
 - name: image-source
   type: enum
   required: false
   sdk-field: imageSource
   description: Image source.
   enum-values:
-  - OFFICIAL
-  - MARKETING
-  - CUSTOM
+  - value: OFFICIAL
+    desc: System image.
+  - value: MARKETING
+    desc: Marketplace image.
+  - value: CUSTOM
+    desc: Custom image.
 - name: os-type
   type: enum
   required: false
   sdk-field: osType
   description: Operating system type.
   enum-values:
-  - linux
-  - bsd
-  - windows
-  - android
-  - any
+  - value: linux
+    desc: Linux operating system.
+  - value: bsd
+    desc: BSD operating system.
+  - value: windows
+    desc: Windows operating system.
+  - value: android
+    desc: Android operating system.
+  - value: any
+    desc: Any other operating systems.
 - name: image-status
   type: enum
   required: false
   sdk-field: imageStatus
   description: Image status.
   enum-values:
-  - CREATING
-  - AVAILABLE
-  - UNAVAILABLE
-  - SYNCING
-  - FAILED
-  - DELETING
-  - PROCESSING
+  - value: CREATING
+    desc: Image is being created.
+  - value: AVAILABLE
+    desc: Image creation succeeded.
+  - value: UNAVAILABLE
+    desc: Image is unavailable.
+  - value: SYNCING
+    desc: Image is being replicated.
+  - value: FAILED
+    desc: Image creation failed.
+  - value: DELETING
+    desc: Image is being deleted.
+  - value: PROCESSING
+    desc: Image is being operated.
 - name: page-num
   type: integer
   required: false

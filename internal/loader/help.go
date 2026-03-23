@@ -91,10 +91,14 @@ func buildOptionDoc(param Parameter) string {
 		b.WriteString("\n")
 		b.WriteString(helpDoubleIndent)
 		b.WriteString("Possible values:\n\n")
-		for _, v := range param.EnumValues {
+		for _, opt := range param.EnumValues {
 			b.WriteString(helpDoubleIndent)
 			b.WriteString("o ")
-			b.WriteString(v)
+			b.WriteString(opt.Value)
+			if opt.Description != "" {
+				b.WriteString(" - ")
+				b.WriteString(opt.Description)
+			}
 			b.WriteString("\n\n")
 		}
 	}

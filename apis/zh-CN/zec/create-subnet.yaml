@@ -36,9 +36,12 @@ parameters:
   sdk-field: stackType
   description: 子网的IP堆栈类型。
   enum-values:
-  - IPv4
-  - IPv4_IPv6
-  - IPv6
+  - value: IPv4
+    desc: 仅IPv4。
+  - value: IPv4_IPv6
+    desc: IPv4和IPv6。
+  - value: IPv6
+    desc: 仅IPv6。
 - name: cidr-block
   type: string
   required: false
@@ -55,8 +58,10 @@ parameters:
     IPv6的类型。
     如果指定堆栈类型stackType 包含 IPv6, 则该字段必填。
   enum-values:
-  - Private
-  - Public
+  - value: Private
+    desc: 内网类型。
+  - value: Public
+    desc: 公网类型。
 - name: dhcp-options-set-id
   type: string
   required: false

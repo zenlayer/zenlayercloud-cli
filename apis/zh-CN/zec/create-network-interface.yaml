@@ -36,9 +36,12 @@ parameters:
     如果不指定，会根据子网堆栈类型决定：如果子网是V4,则网卡为V4，如果子网是V6,则网卡为V6。
     如果网卡要V4&V6，请指定该参数。
   enum-values:
-  - IPv4
-  - IPv4_IPv6
-  - IPv6
+  - value: IPv4
+    desc: 仅IPv4。
+  - value: IPv4_IPv6
+    desc: IPv4和IPv6。
+  - value: IPv6
+    desc: 仅IPv6。
 - name: resource-group-id
   type: string
   required: false
@@ -60,9 +63,12 @@ parameters:
     公网IPv6的网络计费方式。
     当子网的堆栈类型包括V6且为公网时，需要指定。
   enum-values:
-  - ByBandwidth
-  - ByTrafficPackage
-  - BandwidthCluster
+  - value: ByBandwidth
+    desc: 固定带宽计费方式。
+  - value: ByTrafficPackage
+    desc: 流量包计费方式。
+  - value: BandwidthCluster
+    desc: 共享带宽包计费方式。
 - name: bandwidth
   type: integer
   required: false

@@ -89,13 +89,20 @@ parameters:
     负载均衡器的监听器调度方式。
     不传则不会进行修改。
   enum-values:
-  - mh
-  - rr
-  - wrr
-  - lc
-  - wlc
-  - sh
-  - dh
+  - value: mh
+    desc: 磁力哈希方式。
+  - value: rr
+    desc: 轮训方式。
+  - value: wrr
+    desc: 加权轮训方式。
+  - value: lc
+    desc: 最少连接方式。
+  - value: wlc
+    desc: 加权最少连接方式。
+  - value: sh
+    desc: 根据源地址哈希方式。
+  - value: dh
+    desc: 根据目标地址哈希方式。
 - name: port
   type: string
   required: false
@@ -114,9 +121,12 @@ parameters:
     工作模式。
     如果修改为DR模式，如果后端服务器指定了端口将失效，将跟随监听器的端口。
   enum-values:
-  - FNAT
-  - DR
-  - DNAT
+  - value: FNAT
+    desc: 全局网络地址转换(Full NAT)。
+  - value: DR
+    desc: 直接路由（Direct Routing)。
+  - value: DNAT
+    desc: 目标网络地址转换(Destination NAT)。
 - name: persistent
   type: integer
   required: false

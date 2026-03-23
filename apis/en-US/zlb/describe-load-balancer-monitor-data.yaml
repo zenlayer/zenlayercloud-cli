@@ -27,9 +27,18 @@ parameters:
   sdk-field: metricType
   description: Monitor metric type.
   enum-values:
-  - NEW_CONNECTIONS
-  - CONCURRENT_CONNECTIONS
-  - HANDLED_BPS
+  - value: NEW_CONNECTIONS
+    desc: |-
+      Concurrent connections.
+      The number of connections that are active and being handled simultaneously by a load balancing instance at a given time (per minutes).
+  - value: CONCURRENT_CONNECTIONS
+    desc: |-
+      Connections Per Second (CPS).
+      The number of new connections that a load balancing instance can handle in one second.
+  - value: HANDLED_BPS
+    desc: |-
+      Network Throughput.
+      The combined inbound and outbound bandwidth rate processed by a load balancing instance within one hour, measured in bits per second (bps).
 - name: start-time
   type: string
   required: true

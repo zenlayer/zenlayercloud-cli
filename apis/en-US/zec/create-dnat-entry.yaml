@@ -32,9 +32,12 @@ parameters:
   sdk-field: protocol
   description: The protocol type configured in the DNAT rule.
   enum-values:
-  - TCP
-  - UDP
-  - Any
+  - value: TCP
+    desc: TCP protocol.
+  - value: UDP
+    desc: UDP protocol.
+  - value: Any
+    desc: Any protocol.
 - name: listener-port
   type: string
   required: false

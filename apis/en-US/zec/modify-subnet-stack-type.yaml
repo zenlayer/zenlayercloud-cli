@@ -21,9 +21,12 @@ parameters:
     IP stack type of subnet.
     The optional values are as follows: IPv4_IPv6
   enum-values:
-  - IPv4
-  - IPv4_IPv6
-  - IPv6
+  - value: IPv4
+    desc: IPv4 stack type only.
+  - value: IPv4_IPv6
+    desc: IPv4 and IPv6 stack type.
+  - value: IPv6
+    desc: IPv6 stack type only.
 - name: ipv6-type
   type: enum
   required: true
@@ -32,8 +35,10 @@ parameters:
     Subnet IPv6 type.
     The optional values are as follows: Public , Private
   enum-values:
-  - Private
-  - Public
+  - value: Private
+    desc: Private network.
+  - value: Public
+    desc: Public network.
 - name: ipv6-cidr-block-id
   type: string
   required: false

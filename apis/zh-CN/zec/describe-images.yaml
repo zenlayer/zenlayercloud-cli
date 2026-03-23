@@ -39,41 +39,58 @@ parameters:
   sdk-field: imageType
   description: 镜像类型。
   enum-values:
-  - PUBLIC_IMAGE
-  - CUSTOM_IMAGE
+  - value: PUBLIC_IMAGE
+    desc: 公共镜像。
+  - value: CUSTOM_IMAGE
+    desc: 自定义镜像。
 - name: image-source
   type: enum
   required: false
   sdk-field: imageSource
   description: 镜像来源。
   enum-values:
-  - OFFICIAL
-  - MARKETING
-  - CUSTOM
+  - value: OFFICIAL
+    desc: 官方镜像。
+  - value: MARKETING
+    desc: 市场镜像。
+  - value: CUSTOM
+    desc: 自定义镜像。
 - name: os-type
   type: enum
   required: false
   sdk-field: osType
   description: 操作系统类型。
   enum-values:
-  - linux
-  - bsd
-  - windows
-  - android
-  - any
+  - value: linux
+    desc: Linux操作系统。
+  - value: bsd
+    desc: BSD操作系统。
+  - value: windows
+    desc: Windows操作系统。
+  - value: android
+    desc: Android操作系统。
+  - value: any
+    desc: 任意类型。
 - name: image-status
   type: enum
   required: false
   sdk-field: imageStatus
   description: 镜像的状态。
   enum-values:
-  - CREATING
-  - AVAILABLE
-  - UNAVAILABLE
-  - SYNCING
-  - FAILED
-  - DELETING
-  - PROCESSING
+  - value: CREATING
+    desc: 镜像创建中。
+  - value: AVAILABLE
+    desc: 镜像创建成功。
+  - value: UNAVAILABLE
+    desc: 镜像下架。
+  - value: SYNCING
+    desc: 镜像复制中。
+  - value: FAILED
+    desc: 镜像创建失败。
+  - value: DELETING
+    desc: 镜像释放中。
+  - value: PROCESSING
+    desc: 镜像进行中。
 - name: page-num
   type: integer
   required: false

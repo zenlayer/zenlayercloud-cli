@@ -27,11 +27,16 @@ parameters:
   sdk-field: status
   description: 根据快照的状态过滤。
   enum-values:
-  - CREATING
-  - AVAILABLE
-  - FAILED
-  - ROLLING_BACK
-  - DELETING
+  - value: CREATING
+    desc: 创建中。
+  - value: AVAILABLE
+    desc: 创建成功。
+  - value: FAILED
+    desc: 创建失败。
+  - value: ROLLING_BACK
+    desc: 回滚到此快照中。
+  - value: DELETING
+    desc: 释放中。
 - name: disk-ids
   type: string-array
   required: false
@@ -43,16 +48,20 @@ parameters:
   sdk-field: diskType
   description: 根据快照的云盘类型过滤。
   enum-values:
-  - SYSTEM
-  - DATA
+  - value: SYSTEM
+    desc: 代表系统盘。
+  - value: DATA
+    desc: 代表数据盘。
 - name: snapshot-type
   type: enum
   required: false
   sdk-field: snapshotType
   description: 根据快照类型过滤。
   enum-values:
-  - Auto
-  - Manual
+  - value: Auto
+    desc: 自动创建快照。
+  - value: Manual
+    desc: 手动创建快照。
 - name: snapshot-name
   type: string
   required: false

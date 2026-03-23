@@ -31,19 +31,32 @@ parameters:
     根据IP类型过滤。
     支持IPv4和IPv6两种类型。
   enum-values:
-  - IPv4
-  - IPv6
+  - value: IPv4
+    desc: IPv4。
+  - value: IPv6
+    desc: IPv6。
 - name: route-type
   type: enum
   required: false
   sdk-field: routeType
   description: 根据路由类型过滤。
   enum-values:
-  - RouteTypeSubnet
-  - RouteTypeStatic
-  - RouteTypePolicy
-  - RouteTypeNatGw
-  - RouteTypeTransit
+  - value: RouteTypeSubnet
+    desc: |-
+      子网路由。
+      该路由为系统生成的路由。
+  - value: RouteTypeStatic
+    desc: |-
+      静态路由。
+      可以通过创建自定义路由。
+  - value: RouteTypePolicy
+    desc: |-
+      策略路由。
+      可以通过创建自定义路由。
+  - value: RouteTypeNatGw
+    desc: NAT 网关路由。
+  - value: RouteTypeTransit
+    desc: 动态路由。
 - name: name
   type: string
   required: false

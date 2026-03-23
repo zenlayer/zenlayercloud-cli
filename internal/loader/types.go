@@ -39,7 +39,7 @@ type Parameter struct {
 	Description  string        `yaml:"description"`
 	Sensitive    bool          `yaml:"sensitive"`
 	Deprecated   bool          `yaml:"deprecated"`
-	EnumValues   []string      `yaml:"enum-values"`
+	EnumValues   EnumOptions   `yaml:"enum-values"`
 	ArrayStyle   string        `yaml:"array-style"`
 	ObjectSchema []SchemaField `yaml:"object-schema"`
 	ItemSchema   []SchemaField `yaml:"item-schema"`
@@ -74,6 +74,28 @@ func (e *EnumOptions) UnmarshalYAML(node *yaml.Node) error {
 		(*e)[i] = EnumOption{Value: v}
 	}
 	return nil
+}
+
+// Values returns a slice of just the enum values (without descriptions).
+func (e EnumOptions) Values() []string {
+	result := make([]string, len(e))
+	for i, opt := range e {
+		result[i] = opt.Value
+	}
+	return result
+}
+
+// Equal compares two EnumOptions for equality (values only).
+func (e EnumOptions) Equal(other EnumOptions) bool {
+	if len(e) != len(other) {
+		return false
+	}
+	for i, opt := range e {
+		if opt.Value != other[i].Value {
+			return false
+		}
+	}
+	return true
 }
 
 // SchemaField describes a field inside an object or object-array parameter.

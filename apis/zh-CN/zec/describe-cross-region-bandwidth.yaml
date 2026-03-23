@@ -42,13 +42,20 @@ parameters:
   sdk-field: status
   description: 按照状态过滤。
   enum-values:
-  - CREATING
-  - AVAILABLE
-  - CHANGING
-  - RECYCLING
-  - RECYCLED
-  - DELETING
-  - CREATE_FAILED
+  - value: CREATING
+    desc: 创建中。
+  - value: AVAILABLE
+    desc: 正常可用。
+  - value: CHANGING
+    desc: 变更中。
+  - value: RECYCLING
+    desc: 回收中。
+  - value: RECYCLED
+    desc: 处于回收站。
+  - value: DELETING
+    desc: 删除中。
+  - value: CREATE_FAILED
+    desc: 创建失败。
 - name: page-size
   type: integer
   required: false

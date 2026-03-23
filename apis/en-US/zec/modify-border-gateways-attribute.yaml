@@ -31,8 +31,10 @@ parameters:
   sdk-field: routingMode
   description: Dynamic route mode.
   enum-values:
-  - Regional
-  - Global
+  - value: Regional
+    desc: Regional routing. Learn routes only within the region it was created in.
+  - value: Global
+    desc: Global routing. Dynamically learn and distribute routes across all regions using a single VPN or Interconnect.
 - name: advertised-subnet
   type: enum
   required: false
@@ -41,9 +43,12 @@ parameters:
     Subnet route advertisement.
     Default value: Advertise All .
   enum-values:
-  - ALL
-  - NONE
-  - PART
+  - value: ALL
+    desc: Advertise all.
+  - value: NONE
+    desc: Do not advertise.
+  - value: PART
+    desc: Advertise partial.
 - name: advertised-cidrs
   type: string-array
   required: false

@@ -78,10 +78,14 @@ parameters:
     Network interface mode.
     Default value: Auto .
   enum-values:
-  - Auto
-  - FailOver
-  - VirtioOnly
-  - VfOnly
+  - value: Auto
+    desc: Default mode auto-adapted to image.
+  - value: FailOver
+    desc: Failover mode.
+  - value: VirtioOnly
+    desc: Virtio-net mode.
+  - value: VfOnly
+    desc: VFIO mode.
 - name: instance-count
   type: integer
   required: true
@@ -201,9 +205,12 @@ parameters:
   sdk-field: internetChargeType
   description: Public network pricing model.
   enum-values:
-  - ByBandwidth
-  - ByTrafficPackage
-  - BandwidthCluster
+  - value: ByBandwidth
+    desc: Billed by the flat rate bandwidth.
+  - value: ByTrafficPackage
+    desc: Billed by the traffic package size purchased.
+  - value: BandwidthCluster
+    desc: Billed by the burstable 95th bandwidth of all compute resources in a city-based or regional bandwidth cluster with a shared commitment.
 - name: traffic-package-size
   type: integer
   required: false
@@ -229,8 +236,10 @@ parameters:
     Elastic IP mode. If not specified, the default is Full NAT mode.
     Default value: FullNat .
   enum-values:
-  - FullNat
-  - Passthrough
+  - value: FullNat
+    desc: NAT mode.
+  - value: Passthrough
+    desc: Bypass mode.
 - name: eip-v4-type
   type: enum
   required: false
@@ -243,14 +252,22 @@ parameters:
     Deprecated. Please use networkLineType instead.
   deprecated: true
   enum-values:
-  - BGPLine
-  - CN2Line
-  - LocalLine
-  - ChinaMobile
-  - ChinaUnicom
-  - ChinaTelecom
-  - Cogent
-  - ThreeLine
+  - value: BGPLine
+    desc: BGP network type.
+  - value: CN2Line
+    desc: CN2 GIA (CN2 Global Internet Access) network type.
+  - value: LocalLine
+    desc: Local IP network type.
+  - value: ChinaMobile
+    desc: China Mobile network type.
+  - value: ChinaUnicom
+    desc: China Unicom network type.
+  - value: ChinaTelecom
+    desc: China Telecom network type.
+  - value: Cogent
+    desc: Cogent Communications network type.
+  - value: ThreeLine
+    desc: 3-in-1 IP pool network type.
 - name: ip-stack-type
   type: enum
   required: false
@@ -259,9 +276,12 @@ parameters:
     Set the IP stack type.
     If not specified, IPv4 is used by default when the subnet stack type is IPv4 or IPv4_IPv6.
   enum-values:
-  - IPv4
-  - IPv4_IPv6
-  - IPv6
+  - value: IPv4
+    desc: IPv4 stack type only.
+  - value: IPv4_IPv6
+    desc: IPv4 and IPv6 stack type.
+  - value: IPv6
+    desc: IPv6 stack type only.
 - name: network-line-type
   type: enum
   required: false
@@ -272,14 +292,26 @@ parameters:
     If the subnet IP stack type is IPv4, the value is required.
     ThreeLine are not supported for now.
   enum-values:
-  - PremiumBGP
-  - CN2
-  - LocalLine
-  - StandardBGP
-  - CMI
-  - CUG
-  - CTG
-  - ThreeLine
+  - value: PremiumBGP
+    desc: |-
+      Premium BGP network.
+      High-performance network.
+  - value: CN2
+    desc: China Telecom CN2 network.
+  - value: LocalLine
+    desc: Provided by a local ISP.
+  - value: StandardBGP
+    desc: |-
+      Standard BGP network.
+      General-purpose network with cost optimization.
+  - value: CMI
+    desc: 1-Line IP China Mobile.
+  - value: CUG
+    desc: 1-Line IP China Unicom.
+  - value: CTG
+    desc: 1-Line IP China Telecom.
+  - value: ThreeLine
+    desc: 3-in-1 IP Pool.
 - name: cluster-id
   type: string
   required: false

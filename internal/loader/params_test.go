@@ -138,7 +138,7 @@ func TestCollectParams_ZeroValuesOmitted(t *testing.T) {
 func TestCollectParams_EnumValidation(t *testing.T) {
 	def := &APIDefinition{
 		Parameters: []Parameter{
-			{Name: "nic-type", Type: "enum", EnumValues: []string{"Auto", "Manual"}},
+			{Name: "nic-type", Type: "enum", EnumValues: EnumOptions{{Value: "Auto"}, {Value: "Manual"}}},
 		},
 	}
 	store := newFlagStore()

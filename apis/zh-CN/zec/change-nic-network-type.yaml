@@ -22,7 +22,11 @@ parameters:
   sdk-field: nicNetworkType
   description: 要更改的网卡模式。
   enum-values:
-  - Auto
-  - FailOver
-  - VirtioOnly
-  - VfOnly
+  - value: Auto
+    desc: 默认模式(镜像自适应)。
+  - value: FailOver
+    desc: 故障转移模式。
+  - value: VirtioOnly
+    desc: 软件模拟模式。
+  - value: VfOnly
+    desc: 物理直通模式。

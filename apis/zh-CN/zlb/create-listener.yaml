@@ -84,21 +84,30 @@ parameters:
   sdk-field: protocol
   description: 监听器协议。
   enum-values:
-  - TCP
-  - UDP
+  - value: TCP
+    desc: TCP 协议。
+  - value: UDP
+    desc: UDP 协议。
 - name: scheduler
   type: enum
   required: true
   sdk-field: scheduler
   description: 监听器转发的方式。
   enum-values:
-  - mh
-  - rr
-  - wrr
-  - lc
-  - wlc
-  - sh
-  - dh
+  - value: mh
+    desc: 磁力哈希方式。
+  - value: rr
+    desc: 轮训方式。
+  - value: wrr
+    desc: 加权轮训方式。
+  - value: lc
+    desc: 最少连接方式。
+  - value: wlc
+    desc: 加权最少连接方式。
+  - value: sh
+    desc: 根据源地址哈希方式。
+  - value: dh
+    desc: 根据目标地址哈希方式。
 - name: port
   type: string
   required: true
@@ -118,9 +127,12 @@ parameters:
     如果不传则会根据负载均衡实例所在的区域设定默认值。
     默认值可能为DNAT、FNAT。
   enum-values:
-  - FNAT
-  - DR
-  - DNAT
+  - value: FNAT
+    desc: 全局网络地址转换(Full NAT)。
+  - value: DR
+    desc: 直接路由（Direct Routing)。
+  - value: DNAT
+    desc: 目标网络地址转换(Destination NAT)。
 - name: persistent
   type: integer
   required: false

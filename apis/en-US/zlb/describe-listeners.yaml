@@ -29,5 +29,7 @@ parameters:
   sdk-field: protocol
   description: The type of the queried listener protocol.
   enum-values:
-  - TCP
-  - UDP
+  - value: TCP
+    desc: TCP protocol.
+  - value: UDP
+    desc: UDP protocol.

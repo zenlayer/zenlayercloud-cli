@@ -17,9 +17,12 @@ parameters:
   sdk-field: status
   description: Attack state.
   enum-values:
-  - ATTACKING
-  - ATTACKED
-  - BLOCKING
+  - value: ATTACKING
+    desc: The attack target is under attack.
+  - value: ATTACKED
+    desc: The attack event is resolved.
+  - value: BLOCKING
+    desc: The attack event is mitigating.
 - name: ip-address
   type: string
   required: false

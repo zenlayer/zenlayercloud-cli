@@ -27,26 +27,40 @@ parameters:
   sdk-field: diskStatus
   description: 根据云盘的状态进行筛选。
   enum-values:
-  - CREATING
-  - IN_USE
-  - AVAILABLE
-  - CHANGING
-  - ATTACHING
-  - DETACHING
-  - DELETING
-  - RECYCLED
-  - RECYCLING
-  - FAILED
-  - SNAPSHOT_CREATING
-  - ROLLING_BACK
+  - value: CREATING
+    desc: 创建中。
+  - value: IN_USE
+    desc: 挂载使用中。
+  - value: AVAILABLE
+    desc: 未挂载。
+  - value: CHANGING
+    desc: 变更大小中。
+  - value: ATTACHING
+    desc: 云盘挂载实例中。
+  - value: DETACHING
+    desc: 云盘解绑实例中。
+  - value: DELETING
+    desc: 销毁中。
+  - value: RECYCLED
+    desc: 处于回收状态，等待销毁。
+  - value: RECYCLING
+    desc: 回收中。
+  - value: FAILED
+    desc: 创建失败。
+  - value: SNAPSHOT_CREATING
+    desc: 快照创建过程中。
+  - value: ROLLING_BACK
+    desc: 云盘使用快照回滚过程中。
 - name: disk-type
   type: enum
   required: false
   sdk-field: diskType
   description: 根据云盘的类型进行筛选。
   enum-values:
-  - SYSTEM
-  - DATA
+  - value: SYSTEM
+    desc: 代表系统盘。
+  - value: DATA
+    desc: 代表数据盘。
 - name: disk-category
   type: string
   required: false
