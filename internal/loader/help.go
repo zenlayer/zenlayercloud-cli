@@ -45,8 +45,23 @@ func GenerateHelp(def *APIDefinition, inheritedFlags *pflag.FlagSet) string {
 		b.WriteString(buildOptionDoc(param))
 	}
 
+	// EXAMPLES
+	if len(def.Examples) > 0 {
+		b.WriteString("\nEXAMPLES\n")
+		for _, ex := range def.Examples {
+			if ex.Desc != "" {
+				b.WriteString(helpIndent)
+				b.WriteString(ex.Desc)
+				b.WriteString("\n\n")
+			}
+			b.WriteString(helpDoubleIndent)
+			b.WriteString(ex.Cmd)
+			b.WriteString("\n\n")
+		}
+	}
+
 	// GLOBAL OPTIONS
-	b.WriteString("\nGLOBAL OPTIONS\n")
+	b.WriteString("GLOBAL OPTIONS\n")
 	b.WriteString(formatGlobalFlags(inheritedFlags))
 
 	return b.String()
