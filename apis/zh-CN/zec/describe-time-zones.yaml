@@ -4,7 +4,7 @@ use: describe-time-zones
 short: 查询时区信息
 long: 查询时区信息
 examples:
-- cmd: zencli zec describe-time-zones
+- cmd: zeno zec describe-time-zones
   desc: 查询时区。
 sdk:
   service: zec

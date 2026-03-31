@@ -4,7 +4,7 @@ use: modify-instances-attribute
 short: Modifies the attributes of one or more elastic compute instances.
 long: modify the attributes of one or more elastic compute instances. Only the instance name to be displayed can be modified for now.
 examples:
-- cmd: zencli zec modify-instances-attribute --instance-ids instanceId1 --instance-ids instanceId2 --instance-name myInstanceName
+- cmd: zeno zec modify-instances-attribute --instance-ids instanceId1 --instance-ids instanceId2 --instance-name myInstanceName
   desc: Batch modify instance names. Modify names of two instances to `myInstanceName`.
 sdk:
   service: zec

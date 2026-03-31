@@ -4,7 +4,7 @@ use: stop-instances
 short: 关闭虚拟机实例。
 long: 关闭一台或多台虚拟机实例。
 examples:
-- cmd: zencli zec stop-instances --instance-ids instanceId1 --instance-ids instanceId2 --force-shutdown true
+- cmd: zeno zec stop-instances --instance-ids instanceId1 --instance-ids instanceId2 --force-shutdown true
   desc: 强制关闭2台实例。
 sdk:
   service: zec

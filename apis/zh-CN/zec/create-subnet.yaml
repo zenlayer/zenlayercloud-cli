@@ -4,7 +4,7 @@ use: create-subnet
 short: 创建子网
 long: 创建子网。
 examples:
-- cmd: zencli zec create-subnet --vpc-id <vpcId> --region-id asia-east-1 --stack-type IPv4_IPv6 --ipv6-type Public --name XXX --cidr-block 10.0.0.0/9
+- cmd: zeno zec create-subnet --vpc-id <vpcId> --region-id asia-east-1 --stack-type IPv4_IPv6 --ipv6-type Public --name XXX --cidr-block 10.0.0.0/9
   desc: 创建一个子网。堆栈类型为IPv4_IPv6。IPv6为公网。
 sdk:
   service: zec

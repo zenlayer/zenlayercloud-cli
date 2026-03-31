@@ -4,7 +4,7 @@ use: describe-eip-available-resources
 short: Queries elastic IP resources in the zone.
 long: query elastic IP resources for sale in the zone.
 examples:
-- cmd: zencli bmc describe-eip-available-resources --eip-charge-type PREPAID --zone-id SEL-A
+- cmd: zeno bmc describe-eip-available-resources --eip-charge-type PREPAID --zone-id SEL-A
   desc: 'Query prepaid elastic IP resources for sale in the zone: SEL-A'
 sdk:
   service: bmc

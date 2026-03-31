@@ -4,7 +4,7 @@ use: assign-border-gateway
 short: 边界网关绑定NAT网关。
 long: 边界网关绑定NAT网关。
 examples:
-- cmd: zencli zec assign-border-gateway --zbg-id <zbgId> --nat-id <natId>
+- cmd: zeno zec assign-border-gateway --zbg-id <zbgId> --nat-id <natId>
   desc: 边界网关绑定NAT网关。
 sdk:
   service: zec

@@ -4,7 +4,7 @@ use: change-eip-bind-type
 short: 更换弹性公网IP绑定模式。
 long: 弹性公网IP（EIP）更换绑定模式。
 examples:
-- cmd: zencli zec change-eip-bind-type --eip-id <eipId1> --bind-type FullNat
+- cmd: zeno zec change-eip-bind-type --eip-id <eipId1> --bind-type FullNat
   desc: 更换弹性公网IP绑定模式
 sdk:
   service: zec

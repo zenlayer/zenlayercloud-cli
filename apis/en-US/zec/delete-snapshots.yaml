@@ -4,7 +4,7 @@ use: delete-snapshots
 short: Deletes the specified snapshots.
 long: delete the specified snapshots.
 examples:
-- cmd: zencli zec delete-snapshots --snapshot-ids snapshotId1 --snapshot-ids snapshotId2
+- cmd: zeno zec delete-snapshots --snapshot-ids snapshotId1 --snapshot-ids snapshotId2
   desc: Delete snapshots.
 sdk:
   service: zec

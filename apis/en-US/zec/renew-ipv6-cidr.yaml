@@ -4,7 +4,7 @@ use: renew-ipv6-cidr
 short: Restores an IPv6 CIDR block.
 long: restore an IPv6 CIDR block.
 examples:
-- cmd: zencli zec renew-ipv6-cidr --cidr-id <cidrId>
+- cmd: zeno zec renew-ipv6-cidr --cidr-id <cidrId>
   desc: Restore an IPv6 CIDR block.
 sdk:
   service: zec

@@ -4,9 +4,9 @@ use: create-ipv4-block
 short: 创建Ipv4 Cidr Block
 long: 创建一个或多个Ipv4 Cidr Block。
 examples:
-- cmd: zencli bmc create-ipv4-block --zone-id IST-B --name example1 --charge-type POSTPAID --netmask 29
+- cmd: zeno bmc create-ipv4-block --zone-id IST-B --name example1 --charge-type POSTPAID --netmask 29
   desc: ''
-- cmd: zencli bmc create-ipv4-block --zone-id AMS-D --name example2 --charge-type PREPAID --netmask 29 --amount 1
+- cmd: zeno bmc create-ipv4-block --zone-id AMS-D --name example2 --charge-type PREPAID --netmask 29 --amount 1
   desc: ''
 sdk:
   service: bmc

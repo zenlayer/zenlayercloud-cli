@@ -4,7 +4,7 @@ use: modify-listener
 short: 修改负载均衡监听器属性
 long: 修改负载均衡监听器的属性，包括监听器的名称、健康检查参数、转发方式等。不支持修改监听器的监听协议。
 examples:
-- cmd: zencli zlb modify-listener --load-balancer-id <loadBalancerId> --listener-id <listenerId> --listener-name sampleName --scheduler mh
+- cmd: zeno zlb modify-listener --load-balancer-id <loadBalancerId> --listener-id <listenerId> --listener-name sampleName --scheduler mh
   desc: 修改负载均衡监听器的名称、健康检查参数以及转发策略
 sdk:
   service: zlb

@@ -4,7 +4,7 @@ use: describe-cidr-blocks
 short: 查看Cidr Block列表
 long: 查询一个或多个Cidr Block的信息。
 examples:
-- cmd: zencli bmc describe-cidr-blocks --page-num 1 --page-size 1
+- cmd: zeno bmc describe-cidr-blocks --page-num 1 --page-size 1
   desc: 分页查询Cidr Block列表
 sdk:
   service: bmc

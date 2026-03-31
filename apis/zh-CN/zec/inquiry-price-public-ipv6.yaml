@@ -4,7 +4,7 @@ use: inquiry-price-public-ipv6
 short: 公网Ipv6流量包或固定带宽询价
 long: 公网Ipv6流量包或固定带宽询价。
 examples:
-- cmd: zencli zec inquiry-price-public-ipv6 --region-id asia-east-1 --package-size 10
+- cmd: zeno zec inquiry-price-public-ipv6 --region-id asia-east-1 --package-size 10
   desc: 在asia-east-1节点，公网Ipv6流量计费10TB的询价。
 sdk:
   service: zec

@@ -4,7 +4,7 @@ use: create-nat-gateway
 short: Creates a NAT gateway.
 long: create a NAT gateway.
 examples:
-- cmd: zencli zec create-nat-gateway --region-id asia-east-1 --vpc-id <vpcId> --name name --subnet-ids <subnet> --subnet-ids <subnet> --resource-group-id <resourceGroupId>
+- cmd: zeno zec create-nat-gateway --region-id asia-east-1 --vpc-id <vpcId> --name name --subnet-ids <subnet> --subnet-ids <subnet> --resource-group-id <resourceGroupId>
   desc: Create a NAT gateway.
 sdk:
   service: zec

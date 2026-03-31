@@ -4,7 +4,7 @@ use: describe-images
 short: 镜像列表
 long: 查询某节点支持的镜像列表。
 examples:
-- cmd: zencli zec describe-images --zone-id asia-east-1a --os-type linux --page-size 3
+- cmd: zeno zec describe-images --zone-id asia-east-1a --os-type linux --page-size 3
   desc: 查询`asia-east-1a`区域下，操作系统类型为`linux`的镜像。
 sdk:
   service: zec

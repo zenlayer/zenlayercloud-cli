@@ -4,7 +4,7 @@ use: modify-eip-addresses-resource-group
 short: 修改弹性IP所属的资源组。
 long: 修改弹性IP所属的资源组。
 examples:
-- cmd: zencli bmc modify-eip-addresses-resource-group --eip-ids eipId1 --eip-ids eipId2 --resource-group-id resourceGroup1
+- cmd: zeno bmc modify-eip-addresses-resource-group --eip-ids eipId1 --eip-ids eipId2 --resource-group-id resourceGroup1
   desc: 将EIP移动到指定资源组。
 sdk:
   service: bmc

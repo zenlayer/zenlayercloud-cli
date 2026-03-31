@@ -4,7 +4,7 @@ use: attach-dhcp-options-set-to-subnet
 short: 将DHCP选项集关联到Subnet
 long: 将DHCP选项集关联到Subnet。
 examples:
-- cmd: zencli zec attach-dhcp-options-set-to-subnet --dhcp-options-set-id dhcpOptionsSetId1 --subnet-ids subnetId1 --subnet-ids subnetId2
+- cmd: zeno zec attach-dhcp-options-set-to-subnet --dhcp-options-set-id dhcpOptionsSetId1 --subnet-ids subnetId1 --subnet-ids subnetId2
   desc: 将DHCP选项集关联到Subnet
 sdk:
   service: zec

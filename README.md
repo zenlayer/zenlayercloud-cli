@@ -10,7 +10,7 @@ The official command line interface for [Zenlayer Cloud](https://console.zenlaye
 
 ## Overview
 
-Zenlayer Cloud CLI (`zencli`) is a powerful command-line tool that enables you to manage your Zenlayer Cloud resources efficiently. It provides a unified interface to interact with various Zenlayer Cloud services including:
+Zenlayer Cloud CLI (`zeno`) is a powerful command-line tool that enables you to manage your Zenlayer Cloud resources efficiently. It provides a unified interface to interact with various Zenlayer Cloud services including:
 
 - **Load Balancer (ZLB)** - Manage load balancers, listeners, and backends
 - **Bandwidth Cluster** - Manage bandwidth clusters and traffic monitoring
@@ -35,10 +35,10 @@ Choose the appropriate binary for your platform:
 
 | Platform | Architecture | Binary |
 |----------|-------------|--------|
-| Linux | amd64 | `zencli_linux_amd64` |
-| Linux | arm64 | `zencli_linux_arm64` |
-| macOS | Universal | `zencli_darwin_all` |
-| Windows | amd64 | `zencli_windows_amd64.exe` |
+| Linux | amd64 | `zeno_linux_amd64` |
+| Linux | arm64 | `zeno_linux_arm64` |
+| macOS | Universal | `zeno_darwin_all` |
+| Windows | amd64 | `zeno_windows_amd64.exe` |
 
 ### From Source
 
@@ -50,12 +50,12 @@ cd zenlayercloud-cli
 make build
 ```
 
-The binary will be available at `bin/zencli`.
+The binary will be available at `bin/zeno`.
 
 ### Verify Installation
 
 ```bash
-zencli version
+zeno version
 ```
 
 ## Quick Start
@@ -65,7 +65,7 @@ zencli version
 Run the interactive configuration:
 
 ```bash
-zencli configure
+zeno configure
 ```
 
 This will prompt you for:
@@ -79,13 +79,13 @@ This will prompt you for:
 
 ```bash
 # List load balancers
-zencli describe-load-balancers
+zeno describe-load-balancers
 
 # Create a load balancer
-zencli create-load-balancer --help
+zeno create-load-balancer --help
 
 # Get bandwidth cluster information
-zencli describe-bandwidth-clusters
+zeno describe-bandwidth-clusters
 ```
 
 ## Configuration
@@ -101,11 +101,11 @@ You can configure multiple profiles for different environments:
 
 ```bash
 # Configure a new profile
-zencli configure
+zeno configure
 # Enter "prod" when prompted for profile name
 
 # Use a specific profile
-zencli --profile prod describe-load-balancers
+zeno --profile prod describe-load-balancers
 
 # Or set via environment variable
 export ZENLAYER_PROFILE=prod
@@ -134,54 +134,54 @@ Settings are applied in the following priority (highest to lowest):
 
 ```bash
 # Interactive configuration
-zencli configure
+zeno configure
 
 # List current configuration
-zencli configure list
+zeno configure list
 
 # Get a configuration value
-zencli configure get <key>
+zeno configure get <key>
 
 # Set a configuration value
-zencli configure set <key> <value>
+zeno configure set <key> <value>
 ```
 
 ### Version
 
 ```bash
-zencli version
+zeno version
 ```
 
 ### Load Balancer Commands
 
 ```bash
 # List load balancers
-zencli describe-load-balancers
+zeno describe-load-balancers
 
 # Create a load balancer
-zencli create-load-balancer [flags]
+zeno create-load-balancer [flags]
 
 # Modify load balancer attributes
-zencli modify-load-balancers-attribute [flags]
+zeno modify-load-balancers-attribute [flags]
 
 # Delete load balancers
-zencli terminate-load-balancer [flags]
+zeno terminate-load-balancer [flags]
 ```
 
 ### Bandwidth Cluster Commands
 
 ```bash
 # List bandwidth clusters
-zencli describe-bandwidth-clusters
+zeno describe-bandwidth-clusters
 
 # Create a bandwidth cluster
-zencli create-bandwidth-cluster [flags]
+zeno create-bandwidth-cluster [flags]
 
 # Get cluster usage
-zencli describe-bandwidth-cluster-usage [flags]
+zeno describe-bandwidth-cluster-usage [flags]
 ```
 
-Use `zencli [command] --help` for more information about a command.
+Use `zeno [command] --help` for more information about a command.
 
 ## Shell Completion
 
@@ -191,21 +191,21 @@ Enable tab completion for commands, subcommands, and flags.
 
 ```bash
 # Linux
-zencli completion bash > /etc/bash_completion.d/zencli
+zeno completion bash > /etc/bash_completion.d/zeno
 
 # macOS (requires bash-completion)
-zencli completion bash > $(brew --prefix)/etc/bash_completion.d/zencli
+zeno completion bash > $(brew --prefix)/etc/bash_completion.d/zeno
 ```
 
 ### Zsh
 
 ```bash
 # Option 1: use default fpath (may require sudo)
-zencli completion zsh > "${fpath[1]}/_zencli"
+zeno completion zsh > "${fpath[1]}/_zeno"
 
 # Option 2: use custom completion directory
 mkdir -p ~/.zsh/completions
-zencli completion zsh > ~/.zsh/completions/_zencli
+zeno completion zsh > ~/.zsh/completions/_zeno
 echo 'fpath=(~/.zsh/completions $fpath)' >> ~/.zshrc
 echo 'autoload -U compinit; compinit' >> ~/.zshrc
 ```
@@ -213,13 +213,13 @@ echo 'autoload -U compinit; compinit' >> ~/.zshrc
 ### Fish
 
 ```bash
-zencli completion fish > ~/.config/fish/completions/zencli.fish
+zeno completion fish > ~/.config/fish/completions/zeno.fish
 ```
 
 ### PowerShell
 
 ```powershell
-zencli completion powershell | Out-String | Invoke-Expression
+zeno completion powershell | Out-String | Invoke-Expression
 ```
 
 Restart your shell after setup for the changes to take effect.
@@ -227,8 +227,8 @@ Restart your shell after setup for the changes to take effect.
 ### Uninstall Completion
 
 ```bash
-zencli completion --uninstall                    # uninstall all (bash, zsh, fish, powershell)
-zencli completion --uninstall [bash|zsh|fish|powershell]  # uninstall specific shell
+zeno completion --uninstall                    # uninstall all (bash, zsh, fish, powershell)
+zeno completion --uninstall [bash|zsh|fish|powershell]  # uninstall specific shell
 ```
 
 Removes completion from standard installation paths. Restart your shell after uninstalling.
@@ -253,19 +253,19 @@ Use the `--query` (or `-q`) flag to filter and transform API response output usi
 
 ```bash
 # Extract all instance IDs from the dataSet array
-zencli zec describe-instances --query "dataSet[*].instanceId"
+zeno zec describe-instances --query "dataSet[*].instanceId"
 
 # Filter instances with state RUNNING
-zencli zec describe-instances --query "dataSet[?state=='RUNNING']"
+zeno zec describe-instances --query "dataSet[?state=='RUNNING']"
 
 # Get only load balancer names
-zencli zlb describe-load-balancers -o json -q "loadBalancerSet[*].loadBalancerName"
+zeno zlb describe-load-balancers -o json -q "loadBalancerSet[*].loadBalancerName"
 
 # Extract requestId from response
-zencli zec describe-instances --query "requestId"
+zeno zec describe-instances --query "requestId"
 
 # Filter bandwidth clusters by status
-zencli traffic describe-bandwidth-clusters -q "dataSet[?status=='active']"
+zeno traffic describe-bandwidth-clusters -q "dataSet[?status=='active']"
 ```
 
 **JMESPath Quick Reference:**

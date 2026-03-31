@@ -4,7 +4,7 @@ use: inquiry-price-create-disks
 short: 云硬盘询价
 long: 创建一块或多块云硬盘的询价。
 examples:
-- cmd: zencli zec inquiry-price-create-disks --zone-id asia-east-1a --disk-size 2000
+- cmd: zeno zec inquiry-price-create-disks --zone-id asia-east-1a --disk-size 2000
   desc: 创建1个2000GiB的云硬盘询价。
 sdk:
   service: zec

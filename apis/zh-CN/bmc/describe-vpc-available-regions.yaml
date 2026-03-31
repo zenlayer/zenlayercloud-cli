@@ -4,7 +4,7 @@ use: describe-vpc-available-regions
 short: 查询支持VPC组网的节点区域信息
 long: 本接口用于查询支持VPC组网的节点区域信息。
 examples:
-- cmd: zencli bmc describe-vpc-available-regions --vpc-region-id SIN3
+- cmd: zeno bmc describe-vpc-available-regions --vpc-region-id SIN3
   desc: 查询vpcRegionId为SIN3下的可用区ID
 sdk:
   service: bmc

@@ -4,7 +4,7 @@ use: renew-ipv6-cidr
 short: 恢复IPv6 CIDR地址段。
 long: 将一个处于回收站的IPv6 CIDR地址段恢复回正常。
 examples:
-- cmd: zencli zec renew-ipv6-cidr --cidr-id <cidrId>
+- cmd: zeno zec renew-ipv6-cidr --cidr-id <cidrId>
   desc: 恢复一个IPv6 CIDR地址块
 sdk:
   service: zec

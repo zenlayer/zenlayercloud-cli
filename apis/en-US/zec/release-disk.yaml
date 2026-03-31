@@ -4,7 +4,7 @@ use: release-disk
 short: Releases a disk.
 long: release a disk.
 examples:
-- cmd: zencli zec release-disk --disk-id your-disk-id
+- cmd: zeno zec release-disk --disk-id your-disk-id
   desc: Release a disk.
 sdk:
   service: zec

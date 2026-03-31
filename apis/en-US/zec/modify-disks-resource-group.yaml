@@ -4,7 +4,7 @@ use: modify-disks-resource-group
 short: Changes the resource group of disks.
 long: change the resource group of disks.
 examples:
-- cmd: zencli zec modify-disks-resource-group --disk-ids diskId1 --disk-ids diskId2 --resource-group-id resourceGroup1
+- cmd: zeno zec modify-disks-resource-group --disk-ids diskId1 --disk-ids diskId2 --resource-group-id resourceGroup1
   desc: Move the disk to the specified resource group.
 sdk:
   service: zec

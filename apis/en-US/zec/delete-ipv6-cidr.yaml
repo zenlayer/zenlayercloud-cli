@@ -4,7 +4,7 @@ use: delete-ipv6-cidr
 short: Deletes an IPv6 CIDR block.
 long: delete an IPv6 CIDR block.
 examples:
-- cmd: zencli zec delete-ipv6-cidr --cidr-id <cidrId>
+- cmd: zeno zec delete-ipv6-cidr --cidr-id <cidrId>
   desc: Delete a CIDR block.
 sdk:
   service: zec

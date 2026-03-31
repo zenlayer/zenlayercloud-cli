@@ -4,9 +4,9 @@ use: create-zec-instances
 short: Creates one or more instances with specified configurations.
 long: create one or more elastic compute instances with specified configurations.
 examples:
-- cmd: zencli zec create-zec-instances --zone-id asia-east-1a --instance-type z2a.cpu.1 --image-id ubuntu2404_20240712 --instance-name Test-InstanceName --key-id key-rcfljdP5 --subnet-id 1272168087751233112 --nic-network-type Auto
+- cmd: zeno zec create-zec-instances --zone-id asia-east-1a --instance-type z2a.cpu.1 --image-id ubuntu2404_20240712 --instance-name Test-InstanceName --key-id key-rcfljdP5 --subnet-id 1272168087751233112 --nic-network-type Auto
   desc: Create an instance with the simplest parameters with no public IPv4 assigned.
-- cmd: zencli zec create-zec-instances --zone-id asia-east-1a --instance-type z2a.cpu.1 --image-id ubuntu2404_20240712 --instance-name Test-InstanceName --key-id key-rcfljdP5 --subnet-id 1272168087751233112 --internet-charge-type BandwidthCluster --bandwidth 10 --cluster-id <clusterId> --eip-v4-type BGPLine
+- cmd: zeno zec create-zec-instances --zone-id asia-east-1a --instance-type z2a.cpu.1 --image-id ubuntu2404_20240712 --instance-name Test-InstanceName --key-id key-rcfljdP5 --subnet-id 1272168087751233112 --internet-charge-type BandwidthCluster --bandwidth 10 --cluster-id <clusterId> --eip-v4-type BGPLine
   desc: Create 2 instances with public IPs, using BGP lines and bandwidth cluster billing, limited to `10` Mbps.
 sdk:
   service: zec

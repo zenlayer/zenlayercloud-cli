@@ -4,7 +4,7 @@ use: modify-eip-attribute
 short: 修改弹性公网IP属性。
 long: 修改弹性公网IP属性。
 examples:
-- cmd: zencli zec modify-eip-attribute --eip-id <eipId> --name Test-IP
+- cmd: zeno zec modify-eip-attribute --eip-id <eipId> --name Test-IP
   desc: 修改弹性IP的名称。
 sdk:
   service: zec

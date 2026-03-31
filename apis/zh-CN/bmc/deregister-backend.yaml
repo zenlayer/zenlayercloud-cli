@@ -4,7 +4,7 @@ use: deregister-backend
 short: 删除负载均衡后端配置服务器。
 long: 删除负载均衡后端配置服务器。
 examples:
-- cmd: zencli bmc deregister-backend --backend-id xxxx
+- cmd: zeno bmc deregister-backend --backend-id xxxx
   desc: 删除Backend
 sdk:
   service: bmc

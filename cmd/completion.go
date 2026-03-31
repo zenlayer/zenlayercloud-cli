@@ -17,28 +17,28 @@ var completionCmd = &cobra.Command{
 
 Bash:
   # Linux
-  zencli completion bash > /etc/bash_completion.d/zencli
+  zeno completion bash > /etc/bash_completion.d/zeno
   # macOS (requires bash-completion)
-  zencli completion bash > $(brew --prefix)/etc/bash_completion.d/zencli
+  zeno completion bash > $(brew --prefix)/etc/bash_completion.d/zeno
 
 Zsh:
   # If shell completion is not already enabled in your environment,
   # you will need to enable it. You can execute the following once:
   echo "autoload -U compinit; compinit" >> ~/.zshrc
 
-  zencli completion zsh > "${fpath[1]}/_zencli"
+  zeno completion zsh > "${fpath[1]}/_zeno"
 
   # You will need to start a new shell for this setup to take effect.
 
 Fish:
-  zencli completion fish > ~/.config/fish/completions/zencli.fish
+  zeno completion fish > ~/.config/fish/completions/zeno.fish
 
 PowerShell:
-  zencli completion powershell | Out-String | Invoke-Expression
+  zeno completion powershell | Out-String | Invoke-Expression
 
 Uninstall:
-  zencli completion --uninstall              # uninstall all
-  zencli completion --uninstall [bash|zsh|fish|powershell]  # uninstall specific shell`,
+  zeno completion --uninstall              # uninstall all
+  zeno completion --uninstall [bash|zsh|fish|powershell]  # uninstall specific shell`,
 	DisableFlagsInUseLine: true,
 	ValidArgsFunction: func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
 		var comps []string
@@ -101,7 +101,7 @@ func runCompletionUninstall(args []string) error {
 			return err
 		}
 		if len(removed) == 0 {
-			fmt.Fprintf(os.Stderr, "No zencli completion found for %s in standard locations.\n", inst.GetName())
+			fmt.Fprintf(os.Stderr, "No zeno completion found for %s in standard locations.\n", inst.GetName())
 			continue
 		}
 		anyRemoved = true

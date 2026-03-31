@@ -4,7 +4,7 @@ use: apply-snapshot
 short: 回滚快照
 long: 回滚快照到原云盘。
 examples:
-- cmd: zencli zec apply-snapshot --snapshot-id snapshotId1 --disk-id disk1
+- cmd: zeno zec apply-snapshot --snapshot-id snapshotId1 --disk-id disk1
   desc: 回滚快照
 sdk:
   service: zec

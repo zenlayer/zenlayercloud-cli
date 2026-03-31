@@ -1,4 +1,4 @@
-// Package util provides utility functions for zencli.
+// Package util provides utility functions for zeno.
 package util
 
 import (

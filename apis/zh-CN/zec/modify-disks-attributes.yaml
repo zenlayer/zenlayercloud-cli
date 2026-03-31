@@ -4,7 +4,7 @@ use: modify-disks-attributes
 short: 修改云硬盘属性
 long: 修改一块或多块云硬盘属性。当前接口只支持修改名称。
 examples:
-- cmd: zencli zec modify-disks-attributes --disk-ids your-disk-id --disk-name newDiskName
+- cmd: zeno zec modify-disks-attributes --disk-ids your-disk-id --disk-name newDiskName
   desc: 修改一个或多个云硬盘属性。
 sdk:
   service: zec

@@ -4,7 +4,7 @@ use: describe-cidr-blocks
 short: Queries list of CIDR blocks.
 long: query the details of CIDR blocks.
 examples:
-- cmd: zencli bmc describe-cidr-blocks --page-num 1 --page-size 1
+- cmd: zeno bmc describe-cidr-blocks --page-num 1 --page-size 1
   desc: ''
 sdk:
   service: bmc

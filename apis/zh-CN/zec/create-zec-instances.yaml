@@ -4,9 +4,9 @@ use: create-zec-instances
 short: 创建虚拟机实例
 long: 创建一台或多台虚拟机实例。
 examples:
-- cmd: zencli zec create-zec-instances --zone-id asia-east-1a --instance-type z2a.cpu.1 --image-id ubuntu2404_20240712 --instance-name Test-InstanceName --key-id key-rcfljdP5 --subnet-id 1272168087751233112 --nic-network-type Auto
+- cmd: zeno zec create-zec-instances --zone-id asia-east-1a --instance-type z2a.cpu.1 --image-id ubuntu2404_20240712 --instance-name Test-InstanceName --key-id key-rcfljdP5 --subnet-id 1272168087751233112 --nic-network-type Auto
   desc: 使用最简单的参数创建实例。不分配公网IP地址。
-- cmd: zencli zec create-zec-instances --zone-id asia-east-1a --instance-type z2a.cpu.1 --image-id ubuntu2404_20240712 --instance-name Test-InstanceName --key-id key-rcfljdP5 --subnet-id 1272168087751233112 --internet-charge-type BandwidthCluster --bandwidth 10 --cluster-id <clusterId> --network-line-type PremiumBGP
+- cmd: zeno zec create-zec-instances --zone-id asia-east-1a --instance-type z2a.cpu.1 --image-id ubuntu2404_20240712 --instance-name Test-InstanceName --key-id key-rcfljdP5 --subnet-id 1272168087751233112 --internet-charge-type BandwidthCluster --bandwidth 10 --cluster-id <clusterId> --network-line-type PremiumBGP
   desc: 创建2台实例，分配公网IP。线路类型为BGP, 网络计费使用共享带宽包。带宽限速为10Mbps。
 sdk:
   service: zec

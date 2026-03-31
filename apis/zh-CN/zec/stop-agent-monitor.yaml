@@ -4,7 +4,7 @@ use: stop-agent-monitor
 short: 关闭Agent监控采集。
 long: 关闭Agent监控采集。
 examples:
-- cmd: zencli zec stop-agent-monitor --instance-id <instanceId>
+- cmd: zeno zec stop-agent-monitor --instance-id <instanceId>
   desc: 关闭实例Agent采集监控。
 sdk:
   service: zec

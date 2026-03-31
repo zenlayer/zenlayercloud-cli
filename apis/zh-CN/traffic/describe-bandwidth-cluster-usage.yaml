@@ -4,7 +4,7 @@ use: describe-bandwidth-cluster-usage
 short: 查询共享带宽包用量
 long: 查询共享带宽包的用量信息。
 examples:
-- cmd: zencli traffic describe-bandwidth-cluster-usage --bandwidth-cluster-id bandwidthClusterId --page-num 1 --page-size 20
+- cmd: zeno traffic describe-bandwidth-cluster-usage --bandwidth-cluster-id bandwidthClusterId --page-num 1 --page-size 20
   desc: 查询共享带宽包的用量信息。
 sdk:
   service: traffic

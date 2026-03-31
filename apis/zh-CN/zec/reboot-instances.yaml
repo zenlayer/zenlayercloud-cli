@@ -4,7 +4,7 @@ use: reboot-instances
 short: 重启虚拟机实例
 long: 重启虚拟机实例。
 examples:
-- cmd: zencli zec reboot-instances --instance-ids instanceId1 --instance-ids instanceId2
+- cmd: zeno zec reboot-instances --instance-ids instanceId1 --instance-ids instanceId2
   desc: 批量重启实例。
 sdk:
   service: zec

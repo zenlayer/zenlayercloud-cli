@@ -4,7 +4,7 @@ use: modify-cidr-attribute
 short: 修改IPv4 CIDR地址段的属性。
 long: 修改IPv4 CIDR地址段的属性。 目前只能修改名称。
 examples:
-- cmd: zencli zec modify-cidr-attribute --cidr-id <cidrId> --name TestCidrName
+- cmd: zeno zec modify-cidr-attribute --cidr-id <cidrId> --name TestCidrName
   desc: 修改cidr地址段的名称。
 sdk:
   service: zec

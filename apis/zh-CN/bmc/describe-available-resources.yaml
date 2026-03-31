@@ -4,7 +4,7 @@ use: describe-available-resources
 short: 查询售卖实例和带宽的可用资源
 long: 查询售卖实例和带宽的可用资源。
 examples:
-- cmd: zencli bmc describe-available-resources --instance-type-id MDE --instance-charge-type PREPAID --zone-id MOW-B
+- cmd: zeno bmc describe-available-resources --instance-type-id MDE --instance-charge-type PREPAID --zone-id MOW-B
   desc: 获取所有的可用资源。
 sdk:
   service: bmc

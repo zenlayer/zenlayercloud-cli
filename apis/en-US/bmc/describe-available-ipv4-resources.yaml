@@ -4,7 +4,7 @@ use: describe-available-ipv4-resources
 short: Queries available IPv4 CIDR blocks.
 long: query available IPv4 CIDR blocks.
 examples:
-- cmd: zencli bmc describe-available-ipv4-resources --charge-type PREPAID
+- cmd: zeno bmc describe-available-ipv4-resources --charge-type PREPAID
   desc: ''
 sdk:
   service: bmc

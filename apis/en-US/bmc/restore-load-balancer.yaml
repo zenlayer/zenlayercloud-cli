@@ -4,7 +4,7 @@ use: restore-load-balancer
 short: Restores a load balancer in the recycle bin.
 long: restore a load balancer in the recycle bin.
 examples:
-- cmd: zencli bmc restore-load-balancer --load-balancer-id xxxx
+- cmd: zeno bmc restore-load-balancer --load-balancer-id xxxx
   desc: Restore a load balancer.
 sdk:
   service: bmc

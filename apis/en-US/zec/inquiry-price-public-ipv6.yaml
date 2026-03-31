@@ -4,7 +4,7 @@ use: inquiry-price-public-ipv6
 short: Queries the price of data transfer or bandwidth for the public IPv6.
 long: query the price of data transfer or bandwidth for the public IPv6.
 examples:
-- cmd: zencli zec inquiry-price-public-ipv6 --region-id xxx --package-size 10
+- cmd: zeno zec inquiry-price-public-ipv6 --region-id xxx --package-size 10
   desc: ''
 sdk:
   service: zec

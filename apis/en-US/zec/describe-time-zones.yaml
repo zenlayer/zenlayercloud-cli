@@ -4,7 +4,7 @@ use: describe-time-zones
 short: Obtains the time zone information.
 long: obtain the time zone information.
 examples:
-- cmd: zencli zec describe-time-zones
+- cmd: zeno zec describe-time-zones
   desc: Obtain the time zone information.
 sdk:
   service: zec

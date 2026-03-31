@@ -4,7 +4,7 @@ use: create-disks
 short: Creates one or more disks.
 long: create one or more disks.
 examples:
-- cmd: zencli zec create-disks --disk-name Test-Disk --disk-size 30 --disk-amount 1 --zone-id HKG-A
+- cmd: zeno zec create-disks --disk-name Test-Disk --disk-size 30 --disk-amount 1 --zone-id HKG-A
   desc: Create one or more disks.
 sdk:
   service: zec

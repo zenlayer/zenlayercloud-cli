@@ -4,9 +4,9 @@ use: batch-assign-network-interface-ipv4
 short: 网卡绑定内网IPv4地址
 long: 将一张网卡额外添加内网IPv4地址。
 examples:
-- cmd: zencli zec batch-assign-network-interface-ipv4 --nic-id <nicId> --ip-addresses 10.0.0.3 --ip-addresses 10.0.0.4
+- cmd: zeno zec batch-assign-network-interface-ipv4 --nic-id <nicId> --ip-addresses 10.0.0.3 --ip-addresses 10.0.0.4
   desc: 网卡批量绑定指定内网IPv4。
-- cmd: zencli zec batch-assign-network-interface-ipv4 --nic-id <nicId> --ip-address-count 2
+- cmd: zeno zec batch-assign-network-interface-ipv4 --nic-id <nicId> --ip-address-count 2
   desc: 网卡额外绑定2个内网IP。
 sdk:
   service: zec

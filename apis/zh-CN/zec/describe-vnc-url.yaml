@@ -4,7 +4,7 @@ use: describe-vnc-url
 short: 获取实例VNC地址。
 long: 获取实例VNC地址。
 examples:
-- cmd: zencli zec describe-vnc-url --instance-id <instanceId>
+- cmd: zeno zec describe-vnc-url --instance-id <instanceId>
   desc: 获取实例的VNC地址。
 sdk:
   service: zec

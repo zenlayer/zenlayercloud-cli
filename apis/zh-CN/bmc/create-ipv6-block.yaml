@@ -4,7 +4,7 @@ use: create-ipv6-block
 short: 创建IPv6 Cidr Block
 long: 创建一个或多个IPv6 Cidr Block。
 examples:
-- cmd: zencli bmc create-ipv6-block --zone-id ISB-B --name example --amount 1
+- cmd: zeno bmc create-ipv6-block --zone-id ISB-B --name example --amount 1
   desc: ''
 sdk:
   service: bmc

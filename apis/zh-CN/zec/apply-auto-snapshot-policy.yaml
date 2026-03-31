@@ -4,7 +4,7 @@ use: apply-auto-snapshot-policy
 short: 自动快照策略添加云盘。
 long: 云硬盘添加到指定的自动快照策略。
 examples:
-- cmd: zencli zec apply-auto-snapshot-policy --auto-snapshot-policy-id <autoSnapshotPolicyId> --disk-ids <diskId>
+- cmd: zeno zec apply-auto-snapshot-policy --auto-snapshot-policy-id <autoSnapshotPolicyId> --disk-ids <diskId>
   desc: 向自动快照策略添加云盘。
 sdk:
   service: zec

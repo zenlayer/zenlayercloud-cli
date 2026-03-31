@@ -4,7 +4,7 @@ use: modify-cross-region-bandwidth-attribute
 short: Modifies the cross-region bandwidth property (name).
 long: modify the cross-region bandwidth property (name).
 examples:
-- cmd: zencli zec modify-cross-region-bandwidth-attribute --cross-region-bandwidth-ids "<your cross id>" --cross-region-bandwidth-name newName
+- cmd: zeno zec modify-cross-region-bandwidth-attribute --cross-region-bandwidth-ids "<your cross id>" --cross-region-bandwidth-name newName
   desc: Batch modify the cross-region bandwidth properties.
 sdk:
   service: zec

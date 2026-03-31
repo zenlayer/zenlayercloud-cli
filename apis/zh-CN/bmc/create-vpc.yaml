@@ -4,7 +4,7 @@ use: create-vpc
 short: 创建VPC
 long: 本接口用于创建一个私有网络VPC。
 examples:
-- cmd: zencli bmc create-vpc --vpc-region-id CHI1 --cidr-block 10.0.0.0/8 --vpc-name Test-VPC
+- cmd: zeno bmc create-vpc --vpc-region-id CHI1 --cidr-block 10.0.0.0/8 --vpc-name Test-VPC
   desc: 创建CHI1节点的VPC。
 sdk:
   service: bmc

@@ -4,9 +4,9 @@ use: reinstall-instance
 short: 重装实例
 long: 本接口用于重装一个实例。
 examples:
-- cmd: zencli bmc reinstall-instance --instance-id instanceId1
+- cmd: zeno bmc reinstall-instance --instance-id instanceId1
   desc: ''
-- cmd: zencli bmc reinstall-instance --instance-id instanceId --image-id bd5faa16-39d2-4bbf-a5c8-b95a193b1626 --hostname myhostname --password Aa_12345 --partitions "{fsPath=/, fsType=ext2, size=1100}" --partitions "{fsPath=/a, fsType=ext2, size=1100}"
+- cmd: zeno bmc reinstall-instance --instance-id instanceId --image-id bd5faa16-39d2-4bbf-a5c8-b95a193b1626 --hostname myhostname --password Aa_12345 --partitions "{fsPath=/, fsType=ext2, size=1100}" --partitions "{fsPath=/a, fsType=ext2, size=1100}"
   desc: ''
 sdk:
   service: bmc

@@ -4,7 +4,7 @@ use: describe-reflect-udp-port-options
 short: 获取默认UDP反射源端口列表
 long: 获取默认UDP反射源端口列表
 examples:
-- cmd: zencli zec describe-reflect-udp-port-options
+- cmd: zeno zec describe-reflect-udp-port-options
   desc: 获取默认UDP反射源端口列表
 sdk:
   service: zec

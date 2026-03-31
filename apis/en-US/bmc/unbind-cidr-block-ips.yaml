@@ -6,7 +6,7 @@ long: |-
   unbind one or more CIDR block IPs from instances.
   ***
 examples:
-- cmd: zencli bmc unbind-cidr-block-ips --cidr-block-id cidrBlockId --ip-list 2602:ffe4:1:11::1
+- cmd: zeno bmc unbind-cidr-block-ips --cidr-block-id cidrBlockId --ip-list 2602:ffe4:1:11::1
   desc: ''
 sdk:
   service: bmc

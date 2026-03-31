@@ -4,7 +4,7 @@ use: create-disks
 short: 批量创建云硬盘
 long: 创建一个或多个云硬盘。
 examples:
-- cmd: zencli zec create-disks --disk-name Test-Disk --disk-size 30 --disk-amount 1 --zone-id asia-east-1a
+- cmd: zeno zec create-disks --disk-name Test-Disk --disk-size 30 --disk-amount 1 --zone-id asia-east-1a
   desc: 创建1块30G大小的云硬盘。
 sdk:
   service: zec

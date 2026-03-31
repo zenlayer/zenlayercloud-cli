@@ -4,7 +4,7 @@ use: renew-cidr-block
 short: Renews a CIDR block.
 long: renew a CIDR block.
 examples:
-- cmd: zencli bmc renew-cidr-block --cidr-block-id cidrBlockId
+- cmd: zeno bmc renew-cidr-block --cidr-block-id cidrBlockId
   desc: ''
 sdk:
   service: bmc

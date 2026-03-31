@@ -4,7 +4,7 @@ use: assign-network-interface-ipv4
 short: 网卡绑定内网IPv4
 long: 网卡绑定内网IPv4
 examples:
-- cmd: zencli zec assign-network-interface-ipv4 --nic-id <nicId> --ip-address 10.0.0.3
+- cmd: zeno zec assign-network-interface-ipv4 --nic-id <nicId> --ip-address 10.0.0.3
   desc: 网卡绑定内网IPv4。
 sdk:
   service: zec

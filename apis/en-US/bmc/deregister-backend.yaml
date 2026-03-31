@@ -4,7 +4,7 @@ use: deregister-backend
 short: Removes a load balance backend server.
 long: remove a load balance backend server.
 examples:
-- cmd: zencli bmc deregister-backend --backend-id xxxx
+- cmd: zeno bmc deregister-backend --backend-id xxxx
   desc: Remove a backend server.
 sdk:
   service: bmc

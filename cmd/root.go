@@ -1,4 +1,4 @@
-// Package cmd contains all CLI commands for zencli.
+// Package cmd contains all CLI commands for zeno.
 package cmd
 
 import (
@@ -24,14 +24,14 @@ var (
 
 // rootCmd represents the base command when called without any subcommands.
 var rootCmd = &cobra.Command{
-	Use:   "zencli",
+	Use:   "zeno",
 	Short: "Zenlayer Cloud Command Line Interface",
-	Long: `zencli is the command line interface for Zenlayer Cloud API.
+	Long: `zeno is the command line interface for Zenlayer Cloud API.
 
 It provides commands to manage Zenlayer Cloud resources including
 bare metal servers, virtual machines, networking, and more.
 
-To get started, run 'zencli configure' to set up your credentials.`,
+To get started, run 'zeno configure' to set up your credentials.`,
 	SilenceUsage:  true,
 	SilenceErrors: true,
 }

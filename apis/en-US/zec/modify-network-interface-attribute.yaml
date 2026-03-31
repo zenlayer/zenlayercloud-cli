@@ -4,7 +4,7 @@ use: modify-network-interface-attribute
 short: Modifies the attributes of the vNIC.
 long: modify the attributes of the vNIC.
 examples:
-- cmd: zencli zec modify-network-interface-attribute --nic-id <nicId> --name Test-vNIC --security-group-id <securityGroupId>
+- cmd: zeno zec modify-network-interface-attribute --nic-id <nicId> --name Test-vNIC --security-group-id <securityGroupId>
   desc: Modify the vNIC name and associated security group.
 sdk:
   service: zec

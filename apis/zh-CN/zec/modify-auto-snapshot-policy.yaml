@@ -4,7 +4,7 @@ use: modify-auto-snapshot-policy
 short: 修改自动快照策略
 long: 修改自动快照策略的基本信息。
 examples:
-- cmd: zencli zec modify-auto-snapshot-policy --auto-snapshot-policy-id <autoSnapshotPolicyId> --auto-snapshot-policy-name Test --retention-days 3
+- cmd: zeno zec modify-auto-snapshot-policy --auto-snapshot-policy-id <autoSnapshotPolicyId> --auto-snapshot-policy-name Test --retention-days 3
   desc: 修改快照策略的属性，包括名称，保留天数为3天。
 sdk:
   service: zec

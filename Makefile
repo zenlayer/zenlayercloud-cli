@@ -1,7 +1,7 @@
 .PHONY: build test lint clean run fmt deps build-all build-mac-universal help
 
 # Variables
-BINARY_NAME=zencli
+BINARY_NAME=zeno
 BUILD_DIR=bin
 # Version from git tag (strip 'v' prefix). Override with TAG= or VERSION=.
 TAG ?= $(shell git describe --tags --exact-match 2>/dev/null || echo "")

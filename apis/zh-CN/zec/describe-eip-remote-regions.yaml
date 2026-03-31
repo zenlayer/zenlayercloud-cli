@@ -4,7 +4,7 @@ use: describe-eip-remote-regions
 short: 查询EIP支持的远程指向的节点信息
 long: 查询EIP支持的远程指向的节点信息。
 examples:
-- cmd: zencli zec describe-eip-remote-regions --region-id asia-east-1 --network-line-type PremiumBGP
+- cmd: zeno zec describe-eip-remote-regions --region-id asia-east-1 --network-line-type PremiumBGP
   desc: 查询 `asia-east-1` 节点BGP EIP支持的远端节点信息。
 sdk:
   service: zec

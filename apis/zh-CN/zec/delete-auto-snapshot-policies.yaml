@@ -4,7 +4,7 @@ use: delete-auto-snapshot-policies
 short: 删除自动快照策略。
 long: 删除指定的自动快照策略。
 examples:
-- cmd: zencli zec delete-auto-snapshot-policies --auto-snapshot-policy-ids <autoSnapshotPolicyId> --auto-snapshot-policy-ids <autoSnapshotPolicyId>
+- cmd: zeno zec delete-auto-snapshot-policies --auto-snapshot-policy-ids <autoSnapshotPolicyId> --auto-snapshot-policy-ids <autoSnapshotPolicyId>
   desc: 批量删除自动快照策略。
 sdk:
   service: zec

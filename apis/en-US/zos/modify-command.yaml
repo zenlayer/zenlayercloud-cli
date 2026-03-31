@@ -4,7 +4,7 @@ use: modify-command
 short: Edits a command.
 long: edit a command.
 examples:
-- cmd: zencli zos modify-command --command-id <commandId> --name Test --content ""echo 2""
+- cmd: zeno zos modify-command --command-id <commandId> --name Test --content ""echo 2""
   desc: Edit command name and script content.
 sdk:
   service: zos

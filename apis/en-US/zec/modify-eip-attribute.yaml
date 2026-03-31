@@ -4,7 +4,7 @@ use: modify-eip-attribute
 short: Modifies the name of the elastic IP.
 long: modify the name of the elastic IP.
 examples:
-- cmd: zencli zec modify-eip-attribute --eip-id <eipId> --name Test-IP
+- cmd: zeno zec modify-eip-attribute --eip-id <eipId> --name Test-IP
   desc: Modify the name of the elastic IP.
 sdk:
   service: zec

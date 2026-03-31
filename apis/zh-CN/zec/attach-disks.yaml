@@ -4,7 +4,7 @@ use: attach-disks
 short: 批量挂载云硬盘
 long: 云硬盘挂载到实例上。
 examples:
-- cmd: zencli zec attach-disks --disk-ids your-disk-id --instance-id your-instance-id
+- cmd: zeno zec attach-disks --disk-ids your-disk-id --instance-id your-instance-id
   desc: 挂载云硬盘到云主机实例。P
 sdk:
   service: zec

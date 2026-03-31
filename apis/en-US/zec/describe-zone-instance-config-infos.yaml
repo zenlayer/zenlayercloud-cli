@@ -4,7 +4,7 @@ use: describe-zone-instance-config-infos
 short: Queries information on instance size in the zone.
 long: query information on instance size in the zone.
 examples:
-- cmd: zencli zec describe-zone-instance-config-infos --instance-type z2a.cpu.4
+- cmd: zeno zec describe-zone-instance-config-infos --instance-type z2a.cpu.4
   desc: ''
 sdk:
   service: zec

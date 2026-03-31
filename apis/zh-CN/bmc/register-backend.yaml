@@ -4,7 +4,7 @@ use: register-backend
 short: 创建将一台后端服务绑定到负载均衡的监听器。
 long: 创建将一台后端服务绑定到负载均衡的监听器。
 examples:
-- cmd: zencli bmc register-backend --listener-id xxxx --backend-name xxxx --port-list 80 --client-token xxxx --weight 100 --instance-id xxxx
+- cmd: zeno bmc register-backend --listener-id xxxx --backend-name xxxx --port-list 80 --client-token xxxx --weight 100 --instance-id xxxx
   desc: 将一台后端服务绑定到负载均衡的监听器
 sdk:
   service: bmc

@@ -4,7 +4,7 @@ use: delete-subnet
 short: 删除子网
 long: 本接口用于删除一个Subnet。
 examples:
-- cmd: zencli bmc delete-subnet --subnet-id your-subnet-id
+- cmd: zeno bmc delete-subnet --subnet-id your-subnet-id
   desc: 删除Subnet。
 sdk:
   service: bmc

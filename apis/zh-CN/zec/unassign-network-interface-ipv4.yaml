@@ -4,7 +4,7 @@ use: unassign-network-interface-ipv4
 short: 网卡解绑内网IPv4地址
 long: 将网卡上的内网IPv4地址解绑。
 examples:
-- cmd: zencli zec unassign-network-interface-ipv4 --nic-id <nicId> --ip-addresses 10.0.0.2
+- cmd: zeno zec unassign-network-interface-ipv4 --nic-id <nicId> --ip-addresses 10.0.0.2
   desc: 网卡解绑内网IPv4地址。
 sdk:
   service: zec

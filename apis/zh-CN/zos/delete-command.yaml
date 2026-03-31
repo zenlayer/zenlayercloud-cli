@@ -4,7 +4,7 @@ use: delete-command
 short: 删除命令
 long: 删除命令。
 examples:
-- cmd: zencli zos delete-command --command-id <commandId>
+- cmd: zeno zos delete-command --command-id <commandId>
   desc: 删除命令。
 sdk:
   service: zos

@@ -4,7 +4,7 @@ use: detach-network-interface
 short: Detaches the vNIC from the instance.
 long: detach the vNIC from the instance.
 examples:
-- cmd: zencli zec detach-network-interface --nic-id XXX
+- cmd: zeno zec detach-network-interface --nic-id XXX
   desc: Detach the vNIC.
 sdk:
   service: zec

@@ -4,7 +4,7 @@ use: unassign-border-gateway
 short: Unbinds a NAT gateway to a border gateway.
 long: unbind a NAT gateway to a border gateway.
 examples:
-- cmd: zencli zec unassign-border-gateway --zbg-id xxx
+- cmd: zeno zec unassign-border-gateway --zbg-id xxx
   desc: Unbind a NAT gateway to a border gateway.
 sdk:
   service: zec

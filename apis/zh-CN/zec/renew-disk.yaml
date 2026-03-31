@@ -4,7 +4,7 @@ use: renew-disk
 short: 恢复云硬盘
 long: 恢复云硬盘
 examples:
-- cmd: zencli zec renew-disk --disk-id your-disk-id
+- cmd: zeno zec renew-disk --disk-id your-disk-id
   desc: 用户恢复云硬盘。
 sdk:
   service: zec

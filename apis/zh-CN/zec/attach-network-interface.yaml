@@ -4,7 +4,7 @@ use: attach-network-interface
 short: 网卡绑定实例
 long: 网卡绑定实例。
 examples:
-- cmd: zencli zec attach-network-interface --nic-id <nicId> --instance-id <instanceId>
+- cmd: zeno zec attach-network-interface --nic-id <nicId> --instance-id <instanceId>
   desc: 网卡绑定实例。
 sdk:
   service: zec

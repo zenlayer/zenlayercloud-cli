@@ -4,7 +4,7 @@ use: inquiry-price-create-instance
 short: 创建虚拟机实例询价
 long: 创建虚拟机实例询价。
 examples:
-- cmd: zencli zec inquiry-price-create-instance --zone-id SAO-A --instance-type c.1c2g --network-line-type PremiumBGP --internet-charge-type ByBandwidth --bandwidth 1 --instance-count 1
+- cmd: zeno zec inquiry-price-create-instance --zone-id SAO-A --instance-type c.1c2g --network-line-type PremiumBGP --internet-charge-type ByBandwidth --bandwidth 1 --instance-count 1
   desc: 查询实例的询价，带宽计费为固定带宽。
 sdk:
   service: zec

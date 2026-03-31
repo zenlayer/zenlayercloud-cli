@@ -4,7 +4,7 @@ use: delete-tags
 short: 批量删除标签
 long: 批量删除标签。
 examples:
-- cmd: zencli zrm delete-tags --tags "{key=key_d0added9da9d, value=value_be1fe7b89b0a}"
+- cmd: zeno zrm delete-tags --tags "{key=key_d0added9da9d, value=value_be1fe7b89b0a}"
   desc: 删除一组标签
 sdk:
   service: zrm

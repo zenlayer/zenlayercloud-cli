@@ -4,7 +4,7 @@ use: describe-backends
 short: Queries the list of backend servers added to a load balancer instance.
 long: query the list of backend servers added to a load balancer instance.
 examples:
-- cmd: zencli zlb describe-backends --load-balancer-id <loadBalancerId>
+- cmd: zeno zlb describe-backends --load-balancer-id <loadBalancerId>
   desc: Query all backend servers added to a load balancer instance.
 sdk:
   service: zlb

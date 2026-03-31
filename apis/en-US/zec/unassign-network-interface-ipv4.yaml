@@ -4,7 +4,7 @@ use: unassign-network-interface-ipv4
 short: Unassigns the private IPv4 from the vNIC.
 long: unassign the private IPv4 from the vNIC.
 examples:
-- cmd: zencli zec unassign-network-interface-ipv4 --nic-id <nicId> --ip-addresses 10.0.0.2
+- cmd: zeno zec unassign-network-interface-ipv4 --nic-id <nicId> --ip-addresses 10.0.0.2
   desc: Unassign the private IPv4 from the vNIC.
 sdk:
   service: zec

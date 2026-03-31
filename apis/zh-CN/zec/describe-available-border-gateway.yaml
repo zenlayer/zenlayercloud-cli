@@ -4,7 +4,7 @@ use: describe-available-border-gateway
 short: 获取可绑定NAT的边界网关
 long: 获取可绑定NAT的边界网关。
 examples:
-- cmd: zencli zec describe-available-border-gateway --nat-gateway-id <natGatewayId>
+- cmd: zeno zec describe-available-border-gateway --nat-gateway-id <natGatewayId>
   desc: 获取可绑定NAT的边界网关
 sdk:
   service: zec

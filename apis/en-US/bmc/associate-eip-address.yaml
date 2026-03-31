@@ -4,7 +4,7 @@ use: associate-eip-address
 short: Assigns elastic IPs to instances.
 long: bind an elastic IP to an instance in the same zone.
 examples:
-- cmd: zencli bmc associate-eip-address --eip-id eipId1 --instance-id instanceId1
+- cmd: zeno bmc associate-eip-address --eip-id eipId1 --instance-id instanceId1
   desc: Bind an elastic IP to an instance
 sdk:
   service: bmc

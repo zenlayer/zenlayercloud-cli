@@ -4,7 +4,7 @@ use: create-dnat-entry
 short: Creates a DNAT rule.
 long: create a DNAT rule.
 examples:
-- cmd: zencli zec create-dnat-entry --nat-gateway-id <natGatewayId> --eip-id <eipId> --private-ip 10.0.0.2 --protocol TCP --listener-port 1-30 --internal-port 1-30
+- cmd: zeno zec create-dnat-entry --nat-gateway-id <natGatewayId> --eip-id <eipId> --private-ip 10.0.0.2 --protocol TCP --listener-port 1-30 --internal-port 1-30
   desc: Create a DNAT entry.
 sdk:
   service: zec

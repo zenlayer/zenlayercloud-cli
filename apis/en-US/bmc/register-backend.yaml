@@ -4,7 +4,7 @@ use: register-backend
 short: Creates a backend server and add it to a load balance listener.
 long: create a backend server and add it to a load balance listener.
 examples:
-- cmd: zencli bmc register-backend --listener-id xxxx --backend-name xxxx --port-list 80 --client-token xxxx --weight 100 --instance-id xxxx
+- cmd: zeno bmc register-backend --listener-id xxxx --backend-name xxxx --port-list 80 --client-token xxxx --weight 100 --instance-id xxxx
   desc: Add a backend server to a load balance listener.
 sdk:
   service: bmc

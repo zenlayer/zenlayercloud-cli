@@ -4,7 +4,7 @@ use: create-dhcp-options-set
 short: 创建DHCP选项集
 long: 创建DHCP选项集。
 examples:
-- cmd: zencli zec create-dhcp-options-set --dhcp-options-set-name dhcpOptionsSetName-1 --domain-name-servers 88.88.88.88 --lease-time 168
+- cmd: zeno zec create-dhcp-options-set --dhcp-options-set-name dhcpOptionsSetName-1 --domain-name-servers 88.88.88.88 --lease-time 168
   desc: 创建DHCP选项集
 sdk:
   service: zec

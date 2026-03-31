@@ -4,7 +4,7 @@ use: reset-instances
 short: 重装多台虚拟机实例操作系统。
 long: 重装多台虚拟机实例操作系统。
 examples:
-- cmd: zencli zec reset-instances --instance-ids <instanceId1> --instance-ids <instanceId2> --image-id ubuntu2022 --password Example+123 --enable-agent true
+- cmd: zeno zec reset-instances --instance-ids <instanceId1> --instance-ids <instanceId2> --image-id ubuntu2022 --password Example+123 --enable-agent true
   desc: 批量重装系统。
 sdk:
   service: zec

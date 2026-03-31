@@ -4,7 +4,7 @@ use: terminate-cidr-block
 short: 退还Cidr Block
 long: 本接口用于退还一个Cidr Block。
 examples:
-- cmd: zencli bmc terminate-cidr-block --cidr-block-id cidrBlockId
+- cmd: zeno bmc terminate-cidr-block --cidr-block-id cidrBlockId
   desc: 退还一个Cidr Block
 sdk:
   service: bmc

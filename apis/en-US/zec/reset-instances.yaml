@@ -4,7 +4,7 @@ use: reset-instances
 short: Reinstalls the operating system on multiple instances.
 long: reinstall the operating system on multiple instances.
 examples:
-- cmd: zencli zec reset-instances --instance-ids <instanceId1> --instance-ids <instanceId2> --image-id ubuntu2022 --password Example+123 --enable-agent true
+- cmd: zeno zec reset-instances --instance-ids <instanceId1> --instance-ids <instanceId2> --image-id ubuntu2022 --password Example+123 --enable-agent true
   desc: Batch reinstall instances.
 sdk:
   service: zec

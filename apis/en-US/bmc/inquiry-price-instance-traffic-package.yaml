@@ -4,7 +4,7 @@ use: inquiry-price-instance-traffic-package
 short: Queries the price of instance traffic package.
 long: query the price of modified instance traffic package.
 examples:
-- cmd: zencli bmc inquiry-price-instance-traffic-package --instance-id instanceId --traffic-package-size 100
+- cmd: zeno bmc inquiry-price-instance-traffic-package --instance-id instanceId --traffic-package-size 100
   desc: Query the price of modified instance traffic package
 sdk:
   service: bmc

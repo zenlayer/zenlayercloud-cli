@@ -4,7 +4,7 @@ use: modify-border-gateways-attribute
 short: Modifies the attributes of one or more border gateways.
 long: The API is used to modify the attributes of one or more border gateways. Only the border gateway name to be displayed can be modified for now.
 examples:
-- cmd: zencli zec modify-border-gateways-attribute --zbg-ids xxx --name xxx
+- cmd: zeno zec modify-border-gateways-attribute --zbg-ids xxx --name xxx
   desc: Modify border gateway name in batches.
 sdk:
   service: zec

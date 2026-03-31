@@ -4,7 +4,7 @@ use: describe-cross-region-bandwidth-monitor-data
 short: 查询内网跨区域带宽监控指标数据
 long: 查询内网跨区域带宽监控指标数据。
 examples:
-- cmd: zencli zec describe-cross-region-bandwidth-monitor-data --cross-region-bandwidth-id "<your cross id>" --metric-type BANDWIDTH --start-time 2025-06-25T01:55:00Z --end-time 2025-06-25T02:05:00Z
+- cmd: zeno zec describe-cross-region-bandwidth-monitor-data --cross-region-bandwidth-id "<your cross id>" --metric-type BANDWIDTH --start-time 2025-06-25T01:55:00Z --end-time 2025-06-25T02:05:00Z
   desc: 查询某段时间的内网跨区域带宽类型为"BANDWIDTH"的监控指标数据。
 sdk:
   service: zec

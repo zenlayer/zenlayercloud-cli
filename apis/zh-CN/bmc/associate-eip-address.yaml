@@ -4,7 +4,7 @@ use: associate-eip-address
 short: 绑定Elastic IP
 long: 将EIP绑定到同区域的机器实例上。
 examples:
-- cmd: zencli bmc associate-eip-address --eip-id eipId1 --instance-id instanceId1
+- cmd: zeno bmc associate-eip-address --eip-id eipId1 --instance-id instanceId1
   desc: EIP绑定机器实例
 sdk:
   service: bmc

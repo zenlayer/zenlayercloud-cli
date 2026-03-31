@@ -4,7 +4,7 @@ use: describe-nat-gateway-regions
 short: Queries the available regions of NAT gateways.
 long: query the available regions of NAT gateways.
 examples:
-- cmd: zencli zec describe-nat-gateway-regions
+- cmd: zeno zec describe-nat-gateway-regions
   desc: Query the available regions of NAT gateway.
 sdk:
   service: zec

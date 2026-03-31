@@ -4,7 +4,7 @@ use: un-assign-security-group-vpc
 short: VPC解绑安全组。
 long: VPC解绑安全组。
 examples:
-- cmd: zencli zec un-assign-security-group-vpc --vpc-id <vpcId>
+- cmd: zeno zec un-assign-security-group-vpc --vpc-id <vpcId>
   desc: VPC 解绑安全组。
 sdk:
   service: zec

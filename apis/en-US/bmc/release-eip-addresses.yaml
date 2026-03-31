@@ -4,7 +4,7 @@ use: release-eip-addresses
 short: Releases elastic IPs.
 long: release one or multiple elastic IPs.
 examples:
-- cmd: zencli bmc release-eip-addresses --eip-ids eipId1 --eip-ids eipId2
+- cmd: zeno bmc release-eip-addresses --eip-ids eipId1 --eip-ids eipId2
   desc: Release two elastic IPs
 sdk:
   service: bmc

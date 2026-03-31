@@ -4,7 +4,7 @@ use: delete-route
 short: Deletes a route.
 long: delete a route.
 examples:
-- cmd: zencli zec delete-route --vpc-id <vpcId> --route-id <routeId>
+- cmd: zeno zec delete-route --vpc-id <vpcId> --route-id <routeId>
   desc: Delete a route.
 sdk:
   service: zec

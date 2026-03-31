@@ -4,9 +4,9 @@ use: create-instances
 short: 创建实例
 long: 创建一个或多个指定配置的实例。
 examples:
-- cmd: zencli bmc create-instances --instance-charge-type PREPAID --amount 2 --instance-name SEL-M6C-[1,2] --hostname SEL-M6C-[1,2] --internet-max-bandwidth-out 10 --password Password-12345~ --instance-type-id M6C --internet-charge-type ByBandwidth --zone-id SEL-A --image-id 5ace1756-2230-4d1d-8fc6-84f1897ef397
+- cmd: zeno bmc create-instances --instance-charge-type PREPAID --amount 2 --instance-name SEL-M6C-[1,2] --hostname SEL-M6C-[1,2] --internet-max-bandwidth-out 10 --password Password-12345~ --instance-type-id M6C --internet-charge-type ByBandwidth --zone-id SEL-A --image-id 5ace1756-2230-4d1d-8fc6-84f1897ef397
   desc: ''
-- cmd: zencli bmc create-instances --instance-charge-type PREPAID --amount 2 --instance-name SEL-M6C-[1,2] --hostname SEL-M6C-[1,2] --internet-max-bandwidth-out 10 --password Password-12345~ --instance-type-id M6C --internet-charge-type ByBandwidth --zone-id SEL-A --image-id 5ace1756-2230-4d1d-8fc6-84f1897ef397 --traffic-package-size 10
+- cmd: zeno bmc create-instances --instance-charge-type PREPAID --amount 2 --instance-name SEL-M6C-[1,2] --hostname SEL-M6C-[1,2] --internet-max-bandwidth-out 10 --password Password-12345~ --instance-type-id M6C --internet-charge-type ByBandwidth --zone-id SEL-A --image-id 5ace1756-2230-4d1d-8fc6-84f1897ef397 --traffic-package-size 10
   desc: ''
 sdk:
   service: bmc

@@ -4,7 +4,7 @@ use: create-snat-entry
 short: 创建SNAT规则
 long: 创建SNAT规则。
 examples:
-- cmd: zencli zec create-snat-entry --nat-gateway-id <natGatewayId> --subnet-ids <subnetId> --eip-ids <eipId>
+- cmd: zeno zec create-snat-entry --nat-gateway-id <natGatewayId> --subnet-ids <subnetId> --eip-ids <eipId>
   desc: 创建一个子网类型的SNAT。
 sdk:
   service: zec

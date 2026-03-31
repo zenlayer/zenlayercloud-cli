@@ -4,7 +4,7 @@ use: describe-cidr-block-ips
 short: 查看Cidr Block IP列表
 long: 查询一个Cidr Block的IP列表。
 examples:
-- cmd: zencli bmc describe-cidr-block-ips --cidr-block-id aCidrBlockId
+- cmd: zeno bmc describe-cidr-block-ips --cidr-block-id aCidrBlockId
   desc: 查询指定Cidr Block包含的IP
 sdk:
   service: bmc

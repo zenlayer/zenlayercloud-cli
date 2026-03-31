@@ -4,7 +4,7 @@ use: tag-bind-resources
 short: Binds resources to a tag in batches.
 long: bind resources to a tag in batches.
 examples:
-- cmd: zencli zrm tag-bind-resources --resource-uuids resourceUuids_19b06df9eaac
+- cmd: zeno zrm tag-bind-resources --resource-uuids resourceUuids_19b06df9eaac
   desc: Bind an instance to a tag.
 sdk:
   service: zrm

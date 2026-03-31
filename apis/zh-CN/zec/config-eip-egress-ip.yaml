@@ -4,7 +4,7 @@ use: config-eip-egress-ip
 short: 指定IP作为出口IP。
 long: 指定IP作为出口IP。
 examples:
-- cmd: zencli zec config-eip-egress-ip --eip-id xxx
+- cmd: zeno zec config-eip-egress-ip --eip-id xxx
   desc: 设置出口EIP。
 sdk:
   service: zec

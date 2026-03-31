@@ -4,7 +4,7 @@ use: describe-load-balancer-regions
 short: 查询支持负载均衡售卖的区域
 long: 查询支持购买负载均衡的区域。
 examples:
-- cmd: zencli zlb describe-load-balancer-regions
+- cmd: zeno zlb describe-load-balancer-regions
   desc: 获取负载均衡售卖的区域。
 sdk:
   service: zlb

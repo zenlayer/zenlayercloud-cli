@@ -4,7 +4,7 @@ use: create-command
 short: Creates a command.
 long: create a command.
 examples:
-- cmd: zencli zos create-command --name ""Test Command"" --content ""echo 1"" --type SHELL
+- cmd: zeno zos create-command --name ""Test Command"" --content ""echo 1"" --type SHELL
   desc: Create a command in `Shell` language.
 sdk:
   service: zos

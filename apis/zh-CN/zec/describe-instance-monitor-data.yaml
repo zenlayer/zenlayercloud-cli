@@ -4,7 +4,7 @@ use: describe-instance-monitor-data
 short: 查询实例监控指标数据
 long: 查询一段时间的实例的监控指标数据。包括CPU,内存等相关指标数据。
 examples:
-- cmd: zencli zec describe-instance-monitor-data --instance-id "< instanceId >" --metric-type VCPU_TIME --start-time 2025-06-25T01:55:00Z --end-time 2025-06-25T07:55:00Z
+- cmd: zeno zec describe-instance-monitor-data --instance-id "< instanceId >" --metric-type VCPU_TIME --start-time 2025-06-25T01:55:00Z --end-time 2025-06-25T07:55:00Z
   desc: 查询某段时间的实例的 `VCPU_TIME` 监控指标数据。
 sdk:
   service: zec

@@ -4,7 +4,7 @@ use: modify-load-balancers-name
 short: 修改负载均衡实例的名称。
 long: 修改负载均衡实例的名称。
 examples:
-- cmd: zencli bmc modify-load-balancers-name --load-balancer-ids xxxx --load-balancer-name xxxx
+- cmd: zeno bmc modify-load-balancers-name --load-balancer-ids xxxx --load-balancer-name xxxx
   desc: 修改负载均衡实例的名称。
 sdk:
   service: bmc

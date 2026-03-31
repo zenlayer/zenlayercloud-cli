@@ -4,7 +4,7 @@ use: replace-eip-address
 short: 替换弹性公网IP
 long: 替换一个或者多个弹性公网IP地址。
 examples:
-- cmd: zencli zec replace-eip-address --replace-ips {eipId=<eipId>}
+- cmd: zeno zec replace-eip-address --replace-ips {eipId=<eipId>}
   desc: 替换公网IP。系统随机分配。
 sdk:
   service: zec

@@ -4,7 +4,7 @@ use: associate-subnet-instances
 short: Adds instances into a subnet.
 long: add one or more instances into a subnet and assign private IPs to instances.
 examples:
-- cmd: zencli bmc associate-subnet-instances --subnet-id 833049815985166808 --subnet-instance-list "{instanceId=820653960707704280, privateIpAddress=10.0.0.2}"
+- cmd: zeno bmc associate-subnet-instances --subnet-id 833049815985166808 --subnet-instance-list "{instanceId=820653960707704280, privateIpAddress=10.0.0.2}"
   desc: ''
 sdk:
   service: bmc

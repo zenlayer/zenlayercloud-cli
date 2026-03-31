@@ -4,7 +4,7 @@ use: start-agent-monitor
 short: 开启Agent监控采集。
 long: 开启Agent监控采集。
 examples:
-- cmd: zencli zec start-agent-monitor --instance-id <instanceId>
+- cmd: zeno zec start-agent-monitor --instance-id <instanceId>
   desc: 开启实例Agent采集监控。
 sdk:
   service: zec

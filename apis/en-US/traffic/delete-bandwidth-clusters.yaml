@@ -4,7 +4,7 @@ use: delete-bandwidth-clusters
 short: Deletes one or more bandwidth clusters.
 long: delete one or more bandwidth clusters.
 examples:
-- cmd: zencli traffic delete-bandwidth-clusters --bandwidth-cluster-ids <bandwidth-cluster-id>
+- cmd: zeno traffic delete-bandwidth-clusters --bandwidth-cluster-ids <bandwidth-cluster-id>
   desc: Delete a bandwidth cluster.
 sdk:
   service: traffic

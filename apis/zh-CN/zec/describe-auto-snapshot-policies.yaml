@@ -4,7 +4,7 @@ use: describe-auto-snapshot-policies
 short: 自动快照策略列表。
 long: 查询自动快照策略的列表数据。
 examples:
-- cmd: zencli zec describe-auto-snapshot-policies
+- cmd: zeno zec describe-auto-snapshot-policies
   desc: 查询策略列表。
 sdk:
   service: zec

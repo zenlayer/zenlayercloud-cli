@@ -4,7 +4,7 @@ use: modify-images-attributes
 short: Modifies attributes of custom images.
 long: modify attributes of custom images.
 examples:
-- cmd: zencli zec modify-images-attributes --image-ids imageId1 --image-ids imageId2 --image-name imageNameX
+- cmd: zeno zec modify-images-attributes --image-ids imageId1 --image-ids imageId2 --image-name imageNameX
   desc: Modify attributes of custom images.
 sdk:
   service: zec

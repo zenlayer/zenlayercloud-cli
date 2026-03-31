@@ -4,7 +4,7 @@ use: release-instances
 short: Releases one or more elastic compute instances.
 long: release one or more elastic compute instances.
 examples:
-- cmd: zencli zec release-instances --instance-ids instanceId1 --instance-ids instanceId2
+- cmd: zeno zec release-instances --instance-ids instanceId1 --instance-ids instanceId2
   desc: Release instances in batches.
 sdk:
   service: zec

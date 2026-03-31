@@ -4,7 +4,7 @@ use: create-listener
 short: Creates TCP, UDP, or TCPSSL listeners in a load balancer.
 long: create TCP, UDP, or TCPSSL listeners in a load balancer.
 examples:
-- cmd: zencli bmc create-listener --load-balancer-id xxxx --name xxxx --port-list 80 --client-token xxxx --protocol TCP --backend-protocol TCP
+- cmd: zeno bmc create-listener --load-balancer-id xxxx --name xxxx --port-list 80 --client-token xxxx --protocol TCP --backend-protocol TCP
   desc: Create a listener.
 sdk:
   service: bmc

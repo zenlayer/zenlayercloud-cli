@@ -4,7 +4,7 @@ use: modify-dnat-entry
 short: 修改DNAT规则
 long: 修改DNAT规则。
 examples:
-- cmd: zencli zec modify-dnat-entry --dnat-entry-id <dnatEntryId> --eip-id <eipId> --private-ip 10.0.0.2 --protocol TCP --listener-port 1-30 --internal-port 1-30
+- cmd: zeno zec modify-dnat-entry --dnat-entry-id <dnatEntryId> --eip-id <eipId> --private-ip 10.0.0.2 --protocol TCP --listener-port 1-30 --internal-port 1-30
   desc: 修改DNAT规则。
 sdk:
   service: zec

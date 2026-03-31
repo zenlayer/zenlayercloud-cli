@@ -4,9 +4,9 @@ use: assign-network-interface-ipv6
 short: 给网卡添加IPv6。
 long: 给网卡添加IPv6。
 examples:
-- cmd: zencli zec assign-network-interface-ipv6 --nic-id <nicId>
+- cmd: zeno zec assign-network-interface-ipv6 --nic-id <nicId>
   desc: 网卡添加的是内网IPv6地址。
-- cmd: zencli zec assign-network-interface-ipv6 --nic-id <nicId> --internet-charge-type BandwidthCluster --bandwidth 100 --cluster-id <clusterId>
+- cmd: zeno zec assign-network-interface-ipv6 --nic-id <nicId> --internet-charge-type BandwidthCluster --bandwidth 100 --cluster-id <clusterId>
   desc: 网卡添加的是公网IPv6地址。且计费类型为共享带宽包计费。带宽限速设置为100Mbps。
 sdk:
   service: zec

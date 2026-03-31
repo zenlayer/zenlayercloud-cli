@@ -4,7 +4,7 @@ use: describe-eip-addresses
 short: 查看Elastic IP列表
 long: 查询一台或多台指定EIP的信息。用户可以根据EIP ID、IP或者计费模式等信息来搜索EIP的信息。
 examples:
-- cmd: zencli bmc describe-eip-addresses --eip-charge-type PREPAID
+- cmd: zeno bmc describe-eip-addresses --eip-charge-type PREPAID
   desc: 列表根据eipChargeType搜索
 sdk:
   service: bmc

@@ -4,7 +4,7 @@ use: modify-snapshots-attribute
 short: 修改指定快照的属性
 long: 修改指定快照的属性。
 examples:
-- cmd: zencli zec modify-snapshots-attribute --snapshot-ids snapshotId1 --snapshot-ids snapshotId2 --snapshot-name snap_201711301143 --is-permanent true
+- cmd: zeno zec modify-snapshots-attribute --snapshot-ids snapshotId1 --snapshot-ids snapshotId2 --snapshot-name snap_201711301143 --is-permanent true
   desc: 修改指定快照的属性, 修改名称同时将保留时间设置为永久保存。
 sdk:
   service: zec

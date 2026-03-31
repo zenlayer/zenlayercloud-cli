@@ -1,4 +1,4 @@
-// Package main is the entry point for the zencli command line tool.
+// Package main is the entry point for the zeno command line tool.
 package main
 
 import (
@@ -11,7 +11,7 @@ import (
 func main() {
 	if err := cmd.Execute(ApisFS); err != nil {
 		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Run 'zencli --help' for usage.\n")
+		fmt.Fprintf(os.Stderr, "Run 'zeno --help' for usage.\n")
 		os.Exit(1)
 	}
 }

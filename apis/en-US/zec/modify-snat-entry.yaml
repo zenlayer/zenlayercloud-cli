@@ -4,7 +4,7 @@ use: modify-snat-entry
 short: Modifies a SNAT rule.
 long: modify a SNAT rule.
 examples:
-- cmd: zencli zec modify-snat-entry --snat-entry-id <snatEntryId> --subnet-ids <subnetId> --eip-ids <eipId>
+- cmd: zeno zec modify-snat-entry --snat-entry-id <snatEntryId> --subnet-ids <subnetId> --eip-ids <eipId>
   desc: Modify a SNAT entry of type `subnet`.
 sdk:
   service: zec

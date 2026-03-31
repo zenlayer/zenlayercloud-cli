@@ -4,7 +4,7 @@ use: modify-disks-resource-group
 short: 修改云硬盘所属的资源组。
 long: 修改云硬盘所属的资源组。
 examples:
-- cmd: zencli zec modify-disks-resource-group --disk-ids diskId1 --disk-ids diskId2 --resource-group-id resourceGroup1
+- cmd: zeno zec modify-disks-resource-group --disk-ids diskId1 --disk-ids diskId2 --resource-group-id resourceGroup1
   desc: 将云盘移动到指定资源组。
 sdk:
   service: zec

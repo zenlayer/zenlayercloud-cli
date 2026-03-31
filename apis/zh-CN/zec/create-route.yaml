@@ -4,7 +4,7 @@ use: create-route
 short: 创建自定义路由
 long: 创建一个自定义路由。
 examples:
-- cmd: zencli zec create-route --vpc-id <vpcId> --ip-version IPv4 --route-type RouteTypeStatic --destination-cidr-block 10.0.0.0/8 --priority 2 --next-hop-id <nicId> --name Test
+- cmd: zeno zec create-route --vpc-id <vpcId> --ip-version IPv4 --route-type RouteTypeStatic --destination-cidr-block 10.0.0.0/8 --priority 2 --next-hop-id <nicId> --name Test
   desc: 创建一条IPv4的静态路由。
 sdk:
   service: zec

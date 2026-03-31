@@ -4,7 +4,7 @@ use: un-associate-eip-address
 short: Unassigns elastic IPs from instances.
 long: unbind an elastic IP from an instance.
 examples:
-- cmd: zencli bmc un-associate-eip-address --eip-id eipId1
+- cmd: zeno bmc un-associate-eip-address --eip-id eipId1
   desc: Unbind an elastic IP from an instance
 sdk:
   service: bmc

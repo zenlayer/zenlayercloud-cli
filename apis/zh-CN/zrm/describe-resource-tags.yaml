@@ -4,7 +4,7 @@ use: describe-resource-tags
 short: 获取资源绑定标签
 long: 获取某个资源下绑定的所有标签列表。
 examples:
-- cmd: zencli zrm describe-resource-tags --resource-uuid resourceUuid_5250a2c5dc3d
+- cmd: zeno zrm describe-resource-tags --resource-uuid resourceUuid_5250a2c5dc3d
   desc: 获取某个资源下绑定的所有标签列表
 sdk:
   service: zrm

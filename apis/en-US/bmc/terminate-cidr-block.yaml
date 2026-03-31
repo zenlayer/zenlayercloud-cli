@@ -4,7 +4,7 @@ use: terminate-cidr-block
 short: Returns a CIDR block
 long: return a CIDR block.
 examples:
-- cmd: zencli bmc terminate-cidr-block --cidr-block-id cidrBlockId
+- cmd: zeno bmc terminate-cidr-block --cidr-block-id cidrBlockId
   desc: ''
 sdk:
   service: bmc

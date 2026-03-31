@@ -4,7 +4,7 @@ use: describe-vpc-available-regions
 short: Queries information about availability regions for VPCs.
 long: query information about availability regions for VPCs.
 examples:
-- cmd: zencli bmc describe-vpc-available-regions --vpc-region-id SIN3
+- cmd: zeno bmc describe-vpc-available-regions --vpc-region-id SIN3
   desc: ''
 sdk:
   service: bmc

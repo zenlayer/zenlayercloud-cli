@@ -4,7 +4,7 @@ use: delete-images
 short: Deletes one or more images.
 long: delete one or more images.
 examples:
-- cmd: zencli zec delete-images --image-ids imageId1 --image-ids imageId2
+- cmd: zeno zec delete-images --image-ids imageId1 --image-ids imageId2
   desc: Delete images in batches.
 sdk:
   service: zec

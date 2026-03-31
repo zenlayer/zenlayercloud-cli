@@ -4,7 +4,7 @@ use: renew-nat-gateway
 short: 续费NAT网关
 long: 续费一个指定的NAT网关。
 examples:
-- cmd: zencli zec renew-nat-gateway --nat-gateway-id <natGatewayId>
+- cmd: zeno zec renew-nat-gateway --nat-gateway-id <natGatewayId>
   desc: 恢复一个NAT网关。
 sdk:
   service: zec

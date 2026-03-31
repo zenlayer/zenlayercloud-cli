@@ -4,7 +4,7 @@ use: describe-listeners
 short: 查询一台或多台指定Listener的信息
 long: 查询一台或多台指定Listener的信息。用户可以根据负载均衡实例的ID、监听器的ID等信息来搜索监听器的信息。
 examples:
-- cmd: zencli bmc describe-listeners --load-balancer-ids xxxx
+- cmd: zeno bmc describe-listeners --load-balancer-ids xxxx
   desc: 根据负载均衡实例ID查询。
 sdk:
   service: bmc

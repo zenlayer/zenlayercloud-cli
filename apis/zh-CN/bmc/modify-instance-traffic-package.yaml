@@ -4,7 +4,7 @@ use: modify-instance-traffic-package
 short: 修改实例流量包
 long: 修改实例流量包。
 examples:
-- cmd: zencli bmc modify-instance-traffic-package --instance-id instanceId --traffic-package-size 100
+- cmd: zeno bmc modify-instance-traffic-package --instance-id instanceId --traffic-package-size 100
   desc: 升配实例流量包
 sdk:
   service: bmc

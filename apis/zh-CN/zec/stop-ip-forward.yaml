@@ -4,7 +4,7 @@ use: stop-ip-forward
 short: 关闭IP转发
 long: 关闭IP转发
 examples:
-- cmd: zencli zec stop-ip-forward --instance-id instanceId1
+- cmd: zeno zec stop-ip-forward --instance-id instanceId1
   desc: 关闭实例IP转发。
 sdk:
   service: zec

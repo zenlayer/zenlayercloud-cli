@@ -4,9 +4,9 @@ use: create-network-interface
 short: 创建辅助网卡。
 long: 创建一张辅助网卡。
 examples:
-- cmd: zencli zec create-network-interface --name Test-NIC --subnet-id <subnetId>
+- cmd: zeno zec create-network-interface --name Test-NIC --subnet-id <subnetId>
   desc: 在IPv4堆栈类型的子网下创建一张辅助网卡。
-- cmd: zencli zec create-network-interface --name Test-NIC --subnet-id <subnetId> --internet-charge-type BandwidthCluster --bandwidth 100 --cluster-id <clusterId>
+- cmd: zeno zec create-network-interface --name Test-NIC --subnet-id <subnetId> --internet-charge-type BandwidthCluster --bandwidth 100 --cluster-id <clusterId>
   desc: 在IPv4&IPv6堆栈类型的子网下创建一张辅助网卡。且带有公网IPv6。该公网IPv6的计费方式为带宽包计费。
 sdk:
   service: zec

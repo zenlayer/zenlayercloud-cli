@@ -4,7 +4,7 @@ use: renew-cross-region-bandwidth
 short: 恢复内网跨区域带宽
 long: 恢复内网跨区域带宽。
 examples:
-- cmd: zencli zec renew-cross-region-bandwidth --cross-region-bandwidth-id "<your cross id>"
+- cmd: zeno zec renew-cross-region-bandwidth --cross-region-bandwidth-id "<your cross id>"
   desc: 恢复内网跨区域带宽
 sdk:
   service: zec

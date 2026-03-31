@@ -4,7 +4,7 @@ use: delete-load-balancer-v-i-p
 short: Deletes a load balancing virtual IP (VIP).
 long: delete a load balancing virtual IP (VIP).
 examples:
-- cmd: zencli bmc delete-load-balancer-v-i-p --vip-id xxxx
+- cmd: zeno bmc delete-load-balancer-v-i-p --vip-id xxxx
   desc: Delete the load balancer VIP.
 sdk:
   service: bmc

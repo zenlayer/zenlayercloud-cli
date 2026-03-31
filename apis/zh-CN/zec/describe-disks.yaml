@@ -4,7 +4,7 @@ use: describe-disks
 short: 云盘列表
 long: 查询云盘的列表信息。
 examples:
-- cmd: zencli zec describe-disks --disk-status IN_USE --disk-size 20 --zone-id asia-east-1a
+- cmd: zeno zec describe-disks --disk-status IN_USE --disk-size 20 --zone-id asia-east-1a
   desc: 查询云硬盘列表。
 sdk:
   service: zec

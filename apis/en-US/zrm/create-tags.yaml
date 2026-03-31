@@ -4,7 +4,7 @@ use: create-tags
 short: Create tags in batches.
 long: create tags in batches.
 examples:
-- cmd: zencli zrm create-tags --tags "{key=key_f7105ccd1a94, value=value_5a4be6ee5544}"
+- cmd: zeno zrm create-tags --tags "{key=key_f7105ccd1a94, value=value_5a4be6ee5544}"
   desc: Create tags in batches.
 sdk:
   service: zrm

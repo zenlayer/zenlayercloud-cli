@@ -4,7 +4,7 @@ use: stop-ip-forward
 short: Disables IP forwarding of the instance.
 long: disable IP forwarding of the instance.
 examples:
-- cmd: zencli zec stop-ip-forward --instance-id instanceId1
+- cmd: zeno zec stop-ip-forward --instance-id instanceId1
   desc: Disable IP forwarding of the instance
 sdk:
   service: zec

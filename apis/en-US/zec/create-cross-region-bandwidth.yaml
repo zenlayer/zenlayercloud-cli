@@ -4,9 +4,9 @@ use: create-cross-region-bandwidth
 short: Creates a cross-region bandwidth.
 long: create a private cross-region bandwidth.
 examples:
-- cmd: zencli zec create-cross-region-bandwidth --vpc-id "<your vpc id>" --internet-charge-type ByBandwidth --cross-region-bandwidth-name Test-Cross1 --region-a asia-east-1 --region-z asia-north-1 --bandwidth 100
+- cmd: zeno zec create-cross-region-bandwidth --vpc-id "<your vpc id>" --internet-charge-type ByBandwidth --cross-region-bandwidth-name Test-Cross1 --region-a asia-east-1 --region-z asia-north-1 --bandwidth 100
   desc: Create a cross-region bandwidth from Shanghai to Beijing, with the network billing model of Flat Rate. Burst bandwidth is 100 Mbps.
-- cmd: zencli zec create-cross-region-bandwidth --vpc-id "<your vpc id>" --internet-charge-type ByInstanceBandwidth95 --cross-region-bandwidth-name Test-Cross2 --region-a asia-north-1 --region-z asia-east-1 --bandwidth 100 --bandwidth-cap 120
+- cmd: zeno zec create-cross-region-bandwidth --vpc-id "<your vpc id>" --internet-charge-type ByInstanceBandwidth95 --cross-region-bandwidth-name Test-Cross2 --region-a asia-north-1 --region-z asia-east-1 --bandwidth 100 --bandwidth-cap 120
   desc: Create a cross-region bandwidth from Beijing to Shanghai, with the network billing model of Burstable 95th. Bandwidth commitment is 100 Mbps and the burst bandwidth is 120 Mbps.
 sdk:
   service: zec

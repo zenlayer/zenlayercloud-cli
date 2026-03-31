@@ -4,7 +4,7 @@ use: inquiry-price-create-eip-address
 short: Queries the price of creating elastic IP.
 long: query the price of creating elastic IP.
 examples:
-- cmd: zencli bmc inquiry-price-create-eip-address --zone-id SEL-A --eip-charge-type POSTPAID
+- cmd: zeno bmc inquiry-price-create-eip-address --zone-id SEL-A --eip-charge-type POSTPAID
   desc: Query the pay-as-you-go price of creating an elastic IP
 sdk:
   service: bmc

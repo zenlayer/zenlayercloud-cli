@@ -4,7 +4,7 @@ use: describe-byoip-price
 short: Query the price of a BYOIP CIDR block.
 long: query the price of a BYOIP CIDR block based on parameters such as the advertised IP range, region, and network type.
 examples:
-- cmd: zencli zec describe-byoip-price --byoip-list "{cidrBlock=192.0.2.0/24, networkType=PremiumBGP, regionId=asia-east-1}"
+- cmd: zeno zec describe-byoip-price --byoip-list "{cidrBlock=192.0.2.0/24, networkType=PremiumBGP, regionId=asia-east-1}"
   desc: Query the price of a BYOIP CIDR block.
 sdk:
   service: zec

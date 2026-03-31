@@ -4,7 +4,7 @@ use: unassociate-eip-address
 short: 解绑弹性公网IP。
 long: 将弹性公网IP（EIP）从绑定的云产品上解绑。
 examples:
-- cmd: zencli zec unassociate-eip-address --eip-ids eipId1 --eip-ids eipId2
+- cmd: zeno zec unassociate-eip-address --eip-ids eipId1 --eip-ids eipId2
   desc: 将弹性公网IP（EIP）从绑定的云产品上解绑。
 sdk:
   service: zec

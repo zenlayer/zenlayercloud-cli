@@ -4,7 +4,7 @@ use: delete-cidrs
 short: 删除一个或多个IPv4 CIDR地址块。
 long: 删除一个或多个IPv4 CIDR地址块。
 examples:
-- cmd: zencli zec delete-cidrs --cidr-ids cidrId1 --cidr-ids cidrId2
+- cmd: zeno zec delete-cidrs --cidr-ids cidrId1 --cidr-ids cidrId2
   desc: 批量删除CIDR。
 sdk:
   service: zec

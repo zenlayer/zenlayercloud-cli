@@ -4,7 +4,7 @@ use: stop-instances
 short: Shuts down one or more elastic compute instances.
 long: shut down one or more elastic compute instances.
 examples:
-- cmd: zencli zec stop-instances --instance-ids instanceId1 --instance-ids instanceId2 --force-shutdown true
+- cmd: zeno zec stop-instances --instance-ids instanceId1 --instance-ids instanceId2 --force-shutdown true
   desc: Shut down instances of the specified IDs.
 sdk:
   service: zec

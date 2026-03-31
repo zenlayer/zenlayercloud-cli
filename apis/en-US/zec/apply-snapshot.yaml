@@ -4,7 +4,7 @@ use: apply-snapshot
 short: Reverts to a snapshot.
 long: revert to a snapshot.
 examples:
-- cmd: zencli zec apply-snapshot --snapshot-id snapshotId1 --disk-id disk1
+- cmd: zeno zec apply-snapshot --snapshot-id snapshotId1 --disk-id disk1
   desc: Revert to a snapshot.
 sdk:
   service: zec

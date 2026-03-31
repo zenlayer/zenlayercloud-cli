@@ -1,4 +1,4 @@
-// Package config handles configuration management for zencli.
+// Package config handles configuration management for zeno.
 package config
 
 import (

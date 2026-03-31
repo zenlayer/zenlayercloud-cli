@@ -4,7 +4,7 @@ use: detach-network-interface
 short: 网卡解绑实例
 long: 将一张网卡从实例上解绑。
 examples:
-- cmd: zencli zec detach-network-interface --nic-id <nicId>
+- cmd: zeno zec detach-network-interface --nic-id <nicId>
   desc: 网卡解绑实例
 sdk:
   service: zec

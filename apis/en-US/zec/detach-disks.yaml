@@ -4,7 +4,7 @@ use: detach-disks
 short: Detaches one or more disks from an instance.
 long: detach one or more disks from an instance.
 examples:
-- cmd: zencli zec detach-disks --disk-ids your-disk-id
+- cmd: zeno zec detach-disks --disk-ids your-disk-id
   desc: Detach one or more disks from an instance.
 sdk:
   service: zec

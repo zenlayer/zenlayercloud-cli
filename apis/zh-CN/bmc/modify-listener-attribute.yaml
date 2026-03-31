@@ -4,7 +4,7 @@ use: modify-listener-attribute
 short: 修改监听器配置。
 long: 修改监听器配置。
 examples:
-- cmd: zencli bmc modify-listener-attribute --listener-id xxxx --listener-name xxxx
+- cmd: zeno bmc modify-listener-attribute --listener-id xxxx --listener-name xxxx
   desc: ''
 sdk:
   service: bmc

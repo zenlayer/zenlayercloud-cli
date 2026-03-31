@@ -4,7 +4,7 @@ use: describe-nat-gateway-detail
 short: Queries the NAT rule details of a NAT gateway.
 long: query the NAT rule details of a NAT gateway.
 examples:
-- cmd: zencli zec describe-nat-gateway-detail --nat-gateway-id <natGatewayId>
+- cmd: zeno zec describe-nat-gateway-detail --nat-gateway-id <natGatewayId>
   desc: Query NAT rule details.
 sdk:
   service: zec

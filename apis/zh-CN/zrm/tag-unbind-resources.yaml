@@ -4,7 +4,7 @@ use: tag-unbind-resources
 short: 标签批量解绑资源
 long: 标签批量解绑资源。
 examples:
-- cmd: zencli zrm tag-unbind-resources --resource-uuids resourceUuids_ef279be49ba4
+- cmd: zeno zrm tag-unbind-resources --resource-uuids resourceUuids_ef279be49ba4
   desc: 解绑某一个标签下的资源
 sdk:
   service: zrm

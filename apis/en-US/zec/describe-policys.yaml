@@ -4,7 +4,7 @@ use: describe-policys
 short: Gets a list of protection strategies.
 long: get a list of protection strategies.
 examples:
-- cmd: zencli zec describe-policys --policy-ids policyId1 --policy-ids policyId2 --name xxxx --page-size 10 --page-num 1
+- cmd: zeno zec describe-policys --policy-ids policyId1 --policy-ids policyId2 --name xxxx --page-size 10 --page-num 1
   desc: Get a list of protection strategies.
 sdk:
   service: zec

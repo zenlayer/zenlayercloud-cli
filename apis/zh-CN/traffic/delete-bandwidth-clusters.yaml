@@ -4,7 +4,7 @@ use: delete-bandwidth-clusters
 short: 终止共享带宽包
 long: 删除一个或多个共享带宽包。
 examples:
-- cmd: zencli traffic delete-bandwidth-clusters --bandwidth-cluster-ids <bandwidth-cluster-id>
+- cmd: zeno traffic delete-bandwidth-clusters --bandwidth-cluster-ids <bandwidth-cluster-id>
   desc: 删除一个共享带宽包
 sdk:
   service: traffic

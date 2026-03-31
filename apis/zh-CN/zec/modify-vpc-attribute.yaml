@@ -4,7 +4,7 @@ use: modify-vpc-attribute
 short: 修改VPC属性。
 long: 修改私有网络（VPC）的相关属性。
 examples:
-- cmd: zencli zec modify-vpc-attribute --vpc-id <vpcId> --vpc-name TestVpcName --enable-ipv6 true
+- cmd: zeno zec modify-vpc-attribute --vpc-id <vpcId> --vpc-name TestVpcName --enable-ipv6 true
   desc: 修改VPC属性, 开启IPv6。
 sdk:
   service: zec

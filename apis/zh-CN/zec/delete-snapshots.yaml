@@ -4,7 +4,7 @@ use: delete-snapshots
 short: 删除指定快照
 long: 删除指定快照集合。
 examples:
-- cmd: zencli zec delete-snapshots --snapshot-ids snapshotId1 --snapshot-ids snapshotId2
+- cmd: zeno zec delete-snapshots --snapshot-ids snapshotId1 --snapshot-ids snapshotId2
   desc: 删除快照集合
 sdk:
   service: zec

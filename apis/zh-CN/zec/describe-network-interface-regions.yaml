@@ -4,7 +4,7 @@ use: describe-network-interface-regions
 short: 支持售卖网卡的区域信息
 long: 支持售卖网卡的区域信息
 examples:
-- cmd: zencli zec describe-network-interface-regions --eip-ids eipId1 --eip-ids eipId2
+- cmd: zeno zec describe-network-interface-regions --eip-ids eipId1 --eip-ids eipId2
   desc: 获取支持售卖网卡的区域信息。
 sdk:
   service: zec

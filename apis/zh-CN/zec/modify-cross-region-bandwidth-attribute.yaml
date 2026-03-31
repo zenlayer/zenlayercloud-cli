@@ -4,7 +4,7 @@ use: modify-cross-region-bandwidth-attribute
 short: 修改内网跨区域带宽属性（名称）
 long: 修改内网跨区域带宽属性（名称）。
 examples:
-- cmd: zencli zec modify-cross-region-bandwidth-attribute --cross-region-bandwidth-ids "<your cross id>" --cross-region-bandwidth-name newName
+- cmd: zeno zec modify-cross-region-bandwidth-attribute --cross-region-bandwidth-ids "<your cross id>" --cross-region-bandwidth-name newName
   desc: 批量修改内网跨区域带宽属性
 sdk:
   service: zec

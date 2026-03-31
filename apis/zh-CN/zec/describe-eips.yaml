@@ -4,7 +4,7 @@ use: describe-eips
 short: 查询弹性IP列表
 long: 指定条件查询已创建的弹性IPv4的信息。用户可以根据ID、名称等信息来搜索。
 examples:
-- cmd: zencli zec describe-eips --ip-address 128.0.0.1
+- cmd: zeno zec describe-eips --ip-address 128.0.0.1
   desc: 1. 根据公网IP查询匹配的IP列表。
 sdk:
   service: zec

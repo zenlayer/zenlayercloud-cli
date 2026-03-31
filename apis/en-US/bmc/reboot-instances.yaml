@@ -4,7 +4,7 @@ use: reboot-instances
 short: Restarts one or more instances that is in the Stopped or Running state.
 long: restart instances.
 examples:
-- cmd: zencli bmc reboot-instances --instance-ids instanceId1 --instance-ids instanceId2
+- cmd: zeno bmc reboot-instances --instance-ids instanceId1 --instance-ids instanceId2
   desc: Restart two instances.
 sdk:
   service: bmc

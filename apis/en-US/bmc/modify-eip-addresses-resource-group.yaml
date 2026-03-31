@@ -4,7 +4,7 @@ use: modify-eip-addresses-resource-group
 short: Modify the resource group to which the EIP belong.
 long: modify the resource group to which the EIP belong.
 examples:
-- cmd: zencli bmc modify-eip-addresses-resource-group --eip-ids eipId1 --eip-ids eipId2 --resource-group-id resourceGroup1
+- cmd: zeno bmc modify-eip-addresses-resource-group --eip-ids eipId1 --eip-ids eipId2 --resource-group-id resourceGroup1
   desc: Move EIP to the specified resource group
 sdk:
   service: bmc

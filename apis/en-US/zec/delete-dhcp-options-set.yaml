@@ -4,7 +4,7 @@ use: delete-dhcp-options-set
 short: Deletes a DHCP options set.
 long: delete a DHCP options set.
 examples:
-- cmd: zencli zec delete-dhcp-options-set --dhcp-options-set-id dhcpOptionsSetId1
+- cmd: zeno zec delete-dhcp-options-set --dhcp-options-set-id dhcpOptionsSetId1
   desc: Deletes a DHCP options set.
 sdk:
   service: zec

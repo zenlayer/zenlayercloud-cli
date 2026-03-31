@@ -4,11 +4,11 @@ use: create-eips
 short: 创建弹性公网IP。
 long: 创建弹性公网IP。
 examples:
-- cmd: zencli zec create-eips --region-id asia-east-1 --amount 1 --name Test-EIP --internet-charge-type ByTrafficPackage --network-line-type PremiumBGP --bandwidth 50 --flow-package 10
+- cmd: zeno zec create-eips --region-id asia-east-1 --amount 1 --name Test-EIP --internet-charge-type ByTrafficPackage --network-line-type PremiumBGP --bandwidth 50 --flow-package 10
   desc: 创建一个BGP线路的公网弹性IP, 使用流量包计费。流量包大小为10TB。带宽限速为50Mbps。
-- cmd: zencli zec create-eips --region-id asia-east-1 --amount 2 --name Test-EIP --internet-charge-type ByBandwidth --cidr-id <cidrId> --bandwidth 50
+- cmd: zeno zec create-eips --region-id asia-east-1 --amount 2 --name Test-EIP --internet-charge-type ByBandwidth --cidr-id <cidrId> --bandwidth 50
   desc: 从CIDR里分配2个公网弹性IP, 使用固定带宽计费。带宽限速为50Mbps。
-- cmd: zencli zec create-eips --region-id asia-east-1 --amount 1 --name Test-RemoteIP --internet-charge-type BandwidthCluster --network-line-type PremiumBGP --bandwidth 50 --cluster-id <clusterId> --resource-group-id xxxx --peer-region-id asia-southwest-1
+- cmd: zeno zec create-eips --region-id asia-east-1 --amount 1 --name Test-RemoteIP --internet-charge-type BandwidthCluster --network-line-type PremiumBGP --bandwidth 50 --cluster-id <clusterId> --resource-group-id xxxx --peer-region-id asia-southwest-1
   desc: 创建一个`Remote IP`,远端节点为`asia-southwest-1`, 使用共享带宽包计费。
 sdk:
   service: zec

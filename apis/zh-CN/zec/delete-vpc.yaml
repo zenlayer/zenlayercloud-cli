@@ -4,7 +4,7 @@ use: delete-vpc
 short: 删除VPC
 long: 删除VPC
 examples:
-- cmd: zencli zec delete-vpc --vpc-id <vpcId>
+- cmd: zeno zec delete-vpc --vpc-id <vpcId>
   desc: 删除VPC。
 sdk:
   service: zec

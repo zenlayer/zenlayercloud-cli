@@ -4,7 +4,7 @@ use: describe-nat-gateway-regions
 short: 支持售卖NAT网关的区域信息
 long: 支持售卖NAT网关的区域信息。
 examples:
-- cmd: zencli zec describe-nat-gateway-regions
+- cmd: zeno zec describe-nat-gateway-regions
   desc: 获取支持售卖NAT网关的区域信息
 sdk:
   service: zec

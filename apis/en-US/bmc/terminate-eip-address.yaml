@@ -4,7 +4,7 @@ use: terminate-eip-address
 short: Returns elastic IPs.
 long: return an elastic IP.
 examples:
-- cmd: zencli bmc terminate-eip-address --eip-id eipId
+- cmd: zeno bmc terminate-eip-address --eip-id eipId
   desc: Return a specified elastic IP
 sdk:
   service: bmc

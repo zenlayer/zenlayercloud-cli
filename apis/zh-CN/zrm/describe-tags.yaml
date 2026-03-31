@@ -4,7 +4,7 @@ use: describe-tags
 short: 标签分页列表
 long: 获取某个资源下绑定的所有标签列表。
 examples:
-- cmd: zencli zrm describe-tags --page-num 1 --page-size 20 --created-date-sort ascend --tag-keys tagKeys_0a847c6582a7 --tags "{key=key_e8a77c6a9fab, value=value_b1c085a59870}"
+- cmd: zeno zrm describe-tags --page-num 1 --page-size 20 --created-date-sort ascend --tag-keys tagKeys_0a847c6582a7 --tags "{key=key_e8a77c6a9fab, value=value_b1c085a59870}"
   desc: 获取一页标签集合
 sdk:
   service: zrm

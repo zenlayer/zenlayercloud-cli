@@ -4,7 +4,7 @@ use: invoke-command
 short: 执行一个已经创建并保存的命令
 long: 执行一个已经创建并保存的命令。
 examples:
-- cmd: zencli zos invoke-command --command-id <commandId> --timeout 30 --instance-ids <instanceId> --instance-ids <instanceId>
+- cmd: zeno zos invoke-command --command-id <commandId> --timeout 30 --instance-ids <instanceId> --instance-ids <instanceId>
   desc: 执行命令。
 sdk:
   service: zos

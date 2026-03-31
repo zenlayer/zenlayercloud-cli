@@ -4,11 +4,11 @@ use: associate-eip-address
 short: 绑定弹性公网IP。
 long: 批量将弹性公网IP（EIP）绑定到同地域的云产品实例上。
 examples:
-- cmd: zencli zec associate-eip-address --nic-id <nicId> --lan-ip 10.0.0.2 --eip-ids <eipId1> --eip-ids <eipId2> --bind-type Passthrough
+- cmd: zeno zec associate-eip-address --nic-id <nicId> --lan-ip 10.0.0.2 --eip-ids <eipId1> --eip-ids <eipId2> --bind-type Passthrough
   desc: 将多个弹性公网IP（EIP）绑定到指定网卡上， 并指定方式为可见模式。
-- cmd: zencli zec associate-eip-address --load-balancer-id <loadBalancerId> --eip-ids <eipId1> --eip-ids <eipId2>
+- cmd: zeno zec associate-eip-address --load-balancer-id <loadBalancerId> --eip-ids <eipId1> --eip-ids <eipId2>
   desc: 将多个弹性公网IP（EIP）绑定到指定负载均衡时实例上。
-- cmd: zencli zec associate-eip-address --nat-id <natId> --eip-ids <eipId1> --eip-ids <eipId2>
+- cmd: zeno zec associate-eip-address --nat-id <natId> --eip-ids <eipId1> --eip-ids <eipId2>
   desc: 将多个弹性公网IP（EIP）绑定到指定NAT网关上。
 sdk:
   service: zec

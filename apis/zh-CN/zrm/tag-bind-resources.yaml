@@ -4,7 +4,7 @@ use: tag-bind-resources
 short: 标签批量绑定资源
 long: 标签批量绑定资源。
 examples:
-- cmd: zencli zrm tag-bind-resources --resource-uuids resourceUuids_19b06df9eaac
+- cmd: zeno zrm tag-bind-resources --resource-uuids resourceUuids_19b06df9eaac
   desc: 绑定一个资源到标签下
 sdk:
   service: zrm

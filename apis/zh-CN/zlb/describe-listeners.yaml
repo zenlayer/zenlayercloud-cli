@@ -4,9 +4,9 @@ use: describe-listeners
 short: 查询负载均衡监听器列表
 long: 本接口接口可根据负载均衡器 ID、监听器的协议作为过滤条件获取监听器列表。如果不指定任何过滤条件，则返回指定负载均衡实例下的所有监听器。
 examples:
-- cmd: zencli zlb describe-listeners --load-balancer-id <loadBalancerId>
+- cmd: zeno zlb describe-listeners --load-balancer-id <loadBalancerId>
   desc: 查询指定负载均衡实例下所有的监听器。
-- cmd: zencli zlb describe-listeners --load-balancer-id <loadBalancerId> --protocol TCP
+- cmd: zeno zlb describe-listeners --load-balancer-id <loadBalancerId> --protocol TCP
   desc: 指定监听器和监听协议过滤查询监听器。
 sdk:
   service: zlb

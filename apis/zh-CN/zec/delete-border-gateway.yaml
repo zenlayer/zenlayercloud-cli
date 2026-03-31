@@ -4,7 +4,7 @@ use: delete-border-gateway
 short: 删除边界网关
 long: 删除一个指定的边界网关。
 examples:
-- cmd: zencli zec delete-border-gateway --zbg-id <zbgId>
+- cmd: zeno zec delete-border-gateway --zbg-id <zbgId>
   desc: 删除边界网关。
 sdk:
   service: zec

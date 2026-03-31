@@ -4,7 +4,7 @@ use: delete-route
 short: 删除自定义路由
 long: 删除一条自定义路由。
 examples:
-- cmd: zencli zec delete-route --vpc-id <vpcId> --route-id <routeId>
+- cmd: zeno zec delete-route --vpc-id <vpcId> --route-id <routeId>
   desc: 删除路由。
 sdk:
   service: zec

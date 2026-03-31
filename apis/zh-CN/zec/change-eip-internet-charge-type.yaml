@@ -4,7 +4,7 @@ use: change-eip-internet-charge-type
 short: 变更弹性公网IP更网络计费模式。
 long: 变更弹性公网IP更网络计费模式。
 examples:
-- cmd: zencli zec change-eip-internet-charge-type --eip-id <eipId> --internet-charge-type BandwidthCluster --cluster-id <clusterId>
+- cmd: zeno zec change-eip-internet-charge-type --eip-id <eipId> --internet-charge-type BandwidthCluster --cluster-id <clusterId>
   desc: 变更带宽网络类型为共享带宽包。
 sdk:
   service: zec

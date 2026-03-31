@@ -4,7 +4,7 @@ use: modify-policy
 short: Modifies a protection strategy.
 long: modify a protection strategy.
 examples:
-- cmd: zencli zec modify-policy --policy-id <policyId> --config-type UdpReflect --policy-name policyName --reflect-udp-port {port=22} --reflect-udp-port {port=34}
+- cmd: zeno zec modify-policy --policy-id <policyId> --config-type UdpReflect --policy-name policyName --reflect-udp-port {port=22} --reflect-udp-port {port=34}
   desc: Modify a protection strategy.
 sdk:
   service: zec

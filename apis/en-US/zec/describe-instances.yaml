@@ -4,7 +4,7 @@ use: describe-instances
 short: Queries the details of instances.
 long: query the details of instances. You can filter the query results with the instance ID, name, or billing method.
 examples:
-- cmd: zencli zec describe-instances --instance-ids xxx --page-size 10 --page-num 1
+- cmd: zeno zec describe-instances --instance-ids xxx --page-size 10 --page-num 1
   desc: Query list of elastic compute instances.
 sdk:
   service: zec

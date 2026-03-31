@@ -4,7 +4,7 @@ use: describe-images
 short: Queries the details of images.
 long: query the details of images.
 examples:
-- cmd: zencli zec describe-images --zone-id asia-east-1a --os-type linux --page-size 3
+- cmd: zeno zec describe-images --zone-id asia-east-1a --os-type linux --page-size 3
   desc: Query images with `linux` images installed in availability zone of `asia-east-1a`.
 sdk:
   service: zec

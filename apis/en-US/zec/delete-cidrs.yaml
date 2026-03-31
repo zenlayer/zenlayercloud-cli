@@ -4,7 +4,7 @@ use: delete-cidrs
 short: Deletes one or more CIDR blocks.
 long: delete one or more CIDR blocks.
 examples:
-- cmd: zencli zec delete-cidrs --cidr-ids cidrId1 --cidr-ids cidrId2
+- cmd: zeno zec delete-cidrs --cidr-ids cidrId1 --cidr-ids cidrId2
   desc: Delete CIDR blocks in batch.
 sdk:
   service: zec

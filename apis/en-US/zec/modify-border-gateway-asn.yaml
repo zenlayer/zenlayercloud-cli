@@ -4,7 +4,7 @@ use: modify-border-gateway-asn
 short: Modifies the ASN of a border gateway.
 long: The API is used to modify the ASN of a border gateway.
 examples:
-- cmd: zencli zec modify-border-gateway-asn --zbg-id xxx --asn 65000
+- cmd: zeno zec modify-border-gateway-asn --zbg-id xxx --asn 65000
   desc: Modify border gateway ASN.
 sdk:
   service: zec

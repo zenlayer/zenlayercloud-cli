@@ -4,7 +4,7 @@ use: describe-policy-detail
 short: Gets details of a protection strategy.
 long: get details of a protection strategy.
 examples:
-- cmd: zencli zec describe-policy-detail --policy-id <policyId>
+- cmd: zeno zec describe-policy-detail --policy-id <policyId>
   desc: Get protection strategy details.
 sdk:
   service: zec

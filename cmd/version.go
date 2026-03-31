@@ -10,7 +10,7 @@ import (
 var versionCmd = &cobra.Command{
 	Use:   "version",
 	Short: "Print the version information",
-	Long:  `Print the version number of zencli.`,
+	Long:  `Print the version number of zeno.`,
 	RunE:  runVersion,
 }
 

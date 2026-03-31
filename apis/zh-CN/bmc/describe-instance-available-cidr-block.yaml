@@ -4,7 +4,7 @@ use: describe-instance-available-cidr-block
 short: 查看实例可用的Cidr Block
 long: 查询实例可用的Cidr Block。
 examples:
-- cmd: zencli bmc describe-instance-available-cidr-block --instance-id 123456 --cidr-block-type IPV4
+- cmd: zeno bmc describe-instance-available-cidr-block --instance-id 123456 --cidr-block-type IPV4
   desc: ''
 sdk:
   service: bmc

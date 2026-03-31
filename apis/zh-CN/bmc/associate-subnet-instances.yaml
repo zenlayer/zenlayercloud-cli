@@ -4,7 +4,7 @@ use: associate-subnet-instances
 short: Subnet绑定实例
 long: 本接口用于将一台或多台实例加入同一个子网并分配内网IP。
 examples:
-- cmd: zencli bmc associate-subnet-instances --subnet-id your-subnet-id --subnet-instance-list "{instanceId=your-instance-id, privateIpAddress=10.0.0.2}"
+- cmd: zeno bmc associate-subnet-instances --subnet-id your-subnet-id --subnet-instance-list "{instanceId=your-instance-id, privateIpAddress=10.0.0.2}"
   desc: 实例绑定Subnet。
 sdk:
   service: bmc

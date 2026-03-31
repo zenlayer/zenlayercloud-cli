@@ -4,7 +4,7 @@ use: terminate-instance
 short: Returns an instance.
 long: return an instance.
 examples:
-- cmd: zencli bmc terminate-instance --instance-id instanceId
+- cmd: zeno bmc terminate-instance --instance-id instanceId
   desc: ''
 sdk:
   service: bmc

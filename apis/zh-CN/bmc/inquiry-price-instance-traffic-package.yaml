@@ -4,7 +4,7 @@ use: inquiry-price-instance-traffic-package
 short: 修改流量包询价
 long: 实例修改流量包询价。
 examples:
-- cmd: zencli bmc inquiry-price-instance-traffic-package --instance-id instanceId --traffic-package-size 100
+- cmd: zeno bmc inquiry-price-instance-traffic-package --instance-id instanceId --traffic-package-size 100
   desc: 实例修改流量包询价
 sdk:
   service: bmc

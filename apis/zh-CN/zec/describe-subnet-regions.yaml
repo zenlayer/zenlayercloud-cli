@@ -4,7 +4,7 @@ use: describe-subnet-regions
 short: 查询支持创建子网区域
 long: 查询支持创建子网区域以及是否IPv6。
 examples:
-- cmd: zencli zec describe-subnet-regions --region-ids xxx
+- cmd: zeno zec describe-subnet-regions --region-ids xxx
   desc: 查询支持创建子网的区域。
 sdk:
   service: zec

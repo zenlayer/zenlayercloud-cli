@@ -4,7 +4,7 @@ use: renew-instance
 short: Renews an instance.
 long: renew an instance.
 examples:
-- cmd: zencli bmc renew-instance --instance-id instanceId
+- cmd: zeno bmc renew-instance --instance-id instanceId
   desc: ''
 sdk:
   service: bmc

@@ -4,7 +4,7 @@ use: delete-ipv6-cidr
 short: 删除IPv6 CIDR地址块。
 long: 删除IPv6 CIDR地址块。
 examples:
-- cmd: zencli zec delete-ipv6-cidr --cidr-id <cidrId>
+- cmd: zeno zec delete-ipv6-cidr --cidr-id <cidrId>
   desc: 删除指定的CIDR地址段。
 sdk:
   service: zec

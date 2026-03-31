@@ -4,7 +4,7 @@ use: delete-dnat-entry
 short: 删除DNAT规则
 long: 删除DNAT规则。
 examples:
-- cmd: zencli zec delete-dnat-entry --dnat-entry-id <dnatEntryId>
+- cmd: zeno zec delete-dnat-entry --dnat-entry-id <dnatEntryId>
   desc: 删除一个DNAT规则。
 sdk:
   service: zec

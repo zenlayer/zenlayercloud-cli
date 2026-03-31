@@ -4,7 +4,7 @@ use: describe-key-pairs
 short: Queries SSH key pair list.
 long: query SSH key pair list.
 examples:
-- cmd: zencli ccs describe-key-pairs
+- cmd: zeno ccs describe-key-pairs
   desc: Query SSH key pair list without any parameters.
 sdk:
   service: ccs

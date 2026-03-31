@@ -4,7 +4,7 @@ use: describe-instances
 short: Queries the details of one or more instances.
 long: query the details of instances. You can filter the query results with the instance ID, name, or billing method.
 examples:
-- cmd: zencli bmc describe-instances --page-num 1 --page-size 1
+- cmd: zeno bmc describe-instances --page-num 1 --page-size 1
   desc: ''
 sdk:
   service: bmc

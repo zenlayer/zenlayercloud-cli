@@ -4,7 +4,7 @@ use: terminate-load-balancer
 short: Deletes a specified load balancer instance.
 long: delete a specified load balancer instance.
 examples:
-- cmd: zencli zlb terminate-load-balancer --load-balancer-id <loadBalancerId>
+- cmd: zeno zlb terminate-load-balancer --load-balancer-id <loadBalancerId>
   desc: Delete a load balancer.
 sdk:
   service: zlb

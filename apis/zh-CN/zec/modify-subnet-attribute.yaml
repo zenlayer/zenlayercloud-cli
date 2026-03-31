@@ -4,7 +4,7 @@ use: modify-subnet-attribute
 short: 修改子网属性。
 long: 修改子网属性。包括名称，CIDR等。
 examples:
-- cmd: zencli zec modify-subnet-attribute --subnet-id <subnetId> --name Test-Subnet --cidr-block 10.0.0.0/23
+- cmd: zeno zec modify-subnet-attribute --subnet-id <subnetId> --name Test-Subnet --cidr-block 10.0.0.0/23
   desc: 修改子网名称和IPv4的CIDR Block。
 sdk:
   service: zec

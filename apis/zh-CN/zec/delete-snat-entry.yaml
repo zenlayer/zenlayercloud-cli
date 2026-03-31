@@ -4,7 +4,7 @@ use: delete-snat-entry
 short: 删除SNAT规则
 long: 删除SNAT规则。
 examples:
-- cmd: zencli zec delete-snat-entry --snat-entry-id <snatEntryId>
+- cmd: zeno zec delete-snat-entry --snat-entry-id <snatEntryId>
   desc: 删除一个SNAT规则。
 sdk:
   service: zec

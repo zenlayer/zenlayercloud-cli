@@ -4,7 +4,7 @@ use: describe-available-resources
 short: Queries available instances and resources.
 long: describe the status of available resources.
 examples:
-- cmd: zencli bmc describe-available-resources --instance-type-id MDE --instance-charge-type PREPAID --zone-id MOW-B
+- cmd: zeno bmc describe-available-resources --instance-type-id MDE --instance-charge-type PREPAID --zone-id MOW-B
   desc: Query available resources
 sdk:
   service: bmc

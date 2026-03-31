@@ -1,11 +1,11 @@
 version: 2
 
-project_name: zencli
+project_name: zeno
 
 builds:
-  - id: zencli
+  - id: zeno
     main: .
-    binary: zencli
+    binary: zeno
     ldflags:
       - -s -w
       - -X github.com/zenlayer/zenlayercloud-cli/internal/version.Version={{.Version}}
@@ -24,7 +24,7 @@ builds:
 
 # Mac Universal Binary (Intel + Apple Silicon)
 universal_binaries:
-  - id: zencli
+  - id: zeno
     replace: true
 
 archives:

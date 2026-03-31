@@ -4,7 +4,7 @@ use: modify-subnet-stack-type
 short: 修改子网堆栈类型
 long: 修改子网堆栈类型
 examples:
-- cmd: zencli zec modify-subnet-stack-type --subnet-id XXX --stack-type IPv4_IPv6 --ipv6-type Private
+- cmd: zeno zec modify-subnet-stack-type --subnet-id XXX --stack-type IPv4_IPv6 --ipv6-type Private
   desc: 修改子网的堆栈类型。并指定公网IPv6是内网。
 sdk:
   service: zec

@@ -1,4 +1,4 @@
-// Package version provides version information for zencli.
+// Package version provides version information for zeno.
 package version
 
 import "runtime"
@@ -43,7 +43,7 @@ func String() string {
 // Full returns a detailed version string.
 func Full() string {
 	info := Get()
-	return "zencli version " + info.Version + "\n" +
+	return "zeno version " + info.Version + "\n" +
 		"  Git Commit: " + info.GitCommit + "\n" +
 		"  Build Time: " + info.BuildTime + "\n" +
 		"  Go Version: " + info.GoVersion + "\n" +

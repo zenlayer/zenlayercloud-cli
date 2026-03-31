@@ -4,7 +4,7 @@ use: describe-policy-detail
 short: 获取防护策略详情
 long: 获取防护策略详情
 examples:
-- cmd: zencli zec describe-policy-detail --policy-id <policyId>
+- cmd: zeno zec describe-policy-detail --policy-id <policyId>
   desc: 获取防护策略详情
 sdk:
   service: zec

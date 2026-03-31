@@ -4,7 +4,7 @@ use: reboot-instances
 short: 重启实例
 long: 本接口用于重启一个或多个实例。
 examples:
-- cmd: zencli bmc reboot-instances --instance-ids instanceId1 --instance-ids instanceId2
+- cmd: zeno bmc reboot-instances --instance-ids instanceId1 --instance-ids instanceId2
   desc: ''
 sdk:
   service: bmc

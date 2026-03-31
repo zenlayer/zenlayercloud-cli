@@ -4,7 +4,7 @@ use: inquiry-price-create-instance
 short: Queries the price of a creating instance.
 long: query the price of creating instance.
 examples:
-- cmd: zencli bmc inquiry-price-create-instance --zone-id SEL-A --instance-type-id M6C --instance-charge-type PREPAID --traffic-package-size 100 --internet-max-bandwidth-out 200 --internet-charge-type ByBandwidth
+- cmd: zeno bmc inquiry-price-create-instance --zone-id SEL-A --instance-type-id M6C --instance-charge-type PREPAID --traffic-package-size 100 --internet-max-bandwidth-out 200 --internet-charge-type ByBandwidth
   desc: Query the price of a subscription instance with the billing method of flat rate
 sdk:
   service: bmc

@@ -4,7 +4,7 @@ use: terminate-instance
 short: 退还实例
 long: 本接口用于退还一个实例。
 examples:
-- cmd: zencli bmc terminate-instance --instance-id instanceId
+- cmd: zeno bmc terminate-instance --instance-id instanceId
   desc: ''
 sdk:
   service: bmc

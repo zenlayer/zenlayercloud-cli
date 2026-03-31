@@ -4,7 +4,7 @@ use: assign-border-gateway
 short: Binds a NAT gateway to a border gateway.
 long: bind a NAT gateway to a border gateway.
 examples:
-- cmd: zencli zec assign-border-gateway --zbg-id xxx --nat-id xxx
+- cmd: zeno zec assign-border-gateway --zbg-id xxx --nat-id xxx
   desc: Bind a NAT gateway to a border gateway.
 sdk:
   service: zec

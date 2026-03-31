@@ -4,7 +4,7 @@ use: describe-available-ipv6-resources
 short: Queries available IPv6 CIDR blocks.
 long: query available IPv6 CIDR blocks.
 examples:
-- cmd: zencli bmc describe-available-ipv6-resources --zone-id IAD-A
+- cmd: zeno bmc describe-available-ipv6-resources --zone-id IAD-A
   desc: ''
 sdk:
   service: bmc

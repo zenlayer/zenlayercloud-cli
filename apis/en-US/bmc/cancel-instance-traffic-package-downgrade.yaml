@@ -4,7 +4,7 @@ use: cancel-instance-traffic-package-downgrade
 short: Cancels the downgrade of instance traffic package.
 long: The API is used to cancel traffic package downgrade order.
 examples:
-- cmd: zencli bmc cancel-instance-traffic-package-downgrade --instance-id instanceId
+- cmd: zeno bmc cancel-instance-traffic-package-downgrade --instance-id instanceId
   desc: Cancel traffic package downgrade order
 sdk:
   service: bmc

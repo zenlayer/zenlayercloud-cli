@@ -4,7 +4,7 @@ use: associate-vpc-subnet
 short: Subnet绑定VPC
 long: 本接口用于为VPC添加Subnet。
 examples:
-- cmd: zencli bmc associate-vpc-subnet --subnet-id your-subnet-id --vpc-id your-vpc-id
+- cmd: zeno bmc associate-vpc-subnet --subnet-id your-subnet-id --vpc-id your-vpc-id
   desc: VPC添加Subnet。
 sdk:
   service: bmc

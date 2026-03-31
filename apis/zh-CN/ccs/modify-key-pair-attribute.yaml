@@ -4,7 +4,7 @@ use: modify-key-pair-attribute
 short: 修改一个密钥对的属性。
 long: 修改一个密钥对的属性。
 examples:
-- cmd: zencli ccs modify-key-pair-attribute --key-id key-xxxx --key-description test-description
+- cmd: zeno ccs modify-key-pair-attribute --key-id key-xxxx --key-description test-description
   desc: 修改密钥对描述信息。
 sdk:
   service: ccs

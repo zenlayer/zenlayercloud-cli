@@ -4,7 +4,7 @@ use: delete-cross-region-bandwidth
 short: 删除内网跨区域带宽
 long: 删除内网跨区域带宽。
 examples:
-- cmd: zencli zec delete-cross-region-bandwidth --cross-region-bandwidth-id "<your cross id>"
+- cmd: zeno zec delete-cross-region-bandwidth --cross-region-bandwidth-id "<your cross id>"
   desc: 删除内网跨区域带宽
 sdk:
   service: zec

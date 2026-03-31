@@ -4,7 +4,7 @@ use: modify-network-interfaces-attribute
 short: 修改网卡属性。
 long: 修改网卡的属性，目前只支持修改网卡的名称。
 examples:
-- cmd: zencli zec modify-network-interfaces-attribute --nic-ids your-nic-id --name xxx
+- cmd: zeno zec modify-network-interfaces-attribute --nic-ids your-nic-id --name xxx
   desc: 批量修改网卡名称。
 sdk:
   service: zec

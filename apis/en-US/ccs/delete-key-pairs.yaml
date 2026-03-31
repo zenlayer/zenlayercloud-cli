@@ -4,7 +4,7 @@ use: delete-key-pairs
 short: Delete one or more key pairs.
 long: The API is used to delete one or more key pairs.
 examples:
-- cmd: zencli ccs delete-key-pairs --key-ids key-zCcHQB9u
+- cmd: zeno ccs delete-key-pairs --key-ids key-zCcHQB9u
   desc: Delete one or more key pairs.
 sdk:
   service: ccs

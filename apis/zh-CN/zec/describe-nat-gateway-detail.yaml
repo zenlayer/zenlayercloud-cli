@@ -4,7 +4,7 @@ use: describe-nat-gateway-detail
 short: NAT网关详情规则表。
 long: 查询NAT网关详情规则表。
 examples:
-- cmd: zencli zec describe-nat-gateway-detail --nat-gateway-id <natGatewayId>
+- cmd: zeno zec describe-nat-gateway-detail --nat-gateway-id <natGatewayId>
   desc: 查询网关规则详情
 sdk:
   service: zec

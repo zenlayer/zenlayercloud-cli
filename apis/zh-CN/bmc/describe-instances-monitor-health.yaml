@@ -4,7 +4,7 @@ use: describe-instances-monitor-health
 short: 查询实例硬件状态信息
 long: 查询实例的硬件状态信息。
 examples:
-- cmd: zencli bmc describe-instances-monitor-health --instance-ids instanceId1 --instance-ids instanceId2
+- cmd: zeno bmc describe-instances-monitor-health --instance-ids instanceId1 --instance-ids instanceId2
   desc: 查询实例的硬件状态信息。
 sdk:
   service: bmc

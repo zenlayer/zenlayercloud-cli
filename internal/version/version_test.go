@@ -52,7 +52,7 @@ func TestFull(t *testing.T) {
 	full := Full()
 
 	requiredSubstrings := []string{
-		"zencli version",
+		"zeno version",
 		"Git Commit:",
 		"Build Time:",
 		"Go Version:",

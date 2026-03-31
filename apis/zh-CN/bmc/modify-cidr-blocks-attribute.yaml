@@ -4,7 +4,7 @@ use: modify-cidr-blocks-attribute
 short: 修改Cidr Block属性
 long: 本接口用于修改一个或多个Cidr Block的属性（目前只支持修改名称）。
 examples:
-- cmd: zencli bmc modify-cidr-blocks-attribute --cidr-block-ids cidrBlockId1 --cidr-block-ids cidrBlockId2 --name myCidrBlockName
+- cmd: zeno bmc modify-cidr-blocks-attribute --cidr-block-ids cidrBlockId1 --cidr-block-ids cidrBlockId2 --name myCidrBlockName
   desc: ''
 sdk:
   service: bmc

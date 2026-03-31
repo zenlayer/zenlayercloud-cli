@@ -4,7 +4,7 @@ use: reinstall-instance
 short: Reinstalls an instance.
 long: reinstall the operating system of the specified instance.
 examples:
-- cmd: zencli bmc reinstall-instance --instance-id instanceId
+- cmd: zeno bmc reinstall-instance --instance-id instanceId
   desc: ''
 sdk:
   service: bmc

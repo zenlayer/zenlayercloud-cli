@@ -4,7 +4,7 @@ use: describe-nat-gateways
 short: Queries the NAT gateway list.
 long: query the NAT gateway list.
 examples:
-- cmd: zencli zec describe-nat-gateways
+- cmd: zeno zec describe-nat-gateways
   desc: Query the NAT gateway list.
 sdk:
   service: zec

@@ -4,7 +4,7 @@ use: available-lan-ip
 short: 查询可供弹性公网IP绑定的网卡及内网IP信息。
 long: 查询可供弹性公网IP绑定的网卡及内网IP信息。
 examples:
-- cmd: zencli zec available-lan-ip --eip-id xxx
+- cmd: zeno zec available-lan-ip --eip-id xxx
   desc: 获取可用内网IP。
 sdk:
   service: zec

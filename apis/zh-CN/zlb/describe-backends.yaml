@@ -4,9 +4,9 @@ use: describe-backends
 short: 后端服务器列表
 long: 查询负载均衡实例的绑定的后端服务列表。
 examples:
-- cmd: zencli zlb describe-backends --load-balancer-id <loadBalancerId>
+- cmd: zeno zlb describe-backends --load-balancer-id <loadBalancerId>
   desc: 查询负载均衡实例上绑定的所有后端服务。
-- cmd: zencli zlb describe-backends --load-balancer-id <loadBalancerId> --listener-id <listenerId>
+- cmd: zeno zlb describe-backends --load-balancer-id <loadBalancerId> --listener-id <listenerId>
   desc: 查询负载均衡实例上指定监听器上绑定的后端服务。
 sdk:
   service: zlb

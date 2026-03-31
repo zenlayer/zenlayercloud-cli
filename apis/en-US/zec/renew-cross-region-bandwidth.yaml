@@ -4,7 +4,7 @@ use: renew-cross-region-bandwidth
 short: Recovers a cross-region bandwidth.
 long: restore cross-region bandwidth.
 examples:
-- cmd: zencli zec renew-cross-region-bandwidth --cross-region-bandwidth-id "<your cross id>"
+- cmd: zeno zec renew-cross-region-bandwidth --cross-region-bandwidth-id "<your cross id>"
   desc: Restore a cross-region bandwidth.
 sdk:
   service: zec

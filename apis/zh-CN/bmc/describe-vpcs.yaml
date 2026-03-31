@@ -4,7 +4,7 @@ use: describe-vpcs
 short: 查看VPC列表
 long: 本接口用于查询一个或多个指定VPC的信息。用户可以根据VPC ID、Subnet ID、 VPC节点ID、VPC名称等信息来搜索VPC信息。
 examples:
-- cmd: zencli bmc describe-vpcs --page-size 10 --page-num 1
+- cmd: zeno bmc describe-vpcs --page-size 10 --page-num 1
   desc: 分页查询Vpc列表
 sdk:
   service: bmc

@@ -4,7 +4,7 @@ use: modify-eip-bandwidth
 short: 调整弹性公网IP带宽
 long: 调整弹性公网IP的带宽限速。
 examples:
-- cmd: zencli zec modify-eip-bandwidth --eip-id "< EipId >" --bandwidth 10
+- cmd: zeno zec modify-eip-bandwidth --eip-id "< EipId >" --bandwidth 10
   desc: 调整EIP带宽限速到10Mbps。
 sdk:
   service: zec

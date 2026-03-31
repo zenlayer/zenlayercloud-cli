@@ -4,9 +4,9 @@ use: allocate-eip-addresses
 short: 创建Elastic IP
 long: 创建一个或多个EIP。
 examples:
-- cmd: zencli bmc allocate-eip-addresses --eip-charge-type POSTPAID --zone-id SEL-A
+- cmd: zeno bmc allocate-eip-addresses --eip-charge-type POSTPAID --zone-id SEL-A
   desc: ''
-- cmd: zencli bmc allocate-eip-addresses --eip-charge-type PREPAID --zone-id SEL-A --amount 2
+- cmd: zeno bmc allocate-eip-addresses --eip-charge-type PREPAID --zone-id SEL-A --amount 2
   desc: ''
 sdk:
   service: bmc

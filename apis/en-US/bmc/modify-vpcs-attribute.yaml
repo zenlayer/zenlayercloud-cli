@@ -4,7 +4,7 @@ use: modify-vpcs-attribute
 short: Modifies the information about VPCs.
 long: The API is used to modify the attributes of one or more VPCs. Only the VPC name to be displayed can be modified for now.
 examples:
-- cmd: zencli bmc modify-vpcs-attribute --vpc-ids 675574041725115352 --vpc-name 111
+- cmd: zeno bmc modify-vpcs-attribute --vpc-ids 675574041725115352 --vpc-name 111
   desc: ''
 sdk:
   service: bmc

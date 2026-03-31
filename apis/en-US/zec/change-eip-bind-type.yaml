@@ -4,7 +4,7 @@ use: change-eip-bind-type
 short: Changes elastic IP mode.
 long: change elastic IP mode.
 examples:
-- cmd: zencli zec change-eip-bind-type --eip-id <eipId1> --bind-type FullNat
+- cmd: zeno zec change-eip-bind-type --eip-id <eipId1> --bind-type FullNat
   desc: Change elastic IP mode.
 sdk:
   service: zec

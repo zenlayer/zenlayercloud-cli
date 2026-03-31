@@ -4,7 +4,7 @@ use: associate-eip-address
 short: Associates elastic IPs to resources in the same region.
 long: associate elastic IPs to resources in the same region.
 examples:
-- cmd: zencli zec associate-eip-address --nic-id <nicId> --lan-ip 10.0.0.2 --eip-ids <eipId1> --eip-ids <eipId2> --bind-type Passthrough
+- cmd: zeno zec associate-eip-address --nic-id <nicId> --lan-ip 10.0.0.2 --eip-ids <eipId1> --eip-ids <eipId2> --bind-type Passthrough
   desc: Associate elastic IPs to a specified vNIC with the Cut-through Mode.
 sdk:
   service: zec

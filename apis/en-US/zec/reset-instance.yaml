@@ -4,7 +4,7 @@ use: reset-instance
 short: Reinstalls the operating system on an elastic compute instance.
 long: reinstall the operating system on an elastic compute instance.
 examples:
-- cmd: zencli zec reset-instance --instance-id <instanceId> --image-id ubuntu2022 --password Example+123 --enable-agent true
+- cmd: zeno zec reset-instance --instance-id <instanceId> --image-id ubuntu2022 --password Example+123 --enable-agent true
   desc: Reinstall operating system.
 sdk:
   service: zec

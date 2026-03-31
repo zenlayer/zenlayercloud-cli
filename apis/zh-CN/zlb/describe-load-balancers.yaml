@@ -4,7 +4,7 @@ use: describe-load-balancers
 short: 负载均衡列表
 long: 查询负载均衡实例列表。
 examples:
-- cmd: zencli zlb describe-load-balancers
+- cmd: zeno zlb describe-load-balancers
   desc: 查看负载均衡实例列表。
 sdk:
   service: zlb

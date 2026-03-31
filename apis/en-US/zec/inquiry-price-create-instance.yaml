@@ -4,7 +4,7 @@ use: inquiry-price-create-instance
 short: Queries the price of creating an elastic compute instance.
 long: query the price of creating an elastic compute instance.
 examples:
-- cmd: zencli zec inquiry-price-create-instance --zone-id SAO-A --instance-type c.1c2g --eip-v4-type xxx --internet-charge-type ByBandwidth --bandwidth 1 --instance-count 1
+- cmd: zeno zec inquiry-price-create-instance --zone-id SAO-A --instance-type c.1c2g --eip-v4-type xxx --internet-charge-type ByBandwidth --bandwidth 1 --instance-count 1
   desc: Query the price of a pay-as-you-go instance with the public network billing method of flat rate.
 sdk:
   service: zec

@@ -4,7 +4,7 @@ use: create-security-group
 short: Creates a security group.
 long: create a security group.
 examples:
-- cmd: zencli zec create-security-group --security-group-name test123 --rule-infos "{direction=ingress, policy=accept, priority=1, ipProtocol=tcp, portRange=22, cidrIp=0.0.0.0/0, desc=aaa}" --rule-infos "{direction=egress, policy=accept, priority=1, ipProtocol=tcp, portRange=22, cidrIp=0.0.0.0/0, desc=xxx}"
+- cmd: zeno zec create-security-group --security-group-name test123 --rule-infos "{direction=ingress, policy=accept, priority=1, ipProtocol=tcp, portRange=22, cidrIp=0.0.0.0/0, desc=aaa}" --rule-infos "{direction=egress, policy=accept, priority=1, ipProtocol=tcp, portRange=22, cidrIp=0.0.0.0/0, desc=xxx}"
   desc: Create a security group.
 sdk:
   service: zec

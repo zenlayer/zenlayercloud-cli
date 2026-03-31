@@ -4,7 +4,7 @@ use: tag-unbind-resources
 short: Unbinds resources to a tag in batches.
 long: unbind resources to a tag in batches
 examples:
-- cmd: zencli zrm tag-unbind-resources --resource-uuids resourceUuids_ef279be49ba4
+- cmd: zeno zrm tag-unbind-resources --resource-uuids resourceUuids_ef279be49ba4
   desc: Unbind an instance from a tag.
 sdk:
   service: zrm

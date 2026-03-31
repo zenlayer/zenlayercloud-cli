@@ -4,7 +4,7 @@ use: create-image
 short: Creates a custom image from an instance.
 long: create a custom image from an instance.
 examples:
-- cmd: zencli zec create-image --instance-id "<instance id>" --image-name imageXXX
+- cmd: zeno zec create-image --instance-id "<instance id>" --image-name imageXXX
   desc: Create a custom image from an instance.
 sdk:
   service: zec

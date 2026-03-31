@@ -4,7 +4,7 @@ use: unassign-border-gateway
 short: 解绑边界网关
 long: 解绑边界网关
 examples:
-- cmd: zencli zec unassign-border-gateway --zbg-id xxx
+- cmd: zeno zec unassign-border-gateway --zbg-id xxx
   desc: 边界网关解绑NAT网关。
 sdk:
   service: zec

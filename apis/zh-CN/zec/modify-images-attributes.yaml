@@ -4,7 +4,7 @@ use: modify-images-attributes
 short: 修改自定义镜像属性
 long: 修改自定义镜像属性。
 examples:
-- cmd: zencli zec modify-images-attributes --image-ids imageId1 --image-ids imageId2 --image-name imageNameX
+- cmd: zeno zec modify-images-attributes --image-ids imageId1 --image-ids imageId2 --image-name imageNameX
   desc: 修改自定义镜像的属性。
 sdk:
   service: zec

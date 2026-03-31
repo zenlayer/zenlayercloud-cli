@@ -4,7 +4,7 @@ use: describe-load-balancer-specs
 short: 查询可用区节点下可用的负载均衡规格列表。
 long: 查询可用区节点下可用的负载均衡规格列表。
 examples:
-- cmd: zencli bmc describe-load-balancer-specs --zone-id HKG-A --charge-type POSTPAID
+- cmd: zeno bmc describe-load-balancer-specs --zone-id HKG-A --charge-type POSTPAID
   desc: 查询后付费HKG-A节点支持的规格列表。
 sdk:
   service: bmc

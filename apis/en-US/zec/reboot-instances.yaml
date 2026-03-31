@@ -4,7 +4,7 @@ use: reboot-instances
 short: Restarts one or more elastic compute instances.
 long: restart one or more elastic compute instances.
 examples:
-- cmd: zencli zec reboot-instances --instance-ids instanceId1 --instance-ids instanceId2
+- cmd: zeno zec reboot-instances --instance-ids instanceId1 --instance-ids instanceId2
   desc: Batch restart instances
 sdk:
   service: zec

@@ -4,7 +4,7 @@ use: modify-instances-resource-group
 short: Modifies the resource group to which instances belong.
 long: modify the resource group to which the instances belong.
 examples:
-- cmd: zencli bmc modify-instances-resource-group --instance-ids instanceId1 --instance-ids instanceId2 --resource-group-id resourceGroup1
+- cmd: zeno bmc modify-instances-resource-group --instance-ids instanceId1 --instance-ids instanceId2 --resource-group-id resourceGroup1
   desc: Move instances to the specified resource group
 sdk:
   service: bmc

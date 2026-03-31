@@ -4,7 +4,7 @@ use: describe-instance-available-eip-resources
 short: Queries list of elastic IPs that can be assigned to instances.
 long: query list of elastic IPs that can be bound to an instance.
 examples:
-- cmd: zencli bmc describe-instance-available-eip-resources --instance-id instanceId1
+- cmd: zeno bmc describe-instance-available-eip-resources --instance-id instanceId1
   desc: Query list of elastic IPs that can be bound to an instance
 sdk:
   service: bmc

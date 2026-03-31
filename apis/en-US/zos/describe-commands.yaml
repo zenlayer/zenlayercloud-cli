@@ -4,7 +4,7 @@ use: describe-commands
 short: Queries command list.
 long: query command list.
 examples:
-- cmd: zencli zos describe-commands
+- cmd: zeno zos describe-commands
   desc: Query command list.
 sdk:
   service: zos

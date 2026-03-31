@@ -4,7 +4,7 @@ use: detach-dhcp-options-set-from-subnet
 short: 将DHCP选项集与Subnet取消关联
 long: 将DHCP选项集与Subnet取消关联。
 examples:
-- cmd: zencli zec detach-dhcp-options-set-from-subnet --subnet-ids subnetId1 --subnet-ids subnetId2
+- cmd: zeno zec detach-dhcp-options-set-from-subnet --subnet-ids subnetId1 --subnet-ids subnetId2
   desc: 将DHCP选项集与Subnet取消关联
 sdk:
   service: zec

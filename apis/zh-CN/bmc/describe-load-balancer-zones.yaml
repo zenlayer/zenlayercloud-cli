@@ -4,7 +4,7 @@ use: describe-load-balancer-zones
 short: 查询支持创建负载均衡的区域。
 long: 查询支持创建负载均衡的区域。
 examples:
-- cmd: zencli bmc describe-load-balancer-zones --charge-type POSTPAID
+- cmd: zeno bmc describe-load-balancer-zones --charge-type POSTPAID
   desc: 查询后付费支持创建LB可用区节点
 sdk:
   service: bmc

@@ -4,7 +4,7 @@ use: describe-key-pairs
 short: 查询密钥对列表。
 long: 查询密钥对列表。
 examples:
-- cmd: zencli ccs describe-key-pairs
+- cmd: zeno ccs describe-key-pairs
   desc: 获取密钥对列表。
 sdk:
   service: ccs

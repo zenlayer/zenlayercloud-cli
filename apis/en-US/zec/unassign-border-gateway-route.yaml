@@ -4,7 +4,7 @@ use: unassign-border-gateway-route
 short: Not advertise custom routes to a border gateway.
 long: not advertise custom routes to a border gateway.
 examples:
-- cmd: zencli zec unassign-border-gateway-route --zbg-id xxx --advertised-route-ids routeId1 --advertised-route-ids routeId2
+- cmd: zeno zec unassign-border-gateway-route --zbg-id xxx --advertised-route-ids routeId1 --advertised-route-ids routeId2
   desc: Do not advertise custom routes to a border gateway.
 sdk:
   service: zec

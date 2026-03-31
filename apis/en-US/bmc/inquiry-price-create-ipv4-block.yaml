@@ -4,7 +4,7 @@ use: inquiry-price-create-ipv4-block
 short: Queries the price of creating IPv4 CIDR blocks.
 long: query the price of creating IPv4 CIDR blocks.
 examples:
-- cmd: zencli bmc inquiry-price-create-ipv4-block --zone-id CHI-A --charge-type POSTPAID --netmask 28
+- cmd: zeno bmc inquiry-price-create-ipv4-block --zone-id CHI-A --charge-type POSTPAID --netmask 28
   desc: ''
 sdk:
   service: bmc

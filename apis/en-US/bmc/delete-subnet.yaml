@@ -4,7 +4,7 @@ use: delete-subnet
 short: Deletes subnet.
 long: delete a subnet.
 examples:
-- cmd: zencli bmc delete-subnet --subnet-id 833032938374308056
+- cmd: zeno bmc delete-subnet --subnet-id 833032938374308056
   desc: ''
 sdk:
   service: bmc

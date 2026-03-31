@@ -4,7 +4,7 @@ use: describe-vpcs
 short: 查询VPC列表
 long: 查询私有网络（VPC）列表，用户可以根据 VPC ID、VPC 名称等信息来筛选过滤VPC信息。
 examples:
-- cmd: zencli zec describe-vpcs --cidr-block 10.0.0.0/24 --page-size 10 --page-num 1
+- cmd: zeno zec describe-vpcs --cidr-block 10.0.0.0/24 --page-size 10 --page-num 1
   desc: 查询CidrBlock为`10.0.0.0/24`的VPC列表
 sdk:
   service: zec

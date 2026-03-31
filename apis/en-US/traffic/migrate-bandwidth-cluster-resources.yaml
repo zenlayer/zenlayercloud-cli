@@ -4,7 +4,7 @@ use: migrate-bandwidth-cluster-resources
 short: Migrates resources between bandwidth clusters.
 long: migrate resources between bandwidth clusters.
 examples:
-- cmd: zencli traffic migrate-bandwidth-cluster-resources --resource-id-list <id1> --resource-id-list <id2> --target-bandwidth-cluster-id <targetBandwidthClusterId>
+- cmd: zeno traffic migrate-bandwidth-cluster-resources --resource-id-list <id1> --resource-id-list <id2> --target-bandwidth-cluster-id <targetBandwidthClusterId>
   desc: Migrate resources to a specified target bandwidth cluster.
 sdk:
   service: traffic

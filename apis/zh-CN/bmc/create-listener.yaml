@@ -4,7 +4,7 @@ use: create-listener
 short: 在网络型负载均衡实例中创建TCP、UDP或TCPSSL监听。
 long: 在网络型负载均衡实例中创建TCP、UDP或TCPSSL监听。
 examples:
-- cmd: zencli bmc create-listener --load-balancer-id xxxx --name xxxx --port-list 80 --client-token xxxx --protocol TCP --backend-protocol TCP
+- cmd: zeno bmc create-listener --load-balancer-id xxxx --name xxxx --port-list 80 --client-token xxxx --protocol TCP --backend-protocol TCP
   desc: 创建Listener
 sdk:
   service: bmc

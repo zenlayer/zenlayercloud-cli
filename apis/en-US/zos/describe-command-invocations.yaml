@@ -4,7 +4,7 @@ use: describe-command-invocations
 short: Queries the command execution list.
 long: query the command execution list.
 examples:
-- cmd: zencli zos describe-command-invocations --invocation-ids <invocationId>
+- cmd: zeno zos describe-command-invocations --invocation-ids <invocationId>
   desc: Query the command execution list according to execution ID.
 sdk:
   service: zos

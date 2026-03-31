@@ -4,7 +4,7 @@ use: delete-dnat-entry
 short: Deletes a DNAT rule.
 long: delete a DNAT rule.
 examples:
-- cmd: zencli zec delete-dnat-entry --dnat-entry-id <dnatEntryId>
+- cmd: zeno zec delete-dnat-entry --dnat-entry-id <dnatEntryId>
   desc: Delete a DNAT entry.
 sdk:
   service: zec

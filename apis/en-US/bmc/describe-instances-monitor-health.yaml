@@ -4,7 +4,7 @@ use: describe-instances-monitor-health
 short: Query server hardware health information.
 long: query server hardware health information.
 examples:
-- cmd: zencli bmc describe-instances-monitor-health --instance-ids instanceId1 --instance-ids instanceId2
+- cmd: zeno bmc describe-instances-monitor-health --instance-ids instanceId1 --instance-ids instanceId2
   desc: Query server hardware health information.
 sdk:
   service: bmc

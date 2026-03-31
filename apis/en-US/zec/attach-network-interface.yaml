@@ -4,7 +4,7 @@ use: attach-network-interface
 short: Attaches the vNIC to the instance.
 long: attach the vNIC to the instance.
 examples:
-- cmd: zencli zec attach-network-interface --nic-id XXX --instance-id xxx
+- cmd: zeno zec attach-network-interface --nic-id XXX --instance-id xxx
   desc: Attach the vNIC to the instance.
 sdk:
   service: zec

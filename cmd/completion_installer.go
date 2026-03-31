@@ -59,10 +59,10 @@ func (b *bashInstaller) Uninstall() ([]string, error) {
 		return nil, fmt.Errorf("failed to get home directory: %w", err)
 	}
 	paths := []string{
-		"/etc/bash_completion.d/zencli",
-		"/usr/local/etc/bash_completion.d/zencli",
-		"/opt/homebrew/etc/bash_completion.d/zencli",
-		filepath.Join(home, ".bash_completion.d", "zencli"),
+		"/etc/bash_completion.d/zeno",
+		"/usr/local/etc/bash_completion.d/zeno",
+		"/opt/homebrew/etc/bash_completion.d/zeno",
+		filepath.Join(home, ".bash_completion.d", "zeno"),
 	}
 	return removePaths(paths), nil
 }
@@ -82,16 +82,16 @@ func (z *zshInstaller) Uninstall() ([]string, error) {
 		return nil, fmt.Errorf("failed to get home directory: %w", err)
 	}
 	paths := []string{
-		filepath.Join(home, ".zsh", "completions", "_zencli"),
-		filepath.Join(home, ".oh-my-zsh", "completions", "_zencli"),
-		"/usr/local/share/zsh/site-functions/_zencli",
-		"/usr/share/zsh/site-functions/_zencli",
-		"/opt/homebrew/share/zsh/site-functions/_zencli",
+		filepath.Join(home, ".zsh", "completions", "_zeno"),
+		filepath.Join(home, ".oh-my-zsh", "completions", "_zeno"),
+		"/usr/local/share/zsh/site-functions/_zeno",
+		"/usr/share/zsh/site-functions/_zeno",
+		"/opt/homebrew/share/zsh/site-functions/_zeno",
 	}
 	// Also search all directories currently in fpath via the FPATH env var
 	if fpath := os.Getenv("FPATH"); fpath != "" {
 		for _, dir := range strings.Split(fpath, ":") {
-			paths = append(paths, filepath.Join(dir, "_zencli"))
+			paths = append(paths, filepath.Join(dir, "_zeno"))
 		}
 	}
 	return removePaths(paths), nil
@@ -111,7 +111,7 @@ func (f *fishInstaller) Uninstall() ([]string, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to get home directory: %w", err)
 	}
-	p := filepath.Join(home, ".config", "fish", "completions", "zencli.fish")
+	p := filepath.Join(home, ".config", "fish", "completions", "zeno.fish")
 	return removePaths([]string{p}), nil
 }
 
@@ -165,7 +165,7 @@ func removePowerShellProfile(profilePath string) ([]string, error) {
 	lines := strings.Split(string(data), "\n")
 	var newLines []string
 	for _, line := range lines {
-		if !strings.Contains(line, "zencli") && !strings.Contains(line, "zenlayercloud-cli") {
+		if !strings.Contains(line, "zeno") && !strings.Contains(line, "zenlayercloud-cli") {
 			newLines = append(newLines, line)
 		}
 	}
@@ -175,5 +175,5 @@ func removePowerShellProfile(profilePath string) ([]string, error) {
 	if err := os.WriteFile(profilePath, []byte(strings.Join(newLines, "\n")), 0644); err != nil {
 		return nil, fmt.Errorf("failed to write profile: %w", err)
 	}
-	return []string{profilePath + " (zencli lines removed)"}, nil
+	return []string{profilePath + " (zeno lines removed)"}, nil
 }

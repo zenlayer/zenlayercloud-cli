@@ -4,7 +4,7 @@ use: stop-instances
 short: Stops one or more instances.
 long: shut down instances.
 examples:
-- cmd: zencli bmc stop-instances --instance-ids instanceId1 --instance-ids instanceId2
+- cmd: zeno bmc stop-instances --instance-ids instanceId1 --instance-ids instanceId2
   desc: Shut down two instances with specified IDs
 sdk:
   service: bmc

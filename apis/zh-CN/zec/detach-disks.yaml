@@ -4,7 +4,7 @@ use: detach-disks
 short: 卸载云硬盘。
 long: 将云硬盘从主机实例上卸载。
 examples:
-- cmd: zencli zec detach-disks --disk-ids your-disk-id
+- cmd: zeno zec detach-disks --disk-ids your-disk-id
   desc: 从云主机实例上卸载单块或多块云硬盘。
 sdk:
   service: zec

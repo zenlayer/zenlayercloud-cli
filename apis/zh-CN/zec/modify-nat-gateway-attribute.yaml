@@ -4,9 +4,9 @@ use: modify-nat-gateway-attribute
 short: 修改NAT网关的属性。
 long: 修改NAT网关的属性。
 examples:
-- cmd: zencli zec modify-nat-gateway-attribute --nat-gateway-id natGatewayId --subnet-ids subnetId1 --subnet-ids subnetId2
+- cmd: zeno zec modify-nat-gateway-attribute --nat-gateway-id natGatewayId --subnet-ids subnetId1 --subnet-ids subnetId2
   desc: 修改NAT网关属性, 修改指定的子网。
-- cmd: zencli zec modify-nat-gateway-attribute --nat-gateway-id natGatewayId --is-all-subnets true
+- cmd: zeno zec modify-nat-gateway-attribute --nat-gateway-id natGatewayId --is-all-subnets true
   desc: 修改NAT网关属性, 修改为全部子网。
 sdk:
   service: zec

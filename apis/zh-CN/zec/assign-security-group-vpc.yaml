@@ -4,7 +4,7 @@ use: assign-security-group-vpc
 short: VPC更换绑定安全组。
 long: VPC更换绑定安全组。
 examples:
-- cmd: zencli zec assign-security-group-vpc --vpc-id your-vpc-id --security-group-id your-security-group-id
+- cmd: zeno zec assign-security-group-vpc --vpc-id your-vpc-id --security-group-id your-security-group-id
   desc: VPC换绑安全组。
 sdk:
   service: zec

@@ -4,7 +4,7 @@ use: describe-backends
 short: Queries the information of one or more specified backend servers.
 long: query the information of one or more specified backend servers. Users can search for backend server information based on the ID of the listener, the ID of the backend server, and other information.
 examples:
-- cmd: zencli bmc describe-backends --listener-id xxxx
+- cmd: zeno bmc describe-backends --listener-id xxxx
   desc: Get a list of all backend servers based on the listener ID.
 sdk:
   service: bmc

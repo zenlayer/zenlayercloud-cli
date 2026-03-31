@@ -4,7 +4,7 @@ use: restore-load-balancer
 short: 恢复负载均衡实例
 long: 将在回收站的负载均衡实例进行恢复。
 examples:
-- cmd: zencli zlb restore-load-balancer --load-balancer-id <loadBalancerId>
+- cmd: zeno zlb restore-load-balancer --load-balancer-id <loadBalancerId>
   desc: 恢复一个负载均衡实例。
 sdk:
   service: zlb

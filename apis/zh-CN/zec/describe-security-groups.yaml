@@ -4,7 +4,7 @@ use: describe-security-groups
 short: 查询安全组列表。
 long: 查询安全组列表。
 examples:
-- cmd: zencli zec describe-security-groups --security-group-name --page-size 5 --page-num 1
+- cmd: zeno zec describe-security-groups --security-group-name --page-size 5 --page-num 1
   desc: 查询安全组列表。
 sdk:
   service: zec

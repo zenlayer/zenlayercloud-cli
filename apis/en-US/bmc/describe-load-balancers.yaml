@@ -4,7 +4,7 @@ use: describe-load-balancers
 short: Queries the information of one or more specified load balancing instances.
 long: query the information of one or more specified load balancing instances. Users can search for load balancer information based on the ID of the load balancer, the zone, and other information.
 examples:
-- cmd: zencli bmc describe-load-balancers --load-balancer-ids xxxx
+- cmd: zeno bmc describe-load-balancers --load-balancer-ids xxxx
   desc: Query the information of the load balancer instance by ID.
 sdk:
   service: bmc

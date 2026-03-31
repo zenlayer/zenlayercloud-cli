@@ -4,7 +4,7 @@ use: import-key-pair
 short: 导入密钥对。
 long: 导入公钥到密钥对。
 examples:
-- cmd: zencli ccs import-key-pair --key-name my-key --public-key ""ssh-rsa XXXXXXXXXXXX== example""
+- cmd: zeno ccs import-key-pair --key-name my-key --public-key ""ssh-rsa XXXXXXXXXXXX== example""
   desc: 导入一个密钥对。
 sdk:
   service: ccs

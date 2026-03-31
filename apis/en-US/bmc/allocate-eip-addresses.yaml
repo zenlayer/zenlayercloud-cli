@@ -4,7 +4,7 @@ use: allocate-eip-addresses
 short: Creates elastic IPs.
 long: apply for one or multiple elastic IPs.
 examples:
-- cmd: zencli bmc allocate-eip-addresses --eip-charge-type POSTPAID --zone-id SEL-A
+- cmd: zeno bmc allocate-eip-addresses --eip-charge-type POSTPAID --zone-id SEL-A
   desc: 'Create a pay-as-you -go elastic IP with the simplest parameters in zone: SEL-A'
 sdk:
   service: bmc

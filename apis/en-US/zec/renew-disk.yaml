@@ -4,7 +4,7 @@ use: renew-disk
 short: Restores a disk.
 long: restore a disk.
 examples:
-- cmd: zencli zec renew-disk --disk-id your-disk-id
+- cmd: zeno zec renew-disk --disk-id your-disk-id
   desc: Restore a disk.
 sdk:
   service: zec

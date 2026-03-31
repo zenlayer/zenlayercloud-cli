@@ -4,7 +4,7 @@ use: resize-disk
 short: Expands a cloud volume to a specified size.
 long: expand a cloud volume to a specified size.
 examples:
-- cmd: zencli zec resize-disk --disk-id "<Disk ID>" --disk-size 100
+- cmd: zeno zec resize-disk --disk-id "<Disk ID>" --disk-size 100
   desc: Expand a cloud volume to 100 GB.
 sdk:
   service: zec

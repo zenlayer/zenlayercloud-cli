@@ -4,7 +4,7 @@ use: terminate-load-balancer
 short: Terminates a load balancer.
 long: terminate a load balancer.
 examples:
-- cmd: zencli bmc terminate-load-balancer --load-balancer-id xxxx
+- cmd: zeno bmc terminate-load-balancer --load-balancer-id xxxx
   desc: Terminate a load balancer.
 sdk:
   service: bmc

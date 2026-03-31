@@ -4,7 +4,7 @@ use: renew-cidr-block
 short: 续费Cidr Block
 long: 本接口用于续费一个Cidr Block。
 examples:
-- cmd: zencli bmc renew-cidr-block --cidr-block-id cidrBlockId
+- cmd: zeno bmc renew-cidr-block --cidr-block-id cidrBlockId
   desc: 续费一个Ipv4的Cidr Block
 sdk:
   service: bmc

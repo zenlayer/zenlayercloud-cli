@@ -4,7 +4,7 @@ use: bind-cidr-block-ips
 short: Assigns CIDR block IPs to instances.
 long: bind one or more CIDR block IPs to instances.
 examples:
-- cmd: zencli bmc bind-cidr-block-ips --cidr-block-id cidrBlockId --ip-bind-list "{instanceId=instanceId1, ip=1111:1111:2:25::2}" --ip-bind-list "{instanceId=instanceId2, ip=1.1.1.1}"
+- cmd: zeno bmc bind-cidr-block-ips --cidr-block-id cidrBlockId --ip-bind-list "{instanceId=instanceId1, ip=1111:1111:2:25::2}" --ip-bind-list "{instanceId=instanceId2, ip=1.1.1.1}"
   desc: ''
 sdk:
   service: bmc

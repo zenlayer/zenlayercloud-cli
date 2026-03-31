@@ -4,7 +4,7 @@ use: describe-instances-status
 short: 查询实例的状态。
 long: 查询实例的状态。
 examples:
-- cmd: zencli zec describe-instances-status
+- cmd: zeno zec describe-instances-status
   desc: 查询实例状态。
 sdk:
   service: zec

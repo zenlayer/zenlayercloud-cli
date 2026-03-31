@@ -4,7 +4,7 @@ use: configure-security-group-rules
 short: Configures the rules of a security group.
 long: configure the rules of a security group.
 examples:
-- cmd: zencli zec configure-security-group-rules --security-group-id your-security-group-id --rule-infos "{direction=ingress, policy=accept, priority=1, ipProtocol=tcp, portRange=22, cidrIp=0.0.0.0/0, desc=aaa}" --rule-infos "{direction=egress, policy=accept, priority=1, ipProtocol=tcp, portRange=22, cidrIp=0.0.0.0/0, desc=xxx}"
+- cmd: zeno zec configure-security-group-rules --security-group-id your-security-group-id --rule-infos "{direction=ingress, policy=accept, priority=1, ipProtocol=tcp, portRange=22, cidrIp=0.0.0.0/0, desc=aaa}" --rule-infos "{direction=egress, policy=accept, priority=1, ipProtocol=tcp, portRange=22, cidrIp=0.0.0.0/0, desc=xxx}"
   desc: Configure rules for the security group.
 sdk:
   service: zec

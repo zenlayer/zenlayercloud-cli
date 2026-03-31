@@ -4,7 +4,7 @@ use: create-load-balancer-v-i-ps
 short: Creates a load balancing virtual IP (VIP).
 long: create a load balancing virtual IP (VIP).
 examples:
-- cmd: zencli bmc create-load-balancer-v-i-ps --load-balancer-id xxxx --count 2
+- cmd: zeno bmc create-load-balancer-v-i-ps --load-balancer-id xxxx --count 2
   desc: Create a VIP under a load balancer.
 sdk:
   service: bmc

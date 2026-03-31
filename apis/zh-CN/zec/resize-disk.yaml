@@ -4,7 +4,7 @@ use: resize-disk
 short: 扩容云硬盘
 long: 将一个云硬盘扩容到指定大小。
 examples:
-- cmd: zencli zec resize-disk --disk-id "<Disk ID>" --disk-size 100
+- cmd: zeno zec resize-disk --disk-id "<Disk ID>" --disk-size 100
   desc: 扩容弹性云盘到100GiB。
 sdk:
   service: zec

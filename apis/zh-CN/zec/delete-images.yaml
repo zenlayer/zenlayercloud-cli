@@ -4,7 +4,7 @@ use: delete-images
 short: 删除镜像
 long: 删除一个或多个镜像。
 examples:
-- cmd: zencli zec delete-images --image-ids imageId1 --image-ids imageId2
+- cmd: zeno zec delete-images --image-ids imageId1 --image-ids imageId2
   desc: 批量删除自定义镜像
 sdk:
   service: zec

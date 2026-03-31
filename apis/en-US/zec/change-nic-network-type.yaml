@@ -4,7 +4,7 @@ use: change-nic-network-type
 short: Modifies the vNIC mode of the instance.
 long: modify the network interface mode of the instance.
 examples:
-- cmd: zencli zec change-nic-network-type --instance-id instanceId1 --nic-network-type FailOver
+- cmd: zeno zec change-nic-network-type --instance-id instanceId1 --nic-network-type FailOver
   desc: Modify the network interface mode of the instance.
 sdk:
   service: zec

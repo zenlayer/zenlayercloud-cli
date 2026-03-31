@@ -4,7 +4,7 @@ use: inquiry-price-create-disks
 short: Queries the price of creating a disk.
 long: query the price of creating a disk.
 examples:
-- cmd: zencli zec inquiry-price-create-disks --zone-id HKG-A --disk-size 2000
+- cmd: zeno zec inquiry-price-create-disks --zone-id HKG-A --disk-size 2000
   desc: Query the price of creating a disk.
 sdk:
   service: zec

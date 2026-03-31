@@ -4,7 +4,7 @@ use: modify-subnets-attribute
 short: 修改私有子网属性
 long: 批量修改子网的属性。
 examples:
-- cmd: zencli zec modify-subnets-attribute --subnet-ids your-vpc-id --name 10.0.0.0/9
+- cmd: zeno zec modify-subnets-attribute --subnet-ids your-vpc-id --name 10.0.0.0/9
   desc: 批量修改子网的名称。
 sdk:
   service: zec

@@ -4,7 +4,7 @@ use: start-ip-forward
 short: Enables IP forwarding of the instance.
 long: enable IP forwarding of the instance.
 examples:
-- cmd: zencli zec start-ip-forward --instance-id instanceId1
+- cmd: zeno zec start-ip-forward --instance-id instanceId1
   desc: Enable IP forwarding of the instance
 sdk:
   service: zec

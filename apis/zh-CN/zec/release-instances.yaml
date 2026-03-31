@@ -4,7 +4,7 @@ use: release-instances
 short: 销毁虚拟机实例
 long: 销毁一台或多台虚拟机实例。
 examples:
-- cmd: zencli zec release-instances --instance-ids instanceId1 --instance-ids instanceId2
+- cmd: zeno zec release-instances --instance-ids instanceId1 --instance-ids instanceId2
   desc: 批量释放实例。
 sdk:
   service: zec

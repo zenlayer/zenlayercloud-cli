@@ -15,8 +15,8 @@ import (
 
 var configureCmd = &cobra.Command{
 	Use:   "configure",
-	Short: "Configure zencli credentials and settings",
-	Long: `Configure zencli credentials and settings interactively.
+	Short: "Configure zeno credentials and settings",
+	Long: `Configure zeno credentials and settings interactively.
 
 This command will prompt you for:
   - Profile name

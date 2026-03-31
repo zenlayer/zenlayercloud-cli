@@ -4,7 +4,7 @@ use: modify-vpc-attribute
 short: Modifies the attributes of a global VPC.
 long: modify the attributes of a global VPC.
 examples:
-- cmd: zencli zec modify-vpc-attribute --vpc-id <vpcId> --vpc-name TestVpcName --enable-ipv6 true
+- cmd: zeno zec modify-vpc-attribute --vpc-id <vpcId> --vpc-name TestVpcName --enable-ipv6 true
   desc: Modify the information of a global VPC, and enable the private IPv6 CIDR block.
 sdk:
   service: zec

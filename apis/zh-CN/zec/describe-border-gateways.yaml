@@ -4,7 +4,7 @@ use: describe-border-gateways
 short: 查询边界网关列表。
 long: 查询边界网关列表。
 examples:
-- cmd: zencli zec describe-border-gateways --region-id xxx --page-size 10 --page-num 1
+- cmd: zeno zec describe-border-gateways --region-id xxx --page-size 10 --page-num 1
   desc: 查询网关列表。
 sdk:
   service: zec

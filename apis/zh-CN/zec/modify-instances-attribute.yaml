@@ -4,7 +4,7 @@ use: modify-instances-attribute
 short: 修改实例属性（名称）
 long: 修改实例属性（名称）。
 examples:
-- cmd: zencli zec modify-instances-attribute --instance-ids instanceId1 --instance-ids instanceId2 --instance-name Test-Instance
+- cmd: zeno zec modify-instances-attribute --instance-ids instanceId1 --instance-ids instanceId2 --instance-name Test-Instance
   desc: 批量修改实例的名称。
 sdk:
   service: zec

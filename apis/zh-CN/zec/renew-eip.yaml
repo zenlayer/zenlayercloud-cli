@@ -4,7 +4,7 @@ use: renew-eip
 short: 恢复弹性公网IP。
 long: 恢复弹性公网IP
 examples:
-- cmd: zencli zec renew-eip --eip-id <eipId>
+- cmd: zeno zec renew-eip --eip-id <eipId>
   desc: 恢复回收站种的弹性公网IP。
 sdk:
   service: zec

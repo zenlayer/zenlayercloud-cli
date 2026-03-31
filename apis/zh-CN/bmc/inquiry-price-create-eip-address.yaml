@@ -4,7 +4,7 @@ use: inquiry-price-create-eip-address
 short: 创建Elastic IP询价
 long: 创建EIP询价。
 examples:
-- cmd: zencli bmc inquiry-price-create-eip-address --zone-id SEL-A --eip-charge-type POSTPAID
+- cmd: zeno bmc inquiry-price-create-eip-address --zone-id SEL-A --eip-charge-type POSTPAID
   desc: EIP后付费询价
 sdk:
   service: bmc

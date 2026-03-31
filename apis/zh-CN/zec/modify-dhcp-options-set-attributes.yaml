@@ -4,7 +4,7 @@ use: modify-dhcp-options-set-attributes
 short: 修改DHCP选项集配置信息
 long: 修改DHCP选项集配置信息。
 examples:
-- cmd: zencli zec modify-dhcp-options-set-attributes --dhcp-options-set-id dhcpOptionsSetId1 --dhcp-options-set-name dhcpOptionsSetName1
+- cmd: zeno zec modify-dhcp-options-set-attributes --dhcp-options-set-id dhcpOptionsSetId1 --dhcp-options-set-name dhcpOptionsSetName1
   desc: 修改DHCP选项集配置信息
 sdk:
   service: zec

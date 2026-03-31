@@ -4,7 +4,7 @@ use: describe-eip-addresses
 short: Queries list of elastic IPs.
 long: query the list of elastic IPs. You can query information on elastic IPs according to ID or IP of the elastic IP, and the pricing model.
 examples:
-- cmd: zencli bmc describe-eip-addresses --eip-charge-type PREPAID
+- cmd: zeno bmc describe-eip-addresses --eip-charge-type PREPAID
   desc: ''
 sdk:
   service: bmc

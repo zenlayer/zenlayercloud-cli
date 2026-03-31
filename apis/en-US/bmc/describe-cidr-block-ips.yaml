@@ -4,7 +4,7 @@ use: describe-cidr-block-ips
 short: Queries list of CIDR block IPs.
 long: query the IPs of a CIDR block.
 examples:
-- cmd: zencli bmc describe-cidr-block-ips --cidr-block-id aCidrBlockId
+- cmd: zeno bmc describe-cidr-block-ips --cidr-block-id aCidrBlockId
   desc: ''
 sdk:
   service: bmc

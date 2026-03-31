@@ -4,7 +4,7 @@ use: assign-border-gateway-route
 short: Advertises custom routes to a border gateway.
 long: advertise custom routes to a border gateway.
 examples:
-- cmd: zencli zec assign-border-gateway-route --zbg-id xxx --advertised-route-ids routeId1 --advertised-route-ids routeId2
+- cmd: zeno zec assign-border-gateway-route --zbg-id xxx --advertised-route-ids routeId1 --advertised-route-ids routeId2
   desc: Advertise custom routes to a border gateway.
 sdk:
   service: zec

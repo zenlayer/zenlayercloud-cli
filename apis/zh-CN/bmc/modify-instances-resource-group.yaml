@@ -4,7 +4,7 @@ use: modify-instances-resource-group
 short: 修改实例所属的资源组
 long: 修改实例所属的资源组。
 examples:
-- cmd: zencli bmc modify-instances-resource-group --instance-ids instanceId1 --instance-ids instanceId2 --resource-group-id resourceGroup1
+- cmd: zeno bmc modify-instances-resource-group --instance-ids instanceId1 --instance-ids instanceId2 --resource-group-id resourceGroup1
   desc: 将实例移动到指定资源组。
 sdk:
   service: bmc

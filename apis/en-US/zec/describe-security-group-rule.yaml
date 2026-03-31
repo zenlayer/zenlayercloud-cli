@@ -4,7 +4,7 @@ use: describe-security-group-rule
 short: Queries the security group rules.
 long: query the security group rules.
 examples:
-- cmd: zencli zec describe-security-group-rule --security-group-id 791721259766392536
+- cmd: zeno zec describe-security-group-rule --security-group-id 791721259766392536
   desc: Query the security group rules.
 sdk:
   service: zec

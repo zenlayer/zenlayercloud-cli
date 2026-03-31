@@ -4,7 +4,7 @@ use: release-cidr-blocks
 short: Releases one or more CIDR blocks
 long: release one or more IPv4 CIDR blocks.
 examples:
-- cmd: zencli bmc release-cidr-blocks --cidr-block-ids cidrBlockId1 --cidr-block-ids cidrBlockId2
+- cmd: zeno bmc release-cidr-blocks --cidr-block-ids cidrBlockId1 --cidr-block-ids cidrBlockId2
   desc: ''
 sdk:
   service: bmc

@@ -4,7 +4,7 @@ use: modify-key-pair-attribute
 short: Modify the attributes of an SSH key pair.
 long: The API is used to modify the attributes of an SSH key pair.
 examples:
-- cmd: zencli ccs modify-key-pair-attribute --key-id key-xxxx --key-description test-description
+- cmd: zeno ccs modify-key-pair-attribute --key-id key-xxxx --key-description test-description
   desc: Modify the attributes of an SSH key pair.
 sdk:
   service: ccs

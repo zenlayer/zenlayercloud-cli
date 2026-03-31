@@ -4,7 +4,7 @@ use: describe-eips
 short: Queries the information of one or more specified elastic IPs.
 long: query the information of one or more specified elastic IPs. You can search for elastic IP information based on elastic IP ID, elastic IP name, etc.
 examples:
-- cmd: zencli zec describe-eips --ip-address 128.0.0.1
+- cmd: zeno zec describe-eips --ip-address 128.0.0.1
   desc: Query the list of IPs based on public IP.
 sdk:
   service: zec

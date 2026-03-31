@@ -4,7 +4,7 @@ use: create-image
 short: 创建自定义镜像
 long: 用实例创建自定义镜像。
 examples:
-- cmd: zencli zec create-image --instance-id "<instance id>" --image-name imageXXX
+- cmd: zeno zec create-image --instance-id "<instance id>" --image-name imageXXX
   desc: 用实例创建一个自定义镜像。
 sdk:
   service: zec

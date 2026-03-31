@@ -4,7 +4,7 @@ use: describe-dhcp-options-sets
 short: 查询已创建的DHCP选项集列表
 long: 查询已创建的DHCP选项集列表。
 examples:
-- cmd: zencli zec describe-dhcp-options-sets --dhcp-options-set-name dhcpOptionsSetName1 --page-size 10 --page-num 1
+- cmd: zeno zec describe-dhcp-options-sets --dhcp-options-set-name dhcpOptionsSetName1 --page-size 10 --page-num 1
   desc: 查询已创建的DHCP选项集列表
 sdk:
   service: zec

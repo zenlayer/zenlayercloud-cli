@@ -4,7 +4,7 @@ use: terminate-eip-address
 short: 退还Elastic IP
 long: 本接口用于退还一个EIP。
 examples:
-- cmd: zencli bmc terminate-eip-address --eip-id eipId
+- cmd: zeno bmc terminate-eip-address --eip-id eipId
   desc: ''
 sdk:
   service: bmc

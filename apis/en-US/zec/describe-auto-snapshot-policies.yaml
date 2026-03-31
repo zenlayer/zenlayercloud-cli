@@ -4,7 +4,7 @@ use: describe-auto-snapshot-policies
 short: Queries the details of snapshot schedules.
 long: query the details of snapshot schedules.
 examples:
-- cmd: zencli zec describe-auto-snapshot-policies
+- cmd: zeno zec describe-auto-snapshot-policies
   desc: Query the list of snapshot schedule.
 sdk:
   service: zec

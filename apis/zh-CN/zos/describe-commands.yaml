@@ -4,7 +4,7 @@ use: describe-commands
 short: 查询命令列表
 long: 查询命令列表。
 examples:
-- cmd: zencli zos describe-commands
+- cmd: zeno zos describe-commands
   desc: 查询命令列表。
 sdk:
   service: zos

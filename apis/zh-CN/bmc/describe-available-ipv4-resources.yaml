@@ -4,7 +4,7 @@ use: describe-available-ipv4-resources
 short: 查看可售的Ipv4 Cidr Block资源
 long: 查询可售的Ipv4 Cidr Block资源。
 examples:
-- cmd: zencli bmc describe-available-ipv4-resources --charge-type PREPAID
+- cmd: zeno bmc describe-available-ipv4-resources --charge-type PREPAID
   desc: 查询预付费Ipv4 Cidr Block的可用资源
 sdk:
   service: bmc

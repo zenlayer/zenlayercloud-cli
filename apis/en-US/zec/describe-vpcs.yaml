@@ -4,7 +4,7 @@ use: describe-vpcs
 short: Queries the details of global VPCs.
 long: query the details of one or more global VPCs. You can filter the query results with the VPC ID and name.
 examples:
-- cmd: zencli zec describe-vpcs --cidr-block 10.0.0.0/24 --page-size 10 --page-num 1
+- cmd: zeno zec describe-vpcs --cidr-block 10.0.0.0/24 --page-size 10 --page-num 1
   desc: Query all the available global VPCs with a CIDR block of `10.0.0.0/24`.
 sdk:
   service: zec

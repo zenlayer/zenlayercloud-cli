@@ -4,7 +4,7 @@ use: stop-instances
 short: 关闭实例
 long: 本接口用于关闭一个或多个实例。
 examples:
-- cmd: zencli bmc stop-instances --instance-ids instanceId1 --instance-ids instanceId2
+- cmd: zeno bmc stop-instances --instance-ids instanceId1 --instance-ids instanceId2
   desc: ''
 sdk:
   service: bmc

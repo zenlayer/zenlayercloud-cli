@@ -4,7 +4,7 @@ use: describe-eip-price
 short: 创建公网弹性IP询价
 long: 创建公网弹性IP询价。
 examples:
-- cmd: zencli zec describe-eip-price --region-id asia-east-1 --amount 1 --name Test-EIP --internet-charge-type ByTrafficPackage --network-line-type PremiumBGP --bandwidth 50 --flow-package 10
+- cmd: zeno zec describe-eip-price --region-id asia-east-1 --amount 1 --name Test-EIP --internet-charge-type ByTrafficPackage --network-line-type PremiumBGP --bandwidth 50 --flow-package 10
   desc: 查询一个BGP公网IP的价格，网络计费采用流量包计费。流量包大小为10TB。
 sdk:
   service: zec

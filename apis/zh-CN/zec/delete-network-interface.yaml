@@ -4,7 +4,7 @@ use: delete-network-interface
 short: 删除网卡
 long: 删除一张辅助网卡。
 examples:
-- cmd: zencli zec delete-network-interface --nic-id XXX
+- cmd: zeno zec delete-network-interface --nic-id XXX
   desc: 删除网卡。
 sdk:
   service: zec

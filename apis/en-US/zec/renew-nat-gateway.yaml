@@ -4,7 +4,7 @@ use: renew-nat-gateway
 short: Restores a specified NAT gateway.
 long: restore a specified NAT gateway.
 examples:
-- cmd: zencli zec renew-nat-gateway --nat-gateway-id <natGatewayId>
+- cmd: zeno zec renew-nat-gateway --nat-gateway-id <natGatewayId>
   desc: Restore a NAT gateway.
 sdk:
   service: zec

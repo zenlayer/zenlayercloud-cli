@@ -4,7 +4,7 @@ use: un-assign-security-group-vpc
 short: Dissociates a VPC from a security group.
 long: dissociate a VPC from a security group.
 examples:
-- cmd: zencli zec un-assign-security-group-vpc --vpc-id <vpcId>
+- cmd: zeno zec un-assign-security-group-vpc --vpc-id <vpcId>
   desc: Dissociate the VPC from the security group.
 sdk:
   service: zec

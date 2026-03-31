@@ -4,7 +4,7 @@ use: describe-load-balancer-specs
 short: Queries the list of available load balancer specifications in the zone.
 long: query the list of available load balancer specifications in the zone.
 examples:
-- cmd: zencli bmc describe-load-balancer-specs --zone-id HKG-A --charge-type POSTPAID
+- cmd: zeno bmc describe-load-balancer-specs --zone-id HKG-A --charge-type POSTPAID
   desc: Query the list of specifications of pay-as-you-go instances supported in HKG-A.
 sdk:
   service: bmc

@@ -4,7 +4,7 @@ use: invoke-command
 short: Run an existing command.
 long: run an existing command.
 examples:
-- cmd: zencli zos invoke-command --command-id <commandId> --timeout 30 --instance-ids <instanceId> --instance-ids <instanceId>
+- cmd: zeno zos invoke-command --command-id <commandId> --timeout 30 --instance-ids <instanceId> --instance-ids <instanceId>
   desc: Run a command.
 sdk:
   service: zos

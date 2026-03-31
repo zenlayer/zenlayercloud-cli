@@ -4,7 +4,7 @@ use: start-instances
 short: 启动实例
 long: 本接口用于启动一个或多个实例。
 examples:
-- cmd: zencli bmc start-instances --instance-ids instanceId1 --instance-ids instanceId2
+- cmd: zeno bmc start-instances --instance-ids instanceId1 --instance-ids instanceId2
   desc: ''
 sdk:
   service: bmc

@@ -4,7 +4,7 @@ use: delete-subnet
 short: 删除私有子网
 long: 删除一个子网。
 examples:
-- cmd: zencli zec delete-subnet --subnet-id <subnetId>
+- cmd: zeno zec delete-subnet --subnet-id <subnetId>
   desc: 删除子网。
 sdk:
   service: zec

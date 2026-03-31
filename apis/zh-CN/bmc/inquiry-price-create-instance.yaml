@@ -4,9 +4,9 @@ use: inquiry-price-create-instance
 short: 创建实例询价
 long: 创建一个实例询价。
 examples:
-- cmd: zencli bmc inquiry-price-create-instance --zone-id SEL-A --instance-type-id M6C --instance-charge-type PREPAID --traffic-package-size 100 --internet-max-bandwidth-out 200 --internet-charge-type ByBandwidth
+- cmd: zeno bmc inquiry-price-create-instance --zone-id SEL-A --instance-type-id M6C --instance-charge-type PREPAID --traffic-package-size 100 --internet-max-bandwidth-out 200 --internet-charge-type ByBandwidth
   desc: 查询创建预付费实例的询价，带宽计费为固定带宽。
-- cmd: zencli bmc inquiry-price-create-instance --zone-id SEL-A --instance-type-id M6C --instance-charge-type PREPAID --traffic-package-size 100 --internet-max-bandwidth-out 200 --internet-charge-type ByTrafficPackage
+- cmd: zeno bmc inquiry-price-create-instance --zone-id SEL-A --instance-type-id M6C --instance-charge-type PREPAID --traffic-package-size 100 --internet-max-bandwidth-out 200 --internet-charge-type ByTrafficPackage
   desc: 查询创建预付费实例的询价，带宽计费为流量包。
 sdk:
   service: bmc

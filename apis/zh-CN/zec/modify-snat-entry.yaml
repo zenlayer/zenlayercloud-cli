@@ -4,7 +4,7 @@ use: modify-snat-entry
 short: 修改SNAT规则
 long: 修改SNAT规则。
 examples:
-- cmd: zencli zec modify-snat-entry --snat-entry-id <snatEntryId> --subnet-ids <subnetId> --eip-ids <eipId>
+- cmd: zeno zec modify-snat-entry --snat-entry-id <snatEntryId> --subnet-ids <subnetId> --eip-ids <eipId>
   desc: 修改成一个子网类型的SNAT。
 sdk:
   service: zec

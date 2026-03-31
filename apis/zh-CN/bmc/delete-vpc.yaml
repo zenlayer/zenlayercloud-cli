@@ -4,7 +4,7 @@ use: delete-vpc
 short: 删除VPC
 long: 本接口用于删除一个Vpc。
 examples:
-- cmd: zencli bmc delete-vpc --vpc-id your-vpc-id
+- cmd: zeno bmc delete-vpc --vpc-id your-vpc-id
   desc: 删除VPC。
 sdk:
   service: bmc

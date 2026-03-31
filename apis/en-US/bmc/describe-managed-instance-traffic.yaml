@@ -4,7 +4,7 @@ use: describe-managed-instance-traffic
 short: Queries the data transfer in the specified date range.
 long: query the data transfer in the specified date range.
 examples:
-- cmd: zencli bmc describe-managed-instance-traffic --instance-id instanceId --start-time 2023-01-01T00:00:00Z --end-time 2023-01-01T23:59:59Z
+- cmd: zeno bmc describe-managed-instance-traffic --instance-id instanceId --start-time 2023-01-01T00:00:00Z --end-time 2023-01-01T23:59:59Z
   desc: Query the data transfer of the instance in one day.
 sdk:
   service: bmc

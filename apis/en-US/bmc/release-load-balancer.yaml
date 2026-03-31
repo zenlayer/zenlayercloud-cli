@@ -4,7 +4,7 @@ use: release-load-balancer
 short: Releases a load balancer.
 long: release a load balancer.
 examples:
-- cmd: zencli bmc release-load-balancer --load-balancer-id xxxx
+- cmd: zeno bmc release-load-balancer --load-balancer-id xxxx
   desc: Release a load balancer.
 sdk:
   service: bmc
