@@ -1,0 +1,17 @@
+name: DescribeSubnetAvailableResources
+product: bmc
+use: describe-subnet-available-resources
+short: Queries zones available for subnet creation.
+long: query information about zones for subnets.
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DescribeSubnetAvailableResources
+parameters:
+- name: zone-id
+  type: string
+  required: false
+  sdk-field: zoneId
+  description: |-
+    Zone ID.
+    If the value is empty, return information about all the zones available for subnet.

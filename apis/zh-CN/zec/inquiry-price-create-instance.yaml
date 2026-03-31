@@ -90,7 +90,7 @@ parameters:
   - value: BandwidthCluster
     desc: 共享带宽包计费方式。
 - name: traffic-package-size
-  type: integer
+  type: float
   required: false
   sdk-field: trafficPackageSize
   description: |-

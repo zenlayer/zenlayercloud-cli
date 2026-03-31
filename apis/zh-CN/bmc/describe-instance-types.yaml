@@ -1,0 +1,92 @@
+name: DescribeInstanceTypes
+product: bmc
+use: describe-instance-types
+short: 查询实例机型列表
+long: 查询实例机型配置。
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DescribeInstanceTypes
+parameters:
+- name: image-id
+  type: string
+  required: false
+  sdk-field: imageId
+  description: 查询实例机型时，支持某镜像的机型。
+- name: instance-type-ids
+  type: string-array
+  required: false
+  sdk-field: instanceTypeIds
+  description: |-
+    实例机型ID。
+    数量不超过100个。
+- name: minimum-cpu-core-count
+  type: integer
+  required: false
+  sdk-field: minimumCpuCoreCount
+  description: |-
+    查询实例机型时，期望最小CPU内核的数目。
+    取值范围：正整数。
+- name: maximum-cpu-core-count
+  type: integer
+  required: false
+  sdk-field: maximumCpuCoreCount
+  description: |-
+    查询实例机型时，期望最大CPU内核的数目。
+    取值范围：正整数。
+- name: minimum-memory-size
+  type: integer
+  required: false
+  sdk-field: minimumMemorySize
+  description: |-
+    查询实例机型时，期望最小内存大小。
+    取值范围：正整数。
+    单位：GB。
+- name: maximum-memory-size
+  type: integer
+  required: false
+  sdk-field: maximumMemorySize
+  description: |-
+    查询实例机型时，期望最大内存大小。
+    取值范围：正整数。
+    单位：GB。
+- name: minimum-bandwidth
+  type: integer
+  required: false
+  sdk-field: minimumBandwidth
+  description: |-
+    查询实例机型时，期望最小公网入方向带宽限制。
+    单位：Mbps。
+- name: support-raids
+  type: integer-array
+  required: false
+  sdk-field: supportRaids
+  description: |-
+    查询实例机型时，对实例机型做raid时所支持的raid类型。
+    Raid可选值包括：0, 1, 5, 10。
+- name: support-subnet
+  type: boolean
+  required: false
+  sdk-field: supportSubnet
+  description: 查询实例机型时，机型是否支持内网组网。
+- name: minimum-disk-size
+  type: integer
+  required: false
+  sdk-field: minimumDiskSize
+  description: |-
+    查询实例机型时，期望最小磁盘大小。
+    取值范围：正整数。
+    单位：GB。
+- name: maximum-disk-size
+  type: integer
+  required: false
+  sdk-field: maximumDiskSize
+  description: |-
+    查询实例机型时，期望最大磁盘大小。
+    取值范围：正整数。
+    单位：GB。
+- name: is-h-a
+  type: boolean
+  required: false
+  sdk-field: isHA
+  description: 查询实例机型时，是否是高可用机型。

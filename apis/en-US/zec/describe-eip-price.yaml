@@ -87,7 +87,7 @@ parameters:
   sdk-field: bandwidth
   description: Bandwidth
 - name: flow-package
-  type: integer
+  type: float
   required: false
   sdk-field: flowPackage
   description: Data transfer package.

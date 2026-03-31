@@ -90,7 +90,7 @@ parameters:
   - value: BandwidthCluster
     desc: Billed by the burstable 95th bandwidth of all compute resources in a city-based or regional bandwidth cluster with a shared commitment.
 - name: traffic-package-size
-  type: integer
+  type: float
   required: false
   sdk-field: trafficPackageSize
   description: |-

@@ -1,0 +1,24 @@
+name: ModifyInstanceBandwidth
+product: bmc
+use: modify-instance-bandwidth
+short: Modifies the bandwidth of an instance.
+long: The API is used to modify the bandwidth of an instance.
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: ModifyInstanceBandwidth
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: |-
+    Instance ID.
+    To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response.
+- name: bandwidth-out-mbps
+  type: integer
+  required: true
+  sdk-field: bandwidthOutMbps
+  description: |-
+    Bandwidth.
+    Value range: from 1 to maximum supported for the instance model.

@@ -1,0 +1,17 @@
+name: RenewEipAddress
+product: bmc
+use: renew-eip-address
+short: 续费Elastic IP
+long: 本接口用于续费一个EIP。
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: RenewEipAddress
+parameters:
+- name: eip-id
+  type: string
+  required: true
+  sdk-field: eipId
+  description: |-
+    一个EIP ID。
+    可通过DescribeEipAddresses接口返回值中的eipId获取。

@@ -88,7 +88,7 @@ parameters:
     单位为Mbps。
     最大限制通常为10000，如果有额外要求， 请联系Support。
 - name: traffic-package-size
-  type: integer
+  type: float
   required: false
   sdk-field: trafficPackageSize
   description: |-

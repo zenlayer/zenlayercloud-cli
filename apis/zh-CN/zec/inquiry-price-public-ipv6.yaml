@@ -17,7 +17,7 @@ parameters:
   sdk-field: regionId
   description: 节点ID。
 - name: package-size
-  type: integer
+  type: float
   required: false
   sdk-field: packageSize
   description: |-

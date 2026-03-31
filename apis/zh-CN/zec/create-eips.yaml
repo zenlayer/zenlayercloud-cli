@@ -138,7 +138,7 @@ parameters:
   sdk-field: resourceGroupId
   description: 弹性公网IP所放的资源组ID，如不指定则放入默认资源组。
 - name: flow-package
-  type: integer
+  type: float
   required: false
   sdk-field: flowPackage
   description: |-

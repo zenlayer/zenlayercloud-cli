@@ -1,0 +1,60 @@
+name: DescribeManagedInstances
+product: bmc
+use: describe-managed-instances
+short: 查看托管实例列表
+long: 本接口用于查询一台或多台实例的信息。用户可以根据实例ID、实例名称等条件来查询实例的详细信息。
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DescribeManagedInstances
+parameters:
+- name: instance-ids
+  type: string-array
+  required: false
+  sdk-field: instanceIds
+  description: |-
+    实例ID。
+    取值可以由多个实例ID组成一个。
+    最多支持100个ID查询。
+- name: instance-name
+  type: string
+  required: false
+  sdk-field: instanceName
+  description: 实例名称。
+- name: ip
+  type: string
+  required: false
+  sdk-field: ip
+  description: 公网IP地址。
+- name: lan-ip
+  type: string
+  required: false
+  sdk-field: lanIp
+  description: 内网IP地址。
+- name: fac-name
+  type: string
+  required: false
+  sdk-field: facName
+  description: 地域名称。
+- name: city-code
+  type: string
+  required: false
+  sdk-field: cityCode
+  description: 城市代码。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: 返回的分页数。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    返回的分页大小。
+    默认值：20。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: 资源组ID。

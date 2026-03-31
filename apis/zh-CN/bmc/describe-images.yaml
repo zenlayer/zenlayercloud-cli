@@ -1,0 +1,60 @@
+name: DescribeImages
+product: bmc
+use: describe-images
+short: 查看镜像列表
+long: 查看镜像列表。
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DescribeImages
+parameters:
+- name: image-ids
+  type: string-array
+  required: false
+  sdk-field: imageIds
+  description: 镜像ID。
+- name: image-name
+  type: string
+  required: false
+  sdk-field: imageName
+  description: 镜像名称。
+- name: catalog
+  type: string
+  required: false
+  sdk-field: catalog
+  description: |-
+    镜像所属分类。
+    可能值：
+    <ul><li>centos</li><li>windows</li><li>ubuntu</li><li>debian</li><li>esxi</li></ul>
+- name: image-type
+  type: enum
+  required: false
+  sdk-field: imageType
+  description: |-
+    镜像类型。
+    PUBLIC_IMAGE: 公共镜像。
+    CUSTOM_IMAGE：自定义镜像。
+    目前不支持自主的创建自定义镜像，如有需求，请提交support。
+  enum-values:
+  - value: PUBLIC_IMAGE
+    desc: 公共镜像。
+  - value: CUSTOM_IMAGE
+    desc: 自定义镜像。
+- name: os-type
+  type: enum
+  required: false
+  sdk-field: osType
+  description: |-
+    操作系统类型。
+    可能值：
+    <ul><li>windows</li><li>linux</li></ul>
+  enum-values:
+  - value: windows
+    desc: Windows。
+  - value: linux
+    desc: Linux。
+- name: instance-type-id
+  type: string
+  required: false
+  sdk-field: instanceTypeId
+  description: 支持的机型ID。

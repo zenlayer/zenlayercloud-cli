@@ -89,7 +89,7 @@ parameters:
     The maximum limit is usually 10000 Mbps. If you have additional requirements, please contact Support.
     Available range: [1, +).
 - name: traffic-package-size
-  type: integer
+  type: float
   required: false
   sdk-field: trafficPackageSize
   description: |-

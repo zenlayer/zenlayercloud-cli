@@ -1,0 +1,17 @@
+name: DescribeInstanceInternetStatus
+product: bmc
+use: describe-instance-internet-status
+short: Queries the status of instance bandwidth and traffic package.
+long: query the bandwidth and traffic package status of an instance.
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: DescribeInstanceInternetStatus
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: |-
+    Instance ID.
+    To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response.

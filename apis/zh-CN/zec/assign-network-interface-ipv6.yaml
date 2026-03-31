@@ -41,7 +41,7 @@ parameters:
     单位Mbps。
     当子网的堆栈类型包括V6且为公网时，需要指定。
 - name: package-size
-  type: integer
+  type: float
   required: false
   sdk-field: packageSize
   description: |-

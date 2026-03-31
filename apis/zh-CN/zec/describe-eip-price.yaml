@@ -92,7 +92,7 @@ parameters:
     公网弹性IP的带宽限速。
     单位：Mbps。
 - name: flow-package
-  type: integer
+  type: float
   required: false
   sdk-field: flowPackage
   description: |-
