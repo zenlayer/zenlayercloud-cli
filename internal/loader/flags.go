@@ -186,6 +186,9 @@ func bindFlag(cmd *cobra.Command, param *Parameter, store *flagStore) {
 
 func buildFlagDescription(param *Parameter) string {
 	desc := param.Description
+	if idx := strings.Index(desc, "\n"); idx != -1 {
+		desc = desc[:idx]
+	}
 
 	switch param.Type {
 	case "enum":
