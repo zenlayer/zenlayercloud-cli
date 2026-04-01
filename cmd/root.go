@@ -119,6 +119,9 @@ func GetOutput() string {
 	if cfgOutput != "" {
 		return cfgOutput
 	}
+	if envOutput := os.Getenv("ZENLAYER_OUTPUT"); envOutput != "" {
+		return envOutput
+	}
 	return config.GetOutput()
 }
 

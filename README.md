@@ -10,10 +10,7 @@ The official command line interface for [Zenlayer Cloud](https://console.zenlaye
 
 ## Overview
 
-Zenlayer Cloud CLI (`zeno`) is a powerful command-line tool that enables you to manage your Zenlayer Cloud resources efficiently. It provides a unified interface to interact with various Zenlayer Cloud services including:
-
-- **Load Balancer (ZLB)** - Manage load balancers, listeners, and backends
-- **Bandwidth Cluster** - Manage bandwidth clusters and traffic monitoring
+Zenlayer Cloud CLI (`zeno`) is a powerful command-line tool that enables you to manage your Zenlayer Cloud resources efficiently. It provides a unified interface to interact with various Zenlayer Cloud services.
 
 ## Features
 
@@ -126,7 +123,19 @@ Settings are applied in the following priority (highest to lowest):
 | `ZENLAYER_PROFILE` | Profile name to use |
 | `ZENLAYER_ACCESS_KEY_ID` | Access Key ID |
 | `ZENLAYER_ACCESS_KEY_SECRET` | Access Key Secret |
+| `ZENLAYER_OUTPUT` | Output format (`json`/`table`) |
 | `ZENLAYER_DEBUG` | Enable debug mode (`true`/`false`) |
+
+**Example:**
+
+```bash
+# Set output format via environment variable
+export ZENLAYER_OUTPUT=json
+zeno zlb describe-load-balancers
+
+# Or use inline
+ZENLAYER_OUTPUT=table zeno zlb describe-load-balancers
+```
 
 ## Commands
 

@@ -10,10 +10,7 @@
 
 ## 概述
 
-Zenlayer Cloud CLI (`zeno`) 是一个功能强大的命令行工具，可帮助您高效管理 Zenlayer Cloud 资源。它提供统一的界面来与各种 Zenlayer Cloud 服务交互，包括：
-
-- **负载均衡器 (ZLB)** - 管理负载均衡器、监听器和后端服务器
-- **带宽集群** - 管理带宽集群和流量监控
+Zenlayer Cloud CLI (`zeno`) 是一个功能强大的命令行工具，可帮助您高效管理 Zenlayer Cloud 资源。它提供统一的界面来与各种 Zenlayer Cloud 服务交互。
 
 ## 特性
 
@@ -126,7 +123,19 @@ export ZENLAYER_PROFILE=prod
 | `ZENLAYER_PROFILE` | 使用的配置文件名称 |
 | `ZENLAYER_ACCESS_KEY_ID` | Access Key ID |
 | `ZENLAYER_ACCESS_KEY_SECRET` | Access Key Secret |
+| `ZENLAYER_OUTPUT` | 输出格式（`json`/`table`） |
 | `ZENLAYER_DEBUG` | 启用调试模式（`true`/`false`） |
+
+**示例：**
+
+```bash
+# 通过环境变量设置输出格式
+export ZENLAYER_OUTPUT=json
+zeno zlb describe-load-balancers
+
+# 或使用内联方式
+ZENLAYER_OUTPUT=table zeno zlb describe-load-balancers
+```
 
 ## 命令
 
