@@ -78,7 +78,7 @@ main() {
     if [[ -z "$version" ]]; then
         info "Fetching latest release..."
         version="$(curl -fsSL "https://api.github.com/repos/${REPO}/releases/latest" \
-            | grep '"tag_name"' | head -1 | sed -E 's/.*"tag_name":\s*"([^"]+)".*/\1/')"
+            | grep -o '"tag_name": *"[^"]*"' | head -1 | grep -o '"v[^"]*"' | tr -d '"')"
         if [[ -z "$version" ]]; then
             error "Failed to determine latest version. Specify one with --version."
         fi
