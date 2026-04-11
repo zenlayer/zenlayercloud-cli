@@ -1,4 +1,4 @@
-.PHONY: build test lint clean run fmt deps build-all build-mac-universal help
+.PHONY: build test lint clean run fmt deps build-all build-mac-universal changelog help
 
 # Variables
 BINARY_NAME=zeno
@@ -78,6 +78,10 @@ install: build
 run-race:
 	go run -race .
 
+# Generate CHANGELOG.md from git history (requires git-cliff)
+changelog:
+	git-cliff -o CHANGELOG.md
+
 # Help
 help:
 	@echo "Available targets:"
@@ -92,4 +96,5 @@ help:
 	@echo "  build-all          - Build for all platforms"
 	@echo "  build-mac-universal - Build Mac Universal binary (Intel + Apple Silicon)"
 	@echo "  install       - Install to GOPATH/bin"
+	@echo "  changelog     - Generate CHANGELOG.md (requires git-cliff)"
 	@echo "  help          - Show this help"

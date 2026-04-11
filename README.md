@@ -357,27 +357,9 @@ make build TAG=v1.0.0
 
 ## Contributing
 
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+Community contributions are welcome! If you find a bug or have feature suggestions, please submit an [Issue](https://github.com/zenlayer/zenlayercloud-cli/issues) or Pull Request.
 
-### Development Workflow
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-### Code of Conduct
-
-This project adheres to the [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
-
-## Security
-
-If you discover a security vulnerability, please report it by emailing security@zenlayer.com. Do not open a public issue.
-
-## Changelog
-
-See [CHANGELOG.md](CHANGELOG.md) for a list of changes.
+For major changes, we recommend discussing with us first via an Issue.
 
 ## License
 

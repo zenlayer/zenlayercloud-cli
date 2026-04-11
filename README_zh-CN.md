@@ -357,27 +357,9 @@ make build TAG=v1.0.0
 
 ## 贡献
 
-我们欢迎贡献！请参阅我们的[贡献指南](CONTRIBUTING.md)了解详情。
+欢迎社区贡献！如果您发现 Bug 或有功能建议，请提交 [Issue](https://github.com/zenlayer/zenlayercloud-cli/issues) 或 Pull Request。
 
-### 开发流程
-
-1. Fork 本仓库
-2. 创建您的特性分支（`git checkout -b feature/amazing-feature`）
-3. 提交您的更改（`git commit -m 'Add some amazing feature'`）
-4. 推送到分支（`git push origin feature/amazing-feature`）
-5. 创建 Pull Request
-
-### 行为准则
-
-本项目遵循[贡献者行为准则](CODE_OF_CONDUCT.md)。参与本项目即表示您同意遵守该准则。
-
-## 安全
-
-如果您发现安全漏洞，请通过 security@zenlayer.com 发送邮件报告。不要公开创建 issue。
-
-## 更新日志
-
-查看 [CHANGELOG.md](CHANGELOG.md) 了解更改列表。
+对于较大的改动，建议先通过 Issue 与我们讨论。
 
 ## 许可证
 
