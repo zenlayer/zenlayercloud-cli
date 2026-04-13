@@ -1,6 +1,8 @@
 package loader
 
 import (
+	"bytes"
+	"os"
 	"strings"
 	"testing"
 	"testing/fstest"
@@ -158,9 +160,10 @@ func TestMakeAPICommand_Basic(t *testing.T) {
 		func() string { return "" },
 		func() string { return "" },
 		func() interface{} { return "" },
-		func() interface{} { return "" },   // getQuery
+		func() interface{} { return "" },    // getQuery
 		func() interface{} { return false },
 		func() interface{} { return "" },
+		func() interface{} { return false }, // getDryRun
 	)
 
 	if cmd.Use != "describe-instances" {
@@ -197,9 +200,10 @@ func TestMakeAPICommand_WithExamples(t *testing.T) {
 		func() string { return "" },
 		func() string { return "" },
 		func() interface{} { return "" },
-		func() interface{} { return "" },   // getQuery
+		func() interface{} { return "" },    // getQuery
 		func() interface{} { return false },
 		func() interface{} { return "" },
+		func() interface{} { return false }, // getDryRun
 	)
 
 	if !strings.Contains(cmd.Example, "Create a basic instance") {
@@ -225,13 +229,67 @@ func TestMakeAPICommand_NoExamples(t *testing.T) {
 		func() string { return "" },
 		func() string { return "" },
 		func() interface{} { return "" },
-		func() interface{} { return "" },   // getQuery
+		func() interface{} { return "" },    // getQuery
 		func() interface{} { return false },
 		func() interface{} { return "" },
+		func() interface{} { return false }, // getDryRun
 	)
 
 	if cmd.Example != "" {
 		t.Errorf("expected empty Example, got %q", cmd.Example)
+	}
+}
+
+func TestMakeAPICommand_DryRun(t *testing.T) {
+	def := &APIDefinition{
+		Use:   "describe-instances",
+		Short: "Query instances",
+		SDK:   SDKInfo{Service: "zec", Version: "2024-04-01", Action: "DescribeZecInstances"},
+		Parameters: []Parameter{
+			{Name: "zone-id", Type: "string", Description: "Zone ID"},
+		},
+	}
+
+	cmd := makeAPICommand(def,
+		func() string { return "" },
+		func() string { return "" },
+		func() interface{} { return "json" },
+		func() interface{} { return "" },    // getQuery
+		func() interface{} { return false },
+		func() interface{} { return "" },
+		func() interface{} { return true }, // getDryRun = true
+	)
+
+	// Capture stdout
+	old := os.Stdout
+	r, w, _ := os.Pipe()
+	os.Stdout = w
+
+	cmd.SetArgs([]string{"--zone-id", "SEL-A"})
+	err := cmd.Execute()
+
+	w.Close()
+	os.Stdout = old
+
+	if err != nil {
+		t.Fatalf("expected no error, got %v", err)
+	}
+
+	var buf bytes.Buffer
+	buf.ReadFrom(r)
+	out := buf.String()
+
+	if !strings.Contains(out, `"dryRun"`) {
+		t.Errorf("expected dryRun field in output, got: %s", out)
+	}
+	if !strings.Contains(out, `"DescribeZecInstances"`) {
+		t.Errorf("expected action in output, got: %s", out)
+	}
+	if !strings.Contains(out, `"zoneId"`) {
+		t.Errorf("expected param zoneId in output, got: %s", out)
+	}
+	if !strings.Contains(out, `"SEL-A"`) {
+		t.Errorf("expected param value SEL-A in output, got: %s", out)
 	}
 }
 

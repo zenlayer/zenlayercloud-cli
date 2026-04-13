@@ -269,6 +269,7 @@ zeno completion --uninstall [bash|zsh|fish|powershell]  # 卸载特定 shell
 | `--query` | `-q` | 使用 JMESPath 过滤响应（见下文） |
 | `--access-key-id` | | Access Key ID（覆盖配置） |
 | `--access-key-secret` | | Access Key Secret（覆盖配置） |
+| `--cli-dry-run` | | 预览 API 请求，不实际发送 |
 | `--debug` | | 启用调试模式 |
 | `--help` | `-h` | 命令帮助 |
 

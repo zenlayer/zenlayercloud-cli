@@ -61,7 +61,7 @@ func setTestFS(fsys fs.FS) { apisFS = fsys }
 //
 // fsys must contain an "apis/en-US/" subtree (and optionally "apis/zh-CN/").
 // Pass the embed.FS declared in the root main package.
-func RegisterAll(root *cobra.Command, fsys embed.FS, getAccessKeyID, getAccessKeySecret func() string, getOutput, getQuery, getDebug, getEndpoint func() interface{}) error {
+func RegisterAll(root *cobra.Command, fsys embed.FS, getAccessKeyID, getAccessKeySecret func() string, getOutput, getQuery, getDebug, getEndpoint, getDryRun func() interface{}) error {
 	apisFS = fsys
 	lang := langDir(config.GetLanguage())
 
@@ -124,7 +124,7 @@ func RegisterAll(root *cobra.Command, fsys embed.FS, getAccessKeyID, getAccessKe
 			root.AddCommand(prodCmd)
 		}
 
-		apiCmd := makeAPICommand(def, getAccessKeyID, getAccessKeySecret, getOutput, getQuery, getDebug, getEndpoint)
+		apiCmd := makeAPICommand(def, getAccessKeyID, getAccessKeySecret, getOutput, getQuery, getDebug, getEndpoint, getDryRun)
 		prodCmd.AddCommand(apiCmd)
 	}
 
@@ -179,7 +179,7 @@ func listYAMLFiles(root string) ([]string, error) {
 }
 
 // makeAPICommand builds a cobra.Command for a single API definition.
-func makeAPICommand(def *APIDefinition, getAccessKeyID, getAccessKeySecret func() string, getOutput, getQuery, getDebug, getEndpoint func() interface{}) *cobra.Command {
+func makeAPICommand(def *APIDefinition, getAccessKeyID, getAccessKeySecret func() string, getOutput, getQuery, getDebug, getEndpoint, getDryRun func() interface{}) *cobra.Command {
 	// Build examples string for backward compatibility.
 	var exampleLines []string
 	for _, ex := range def.Examples {
@@ -220,6 +220,24 @@ func makeAPICommand(def *APIDefinition, getAccessKeyID, getAccessKeySecret func(
 		params, err := collectParams(store, def, sensitiveValues)
 		if err != nil {
 			return err
+		}
+
+		// Dry-run: preview the request without sending it.
+		if dryRun, ok := getDryRun().(bool); ok && dryRun {
+			endpoint := "console.zenlayer.com"
+			if ep, ok := getEndpoint().(string); ok && ep != "" {
+				endpoint = ep
+			}
+			preview := map[string]interface{}{
+				"dryRun":   true,
+				"endpoint": endpoint,
+				"service":  def.SDK.Service,
+				"version":  def.SDK.Version,
+				"action":   def.SDK.Action,
+				"params":   params,
+				"note":     "dry-run mode: request was not sent",
+			}
+			return output.FormatTo(os.Stdout, "json", preview)
 		}
 
 		keyID := getAccessKeyID()

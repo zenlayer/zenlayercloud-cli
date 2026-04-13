@@ -269,6 +269,7 @@ Removes completion from standard installation paths. Restart your shell after un
 | `--query` | `-q` | JMESPath query to filter response (see below) |
 | `--access-key-id` | | Access Key ID (overrides config) |
 | `--access-key-secret` | | Access Key Secret (overrides config) |
+| `--cli-dry-run` | | Preview the API request without sending it |
 | `--debug` | | Enable debug mode |
 | `--help` | `-h` | Help for command |
 

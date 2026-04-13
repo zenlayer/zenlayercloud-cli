@@ -1,0 +1,49 @@
+# git-cliff configuration
+# https://git-cliff.org/docs/configuration
+
+[changelog]
+header = """# Changelog
+
+All notable changes to this project will be documented in this file.
+
+"""
+body = """
+{%- macro remote_url() -%}
+  https://github.com/zenlayer/zenlayercloud-cli
+{%- endmacro -%}
+
+{% if version -%}
+## [{{ version | trim_start_matches(pat="v") }}]({{ self::remote_url() }}/releases/tag/{{ version }}) - {{ timestamp | date(format="%Y-%m-%d") }}
+{% else -%}
+## [Unreleased]
+{% endif -%}
+
+{% for group, commits in commits | group_by(attribute="group") %}
+### {{ group | striptags | trim | upper_first }}
+{% for commit in commits %}
+- {{ commit.message | split(pat="\n") | first | trim }}\
+{% endfor %}
+{% endfor %}
+"""
+trim = true
+footer = ""
+
+[git]
+conventional_commits = true
+filter_unconventional = false
+split_commits = false
+commit_parsers = [
+  { message = "^feat", group = "Features" },
+  { message = "^fix", group = "Bug Fixes" },
+  { message = "^doc", group = "Documentation" },
+  { message = "^perf", group = "Performance" },
+  { message = "^refactor", group = "Refactoring" },
+  { message = "^style", group = "Styling" },
+  { message = "^test", group = "Testing" },
+  { message = "^chore", group = "Miscellaneous" },
+  { message = "^ci", group = "CI/CD" },
+  { message = "^build", group = "Build" },
+]
+filter_commits = false
+tag_pattern = "v[0-9].*"
+sort_commits = "newest"

@@ -32,6 +32,7 @@ func NewCommonClient(keyID, secret string, cfg *common.Config) (*CommonClient, e
 	if err := c.WithConfig(cfg); err != nil {
 		return nil, fmt.Errorf("failed to apply config: %w", err)
 	}
+	c.WithRequestClient("zeno")
 	return c, nil
 }
 

@@ -19,6 +19,7 @@ var (
 	cfgAccessSecret string
 	cfgEndpoint     string
 	cfgDebug        bool
+	cfgDryRun       bool
 	apisFS          embed.FS
 )
 
@@ -84,6 +85,7 @@ func init() {
 	rootCmd.PersistentFlags().StringVar(&cfgAccessSecret, "access-key-secret", "", "access key secret (overrides config)")
 	rootCmd.PersistentFlags().StringVar(&cfgEndpoint, "endpoint", "", "API domain/endpoint (overrides default)")
 	rootCmd.PersistentFlags().BoolVar(&cfgDebug, "debug", false, "enable debug mode")
+	rootCmd.PersistentFlags().BoolVar(&cfgDryRun, "cli-dry-run", false, "preview the API request without sending it")
 
 	// Flag value completions
 	rootCmd.RegisterFlagCompletionFunc("output", func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
@@ -162,10 +164,16 @@ func registerProductCommands() {
 		func() interface{} { return GetQuery() },
 		func() interface{} { return GetDebug() },
 		func() interface{} { return GetEndpoint() },
+		func() interface{} { return GetDryRun() },
 	)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Warning: failed to register product commands: %v\n", err)
 	}
+}
+
+// GetDryRun returns whether dry-run mode is enabled.
+func GetDryRun() bool {
+	return cfgDryRun
 }
 
 // GetEndpoint returns the API domain/endpoint, applying priority: CLI flag > env.
