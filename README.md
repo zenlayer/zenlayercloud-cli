@@ -20,6 +20,7 @@ Zenlayer Cloud CLI (`zeno`) is a powerful command-line tool that enables you to 
 - 🔄 **Multi-Profile Support** - Manage multiple environments easily
 - 🌐 **Cross-Platform** - Support for Linux, macOS, and Windows
 - 💻 **Shell Completion** - Auto-completion for Bash, Zsh, Fish, and PowerShell
+- 📄 **Automatic Pagination** - Fetch all pages of results with a single `--page-all` flag
 - 🐛 **Debug Mode** - Detailed logging for troubleshooting
 
 ## Installation
@@ -267,6 +268,7 @@ Removes completion from standard installation paths. Restart your shell after un
 | `--profile` | `-p` | Profile name to use |
 | `--output` | `-o` | Output format: json, table |
 | `--query` | `-q` | JMESPath query to filter response (see below) |
+| `--page-all` | | Fetch all pages and merge results (list commands only) |
 | `--access-key-id` | | Access Key ID (overrides config) |
 | `--access-key-secret` | | Access Key Secret (overrides config) |
 | `--cli-dry-run` | | Preview the API request without sending it |
@@ -304,6 +306,24 @@ zeno traffic describe-bandwidth-clusters -q "dataSet[?status=='active']"
 - `items[0]` - First element of array
 
 See [JMESPath Tutorial](https://jmespath.org/tutorial.html) for full syntax.
+
+### Pagination with --page-all
+
+List commands that support `--page-num` / `--page-size` return a single page by default. Use `--page-all` to automatically fetch every page and receive a single merged response.
+
+```bash
+# Fetch all instances across all pages
+zeno zec describe-instances --page-all
+
+# Control items per request (default: 100)
+zeno zec describe-instances --page-all --page-size 50
+
+# Combine with other flags
+zeno zec describe-instances --page-all --output table
+zeno zec describe-instances --page-all --query "instanceSet[*].instanceId"
+```
+
+`--page-all` only appears on commands that support pagination and is not available on non-paginated commands.
 
 ## Development
 

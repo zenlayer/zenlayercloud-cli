@@ -44,6 +44,12 @@ func GenerateHelp(def *APIDefinition, inheritedFlags *pflag.FlagSet) string {
 	for _, param := range def.Parameters {
 		b.WriteString(buildOptionDoc(param))
 	}
+	if isPaginatedDef(def) {
+		b.WriteString(helpIndent + "--page-all (boolean)\n")
+		b.WriteString(helpDoubleIndent + "Automatically fetch all pages and merge results into a single response.\n")
+		b.WriteString(helpDoubleIndent + "Starts from page 1 (ignores --page-num). Uses --page-size as batch size\n")
+		b.WriteString(helpDoubleIndent + "(default 100 if not set).\n\n")
+	}
 
 	// EXAMPLES
 	if len(def.Examples) > 0 {
@@ -81,6 +87,10 @@ func buildSynopsis(def *APIDefinition) string {
 		} else {
 			b.WriteString(fmt.Sprintf("[--%s <value>]\n", param.Name))
 		}
+	}
+	if isPaginatedDef(def) {
+		b.WriteString(helpDoubleIndent)
+		b.WriteString("[--page-all]\n")
 	}
 	return b.String()
 }

@@ -204,6 +204,12 @@ func makeAPICommand(def *APIDefinition, getAccessKeyID, getAccessKeySecret func(
 
 	store := bindFlags(cmd, def)
 
+	// Add --page-all only for commands that support pagination.
+	var pageAll bool
+	if isPaginatedDef(def) {
+		cmd.Flags().BoolVar(&pageAll, "page-all", false, "Automatically fetch all pages and merge results into a single response")
+	}
+
 	cmd.RunE = func(cmd *cobra.Command, args []string) error {
 		// Handle space-separated trailing args for array flags.
 		if err := expandTrailingArgs(cmd, args, store); err != nil {
@@ -257,7 +263,12 @@ func makeAPICommand(def *APIDefinition, getAccessKeyID, getAccessKeySecret func(
 			return fmt.Errorf("failed to create client: %w", err)
 		}
 
-		result, err := client.Call(def.SDK.Service, def.SDK.Version, def.SDK.Action, params)
+		var result map[string]interface{}
+		if pageAll {
+			result, err = fetchAllPages(client, def, params)
+		} else {
+			result, err = client.Call(def.SDK.Service, def.SDK.Version, def.SDK.Action, params)
+		}
 		if err != nil {
 			return err
 		}
