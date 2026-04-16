@@ -10,6 +10,14 @@ All notable changes to this project will be documented in this file.
 - Update markdown and changelog
 - install.sh macOS sed 的兼容性问题
 
+### CI/CD
+
+- update release workflow
+
+### Documentation
+
+- update CHANGELOG.md for v1.0.1
+
 ### Features
 
 - Add --page-all to fetch all data
