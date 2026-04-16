@@ -94,8 +94,7 @@ main() {
     local archive="${BINARY}_${ver_num}_${os}_${arch}.tar.gz"
     local url="https://github.com/${REPO}/releases/download/${version}/${archive}"
 
-    # Create temp directory
-    local tmpdir
+    # Create temp directory (not local — the EXIT trap must access it after main returns)
     tmpdir="$(mktemp -d)"
     trap 'rm -rf "$tmpdir"' EXIT
 
