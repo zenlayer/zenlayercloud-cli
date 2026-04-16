@@ -1,12 +1,11 @@
 # Zenlayer Cloud CLI
 
+[![Go Version](https://img.shields.io/badge/Go-1.25%2B-00ADD8?logo=go)](https://golang.org/dl/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Go Report Card](https://goreportcard.com/badge/github.com/zenlayer/zenlayercloud-cli)](https://goreportcard.com/report/github.com/zenlayer/zenlayercloud-cli)
-[![Go Version](https://img.shields.io/badge/Go-1.21%2B-00ADD8?logo=go)](https://golang.org/dl/)
 
 [Zenlayer Cloud](https://console.zenlayer.com/) 官方命令行工具。
 
-**[English](README.md)** | **[简体中文](README_zh-CN.md)**
+[中文版](README_zh-CN.md) · [English](README.md) · [Reference](https://docs.console.zenlayer.com/zenlayer-cli/cn) · [Changelog](CHANGELOG.md)
 
 ## 概述
 
