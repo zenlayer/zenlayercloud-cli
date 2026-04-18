@@ -1,0 +1,83 @@
+name: DescribeIPTransits
+product: ipt
+use: describe-ip-transits
+short: 本接口用于查询IP Transit资源列表
+long: 本接口用于查询IP Transit资源列表。
+sdk:
+  service: ipt
+  version: '2024-09-01'
+  action: DescribeIPTransits
+parameters:
+- name: ipt-ids
+  type: string-array
+  required: false
+  sdk-field: iptIds
+  description: |-
+    IP Transit ID列表。
+    最大支持长度为100。
+- name: ipt-name
+  type: string
+  required: false
+  sdk-field: iptName
+  description: |-
+    IPT 名称。
+    支持模糊搜索。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: 资源组ID。
+- name: peer-port-id
+  type: string
+  required: false
+  sdk-field: peerPortId
+  description: |-
+    端口ID。
+    通过该字段可以筛选与指定端口有关的IP Transit。
+- name: ipt-dc-id
+  type: string
+  required: false
+  sdk-field: iptDcId
+  description: |-
+    数据中心ID。
+    具体取值可通过调用接口DescribeDataCenters来获得最新的数据中心列表。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    返回的分页大小。
+    默认为20，最大为1000。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    返回的分页数。
+    默认为1。
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    根据标签进行搜索。
+    最长不得超过20个标签。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    根据标签进行搜索。
+    最长不得超过20个标签。
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～128个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～128个字符。

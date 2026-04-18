@@ -1,8 +1,8 @@
 name: DescribeKeyPairs
 product: ccs
 use: describe-key-pairs
-short: Queries SSH key pair list.
-long: query SSH key pair list.
+short: Queries SSH key pair list
+long: Queries the SSH key pairs in the account. You can filter results by key pair ID or name, and paginate results using page-size and page-num.
 examples:
 - cmd: zeno ccs describe-key-pairs
   desc: Query SSH key pair list without any parameters.

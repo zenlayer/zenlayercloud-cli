@@ -1,8 +1,8 @@
 name: DescribeInstanceAvailableCidrBlock
 product: bmc
 use: describe-instance-available-cidr-block
-short: Queries available CIDR blocks for the instance.
-long: query available CIDR blocks for the instance.
+short: Queries available CIDR blocks for the instance
+long: Query available CIDR blocks for the instance.
 examples:
 - cmd: zeno bmc describe-instance-available-cidr-block --instance-id 123456 --cidr-block-type IPV4
   desc: ''

@@ -1,8 +1,15 @@
 name: InvokeCommand
 product: zos
 use: invoke-command
-short: Run an existing command.
-long: run an existing command.
+short: Run an existing command
+long: |-
+  Run an existing command.
+  **Note**
+
+  * You can only run commands on elastic compute instances.
+  * The instance must be in a stable running state.
+  * The instance must have QGA installed.
+  * After the command is successfully run, an **execution ID** is returned.\ You can use this ID to query the execution and view detailed results for each instance.
 examples:
 - cmd: zeno zos invoke-command --command-id <commandId> --timeout 30 --instance-ids <instanceId> --instance-ids <instanceId>
   desc: Run a command.

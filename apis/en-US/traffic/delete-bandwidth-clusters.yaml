@@ -1,8 +1,12 @@
 name: DeleteBandwidthClusters
 product: traffic
 use: delete-bandwidth-clusters
-short: Deletes one or more bandwidth clusters.
-long: delete one or more bandwidth clusters.
+short: Deletes one or more bandwidth clusters
+long: |-
+  Delete one or more bandwidth clusters.
+  **Note**
+
+  Operations are not supported for bandwidth clusters that contains resources.
 examples:
 - cmd: zeno traffic delete-bandwidth-clusters --bandwidth-cluster-ids <bandwidth-cluster-id>
   desc: Delete a bandwidth cluster.

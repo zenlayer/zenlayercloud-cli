@@ -1,7 +1,7 @@
 name: StopAgentMonitor
 product: zec
 use: stop-agent-monitor
-short: 关闭Agent监控采集。
+short: 关闭Agent监控采集
 long: 关闭Agent监控采集。
 examples:
 - cmd: zeno zec stop-agent-monitor --instance-id <instanceId>

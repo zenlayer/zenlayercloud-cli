@@ -2,7 +2,11 @@ name: InquiryPriceCreateDisks
 product: zec
 use: inquiry-price-create-disks
 short: 云硬盘询价
-long: 创建一块或多块云硬盘的询价。
+long: |-
+  创建一块或多块云硬盘的询价。
+  **注意事项**
+
+  * 本接口只能为数据类型的云硬盘询价
 examples:
 - cmd: zeno zec inquiry-price-create-disks --zone-id asia-east-1a --disk-size 2000
   desc: 创建1个2000GiB的云硬盘询价。

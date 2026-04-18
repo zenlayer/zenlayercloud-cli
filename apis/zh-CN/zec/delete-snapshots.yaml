@@ -2,7 +2,13 @@ name: DeleteSnapshots
 product: zec
 use: delete-snapshots
 short: 删除指定快照
-long: 删除指定快照集合。
+long: |-
+  删除指定快照集合。
+  **注意事项**
+
+  * 快照必须处于AVAILABLE状态，快照状态可以通过DescribeSnapshots接口查询，见输出参数中SnapshotState字段解释。支持批量操作。
+  * 如果若在部分快照无法删除的，则接口返回操作失败的快照ID集合。其余快照正常执行。
+  * 支持批量操作。每次请求批量快照的上限为100。
 examples:
 - cmd: zeno zec delete-snapshots --snapshot-ids snapshotId1 --snapshot-ids snapshotId2
   desc: 删除快照集合

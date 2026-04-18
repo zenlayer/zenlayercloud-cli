@@ -1,8 +1,12 @@
 name: AssignBorderGateway
 product: zec
 use: assign-border-gateway
-short: Binds a NAT gateway to a border gateway.
-long: bind a NAT gateway to a border gateway.
+short: Binds a NAT gateway to a border gateway
+long: |-
+  Bind a NAT gateway to a border gateway.
+  **Note**
+
+  * A border gateway can be bound to only one NAT gateway. If the border gateway is already bound to another NAT gateway, the binding will fail.
 examples:
 - cmd: zeno zec assign-border-gateway --zbg-id xxx --nat-id xxx
   desc: Bind a NAT gateway to a border gateway.

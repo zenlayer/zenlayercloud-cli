@@ -1,8 +1,13 @@
 name: DeleteCidrs
 product: zec
 use: delete-cidrs
-short: Deletes one or more CIDR blocks.
-long: delete one or more CIDR blocks.
+short: Deletes one or more CIDR blocks
+long: |-
+  Delete one or more CIDR blocks.
+  **Note**
+
+  * You cannot delete a CIDR block containing an elastic IP.
+  * Deleting a CIDR block is irreversible. Please operate with caution.
 examples:
 - cmd: zeno zec delete-cidrs --cidr-ids cidrId1 --cidr-ids cidrId2
   desc: Delete CIDR blocks in batch.

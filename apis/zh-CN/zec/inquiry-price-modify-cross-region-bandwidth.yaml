@@ -2,7 +2,11 @@ name: InquiryPriceModifyCrossRegionBandwidth
 product: zec
 use: inquiry-price-modify-cross-region-bandwidth
 short: 调整内网跨区域带宽询价
-long: 调整内网跨区域带宽询价。
+long: |-
+  调整内网跨区域带宽询价。
+  **注意事项**
+
+  * 如果计费类型为`ByInstanceBandwidth95`，若只修改突发带宽不涉及计费变更，无需询价。
 examples:
 - cmd: zeno zec inquiry-price-modify-cross-region-bandwidth --cross-region-bandwidth-id "<your cross id>" --bandwidth 500
   desc: 调整计费类型为`ByBandwidth`的内网跨区域带宽询价，带宽调整为500Mbps。

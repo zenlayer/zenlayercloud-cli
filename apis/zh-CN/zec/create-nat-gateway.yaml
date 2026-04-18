@@ -2,7 +2,12 @@ name: CreateNatGateway
 product: zec
 use: create-nat-gateway
 short: 创建NAT网关
-long: 创建NAT网关。
+long: |-
+  创建NAT网关。
+  **注意事项**
+
+  * 本接口为异步接口，接口成功返回后，可使用 [DescribeNatGateways](describenatgateways.md) 接口查询NAT网关的状态。其中状态为`RUNNING`则代表创建成功。
+  * 只支持后付费NAT网关创建。
 examples:
 - cmd: zeno zec create-nat-gateway --region-id asia-east-1 --vpc-id <vpcId> --name name --subnet-ids <subnet> --subnet-ids <subnet> --resource-group-id <resourceGroupId>
   desc: 创建一个NAT网关。

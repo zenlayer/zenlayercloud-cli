@@ -1,7 +1,7 @@
 name: DeregisterBackend
 product: bmc
 use: deregister-backend
-short: 删除负载均衡后端配置服务器。
+short: 删除负载均衡后端配置服务器
 long: 删除负载均衡后端配置服务器。
 examples:
 - cmd: zeno bmc deregister-backend --backend-id xxxx

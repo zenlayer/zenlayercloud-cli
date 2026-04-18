@@ -2,7 +2,7 @@ name: DescribePolicyDetail
 product: zec
 use: describe-policy-detail
 short: 获取防护策略详情
-long: 获取防护策略详情
+long: 获取防护策略详情。
 examples:
 - cmd: zeno zec describe-policy-detail --policy-id <policyId>
   desc: 获取防护策略详情

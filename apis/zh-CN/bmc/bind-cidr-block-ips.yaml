@@ -2,7 +2,15 @@ name: BindCidrBlockIps
 product: bmc
 use: bind-cidr-block-ips
 short: 实例绑定Cidr Block IP
-long: 实例绑定一个或多个Cidr Block IP。
+long: |-
+  实例绑定一个或多个Cidr Block IP。
+  **注意事项**
+
+  * 只有状态为 **AVAILABLE** 的Cidr Block才能操作。
+  * Cidr Block与实例的可用区需一致。
+  * 实例的状态需要是**RUNNING。**
+  * 本接口属于异步接口，即系统会先返回一个请求ID，但Cidr Block与实例并未绑定完成，系统后台的绑定任务仍在进行。您可以调用`DescribeCidrBlockIps`查询Cidr Block的绑定状态。
+  * 实例若单独绑定IPv6需要实例已绑定IPv4。
 examples:
 - cmd: zeno bmc bind-cidr-block-ips --cidr-block-id cidrBlockId --ip-bind-list "{instanceId=instanceId1, ip=1111:1111:2:25::2}" --ip-bind-list "{instanceId=instanceId2, ip=1.1.1.1}"
   desc: 批量绑定IP

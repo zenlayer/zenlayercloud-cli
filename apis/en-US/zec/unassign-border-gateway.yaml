@@ -1,8 +1,12 @@
 name: UnassignBorderGateway
 product: zec
 use: unassign-border-gateway
-short: Unbinds a NAT gateway to a border gateway.
-long: unbind a NAT gateway to a border gateway.
+short: Unbinds a NAT gateway to a border gateway
+long: |-
+  Unbind a NAT gateway to a border gateway.
+  **Notes**
+
+  * If a border gateway is not bound to the NAT gateway, this operation will not fail.
 examples:
 - cmd: zeno zec unassign-border-gateway --zbg-id xxx
   desc: Unbind a NAT gateway to a border gateway.

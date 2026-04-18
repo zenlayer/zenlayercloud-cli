@@ -1,8 +1,14 @@
 name: CreateSubnet
 product: zec
 use: create-subnet
-short: Creates a subnet under a global VPC.
-long: create a subnet under a VPC.
+short: Creates a subnet under a global VPC
+long: |-
+  Create a subnet under a VPC.
+  **Note**
+
+  * The quantity of subnets you can create under one VPC is limited. The IP range of the subnet under a VPC should be a subset of the VPC IP range.
+  * IP ranges of subnets under the same VPC cannot be overlapped.
+  * Call [**`DescribeSubnetRegions`**](describesubnetregions.md) to query regions supporting subnet creation.
 sdk:
   service: zec
   version: '2025-09-01'

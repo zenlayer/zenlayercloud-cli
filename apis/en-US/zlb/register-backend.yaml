@@ -1,8 +1,14 @@
 name: RegisterBackend
 product: zlb
 use: register-backend
-short: Adds one or more backend servers to a load balance listener.
-long: add one or more backend servers to a load balance listener.
+short: Adds one or more backend servers to a load balance listener
+long: |-
+  Add one or more backend servers to a load balance listener.
+  **Note**
+
+  * The state of the load balance instance must be `RUNNING`.
+  * Adding bare metal instances is supported. The bare metal instance must be connected to the border gateway of the load balancer’s VPC through the Layer 3 Cloud Router in Cloud Networking.
+  * When adding a bare metal instance, only its private IP address should be specified; the instance ID must not be provided.
 examples:
 - cmd: zeno zlb register-backend --load-balancer-id <loadBalancerId> --listener-id <listenerId> --backend-servers "{instanceId=<instanceId>, privateIpAddress=10.0.0.1, weight=100}"
   desc: Add a backend server to a listener.
@@ -50,6 +56,6 @@ parameters:
     type: integer
     description: |-
       Target port for request forwarding and health checks.
-      If left empty, it will follow the listener's port configuration.
+      If left empty, it will follow the listener port configuration.
       This parameter is not required when deleting a server.
-      Optional range: [1, 65535].
+      When the listener forwarding mode is `DR`, or the listener uses all ports (0) or multiple ports, specifying a target port is not supported; the target port must match the listener port.

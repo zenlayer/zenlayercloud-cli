@@ -1,0 +1,39 @@
+name: ModifyIPTransitsAttribute
+product: ipt
+use: modify-ip-transits-attribute
+short: Modify basic information of an IP Transit
+long: |-
+  Modifies basic information of an IP Transit, including name and description.
+  **Notes**
+
+  * If any of the specified IDs do not exist, this operation will fail immediately.
+examples:
+- cmd: zeno ipt modify-ip-transits-attribute --ipt-ids your-ipt-id --ipt-name IPT-Singapore
+  desc: Modify IP Transit name
+sdk:
+  service: ipt
+  version: '2024-09-01'
+  action: ModifyIPTransitsAttribute
+parameters:
+- name: ipt-ids
+  type: string-array
+  required: true
+  sdk-field: iptIds
+  description: |-
+    List of IP Transit IDs.
+    Maximum: 100.
+- name: ipt-name
+  type: string
+  required: false
+  sdk-field: iptName
+  description: |-
+    IP Transit name.
+    Maximum: 255 characters.
+    At least one of name or description must be specified.
+- name: ipt-description
+  type: string
+  required: false
+  sdk-field: iptDescription
+  description: |-
+    IP Transit description.
+    At least one of name or description must be specified.

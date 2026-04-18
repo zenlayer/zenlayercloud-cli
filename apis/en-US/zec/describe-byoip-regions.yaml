@@ -1,8 +1,8 @@
 name: DescribeByoipRegions
 product: zec
 use: describe-byoip-regions
-short: Queries the list of regions that support BYOIP CIDR block.
-long: query the list of regions that support BYOIP CIDR block, including IP range, network type and other information.
+short: Queries the list of regions that support BYOIP CIDR block
+long: Query the list of regions that support BYOIP CIDR block, including IP range, network type and other information.
 examples:
 - cmd: zeno zec describe-byoip-regions
   desc: Query the list of regions that support BYOIP CIDR block.

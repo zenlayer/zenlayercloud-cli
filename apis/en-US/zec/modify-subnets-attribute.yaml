@@ -1,8 +1,13 @@
 name: ModifySubnetsAttribute
 product: zec
 use: modify-subnets-attribute
-short: Modifies the attributes of one or more subnets under a global VPC.
-long: modify the attributes of one or more subnets under a global VPC. Only the subnet name to be displayed can be modified for now.
+short: Modifies the attributes of one or more subnets under a global VPC
+long: |-
+  Modify the attributes of one or more subnets under a global VPC. Only the subnet name to be displayed can be modified for now.
+  **Note**
+
+  * Batch operations are supported. Each request can modify up to 100 subnets.
+  * If any of the subnet IDs does not exist, the operation will fail immediately.
 sdk:
   service: zec
   version: '2025-09-01'

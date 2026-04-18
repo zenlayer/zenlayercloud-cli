@@ -2,7 +2,14 @@ name: DetachNetworkInterface
 product: zec
 use: detach-network-interface
 short: 网卡解绑实例
-long: 将一张网卡从实例上解绑。
+long: |-
+  将一张网卡从实例上解绑。
+  **注意事项**
+
+  * 解绑绑定时需要确保实例运行，即实例状态为`RUNNING`状态。
+  * 网卡需要是绑定的状态，即`USED`
+  * 网卡不能是主网卡。
+  * 如果网卡IP关联的实例作为负载均衡实例，则不能解绑。
 examples:
 - cmd: zeno zec detach-network-interface --nic-id <nicId>
   desc: 网卡解绑实例

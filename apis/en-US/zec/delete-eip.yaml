@@ -1,8 +1,13 @@
 name: DeleteEip
 product: zec
 use: delete-eip
-short: Deletes an elastic IP.
-long: delete an elastic IP.
+short: Deletes an elastic IP
+long: |-
+  Delete an elastic IP.
+  **Note**
+
+  * Before deleting an elastic IP, you must unbind it first.
+  * For regular accounts, once an elastic IP is deleted, the resource is immediately reclaimed. This action is irreversible. Proceed with caution.
 sdk:
   service: zec
   version: '2025-09-01'

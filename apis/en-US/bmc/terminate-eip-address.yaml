@@ -1,8 +1,17 @@
 name: TerminateEipAddress
 product: bmc
 use: terminate-eip-address
-short: Returns elastic IPs.
-long: return an elastic IP.
+short: Returns elastic IPs
+long: |-
+  Return an elastic IP.
+  **Note**
+
+  * Use this API to return an elastic IP that is no longer required. A pay-as-you-go elastic IP will stop billing after it is returns.
+  * You cannot return a subscription elastic IP using this API, which will be returned when subscription expires.
+  * When this API is called, the elastic IP will be moved to the recycle bin and be released in 24 hours if there are no other operations. You can also call [`ReleaseEipAddresses`](releaseeipaddresses.md) to release the elastic IP.
+  * Only operations on an elastic IP in status of `AVAILABLE`, `ASSOCIATED`, or `CREATE_FAILED` are supported.
+  * Operations on an elastic IP with `CREATE_FAILED` status will refund all payment amounts.
+  * Operations on an elastic IP with `ASSOCIATED` status will unassign the elastic IP from the instance.
 examples:
 - cmd: zeno bmc terminate-eip-address --eip-id eipId
   desc: Return a specified elastic IP

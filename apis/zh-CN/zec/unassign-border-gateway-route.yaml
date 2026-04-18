@@ -1,7 +1,7 @@
 name: UnassignBorderGatewayRoute
 product: zec
 use: unassign-border-gateway-route
-short: 边界网关解绑自定义路由。
+short: 边界网关解绑自定义路由
 long: 边界网关路由宣告中移除指定的自定义路由。
 examples:
 - cmd: zeno zec unassign-border-gateway-route --zbg-id xxx --advertised-route-ids routeId1 --advertised-route-ids routeId2

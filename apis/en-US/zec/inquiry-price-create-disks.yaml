@@ -1,8 +1,12 @@
 name: InquiryPriceCreateDisks
 product: zec
 use: inquiry-price-create-disks
-short: Queries the price of creating a disk.
-long: query the price of creating a disk.
+short: Queries the price of creating a disk
+long: |-
+  Query the price of creating a disk.
+  **Note**
+
+  Only operations on disks are supported.
 examples:
 - cmd: zeno zec inquiry-price-create-disks --zone-id HKG-A --disk-size 2000
   desc: Query the price of creating a disk.

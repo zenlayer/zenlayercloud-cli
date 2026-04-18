@@ -2,7 +2,24 @@ name: CreateInstances
 product: bmc
 use: create-instances
 short: 创建实例
-long: 创建一个或多个指定配置的实例。
+long: |-
+  创建一个或多个指定配置的实例。
+  #### 准备工作
+
+  * 查询库存：调用[`DescribeAvailableResources`](describeavailableresources.md)查看指定地区的资源供给情况。
+  * 查询密钥对：调用[`DescribeKeyPairs`](../../../security/key-service/key-pair/describekeypairs.md) 可以查询到密钥对ID信息。
+  * 查询机型规格：调用[`DescribeInstanceTypes`](describeinstancetypes.md) 可以查询到区域支持的规格信息。
+  * 查询镜像：调用[`DescribeImages`](describeimages.md)可以查询到镜像信息。
+  * 成本估算：了解裸机云的的计费方式。更多详情，请参见[计费方式概述](https://docs.console.zenlayer.com/welcome/pricing/bare-metal-cloud-pricing/billing-method)。
+
+
+  **注意事项**
+
+  * 实例创建成功后将自动开机启动，实例状态变为`RUNNING`(运行中)。
+  * 预付费实例的购买会预先扣除本次实例购买所需金额，如果余额不足，请求将会失败。后付费实例购买时需要确保账户账号状态正常。
+  * 调用本接口创建实例，支持代金券自动抵扣，详情请参考代金券选用规则。
+  * 本接口为异步接口，当创建实例请求下发成功后会返回一个实例`ID`列表，此时创建实例操作并未立即完成。在此期间实例的状态将会处于`PENDING`或`CREATING`，实例创建结果可以通过调用`DescribeInstances` 接口查询，如果实例状态(instanceStatus)由`CREATING`(创建中)或`PENDING`(等待创建）变为`RUNNING`(运行中)，则代表实例创建成功，`CREATE_FAILED`代表实例创建失败，创建过程中不可对实例进行任何操作。
+  * 单次最多能创建**100**台实例。
 examples:
 - cmd: zeno bmc create-instances --instance-charge-type PREPAID --amount 2 --instance-name SEL-M6C-[1,2] --hostname SEL-M6C-[1,2] --internet-max-bandwidth-out 10 --password Password-12345~ --instance-type-id M6C --internet-charge-type ByBandwidth --zone-id SEL-A --image-id 5ace1756-2230-4d1d-8fc6-84f1897ef397
   desc: ''
@@ -27,10 +44,10 @@ parameters:
     PREPAID：预付费，即包年包月 POSTPAID：后付费
     默认只支持预付费计费方式， 如果需要后付费， 请联系Support开通后付费权限。
   enum-values:
-  - value: POSTPAID
-    desc: 后付费。即按量付费。
   - value: PREPAID
     desc: 预付费。
+  - value: POSTPAID
+    desc: 后付费。即按量付费。
 - name: instance-charge-prepaid
   type: object
   required: false
@@ -212,7 +229,7 @@ parameters:
   description: |-
     用户数据。
     在安装实例时可以通过指定用户数据进行配置实例。当实例首次启动时，用户数据将以文本的方式传递到云服务器中，并执行该文本。支持的最大数据大小为 32KB。
-- name: enable-primary-i-pv6
+- name: enable-primary-ipv6
   type: boolean
   required: false
   sdk-field: enablePrimaryIPv6

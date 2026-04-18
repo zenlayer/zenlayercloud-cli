@@ -1,0 +1,23 @@
+name: DeleteIPTransit
+product: ipt
+use: delete-ip-transit
+short: 删除一条IP Transit
+long: |-
+  删除一条IP Transit。
+  **注意事项**
+
+  * 只允许状态为 **RUNNING** 和 **CREATING\_FAILED** 的 IP Transit 允许此操作
+  * 本接口为异步接口，当删除IP Transit的请求下发成功后，删除IP Transit操作并未立即完成。在此期间二层网络的状态将会处于**DESTROYING**，当删除成功后，数据将无法再从 [DescribeIPTransits](describe-iptransits.md) 中返回。
+examples:
+- cmd: zeno ipt delete-ip-transit --ipt-id your-ipt-id
+  desc: 删除一条指定的IP Transit。
+sdk:
+  service: ipt
+  version: '2024-09-01'
+  action: DeleteIPTransit
+parameters:
+- name: ipt-id
+  type: string
+  required: true
+  sdk-field: iptId
+  description: IP Transit ID。

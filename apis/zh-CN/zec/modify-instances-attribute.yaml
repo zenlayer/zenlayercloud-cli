@@ -2,7 +2,12 @@ name: ModifyInstancesAttribute
 product: zec
 use: modify-instances-attribute
 short: 修改实例属性（名称）
-long: 修改实例属性（名称）。
+long: |-
+  修改实例属性（名称）。
+  **注意事项**
+
+  * 支持批量操作。每次请求批量实例的上限为100。
+  * 如果其中有实例ID不存在，则本操作会立即失败。
 examples:
 - cmd: zeno zec modify-instances-attribute --instance-ids instanceId1 --instance-ids instanceId2 --instance-name Test-Instance
   desc: 批量修改实例的名称。

@@ -1,7 +1,7 @@
 name: DescribeLoadBalancers
 product: bmc
 use: describe-load-balancers
-short: 查询一台或多台指定负载均衡实例的信息。
+short: 查询一台或多台指定负载均衡实例的信息
 long: 查询一台或多台指定负载均衡实例的信息。用户可以根据负载均衡实例的ID、可用区等信息来搜索负载均衡实例的信息。
 examples:
 - cmd: zeno bmc describe-load-balancers --load-balancer-ids xxxx

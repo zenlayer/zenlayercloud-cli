@@ -2,7 +2,18 @@ name: CreateSubnet
 product: bmc
 use: create-subnet
 short: 创建子网
-long: 本接口用于创建一个私有网络Subnet。
+long: |-
+  本接口用于创建一个私有网络Subnet。
+  #### 准备工作
+
+  * 查询可用区是否可创建Subnet：调用`DescribeSubnetAvailableResources`查看。
+  * 你可以创建一个单独的子网，也可以在VPC下创建子网，作为实现节点内不同可用区内网互联，推荐使用VPC下创建子网。当然你也可以选择在单独创建子网后再升级到VPC下。
+
+
+  **注意事项**
+
+  * 同一个可用区能创建的Subnet资源个数也是有限制的，详见 Subnet使用限制，如果需要申请更多资源，请提交Support申请。
+  * 本接口为异步接口，当创建Subnet请求下发成功后会返回一个Subnet`ID`列表，此时创建Subnet操作并未立即完成。在此期间Subnet的状态将会处于`CREATING`，Subnet创建结果可以通过调用`DescribeSubnets`接口查询，如果Subnet状态由`CREATING`(创建中)变为`AVAILABLE`，则代表Subnet创建成功，`CREATE_FAILED`代表Subnet创建失败。创建过程中不可对Subnet进行任何操作。
 sdk:
   service: bmc
   version: '2026-02-01'

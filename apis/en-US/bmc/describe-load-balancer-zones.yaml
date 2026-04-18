@@ -1,8 +1,8 @@
 name: DescribeLoadBalancerZones
 product: bmc
 use: describe-load-balancer-zones
-short: Queries the zones supporting the creating of load balancers.
-long: query the zones supporting the creating of load balancers.
+short: Queries the zones supporting the creating of load balancers
+long: Query the zones supporting the creating of load balancers.
 examples:
 - cmd: zeno bmc describe-load-balancer-zones --charge-type POSTPAID
   desc: Query available zones supporting for creating pay-as-you-go load balancers.
@@ -20,7 +20,7 @@ parameters:
     PREPAID : subscription;
     POSTPAID : pay-as-you-go.
   enum-values:
-  - value: POSTPAID
-    desc: Pay-as-you-go.
   - value: PREPAID
     desc: Subscription.
+  - value: POSTPAID
+    desc: Pay-as-you-go.

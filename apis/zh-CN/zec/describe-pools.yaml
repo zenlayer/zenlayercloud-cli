@@ -1,7 +1,7 @@
 name: DescribePools
 product: zec
 use: describe-pools
-short: 查询公网IP池列表。
+short: 查询公网IP池列表
 long: 查询公网IP池列表。
 examples:
 - cmd: zeno zec describe-pools --pool-ids xxx --region-id asia-east-1 --page-size 10 --page-num 1

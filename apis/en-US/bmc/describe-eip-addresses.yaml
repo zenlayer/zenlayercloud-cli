@@ -1,8 +1,8 @@
 name: DescribeEipAddresses
 product: bmc
 use: describe-eip-addresses
-short: Queries list of elastic IPs.
-long: query the list of elastic IPs. You can query information on elastic IPs according to ID or IP of the elastic IP, and the pricing model.
+short: Queries list of elastic IPs
+long: Query the list of elastic IPs. You can query information on elastic IPs according to ID or IP of the elastic IP, and the pricing model.
 examples:
 - cmd: zeno bmc describe-eip-addresses --eip-charge-type PREPAID
   desc: ''
@@ -27,10 +27,10 @@ parameters:
     PREPAID: subscription
     POSTPAID: pay-as-you-go
   enum-values:
-  - value: POSTPAID
-    desc: Pay-as-you-go.
   - value: PREPAID
     desc: Subscription.
+  - value: POSTPAID
+    desc: Pay-as-you-go.
 - name: ip-address
   type: string
   required: false

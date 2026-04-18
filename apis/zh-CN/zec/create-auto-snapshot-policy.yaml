@@ -1,8 +1,12 @@
 name: CreateAutoSnapshotPolicy
 product: zec
 use: create-auto-snapshot-policy
-short: 创建自动快照策略。
-long: 创建一个自动快照策略。
+short: 创建自动快照策略
+long: |-
+  创建一个自动快照策略。
+  **注意事项**
+
+  * 注意自动快照策略的时间为**UTC+0**时区。
 examples:
 - cmd: zeno zec create-auto-snapshot-policy --zone-id asia-east-1a --auto-snapshot-policy-name week3-policy --repeat-week-days 3 --hours 0 --retention-days 10
   desc: 创建自动快照策略。该策略为每周三0点执行。保留时间10天。

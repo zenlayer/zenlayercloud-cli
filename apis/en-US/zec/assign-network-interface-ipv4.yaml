@@ -1,8 +1,13 @@
 name: AssignNetworkInterfaceIpv4
 product: zec
 use: assign-network-interface-ipv4
-short: Assigns the private IPv4 to the vNIC.
-long: assign the private IPv4 to the vNIC.
+short: Assigns the private IPv4 to the vNIC
+long: |-
+  Assign the private IPv4 to the vNIC.
+  **Note**
+
+  * vNIC state must be `AVAILABLE` or `USED`.
+  * The private IPv4 to bind must be in unbound state.
 sdk:
   service: zec
   version: '2025-09-01'

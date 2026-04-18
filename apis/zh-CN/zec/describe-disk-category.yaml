@@ -1,7 +1,7 @@
 name: DescribeDiskCategory
 product: zec
 use: describe-disk-category
-short: 获取某个区域支持的云盘类型。
+short: 获取某个区域支持的云盘类型
 long: 获取某个区域支持的云盘类型。
 examples:
 - cmd: zeno zec describe-disk-category --zone-id europe-central-1a

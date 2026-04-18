@@ -1,8 +1,22 @@
 name: ReinstallInstance
 product: bmc
 use: reinstall-instance
-short: Reinstalls an instance.
-long: reinstall the operating system of the specified instance.
+short: Reinstalls an instance
+long: |-
+  Reinstall the operating system of the specified instance.
+  #### Prerequisites
+
+  * Query image: call [`DescribeImages`](describeimages.md) to check information on image.
+  * Query key pairs: call [`DescribeKeyPairs`](../../../security/key-service/key-pair/describekeypairs.md) to check information on key pair ID.
+
+
+  **Note**
+
+  * If you specify an `imageId`, the specified image is used. Otherwise, the image used by the current instance is used.
+  * Operations on instances in recycle bin or in stalling status are not supported.
+  * The system disk will be formatted and reset. Therefore, make sure that no important files are stored on the system disk.
+  * If no password is specified, you will get a random password via mailbox.
+  * The status of the instance will be `INSTALLING` during reinstallation. You can use [DescribeInstances](describeinstances.md) to query the status of the instance. If the status changes to `Running`, it means that the instance has been reinstalled successfully; `INSTALL_FAILED` means the instance has been reinstalled failed. Any operations on the instances are not allowed while creating. Please contact Zenlayer Support if you have failed.
 examples:
 - cmd: zeno bmc reinstall-instance --instance-id instanceId
   desc: ''

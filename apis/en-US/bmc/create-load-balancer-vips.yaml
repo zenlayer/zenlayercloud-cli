@@ -1,10 +1,10 @@
 name: CreateLoadBalancerVIPs
 product: bmc
-use: create-load-balancer-v-i-ps
-short: Creates a load balancing virtual IP (VIP).
-long: create a load balancing virtual IP (VIP).
+use: create-load-balancer-vips
+short: Creates a load balancing virtual IP (VIP)
+long: Create a load balancing virtual IP (VIP).
 examples:
-- cmd: zeno bmc create-load-balancer-v-i-ps --load-balancer-id xxxx --count 2
+- cmd: zeno bmc create-load-balancer-vips --load-balancer-id xxxx --count 2
   desc: Create a VIP under a load balancer.
 sdk:
   service: bmc

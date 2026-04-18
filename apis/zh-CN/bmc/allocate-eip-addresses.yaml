@@ -2,7 +2,20 @@ name: AllocateEipAddresses
 product: bmc
 use: allocate-eip-addresses
 short: 创建Elastic IP
-long: 创建一个或多个EIP。
+long: |-
+  创建一个或多个EIP。
+  #### 准备工作
+
+  * 查询区域可购买的EIP：调用`DescribeEipAvailableResources`查看指定地区的资源供给情况。
+  * 成本估算：了解EIP的的计费方式。更多详情，请参见[计费方式概述](https://docs.console.zenlayer.com/welcome/pricing/bare-metal-cloud-pricing/billing-method#elastic-ip)。
+
+
+  **注意事项**
+
+  * 预付费EIP的购买会预先扣除本次EIP购买所需金额，后付费EIP购买时需要确保账户账号状态正常。
+  * 调用本接口创建EIP，支持代金券自动抵扣，详情请参考代金券选用规则。
+  * 本接口为异步接口，当创建EIP请求下发成功后会返回一个`ID`列表，此时创建EIP操作并未立即完成。在此期间EIP的状态将会处于`CREATING`，EIP创建结果可以通过调用`DescribeEipAddresses` 接口查询，如果EIP状态由`CREATING`(创建中)变为`AVAILABLE`，则代表EIP创建成功，`CREATE_FAILED`代表EIP创建失败。创建过程中不可对EIP进行任何操作。
+  * 单次最多能创建100个EIP。
 examples:
 - cmd: zeno bmc allocate-eip-addresses --eip-charge-type POSTPAID --zone-id SEL-A
   desc: ''
@@ -27,10 +40,10 @@ parameters:
     PREPAID：预付费，即包年包月。
     POSTPAID：后付费。
   enum-values:
-  - value: POSTPAID
-    desc: 后付费。即按量付费。
   - value: PREPAID
     desc: 预付费。
+  - value: POSTPAID
+    desc: 后付费。即按量付费。
 - name: eip-charge-prepaid
   type: object
   required: false

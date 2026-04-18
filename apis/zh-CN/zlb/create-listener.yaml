@@ -2,11 +2,15 @@ name: CreateListener
 product: zlb
 use: create-listener
 short: 创建负载均衡监听器
-long: 查询创建负载均衡监听器。
+long: |-
+  在指定的网络型负载均衡实例中创建一个监听器，支持 TCP、UDP 协议。创建时可配置监听端口、调度算法、转发模式及健康检查策略。
+  **注意事项**
+
+  * 当监听器端口为全端口（0）且健康检查类型为`TCP`或`HTTP_GET`时，必须指定`healthCheck.checkPort`（健康检查端口）。
 examples:
-- cmd: zeno zlb create-listener --load-balancer-id <loadBalancerId> --listener-name sample --protocol TCP --scheduler mh --port 8080-9000,8000
+- cmd: zeno zlb create-listener --load-balancer-id <loadBalancerId> --listener-name sample --protocol TCP --scheduler mh --port 8080-9000,8000 --persistent 60 --idle-timeout 60
   desc: 创建一个TCP负载均衡监听器，监听8080-9000以及8000端口。不开启健康检查。
-- cmd: zeno zlb create-listener --load-balancer-id <loadBalancerId> --listener-name sample --protocol TCP --scheduler mh --port 8080
+- cmd: zeno zlb create-listener --load-balancer-id <loadBalancerId> --listener-name sample --protocol TCP --scheduler mh --port 8080 --persistent 60 --idle-timeout 60
   desc: 创建一个TCP负载均衡监听器的同时设置健康检查信息。
 sdk:
   service: zlb
@@ -45,6 +49,7 @@ parameters:
     type: integer
     description: |-
       健康检查端口。
+      当监听器端口为全端口（0）且健康检查类型为TCP或HTTP时，必须指定该端口。
       默认为后端服务的端口，除非您希望指定特定端口，否则建议留空。
   - name: checkDelayLoop
     type: integer
@@ -116,7 +121,7 @@ parameters:
     监听器端口。
     多个端口使用,分隔。
     当端口是范围时用-连接，例如：10000-10005。
-    端口的取值范围为1～65535。
+    端口的取值范围为0～65535，0代表全范围端口。
     请注意端口不能和该监听器的其他端口有重叠。
 - name: kind
   type: enum
@@ -138,3 +143,8 @@ parameters:
   required: false
   sdk-field: persistent
   description: 会话保持时间，单位秒。
+- name: idle-timeout
+  type: integer
+  required: false
+  sdk-field: idleTimeout
+  description: 空闲超时时间，单位秒。

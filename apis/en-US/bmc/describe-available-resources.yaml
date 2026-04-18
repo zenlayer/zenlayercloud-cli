@@ -1,8 +1,8 @@
 name: DescribeAvailableResources
 product: bmc
 use: describe-available-resources
-short: Queries available instances and resources.
-long: describe the status of available resources.
+short: Queries available instances and resources
+long: Describe the status of available resources.
 examples:
 - cmd: zeno bmc describe-available-resources --instance-type-id MDE --instance-charge-type PREPAID --zone-id MOW-B
   desc: Query available resources
@@ -20,10 +20,10 @@ parameters:
     PREPAID: subscription
     POSTPAID: pay-as-you-go
   enum-values:
-  - value: POSTPAID
-    desc: Pay-as-you-go.
   - value: PREPAID
     desc: Subscription.
+  - value: POSTPAID
+    desc: Pay-as-you-go.
 - name: instance-type-id
   type: string
   required: false

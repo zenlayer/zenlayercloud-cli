@@ -1,10 +1,10 @@
 name: DescribeNetworkInterfacePublicIPv6
 product: zec
-use: describe-network-interface-public-i-pv6
-short: 查询网卡的公网IPv6信息。
+use: describe-network-interface-public-ipv6
+short: 查询网卡的公网IPv6信息
 long: 查询网卡的公网IPv6信息。
 examples:
-- cmd: zeno zec describe-network-interface-public-i-pv6 --nic-id <nicId>
+- cmd: zeno zec describe-network-interface-public-ipv6 --nic-id <nicId>
   desc: 查询网卡上的公网IPv6信息。
 sdk:
   service: zec

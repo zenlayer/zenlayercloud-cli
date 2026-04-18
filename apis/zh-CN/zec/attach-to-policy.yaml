@@ -2,7 +2,7 @@ name: AttachToPolicy
 product: zec
 use: attach-to-policy
 short: 防护对象关联防护策略
-long: 防护对象关联防护策略
+long: 防护对象关联防护策略。
 examples:
 - cmd: zeno zec attach-to-policy --policy-id <policyId> --ipv4-id-list eipId1 --ipv4-id-list eipId2
   desc: 防护对象关联防护策略

@@ -1,0 +1,49 @@
+name: ModifyPlacementGroupAttributes
+product: zec
+use: modify-placement-group-attributes
+short: 修改置放组属性
+long: |-
+  修改置放组的名称、分区数、亲和度等属性。
+  **注意事项**
+
+  * 当存在实例时，分区数（partitionNum）只能调大，不能调小。
+  * 若修改后的分区数或亲和度不满足当前实例的分布状态，会拒绝修改，请移除相关实例后再操作。
+examples:
+- cmd: zeno zec modify-placement-group-attributes --placement-group-id placementgroup-xxxxxxxx --name new-placement-group-name
+  desc: 修改置放组名称。
+- cmd: zeno zec modify-placement-group-attributes --placement-group-id placementgroup-xxxxxxxx --partition-num 5
+  desc: 修改置放组的分区数。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyPlacementGroupAttributes
+parameters:
+- name: placement-group-id
+  type: string
+  required: true
+  sdk-field: placementGroupId
+  description: 置放组ID。
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: |-
+    置放组新名称。
+    长度2到63个字符。
+    必须以字母或数字开头和结尾，支持字母、数字、空格、连字符、斜杠、点号。
+- name: partition-num
+  type: integer
+  required: false
+  sdk-field: partitionNum
+  description: |-
+    置放组的分区数。
+    取值范围为2到5。
+    分区数只能调大，不能调小。
+    若修改后的分区数或亲和度不满足当前实例分布状态，会拒绝修改。
+- name: affinity
+  type: integer
+  required: false
+  sdk-field: affinity
+  description: |-
+    置放组的亲和度。
+    取值范围为1到分区数向下取整除以2。

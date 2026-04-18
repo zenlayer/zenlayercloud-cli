@@ -1,8 +1,8 @@
 name: DescribeIpv6Cidrs
 product: zec
 use: describe-ipv6-cidrs
-short: Queries the list of IPv6 CIDR blocks.
-long: query the list of IPv6 CIDR blocks.
+short: Queries the list of IPv6 CIDR blocks
+long: Query the list of IPv6 CIDR blocks.
 examples:
 - cmd: zeno zec describe-ipv6-cidrs --cidr-ids xxx --region-id asia-east-1 --cidr-block 2400:8a00::/28 --page-size 10 --page-num 1
   desc: Query the list of CIDR blocks within `2400:8a00::/28`.

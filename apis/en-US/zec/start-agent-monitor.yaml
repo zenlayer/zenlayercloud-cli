@@ -1,8 +1,12 @@
 name: StartAgentMonitor
 product: zec
 use: start-agent-monitor
-short: Enables QEMU Guest Agent (QGA) data collection.
-long: enable QEMU Guest Agent (QGA) data collection.
+short: Enables QEMU Guest Agent (QGA) data collection
+long: |-
+  Enable QEMU Guest Agent (QGA) data collection.
+  **Note**
+
+  * To enable performance data collection, ensure that QGA (QEMU Guest Agent) is installed.
 examples:
 - cmd: zeno zec start-agent-monitor --instance-id instanceId1
   desc: Enable QEMU Guest Agent (QGA) data collection.

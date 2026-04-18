@@ -1,8 +1,12 @@
 name: ApplySnapshot
 product: zec
 use: apply-snapshot
-short: Reverts to a snapshot.
-long: revert to a snapshot.
+short: Reverts to a snapshot
+long: |-
+  Revert to a snapshot.
+  **Note**
+
+  The snapshot used for rollback must be in the `NORMAL` state. You can use [`DescribeSnapshots`](describesnapshots.md) to query the state of the snapshot. See the description of the `SnapshotState` field in the output parameters.
 examples:
 - cmd: zeno zec apply-snapshot --snapshot-id snapshotId1 --disk-id disk1
   desc: Revert to a snapshot.

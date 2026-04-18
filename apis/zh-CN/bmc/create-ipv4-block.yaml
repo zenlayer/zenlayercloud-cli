@@ -2,7 +2,19 @@ name: CreateIpv4Block
 product: bmc
 use: create-ipv4-block
 short: 创建Ipv4 Cidr Block
-long: 创建一个或多个Ipv4 Cidr Block。
+long: |-
+  创建一个或多个Ipv4 Cidr Block。
+  #### 准备工作
+
+  * 查询可用资源：调用[`DescribeAvailableIpv4Resources`](describeavailableipv4resources.md)查看指定地区的资源供给情况。
+  * 成本估算：了解Cidr Block的的计费方式。更多详情，请参见[计费方式概述](https://docs.console.zenlayer.com/welcome/pricing/bare-metal-cloud-pricing/billing-method#cidr-block)。
+
+
+  **注意事项**
+
+  * 预付费Cidr Block的购买会预先扣除本次购买所需金额，后付费Cidr Block购买时需要确保账户账号状态正常。
+  * 调用本接口创建Cidr Block，支持代金券自动抵扣，详情请参考代金券选用规则。
+  * 本接口为异步接口，当创建Cidr Block请求下发成功后会返回一个`ID`列表，此时创建Cidr Block操作并未立即完成。在此期间Cidr Block的状态将会处于`CREATING`，Cidr Block创建结果可以通过调用`DescribeCidrBlocks` 接口查询，如果Cidr Block状态由`CREATING`(创建中)变为`AVAILABLE`，则代表Cidr Block创建成功，`CREATE_FAILED`代表Cidr Block创建失败。创建过程中不可对Cidr Block进行任何操作。
 examples:
 - cmd: zeno bmc create-ipv4-block --zone-id IST-B --name example1 --charge-type POSTPAID --netmask 29
   desc: ''
@@ -44,10 +56,10 @@ parameters:
     PREPAID：预付费，即包年包月
     POSTPAID：后付费。
   enum-values:
-  - value: POSTPAID
-    desc: 后付费。即按量付费。
   - value: PREPAID
     desc: 预付费。
+  - value: POSTPAID
+    desc: 后付费。即按量付费。
 - name: charge-prepaid
   type: object
   required: false

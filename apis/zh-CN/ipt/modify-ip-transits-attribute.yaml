@@ -1,0 +1,39 @@
+name: ModifyIPTransitsAttribute
+product: ipt
+use: modify-ip-transits-attribute
+short: 修改IP Transit的基本信息
+long: |-
+  修改IP Transit的基本信息，包括名称和备注。
+  **注意事项**
+
+  * 如果指定的ID中有不存在的IP Transit, 本次操作会立即失败。
+examples:
+- cmd: zeno ipt modify-ip-transits-attribute --ipt-ids your-ipt-id --ipt-name IPT-Singapore
+  desc: 修改IP Transit的名称
+sdk:
+  service: ipt
+  version: '2024-09-01'
+  action: ModifyIPTransitsAttribute
+parameters:
+- name: ipt-ids
+  type: string-array
+  required: true
+  sdk-field: iptIds
+  description: |-
+    IP Transit ID 列表。
+    数量不得超过100。
+- name: ipt-name
+  type: string
+  required: false
+  sdk-field: iptName
+  description: |-
+    IP Transit名称。
+    不得超过255个字符。
+    名称和描述信息至少需要有一项指定。
+- name: ipt-description
+  type: string
+  required: false
+  sdk-field: iptDescription
+  description: |-
+    IP Transit 描述信息。
+    名称和描述信息至少需要有一项指定。

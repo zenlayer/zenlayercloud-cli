@@ -2,7 +2,7 @@ name: DescribeBandwidthClusterUsage
 product: traffic
 use: describe-bandwidth-cluster-usage
 short: Query bandwidth cluster usage
-long: query usage information for a bandwidth cluster.
+long: Query usage information for a bandwidth cluster.
 examples:
 - cmd: zeno traffic describe-bandwidth-cluster-usage --bandwidth-cluster-id bandwidthClusterId --page-num 1 --page-size 20
   desc: Query usage information for a bandwidth cluster.

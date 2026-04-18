@@ -1,8 +1,12 @@
 name: RenewCidr
 product: zec
 use: renew-cidr
-short: 恢复IPv4 CIDR地址段。
-long: 将一个处于回收站的IPv4 CIDR地址段恢复回正常。
+short: 恢复IPv4 CIDR地址段
+long: |-
+  将一个处于回收站的IPv4 CIDR地址段恢复回正常。
+  **注意事项**
+
+  * 只有在回收站中的CIDR地址块（即状态是 RECYCLE）才支持该操作。
 examples:
 - cmd: zeno zec renew-cidr --cidr-id xxx
   desc: 恢复CIDR地址块。

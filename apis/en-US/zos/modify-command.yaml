@@ -1,8 +1,12 @@
 name: ModifyCommand
 product: zos
 use: modify-command
-short: Edits a command.
-long: edit a command.
+short: Edits a command
+long: |-
+  Edit a command.
+  **Note**
+
+  If the command is running, you cannot edit it.
 examples:
 - cmd: zeno zos modify-command --command-id <commandId> --name Test --content ""echo 2""
   desc: Edit command name and script content.

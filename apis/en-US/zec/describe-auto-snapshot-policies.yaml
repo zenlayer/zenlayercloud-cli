@@ -1,8 +1,8 @@
 name: DescribeAutoSnapshotPolicies
 product: zec
 use: describe-auto-snapshot-policies
-short: Queries the details of snapshot schedules.
-long: query the details of snapshot schedules.
+short: Queries the details of snapshot schedules
+long: Query the details of snapshot schedules.
 examples:
 - cmd: zeno zec describe-auto-snapshot-policies
   desc: Query the list of snapshot schedule.

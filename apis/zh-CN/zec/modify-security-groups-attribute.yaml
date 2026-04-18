@@ -1,7 +1,7 @@
 name: ModifySecurityGroupsAttribute
 product: zec
 use: modify-security-groups-attribute
-short: 修改安全组的属性。
+short: 修改安全组的属性
 long: 修改安全组的属性（目前只支持修改安全组的名称）。
 examples:
 - cmd: zeno zec modify-security-groups-attribute --security-group-ids <securityGroupId> --security-group-name Test-SecurityGroup

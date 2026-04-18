@@ -1,7 +1,7 @@
 name: DescribeBackends
 product: bmc
 use: describe-backends
-short: 查询一台或多台指定后端配置服务器的信息。
+short: 查询一台或多台指定后端配置服务器的信息
 long: 查询一台或多台指定后端配置服务器的信息。用户可以根据监听器的ID、后端配置服务器的ID等信息来搜索后端配置服务器的信息。
 examples:
 - cmd: zeno bmc describe-backends --listener-id xxxx

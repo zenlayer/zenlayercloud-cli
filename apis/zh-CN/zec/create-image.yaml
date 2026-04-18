@@ -2,7 +2,14 @@ name: CreateImage
 product: zec
 use: create-image
 short: 创建自定义镜像
-long: 用实例创建自定义镜像。
+long: |-
+  用实例创建自定义镜像。
+  **注意事项**
+
+  * 会在实例所在zone下创建出对应的自定义镜像。
+  * 所选实例必须处于`STOPPED`状态。
+  * GPU机型暂时不支持创建自定义镜像。
+  * 如果配额超过了限制，可以联系Support来提高配额。
 examples:
 - cmd: zeno zec create-image --instance-id "<instance id>" --image-name imageXXX
   desc: 用实例创建一个自定义镜像。

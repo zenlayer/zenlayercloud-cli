@@ -2,7 +2,11 @@ name: RenewNatGateway
 product: zec
 use: renew-nat-gateway
 short: 续费NAT网关
-long: 续费一个指定的NAT网关。
+long: |-
+  续费一个指定的NAT网关。
+  **注意事项**
+
+  * 只有NAT网关状态为`RECYCLED` 才支持该操作。
 examples:
 - cmd: zeno zec renew-nat-gateway --nat-gateway-id <natGatewayId>
   desc: 恢复一个NAT网关。

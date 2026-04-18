@@ -2,7 +2,13 @@ name: ReleaseEipAddresses
 product: bmc
 use: release-eip-addresses
 short: 释放Elastic IP
-long: 释放一个或多个EIP。
+long: |-
+  释放一个或多个EIP。
+  **注意事项**
+
+  * 回收站的EIP默认保留24小时。
+  * 只有在回收站中的EIP（即状态是 **RECYCLE**）才支持该操作。
+  * 支持批量操作，每次请求批量EIP的上限为100。
 examples:
 - cmd: zeno bmc release-eip-addresses --eip-ids eipId1 --eip-ids eipId2
   desc: ''

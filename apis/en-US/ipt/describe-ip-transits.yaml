@@ -1,0 +1,83 @@
+name: DescribeIPTransits
+product: ipt
+use: describe-ip-transits
+short: Query IP Transit resource list
+long: Queries IP Transit resource list.
+sdk:
+  service: ipt
+  version: '2024-09-01'
+  action: DescribeIPTransits
+parameters:
+- name: ipt-ids
+  type: string-array
+  required: false
+  sdk-field: iptIds
+  description: |-
+    List of IP Transit IDs.
+    Maximum: 100.
+- name: ipt-name
+  type: string
+  required: false
+  sdk-field: iptName
+  description: |-
+    IP Transit name.
+    Fuzzy search is supported.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: Resource group ID.
+- name: peer-port-id
+  type: string
+  required: false
+  sdk-field: peerPortId
+  description: |-
+    Port ID.
+    Use this field to filter IP Transits associated with the specified port.
+- name: ipt-dc-id
+  type: string
+  required: false
+  sdk-field: iptDcId
+  description: |-
+    Data center ID.
+    You can call DescribeDataCenters to get the latest data center list.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    Number of results per page.
+    Default: 20. Maximum: 1000.
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    Page number of the returned pages.
+    Default: 1.
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    Filter by tag keys.
+    Maximum: 20 tags.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    Filter by tags.
+    Maximum: 20 tags.
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      Tag key.
+      Length limit: 1-128 characters.
+  - name: value
+    type: string
+    description: |-
+      Tag value.
+      Length limit: 1-128 characters.

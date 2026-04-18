@@ -1,8 +1,19 @@
 name: CreateSubnet
 product: bmc
 use: create-subnet
-short: Creates subnet.
-long: create a subnet.
+short: Creates subnet
+long: |-
+  Create a subnet.
+  #### Prerequisites
+
+  Before creating a subnet, call [`DescribeSubnetAvailableResources`](describesubnetavailableresources.md) to check the zones available for subnet creation.
+
+
+  **Note**
+
+  * The quantity of subnets you can create in one zone is limited. If you need more, please contact Zenlayer Support.
+  * Create a subnet separately if you need a Layer 2 network; create subnets in a VPC if you need a Layer 3 network. You are recommended to create subnets in a VPC because they can communicate with each other. You can also create a subnet separately and then upgrade it into a VPC.
+  * This API is an async API. A subnet ID list is returned after the creation request is sent. However, it does not mean the creation has been completed. The status of the subnet will be `CREATING` during the creation. You can use [`DescribeSubnets`](describesubnets.md) to query the status of the subnet. If the status changes from `Creating` to `Available`, it means that the subnet has been created successfully; `CREATE_FAILED` means the subnet has been created failed. Any operations on the subnets are not allowed while creating.
 sdk:
   service: bmc
   version: '2026-02-01'

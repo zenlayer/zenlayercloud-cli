@@ -1,8 +1,18 @@
 name: CreateIpv6Block
 product: bmc
 use: create-ipv6-block
-short: Creates IPv6 CIDR blocks.
-long: create one or more IPv6 CIDR blocks.
+short: Creates IPv6 CIDR blocks
+long: |-
+  Create one or more IPv6 CIDR blocks.
+  #### Prerequisites
+
+  * Query stock: call [`DescribeAvailableIpv6Resources`](describeavailableipv6resources.md) to check available resources.
+
+
+  **Note**
+
+  * An IPv6 CIDR block contains 500 available IPs.
+  * This API is an async API. A CIDR block ID list is returned after the creation request is sent. However, it does not mean the creation has been completed. The status of the CIDR block will be `CREATING` during the creation. You can use [DescribeCidrBlocks](describecidrblocks.md) to query the status of the CIDR block. If the status changes from `Creating` to `Available`, it means that the CIDR block has been created successfully; `CREATE_FAILED` means the CIDR block has been created failed. Any operations on the instances are not allowed while creating.
 examples:
 - cmd: zeno bmc create-ipv6-block --zone-id ISB-B --name example --amount 1
   desc: ''

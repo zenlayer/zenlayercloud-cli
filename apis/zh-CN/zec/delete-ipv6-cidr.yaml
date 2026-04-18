@@ -1,8 +1,13 @@
 name: DeleteIpv6Cidr
 product: zec
 use: delete-ipv6-cidr
-short: 删除IPv6 CIDR地址块。
-long: 删除IPv6 CIDR地址块。
+short: 删除IPv6 CIDR地址块
+long: |-
+  删除IPv6 CIDR地址块。
+  **注意事项**
+
+  * CIDR 地址段下如果有分配到子网，则无法删除该 CIDR 地址段。
+  * 普通账号删除CIDR后，该资源会直接回收。操作不可逆。
 examples:
 - cmd: zeno zec delete-ipv6-cidr --cidr-id <cidrId>
   desc: 删除指定的CIDR地址段。

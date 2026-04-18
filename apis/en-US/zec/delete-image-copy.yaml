@@ -1,0 +1,25 @@
+name: DeleteImageCopy
+product: zec
+use: delete-image-copy
+short: Deletes regional replicated images
+long: |-
+  Delete regional replicated images.
+  Keep at least one regional replica. Deletion is allowed only when the image is in the Available state; otherwise (e.g., during replication), an INVALID_IMAGE_STATUS error will be returned.
+examples:
+- cmd: zeno zec delete-image-copy --image-id "<custom image id>" --region-ids region-a --region-ids region-b
+  desc: Delete regional replicated images.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DeleteImageCopy
+parameters:
+- name: image-id
+  type: string
+  required: true
+  sdk-field: imageId
+  description: Custom image ID.
+- name: region-ids
+  type: string-array
+  required: true
+  sdk-field: regionIds
+  description: Region ID list of regional replicas.

@@ -2,7 +2,12 @@ name: AddLoadBalancersPrivateIps
 product: zlb
 use: add-load-balancers-private-ips
 short: 为负载均衡器实例添加内网IP
-long: 为负载均衡器实例添加内网IP。
+long: |-
+  为负载均衡器实例添加内网IP。
+  **注意事项**
+
+  * Subnet所属的区域和VPC需要和负载均衡器实例一致。
+  * 指定的内网IP需要在Subnet的CIDR范围内且没被其它资源占用。
 examples:
 - cmd: zeno zlb add-load-balancers-private-ips --private-ips 10.0.0.0 --load-balancer-id "<your lb id>" --subnet-id "<your subnet id>"
   desc: 为负载均衡器实例添加内网IP

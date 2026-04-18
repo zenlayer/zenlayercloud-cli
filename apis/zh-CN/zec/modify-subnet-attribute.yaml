@@ -1,8 +1,12 @@
 name: ModifySubnetAttribute
 product: zec
 use: modify-subnet-attribute
-short: 修改子网属性。
-long: 修改子网属性。包括名称，CIDR等。
+short: 修改子网属性
+long: |-
+  修改子网属性。包括名称，CIDR等。
+  **注意事项**
+
+  * 当修改子网的 `CIDR Block` ，如果子网存在实例，则修改的`CIDR Block`范围必须包含覆盖`CIDR Block`, 比如 10.0.0.0/24 -> 10.0.0.0/23
 examples:
 - cmd: zeno zec modify-subnet-attribute --subnet-id <subnetId> --name Test-Subnet --cidr-block 10.0.0.0/23
   desc: 修改子网名称和IPv4的CIDR Block。

@@ -1,8 +1,24 @@
 name: ChangeNicNetworkType
 product: zec
 use: change-nic-network-type
-short: Modifies the vNIC mode of the instance.
-long: modify the network interface mode of the instance.
+short: Modifies the vNIC mode of the instance
+long: |-
+  Modify the network interface mode of the instance.
+  #### Prerequisites
+
+  * Query images: call[ `DescribeImages`](../image/describeimages.md) to check information on image.
+
+  ## 2. Input Parameters
+
+  The following request parameter list only provides API request parameters.
+
+  <table><thead><tr><th width="211">Parameter Name</th><th width="160">Required</th><th width="120">Type</th><th>Description</th></tr></thead><tbody><tr><td>instanceId</td><td>Yes</td><td>String</td><td>ID of the instance.</td></tr><tr><td>nicNetworkType</td><td>Yes</td><td>String</td><td>Network interface mode.</td></tr></tbody></table>
+
+  ## 3. Output Parameters
+
+  <table><thead><tr><th width="213">Parameter Name</th><th width="113">Type</th><th>Description</th></tr></thead><tbody><tr><td>requestId</td><td>String</td><td>The unique request ID, which is returned for each request. RequestId is required for locating a problem.</td></tr></tbody></table>
+
+  ## 4. Code Example
 examples:
 - cmd: zeno zec change-nic-network-type --instance-id instanceId1 --nic-network-type FailOver
   desc: Modify the network interface mode of the instance.

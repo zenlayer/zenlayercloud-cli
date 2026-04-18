@@ -1,8 +1,8 @@
 name: DeleteSnatEntry
 product: zec
 use: delete-snat-entry
-short: Deletes a SNAT rule.
-long: delete a SNAT rule.
+short: Deletes a SNAT rule
+long: Delete a SNAT rule.
 examples:
 - cmd: zeno zec delete-snat-entry --snat-entry-id <snatEntryId>
   desc: Delete a SNAT entry.

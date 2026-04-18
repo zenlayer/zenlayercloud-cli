@@ -1,7 +1,7 @@
 name: DescribeNatGatewayDetail
 product: zec
 use: describe-nat-gateway-detail
-short: NAT网关详情规则表。
+short: NAT网关详情规则表
 long: 查询NAT网关详情规则表。
 examples:
 - cmd: zeno zec describe-nat-gateway-detail --nat-gateway-id <natGatewayId>

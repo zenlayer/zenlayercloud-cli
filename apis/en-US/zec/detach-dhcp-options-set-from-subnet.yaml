@@ -1,8 +1,8 @@
 name: DetachDhcpOptionsSetFromSubnet
 product: zec
 use: detach-dhcp-options-set-from-subnet
-short: Disassociates a DHCP options set from subnets.
-long: disassociate a DHCP options set from subnets.
+short: Disassociates a DHCP options set from subnets
+long: Disassociate a DHCP options set from subnets.
 examples:
 - cmd: zeno zec detach-dhcp-options-set-from-subnet --subnet-ids subnetId1 --subnet-ids subnetId2
   desc: Disassociate a DHCP options set from subnets.

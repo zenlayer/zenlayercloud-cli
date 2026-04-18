@@ -2,7 +2,11 @@ name: CancelInstanceBandwidthDowngrade
 product: bmc
 use: cancel-instance-bandwidth-downgrade
 short: 取消带宽降配订单
-long: 取消带宽降配订单。
+long: |-
+  取消带宽降配订单。
+  **注意事项**
+
+  * 需实例存在带宽降配订单。
 sdk:
   service: bmc
   version: '2026-02-01'

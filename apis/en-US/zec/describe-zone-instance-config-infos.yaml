@@ -1,8 +1,8 @@
 name: DescribeZoneInstanceConfigInfos
 product: zec
 use: describe-zone-instance-config-infos
-short: Queries information on instance size in the zone.
-long: query information on instance size in the zone.
+short: Queries information on instance size in the zone
+long: Query information on instance size in the zone.
 examples:
 - cmd: zeno zec describe-zone-instance-config-infos --instance-type z2a.cpu.4
   desc: ''

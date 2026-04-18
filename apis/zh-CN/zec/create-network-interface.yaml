@@ -1,8 +1,12 @@
 name: CreateNetworkInterface
 product: zec
 use: create-network-interface
-short: 创建辅助网卡。
-long: 创建一张辅助网卡。
+short: 创建辅助网卡
+long: |-
+  创建一张辅助网卡。
+  **注意事项**
+
+  * 此操作为异步接口，调用成功后，辅助网卡并未立刻创建成功， 需要等待网卡的状态从`PENDING`到`Available`则为创建成功，如果状态变为`CREATE_FAILED`则创建失败。
 examples:
 - cmd: zeno zec create-network-interface --name Test-NIC --subnet-id <subnetId>
   desc: 在IPv4堆栈类型的子网下创建一张辅助网卡。

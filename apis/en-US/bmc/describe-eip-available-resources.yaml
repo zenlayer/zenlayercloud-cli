@@ -1,8 +1,8 @@
 name: DescribeEipAvailableResources
 product: bmc
 use: describe-eip-available-resources
-short: Queries elastic IP resources in the zone.
-long: query elastic IP resources for sale in the zone.
+short: Queries elastic IP resources in the zone
+long: Query elastic IP resources for sale in the zone.
 examples:
 - cmd: zeno bmc describe-eip-available-resources --eip-charge-type PREPAID --zone-id SEL-A
   desc: 'Query prepaid elastic IP resources for sale in the zone: SEL-A'
@@ -20,10 +20,10 @@ parameters:
     PREPAID: subscription
     POSTPAID: pay-as-you-go
   enum-values:
-  - value: POSTPAID
-    desc: Pay-as-you-go.
   - value: PREPAID
     desc: Subscription.
+  - value: POSTPAID
+    desc: Pay-as-you-go.
 - name: zone-id
   type: string
   required: false

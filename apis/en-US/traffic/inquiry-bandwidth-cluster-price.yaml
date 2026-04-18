@@ -1,8 +1,8 @@
 name: InquiryBandwidthClusterPrice
 product: traffic
 use: inquiry-bandwidth-cluster-price
-short: Queries the price of the bandwidth cluster.
-long: query the price of the bandwidth cluster.
+short: Queries the price of the bandwidth cluster
+long: Query the price of the bandwidth cluster.
 examples:
 - cmd: zeno traffic inquiry-bandwidth-cluster-price --area-code SHA --charge-type POSTPAID --commit-bandwidth-mbps 100 --network-type BGP --internet-charge-type MonthlyPercent95Bandwidth
   desc: Query the price of the bandwidth cluster in Shanghai (SHA), with a bandwidth cluster of `100` Mbps, `BGP` network type and `Monthly Burstable 95th` billing method.

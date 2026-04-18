@@ -1,0 +1,39 @@
+name: ModifyIPTransitBandwidth
+product: ipt
+use: modify-ip-transit-bandwidth
+short: 修改一条IP Transit的带宽限速
+long: |-
+  修改一条IP Transit的带宽限速。
+  **注意事项**
+
+  * 仅当IP Transit线状态为**AVAILABLE**时，才能进行带宽限速的变更操作。
+  * 本接口为异步接口，此时带宽修改操作并未立即完成。在此期间IP Transit的状态将会处于**UPDATING**，结果可以通过调用[DescribeIPTransits](describe-iptransits.md) 接口查询，如果状态(`iptStatus`)由 **UPDATING**(修改中)变为**AVAILABLE**(可用)，则代表带宽更新成功。
+  * 在变更带宽期间，不得对该IP Transit进行其他任何操作。
+examples:
+- cmd: zeno ipt modify-ip-transit-bandwidth --ipt-id your-ipt-id --bandwidth 100
+  desc: 修改IP Transit带宽为100Mbps
+sdk:
+  service: ipt
+  version: '2024-09-01'
+  action: ModifyIPTransitBandwidth
+parameters:
+- name: ipt-id
+  type: string
+  required: true
+  sdk-field: iptId
+  description: IP Transit ID。
+- name: bandwidth
+  type: integer
+  required: true
+  sdk-field: bandwidth
+  description: |-
+    需要修改的带宽限速。
+    范围：1~1000。
+    单位：Mbps。
+- name: commit-bandwidth
+  type: integer
+  required: false
+  sdk-field: commitBandwidth
+  description: |-
+    保底带宽。
+    当IP Transit的带宽计费方式为95计费时该参数有效，如果不设置，则不会修改保底。

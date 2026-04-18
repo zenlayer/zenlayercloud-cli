@@ -2,7 +2,7 @@ name: DescribeZones
 product: bmc
 use: describe-zones
 short: 查询可用区信息
-long: 查询可用区信息。​
+long: 查询可用区信息。
 sdk:
   service: bmc
   version: '2026-02-01'

@@ -1,8 +1,8 @@
 name: DescribeDhcpOptionsSets
 product: zec
 use: describe-dhcp-options-sets
-short: Queries list of DHCP options sets created.
-long: query the list of DHCP option sets that have been created.
+short: Queries list of DHCP options sets created
+long: Query the list of DHCP option sets that have been created.
 examples:
 - cmd: zeno zec describe-dhcp-options-sets --dhcp-options-set-name dhcpOptionsSetName1 --page-size 10 --page-num 1
   desc: Query the list of DHCP option sets created.

@@ -1,8 +1,14 @@
 name: StopInstances
 product: zec
 use: stop-instances
-short: 关闭虚拟机实例。
-long: 关闭一台或多台虚拟机实例。
+short: 关闭虚拟机实例
+long: |-
+  关闭一台或多台虚拟机实例。
+  **注意事项**
+
+  * 实例状态为运行中(`RUNNING`)或关闭中的实例(`STOPPING`)，可以进行此操作。在一些场景可能会导致普通关机失败，可以设置 `forceShutdown` = true 来强制关机。
+  * 本接口为异步接口，关闭实例请求发送成功后会立即返回，此时操作并未完成。实例操作结果可以通过调用[DescribeInstancesStatus](describeinstancesstatus.md)接口查询，如果实例状态(`instanceStatus`)由`STOPPING`变为`STOPPED`，则代表实例关闭成功，关闭过程中不可对实例进行任何操作。
+  * 支持批量操作。每次请求批量实例的上限为100。
 examples:
 - cmd: zeno zec stop-instances --instance-ids instanceId1 --instance-ids instanceId2 --force-shutdown true
   desc: 强制关闭2台实例。

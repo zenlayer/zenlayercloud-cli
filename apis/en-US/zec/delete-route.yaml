@@ -1,8 +1,12 @@
 name: DeleteRoute
 product: zec
 use: delete-route
-short: Deletes a route.
-long: delete a route.
+short: Deletes a route
+long: |-
+  Delete a route.
+  **Note**
+
+  System-generated routes cannot be deleted. Only user-created routes can be deleted. Routes of type `RouteTypeStatic` and `RouteTypePolicy` are supported.
 examples:
 - cmd: zeno zec delete-route --vpc-id <vpcId> --route-id <routeId>
   desc: Delete a route.

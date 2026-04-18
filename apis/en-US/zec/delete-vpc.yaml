@@ -1,8 +1,13 @@
 name: DeleteVpc
 product: zec
 use: delete-vpc
-short: Deletes a global VPC.
-long: delete a global VPC.
+short: Deletes a global VPC
+long: |-
+  Delete a global VPC.
+  **Note**
+
+  * Operations on global VPCs with subnets in it are not supported.
+  * Operations on default global VPCs are not supported.
 sdk:
   service: zec
   version: '2025-09-01'

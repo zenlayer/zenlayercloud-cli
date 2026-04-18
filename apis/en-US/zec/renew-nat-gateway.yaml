@@ -1,8 +1,12 @@
 name: RenewNatGateway
 product: zec
 use: renew-nat-gateway
-short: Restores a specified NAT gateway.
-long: restore a specified NAT gateway.
+short: Restores a specified NAT gateway
+long: |-
+  Restore a specified NAT gateway.
+  **Note**
+
+  Operations are only supported if the NAT gateway state is `RECYCLED`.
 examples:
 - cmd: zeno zec renew-nat-gateway --nat-gateway-id <natGatewayId>
   desc: Restore a NAT gateway.

@@ -1,8 +1,8 @@
 name: DescribeDisks
 product: zec
 use: describe-disks
-short: Queries the details of disks.
-long: query the details of disks.
+short: Queries the details of disks
+long: Query the details of disks.
 examples:
 - cmd: zeno zec describe-disks --disk-status IN_USE --disk-size 20 --zone-id asia-east-1a
   desc: Query the details of disks.

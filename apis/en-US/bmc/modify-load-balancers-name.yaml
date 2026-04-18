@@ -1,8 +1,8 @@
 name: ModifyLoadBalancersName
 product: bmc
 use: modify-load-balancers-name
-short: Modifies the name of a load balancer.
-long: modify the name of a load balancer.
+short: Modifies the name of a load balancer
+long: Modify the name of a load balancer.
 examples:
 - cmd: zeno bmc modify-load-balancers-name --load-balancer-ids xxxx --load-balancer-name xxxx
   desc: Modify the name of the load balancer instance.

@@ -1,8 +1,8 @@
 name: DescribeBandwidthClusterResources
 product: traffic
 use: describe-bandwidth-cluster-resources
-short: Queries resources in a bandwidth cluster.
-long: query resources in a bandwidth cluster.
+short: Queries resources in a bandwidth cluster
+long: Query resources in a bandwidth cluster.
 examples:
 - cmd: zeno traffic describe-bandwidth-cluster-resources --bandwidth-cluster-id <bandwidthClusterId>
   desc: Query resources in a bandwidth cluster.

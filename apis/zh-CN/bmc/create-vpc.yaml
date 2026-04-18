@@ -2,7 +2,17 @@ name: CreateVpc
 product: bmc
 use: create-vpc
 short: 创建VPC
-long: 本接口用于创建一个私有网络VPC。
+long: |-
+  本接口用于创建一个私有网络VPC。
+  #### 准备工作
+
+  * 在创建VPC之前，你可以调用`DescribeVpcAvailableRegions`进行查看哪些节点支持VPC的创建。
+
+
+  **注意事项**
+
+  * 同一个VPC节点能创建的VPC资源个数也是有限制的，详见VPC使用限制，如果需要申请更多资源，请提交Support申请。
+  * 本接口为异步接口，当创建VPC请求下发成功后会返回一个VPC`ID`列表，此时创建VPC操作并未立即完成。在此期间VPC的状态将会处于`CREATING`，VPC创建结果可以通过调用`DescribeVpcs`接口查询，如果VPC状态由`CREATING`(创建中)变为`AVAILABLE`，则代表VPC创建成功，`CREATE_FAILED`代表VPC创建失败。创建过程中不可对VPC进行任何操作。
 examples:
 - cmd: zeno bmc create-vpc --vpc-region-id CHI1 --cidr-block 10.0.0.0/8 --vpc-name Test-VPC
   desc: 创建CHI1节点的VPC。

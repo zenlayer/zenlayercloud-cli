@@ -2,7 +2,12 @@ name: RegisterBackend
 product: zlb
 use: register-backend
 short: 绑定后端机器到监听器上
-long: 将一台或多台后端服务绑定到负载均衡的监听器。
+long: |-
+  将一台或多台后端服务绑定到负载均衡的监听器。
+  **注意事项**
+
+  * 负载均衡实例的状态必须是`RUNNING`
+  * 支持添加bmc的实例，要求实例的必须通过 **云网络 L3 产品** 与负载均衡器所属的VPC的边界网关建立联通。在添加bmc实例时，只需指定bmc实例的内网ip地址，不能填入实例ID。
 examples:
 - cmd: zeno zlb register-backend --load-balancer-id <loadBalancerId> --listener-id <listenerId> --backend-servers "{instanceId=<instanceId>, privateIpAddress=10.0.0.1, weight=100}"
   desc: 绑定一个后端机器到监听器上。
@@ -51,4 +56,4 @@ parameters:
       请求转发和健康检查的目标端口。
       如果为空，将跟随监听器端口配置。
       删除时不需要指定该参数。
-      如果监听器转发模式为`DR`，不支持指定目标端口，跟随监听器端口。
+      如果监听器转发模式为`DR`、监听器端口为全端口（0）或监听多个端口，不支持指定目标端口，必须跟随监听器端口。

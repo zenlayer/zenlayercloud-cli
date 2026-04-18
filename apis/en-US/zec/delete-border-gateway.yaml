@@ -1,8 +1,13 @@
 name: DeleteBorderGateway
 product: zec
 use: delete-border-gateway
-short: Deletes a border gateway.
-long: delete a border gateway.
+short: Deletes a border gateway
+long: |-
+  Delete a border gateway.
+  **Note**
+
+  * If the border gateway is already bound to a NAT gateway, you must unbind the NAT gateway before deletion.
+  * If the border gateway is part of a Layer 3 Cloud Router, it must be removed first before deletion.
 examples:
 - cmd: zeno zec delete-border-gateway --zbg-id xxx
   desc: Delete a border gateway.

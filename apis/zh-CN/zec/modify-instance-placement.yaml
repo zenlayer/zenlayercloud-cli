@@ -1,0 +1,32 @@
+name: ModifyInstancePlacement
+product: zec
+use: modify-instance-placement
+short: 修改实例置放组归属
+long: |-
+  将实例加入置放组、从一个置放组迁移到另一个、或从置放组移除。
+  **注意事项**
+
+  * `placementGroupId` 为空时，表示将实例从当前所在置放组移除。
+  * `placementGroupId` 不为空时，表示将实例加入指定置放组；若实例已在其它置放组，则会先从原置放组移除再加入新置放组（即迁移）。
+examples:
+- cmd: zeno zec modify-instance-placement --instance-id instance-xxxxxxxx --placement-group-id placementgroup-yyyyyyyy
+  desc: 将实例加入置放组（或从其它置放组迁移到该置放组）。
+- cmd: zeno zec modify-instance-placement --instance-id instance-xxxxxxxx
+  desc: 将实例从当前所在置放组移除。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyInstancePlacement
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: 实例ID。
+- name: placement-group-id
+  type: string
+  required: false
+  sdk-field: placementGroupId
+  description: |-
+    置放组ID。
+    为空表示从当前置放组移除。

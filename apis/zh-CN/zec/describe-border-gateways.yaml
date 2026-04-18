@@ -1,7 +1,7 @@
 name: DescribeBorderGateways
 product: zec
 use: describe-border-gateways
-short: 查询边界网关列表。
+short: 查询边界网关列表
 long: 查询边界网关列表。
 examples:
 - cmd: zeno zec describe-border-gateways --region-id xxx --page-size 10 --page-num 1

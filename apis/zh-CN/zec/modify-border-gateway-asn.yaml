@@ -1,7 +1,7 @@
 name: ModifyBorderGatewayAsn
 product: zec
 use: modify-border-gateway-asn
-short: 修改边界网关的ASN。
+short: 修改边界网关的ASN
 long: 修改边界网关的ASN。
 examples:
 - cmd: zeno zec modify-border-gateway-asn --zbg-id xxx --asn 65000

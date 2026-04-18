@@ -1,8 +1,8 @@
 name: DescribeSnapshots
 product: zec
 use: describe-snapshots
-short: Queries the details of snapshots.
-long: query the details of snapshots.
+short: Queries the details of snapshots
+long: Query the details of snapshots.
 examples:
 - cmd: zeno zec describe-snapshots --snapshot-ids snapshotId1 --snapshot-ids snapshotId2 --zone-id asia-east-1a --status AVAILABLE --snapshot-name snapshot-state --page-size 20 --page-num 1
   desc: Query the list of snapshots.

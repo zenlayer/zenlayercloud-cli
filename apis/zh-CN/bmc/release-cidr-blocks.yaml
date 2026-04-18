@@ -2,7 +2,14 @@ name: ReleaseCidrBlocks
 product: bmc
 use: release-cidr-blocks
 short: 释放Cidr Block
-long: 释放一个或多个Ipv4 Cidr Block。
+long: |-
+  释放一个或多个Ipv4 Cidr Block。
+  **注意事项**
+
+  * 回收站中的Cidr Block默认保留24小时。
+  * 只有在回收站中的Cidr Block（即状态是 **RECYCLE**）才支持该操作。
+  * Ipv6的Cidr Block不可使用该接口。
+  * 支持批量操作，每次请求批量Cidr Block的上限为100。
 examples:
 - cmd: zeno bmc release-cidr-blocks --cidr-block-ids cidrBlockId1 --cidr-block-ids cidrBlockId2
   desc: 批量释放Cidr Block

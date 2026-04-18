@@ -1,8 +1,16 @@
 name: CreateLoadBalancer
 product: zlb
 use: create-load-balancer
-short: Creates a load balancer instance.
-long: create a load balancer instance.
+short: Creates a load balancer instance
+long: |-
+  Create a load balancer instance.
+  **Note**
+
+  * You can call [DescribeLoadBalancerRegions](../location/describeloadbalancerregions.md) to check the available regions supporting the creating of load balancers.
+  * This API is an async API. A response is returned after the request is sent. However, it does not mean the operation has been completed. You can call [DescribeLoadBalancers](describeloadbalancers.md) to query the state of the load balancer instance. The `RUNNING` state means creating successfully.
+  * Currently only creating load balance instances for Elastic Compute is supported.
+  * Only pay-as-you-go load balance instance creation is supported.
+  * Please ensure that the global VPC contains an **IPv4 subnet**, and that the subnet has **at least two available IP addresses** for allocation.
 examples:
 - cmd: zeno zlb create-load-balancer --region-id asia-east-1 --vpc-id <vpcId> --security-group-id <securityGroupId> --load-balancer-name sample --internet-charge-type ByBandwidth --ip-network-type BGPLine --bandwidth-mbps 2 --bandwidth-cluster-id --number 1
   desc: Create a public network load balancer. IP billing method is flat rate.

@@ -1,8 +1,8 @@
 name: DescribeCidrPrice
 product: zec
 use: describe-cidr-price
-short: Queries the price of the CIDR block.
-long: query the price of the CIDR block.
+short: Queries the price of the CIDR block
+long: Query the price of the CIDR block.
 sdk:
   service: zec
   version: '2025-09-01'

@@ -1,8 +1,15 @@
 name: ConfigureSecurityGroupRules
 product: zec
 use: configure-security-group-rules
-short: Configures the rules of a security group.
-long: configure the rules of a security group.
+short: Configures the rules of a security group
+long: |-
+  Configure the rules of a security group.
+  **Note**
+
+  * Rules of the default security group cannot be modified.
+  * Rules in the same direction cannot be duplicated.
+  * A security group has a limited number of rules. If you need more, please contact us.
+  * This API is used to configure full rules for the security group.
 examples:
 - cmd: zeno zec configure-security-group-rules --security-group-id your-security-group-id --rule-infos "{direction=ingress, policy=accept, priority=1, ipProtocol=tcp, portRange=22, cidrIp=0.0.0.0/0, desc=aaa}" --rule-infos "{direction=egress, policy=accept, priority=1, ipProtocol=tcp, portRange=22, cidrIp=0.0.0.0/0, desc=xxx}"
   desc: Configure rules for the security group.

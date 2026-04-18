@@ -1,8 +1,8 @@
 name: DescribeDiskCategory
 product: zec
 use: describe-disk-category
-short: Queries supported disk type.
-long: query supported disk type.
+short: Queries supported disk type
+long: Query supported disk type.
 examples:
 - cmd: zeno zec describe-disk-category --zone-id europe-central-1a --disk-category ""Basic NVMe SSD""
   desc: Query supported disk type.

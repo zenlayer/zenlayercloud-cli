@@ -1,8 +1,8 @@
 name: DescribeLoadBalancers
 product: zlb
 use: describe-load-balancers
-short: Queries the list of load balancer instances.
-long: query the list of load balancer instances.
+short: Queries the list of load balancer instances
+long: Query the list of load balancer instances.
 examples:
 - cmd: zeno zlb describe-load-balancers
   desc: Query the list of load balancer instances.

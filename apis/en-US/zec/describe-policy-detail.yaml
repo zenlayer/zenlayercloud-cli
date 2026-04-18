@@ -1,8 +1,8 @@
 name: DescribePolicyDetail
 product: zec
 use: describe-policy-detail
-short: Gets details of a protection strategy.
-long: get details of a protection strategy.
+short: Gets details of a protection strategy
+long: Get details of a protection strategy.
 examples:
 - cmd: zeno zec describe-policy-detail --policy-id <policyId>
   desc: Get protection strategy details.

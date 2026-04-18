@@ -2,7 +2,17 @@ name: ChangeNicNetworkType
 product: zec
 use: change-nic-network-type
 short: 更改网卡模式
-long: 更改实例的网卡模式。
+long: |-
+  更改实例的网卡模式。
+  #### 准备工作
+
+  * 查询网卡模式: 调用[DescribeImages](../image/describeimages.md) 可以查询到网卡模式。
+
+
+  **注意事项**
+
+  * 仅实例状态处于`STOPPED`状态，接口才能调用。
+  * 实例下仅有1张主网卡时，才允许修改。
 examples:
 - cmd: zeno zec change-nic-network-type --instance-id <instanceId> --nic-network-type FailOver
   desc: 修改实例网卡模式到故障转移模式。

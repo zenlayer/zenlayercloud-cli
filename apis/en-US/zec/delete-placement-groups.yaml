@@ -1,0 +1,22 @@
+name: DeletePlacementGroups
+product: zec
+use: delete-placement-groups
+short: Delete placement groups
+long: |-
+  Delete one or more placement groups. After deletion, all instances within the placement groups are released from placement policy constraints.
+  **Notes**
+
+  * After deletion, all instances within the placement group are released from placement policy constraints.
+examples:
+- cmd: zeno zec delete-placement-groups --placement-group-ids placementgroup-xxxxxxxx --placement-group-ids placementgroup-yyyyyyyy
+  desc: Delete one or more placement groups.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DeletePlacementGroups
+parameters:
+- name: placement-group-ids
+  type: string-array
+  required: true
+  sdk-field: placementGroupIds
+  description: List of placement group IDs to delete.

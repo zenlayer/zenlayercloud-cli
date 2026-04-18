@@ -1,8 +1,12 @@
 name: ChangeEipInternetChargeType
 product: zec
 use: change-eip-internet-charge-type
-short: Changes the network billing method of an elastic IP.
-long: change the network billing method of an elastic IP.
+short: Changes the network billing method of an elastic IP
+long: |-
+  Change the network billing method of an elastic IP.
+  **Note**
+
+  Changing from Data Transfer to Regional Aggregated Burstable 95th is supported currently.
 sdk:
   service: zec
   version: '2025-09-01'

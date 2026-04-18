@@ -1,8 +1,16 @@
 name: UnAssociateSubnetInstance
 product: bmc
 use: un-associate-subnet-instance
-short: Remove instances from a subnet.
-long: remove an instance from a subnet.
+short: Remove instances from a subnet
+long: |-
+  Remove an instance from a subnet.
+  **Note**
+
+  * This API is an async API. A request ID is returned after the request is sent. However, it does not mean the unbinding has been completed. You can use [`DescribeSubnets`](describesubnets.md) to query the status.
+    * If `privateIpStatus` is `UNBINDING`, it means that the instance is being unbound.
+    * If no such instance in the subnet, it means that the instance has been unbound.
+  * Operations on the instance with a `BINDED` `privateIpStatus` are supported.
+  * No action will be made against the instance not in the subnet.
 examples:
 - cmd: zeno bmc un-associate-subnet-instance --subnet-id 833049815985166808 --instance-id 820653960707704280
   desc: ''

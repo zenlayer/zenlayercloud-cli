@@ -1,7 +1,7 @@
 name: CreateListener
 product: bmc
 use: create-listener
-short: 在网络型负载均衡实例中创建TCP、UDP或TCPSSL监听。
+short: 在网络型负载均衡实例中创建TCP、UDP或TCPSSL监听
 long: 在网络型负载均衡实例中创建TCP、UDP或TCPSSL监听。
 examples:
 - cmd: zeno bmc create-listener --load-balancer-id xxxx --name xxxx --port-list 80 --client-token xxxx --protocol TCP --backend-protocol TCP

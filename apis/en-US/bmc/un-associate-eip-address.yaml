@@ -1,8 +1,16 @@
 name: UnAssociateEipAddress
 product: bmc
 use: un-associate-eip-address
-short: Unassigns elastic IPs from instances.
-long: unbind an elastic IP from an instance.
+short: Unassigns elastic IPs from instances
+long: |-
+  Unbind an elastic IP from an instance.
+  **Note**
+
+  * Operations on elastic IPs in `ASSOCIATED` and `AVAILABLE` status are supported. For elastic IPs with `AVAILABLE` status, no change occurs.
+  * Operations on elastic IPs in `ASSOCIATED` status will change the status to `UNACCOSCIATING`.
+  * This API is an async API. A request ID is returned after the request is sent. However, it does not mean the unbinding has been completed. You can use [`DescribeEipAddresses`](describeeipaddresses.md) to query the status of the elastic IP.
+    * If the status of the elastic IP is `UNASSOCIATING`, it means that the elastic IP is being unbound. Only query operations are allowed during `UNASSOCIATING`.
+    * If the status of the elastic IP is `AVAILABLE`, it means that the elastic IP has been unbound.
 examples:
 - cmd: zeno bmc un-associate-eip-address --eip-id eipId1
   desc: Unbind an elastic IP from an instance

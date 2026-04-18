@@ -1,8 +1,16 @@
 name: CreateEips
 product: zec
 use: create-eips
-short: 创建弹性公网IP。
-long: 创建弹性公网IP。
+short: 创建弹性公网IP
+long: |-
+  创建弹性公网IP。
+  **注意事项**
+
+  * 可以通过调用[`DescribeEipRegions`](describeeipregions.md) 来查询支持弹性IP的区域。
+  * 可以通过调用 [`DescribeEipInternetChargeTypes`](describeeipinternetchargetypes.md) 来查询公网IP支持的网络计费方式。
+  * 如果需要创建`Remote EIP`,可以先查询[`DescribeEipRemoteRegions`](describeeipremoteregions.md)来查询支持远端节点。
+  * 如果需要通过`CIDR`进行分配，可以先查询[`DescribeCidrs`](../cidr-block/describecidrs.md)来查询账号下的`CIDR`。
+  * 如果同时绑定实例，需要保证所选实例的`主网卡`上的`主内网IP`还能再分配EIP。
 examples:
 - cmd: zeno zec create-eips --region-id asia-east-1 --amount 1 --name Test-EIP --internet-charge-type ByTrafficPackage --network-line-type PremiumBGP --bandwidth 50 --flow-package 10
   desc: 创建一个BGP线路的公网弹性IP, 使用流量包计费。流量包大小为10TB。带宽限速为50Mbps。

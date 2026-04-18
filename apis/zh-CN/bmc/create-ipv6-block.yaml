@@ -2,7 +2,17 @@ name: CreateIpv6Block
 product: bmc
 use: create-ipv6-block
 short: 创建IPv6 Cidr Block
-long: 创建一个或多个IPv6 Cidr Block。
+long: |-
+  创建一个或多个IPv6 Cidr Block。
+  #### 准备工作
+
+  * 查询库存：调用[`DescribeAvailableIpv6Resources`](describeavailableipv6resources.md)查看指定地区的资源供给情况。
+
+
+  **注意事项**
+
+  * 每个Ipv6 Cidr Block包含500个可用的IP。
+  * 本接口为异步接口，当创建Cidr Block请求下发成功后会返回一个`ID`列表，此时创建Cidr Block操作并未立即完成。在此期间Cidr Block的状态将会处于`CREATING`，Cidr Block创建结果可以通过调用`DescribeCidrBlocks` 接口查询，如果Cidr Block状态由`CREATING`(创建中)变为`AVAILABLE`，则代表Cidr Block创建成功，`CREATE_FAILED`代表Cidr Block创建失败。创建过程中不可对Cidr Block进行任何操作。
 examples:
 - cmd: zeno bmc create-ipv6-block --zone-id ISB-B --name example --amount 1
   desc: ''

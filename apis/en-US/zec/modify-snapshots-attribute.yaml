@@ -1,8 +1,13 @@
 name: ModifySnapshotsAttribute
 product: zec
 use: modify-snapshots-attribute
-short: Modifies the attributes of the specified snapshot.
-long: modify the attributes of the specified snapshot.
+short: Modifies the attributes of the specified snapshot
+long: |-
+  Modify the attributes of the specified snapshot.
+  **Note**
+
+  * Batch operations are supported. The maximum number of snapshots in each request is 100.
+  * If any of the snapshot IDs does not exist, the operation will fail immediately.
 examples:
 - cmd: zeno zec modify-snapshots-attribute --snapshot-ids snapshotId1 --snapshot-ids snapshotId2 --snapshot-name snap_201711301143 --is-permanent true
   desc: Modify the attributes of the specified snapshot. Modify the name and set the retention time to indefinite.

@@ -1,8 +1,8 @@
 name: DeleteListener
 product: bmc
 use: delete-listener
-short: Deletes a load balance listener.
-long: delete a load balance listener.
+short: Deletes a load balance listener
+long: Delete a load balance listener.
 examples:
 - cmd: zeno bmc delete-listener --listener-id xxxx
   desc: Delete a load balancer listener.

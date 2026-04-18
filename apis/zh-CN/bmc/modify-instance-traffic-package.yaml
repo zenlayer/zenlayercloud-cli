@@ -2,7 +2,17 @@ name: ModifyInstanceTrafficPackage
 product: bmc
 use: modify-instance-traffic-package
 short: 修改实例流量包
-long: 修改实例流量包。
+long: |-
+  修改实例流量包。
+  **注意事项**
+
+  * 仅机器状态处于**`RUNNING`**或**`STOPPED`**状态，接口才能调用。
+  * 若机器的[`internetChargeType`](../datastructure.md#internetchargetype)为`ByTrafficPackage`：
+    * 机器的`instanceChargeType`为`PREPAID`：
+      * 升配（target > cur）会预先扣除本次实例购买所需金额，如果余额不足，请求将会失败，立即生效。
+      * 降配（target < cur）会生成下个周期的降配订单，下周期生效。
+    * 询流量包变更价格接口 InquiryPriceInstanceTrafficPackage。
+  * 若要查询实例带宽状态，可调用 DescribeInstanceInternetStatus。
 examples:
 - cmd: zeno bmc modify-instance-traffic-package --instance-id instanceId --traffic-package-size 100
   desc: 升配实例流量包

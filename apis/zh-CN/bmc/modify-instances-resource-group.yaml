@@ -2,7 +2,12 @@ name: ModifyInstancesResourceGroup
 product: bmc
 use: modify-instances-resource-group
 short: 修改实例所属的资源组
-long: 修改实例所属的资源组。
+long: |-
+  修改实例所属的资源组。
+  **注意事项**
+
+  * 支持批量操作。每次请求批量实例的上限为100。
+  * 该接口只有管理员角色的用户能够进行操作。
 examples:
 - cmd: zeno bmc modify-instances-resource-group --instance-ids instanceId1 --instance-ids instanceId2 --resource-group-id resourceGroup1
   desc: 将实例移动到指定资源组。

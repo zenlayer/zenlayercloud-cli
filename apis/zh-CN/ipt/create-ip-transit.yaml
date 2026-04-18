@@ -1,0 +1,182 @@
+name: CreateIPTransit
+product: ipt
+use: create-ip-transit
+short: 创建一条IP Transit
+long: |-
+  创建一条IP Transit。
+  #### 准备工作
+
+  * **物理端口**：你需要预先准备至少一个物理端口。
+  * **查询支持IP Transit 的地区：**
+    * 可以通过 [DescribeIPTransitDatacenters](describe-iptransit-datacenters.md) 查询支持IP Transit 的数据的数据中心。
+
+
+  **注意事项**
+
+  * 因设备原因部分区域只支持手动交付，交付周期会在1～3d完成。可以通过 [DescribeIPTransitDatacenters](describe-iptransit-datacenters.md) 的 **deliveryType**`字段来判断是否是极速交付。`
+  * 本接口为异步接口，当创建请求下发成功后会返回一个IP Transit的`ID`，此时创建操作并未立即完成。在此期间实例的状态将会处于 **`DEPLOYING`**，创建结果可以通过调用DescribeIpTransit接口查询，如果状态(`iptStatus`)由 **`DEPLOYING`** (创建中)变为 **`AVAILABLE`** (可用)，则代表创建成功，如果状态变为 **`FAILED`** (失败)，则代表创建失败，创建过程中不可对二层网络专线进行任何操作。
+examples:
+- cmd: zeno ipt create-ip-transit --ipt-name test_IPT --ipt-description test_ipt_desc --peer-port-id 1170556726903057557 --peer-port-vlan 1042 --internet-type ByBandwidth --bandwidth 50 --ipt-dc-id AMS1 --routing-type Static --public-ipv4-block-size 28
+  desc: 创建一条IP Transit，路由设置成静态路由，公网地址使用/28的CIDR。并且配置BFD。
+sdk:
+  service: ipt
+  version: '2024-09-01'
+  action: CreateIPTransit
+parameters:
+- name: ipt-name
+  type: string
+  required: false
+  sdk-field: iptName
+  description: |-
+    IP Transit的名称。
+    长度不能超过255。
+- name: ipt-description
+  type: string
+  required: false
+  sdk-field: iptDescription
+  description: |-
+    IP Transit的描述信息。
+    长度不能超过255。
+- name: peer-port-id
+  type: string
+  required: true
+  sdk-field: peerPortId
+  description: |-
+    端口的ID。
+    端口的连通性状态必须是ACTIVE。
+- name: peer-port-vlan
+  type: integer
+  required: true
+  sdk-field: peerPortVlan
+  description: |-
+    VLAN ID。
+    范围为1000～4000。
+    必须为未分配的vlan, 可以通过DescribePortUsableVlan来查询一个可以使用的vlan。
+- name: ipt-dc-id
+  type: string
+  required: false
+  sdk-field: iptDcId
+  description: |-
+    IP Transit 目的地数据中心ID。
+    如果不指定，则代表和端口位于同一个数据中心。
+- name: internet-type
+  type: enum
+  required: false
+  sdk-field: internetType
+  description: IP Transit的带宽计费方式。
+  enum-values:
+  - value: ByBandwidth
+    desc: 按固定带宽计费。
+  - value: ByInstanceBandwidth95
+    desc: 实例95计费。
+- name: commit-bandwidth
+  type: integer
+  required: false
+  sdk-field: commitBandwidth
+  description: |-
+    保底带宽。
+    单位Mbps。
+    有且仅当internetType=ByInstanceBandwidth95时该字段必传。
+- name: bandwidth
+  type: integer
+  required: false
+  sdk-field: bandwidth
+  description: |-
+    带宽限速。
+    单位Mbps。
+    最小值不能低于10Mbps。
+- name: routing-type
+  type: enum
+  required: true
+  sdk-field: routingType
+  description: 路由类型。
+  enum-values:
+  - value: BGP
+    desc: BGP。（目前api暂不支持该方式）
+  - value: Static
+    desc: 静态路由。
+  - value: Gateway
+    desc: 网关模式。
+- name: public-ipv4-block-size
+  type: integer-array
+  required: false
+  sdk-field: publicIPv4BlockSize
+  description: |-
+    公网IPv4地址。
+    网段范围：24～30。
+    有且仅当路由类型是Static 或 Gateway时必须指定。
+    目前只允许指定一个公网CIDR。
+- name: bfd
+  type: object
+  required: false
+  sdk-field: bfd
+  description: |-
+    启用 BFD配置。
+    如果不传该字段，则默认不启用BFD。
+    网关模式不支持配置BFD。
+  object-schema:
+  - name: bfdTxInterval
+    type: integer
+    description: |-
+      发送间隔。
+      单位：ms。
+      取值范围：100～60000。
+  - name: bfdRxInterval
+    type: integer
+    description: |-
+      接收间隔。
+      单位：ms
+      取值范围：100～60000。
+  - name: bfdMultiplier
+    type: integer
+    description: |-
+      本地检测倍数。
+      取值范围：3～20。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    资源组的ID。
+    如果不传，则会放到默认资源组。
+- name: bgp
+  type: object
+  required: false
+  sdk-field: bgp
+  description: BGP相关配置。
+  object-schema:
+  - name: routeType
+    type: enum
+    description: 入站路由类型。
+  - name: asn
+    type: integer
+    description: 宣告出站路由的ASN号。
+  - name: password
+    type: string
+    description: 加密认证秘钥。
+  - name: asnList
+    type: integer-array
+    description: 宣告出站路由的ASN号列表。
+  - name: asSetList
+    type: string-array
+    description: 宣告出站路由的AS-SET列表。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    创建IP Transit时关联的标签。
+    注意：关联标签键不能重复。--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～128个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～128个字符。

@@ -1,8 +1,12 @@
 name: DeleteSecurityGroup
 product: zec
 use: delete-security-group
-short: Deletes a security group.
-long: delete a security group.
+short: Deletes a security group
+long: |-
+  Delete a security group.
+  **Note**
+
+  Not supported for the default security group.
 examples:
 - cmd: zeno zec delete-security-group --security-group-id your-security-group-id
   desc: Delete a security group.

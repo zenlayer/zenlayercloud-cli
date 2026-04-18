@@ -1,8 +1,8 @@
 name: DescribeBandwidthClusters
 product: traffic
 use: describe-bandwidth-clusters
-short: Queries information of one or more bandwidth clusters.
-long: query information of one or more bandwidth clusters. You can filter the query results with bandwidth cluster ID, name, city name and etc.
+short: Queries information of one or more bandwidth clusters
+long: Query information of one or more bandwidth clusters. You can filter the query results with bandwidth cluster ID, name, city name and etc.
 examples:
 - cmd: zeno traffic describe-bandwidth-clusters --page-num 1 --page-size 1
   desc: Query bandwidth cluster list.

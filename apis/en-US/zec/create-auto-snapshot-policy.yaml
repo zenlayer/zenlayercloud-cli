@@ -1,8 +1,12 @@
 name: CreateAutoSnapshotPolicy
 product: zec
 use: create-auto-snapshot-policy
-short: Creates a snapshot schedule.
-long: create a snapshot schedule.
+short: Creates a snapshot schedule
+long: |-
+  Create a snapshot schedule.
+  **Note**
+
+  The time of the snapshot schedule is **UTC+0**.
 examples:
 - cmd: zeno zec create-auto-snapshot-policy --zone-id asia-east-1a --auto-snapshot-policy-name week3-policy --repeat-week-days 3 --hours 0 --retention-days 10
   desc: Create a snapshot schedule. The schedule is executed every Wednesday at 00:00. Retention time is 10 days.

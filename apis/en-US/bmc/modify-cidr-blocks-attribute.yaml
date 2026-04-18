@@ -1,7 +1,7 @@
 name: ModifyCidrBlocksAttribute
 product: bmc
 use: modify-cidr-blocks-attribute
-short: Modifies the information about CIDR blocks, such as the names.
+short: Modifies the information about CIDR blocks, such as the names
 long: The API is used to modify the attributes of one or more CIDR blocks. Only the CIDR block name to be displayed can be modified for now.
 examples:
 - cmd: zeno bmc modify-cidr-blocks-attribute --cidr-block-ids cidrBlockId1 --cidr-block-ids cidrBlockId2 --name myCidrBlockName

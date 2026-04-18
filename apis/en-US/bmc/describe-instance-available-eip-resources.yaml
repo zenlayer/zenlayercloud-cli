@@ -1,8 +1,8 @@
 name: DescribeInstanceAvailableEipResources
 product: bmc
 use: describe-instance-available-eip-resources
-short: Queries list of elastic IPs that can be assigned to instances.
-long: query list of elastic IPs that can be bound to an instance.
+short: Queries list of elastic IPs that can be assigned to instances
+long: Query list of elastic IPs that can be bound to an instance.
 examples:
 - cmd: zeno bmc describe-instance-available-eip-resources --instance-id instanceId1
   desc: Query list of elastic IPs that can be bound to an instance

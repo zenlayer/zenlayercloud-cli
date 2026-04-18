@@ -2,7 +2,21 @@ name: CreateZecInstances
 product: zec
 use: create-zec-instances
 short: 创建虚拟机实例
-long: 创建一台或多台虚拟机实例。
+long: |-
+  创建一台或多台虚拟机实例。
+  #### 准备工作
+  * 查询机型规格：调用[`DescribeZoneInstanceConfigInfos`](describezoneinstanceconfiginfos.md) 可以查询到规格信息。
+  * 查询镜像：调用[`DescribeImages`](../image/describeimages.md)可以查询到镜像信息。
+  * 查询密钥对：调用 [`DescribeKeyPairs`](../../../security/key-service/key-pair/describekeypairs.md)可以查询到密钥对ID信息。
+
+
+  **注意事项**
+
+  * 实例创建成功后将自动开机启动，实例状态变为`RUNNING`, 如果创建失败，状态会变为`CREATE_FAILED`。
+  * 购买时需要确保账户账号状态正常。
+  * 调用本接口创建实例，支持代金券自动抵扣，详情请参考代金券选用规则。
+  * 本接口为异步接口，当创建实例请求下发成功后会返回一个实例`ID`列表，此时创建实例操作并未立即完成。在此期间实例的状态将会处于`DEPLOYING`，实例创建结果可以通过调用[`DescribeInstances`](describeinstances.md) 接口查询，如果实例状态由`DEPLOYING`变为`RUNNING`则代表创建成功，如果变为`CREATE_FAILED`则代表创建失败，创建过程中不可对实例进行任何操作。
+  * 单次最多能创建**100**台实例。
 examples:
 - cmd: zeno zec create-zec-instances --zone-id asia-east-1a --instance-type z2a.cpu.1 --image-id ubuntu2404_20240712 --instance-name Test-InstanceName --key-id key-rcfljdP5 --subnet-id 1272168087751233112 --nic-network-type Auto
   desc: 使用最简单的参数创建实例。不分配公网IP地址。

@@ -1,8 +1,16 @@
 name: DetachDisks
 product: zec
 use: detach-disks
-short: Detaches one or more disks from an instance.
-long: detach one or more disks from an instance.
+short: Detaches one or more disks from an instance
+long: |-
+  Detach one or more disks from an instance.
+  **Note**
+
+  * Disks to be detached should be attached to the same instance. If any of the disks is undetachable, the operation will not be performed.
+  * Only operations on disks with the status of **IN\_use** are supported.
+  * Only operations on disks that are detachable (**`portable`****&#x20;****=****&#x20;****`true`**) are supported.
+  * Operation on boot disks are not supported.
+  * A maximum of 10 disks can be detached from an instance in one request.
 examples:
 - cmd: zeno zec detach-disks --disk-ids your-disk-id
   desc: Detach one or more disks from an instance.

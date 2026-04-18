@@ -1,8 +1,8 @@
 name: ModifyBandwidthClusterAttribute
 product: traffic
 use: modify-bandwidth-cluster-attribute
-short: Modifies the attributes of a bandwidth cluster.
-long: modify the attributes of a bandwidth cluster, including the name.
+short: Modifies the attributes of a bandwidth cluster
+long: Modify the attributes of a bandwidth cluster, including the name.
 examples:
 - cmd: zeno traffic modify-bandwidth-cluster-attribute --bandwidth-cluster-id <bandwidthClusterId> --name Test
   desc: Modify the name of a bandwidth cluster.

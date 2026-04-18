@@ -1,8 +1,12 @@
 name: AssignBorderGateway
 product: zec
 use: assign-border-gateway
-short: 边界网关绑定NAT网关。
-long: 边界网关绑定NAT网关。
+short: 边界网关绑定NAT网关
+long: |-
+  边界网关绑定NAT网关。
+  **注意事项**
+
+  * 一个边界网关有且只能绑定一个NAT网关。如果边界网关已经绑定了其他NAT网关，这绑定将会失败。
 examples:
 - cmd: zeno zec assign-border-gateway --zbg-id <zbgId> --nat-id <natId>
   desc: 边界网关绑定NAT网关。

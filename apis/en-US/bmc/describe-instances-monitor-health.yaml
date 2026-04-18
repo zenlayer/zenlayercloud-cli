@@ -1,8 +1,12 @@
 name: DescribeInstancesMonitorHealth
 product: bmc
 use: describe-instances-monitor-health
-short: Query server hardware health information.
-long: query server hardware health information.
+short: Query server hardware health information
+long: |-
+  Query server hardware health information.
+  **Note**
+
+  Batch operations are supported. The maximum number of instances in each request is 10.
 examples:
 - cmd: zeno bmc describe-instances-monitor-health --instance-ids instanceId1 --instance-ids instanceId2
   desc: Query server hardware health information.

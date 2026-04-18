@@ -1,8 +1,8 @@
 name: DescribeManagedInstances
 product: bmc
 use: describe-managed-instances
-short: Queries the details of one or more instances.
-long: query the details of one or more instances. You can filter the query results with the instance ID, or name.
+short: Queries the details of one or more instances
+long: Query the details of one or more instances. You can filter the query results with the instance ID, or name.
 sdk:
   service: bmc
   version: '2026-02-01'

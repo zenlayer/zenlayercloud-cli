@@ -2,7 +2,13 @@ name: CreateSnapshot
 product: zec
 use: create-snapshot
 short: 云盘创建快照
-long: 对指定云盘创建快照。
+long: |-
+  对指定云盘创建快照。
+  **注意事项**
+
+  * 云盘是否支持创建快照可根据`SnapshotAbility`字段判断。该值可通过[`DescribeDisks`](../disk/describedisks.md)接口查询。
+  * 云盘必须处于**使用中**或**待挂载**状态。
+  * 可创建快照数量限制见产品使用限制。
 examples:
 - cmd: zeno zec create-snapshot --disk-id diskId1 --snapshot-name xxx --retention-time 2025-07-16T01:26:39Z
   desc: 云盘创建快照。

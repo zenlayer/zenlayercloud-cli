@@ -1,0 +1,25 @@
+name: DeleteImageCopy
+product: zec
+use: delete-image-copy
+short: 删除镜像副本
+long: |-
+  删除镜像在指定区域的副本。
+  删除自定义镜像在指定区域的副本，至少保留一个可用区域；仅镜像为可用状态时允许删除副本（复制中等状态会返回 INVALID_IMAGE_STATUS）。
+examples:
+- cmd: zeno zec delete-image-copy --image-id "<custom image id>" --region-ids region-a --region-ids region-b
+  desc: 删除镜像指定区域副本
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DeleteImageCopy
+parameters:
+- name: image-id
+  type: string
+  required: true
+  sdk-field: imageId
+  description: 自定义镜像 ID。
+- name: region-ids
+  type: string-array
+  required: true
+  sdk-field: regionIds
+  description: 待删除副本的区域 ID 列表。

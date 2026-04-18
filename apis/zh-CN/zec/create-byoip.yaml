@@ -1,7 +1,7 @@
 name: CreateByoip
 product: zec
 use: create-byoip
-short: 创建 BYOIP。
+short: 创建 BYOIP
 long: 提交自带 IP 段（BYOIP）创建 CIDR。返回 RPKI/IRR 校验失败列表。
 examples:
 - cmd: zeno zec create-byoip --byoip-list "{cidrBlock=88.0.2.0/24, networkType=PremiumBGP, regionId=asia-east-1, asn=62610}"

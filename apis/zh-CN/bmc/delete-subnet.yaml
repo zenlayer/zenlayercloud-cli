@@ -2,7 +2,13 @@ name: DeleteSubnet
 product: bmc
 use: delete-subnet
 short: 删除子网
-long: 本接口用于删除一个Subnet。
+long: |-
+  本接口用于删除一个Subnet。
+  **注意事项**
+
+  * 本接口为异步接口，当删除Subnet请求下发成功后会返回一个RequestId，此时删除Subnet操作并未立即完成。在此期间Subnet的状态将会处于`DELETING`，结果可以通过调用`DescribeSubnets`接口查询，如果Subnet列表不存在该Subnet，则代表Subnet删除成功。`DELETING`状态不能进行任何操作。
+  * 不能删除存在实例的Subnet，可通过`DescribeSubnets`接口查看。
+  * 该接口只能处于 **AVAILABLE** 或 **CREATE\_FAILED** 状态的Subnet调用。
 examples:
 - cmd: zeno bmc delete-subnet --subnet-id your-subnet-id
   desc: 删除Subnet。

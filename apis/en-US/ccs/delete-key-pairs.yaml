@@ -1,8 +1,13 @@
 name: DeleteKeyPairs
 product: ccs
 use: delete-key-pairs
-short: Delete one or more key pairs.
-long: The API is used to delete one or more key pairs.
+short: Delete one or more key pairs
+long: |-
+  The API is used to delete one or more key pairs.
+  **Note**
+
+  * Operations on key pairs that are already be placed on servers are also supported. You can still log in to your instances via these key pairs.
+  * If any illegal `keyIds` exists, the request will fail.
 examples:
 - cmd: zeno ccs delete-key-pairs --key-ids key-zCcHQB9u
   desc: Delete one or more key pairs.

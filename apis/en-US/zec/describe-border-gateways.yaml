@@ -1,8 +1,8 @@
 name: DescribeBorderGateways
 product: zec
 use: describe-border-gateways
-short: Queries the details of one or more border gateways.
-long: query the details of one or more border gateways. You can filter the query results with the border gateway ID and name.
+short: Queries the details of one or more border gateways
+long: Query the details of one or more border gateways. You can filter the query results with the border gateway ID and name.
 examples:
 - cmd: zeno zec describe-border-gateways --region-id xxx --page-size 10 --page-num 1
   desc: Query all the available border gateways.

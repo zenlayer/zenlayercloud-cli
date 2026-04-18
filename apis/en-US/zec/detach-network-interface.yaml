@@ -1,8 +1,14 @@
 name: DetachNetworkInterface
 product: zec
 use: detach-network-interface
-short: Detaches the vNIC from the instance.
-long: detach the vNIC from the instance.
+short: Detaches the vNIC from the instance
+long: |-
+  Detach the vNIC from the instance.
+  **Note**
+
+  * The instance state should be Running.
+  * The vNIC state should be `USED`.
+  * Operations on the primary vNIC are not supported.
 examples:
 - cmd: zeno zec detach-network-interface --nic-id XXX
   desc: Detach the vNIC.

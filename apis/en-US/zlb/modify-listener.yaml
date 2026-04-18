@@ -1,8 +1,12 @@
 name: ModifyListener
 product: zlb
 use: modify-listener
-short: Queries the properties of a load balance listener.
-long: modify the properties of a load balance listener, including its name, health check parameters, and forwarding rules. The listening protocol cannot be modified.
+short: Modifies the properties of a load balancer listener
+long: |-
+  Modify the properties of a load balance listener, including its name, health check parameters, and forwarding rules. The listening protocol cannot be modified.
+  **Note**
+
+  * When the listener port is set to all ports (0) and the health check type is `TCP` or `HTTP_GET`, the `healthCheck.checkPort` (health check port) must be specified.
 examples:
 - cmd: zeno zlb modify-listener --load-balancer-id <loadBalancerId> --listener-id <listenerId> --listener-name sampleName --scheduler mh
   desc: Modify the name, health check parameters, and forwarding rules of a load balance listener.
@@ -48,8 +52,8 @@ parameters:
     type: integer
     description: |-
       Health check port.
+      When the listener port is set to all ports (0) and the health check type is TCP or HTTP_GET, the value must be specified.
       Defaults to the backend server port. Unless you need a specific port, it is recommended to leave this field empty.
-      Optional range: [1, 65535].
   - name: checkDelayLoop
     type: integer
     description: |-
@@ -120,9 +124,9 @@ parameters:
   sdk-field: port
   description: |-
     Listening port.
-    Multiple ports are separated by commas.
-    When the port is a range, connect with -, for example: 10000-10005.
-    The value range of the port is 1 to 65535.
+    Multiple ports are separated by commas (,).
+    Port ranges can be defined using a hyphen (-), for example: 10000-10005.
+    Valid port values range from 0 to 65535, where 0 indicates all ports.
     It will not be modified if not specified.
 - name: kind
   type: enum
@@ -141,3 +145,8 @@ parameters:
   required: false
   sdk-field: persistent
   description: Session persistence duration, in seconds.
+- name: idle-timeout
+  type: integer
+  required: false
+  sdk-field: idleTimeout
+  description: 'Idle timeout period. Unit: seconds.'

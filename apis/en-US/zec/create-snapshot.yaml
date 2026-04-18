@@ -1,8 +1,14 @@
 name: CreateSnapshot
 product: zec
 use: create-snapshot
-short: Creates a snapshot of the specified disk.
-long: create a snapshot of the specified disk.
+short: Creates a snapshot of the specified disk
+long: |-
+  Create a snapshot of the specified disk.
+  **Note**
+
+  * Whether the disk supports creating snapshots can be determined by the `SnapshotAbility` field. You can use [`DescribeDisks`](../disk/describedisks.md) to query the value.
+  * The disk must be `IN_USE` or `AVAILABLE`.
+  * For the limit on the number of snapshots that can be created, see the product usage limits.
 examples:
 - cmd: zeno zec create-snapshot --disk-id diskId1 --snapshot-name xxx --retention-time 2025-07-16T01:26:39Z
   desc: Create a snapshot of the disk.

@@ -1,8 +1,8 @@
 name: DescribeDiskMonitorData
 product: zec
 use: describe-disk-monitor-data
-short: Queries the disk performance metric data.
-long: query disk performance metrics over a specified period.
+short: Queries the disk performance metric data
+long: Query disk performance metrics over a specified period.
 examples:
 - cmd: zeno zec describe-disk-monitor-data --disk-id "< diskId >" --metric-type DISK_UTIL --start-time 2025-06-25T01:55:00Z --end-time 2025-06-25T07:55:00Z
   desc: Query disk performance metric of `DISK_UTIL` over a specified period.

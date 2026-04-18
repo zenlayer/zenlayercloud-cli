@@ -1,0 +1,20 @@
+name: DescribeIPTransitDatacenters
+product: ipt
+use: describe-ip-transit-datacenters
+short: 本接口用于连接IP Transit 服务支持的数据中心
+long: 本接口用于连接IP Transit 服务支持的数据中心。
+sdk:
+  service: ipt
+  version: '2024-09-01'
+  action: DescribeIPTransitDatacenters
+parameters:
+- name: peer-port-id
+  type: string
+  required: false
+  sdk-field: peerPortId
+  description: 指定端口ID。
+- name: peer-dc-id
+  type: string
+  required: false
+  sdk-field: peerDcId
+  description: 指定数据中心ID。

@@ -1,8 +1,22 @@
 name: ResetInstance
 product: zec
 use: reset-instance
-short: Reinstalls the operating system on an elastic compute instance.
-long: reinstall the operating system on an elastic compute instance.
+short: Reinstalls the operating system on an elastic compute instance
+long: |-
+  Reinstall the operating system on an elastic compute instance.
+  #### Prerequisites
+
+  * Query images: call [DescribeImages](../image/describeimages.md) to check information on images.
+
+
+  **Note**
+
+  * If the `imageId` parameter is specified, the instance will be reinstalled using the specified image; otherwise, it will be reinstalled with its current image.
+  * The boot disk size of the instance must be greater than or equal to the size of the reinstalled image. Otherwise, the operation will fail.
+  * The boot disk will be formatted and reset. Make sure there are no important files in the boot disk.
+  * Specify either a password or a key pair, not both.
+  * Only operations on instances that are in powered-off state are supported.
+  * After reinstallation, the instance enters the `DEPLOYING` state. If the latest status of the instance changes to `RUNNING`, it means that the operation is successful. If it changes to `REINSTALL_FAILED`, it means that the operation has failed. Please contact the administrator. You can call `DescribeInstancesStatus` to query the instance status.
 examples:
 - cmd: zeno zec reset-instance --instance-id <instanceId> --image-id ubuntu2022 --password Example+123 --enable-agent true
   desc: Reinstall operating system.

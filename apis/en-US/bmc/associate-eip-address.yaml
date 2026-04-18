@@ -1,8 +1,19 @@
 name: AssociateEipAddress
 product: bmc
 use: associate-eip-address
-short: Assigns elastic IPs to instances.
-long: bind an elastic IP to an instance in the same zone.
+short: Assigns elastic IPs to instances
+long: |-
+  Bind an elastic IP to an instance in the same zone.
+  **Note**
+
+  * Only operations on elastic IPs in `AVAILABLE` status are supported.
+  * The instance of the ESXi operating system cannot bind an elastic IP.
+  * Elastic IPs can only be assigned to instances in the same zone.
+  * The instance to be assigned an elastic IP should be in status of `RUNNING`.
+  * The number of elastic IPs bound to an instance is limited. If you need more, please contact Zenlayer Support.
+  * This API is an async API. A request ID is returned after the request is sent. However, it does not mean the binding has been completed. You can use [`DescribeEipAddresses`](describeeipaddresses.md) to query the status of the elastic IP.
+    * If the status of the elastic IP is `ASSOCIATING`, it means that the elastic IP is being bound. Only query operations are allowed during `ASSOCIATING`.
+    * If the status of the elastic IP is `ASSOCIATED`, it means that the elastic IP has been bound.
 examples:
 - cmd: zeno bmc associate-eip-address --eip-id eipId1 --instance-id instanceId1
   desc: Bind an elastic IP to an instance

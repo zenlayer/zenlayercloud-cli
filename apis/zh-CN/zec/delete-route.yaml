@@ -2,7 +2,11 @@ name: DeleteRoute
 product: zec
 use: delete-route
 short: 删除自定义路由
-long: 删除一条自定义路由。
+long: |-
+  删除一条自定义路由。
+  **注意事项**
+
+  * 只能删除用户创建的路由,路由类型为(`RouteTypeStatic`和 `RouteTypePolicy`), 无法删除系统生成的路由。
 examples:
 - cmd: zeno zec delete-route --vpc-id <vpcId> --route-id <routeId>
   desc: 删除路由。

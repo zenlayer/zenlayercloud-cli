@@ -1,8 +1,14 @@
 name: UnassociateEipAddress
 product: zec
 use: unassociate-eip-address
-short: 解绑弹性公网IP。
-long: 将弹性公网IP（EIP）从绑定的云产品上解绑。
+short: 解绑弹性公网IP
+long: |-
+  将弹性公网IP（EIP）从绑定的云产品上解绑。
+  **注意事项**
+
+  * 接口会返回解绑失败的eip id集合，如果是空的则说明全部成功。
+  * 如果弹性公网IP已经解绑，重复执行不会报错。
+  * 默认弹性公网IP无法解绑。
 examples:
 - cmd: zeno zec unassociate-eip-address --eip-ids eipId1 --eip-ids eipId2
   desc: 将弹性公网IP（EIP）从绑定的云产品上解绑。

@@ -2,7 +2,12 @@ name: ModifyVpcsAttribute
 product: zec
 use: modify-vpcs-attribute
 short: 批量修改VPC属性
-long: 修改一个或多个VPC的属性。该接口只支持修改VPC的名称。
+long: |-
+  修改一个或多个VPC的属性。该接口只支持修改VPC的名称。
+  **注意事项**
+
+  * 支持批量操作。每次请求批量VPC的上限为100。
+  * 如果其中有VPC ID不存在，则本操作会立即失败。
 examples:
 - cmd: zeno zec modify-vpcs-attribute --vpc-ids your-vpc-id --name 10.0.0.0/9
   desc: 批量修改VPC的名称。

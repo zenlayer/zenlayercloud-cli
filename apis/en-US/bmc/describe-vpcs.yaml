@@ -1,8 +1,8 @@
 name: DescribeVpcs
 product: bmc
 use: describe-vpcs
-short: Queries list of VPCs.
-long: query the details of one or more VPCs. You can filter the query results with the VPC ID, VPC name, subnet ID and availability region ID.
+short: Queries list of VPCs
+long: Query the details of one or more VPCs. You can filter the query results with the VPC ID, VPC name, subnet ID and availability region ID.
 examples:
 - cmd: zeno bmc describe-vpcs --page-size 10 --page-num 1
   desc: ''

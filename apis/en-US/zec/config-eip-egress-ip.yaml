@@ -1,8 +1,13 @@
 name: ConfigEipEgressIp
 product: zec
 use: config-eip-egress-ip
-short: Sets the egress elastic IP.
-long: set the egress elastic IP.
+short: Sets the egress elastic IP
+long: |-
+  Set the egress elastic IP.
+  **Note**
+
+  * This operation does not support 3-in-1 public IP pools.
+  * The elastic IP being operated must be bound to a vNIC. If it is unbound or bound to a NAT gateway/load balancer instance, this operation is not supported.
 sdk:
   service: zec
   version: '2025-09-01'

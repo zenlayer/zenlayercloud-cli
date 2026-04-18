@@ -1,8 +1,13 @@
 name: ModifyVpcsAttribute
 product: bmc
 use: modify-vpcs-attribute
-short: Modifies the information about VPCs.
-long: The API is used to modify the attributes of one or more VPCs. Only the VPC name to be displayed can be modified for now.
+short: Modifies the information about VPCs
+long: |-
+  The API is used to modify the attributes of one or more VPCs. Only the VPC name to be displayed can be modified for now.
+  **Note**
+
+  * Batch operations are supported. Each request can modify up to 100 VPCs.
+  * If any of the VPC IDs does not exist, the operation will fail immediately.
 examples:
 - cmd: zeno bmc modify-vpcs-attribute --vpc-ids 675574041725115352 --vpc-name 111
   desc: ''

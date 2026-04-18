@@ -2,7 +2,14 @@ name: AttachNetworkInterface
 product: zec
 use: attach-network-interface
 short: 网卡绑定实例
-long: 网卡绑定实例。
+long: |-
+  网卡绑定实例。
+  **注意事项**
+
+  * 绑定的实例和网卡需要在同一个节点。
+  * 实例能够绑定的网卡数量随机型而定。
+  * 绑定网卡需要确保实例运行，即实例状态为`RUNNING`状态。
+  * 网卡状态需为`AVAILABLE`, 即未绑定实例的状态。
 examples:
 - cmd: zeno zec attach-network-interface --nic-id <nicId> --instance-id <instanceId>
   desc: 网卡绑定实例。

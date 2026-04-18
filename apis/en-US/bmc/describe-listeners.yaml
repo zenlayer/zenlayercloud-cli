@@ -1,8 +1,8 @@
 name: DescribeListeners
 product: bmc
 use: describe-listeners
-short: Queries the information of one or more specified listeners.
-long: query the information of one or more specified listeners. Users can search for listener information based on the ID of the load balancer, the ID of the listener, and other information.
+short: Queries the information of one or more specified listeners
+long: Query the information of one or more specified listeners. Users can search for listener information based on the ID of the load balancer, the ID of the listener, and other information.
 examples:
 - cmd: zeno bmc describe-listeners --load-balancer-ids xxxx
   desc: by load balancer instance ID.

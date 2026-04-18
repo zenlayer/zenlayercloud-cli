@@ -1,8 +1,8 @@
 name: AttachToPolicy
 product: zec
 use: attach-to-policy
-short: Adds a protection strategy to a protection target.
-long: add a protection strategy to a protection target.
+short: Adds a protection strategy to a protection target
+long: Add a protection strategy to a protection target.
 examples:
 - cmd: zeno zec attach-to-policy --policy-id <policyId> --ipv4-id-list eipId1 --ipv4-id-list eipId2
   desc: Add a protection strategy to a protection target.

@@ -1,8 +1,8 @@
 name: RenewCrossRegionBandwidth
 product: zec
 use: renew-cross-region-bandwidth
-short: Recovers a cross-region bandwidth.
-long: restore cross-region bandwidth.
+short: Recovers a cross-region bandwidth
+long: Restore cross-region bandwidth.
 examples:
 - cmd: zeno zec renew-cross-region-bandwidth --cross-region-bandwidth-id "<your cross id>"
   desc: Restore a cross-region bandwidth.

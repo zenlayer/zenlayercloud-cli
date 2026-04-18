@@ -1,8 +1,12 @@
 name: RenewInstance
 product: bmc
 use: renew-instance
-short: Renews an instance.
-long: renew an instance.
+short: Renews an instance
+long: |-
+  Renew an instance.
+  **Note**
+
+  Please ensure that the account balance is sufficient when renewing.
 examples:
 - cmd: zeno bmc renew-instance --instance-id instanceId
   desc: ''

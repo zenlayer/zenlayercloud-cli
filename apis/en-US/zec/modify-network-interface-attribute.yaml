@@ -1,8 +1,12 @@
 name: ModifyNetworkInterfaceAttribute
 product: zec
 use: modify-network-interface-attribute
-short: Modifies the attributes of the vNIC.
-long: modify the attributes of the vNIC.
+short: Modifies the attributes of the vNIC
+long: |-
+  Modify the attributes of the vNIC.
+  **Note**
+
+  If the vNIC is already bound to the specified security group, the request will succeed without an error.
 examples:
 - cmd: zeno zec modify-network-interface-attribute --nic-id <nicId> --name Test-vNIC --security-group-id <securityGroupId>
   desc: Modify the vNIC name and associated security group.

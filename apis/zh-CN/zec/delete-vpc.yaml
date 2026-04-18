@@ -2,7 +2,12 @@ name: DeleteVpc
 product: zec
 use: delete-vpc
 short: 删除VPC
-long: 删除VPC
+long: |-
+  删除VPC。
+  **注意事项**
+
+  * 如果VPC下存在子网/边界网关/跨地域带宽/NAT网关/负载均衡实例等，则无法删除。
+  * 不能删除默认VPC。
 examples:
 - cmd: zeno zec delete-vpc --vpc-id <vpcId>
   desc: 删除VPC。

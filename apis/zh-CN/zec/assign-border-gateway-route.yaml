@@ -1,8 +1,13 @@
 name: AssignBorderGatewayRoute
 product: zec
 use: assign-border-gateway-route
-short: 边界网关绑定自定义路由。
-long: 边界网关绑定自定义路由。即自定义路由发布到zbg网关。
+short: 边界网关绑定自定义路由
+long: |-
+  边界网关绑定自定义路由。即自定义路由发布到zbg网关。
+  **注意事项**
+
+  * 该接口是边界网关宣告自定义路由。只支持自定义路由，类型为静态路由或策略路由。
+  * 若边界网关的动态路由模式是区域（`Regional`)的话，则自定义路由的下一跳的区域需与边界网关的区域一致。
 examples:
 - cmd: zeno zec assign-border-gateway-route --zbg-id xxx --advertised-route-ids routeId1 --advertised-route-ids routeId2
   desc: 边界网关添加自定义路由宣告。

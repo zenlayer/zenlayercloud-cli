@@ -1,8 +1,22 @@
 name: CreateEips
 product: zec
 use: create-eips
-short: Creates one or more elastic IPs.
-long: create one or more elastic IPs.
+short: Creates one or more elastic IPs
+long: |-
+  Create one or more elastic IPs.
+  #### Prerequisites
+
+  * Query regions: call [`DescribeEipRegions`](describeeipregions.md) to check the available regions supporting the sale of elastic IPs.
+  * Query network billing methods: call [`DescribeEipInternetChargeTypes`](describeeipinternetchargetypes.md) to check the available network billing methods.
+  * Query remote regions: call [`DescribeEipRemoteRegions`](describeeipremoteregions.md) to check the available regions you want to remote to.
+  * Query CIDR ID: call [`DescribeCidrs`](../cidr-block/describecidrs.md) to check the available CIDR IDs.
+
+
+  **Note**
+
+  * `eipV4Type` and `cidrId` cannot be passed together or left empty.
+  * Passing `cidrId` means the public IP is generated from a CIDR block.
+  * If assigning to an instance, ensure that the primary private IP on the instance’s primary vNIC can still be assigned an elastic IP.
 sdk:
   service: zec
   version: '2025-09-01'

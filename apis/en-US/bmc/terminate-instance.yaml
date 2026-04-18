@@ -1,8 +1,16 @@
 name: TerminateInstance
 product: bmc
 use: terminate-instance
-short: Returns an instance.
-long: return an instance.
+short: Returns an instance
+long: |-
+  Return an instance.
+  **Note**
+
+  * Use this API to return an instance that is no longer required. A pay-as-you-go instance will stop billing after it is returns.
+  * Calling this API on a subscription instance will cancel the subscription and the instance will be automatically returned after the subscription expires.
+  * When this API is called, the instance will be moved to the recycle bin and be released in 24 hours if there are no other operations. You can also call [`ReleaseInstances`](releaseinstances.md) to release the instance.
+  * Operations on instances in recycle bin or in stalling status are not supported.
+  * Operations on instances in `CREATE_FAILED` status will delete the instance directly. For prepaid instances, all payment amounts will be refunded.
 examples:
 - cmd: zeno bmc terminate-instance --instance-id instanceId
   desc: ''

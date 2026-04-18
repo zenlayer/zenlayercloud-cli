@@ -2,7 +2,15 @@ name: CreateLoadBalancer
 product: zlb
 use: create-load-balancer
 short: 创建负载均衡器实例
-long: 创建负载均衡器实例。
+long: |-
+  创建负载均衡器实例。
+  **注意事项**
+
+  * 你可以通过 [`DescribeLoadBalancerRegions`](../location/describeloadbalancerregions.md) 接口来查看支持购买负载均衡的地域。
+  * 本接口为异步接口，接口成功返回后，可使用 [`DescribeLoadBalancers`](describeloadbalancers.md) 接口查询负载均衡实例的状态。其中状态为`RUNNING`则代表创建成功。
+  * 当前只支持为ZEC服务器创建负载均衡实例。
+  * 只支持后付费负载均衡实例创建。
+  * 创建负载均衡实例时，请确保该VPC下有Ipv4类型的子网，并且子网内至少有2个可用的ip地址供分配。
 examples:
 - cmd: zeno zlb create-load-balancer --region-id asia-east-1 --vpc-id <vpcId> --security-group-id <securityGroupId> --load-balancer-name sample --internet-charge-type ByBandwidth --network-line-type PremiumBGP --bandwidth-mbps 2 --bandwidth-cluster-id --number 1
   desc: 创建一个公网负载均衡实例。 IP计费方式为固定带宽。

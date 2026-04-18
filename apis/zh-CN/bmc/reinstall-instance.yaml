@@ -2,7 +2,21 @@ name: ReinstallInstance
 product: bmc
 use: reinstall-instance
 short: 重装实例
-long: 本接口用于重装一个实例。
+long: |-
+  本接口用于重装一个实例。
+  #### 准备工作
+
+  * 查询镜像：调用[`DescribeImages`](describeimages.md)可以查询到镜像信息。
+  * 查询密钥对：调用[`DescribeKeyPairs`](../../../security/key-service/key-pair/describekeypairs.md)可以查询到密钥对ID信息。
+
+
+  **注意事项**
+
+  * 如果指定了`imageId`参数，则使用指定的镜像重装；否则按照实例当前使用的镜像进行重装。
+  * 在回收站中或者正在安装中的实例不支持该操作。
+  * 系统盘将会被格式化并重置，请确保系统盘中无重要文件。
+  * 如果密码不指定将会通过邮箱下发随机密码。
+  * 重装实例后进入`INSTALLING`(安装中)的状态。如果实例的最新状态变为`RUNNING`(运行中)，则代表操作成功；如果实例的状态为`INSTALL_FAILED`，则代表安装失败。如果出现安装失败，请联系Support进行解决。实例的状态可以通过调用 `DescribeInstances` 接口查询。
 examples:
 - cmd: zeno bmc reinstall-instance --instance-id instanceId1
   desc: ''

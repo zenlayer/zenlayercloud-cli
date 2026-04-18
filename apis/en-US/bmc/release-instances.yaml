@@ -1,8 +1,13 @@
 name: ReleaseInstances
 product: bmc
 use: release-instances
-short: Releases one or more instances.
-long: release instances.
+short: Releases one or more instances
+long: |-
+  Release instances.
+  **Note**
+
+  * Only operations on instances in recycle bin are supported.
+  * Batch operations are supported. The maximum number of instances in each request is 100.
 examples:
 - cmd: zeno bmc release-instances --instance-ids instanceId1 --instance-ids instanceId2
   desc: Release two instances

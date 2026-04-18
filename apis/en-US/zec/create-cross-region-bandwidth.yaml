@@ -1,8 +1,12 @@
 name: CreateCrossRegionBandwidth
 product: zec
 use: create-cross-region-bandwidth
-short: Creates a cross-region bandwidth.
-long: create a private cross-region bandwidth.
+short: Creates a cross-region bandwidth
+long: |-
+  Create a private cross-region bandwidth.
+  **Note**
+
+  Region A and Region Z must be different regions within the same global VPC.
 examples:
 - cmd: zeno zec create-cross-region-bandwidth --vpc-id "<your vpc id>" --internet-charge-type ByBandwidth --cross-region-bandwidth-name Test-Cross1 --region-a asia-east-1 --region-z asia-north-1 --bandwidth 100
   desc: Create a cross-region bandwidth from Shanghai to Beijing, with the network billing model of Flat Rate. Burst bandwidth is 100 Mbps.

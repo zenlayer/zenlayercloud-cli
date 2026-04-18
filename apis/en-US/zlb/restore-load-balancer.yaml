@@ -1,8 +1,13 @@
 name: RestoreLoadBalancer
 product: zlb
 use: restore-load-balancer
-short: Restores the load balancer in the recycle bin.
-long: restore the load balancer in the recycle bin.
+short: Restores the load balancer in the recycle bin
+long: |-
+  Restore the load balancer in the recycle bin.
+  **Note**
+
+  * Operations are only supported if the load balancer state is `RECYCLED`.
+  * Please make sure you have enough balance in your account when you restore it, otherwise you will not be able to restore it.
 examples:
 - cmd: zeno zlb restore-load-balancer --load-balancer-id <loadBalancerId>
   desc: Restore a load balancer.

@@ -2,7 +2,12 @@ name: DescribeManagedInstanceTraffic
 product: bmc
 use: describe-managed-instance-traffic
 short: 查看托管实例流量
-long: 查询托管实例指定时间段内的流量信息。
+long: |-
+  查询托管实例指定时间段内的流量信息。
+  **注意事项**
+
+  * 开始时间和结束时间的跨度不能超过一天。
+  * 只能查询30天内的流量数据。
 examples:
 - cmd: zeno bmc describe-managed-instance-traffic --instance-id instanceId --start-time 2023-01-01T00:00:00Z --end-time 2023-01-01T23:59:59Z
   desc: 查询实例一天内的流量数据。

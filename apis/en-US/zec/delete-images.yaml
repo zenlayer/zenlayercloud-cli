@@ -1,8 +1,12 @@
 name: DeleteImages
 product: zec
 use: delete-images
-short: Deletes one or more images.
-long: delete one or more images.
+short: Deletes one or more images
+long: |-
+  Delete one or more images.
+  **Note**
+
+  The API returns the IDs of images that failed to be deleted. An empty set indicates that all deletions succeeded.
 examples:
 - cmd: zeno zec delete-images --image-ids imageId1 --image-ids imageId2
   desc: Delete images in batches.

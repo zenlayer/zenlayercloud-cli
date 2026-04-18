@@ -1,8 +1,8 @@
 name: DescribeLoadBalancerRegions
 product: zlb
 use: describe-load-balancer-regions
-short: Queries the regions supporting the creating of load balancers.
-long: query the regions supporting the creating of load balancers.
+short: Queries the regions supporting the creating of load balancers
+long: Query the regions supporting the creating of load balancers.
 examples:
 - cmd: zeno zlb describe-load-balancer-regions
   desc: Query regions where load balancers are available.

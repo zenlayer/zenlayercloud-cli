@@ -1,8 +1,14 @@
 name: ReleaseEipAddresses
 product: bmc
 use: release-eip-addresses
-short: Releases elastic IPs.
-long: release one or multiple elastic IPs.
+short: Releases elastic IPs
+long: |-
+  Release one or multiple elastic IPs.
+  **Note**
+
+  * Elastic IPs in recycle bin will be remained for 24 hours.
+  * Only operations on elastic IPs in recycle bin with the status of `RECYCLE` are supported.
+  * Batch operations are supported. The maximum number of elastic IPs in each request is 100.
 examples:
 - cmd: zeno bmc release-eip-addresses --eip-ids eipId1 --eip-ids eipId2
   desc: Release two elastic IPs

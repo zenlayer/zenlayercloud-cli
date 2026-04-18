@@ -1,8 +1,8 @@
 name: InquiryPriceCreateNatGateway
 product: zec
 use: inquiry-price-create-nat-gateway
-short: Inquiries the price of creating a NAT gateway.
-long: inquiry the price of creating a NAT gateway.
+short: Inquiries the price of creating a NAT gateway
+long: Inquiry the price of creating a NAT gateway.
 examples:
 - cmd: zeno zec inquiry-price-create-nat-gateway --region-id sample
   desc: Inquiry the price of creating a NAT gateway.

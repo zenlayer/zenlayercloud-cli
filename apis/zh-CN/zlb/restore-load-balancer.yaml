@@ -2,7 +2,12 @@ name: RestoreLoadBalancer
 product: zlb
 use: restore-load-balancer
 short: 恢复负载均衡实例
-long: 将在回收站的负载均衡实例进行恢复。
+long: |-
+  将在回收站的负载均衡实例进行恢复。
+  **注意事项**
+
+  * 只有负载均衡实例状态为`RECYCLED` 才支持该操作。
+  * 恢复时请确保账户的余额充足，否则将无法恢复。
 examples:
 - cmd: zeno zlb restore-load-balancer --load-balancer-id <loadBalancerId>
   desc: 恢复一个负载均衡实例。

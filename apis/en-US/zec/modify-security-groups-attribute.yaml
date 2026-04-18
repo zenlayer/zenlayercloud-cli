@@ -1,8 +1,8 @@
 name: ModifySecurityGroupsAttribute
 product: zec
 use: modify-security-groups-attribute
-short: Modifies the attributes of one or more security groups.
-long: modify the attributes of one or more security groups. Only the security group name to be displayed can be modified for now.
+short: Modifies the attributes of one or more security groups
+long: Modify the attributes of one or more security groups. Only the security group name to be displayed can be modified for now.
 examples:
 - cmd: zeno zec modify-security-groups-attribute --security-group-ids 791721259766392536 --security-group-name abc12345
   desc: Batch modify the names of the security groups.

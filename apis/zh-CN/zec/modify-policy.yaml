@@ -2,7 +2,7 @@ name: ModifyPolicy
 product: zec
 use: modify-policy
 short: 修改防护策略
-long: 修改防护策略
+long: 修改防护策略。
 examples:
 - cmd: zeno zec modify-policy --policy-id <policyId> --config-type UdpReflect --policy-name policyName --reflect-udp-port {port=22} --reflect-udp-port {port=34}
   desc: 修改防护策略

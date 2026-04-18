@@ -1,8 +1,13 @@
 name: ChangeEipBindType
 product: zec
 use: change-eip-bind-type
-short: 更换弹性公网IP绑定模式。
-long: 弹性公网IP（EIP）更换绑定模式。
+short: 更换弹性公网IP绑定模式
+long: |-
+  弹性公网IP（EIP）更换绑定模式。
+  **注意事项**
+
+  * 只有绑定了网卡的EIP才支持该操作。
+  * 若要变更高速模式，需要后台针对用户配置。请联系Console Support。
 examples:
 - cmd: zeno zec change-eip-bind-type --eip-id <eipId1> --bind-type FullNat
   desc: 更换弹性公网IP绑定模式

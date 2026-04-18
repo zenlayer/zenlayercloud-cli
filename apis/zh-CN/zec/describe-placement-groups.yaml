@@ -1,0 +1,49 @@
+name: DescribePlacementGroups
+product: zec
+use: describe-placement-groups
+short: 查询置放组列表
+long: 查询一个或多个置放组的信息。用户可以根据置放组ID、名称或可用区等条件来查询置放组的详细信息。
+examples:
+- cmd: zeno zec describe-placement-groups --page-size 20 --page-num 1
+  desc: 查询置放组列表。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribePlacementGroups
+parameters:
+- name: placement-group-ids
+  type: string-array
+  required: false
+  sdk-field: placementGroupIds
+  description: |-
+    根据置放组ID列表筛选。
+    最多支持100个ID查询。
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: |-
+    根据置放组名称筛选。
+    支持模糊匹配。
+- name: zone-id
+  type: string
+  required: false
+  sdk-field: zoneId
+  description: 根据置放组所属可用区筛选。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    返回的分页大小。
+    默认为20，最大为1000。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: 返回的分页数。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: 根据资源组ID筛选。

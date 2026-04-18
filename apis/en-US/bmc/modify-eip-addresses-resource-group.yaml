@@ -1,8 +1,13 @@
 name: ModifyEipAddressesResourceGroup
 product: bmc
 use: modify-eip-addresses-resource-group
-short: Modify the resource group to which the EIP belong.
-long: modify the resource group to which the EIP belong.
+short: Modify the resource group to which the EIP belong
+long: |-
+  Modify the resource group to which the EIP belong.
+  **Note**
+
+  * Batch operations are supported. The maximum number of EIP in each request is 100.
+  * Only the administrator in a team can perform this operation.
 examples:
 - cmd: zeno bmc modify-eip-addresses-resource-group --eip-ids eipId1 --eip-ids eipId2 --resource-group-id resourceGroup1
   desc: Move EIP to the specified resource group

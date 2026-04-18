@@ -1,8 +1,8 @@
 name: InquiryPriceCreateLoadBalancer
 product: zlb
 use: inquiry-price-create-load-balancer
-short: Queries the price for creating a load balancer.
-long: query the price for creating a load balancer.
+short: Queries the price for creating a load balancer
+long: Query the price for creating a load balancer.
 examples:
 - cmd: zeno zlb inquiry-price-create-load-balancer --region-id asia-east-1 --vpc-id <vpcId> --internet-charge-type ByBandwidth --ip-network-type BGPLine --bandwidth-mbps 2 --number 1
   desc: Query the price for creating a public network load balance instance.

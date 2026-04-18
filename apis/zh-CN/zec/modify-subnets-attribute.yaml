@@ -2,7 +2,13 @@ name: ModifySubnetsAttribute
 product: zec
 use: modify-subnets-attribute
 short: 修改私有子网属性
-long: 批量修改子网的属性。
+long: |-
+  批量修改子网的属性。
+  **注意事项**
+
+  * 支持批量操作。每次请求批量Subnet的上限为100。
+  * 如果其中有Subnet ID不存在，则本操作会立即失败。
+  * 该接口只支持修改名称，如果需要修改CIDR等属性，请使用[`ModifySubnetAttribute`](modifysubnetattribute.md)
 examples:
 - cmd: zeno zec modify-subnets-attribute --subnet-ids your-vpc-id --name 10.0.0.0/9
   desc: 批量修改子网的名称。

@@ -1,7 +1,7 @@
 name: CreateVpc
 product: zec
 use: create-vpc
-short: 创建全球VPC。
+short: 创建全球VPC
 long: 创建全球VPC。
 examples:
 - cmd: zeno zec create-vpc --name vpcXXX --cidr-block 10.0.0.0/9 --mtu 1300

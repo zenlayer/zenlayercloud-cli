@@ -2,7 +2,11 @@ name: UnassignBorderGateway
 product: zec
 use: unassign-border-gateway
 short: 解绑边界网关
-long: 解绑边界网关
+long: |-
+  解绑边界网关。
+  **注意事项**
+
+  * 如果边界网关未绑定NAT网关，重复调用此接口不会报错。
 examples:
 - cmd: zeno zec unassign-border-gateway --zbg-id xxx
   desc: 边界网关解绑NAT网关。

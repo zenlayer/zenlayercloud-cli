@@ -1,8 +1,8 @@
 name: DescribeSubnets
 product: zec
 use: describe-subnets
-short: Queries the details of subnets under a global VPC.
-long: query the details of subnets. You can filter the query results with the subnet ID or name.
+short: Queries the details of subnets under a global VPC
+long: Query the details of subnets. You can filter the query results with the subnet ID or name.
 examples:
 - cmd: zeno zec describe-subnets --cidr-block 10.0.0.0/24 --page-size 10 --page-num 1
   desc: Query all the available subnets with a CIDR block of `10.0.0.0/24`.

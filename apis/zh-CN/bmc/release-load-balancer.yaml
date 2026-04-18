@@ -1,8 +1,12 @@
 name: ReleaseLoadBalancer
 product: bmc
 use: release-load-balancer
-short: 释放负载均衡实例。
-long: 释放负载均衡实例。
+short: 释放负载均衡实例
+long: |-
+  释放负载均衡实例。
+  **注意事项**
+
+  * 只有在回收站中的实例才支持该操作。
 examples:
 - cmd: zeno bmc release-load-balancer --load-balancer-id xxxx
   desc: 释放负载均衡实例。

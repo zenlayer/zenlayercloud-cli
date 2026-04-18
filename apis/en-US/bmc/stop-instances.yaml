@@ -1,8 +1,15 @@
 name: StopInstances
 product: bmc
 use: stop-instances
-short: Stops one or more instances.
-long: shut down instances.
+short: Stops one or more instances
+long: |-
+  Shut down instances.
+  **Note**
+
+  * You can only perform this operation on instances whose status is `RUNNING`.
+  * The instance status will become `STOPPING` when the API is called successfully and `STOPPED` when the instance is successfully shut down.
+  * This API is an async API. A response is returned after the request is sent. However, it does not mean the shutdown has been completed. You can use [DescribeInstances](describeinstances.md) to query the status of the instance. If the status changes from `STOPPING` to`STOPPED`, it means that the instance has been shut down successfully. Any operations on the instances are not allowed while creating.
+  * Batch operations are supported. The maximum number of instances in each request is 100.
 examples:
 - cmd: zeno bmc stop-instances --instance-ids instanceId1 --instance-ids instanceId2
   desc: Shut down two instances with specified IDs

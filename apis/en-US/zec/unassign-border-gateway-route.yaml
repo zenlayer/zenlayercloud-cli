@@ -1,8 +1,8 @@
 name: UnassignBorderGatewayRoute
 product: zec
 use: unassign-border-gateway-route
-short: Not advertise custom routes to a border gateway.
-long: not advertise custom routes to a border gateway.
+short: Not advertise custom routes to a border gateway
+long: Not advertise custom routes to a border gateway.
 examples:
 - cmd: zeno zec unassign-border-gateway-route --zbg-id xxx --advertised-route-ids routeId1 --advertised-route-ids routeId2
   desc: Do not advertise custom routes to a border gateway.

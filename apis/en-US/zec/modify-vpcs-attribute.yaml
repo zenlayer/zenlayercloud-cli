@@ -1,8 +1,13 @@
 name: ModifyVpcsAttribute
 product: zec
 use: modify-vpcs-attribute
-short: Modifies the attributes of one or more global VPCs.
-long: The API is used to modify the attributes of one or more global VPCs. Only the global VPC name to be displayed can be modified for now.
+short: Modifies the attributes of one or more global VPCs
+long: |-
+  The API is used to modify the attributes of one or more global VPCs. Only the global VPC name to be displayed can be modified for now.
+  **Note**
+
+  * Batch operations are supported. Each request can modify up to 100 global VPCs.
+  * If any of the global VPC IDs does not exist, the operation will fail immediately.
 sdk:
   service: zec
   version: '2025-09-01'

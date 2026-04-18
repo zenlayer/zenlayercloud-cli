@@ -1,8 +1,17 @@
 name: AssociateEipAddress
 product: zec
 use: associate-eip-address
-short: Associates elastic IPs to resources in the same region.
-long: associate elastic IPs to resources in the same region.
+short: Associates elastic IPs to resources in the same region
+long: |-
+  Associate elastic IPs to resources in the same region.
+  **Note**
+
+  * You can call [DescribeLoadBalancers](../../../networking/zlb/load-balancer-instance/describeloadbalancers.md) to query supported load balancers.
+  * You can call [DescribeNetworkInterfaces](../vnic/describenetworkinterfaces.md) to query supported vNIC.
+  * You can call [DescribeNatGateways](../nat-gateway/describenatgateways.md) to query supported NAT gateway.
+  * You must specify exactly one of the following parameters: `loadBalancerId`, `nicId`, or `natId`, in order of priority: `loadBalancerId` > `nicId` > `natId`.
+  * If the upper limit is exceeded, please contact us to request a quota increase.
+  * The API returns the elastic IP IDs that failed to operate. An empty list indicates all operations succeeded.
 examples:
 - cmd: zeno zec associate-eip-address --nic-id <nicId> --lan-ip 10.0.0.2 --eip-ids <eipId1> --eip-ids <eipId2> --bind-type Passthrough
   desc: Associate elastic IPs to a specified vNIC with the Cut-through Mode.

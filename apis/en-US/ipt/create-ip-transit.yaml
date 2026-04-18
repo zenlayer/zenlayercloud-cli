@@ -1,0 +1,182 @@
+name: CreateIPTransit
+product: ipt
+use: create-ip-transit
+short: Create an IP Transit
+long: |-
+  Creates an IP Transit.
+  #### Preparation
+
+  * **Physical port**: You need to prepare at least one physical port in advance.
+  * **Query regions supporting IP Transit:**
+    * You can call [DescribeIPTransitDatacenters](describe-iptransit-datacenters.md) to query data centers supporting IP Transit.
+
+
+  **Notes**
+
+  * Due to equipment reasons, some regions only support manual delivery, with a delivery cycle of 1-3 days. You can check the **deliveryType** field of [DescribeIPTransitDatacenters](describe-iptransit-datacenters.md) to determine whether it is automated delivery.
+  * This is an asynchronous API. After the creation request is successfully submitted, an IP Transit `ID` will be returned. The creation is not immediately completed. During this period, the instance state will be **`DEPLOYING`**. You can call DescribeIpTransit to query the result. If the state (`iptStatus`) changes from **`DEPLOYING`** to **`AVAILABLE`**, the creation is successful. If the state changes to **`FAILED`**, the creation has failed. No operations are allowed on the IP Transit during the creation process.
+examples:
+- cmd: zeno ipt create-ip-transit --ipt-name test_IPT --ipt-description test_ipt_desc --peer-port-id 1170556726903057557 --peer-port-vlan 1042 --internet-type ByBandwidth --bandwidth 50 --ipt-dc-id AMS1 --routing-type Static --public-ipv4-block-size 28
+  desc: Create an IP Transit with static routing, /28 public CIDR, and BFD configuration.
+sdk:
+  service: ipt
+  version: '2024-09-01'
+  action: CreateIPTransit
+parameters:
+- name: ipt-name
+  type: string
+  required: false
+  sdk-field: iptName
+  description: |-
+    IP Transit name.
+    Maximum: 255 characters.
+- name: ipt-description
+  type: string
+  required: false
+  sdk-field: iptDescription
+  description: |-
+    IP Transit description.
+    Maximum: 255 characters.
+- name: peer-port-id
+  type: string
+  required: true
+  sdk-field: peerPortId
+  description: |-
+    Port ID.
+    The port connectivity status must be ACTIVE.
+- name: peer-port-vlan
+  type: integer
+  required: true
+  sdk-field: peerPortVlan
+  description: |-
+    VLAN ID.
+    Value range: 1000-4000.
+    Must be an unallocated VLAN. You can call DescribePortUsableVlan to query available VLANs.
+- name: ipt-dc-id
+  type: string
+  required: false
+  sdk-field: iptDcId
+  description: |-
+    IP Transit destination data center ID.
+    If not specified, it means the IP Transit is in the same data center as the port.
+- name: internet-type
+  type: enum
+  required: false
+  sdk-field: internetType
+  description: Bandwidth billing method of the IP Transit.
+  enum-values:
+  - value: ByBandwidth
+    desc: Billed by fixed bandwidth.
+  - value: ByInstanceBandwidth95
+    desc: Billed by 95th percentile bandwidth.
+- name: commit-bandwidth
+  type: integer
+  required: false
+  sdk-field: commitBandwidth
+  description: |-
+    Committed bandwidth.
+    Unit: Mbps.
+    This field is required if and only if internetType is ByInstanceBandwidth95.
+- name: bandwidth
+  type: integer
+  required: false
+  sdk-field: bandwidth
+  description: |-
+    Bandwidth cap.
+    Unit: Mbps.
+    Minimum value: 10 Mbps.
+- name: routing-type
+  type: enum
+  required: true
+  sdk-field: routingType
+  description: Routing type.
+  enum-values:
+  - value: BGP
+    desc: BGP. (Currently not supported via API)
+  - value: Static
+    desc: Static routing.
+  - value: Gateway
+    desc: Gateway mode.
+- name: public-ipv4-block-size
+  type: integer-array
+  required: false
+  sdk-field: publicIPv4BlockSize
+  description: |-
+    Public IPv4 address block.
+    Netmask range: 24-30.
+    This field is required if and only if routing type is Static or Gateway.
+    Currently, only one public CIDR is allowed.
+- name: bfd
+  type: object
+  required: false
+  sdk-field: bfd
+  description: |-
+    Enable BFD configuration.
+    If this field is not specified, BFD is disabled by default.
+    Gateway mode does not support BFD configuration.
+  object-schema:
+  - name: bfdTxInterval
+    type: integer
+    description: |-
+      Transmit interval.
+      Unit: ms.
+      Value range: 100-60000.
+  - name: bfdRxInterval
+    type: integer
+    description: |-
+      Receive interval.
+      Unit: ms.
+      Value range: 100-60000.
+  - name: bfdMultiplier
+    type: integer
+    description: |-
+      Detection multiplier.
+      Value range: 3-20.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    Resource group ID.
+    If not specified, it will be placed in the default resource group.
+- name: bgp
+  type: object
+  required: false
+  sdk-field: bgp
+  description: BGP configurations.
+  object-schema:
+  - name: routeType
+    type: enum
+    description: Inbound route type.
+  - name: asn
+    type: integer
+    description: ASN for announcing outbound routes.
+  - name: password
+    type: string
+    description: Authentication key.
+  - name: asnList
+    type: integer-array
+    description: ASN list for announcing outbound routes.
+  - name: asSetList
+    type: string-array
+    description: AS-SET list for announcing outbound routes.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    Tags to associate when creating the IP Transit.
+    Note: Tag keys must be unique.--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      Tag key.
+      Length limit: 1-128 characters.
+  - name: value
+    type: string
+    description: |-
+      Tag value.
+      Length limit: 1-128 characters.

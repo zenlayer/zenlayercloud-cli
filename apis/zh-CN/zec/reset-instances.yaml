@@ -1,8 +1,24 @@
 name: ResetInstances
 product: zec
 use: reset-instances
-short: 重装多台虚拟机实例操作系统。
-long: 重装多台虚拟机实例操作系统。
+short: 重装多台虚拟机实例操作系统
+long: |-
+  重装多台虚拟机实例操作系统。
+  #### 准备工作
+
+  * 查询镜像：调用[DescribeImages](../image/describeimages.md)可以查询到需要重装的操作系统镜像信息。
+
+
+  **注意事项**
+
+  * 如果指定了`imageId`参数，则使用指定的镜像重装；否则按照实例当前使用的镜像进行重装。
+  * 不支持跨操作系统类型(`osType`)重装。比如操作系统类型`linux` 重装成 `windows`。
+  * 实例的系统盘大小必须大于或等于被重装镜像的大小。否则操作将被拒绝。
+  * 系统盘将会被格式化，并重置；请确保系统盘中无重要文件。
+  * 密码与keyPair必须且只能指定其中一种。
+  * 重装系统必须在实例为关机状态才能进行。
+  * `Windows` 和 `Generic` 不支持指定 `key_id` SSH登录。
+  * 重装实例后进入`DEPLOYING`(部署中)的状态。如果实例的最新状态变为`RUNNING`(开机)，则代表操作成功，如果变为`REINSTALL_FAILED`(重装失败)，则代表操作失败，请与管理员联系；实例的状态可以通过调用 [`DescribeInstancesStatus`](describeinstancesstatus.md) 接口查询。
 examples:
 - cmd: zeno zec reset-instances --instance-ids <instanceId1> --instance-ids <instanceId2> --image-id ubuntu2022 --password Example+123 --enable-agent true
   desc: 批量重装系统。

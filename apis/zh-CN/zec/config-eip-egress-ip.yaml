@@ -1,8 +1,13 @@
 name: ConfigEipEgressIp
 product: zec
 use: config-eip-egress-ip
-short: 指定IP作为出口IP。
-long: 指定IP作为出口IP。
+short: 指定IP作为出口IP
+long: |-
+  指定IP作为出口IP。
+  **注意事项**
+
+  * 该操作不支持三线公网IP。
+  * 操作的弹性IP是绑定在网卡上的。如果是未绑定或者绑定到NAT网关/负载均衡实例上，则不支持该操作。
 examples:
 - cmd: zeno zec config-eip-egress-ip --eip-id xxx
   desc: 设置出口EIP。

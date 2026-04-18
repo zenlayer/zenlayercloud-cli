@@ -1,8 +1,8 @@
 name: DeleteAutoSnapshotPolicies
 product: zec
 use: delete-auto-snapshot-policies
-short: Deletes the specified snapshot schedule.
-long: delete the specified snapshot schedule.
+short: Deletes the specified snapshot schedule
+long: Delete the specified snapshot schedule.
 examples:
 - cmd: zeno zec delete-auto-snapshot-policies --auto-snapshot-policy-ids <autoSnapshotPolicyId> --auto-snapshot-policy-ids <autoSnapshotPolicyId>
   desc: Delete snapshot schedules in batches.

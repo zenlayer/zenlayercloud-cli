@@ -1,8 +1,12 @@
 name: DescribeImages
 product: bmc
 use: describe-images
-short: Queries the details of one or more images.
-long: view the list of images.
+short: Queries the details of one or more images
+long: |-
+  View the list of images.
+  **Note**
+
+  The images in the list are not applicable to all instance models. You can query the `imageIds` returned by `DescribeInstanceTypes` to get the images applicable to specific models.
 sdk:
   service: bmc
   version: '2026-02-01'

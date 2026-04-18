@@ -2,7 +2,14 @@ name: StopInstances
 product: bmc
 use: stop-instances
 short: 关闭实例
-long: 本接口用于关闭一个或多个实例。
+long: |-
+  本接口用于关闭一个或多个实例。
+  **注意事项**
+
+  * 只有状态为`RUNNING`的实例才可以进行此操作。
+  * 接口调用成功时，实例会进入`STOPPING`状态；关闭实例成功时，实例会进入`STOPPED`状态。
+  * 本接口为异步接口，关闭实例请求发送成功后会立即返回，此时操作并未完成。实例操作结果可以通过调用`DescribeInstances`接口查询，如果实例状态(instanceStatus)由`STOPPING`变为`STOPPED`，则代表实例关闭成功，关闭过程中不可对实例进行任何操作。
+  * 支持批量操作。每次请求批量实例的上限为100。
 examples:
 - cmd: zeno bmc stop-instances --instance-ids instanceId1 --instance-ids instanceId2
   desc: ''

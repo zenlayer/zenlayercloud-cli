@@ -2,7 +2,17 @@ name: TerminateCidrBlock
 product: bmc
 use: terminate-cidr-block
 short: Returns a CIDR block
-long: return a CIDR block.
+long: |-
+  Return a CIDR block.
+  **Note**
+
+  * Use this API to return a CIDR block that is no longer required. A pay-as-you-go CIDR block will stop billing after it is returns.
+  * You cannot return a subscription CIDR block using this API, which will be returned when subscription expires.
+  * You cannot return the CIDR block if the IP in it is assigned to an instance. Please unassign all the instances before returning the CIDR block.
+  * The returned IPv4 CIDR block will be moved to the recycle bin and be released in 24 hours if there are no other operations. You can also call [`ReleaseCidrBlocks`](releasecidrblocks.md) to release it.
+  * The returned IPv4 CIDR block will be released directly.
+  * Operations on CIDR blocks in recycle bin or in `CREATING` status are not supported.
+  * Operations on CIDR block in `CREATE_FAILED` status will delete the CIDR block directly. For prepaid CIDR blocks, all payment amounts will be refunded.
 examples:
 - cmd: zeno bmc terminate-cidr-block --cidr-block-id cidrBlockId
   desc: ''

@@ -1,8 +1,8 @@
 name: DescribeNatGatewayRegions
 product: zec
 use: describe-nat-gateway-regions
-short: Queries the available regions of NAT gateways.
-long: query the available regions of NAT gateways.
+short: Queries the available regions of NAT gateways
+long: Query the available regions of NAT gateways.
 examples:
 - cmd: zeno zec describe-nat-gateway-regions
   desc: Query the available regions of NAT gateway.

@@ -2,7 +2,11 @@ name: ModifyListener
 product: zlb
 use: modify-listener
 short: 修改负载均衡监听器属性
-long: 修改负载均衡监听器的属性，包括监听器的名称、健康检查参数、转发方式等。不支持修改监听器的监听协议。
+long: |-
+  修改负载均衡监听器的属性，包括监听器的名称、健康检查参数、转发方式等。不支持修改监听器的监听协议。
+  **注意事项**
+
+  * 当监听器端口为全端口（0）或修改为全端口时，如果健康检查类型为`TCP`或`HTTP_GET`，必须指定`healthCheck.checkPort`（健康检查端口）。
 examples:
 - cmd: zeno zlb modify-listener --load-balancer-id <loadBalancerId> --listener-id <listenerId> --listener-name sampleName --scheduler mh
   desc: 修改负载均衡监听器的名称、健康检查参数以及转发策略
@@ -48,6 +52,7 @@ parameters:
     type: integer
     description: |-
       健康检查端口。
+      当监听器端口为全端口（0）且健康检查类型为TCP或HTTP时，必须指定该端口。
       默认为后端服务的端口，除非您希望指定特定端口，否则建议留空。
   - name: checkDelayLoop
     type: integer
@@ -111,7 +116,7 @@ parameters:
     监听器端口。
     多个端口使用,分隔。
     当端口是范围时用-连接，例如：10000-10005。
-    端口的取值范围为1～65535。
+    端口的取值范围为0～65535，0代表全范围端口。
     不指定将不会进行修改。
 - name: kind
   type: enum
@@ -132,3 +137,8 @@ parameters:
   required: false
   sdk-field: persistent
   description: 会话保持时间，单位秒。
+- name: idle-timeout
+  type: integer
+  required: false
+  sdk-field: idleTimeout
+  description: 空闲超时时间，单位秒。

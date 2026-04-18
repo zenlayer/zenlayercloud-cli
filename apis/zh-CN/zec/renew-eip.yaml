@@ -1,8 +1,12 @@
 name: RenewEip
 product: zec
 use: renew-eip
-short: 恢复弹性公网IP。
-long: 恢复弹性公网IP
+short: 恢复弹性公网IP
+long: |-
+  恢复弹性公网IP。
+  **注意事项**
+
+  * 只有在回收站中的弹性公网IP（即状态是`RECYCLE`）才支持该操作。
 examples:
 - cmd: zeno zec renew-eip --eip-id <eipId>
   desc: 恢复回收站种的弹性公网IP。

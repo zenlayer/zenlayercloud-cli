@@ -2,7 +2,11 @@ name: StartIpForward
 product: zec
 use: start-ip-forward
 short: 开启IP转发
-long: 开启IP转发
+long: |-
+  开启IP转发。
+  **注意事项**
+
+  * 实例状态必须处理运行(`RUNNING`)或关机的（`STOPPED`),才能让进行该操作。
 examples:
 - cmd: zeno zec start-ip-forward --instance-id instanceId1
   desc: 开启实例IP转发。

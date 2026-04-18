@@ -1,8 +1,15 @@
 name: RebootInstances
 product: bmc
 use: reboot-instances
-short: Restarts one or more instances that is in the Stopped or Running state.
-long: restart instances.
+short: Restarts one or more instances that is in the Stopped or Running state
+long: |-
+  Restart instances.
+  **Note**
+
+  * You can only perform this operation on instances whose status is `STOPPED` or `RUNNING` and that are not in the recycle bin.
+  * If the API is called successfully, the instance status will become `BOOTING`. After the instance is restarted, its status will become `RUNNING` again.
+  * This API is an async API. A response is returned after the request is sent. However, it does not mean the restart has been completed. You can use [DescribeInstances](describeinstances.md) to query the status of the instance. If the status changes from `BOOTING` to `RUNNING`, it means that the instance has been restarted successfully. Any operations on the instances are not allowed while creating.
+  * Batch operations are supported. The maximum number of instances in each request is 100.
 examples:
 - cmd: zeno bmc reboot-instances --instance-ids instanceId1 --instance-ids instanceId2
   desc: Restart two instances.

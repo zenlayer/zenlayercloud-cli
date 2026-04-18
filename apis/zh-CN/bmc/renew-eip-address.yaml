@@ -2,7 +2,11 @@ name: RenewEipAddress
 product: bmc
 use: renew-eip-address
 short: 续费Elastic IP
-long: 本接口用于续费一个EIP。
+long: |-
+  本接口用于续费一个EIP。
+  **注意事项**
+
+  * 续费时请确保账户余额充足。可通过`DescribeAccountBalance`接口查询账户余额。
 sdk:
   service: bmc
   version: '2026-02-01'

@@ -2,7 +2,13 @@ name: StartInstances
 product: zec
 use: start-instances
 short: 启动虚拟机实例
-long: 启动一台或多台虚拟机实例。
+long: |-
+  启动一台或多台虚拟机实例。
+  **注意事项**
+
+  * 实例状态为关闭的(`STOPPED`)可以进行此操作。
+  * 本接口为异步接口，启动实例请求发送成功后会立即返回，此时操作并未完成。实例操作结果可以通过调用[DescribeInstancesStatus](describeinstancesstatus.md)接口查询，如果实例状态(`instanceStatus`)由`STARTING`变为`RUNNING`，则代表实例关闭成功，启动过程中不可对实例进行任何操作。
+  * 支持批量操作。每次请求批量实例的上限为100。
 examples:
 - cmd: zeno zec start-instances --instance-ids instanceId1 --instance-ids instanceId2
   desc: 启动实例。

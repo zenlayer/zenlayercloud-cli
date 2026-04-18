@@ -1,7 +1,7 @@
 name: ModifyEipAttribute
 product: zec
 use: modify-eip-attribute
-short: 修改弹性公网IP属性。
+short: 修改弹性公网IP属性
 long: 修改弹性公网IP属性。
 examples:
 - cmd: zeno zec modify-eip-attribute --eip-id <eipId> --name Test-IP

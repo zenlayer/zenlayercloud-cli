@@ -1,8 +1,12 @@
 name: ReleaseLoadBalancer
 product: bmc
 use: release-load-balancer
-short: Releases a load balancer.
-long: release a load balancer.
+short: Releases a load balancer
+long: |-
+  Release a load balancer.
+  **Note**
+
+  The operation is only supported for instances in the recycle bin.
 examples:
 - cmd: zeno bmc release-load-balancer --load-balancer-id xxxx
   desc: Release a load balancer.

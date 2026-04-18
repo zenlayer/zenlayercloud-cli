@@ -1,8 +1,13 @@
 name: ImportKeyPair
 product: ccs
 use: import-key-pair
-short: Imports an SSH key key pair
-long: The API is used to import an SSH key pair to log in to a `Linux` instance.
+short: Imports an SSH key pair
+long: |-
+  The API is used to import an SSH key pair to log in to a `Linux` instance.
+  **Note**
+
+  * This request is to import an SSH key pair to be used for later instance login.
+  * A key pair name and several public SSH keys are required.
 examples:
 - cmd: zeno ccs import-key-pair --key-name my-key --public-key ""ssh-rsa XXXXXXXXXXXX== example""
   desc: Import an SSH key pair.

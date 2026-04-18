@@ -2,7 +2,12 @@ name: ModifySubnetStackType
 product: zec
 use: modify-subnet-stack-type
 short: 修改子网堆栈类型
-long: 修改子网堆栈类型
+long: |-
+  修改子网堆栈类型。
+  **注意事项**
+
+  * 当前子网的堆栈类型只能从`IPv4`切换为`IPv4_IPv6`。切换后，将得到一个IPv6地址段。
+  * 注意切换后，操作不可逆。
 examples:
 - cmd: zeno zec modify-subnet-stack-type --subnet-id XXX --stack-type IPv4_IPv6 --ipv6-type Private
   desc: 修改子网的堆栈类型。并指定公网IPv6是内网。

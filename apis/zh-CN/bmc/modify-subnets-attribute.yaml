@@ -2,7 +2,12 @@ name: ModifySubnetsAttribute
 product: bmc
 use: modify-subnets-attribute
 short: 修改Subnet属性
-long: 本接口用于修改Subnet的属性（目前只支持修改Subnet的名称）。
+long: |-
+  本接口用于修改Subnet的属性（目前只支持修改Subnet的名称）。
+  **注意事项**
+
+  * 支持批量操作。每次请求批量Subnet的上限为100。
+  * 如果其中有Subnet ID不存在，则本操作会立即失败。
 examples:
 - cmd: zeno bmc modify-subnets-attribute --subnet-ids your-subnet-id --subnet-name Test-Subnet
   desc: 批量修改Subnet的名称

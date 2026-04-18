@@ -1,8 +1,13 @@
 name: RenewCidrBlock
 product: bmc
 use: renew-cidr-block
-short: Renews a CIDR block.
-long: renew a CIDR block.
+short: Renews a CIDR block
+long: |-
+  Renew a CIDR block.
+  **Note**
+
+  * Please ensure that the account balance is sufficient when renewing.
+  * This API is not applicable to IPv6 CIDR block.
 examples:
 - cmd: zeno bmc renew-cidr-block --cidr-block-id cidrBlockId
   desc: ''

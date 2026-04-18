@@ -1,8 +1,8 @@
 name: UnbindSecurityGroupFromLoadBalancers
 product: zlb
 use: unbind-security-group-from-load-balancers
-short: 批量解绑负载器均衡的安全组。
-long: 批量解绑负载器均衡的安全组。
+short: 批量解绑负载均衡实例的安全组。
+long: 将一个或多个负载均衡实例与其绑定的安全组解除关联。
 examples:
 - cmd: zeno zlb unbind-security-group-from-load-balancers --load-balancer-ids "<your lb id1>" --load-balancer-ids "<your lb id2>"
   desc: 批量解绑负载器均衡的安全组

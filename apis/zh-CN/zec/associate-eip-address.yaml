@@ -1,8 +1,17 @@
 name: AssociateEipAddress
 product: zec
 use: associate-eip-address
-short: 绑定弹性公网IP。
-long: 批量将弹性公网IP（EIP）绑定到同地域的云产品实例上。
+short: 绑定弹性公网IP
+long: |-
+  批量将弹性公网IP（EIP）绑定到同地域的云产品实例上。
+  **注意事项**
+
+  * 你可以通过 DescribeLoadBalancers 接口来查看支持绑定负载均衡的实例。
+  * 你可以通过 DescribeNetworkInterfaces 接口来查看支持绑定的虚拟网卡。
+  * 你可以通过 DescribeNatGateways 接口来查看支持绑定的NAT网关。
+  * 参数`loadBalancerId`、`nicId`、`natId`必须传1个。如果3个字段值有带上，则按`loadBalancerId`、`nicId`、`natId`顺序优先使用。
+  * 如果遇到绑定数量超过了限制，可以联系Support来提高配额。
+  * 接口会返回绑定失败的eip id集合，如果是空的则说明全部成功。
 examples:
 - cmd: zeno zec associate-eip-address --nic-id <nicId> --lan-ip 10.0.0.2 --eip-ids <eipId1> --eip-ids <eipId2> --bind-type Passthrough
   desc: 将多个弹性公网IP（EIP）绑定到指定网卡上， 并指定方式为可见模式。

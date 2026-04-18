@@ -1,7 +1,7 @@
 name: ModifyRouteAttribute
 product: zec
 use: modify-route-attribute
-short: 修改路由属性。
+short: 修改路由属性
 long: 修改路由的基本信息，目前只允许修改路由的名称。
 examples:
 - cmd: zeno zec modify-route-attribute --route-id <routeId> --name Test

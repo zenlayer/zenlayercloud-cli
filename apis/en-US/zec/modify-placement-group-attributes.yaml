@@ -1,0 +1,49 @@
+name: ModifyPlacementGroupAttributes
+product: zec
+use: modify-placement-group-attributes
+short: Modify the attribute of placement group
+long: |-
+  Modify the name, number of partitions, affinity of the placement group.
+  **Notes**
+
+  * The partition count (partitionNum) can only be increased, not decreased.
+  * If the modified partition count or affinity does not satisfy the current instance distribution, the modification will be rejected. Please remove the related instances before retrying.
+examples:
+- cmd: zeno zec modify-placement-group-attributes --placement-group-id placementgroup-xxxxxxxx --name new-placement-group-name
+  desc: Modify the placement group name.
+- cmd: zeno zec modify-placement-group-attributes --placement-group-id placementgroup-xxxxxxxx --partition-num 5
+  desc: Modify the number of partitions for the placement group.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyPlacementGroupAttributes
+parameters:
+- name: placement-group-id
+  type: string
+  required: true
+  sdk-field: placementGroupId
+  description: Placement group ID
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: |-
+    Name for the placement group.
+    Length 2 to 63 characters.
+    Must start and end with a letter or number, supports letters, numbers, spaces, hyphens, slashes, and periods.
+- name: partition-num
+  type: integer
+  required: false
+  sdk-field: partitionNum
+  description: |-
+    The number of partitions in the placement group.
+    The range is from 2 to 5.
+    The number of partitions can only be increased, not decreased.
+    If the modified number of partitions or affinity does not meet the current instance distribution state, the modification will be rejected.
+- name: affinity
+  type: integer
+  required: false
+  sdk-field: affinity
+  description: |-
+    Affinity of the placement group.
+    Valid values range from 1 to floor(partitionNum / 2).

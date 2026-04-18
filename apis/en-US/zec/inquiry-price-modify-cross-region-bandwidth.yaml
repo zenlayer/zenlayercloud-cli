@@ -1,8 +1,12 @@
 name: InquiryPriceModifyCrossRegionBandwidth
 product: zec
 use: inquiry-price-modify-cross-region-bandwidth
-short: Queries the price of modifying the cross-region bandwidth configurations.
-long: query the price of changing the cross-region bandwidth configuration.
+short: Queries the price of modifying the cross-region bandwidth configurations
+long: |-
+  Query the price of changing the cross-region bandwidth configuration.
+  **Note**
+
+  When the network billing model is `ByInstanceBandwidth95`, modifying the burst bandwidth does not involve a billing change.
 examples:
 - cmd: zeno zec inquiry-price-modify-cross-region-bandwidth --cross-region-bandwidth-id "<your cross id>" --bandwidth 500
   desc: Query the price of changing the bandwidth cap of cross-region bandwidth into 500Mbps. The network billing model is `ByBandwidth`.

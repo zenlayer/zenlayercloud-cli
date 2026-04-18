@@ -2,7 +2,13 @@ name: DeleteVpc
 product: bmc
 use: delete-vpc
 short: 删除VPC
-long: 本接口用于删除一个Vpc。
+long: |-
+  本接口用于删除一个Vpc。
+  **注意事项**
+
+  * 本接口为异步接口，当删除Vpc请求下发成功后会返回一个RequestId，此时删除Vpc操作并未立即完成。在此期间Vpc的状态将会处于`DELETING`，结果可以通过调用`DescribeVpcs`接口查询，如果Vpc列表不存在该Vpc，则代表Vpc删除成功。`DELETING`状态不能进行任何操作。
+  * 不能删除存在Subnet的Vpc，可通过`DescribeVpcs`接口查看。
+  * 该接口只能被处于 **AVAILABLE** 或 **CREATE\_FAILED** 状态的Vpc调用。
 examples:
 - cmd: zeno bmc delete-vpc --vpc-id your-vpc-id
   desc: 删除VPC。

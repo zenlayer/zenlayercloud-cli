@@ -2,7 +2,12 @@ name: ReleaseInstances
 product: bmc
 use: release-instances
 short: 释放实例
-long: 本接口用于释放一个或多个实例。
+long: |-
+  本接口用于释放一个或多个实例。
+  **注意事项**
+
+  * 只有在回收站中的实例才支持该操作。
+  * 支持批量操作。每次请求批量实例的上限为100。
 examples:
 - cmd: zeno bmc release-instances --instance-ids instanceId1 --instance-ids instanceId2
   desc: ''

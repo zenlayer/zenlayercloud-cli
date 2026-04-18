@@ -1,7 +1,7 @@
 name: CreateCidr
 product: zec
 use: create-cidr
-short: 创建IPv4 CIDR地址段。
+short: 创建IPv4 CIDR地址段
 long: 创建IPv4 CIDR地址段。
 examples:
 - cmd: zeno zec create-cidr --region-id asia-east-1 --network-line-type PremiumBGP

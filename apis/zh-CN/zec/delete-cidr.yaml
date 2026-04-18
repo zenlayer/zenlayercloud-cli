@@ -1,8 +1,13 @@
 name: DeleteCidr
 product: zec
 use: delete-cidr
-short: 删除IPv4 CIDR地址段。
-long: 删除IPv4 CIDR地址段。
+short: 删除IPv4 CIDR地址段
+long: |-
+  删除IPv4 CIDR地址段。
+  **注意事项**
+
+  * CIDR 地址段下如果有分配的 EIP，则无法删除该 CIDR 地址段。
+  * 普通账号删除CIDR后，该资源会直接回收。操作不可逆。
 examples:
 - cmd: zeno zec delete-cidr --cidr-id <cidrId>
   desc: 删除指定的CIDR。

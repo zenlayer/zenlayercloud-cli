@@ -2,7 +2,12 @@ name: DescribeBandwidthClusterTraffic
 product: traffic
 use: describe-bandwidth-cluster-traffic
 short: 查询共享带宽包带宽数据
-long: 查询带宽组指定时间段内的流量信息。
+long: |-
+  查询带宽组指定时间段内的流量信息。
+  **注意事项**
+
+  * 开始时间和结束时间的跨度不能超过一天。
+  * 只能查询30天内的流量数据。
 examples:
 - cmd: zeno traffic describe-bandwidth-cluster-traffic --bandwidth-cluster-id bandwidthClusterId --start-time 2024-01-01T00:00:00Z --end-time 2024-01-01T23:59:59Z
   desc: 查询共享带宽包一天内的流量数据。

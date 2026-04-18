@@ -1,8 +1,13 @@
 name: DeleteKeyPairs
 product: ccs
 use: delete-key-pairs
-short: 删除一个或多个密钥对。
-long: 删除一个或多个密钥对。
+short: 删除一个或多个密钥对
+long: |-
+  删除一个或多个密钥对。
+  **注意事项**
+
+  * 密钥对被实例引用时，也可以进行删除，不影响正在使用的实例登陆。
+  * 若参数中的`keyIds`中存在不合法的ID, 操作将立刻失败。
 examples:
 - cmd: zeno ccs delete-key-pairs --key-ids key-zCcHQB9u
   desc: 删除一个或多个密钥对。

@@ -1,8 +1,8 @@
 name: DescribeEipTraffic
 product: zec
 use: describe-eip-traffic
-short: Queries the traffic of an elastic IP in a specified time range.
-long: query the traffic of an elastic IP in a specified time range.
+short: Queries the traffic of an elastic IP in a specified time range
+long: Query the traffic of an elastic IP in a specified time range.
 examples:
 - cmd: zeno zec describe-eip-traffic --eip-id 926368879272403391 --start-time 2023-07-11T08:00:011Z --end-time 2023-07-11T08:10:00Z
   desc: Query the traffic of an elastic IP in a specified time range.

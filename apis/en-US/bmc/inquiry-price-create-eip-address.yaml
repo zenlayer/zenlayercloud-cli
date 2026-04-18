@@ -1,8 +1,8 @@
 name: InquiryPriceCreateEipAddress
 product: bmc
 use: inquiry-price-create-eip-address
-short: Queries the price of creating elastic IP.
-long: query the price of creating elastic IP.
+short: Queries the price of creating elastic IP
+long: Query the price of creating elastic IP.
 examples:
 - cmd: zeno bmc inquiry-price-create-eip-address --zone-id SEL-A --eip-charge-type POSTPAID
   desc: Query the pay-as-you-go price of creating an elastic IP
@@ -25,10 +25,10 @@ parameters:
     PREPAID: subscription
     POSTPAID: pay-as-you-go
   enum-values:
-  - value: POSTPAID
-    desc: Pay-as-you-go.
   - value: PREPAID
     desc: Subscription.
+  - value: POSTPAID
+    desc: Pay-as-you-go.
 - name: eip-charge-prepaid
   type: object
   required: false

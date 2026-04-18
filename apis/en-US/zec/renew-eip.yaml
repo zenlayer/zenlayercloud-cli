@@ -1,8 +1,12 @@
 name: RenewEip
 product: zec
 use: renew-eip
-short: Restores an elastic IP..
-long: restore an elastic IP.
+short: Restores an elastic IP.
+long: |-
+  Restore an elastic IP.
+  **Note**
+
+  * This operation is only supported for elastic IPs in the recycle bin (i.e., with state `RECYCLE`).
 sdk:
   service: zec
   version: '2025-09-01'

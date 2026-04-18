@@ -1,12 +1,16 @@
 name: CreateListener
 product: zlb
 use: create-listener
-short: Creates a load balance listener.
-long: create a load balance listener.
+short: Creates a load balance listener
+long: |-
+  Creates a TCP, UDP, or TCPSSL listener in the specified load balancer instance. You can configure the listening port, scheduling algorithm, forwarding mode, and health check policy during creation.
+  **Note**
+
+  * When the listener port is set to all ports (0) and the health check type is `TCP` or `HTTP_GET`, the `healthCheck.checkPort` (health check port) must be specified.
 examples:
-- cmd: zeno zlb create-listener --load-balancer-id <loadBalancerId> --listener-name sample --protocol TCP --scheduler mh --port 8080-9000,8000
+- cmd: zeno zlb create-listener --load-balancer-id <loadBalancerId> --listener-name sample --protocol TCP --scheduler mh --port 8080-9000,8000 --persistent 60 --idle-timeout 60
   desc: Create a TCP load balance listener to listen to ports `8080-9000` and `8000` without enabling health check.
-- cmd: zeno zlb create-listener --load-balancer-id <loadBalancerId> --listener-name sample --protocol TCP --scheduler mh --port 8080
+- cmd: zeno zlb create-listener --load-balancer-id <loadBalancerId> --listener-name sample --protocol TCP --scheduler mh --port 8080 --persistent 60 --idle-timeout 60
   desc: Create a TCP load balance listener and enable health check at the same time.
 sdk:
   service: zlb
@@ -45,8 +49,8 @@ parameters:
     type: integer
     description: |-
       Health check port.
+      When the listener port is set to all ports (0) and the health check type is TCP or HTTP_GET, the value must be specified.
       Defaults to the backend server port. Unless you need a specific port, it is recommended to leave this field empty.
-      Optional range: [1, 65535].
   - name: checkDelayLoop
     type: integer
     description: |-
@@ -125,10 +129,10 @@ parameters:
   sdk-field: port
   description: |-
     Listening port.
-    Multiple ports are separated by commas.
-    When the port is a range, connect with -, for example: 10000-10005.
-    The value range of the port is 1 to 65535.
-    Please note that the port cannot overlap with other ports of the listener.
+    Multiple ports are separated by commas (,).
+    Port ranges can be defined using a hyphen (-), for example: 10000-10005.
+    Valid port values range from 0 to 65535, where 0 indicates all ports.
+    Ports must not overlap with other ports configured for the same listener.
 - name: kind
   type: enum
   required: false
@@ -149,3 +153,8 @@ parameters:
   required: false
   sdk-field: persistent
   description: Session persistence duration, in seconds.
+- name: idle-timeout
+  type: integer
+  required: false
+  sdk-field: idleTimeout
+  description: 'Idle timeout period. Unit: seconds.'

@@ -1,8 +1,13 @@
 name: DeleteCidr
 product: zec
 use: delete-cidr
-short: Deletes a CIDR block.
-long: delete a CIDR block.
+short: Deletes a CIDR block
+long: |-
+  Delete a CIDR block.
+  **Note**
+
+  * If there are allocated elastic IPs under the CIDR block, the CIDR block cannot be deleted.
+  * For regular accounts, once a CIDR block is deleted, the resource will be immediately reclaimed. This operation is irreversible.
 sdk:
   service: zec
   version: '2025-09-01'

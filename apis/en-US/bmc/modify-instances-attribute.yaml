@@ -1,8 +1,13 @@
 name: ModifyInstancesAttribute
 product: bmc
 use: modify-instances-attribute
-short: Modifies the information about instances, such as the names.
-long: The API is used to modify the attributes of one or more instances. Only the instance name to be displayed can be modified for now.
+short: Modifies the information about instances, such as the names
+long: |-
+  The API is used to modify the attributes of one or more instances. Only the instance name to be displayed can be modified for now.
+  **Note**
+
+  * Batch operations are supported. Each request can modify up to 100 instances.
+  * If any of the instance IDs does not exist, the operation will fail immediately.
 examples:
 - cmd: zeno bmc modify-instances-attribute --instance-ids instanceId1 --instance-ids instanceId2 --instance-name myInstanceName
   desc: ''

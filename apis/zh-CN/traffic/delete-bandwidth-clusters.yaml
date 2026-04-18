@@ -2,7 +2,11 @@ name: DeleteBandwidthClusters
 product: traffic
 use: delete-bandwidth-clusters
 short: 终止共享带宽包
-long: 删除一个或多个共享带宽包。
+long: |-
+  删除一个或多个共享带宽包。
+  **注意事项**
+
+  * 如果共享带宽包存在资源，则无法删除。
 examples:
 - cmd: zeno traffic delete-bandwidth-clusters --bandwidth-cluster-ids <bandwidth-cluster-id>
   desc: 删除一个共享带宽包

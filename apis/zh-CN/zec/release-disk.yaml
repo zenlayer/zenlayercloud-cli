@@ -2,7 +2,13 @@ name: ReleaseDisk
 product: zec
 use: release-disk
 short: 释放云硬盘
-long: 删除释放一块云硬盘。
+long: |-
+  删除释放一块云硬盘。
+  **注意事项**
+
+  * 无法释放系统盘。系统盘随实例删除一起释放。
+  * 普通账号，删除将直接释放，操作不可逆。如果云盘处于回收站调用该接口将释放云盘，操作不可逆转。
+  * 此接口不可逆，请谨慎操作。
 examples:
 - cmd: zeno zec release-disk --disk-id your-disk-id
   desc: 释放云硬盘。

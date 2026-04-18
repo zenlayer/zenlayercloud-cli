@@ -1,8 +1,8 @@
 name: CreateCommand
 product: zos
 use: create-command
-short: Creates a command.
-long: create a command.
+short: Creates a command
+long: Create a command.
 examples:
 - cmd: zeno zos create-command --name ""Test Command"" --content ""echo 1"" --type SHELL
   desc: Create a command in `Shell` language.

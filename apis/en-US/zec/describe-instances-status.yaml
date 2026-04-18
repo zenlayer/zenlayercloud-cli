@@ -1,8 +1,8 @@
 name: DescribeInstancesStatus
 product: zec
 use: describe-instances-status
-short: Queries the status of one or more instances.
-long: query the status of one or more elastic compute instances.
+short: Queries the status of one or more instances
+long: Query the status of one or more elastic compute instances.
 examples:
 - cmd: zeno zec describe-instances-status
   desc: Query status of instances.

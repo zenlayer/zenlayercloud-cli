@@ -1,8 +1,8 @@
 name: InquiryPriceCreateInstance
 product: bmc
 use: inquiry-price-create-instance
-short: Queries the price of a creating instance.
-long: query the price of creating instance.
+short: Queries the price of a creating instance
+long: Query the price of creating instance.
 examples:
 - cmd: zeno bmc inquiry-price-create-instance --zone-id SEL-A --instance-type-id M6C --instance-charge-type PREPAID --traffic-package-size 100 --internet-max-bandwidth-out 200 --internet-charge-type ByBandwidth
   desc: Query the price of a subscription instance with the billing method of flat rate
@@ -32,10 +32,10 @@ parameters:
     PREPAID: subscription
     POSTPAID: pay-as-you-go
   enum-values:
-  - value: POSTPAID
-    desc: Pay-as-you-go.
   - value: PREPAID
     desc: Subscription.
+  - value: POSTPAID
+    desc: Pay-as-you-go.
 - name: instance-charge-prepaid
   type: object
   required: false

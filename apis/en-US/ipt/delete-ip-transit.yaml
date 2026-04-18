@@ -1,0 +1,23 @@
+name: DeleteIPTransit
+product: ipt
+use: delete-ip-transit
+short: Delete an IP Transit
+long: |-
+  Deletes an IP Transit.
+  **Notes**
+
+  * Only IP Transits in **RUNNING** or **CREATING\_FAILED** state are allowed for this operation.
+  * This is an asynchronous API. After the delete request is successfully submitted, the deletion is not immediately completed. During this period, the IP Transit state will be **DESTROYING**. After successful deletion, the data will no longer be returned from [DescribeIPTransits](describe-iptransits.md).
+examples:
+- cmd: zeno ipt delete-ip-transit --ipt-id your-ipt-id
+  desc: Delete a specified IP Transit.
+sdk:
+  service: ipt
+  version: '2024-09-01'
+  action: DeleteIPTransit
+parameters:
+- name: ipt-id
+  type: string
+  required: true
+  sdk-field: iptId
+  description: IP Transit ID.

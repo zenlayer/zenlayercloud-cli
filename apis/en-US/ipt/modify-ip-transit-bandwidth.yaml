@@ -1,0 +1,39 @@
+name: ModifyIPTransitBandwidth
+product: ipt
+use: modify-ip-transit-bandwidth
+short: Modify the bandwidth cap of an IP Transit
+long: |-
+  Modifies the bandwidth cap of an IP Transit.
+  **Notes**
+
+  * The bandwidth cap can only be modified when the IP Transit state is **AVAILABLE**.
+  * This is an asynchronous API. The bandwidth modification is not immediately completed. During this period, the IP Transit state will be **UPDATING**. You can call [DescribeIPTransits](describe-iptransits.md) to query the result. If the state (`iptStatus`) changes from **UPDATING** to **AVAILABLE**, the bandwidth update is successful.
+  * No other operations are allowed on this IP Transit during the bandwidth modification.
+examples:
+- cmd: zeno ipt modify-ip-transit-bandwidth --ipt-id your-ipt-id --bandwidth 100
+  desc: Modify IP Transit bandwidth to 100 Mbps
+sdk:
+  service: ipt
+  version: '2024-09-01'
+  action: ModifyIPTransitBandwidth
+parameters:
+- name: ipt-id
+  type: string
+  required: true
+  sdk-field: iptId
+  description: IP Transit ID.
+- name: bandwidth
+  type: integer
+  required: true
+  sdk-field: bandwidth
+  description: |-
+    Bandwidth cap to modify.
+    Value range: 1-1000.
+    Unit: Mbps.
+- name: commit-bandwidth
+  type: integer
+  required: false
+  sdk-field: commitBandwidth
+  description: |-
+    Committed bandwidth.
+    This parameter is valid when the IP Transit bandwidth billing method is 95th percentile billing. If not set, the committed bandwidth will not be modified.

@@ -2,7 +2,12 @@ name: UpdateBandwidthClusterCommitBandwidth
 product: traffic
 use: update-bandwidth-cluster-commit-bandwidth
 short: 变更共享带宽包保底带宽
-long: 修改带宽包的保底带宽。
+long: |-
+  修改带宽包的保底带宽。
+  **注意事项**
+
+  * 修改带宽包保底会立即生效。
+  * 存在资源的带宽包可以修改保底带宽。不存在资源的共享带宽包可以直接删除重新创建新的共享带宽包。
 examples:
 - cmd: zeno traffic update-bandwidth-cluster-commit-bandwidth --bandwidth-cluster-id <bandwidth-cluster-id> --commit-bandwidth-mbps 100
   desc: 将共享带宽包保底带宽100Mbps。

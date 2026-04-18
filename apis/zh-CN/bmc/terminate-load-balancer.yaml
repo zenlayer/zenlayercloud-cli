@@ -1,7 +1,7 @@
 name: TerminateLoadBalancer
 product: bmc
 use: terminate-load-balancer
-short: 终止负载均衡实例。
+short: 终止负载均衡实例
 long: 终止负载均衡实例。
 examples:
 - cmd: zeno bmc terminate-load-balancer --load-balancer-id xxxx

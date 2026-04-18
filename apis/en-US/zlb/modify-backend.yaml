@@ -1,8 +1,8 @@
 name: ModifyBackend
 product: zlb
 use: modify-backend
-short: Modifies the configurations of one or more backend servers.
-long: modify the configurations of one or more backend servers added to a specified listener, including the weight and forwarding port.
+short: Modifies the configurations of one or more backend servers
+long: Modify the configurations of one or more backend servers added to a specified listener, including the weight and forwarding port.
 examples:
 - cmd: zeno zlb modify-backend --load-balancer-id <loadBalancerId> --listener-id <listenerId> --backend-servers "{instanceId=<backendServerId>, privateIpAddress=10.0.0.1, weight=50, port=10}"
   desc: Modify the weight and port of the backend server added to a listener.
@@ -48,6 +48,6 @@ parameters:
     type: integer
     description: |-
       Target port for request forwarding and health checks.
-      If left empty, it will follow the listener's port configuration.
+      If left empty, it will follow the listener port configuration.
       This parameter is not required when deleting a server.
-      Optional range: [1, 65535].
+      When the listener forwarding mode is `DR`, or the listener uses all ports (0) or multiple ports, specifying a target port is not supported; the target port must match the listener port.

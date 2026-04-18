@@ -1,8 +1,12 @@
 name: CancelInstanceTrafficPackageDowngrade
 product: bmc
 use: cancel-instance-traffic-package-downgrade
-short: Cancels the downgrade of instance traffic package.
-long: The API is used to cancel traffic package downgrade order.
+short: Cancels the downgrade of instance traffic package
+long: |-
+  The API is used to cancel traffic package downgrade order.
+  **Note**
+
+  The traffic package of instance has been downgraded and an order exists.
 examples:
 - cmd: zeno bmc cancel-instance-traffic-package-downgrade --instance-id instanceId
   desc: Cancel traffic package downgrade order

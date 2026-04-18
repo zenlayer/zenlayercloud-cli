@@ -1,0 +1,39 @@
+name: DescribeResourceByTags
+product: zrm
+use: describe-resource-by-tags
+short: 根据标签获取绑定资源
+long: |-
+  获取标签下绑定的所有资源列表。
+  **注意事项**
+
+  * 请求入参数中的tags和tagKeys两者至少填写一个
+examples:
+- cmd: zeno zrm describe-resource-by-tags --tags "{key=key_b1b29f0f5533, value=value_0827e7e1a82b}" --tag-keys tagKeys_fb657b711e3a
+  desc: 获取标签下绑定的所有资源列表
+sdk:
+  service: zrm
+  version: '2025-10-14'
+  action: DescribeResourceByTags
+parameters:
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: 查询的标签列表。
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: 查询的标签键列表。

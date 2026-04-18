@@ -1,8 +1,12 @@
 name: ModifySubnetStackType
 product: zec
 use: modify-subnet-stack-type
-short: Modifies the IP stack type of subnet under a global VPC.
-long: modify the IP stack type of subnet under a global VPC.
+short: Modifies the IP stack type of subnet under a global VPC
+long: |-
+  Modify the IP stack type of subnet under a global VPC.
+  **Note**
+
+  You can only change the IP stack type of subnet from `IPv4` to `IPv4_IPv6`.
 sdk:
   service: zec
   version: '2025-09-01'

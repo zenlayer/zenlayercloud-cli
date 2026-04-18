@@ -1,8 +1,8 @@
 name: DescribeRoutes
 product: zec
 use: describe-routes
-short: Modifies the attributes of one or more routes.
-long: query the details of routes. You can filter the query results with the route ID or name. The route list includes both system-generated routes and user-created routes.
+short: Queries the details of one or more routes
+long: Query the details of routes. You can filter the query results with the route ID or name. The route list includes both system-generated routes and user-created routes.
 examples:
 - cmd: zeno zec describe-routes
   desc: Query all the available routes.

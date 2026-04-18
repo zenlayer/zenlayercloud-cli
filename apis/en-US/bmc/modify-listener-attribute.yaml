@@ -1,8 +1,8 @@
 name: ModifyListenerAttribute
 product: bmc
 use: modify-listener-attribute
-short: Modifies the listener configurations.
-long: modify the listener configurations.
+short: Modifies the listener configurations
+long: Modify the listener configurations.
 examples:
 - cmd: zeno bmc modify-listener-attribute --listener-id xxxx --listener-name xxxx
   desc: Modify listener configurations.

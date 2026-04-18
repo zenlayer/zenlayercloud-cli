@@ -1,7 +1,7 @@
 name: CreateByoip
 product: zec
 use: create-byoip
-short: Creates a BYOIP CIDR block.
+short: Creates a BYOIP CIDR block
 long: Create a BYOIP CIDR block . Returns the list of RPKI/IRR validation failures.
 examples:
 - cmd: zeno zec create-byoip --byo-ip-list "{cidrBlock=88.0.2.0/24, networkType=PremiumBGP, regionId=asia-east-1, asn=62610}"

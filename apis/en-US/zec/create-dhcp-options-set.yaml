@@ -1,8 +1,8 @@
 name: CreateDhcpOptionsSet
 product: zec
 use: create-dhcp-options-set
-short: Creates a DHCP options set.
-long: create a DHCP options set.
+short: Creates a DHCP options set
+long: Create a DHCP options set.
 examples:
 - cmd: zeno zec create-dhcp-options-set --dhcp-options-set-name dhcpOptionsSetName-1 --domain-name-servers 88.88.88.88 --lease-time 168
   desc: Create a DHCP options set.

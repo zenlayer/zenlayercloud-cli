@@ -1,8 +1,13 @@
 name: DescribeBandwidthClusterTraffic
 product: traffic
 use: describe-bandwidth-cluster-traffic
-short: Queries bandwidth information of a bandwidth cluster.
-long: query bandwidth information of a bandwidth cluster in the specified date range.
+short: Queries bandwidth information of a bandwidth cluster
+long: |-
+  Query bandwidth information of a bandwidth cluster in the specified date range.
+  **Note**
+
+  * Only the date range of 24 hours are supported.
+  * Only the bandwidth information within 30 days are supported to query.
 examples:
 - cmd: zeno traffic describe-bandwidth-cluster-traffic --bandwidth-cluster-id bandwidthClusterId --start-time 2024-01-01T00:00:00Z --end-time 2024-01-01T23:59:59Z
   desc: Query the bandwidth information of a bandwidth cluster in one day.

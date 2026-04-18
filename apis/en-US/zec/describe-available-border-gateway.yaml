@@ -1,8 +1,8 @@
 name: DescribeAvailableBorderGateway
 product: zec
 use: describe-available-border-gateway
-short: Queries available border gateways that can be bound to a public NAT gateway.
-long: query available border gateways that can be bound to a public NAT gateway.
+short: Queries available border gateways that can be bound to a public NAT gateway
+long: Query available border gateways that can be bound to a public NAT gateway.
 examples:
 - cmd: zeno zec describe-available-border-gateway --nat-gateway-id <natGatewayId>
   desc: Query available border gateways that can be bound to a public NAT gateway.

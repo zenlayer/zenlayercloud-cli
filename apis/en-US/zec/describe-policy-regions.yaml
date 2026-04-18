@@ -1,8 +1,8 @@
 name: DescribePolicyRegions
 product: zec
 use: describe-policy-regions
-short: Gets a list of regions available for Geo-Blocking.
-long: get a list of regions available for geo-blocking.
+short: Gets a list of regions available for Geo-Blocking
+long: Get a list of regions available for geo-blocking.
 examples:
 - cmd: zeno zec describe-policy-regions
   desc: Get a list of regions available for Geo-Blocking.

@@ -1,8 +1,12 @@
 name: DeleteCrossRegionBandwidth
 product: zec
 use: delete-cross-region-bandwidth
-short: Deletes a cross-region bandwidth.
-long: delete a private cross-region bandwidth.
+short: Deletes a cross-region bandwidth
+long: |-
+  Delete a private cross-region bandwidth.
+  **Note**
+
+  Cross-region bandwidth is released immediately after deletion. The operation is irreversible. Please operate with caution.
 examples:
 - cmd: zeno zec delete-cross-region-bandwidth --cross-region-bandwidth-id "<your cross id>"
   desc: Delete a cross-region bandwidth.

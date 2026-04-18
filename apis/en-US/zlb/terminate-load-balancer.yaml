@@ -1,8 +1,12 @@
 name: TerminateLoadBalancer
 product: zlb
 use: terminate-load-balancer
-short: Deletes a specified load balancer instance.
-long: delete a specified load balancer instance.
+short: Deletes a specified load balancer instance
+long: |-
+  Delete a specified load balancer instance.
+  **Note**
+
+  After deleting the instance, the instance may be retained for a period of time, and the state is `RECYCLED` when retained. You can call [RestoreLoadBalancer](restoreloadbalancer.md) to restore the load balance instance.
 examples:
 - cmd: zeno zlb terminate-load-balancer --load-balancer-id <loadBalancerId>
   desc: Delete a load balancer.

@@ -1,8 +1,12 @@
 name: CreateNetworkInterface
 product: zec
 use: create-network-interface
-short: Creates an elastic vNIC.
-long: create an elastic vNIC.
+short: Creates an elastic vNIC
+long: |-
+  Create an elastic vNIC.
+  **Note**
+
+  * This API is an async API. A response is returned after the request is sent. However, it does not mean the operation has been completed. If the status changes from `PENDING` to `Available`, it means that the vNIC has been created successfully. If the status changes to `CREATE_FAILED`, the creation is failed.
 sdk:
   service: zec
   version: '2025-09-01'

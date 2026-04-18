@@ -1,8 +1,18 @@
 name: CreateVpc
 product: bmc
 use: create-vpc
-short: Creates VPC.
-long: create a VPC.
+short: Creates VPC
+long: |-
+  Create a VPC.
+  #### Prerequisites
+
+  Before creating a VPC, call [`DescribeVpcAvailableRegions`](describevpcavailableregions.md) to check the availability regions for VPC creation.
+
+
+  **Note**
+
+  * The quantity of VPCs you can create in one availability region is limited. If you need more, please contact Zenlayer Support.
+  * This API is an async API. A VPC ID list is returned after the creation request is sent. However, it does not mean the creation has been completed. The status of the VPC will be `CREATING` during the creation. You can use [DescribeVpcs](describevpcs.md) to query the status of the VPC. If the status changes from `CREATING` to `AVAILABLE`, it means that the VPC has been created successfully; `CREATE_FAILED` means the VPC has been created failed. Any operations on the VPCs are not allowed while creating.
 examples:
 - cmd: zeno bmc create-vpc --vpc-region-id CHI1 --cidr-block 10.0.0.0/8 --vpc-name 1122
   desc: ''

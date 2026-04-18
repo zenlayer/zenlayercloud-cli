@@ -1,8 +1,14 @@
 name: ConfigureSecurityGroupRules
 product: zec
 use: configure-security-group-rules
-short: 配置安全组规则。
-long: 配置安全组规则。
+short: 配置安全组规则
+long: |-
+  配置安全组规则。
+  **注意事项**
+
+  * 同一规则方向，规则不能重复。
+  * 安全组的规则数量有限，如果需要申请更多资源，请提交Support申请。
+  * 该接口是配置的安全组规则会全量覆盖当前的安全组规则。
 examples:
 - cmd: zeno zec configure-security-group-rules --security-group-id your-security-group-id --rule-infos "{direction=ingress, policy=accept, priority=1, ipProtocol=tcp, portRange=22, cidrIp=0.0.0.0/0, desc=aaa}" --rule-infos "{direction=egress, policy=accept, priority=1, ipProtocol=tcp, portRange=22, cidrIp=0.0.0.0/0, desc=xxx}"
   desc: 配置安全的规则。

@@ -1,7 +1,7 @@
 name: ModifyListenerAttribute
 product: bmc
 use: modify-listener-attribute
-short: 修改监听器配置。
+short: 修改监听器配置
 long: 修改监听器配置。
 examples:
 - cmd: zeno bmc modify-listener-attribute --listener-id xxxx --listener-name xxxx

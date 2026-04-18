@@ -1,8 +1,12 @@
 name: CreateSnatEntry
 product: zec
 use: create-snat-entry
-short: Creates a SNAT rule.
-long: create a SNAT rule.
+short: Creates a SNAT rule
+long: |-
+  Create a SNAT rule.
+  **Note**
+
+  By default, you can create up to 10 SNAT entries for a NAT gateway. For additional quota, please contact us.
 examples:
 - cmd: zeno zec create-snat-entry --nat-gateway-id <natGatewayId> --subnet-ids <subnetId> --eip-ids <eipId>
   desc: Create a SNAT entry of type `subnet`.

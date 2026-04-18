@@ -1,0 +1,42 @@
+name: CreateByoip
+product: bmc
+use: create-byoip
+short: Create a BYO IP
+long: |-
+  Create a BYO IP.
+  **Notes**
+  * This is an asynchronous API. Once the CreateByoip request is successfully submitted, `byoipId` and `cidrBlockId` are returned, but the CreateByoip operation is not yet completed at that point.
+  * The `cidr` parameter supports only IPv4, with a mask between 22 and 24.
+examples:
+- cmd: zeno bmc create-byoip --ip-type IPV4 --cidr 22.22.22.0/24 --asn 33322 --public-virtual-interface-id <publicVirtualInterfaceId>
+  desc: Create BYOIP
+sdk:
+  service: bmc
+  version: '2026-02-01'
+  action: CreateByoip
+parameters:
+- name: ip-type
+  type: enum
+  required: true
+  sdk-field: ipType
+  description: IP type.
+  enum-values:
+  - value: IPV4
+    desc: IPv4.
+  - value: IPV6
+    desc: IPv6.
+- name: cidr
+  type: string
+  required: true
+  sdk-field: cidr
+  description: The advertised IPv4 or IPv6 CIDR block.
+- name: asn
+  type: integer
+  required: true
+  sdk-field: asn
+  description: ASN number.
+- name: public-virtual-interface-id
+  type: string
+  required: true
+  sdk-field: publicVirtualInterfaceId
+  description: The unique identifier of the public VLAN.

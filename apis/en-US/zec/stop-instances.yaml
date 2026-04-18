@@ -1,8 +1,15 @@
 name: StopInstances
 product: zec
 use: stop-instances
-short: Shuts down one or more elastic compute instances.
-long: shut down one or more elastic compute instances.
+short: Shuts down one or more elastic compute instances
+long: |-
+  Shut down one or more elastic compute instances.
+  **Note**
+
+  * You can only perform this operation on instances whose status is `RUNNING` and that are not in the recycle bin.
+  * If the API is called successfully, the instance status will become `STOPPING`. After the instance is shut down, its status will become `STOPPED`.
+  * This API is an async API. A response is returned after the request is sent. However, it does not mean the shutdown has been completed. You can use `DescribeInstancesStatus` to query the status of the instance. If the status (instanceStatus) changes from `STOPPING` to `STOPPED`, it means that the instance has been shut down successfully. Any operations on the instances are not allowed while shutting down.
+  * Batch operations are supported. The maximum number of instances in each request is 100.
 examples:
 - cmd: zeno zec stop-instances --instance-ids instanceId1 --instance-ids instanceId2 --force-shutdown true
   desc: Shut down instances of the specified IDs.

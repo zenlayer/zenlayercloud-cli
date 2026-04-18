@@ -1,8 +1,16 @@
 name: BindCidrBlockIps
 product: bmc
 use: bind-cidr-block-ips
-short: Assigns CIDR block IPs to instances.
-long: bind one or more CIDR block IPs to instances.
+short: Assigns CIDR block IPs to instances
+long: |-
+  Bind one or more CIDR block IPs to instances.
+  **Note**
+
+  * Only operations on CIDR blocks in `AVAILABLE` status are supported.
+  * CIDR block IPs can only be assigned to instances in the same zone.
+  * The instance to be assigned a CIDR block IP should be in status of `RUNNING`.
+  * This API is an async API. A request ID is returned after the request is sent. However, it does not mean the binding has been completed. You can use [`DescribeCidrBlockIps`](describecidrblockips.md) to query the status of the CIDR block IPs.
+  * You need first assign an IPv4 CIDR to the instance before adding another IPv6 CIDR.
 examples:
 - cmd: zeno bmc bind-cidr-block-ips --cidr-block-id cidrBlockId --ip-bind-list "{instanceId=instanceId1, ip=1111:1111:2:25::2}" --ip-bind-list "{instanceId=instanceId2, ip=1.1.1.1}"
   desc: ''

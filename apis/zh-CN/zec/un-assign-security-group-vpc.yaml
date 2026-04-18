@@ -1,8 +1,12 @@
 name: UnAssignSecurityGroupVpc
 product: zec
 use: un-assign-security-group-vpc
-short: VPC解绑安全组。
-long: VPC解绑安全组。
+short: VPC解绑安全组
+long: |-
+  VPC解绑安全组。
+  **注意事项**
+
+  * VPC解绑安全组，不会影响VPC下网卡已经绑定的安全组。
 examples:
 - cmd: zeno zec un-assign-security-group-vpc --vpc-id <vpcId>
   desc: VPC 解绑安全组。

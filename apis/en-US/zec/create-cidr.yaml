@@ -1,8 +1,8 @@
 name: CreateCidr
 product: zec
 use: create-cidr
-short: Creates a CIDR block.
-long: create a CIDR block.
+short: Creates a CIDR block
+long: Create a CIDR block.
 sdk:
   service: zec
   version: '2025-09-01'

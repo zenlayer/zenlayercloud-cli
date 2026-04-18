@@ -1,8 +1,8 @@
 name: InquiryPriceCreateIpv4Block
 product: bmc
 use: inquiry-price-create-ipv4-block
-short: Queries the price of creating IPv4 CIDR blocks.
-long: query the price of creating IPv4 CIDR blocks.
+short: Queries the price of creating IPv4 CIDR blocks
+long: Query the price of creating IPv4 CIDR blocks.
 examples:
 - cmd: zeno bmc inquiry-price-create-ipv4-block --zone-id CHI-A --charge-type POSTPAID --netmask 28
   desc: ''
@@ -24,10 +24,10 @@ parameters:
     CIDR block pricing model .
     PREPAID: subscription POSTPAID: pay-as-you-go
   enum-values:
-  - value: POSTPAID
-    desc: Pay-as-you-go.
   - value: PREPAID
     desc: Subscription.
+  - value: POSTPAID
+    desc: Pay-as-you-go.
 - name: cidr-type
   type: enum
   required: false

@@ -2,7 +2,11 @@ name: DescribeImages
 product: bmc
 use: describe-images
 short: 查看镜像列表
-long: 查看镜像列表。
+long: |-
+  查看镜像列表。
+  **注意事项**
+
+  * 镜像列表中的镜像并不是适用于所有机型，具体机型适用的镜像可以根据`DescribeInstanceTypes`接口返回结构中的`imageIds`来查询。
 sdk:
   service: bmc
   version: '2026-02-01'

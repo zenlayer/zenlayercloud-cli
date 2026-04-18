@@ -1,0 +1,26 @@
+name: CopyImage
+product: zec
+use: copy-image
+short: Replicates a custom image to other regions
+long: |-
+  Replicate a custom image to other regions.
+  Custom images can be replicated to specified regions; replication between Mainland China and other regions is not allowed.
+  Replication is performed asynchronously; while in progress, the image cannot be replicated again or have its replicas deleted.
+examples:
+- cmd: zeno zec copy-image --image-id "<custom image id>" --region-id-list region-a --region-id-list region-b
+  desc: Replicate a custom image to more than one regions.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CopyImage
+parameters:
+- name: image-id
+  type: string
+  required: true
+  sdk-field: imageId
+  description: Custom image ID.
+- name: region-id-list
+  type: string-array
+  required: true
+  sdk-field: regionIdList
+  description: Destination region ID list.

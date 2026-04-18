@@ -1,7 +1,7 @@
 name: AvailableLanIp
 product: zec
 use: available-lan-ip
-short: 查询可供弹性公网IP绑定的网卡及内网IP信息。
+short: 查询可供弹性公网IP绑定的网卡及内网IP信息
 long: 查询可供弹性公网IP绑定的网卡及内网IP信息。
 examples:
 - cmd: zeno zec available-lan-ip --eip-id xxx

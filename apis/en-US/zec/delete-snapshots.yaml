@@ -1,8 +1,14 @@
 name: DeleteSnapshots
 product: zec
 use: delete-snapshots
-short: Deletes the specified snapshots.
-long: delete the specified snapshots.
+short: Deletes the specified snapshots
+long: |-
+  Delete the specified snapshots.
+  **Note**
+
+  * The snapshot must be in the `NORMAL` state. You can use [`DescribeSnapshots`](describesnapshots.md) to query the state of the snapshot. See the description of the `SnapshotState` field in the output parameters.
+  * If some of the snapshots cannot be deleted, the API will return a list of snapshot IDs that failed to be deleted. The rest of the snapshots are executed normally.
+  * Batch operations are supported. The maximum number of snapshots in each request is 100.
 examples:
 - cmd: zeno zec delete-snapshots --snapshot-ids snapshotId1 --snapshot-ids snapshotId2
   desc: Delete snapshots.

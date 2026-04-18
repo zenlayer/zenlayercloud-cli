@@ -1,8 +1,21 @@
 name: CreateLoadBalancer
 product: bmc
 use: create-load-balancer
-short: 创建负载均衡实例。
-long: 创建负载均衡实例。
+short: 创建负载均衡实例
+long: |-
+  创建负载均衡实例。
+  #### 准备工作
+
+  * 查询创建负载均衡的可用区：调用 [DescribeLoadBalancerZones](describeloadbalancerzones.md) 接口。
+  * 查询区域负载均衡IP能否创建：调用 [DescribeLoadBalancerIPv4](describeloadbalanceripv4.md) 或 [DescribeLoadBalancerIPv6](describeinstances.md) 接口。
+  * 查询区域负载均衡规格能否创建：调用 [DescribeLoadBalancerSpecs](describeloadbalancerspecs.md) 接口。
+  * 成本估算：了解负载均衡的计费方式。更多详情，请参见[计费方式概述](https://docs.console.zenlayer.com/welcome/pricing/bare-metal-cloud-pricing/billing-method)。
+
+
+  **注意事项**
+
+  * 创建预付费负载均衡实例的购买会预先扣除本次实例购买所需金额，如果余额不足，请求将会失败。后付费实例购买时需要确保账户账号状态正常。
+  * 调用本接口创建负载均衡实例，支持代金券自动抵扣，详情请参考代金券选用规则。
 examples:
 - cmd: zeno bmc create-load-balancer --zone-id HKG-A --load-balancer-name xxxx --spec-name xxxx --client-token xxxx --charge-type xxxx --bandwidth 100 --subnet-id xxxx --ip-type IPv4
   desc: 创建负载均衡实例。
@@ -34,10 +47,10 @@ parameters:
     付费类型。
     PREPAID：预付费，即包年包月 POSTPAID：后付费。
   enum-values:
-  - value: POSTPAID
-    desc: 后付费。即按量付费。
   - value: PREPAID
     desc: 预付费。
+  - value: POSTPAID
+    desc: 后付费。即按量付费。
 - name: instance-charge-prepaid
   type: object
   required: false

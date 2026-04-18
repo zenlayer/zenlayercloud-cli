@@ -1,8 +1,8 @@
 name: StopAgentMonitor
 product: zec
 use: stop-agent-monitor
-short: Disables QEMU Guest Agent (QGA) data collection.
-long: disable QEMU Guest Agent (QGA) data collection.
+short: Disables QEMU Guest Agent (QGA) data collection
+long: Disable QEMU Guest Agent (QGA) data collection.
 examples:
 - cmd: zeno zec stop-agent-monitor --instance-id instanceId1
   desc: Disable QEMU Guest Agent (QGA) data collection.

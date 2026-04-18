@@ -1,8 +1,12 @@
 name: RenewCidr
 product: zec
 use: renew-cidr
-short: Restores a CIDR block.
-long: This API used to restore a CIDR block.
+short: Restores a CIDR block
+long: |-
+  This API used to restore a CIDR block.
+  **Note**
+
+  * This operation is only supported for CIDR blocks in the recycle bin (i.e., with state RECYCLE).
 sdk:
   service: zec
   version: '2025-09-01'

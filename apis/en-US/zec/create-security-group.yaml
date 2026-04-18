@@ -1,8 +1,14 @@
 name: CreateSecurityGroup
 product: zec
 use: create-security-group
-short: Creates a security group.
-long: create a security group.
+short: Creates a security group
+long: |-
+  Create a security group.
+  **Note**
+
+  * A single team can create a limited number of security groups. If you need more, please contact us.
+  * A security group has a limited number of rules. If you need more, please contact us.
+  * Rules in the same direction cannot be duplicated.
 examples:
 - cmd: zeno zec create-security-group --security-group-name test123 --rule-infos "{direction=ingress, policy=accept, priority=1, ipProtocol=tcp, portRange=22, cidrIp=0.0.0.0/0, desc=aaa}" --rule-infos "{direction=egress, policy=accept, priority=1, ipProtocol=tcp, portRange=22, cidrIp=0.0.0.0/0, desc=xxx}"
   desc: Create a security group.

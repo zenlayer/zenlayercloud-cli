@@ -1,8 +1,13 @@
 name: DeleteEip
 product: zec
 use: delete-eip
-short: 删除指定的弹性公网IP。
-long: 删除指定的弹性公网IP。
+short: 删除指定的弹性公网IP
+long: |-
+  删除指定的弹性公网IP。
+  **注意事项**
+
+  * 删除公网IP前，必须要解绑公网IP，才能删除。
+  * 普通账号删除弹性后，资源会直接回收。操作不可逆，请谨慎操作。
 examples:
 - cmd: zeno zec delete-eip --eip-id xxx
   desc: 释放弹性公网IP。

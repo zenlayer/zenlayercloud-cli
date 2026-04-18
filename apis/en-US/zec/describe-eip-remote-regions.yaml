@@ -1,8 +1,8 @@
 name: DescribeEipRemoteRegions
 product: zec
 use: describe-eip-remote-regions
-short: Queries the information on remote regions supporting the sale of elastic IPs.
-long: query the information on remote regions supporting the sale of elastic IPs.
+short: Queries the information on remote regions supporting the sale of elastic IPs
+long: Query the information on remote regions supporting the sale of elastic IPs.
 sdk:
   service: zec
   version: '2025-09-01'

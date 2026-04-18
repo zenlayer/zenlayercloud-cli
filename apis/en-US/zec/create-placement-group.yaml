@@ -1,0 +1,68 @@
+name: CreatePlacementGroup
+product: zec
+use: create-placement-group
+short: Create a placement group
+long: |-
+  Create a placement group.
+  **Notes**
+
+  * Permission must be granted before using the placement group feature. Please contact support.
+  * The number of partitions (partitionNum) ranges from 2 to 5, which determines the maximum number of instances that can be associated with the placement group (partitionNum = max instance count).
+  * The affinity ranges from 1 to floor(partitionNum / 2), and defaults to floor(partitionNum / 2) if not specified. Affinity ensures the number of VMs on a single physical machine does not exceed half the partition count, guaranteeing high-availability spread logic.
+examples:
+- cmd: zeno zec create-placement-group --zone-id asia-east-1a --name my-placement-group --partition-num 3 --affinity 1
+  desc: Create a placement group.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CreatePlacementGroup
+parameters:
+- name: zone-id
+  type: string
+  required: true
+  sdk-field: zoneId
+  description: |-
+    Availability zone ID to which the placement group belongs.
+    The management scope of a placement group is at the zone level.
+- name: name
+  type: string
+  required: true
+  sdk-field: name
+  description: |-
+    Placement group name.
+    Length must be between 2 and 63 characters.
+    Must start and end with a letter or digit. Letters, digits, spaces, hyphens, slashes, and periods are supported.
+- name: partition-num
+  type: integer
+  required: true
+  sdk-field: partitionNum
+  description: |-
+    Number of partitions in the placement group.
+    Partitions determines the maximum number of instances that can be associated with a placement group.
+- name: affinity
+  type: integer
+  required: false
+  sdk-field: affinity
+  description: |-
+    Affinity of the placement group.
+    Valid values range from 1 to floor(partitionNum / 2).
+    Defaults to floor(partitionNum / 2) if not specified.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: Resource Group ID
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: Tags to associate with the placement group upon creation.--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'

@@ -1,8 +1,14 @@
 name: MigrateBandwidthClusterResources
 product: traffic
 use: migrate-bandwidth-cluster-resources
-short: Migrates resources between bandwidth clusters.
-long: migrate resources between bandwidth clusters.
+short: Migrates resources between bandwidth clusters
+long: |-
+  Migrate resources between bandwidth clusters.
+  **Note**
+
+  * Resources already in the target bandwidth cluster ill be ignored.
+  * If any resource is not eligible for the target bandwidth cluster, the entire migration will fail. No resources will be migrated.
+  * Traffic before the change will be counted under the original bandwidth cluster; traffic after the change will be counted under the new cluster.
 examples:
 - cmd: zeno traffic migrate-bandwidth-cluster-resources --resource-id-list <id1> --resource-id-list <id2> --target-bandwidth-cluster-id <targetBandwidthClusterId>
   desc: Migrate resources to a specified target bandwidth cluster.

@@ -1,8 +1,13 @@
 name: DescribeInstanceTraffic
 product: bmc
 use: describe-instance-traffic
-short: Queries instance traffic data.
-long: query the data transfer in the specified date range.
+short: Queries instance traffic data
+long: |-
+  Query the data transfer in the specified date range.
+  **Note**
+
+  * The date range of 24 hours are supported.
+  * Only the data transfer within 30 days are supported to query.
 examples:
 - cmd: zeno bmc describe-instance-traffic --instance-id 932237369560662463 --start-time 2023-07-11T06:50:36Z --end-time 2023-07-11T07:10:36Z
   desc: Query the data transfer of the instance in one day.

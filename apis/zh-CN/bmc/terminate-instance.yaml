@@ -2,7 +2,15 @@ name: TerminateInstance
 product: bmc
 use: terminate-instance
 short: 退还实例
-long: 本接口用于退还一个实例。
+long: |-
+  本接口用于退还一个实例。
+  **注意事项**
+
+  * 不再使用的实例，可通过本接口主动退还。如果是后付费，退还的实例将停止计费。
+  * 预付费**订阅模式**的实例调用本接口将会取消订阅，实例将会在订阅到期后自动退还。
+  * 退还后的实例将进入回收站，进入回收站后如无其他操作实例将在24小时后自动释放，也可以调用`ReleaseInstances`接口主动进行释放。
+  * 已经在回收站中或者正在创建中的实例调用该接口无效。
+  * 创建失败并且状态为`CREATE_FAILED`的实例调用本接口会直接删除实例，对于预付费的实例会退还所有的支付金额。
 examples:
 - cmd: zeno bmc terminate-instance --instance-id instanceId
   desc: ''

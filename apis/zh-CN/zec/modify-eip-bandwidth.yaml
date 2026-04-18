@@ -2,7 +2,11 @@ name: ModifyEipBandwidth
 product: zec
 use: modify-eip-bandwidth
 short: 调整弹性公网IP带宽
-long: 调整弹性公网IP的带宽限速。
+long: |-
+  调整弹性公网IP的带宽限速。
+  **注意事项**
+
+  * 只有可用状态(`BINDED`、`UNBIND`)的EIP才支持该操作。
 examples:
 - cmd: zeno zec modify-eip-bandwidth --eip-id "< EipId >" --bandwidth 10
   desc: 调整EIP带宽限速到10Mbps。

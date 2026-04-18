@@ -1,7 +1,7 @@
 name: ConfigEipProbe
 product: zec
 use: config-eip-probe
-short: 弹性公网IP探测配置。
+short: 弹性公网IP探测配置
 long: 弹性公网IP（EIP）探测配置。
 examples:
 - cmd: zeno zec config-eip-probe --eip-id eipId1 --disable-icmp true --tcp-port 20

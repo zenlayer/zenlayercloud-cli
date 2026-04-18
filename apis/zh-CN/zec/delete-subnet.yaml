@@ -2,7 +2,11 @@ name: DeleteSubnet
 product: zec
 use: delete-subnet
 short: 删除私有子网
-long: 删除一个子网。
+long: |-
+  删除一个子网。
+  **注意事项**
+
+  * 删除子网前，请清理该子网下所有资源，包括网卡、实例、NAT网关等。
 examples:
 - cmd: zeno zec delete-subnet --subnet-id <subnetId>
   desc: 删除子网。

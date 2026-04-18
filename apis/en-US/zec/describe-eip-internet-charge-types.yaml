@@ -1,8 +1,8 @@
 name: DescribeEipInternetChargeTypes
 product: zec
 use: describe-eip-internet-charge-types
-short: Queries the information of network billing methods for a specified IP network type in a region.
-long: query the information of network billing methods for a specified IP network type in a region.
+short: Queries the information of network billing methods for a specified IP network type in a region
+long: Query the information of network billing methods for a specified IP network type in a region.
 sdk:
   service: zec
   version: '2025-09-01'

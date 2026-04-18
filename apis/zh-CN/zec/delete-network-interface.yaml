@@ -2,7 +2,12 @@ name: DeleteNetworkInterface
 product: zec
 use: delete-network-interface
 short: 删除网卡
-long: 删除一张辅助网卡。
+long: |-
+  删除一张辅助网卡。
+  **注意事项**
+
+  * 如果网卡绑定了实例，则无法主动删除，必须先解绑网卡。
+  * 主网卡随实例删除一起释放，不能主动删除。
 examples:
 - cmd: zeno zec delete-network-interface --nic-id XXX
   desc: 删除网卡。

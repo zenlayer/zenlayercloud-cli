@@ -1,8 +1,13 @@
 name: ModifyNetworkInterfacesAttribute
 product: zec
 use: modify-network-interfaces-attribute
-short: Modifies the attributes of the vNIC(s).
-long: modify the attributes of the vNIC(s). Only the name of the vNIC can be modified for now.
+short: Modifies the attributes of the vNIC(s)
+long: |-
+  Modify the attributes of the vNIC(s). Only the name of the vNIC can be modified for now.
+  **Note**
+
+  * Batch operations are supported. The maximum number of vNICs in each request is 100.
+  * If any of the vNIC IDs does not exist, the operation will fail immediately.
 sdk:
   service: zec
   version: '2025-09-01'

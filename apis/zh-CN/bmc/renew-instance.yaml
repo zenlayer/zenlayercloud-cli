@@ -2,7 +2,11 @@ name: RenewInstance
 product: bmc
 use: renew-instance
 short: 续费实例
-long: 本接口用于续费一个实例。
+long: |-
+  本接口用于续费一个实例。
+  **注意事项**
+
+  续费时请确保账户余额充足。
 examples:
 - cmd: zeno bmc renew-instance --instance-id instanceId
   desc: ''

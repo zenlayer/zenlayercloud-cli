@@ -1,8 +1,13 @@
 name: ReplaceEipAddress
 product: zec
 use: replace-eip-address
-short: Replaces the elastic IP addresses.
-long: replace the elastic IP addresses.
+short: Replaces the elastic IP addresses
+long: |-
+  Replace the elastic IP addresses.
+  **Note**
+
+  * `ownIp` is required for a 3-in-1 IP pool.
+  * The API returns the elastic IP IDs that failed to operate. An empty list indicates all operations succeeded.
 sdk:
   service: zec
   version: '2025-09-01'

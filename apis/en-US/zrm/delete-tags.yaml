@@ -1,8 +1,8 @@
 name: DeleteTags
 product: zrm
 use: delete-tags
-short: Deletes tags in batches.
-long: delete tags in batches.
+short: Deletes tags in batches
+long: Delete tags in batches.
 examples:
 - cmd: zeno zrm delete-tags --tags "{key=key_d0added9da9d, value=value_be1fe7b89b0a}"
   desc: Delete tags in batches.

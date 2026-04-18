@@ -2,7 +2,13 @@ name: CreateTags
 product: zrm
 use: create-tags
 short: 批量创建标签
-long: 批量创建标签。
+long: |-
+  批量创建标签。
+  **注意事项**
+
+  * 标签键不能为空
+  * 标签值可以为空
+  * 不可重复创建键和值相同的标签
 examples:
 - cmd: zeno zrm create-tags --tags "{key=key_f7105ccd1a94, value=value_5a4be6ee5544}"
   desc: 创建一组标签。

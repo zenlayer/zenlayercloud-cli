@@ -1,0 +1,49 @@
+name: DescribePlacementGroups
+product: zec
+use: describe-placement-groups
+short: Queries the details of placement groups
+long: Query information of one or more placement groups. Users can query detailed placement group information by placement group ID, name, availability zone, and other criteria.
+examples:
+- cmd: zeno zec describe-placement-groups --page-size 20 --page-num 1
+  desc: Query the placement group list.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribePlacementGroups
+parameters:
+- name: placement-group-ids
+  type: string-array
+  required: false
+  sdk-field: placementGroupIds
+  description: |-
+    Filter by placement group ID list.
+    Up to 100 IDs are supported per query.
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: |-
+    Filter by placement group name.
+    Fuzzy matching is supported.
+- name: zone-id
+  type: string
+  required: false
+  sdk-field: zoneId
+  description: Filter by the available zone of the placement group.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    Page size for the response.
+    Defaults to 20, maximum is 1000.
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: Page number.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: Filter by resource group ID.

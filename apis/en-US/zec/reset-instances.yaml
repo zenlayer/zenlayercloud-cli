@@ -1,8 +1,24 @@
 name: ResetInstances
 product: zec
 use: reset-instances
-short: Reinstalls the operating system on multiple instances.
-long: reinstall the operating system on multiple instances.
+short: Reinstalls the operating system on multiple instances
+long: |-
+  Reinstall the operating system on multiple instances.
+  #### Preparation
+
+  * Query images: Call [DescribeImages](../image/describeimages.md) to obtain the operating system image information required for reinstallation.
+
+
+  **Note**
+
+  * If the `imageId` parameter is specified, the instance will be reinstalled using the specified image; otherwise, it will be reinstalled using the current image of the instance.
+  * Reinstallation across operating system types (`osType`) is not supported. For example, reinstalling from `linux` to `windows`.
+  * The boot disk size of the instance must be greater than or equal to the size of the target image. Otherwise, the operation will be rejected.
+  * The boot disk will be formatted and reset; ensure there are no important files on the boot disk.
+  * You can set either a password or a keyId, but not both.
+  * System reinstallation can only be performed when the instance is in a powered-off state.
+  * `Windows` and `Generic` do not support SSH login using `key_id`.
+  * After reinstallation, the instance enters the `DEPLOYING` state. If the instance's latest state changes to `RUNNING`, the operation is successful. If it changes to `REINSTALL_FAILED`, the operation is failed; please contact the administrator. The instance state can be queried via the [`DescribeInstancesStatus`](describeinstancesstatus.md) API.
 examples:
 - cmd: zeno zec reset-instances --instance-ids <instanceId1> --instance-ids <instanceId2> --image-id ubuntu2022 --password Example+123 --enable-agent true
   desc: Batch reinstall instances.

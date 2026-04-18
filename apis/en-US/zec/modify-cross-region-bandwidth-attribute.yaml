@@ -1,8 +1,8 @@
 name: ModifyCrossRegionBandwidthAttribute
 product: zec
 use: modify-cross-region-bandwidth-attribute
-short: Modifies the cross-region bandwidth property (name).
-long: modify the cross-region bandwidth property (name).
+short: Modifies the cross-region bandwidth property (name)
+long: Modify the cross-region bandwidth property (name).
 examples:
 - cmd: zeno zec modify-cross-region-bandwidth-attribute --cross-region-bandwidth-ids "<your cross id>" --cross-region-bandwidth-name newName
   desc: Batch modify the cross-region bandwidth properties.

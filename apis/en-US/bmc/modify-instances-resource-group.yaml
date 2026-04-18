@@ -1,8 +1,13 @@
 name: ModifyInstancesResourceGroup
 product: bmc
 use: modify-instances-resource-group
-short: Modifies the resource group to which instances belong.
-long: modify the resource group to which the instances belong.
+short: Modifies the resource group to which instances belong
+long: |-
+  Modify the resource group to which the instances belong.
+  **Note**
+
+  * Batch operations are supported. The maximum number of instances in each request is 100.
+  * Only the administrator in a team can perform this operation.
 examples:
 - cmd: zeno bmc modify-instances-resource-group --instance-ids instanceId1 --instance-ids instanceId2 --resource-group-id resourceGroup1
   desc: Move instances to the specified resource group

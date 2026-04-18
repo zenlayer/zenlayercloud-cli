@@ -1,8 +1,8 @@
 name: ModifyResourceTags
 product: zrm
 use: modify-resource-tags
-short: Modifies tags of resources in batches.
-long: modify tags of resources in batches.
+short: Modifies tags of resources in batches
+long: Modify tags of resources in batches.
 examples:
 - cmd: zeno zrm modify-resource-tags --resource-uuid resourceUuid_9a14edb2e71e --replace-tags "{key=key_f2eaf69f2767, value=value_7f72c5d7d053}" --delete-tag-keys deleteTagKeys_3efdc3f0f422
   desc: Modify tags of resources in batches.

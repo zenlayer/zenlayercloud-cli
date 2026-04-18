@@ -1,8 +1,13 @@
 name: UnassignNetworkInterfaceIpv4
 product: zec
 use: unassign-network-interface-ipv4
-short: Unassigns the private IPv4 from the vNIC.
-long: unassign the private IPv4 from the vNIC.
+short: Unassigns the private IPv4 from the vNIC
+long: |-
+  Unassign the private IPv4 from the vNIC.
+  **Note**
+
+  * The default public IPv4 on the vNIC cannot be unassigned.
+  * When a vNIC has elastic public IPs assigned, its private IP cannot be unassigned.
 examples:
 - cmd: zeno zec unassign-network-interface-ipv4 --nic-id <nicId> --ip-addresses 10.0.0.2
   desc: Unassign the private IPv4 from the vNIC.

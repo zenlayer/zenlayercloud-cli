@@ -1,0 +1,20 @@
+name: DescribeIPTransitDatacenters
+product: ipt
+use: describe-ip-transit-datacenters
+short: Query data centers supported by the IP Transit service
+long: Queries data centers supported by the IP Transit service.
+sdk:
+  service: ipt
+  version: '2024-09-01'
+  action: DescribeIPTransitDatacenters
+parameters:
+- name: peer-port-id
+  type: string
+  required: false
+  sdk-field: peerPortId
+  description: Specified port ID.
+- name: peer-dc-id
+  type: string
+  required: false
+  sdk-field: peerDcId
+  description: Specified data center ID.

@@ -1,8 +1,13 @@
 name: ModifyNetworkInterfacesAttribute
 product: zec
 use: modify-network-interfaces-attribute
-short: 修改网卡属性。
-long: 修改网卡的属性，目前只支持修改网卡的名称。
+short: 修改网卡属性
+long: |-
+  修改网卡的属性，目前只支持修改网卡的名称。
+  **注意事项**
+
+  * 支持批量操作。每次请求批量网卡的上限为100。
+  * 如果其中有网卡 ID不存在，则本操作会立即失败。
 examples:
 - cmd: zeno zec modify-network-interfaces-attribute --nic-ids your-nic-id --name xxx
   desc: 批量修改网卡名称。

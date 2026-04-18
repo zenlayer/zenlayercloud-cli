@@ -1,7 +1,7 @@
 name: ModifyLoadBalancersName
 product: bmc
 use: modify-load-balancers-name
-short: 修改负载均衡实例的名称。
+short: 修改负载均衡实例的名称
 long: 修改负载均衡实例的名称。
 examples:
 - cmd: zeno bmc modify-load-balancers-name --load-balancer-ids xxxx --load-balancer-name xxxx

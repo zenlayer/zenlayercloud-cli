@@ -1,8 +1,21 @@
 name: AllocateEipAddresses
 product: bmc
 use: allocate-eip-addresses
-short: Creates elastic IPs.
-long: apply for one or multiple elastic IPs.
+short: Creates elastic IPs
+long: |-
+  Apply for one or multiple elastic IPs.
+  #### Prerequisites
+
+  * Query available elastic IPs in zone: call `DescribeEipAvailableResources` to check the stock of the specified zone.
+  * Cost estimation: know of the pricing model of elastic IPs. See [Elastic IP](https://docs.console.zenlayer.com/welcome/pricing/bare-metal-cloud-pricing/billing-method#elastic-ip) for details.
+
+
+  **Note**
+
+  * If you create a subscription elastic IP, the amount required will be pre-deducted. If the balance is insufficient, the request will fail. If you create a pay-as-you-go elastic IP, please ensure your account balance is sufficient before calling this API.
+  * Vouchers can be used for fee deduction in creation. See [Vouchers](https://docs.console.zenlayer.com/welcome/platform/billing-center/vouchers) for more details.
+  * This API is an async API. An ID list is returned after the request is sent. However, it does not mean the creation has been completed. The status of the elastic IP will be or `CREATING` during the creation. You can use [`DescribeEipAddresses`](describeeipaddresses.md) to query the status of the elastic IP. If the status changes from `Creating` to `Available`, it means that the elastic IP has been created successfully; `CREATE_FAILED` means the elastic IP has been created failed. Any operations on the elastic IPs are not allowed while creating.
+  * A maximum of 100 elastic IPs can be created in one request.
 examples:
 - cmd: zeno bmc allocate-eip-addresses --eip-charge-type POSTPAID --zone-id SEL-A
   desc: 'Create a pay-as-you -go elastic IP with the simplest parameters in zone: SEL-A'
@@ -25,10 +38,10 @@ parameters:
     PREPAID: subscription
     POSTPAID: pay-as-you-go
   enum-values:
-  - value: POSTPAID
-    desc: Pay-as-you-go.
   - value: PREPAID
     desc: Subscription.
+  - value: POSTPAID
+    desc: Pay-as-you-go.
 - name: eip-charge-prepaid
   type: object
   required: false

@@ -1,8 +1,14 @@
 name: CreateSecurityGroup
 product: zec
 use: create-security-group
-short: 创建安全组。
-long: 创建一个安全组。
+short: 创建安全组
+long: |-
+  创建一个安全组。
+  **注意事项**
+
+  * 同一个Team能创建的安全组资源个数是有限制的，如果需要申请更多资源，请提交Support申请。
+  * 安全组的规则数量有限，如果需要申请更多资源，请提交Support申请。
+  * 同一规则方向，规则不能重复。
 examples:
 - cmd: zeno zec create-security-group --security-group-name test123 --rule-infos "{direction=ingress, policy=accept, priority=1, ipProtocol=tcp, portRange=22, cidrIp=0.0.0.0/0, desc=aaa}" --rule-infos "{direction=egress, policy=accept, priority=1, ipProtocol=tcp, portRange=22, cidrIp=0.0.0.0/0, desc=xxx}"
   desc: 创建一个安全组。

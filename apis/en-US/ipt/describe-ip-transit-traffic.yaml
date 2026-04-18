@@ -1,0 +1,37 @@
+name: DescribeIPTransitTraffic
+product: ipt
+use: describe-ip-transit-traffic
+short: Query IP Transit bandwidth data in the specified date range
+long: |-
+  Queries IP Transit bandwidth data in the specified date range.
+  **Notes**
+
+  * Only traffic data within the last 30 days can be queried.
+examples:
+- cmd: zeno ipt describe-ip-transit-traffic --ipt-id your-ipt-id --start-time 2024-01-01T00:00:00Z --end-time 2024-01-01T23:59:59Z
+  desc: Query IP Transit traffic data within one day.
+sdk:
+  service: ipt
+  version: '2024-09-01'
+  action: DescribeIPTransitTraffic
+parameters:
+- name: ipt-id
+  type: string
+  required: true
+  sdk-field: iptId
+  description: IP Transit ID.
+- name: start-time
+  type: string
+  required: true
+  sdk-field: startTime
+  description: |-
+    Query start time.
+    Use UTC time according to the ISO 8601 standard. Format: YYYY-MM-ddTHH:mm:ssZ.
+- name: end-time
+  type: string
+  required: false
+  sdk-field: endTime
+  description: |-
+    Query end time.
+    Use UTC time according to the ISO 8601 standard. Format: YYYY-MM-ddTHH:mm:ssZ.
+    Defaults to current time.

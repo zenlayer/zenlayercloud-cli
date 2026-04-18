@@ -1,8 +1,14 @@
 name: AttachNetworkInterface
 product: zec
 use: attach-network-interface
-short: Attaches the vNIC to the instance.
-long: attach the vNIC to the instance.
+short: Attaches the vNIC to the instance
+long: |-
+  Attach the vNIC to the instance.
+  **Note**
+
+  * Up to 8 vNICs can be attached per instance.
+  * vNICs can only be attached to instances in the running state.
+  * vNIC state must be `AVAILABLE`.
 examples:
 - cmd: zeno zec attach-network-interface --nic-id XXX --instance-id xxx
   desc: Attach the vNIC to the instance.

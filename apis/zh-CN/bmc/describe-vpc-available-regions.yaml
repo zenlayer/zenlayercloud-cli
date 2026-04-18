@@ -2,7 +2,11 @@ name: DescribeVpcAvailableRegions
 product: bmc
 use: describe-vpc-available-regions
 short: 查询支持VPC组网的节点区域信息
-long: 本接口用于查询支持VPC组网的节点区域信息。
+long: |-
+  本接口用于查询支持VPC组网的节点区域信息。
+  **注意事项**
+
+  * 可能会注意到VPC节点ID有诸如`LAX2` 和 `LAX2_2.0,`这个原因是当前节点内的可用区属于不同的网络架构，目前无法做到内网子网间互通，故分拆成了不同的VPC节点。
 examples:
 - cmd: zeno bmc describe-vpc-available-regions --vpc-region-id SIN3
   desc: 查询vpcRegionId为SIN3下的可用区ID

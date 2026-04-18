@@ -1,0 +1,84 @@
+name: InquiryCreateIPTransitPrice
+product: ipt
+use: inquiry-create-ip-transit-price
+short: 创建一条IP Transit 的询价
+long: 创建一条IP Transit 的询价。
+examples:
+- cmd: zeno ipt inquiry-create-ip-transit-price --ipt-description test_ipt_desc --peer-port-id your-port-id --internet-type ByBandwidth --bandwidth 50 --ipt-dc-id AMS1 --routing-type Static --public-ipv4-block-size 25
+  desc: 查询创建一条IP Transit，公网地址使用/25的CIDR。带宽限速为50Mbps, 计费方式为固定带宽。
+sdk:
+  service: ipt
+  version: '2024-09-01'
+  action: InquiryCreateIPTransitPrice
+parameters:
+- name: peer-port-id
+  type: string
+  required: true
+  sdk-field: peerPortId
+  description: 端口的ID。
+- name: ipt-dc-id
+  type: string
+  required: false
+  sdk-field: iptDcId
+  description: |-
+    IP Transit 目的地数据中心ID。
+    如果不指定，则代表和端口位于同一个数据中心。
+- name: internet-type
+  type: enum
+  required: false
+  sdk-field: internetType
+  description: IP Transit的带宽计费方式。
+  enum-values:
+  - value: ByBandwidth
+    desc: 按固定带宽计费。
+  - value: ByInstanceBandwidth95
+    desc: 实例95计费。
+- name: commit-bandwidth
+  type: integer
+  required: false
+  sdk-field: commitBandwidth
+  description: |-
+    保底带宽。
+    单位Mbps。
+    有且仅当internetType=ByInstanceBandwidth95时该字段必传。
+- name: bandwidth
+  type: integer
+  required: false
+  sdk-field: bandwidth
+  description: |-
+    带宽限速。
+    单位Mbps。
+    最小值不能低于10Mbps。
+- name: routing-type
+  type: enum
+  required: true
+  sdk-field: routingType
+  description: 路由类型。
+  enum-values:
+  - value: BGP
+    desc: BGP。（目前api暂不支持该方式）
+  - value: Static
+    desc: 静态路由。
+  - value: Gateway
+    desc: 网关模式。
+- name: public-ipv4-block-size
+  type: integer-array
+  required: false
+  sdk-field: publicIPv4BlockSize
+  description: |-
+    公网IPv4地址。
+    网段范围：24～30
+    有且仅当路由类型是Static 或 Gateway时必须指定。
+    目前只允许指定一个公网CIDR。
+- name: bgp-route-type
+  type: enum
+  required: false
+  sdk-field: bgpRouteType
+  description: BGP入站路由类型。
+  enum-values:
+  - value: ALL_ROUTES
+    desc: 全路由。
+  - value: ALL_ROUTES_WITH_DEFAULT_ROUTES
+    desc: 全路由+默认路由。
+  - value: DEFAULT_ROUTES
+    desc: 默认路由。

@@ -1,7 +1,7 @@
 name: DescribeAutoSnapshotPolicies
 product: zec
 use: describe-auto-snapshot-policies
-short: 自动快照策略列表。
+short: 自动快照策略列表
 long: 查询自动快照策略的列表数据。
 examples:
 - cmd: zeno zec describe-auto-snapshot-policies

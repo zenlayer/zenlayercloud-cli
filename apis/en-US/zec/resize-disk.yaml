@@ -1,8 +1,13 @@
 name: ResizeDisk
 product: zec
 use: resize-disk
-short: Expands a cloud volume to a specified size.
-long: expand a cloud volume to a specified size.
+short: Expands a cloud volume to a specified size
+long: |-
+  Expand a cloud volume to a specified size.
+  **Note**
+
+  * This API only supports expanding cloud disks.
+  * This API is an async API. After the call, you can use [`DescribeDisks`](describedisks.md) to query the status of the disk. If disk has been queried with the `CHANGING` status, it means that the disk is being expanding.
 examples:
 - cmd: zeno zec resize-disk --disk-id "<Disk ID>" --disk-size 100
   desc: Expand a cloud volume to 100 GB.

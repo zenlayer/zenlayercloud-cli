@@ -1,8 +1,12 @@
 name: RestoreLoadBalancer
 product: bmc
 use: restore-load-balancer
-short: Restores a load balancer in the recycle bin.
-long: restore a load balancer in the recycle bin.
+short: Restores a load balancer in the recycle bin
+long: |-
+  Restore a load balancer in the recycle bin.
+  **Note**
+
+  The operation is only supported for load balance instances in the recycle bin.
 examples:
 - cmd: zeno bmc restore-load-balancer --load-balancer-id xxxx
   desc: Restore a load balancer.

@@ -2,7 +2,11 @@ name: CreateDisks
 product: zec
 use: create-disks
 short: 批量创建云硬盘
-long: 创建一个或多个云硬盘。
+long: |-
+  创建一个或多个云硬盘。
+  **注意事项**
+
+  * 本接口为异步接口，当创建云硬盘请求下发成功后会返回一个云硬盘ID列表，此时创建云硬盘操作并未立即完成。云硬盘创建结果可以通过 [`DescribeDisks`](describedisks.md) 查询。如果能够查询到对应云硬盘数据且状态为`AVAILABLE`则代表云硬盘创建成功，如果创建时指定了挂载到某个实例，则当状态为`IN_USE`时则代表挂载成功。
 examples:
 - cmd: zeno zec create-disks --disk-name Test-Disk --disk-size 30 --disk-amount 1 --zone-id asia-east-1a
   desc: 创建1块30G大小的云硬盘。

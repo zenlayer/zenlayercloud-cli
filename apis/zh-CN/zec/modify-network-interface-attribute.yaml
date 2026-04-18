@@ -2,7 +2,11 @@ name: ModifyNetworkInterfaceAttribute
 product: zec
 use: modify-network-interface-attribute
 short: 修改一张网卡属性
-long: 修改一张网卡的属性。
+long: |-
+  修改一张网卡的属性。
+  **注意事项**
+
+  * 如果网卡已经绑定指定的安全组，则请求正常，不会报错。
 examples:
 - cmd: zeno zec modify-network-interface-attribute --nic-id <nicId> --name Test-vNIC --security-group-id <securityGroupId>
   desc: 修改网卡的名称和安全组。

@@ -1,8 +1,14 @@
 name: CreateTags
 product: zrm
 use: create-tags
-short: Create tags in batches.
-long: create tags in batches.
+short: Create tags in batches
+long: |-
+  Create tags in batches.
+  **Note**
+
+  * Tag key is required.
+  * Tag value is optional.
+  * Duplicate key-value tags are not allowed.
 examples:
 - cmd: zeno zrm create-tags --tags "{key=key_f7105ccd1a94, value=value_5a4be6ee5544}"
   desc: Create tags in batches.

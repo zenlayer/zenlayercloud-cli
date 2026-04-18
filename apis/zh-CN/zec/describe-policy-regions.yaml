@@ -2,7 +2,7 @@ name: DescribePolicyRegions
 product: zec
 use: describe-policy-regions
 short: 获取区域封禁可选区域列表
-long: 获取区域封禁可选区域列表
+long: 获取区域封禁可选区域列表。
 examples:
 - cmd: zeno zec describe-policy-regions
   desc: 获取区域封禁可选区域列表

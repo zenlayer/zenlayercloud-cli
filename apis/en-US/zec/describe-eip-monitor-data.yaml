@@ -1,8 +1,8 @@
 name: DescribeEipMonitorData
 product: zec
 use: describe-eip-monitor-data
-short: Queries the performance data of the elastic IP.
-long: query the performance data of the elastic IP.
+short: Queries the performance data of the elastic IP
+long: Query the performance data of the elastic IP.
 examples:
 - cmd: zeno zec describe-eip-monitor-data --eip-id "< EipId >" --metric-type BANDWIDTH --start-time 2025-06-25T01:55:00Z --end-time 2025-06-25T07:55:00Z
   desc: Query the performance data of the elastic IP.

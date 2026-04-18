@@ -1,8 +1,15 @@
 name: CreateImage
 product: zec
 use: create-image
-short: Creates a custom image from an instance.
-long: create a custom image from an instance.
+short: Creates a custom image from an instance
+long: |-
+  Create a custom image from an instance.
+  **Note**
+
+  * A custom image will be created in the same availability zone as the selected instance.
+  * The instance must be in the `STOPPED` state.
+  * GPU instances are currently not supported for custom image creation.
+  * If the quota limit is exceeded, please contact us to request an increase.
 examples:
 - cmd: zeno zec create-image --instance-id "<instance id>" --image-name imageXXX
   desc: Create a custom image from an instance.

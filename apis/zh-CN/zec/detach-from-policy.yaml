@@ -2,7 +2,7 @@ name: DetachFromPolicy
 product: zec
 use: detach-from-policy
 short: 防护对象取消关联防护策略
-long: 防护对象取消关联防护策略
+long: 防护对象取消关联防护策略。
 examples:
 - cmd: zeno zec detach-from-policy --policy-id <policyId> --ipv4-id-list eipId1 --ipv4-id-list eipId2
   desc: 防护对象取消关联防护策略

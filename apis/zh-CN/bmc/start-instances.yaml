@@ -2,7 +2,14 @@ name: StartInstances
 product: bmc
 use: start-instances
 short: 启动实例
-long: 本接口用于启动一个或多个实例。
+long: |-
+  本接口用于启动一个或多个实例。
+  **注意事项**
+
+  * 只有状态为`STOPPED`并且未放入回收站的实例才可以进行此操作。
+  * 接口调用成功时，实例会进入`BOOTING`状态；启动实例成功时，实例会进入`RUNNING`状态。
+  * 本接口为异步接口，启动实例请求发送成功后会立即返回，此时操作并未完成。实例操作结果可以通过调用`DescribeInstances`接口查询，如果实例状态(instanceStatus)由`BOOTING`(启动中)变为`RUNNING`(运行中)，则代表实例启动成功，启动过程中不可对实例进行任何操作。
+  * 支持批量操作。每次请求批量实例的上限为100。
 examples:
 - cmd: zeno bmc start-instances --instance-ids instanceId1 --instance-ids instanceId2
   desc: ''

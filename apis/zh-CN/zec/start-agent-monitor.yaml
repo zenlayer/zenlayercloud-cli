@@ -1,8 +1,12 @@
 name: StartAgentMonitor
 product: zec
 use: start-agent-monitor
-short: 开启Agent监控采集。
-long: 开启Agent监控采集。
+short: 开启Agent监控采集
+long: |-
+  开启Agent监控采集。
+  **注意事项**
+
+  * 要开启Agent监控采集，要确保安装了QGA(QEMU Guest Agent)。
 examples:
 - cmd: zeno zec start-agent-monitor --instance-id <instanceId>
   desc: 开启实例Agent采集监控。

@@ -2,7 +2,12 @@ name: RenewCidrBlock
 product: bmc
 use: renew-cidr-block
 short: 续费Cidr Block
-long: 本接口用于续费一个Cidr Block。
+long: |-
+  本接口用于续费一个Cidr Block。
+  **注意事项**
+
+  * 续费时请确保账户余额充足。可通过`DescribeAccountBalance`接口查询账户余额。
+  * Ipv6的Cidr Block不可使用该接口。
 examples:
 - cmd: zeno bmc renew-cidr-block --cidr-block-id cidrBlockId
   desc: 续费一个Ipv4的Cidr Block

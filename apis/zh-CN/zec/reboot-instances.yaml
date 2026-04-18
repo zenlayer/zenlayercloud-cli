@@ -2,7 +2,13 @@ name: RebootInstances
 product: zec
 use: reboot-instances
 short: 重启虚拟机实例
-long: 重启虚拟机实例。
+long: |-
+  重启虚拟机实例。
+  **注意事项**
+
+  * 只有状态为运行状态（`RUNNING`）才能进行此操作。
+  * 本接口为异步接口，重启实例请求发送成功后会立即返回，此时操作并未完成。实例操作结果可以通过调用[DescribeInstanceStatus](describeinstancesstatus.md)接口查询，如果实例状态(`instanceStatus`)`由REBOOT`(重启中)`变为RUNNING`(运行中)，则代表实例重启成功，重启过程中不可对实例进行任何操作。
+  * 支持批量操作。每次请求批量实例的上限为100。
 examples:
 - cmd: zeno zec reboot-instances --instance-ids instanceId1 --instance-ids instanceId2
   desc: 批量重启实例。

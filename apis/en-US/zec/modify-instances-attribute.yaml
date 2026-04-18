@@ -1,8 +1,13 @@
 name: ModifyInstancesAttribute
 product: zec
 use: modify-instances-attribute
-short: Modifies the attributes of one or more elastic compute instances.
-long: modify the attributes of one or more elastic compute instances. Only the instance name to be displayed can be modified for now.
+short: Modifies the attributes of one or more elastic compute instances
+long: |-
+  Modify the attributes of one or more elastic compute instances. Only the instance name to be displayed can be modified for now.
+  **Note**
+
+  * Batch operations are supported. The maximum number of instances in each request is 100.
+  * If any of the instance IDs does not exist, the operation will fail immediately.
 examples:
 - cmd: zeno zec modify-instances-attribute --instance-ids instanceId1 --instance-ids instanceId2 --instance-name myInstanceName
   desc: Batch modify instance names. Modify names of two instances to `myInstanceName`.

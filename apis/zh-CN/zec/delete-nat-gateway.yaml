@@ -2,7 +2,11 @@ name: DeleteNatGateway
 product: zec
 use: delete-nat-gateway
 short: 删除NAT网关
-long: 删除一个指定的NAT网关。
+long: |-
+  删除一个指定的NAT网关。
+  **注意事项**
+
+  * 删除实例后实例可能会保留一段时间，保留时状态为`RECYCLED`. 可以通过[`RenewNatGateway`](renewnatgateway.md)接口恢复
 examples:
 - cmd: zeno zec delete-nat-gateway --nat-gateway-id <natGatewayId>
   desc: 终止一个NAT网关。

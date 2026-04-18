@@ -1,8 +1,13 @@
 name: CreateNatGateway
 product: zec
 use: create-nat-gateway
-short: Creates a NAT gateway.
-long: create a NAT gateway.
+short: Creates a NAT gateway
+long: |-
+  Create a NAT gateway.
+  **Note**
+
+  * This API is an async API. A response is returned after the request is sent. You can call [`DescribeNatGateways`](describenatgateways.md) to query the state of the NAT gateway. The `RUNNING` state means creating successfully.
+  * Only pay-as-you-go NAT gateway creation is supported.
 examples:
 - cmd: zeno zec create-nat-gateway --region-id asia-east-1 --vpc-id <vpcId> --name name --subnet-ids <subnet> --subnet-ids <subnet> --resource-group-id <resourceGroupId>
   desc: Create a NAT gateway.

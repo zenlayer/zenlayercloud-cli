@@ -1,7 +1,7 @@
 name: CreateBorderGateway
 product: zec
 use: create-border-gateway
-short: 创建边界网关。
+short: 创建边界网关
 long: 在某节点为VPC创建一个边界网关。
 examples:
 - cmd: zeno zec create-border-gateway --region-id asia-east-1 --vpc-id <vpcId> --label xxx --asn 65000 --advertised-subnet ALL

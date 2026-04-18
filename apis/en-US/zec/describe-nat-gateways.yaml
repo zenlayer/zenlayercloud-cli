@@ -1,8 +1,8 @@
 name: DescribeNatGateways
 product: zec
 use: describe-nat-gateways
-short: Queries the NAT gateway list.
-long: query the NAT gateway list.
+short: Queries the NAT gateway list
+long: Query the NAT gateway list.
 examples:
 - cmd: zeno zec describe-nat-gateways
   desc: Query the NAT gateway list.

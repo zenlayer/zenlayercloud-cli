@@ -1,8 +1,12 @@
 name: DescribeVpcAvailableRegions
 product: bmc
 use: describe-vpc-available-regions
-short: Queries information about availability regions for VPCs.
-long: query information about availability regions for VPCs.
+short: Queries information about availability regions for VPCs
+long: |-
+  Query information about availability regions for VPCs.
+  **Note**
+
+  Availability regions in some cities may adopt different network architectures, which will be named with different names, such as `LAX2` and `LAX2_2.0`. Please note that subnets in these availability regions with different network architectures cannot communicate with each other.
 examples:
 - cmd: zeno bmc describe-vpc-available-regions --vpc-region-id SIN3
   desc: ''

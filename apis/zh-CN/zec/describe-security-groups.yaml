@@ -1,7 +1,7 @@
 name: DescribeSecurityGroups
 product: zec
 use: describe-security-groups
-short: 查询安全组列表。
+short: 查询安全组列表
 long: 查询安全组列表。
 examples:
 - cmd: zeno zec describe-security-groups --security-group-name --page-size 5 --page-num 1

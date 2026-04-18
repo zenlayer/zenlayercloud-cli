@@ -1,8 +1,17 @@
 name: AssociateVpcSubnet
 product: bmc
 use: associate-vpc-subnet
-short: Add a subnet into a VPC.
-long: add a subnet into a VPC.
+short: Add a subnet into a VPC
+long: |-
+  Add a subnet into a VPC.
+  **Note**
+
+  * This API is an async API. A request ID is returned after the request is sent. However, it does not mean the binding has been completed. You can use [`DescribeSubnets`](describesubnets.md) to query the status.
+  * Only operations on instances in `RUNNING` status are supported.
+  * CIDR block of the subnet should be in the range of VPC CIDR block and not overlap with IP ranges of other subnets in this VPC.
+  * Zone of the subnet should be in the availability region of the VPC. You can call [`DescribeVpcAvailableRegions`](describevpcavailableregions.md) to check the zones in the availability region.
+  * No action will be made against the subnet already in the VPC.
+  * Both the status of VPC and subnet should be AVAILABLE.
 examples:
 - cmd: zeno bmc associate-vpc-subnet --subnet-id 426257512392561112 --vpc-id 835957634816289496
   desc: ''

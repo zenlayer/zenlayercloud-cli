@@ -1,7 +1,7 @@
 name: ModifyBandwidthClusterAttribute
 product: traffic
 use: modify-bandwidth-cluster-attribute
-short: 修改共享带宽包属性。
+short: 修改共享带宽包属性
 long: 修改共享带宽包的属性。目前只支持名称的修改。
 examples:
 - cmd: zeno traffic modify-bandwidth-cluster-attribute --bandwidth-cluster-id <bandwidthClusterId> --name Test

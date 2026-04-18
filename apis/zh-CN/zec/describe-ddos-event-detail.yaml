@@ -1,10 +1,10 @@
 name: DescribeDDosEventDetail
 product: zec
-use: describe-d-dos-event-detail
+use: describe-ddos-event-detail
 short: 获取攻击事件详情
-long: 获取攻击事件详情
+long: 获取攻击事件详情。
 examples:
-- cmd: zeno zec describe-d-dos-event-detail --event-id <eventId> --region-id regionId
+- cmd: zeno zec describe-ddos-event-detail --event-id <eventId> --region-id regionId
   desc: 获取攻击事件详情
 sdk:
   service: zec

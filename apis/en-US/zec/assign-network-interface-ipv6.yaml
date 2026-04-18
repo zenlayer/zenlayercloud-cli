@@ -1,8 +1,13 @@
 name: AssignNetworkInterfaceIpv6
 product: zec
 use: assign-network-interface-ipv6
-short: Assigns the IPv6 to the vNIC.
-long: assign IPv6 to the vNIC.
+short: Assigns the IPv6 to the vNIC
+long: |-
+  Assign IPv6 to the vNIC.
+  **Note**
+
+  * vNIC state must be `AVAILABLE` or `USED`.
+  * The vNIC stack type must be `IPv4`, and the associated subnet stack type must be `IPv4_IPv6`.
 sdk:
   service: zec
   version: '2025-09-01'

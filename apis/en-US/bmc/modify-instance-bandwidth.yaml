@@ -1,8 +1,21 @@
 name: ModifyInstanceBandwidth
 product: bmc
 use: modify-instance-bandwidth
-short: Modifies the bandwidth of an instance.
-long: The API is used to modify the bandwidth of an instance.
+short: Modifies the bandwidth of an instance
+long: |-
+  The API is used to modify the bandwidth of an instance.
+  **Note**
+
+  * Bandwidth cap differs with different instance models. You can call `DescribeInstanceTypes` to obtain.
+  * You can only perform this operation on instances whose status is `RUNNING`.
+  * If your current and target bandwidth are both in the free bandwidth scope, the change takes immediate effect.
+  * If the [`internetChargeType`](../datastructure.md#internetchargetype) of your instance is `ByBandwidth`
+    * For a `PREPAID` instance:
+      * Upgrade (target > current) operation will deduct the amount required for this instance purchase. If the balance is insufficient, the request will fail and take effect immediately.
+      * Downgrade (target < current) operation will generate an order for the next billing cycle and will take effect by then.
+    * For a `POSTPAID` instance, the change takes immediate effect.
+  * Use `InquiryPriceInstanceBandwidth` to query price of bandwidth.
+  * Use `DescribeInstanceInternetStatus` to query bandwidth status of an instance.
 sdk:
   service: bmc
   version: '2026-02-01'

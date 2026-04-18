@@ -1,8 +1,13 @@
 name: RenewDisk
 product: zec
 use: renew-disk
-short: Restores a disk.
-long: restore a disk.
+short: Restores a disk
+long: |-
+  Restore a disk.
+  **Note**
+
+  * Operations on boot disks are not supported
+  * Please ensure that the account balance is sufficient when renewing.
 examples:
 - cmd: zeno zec renew-disk --disk-id your-disk-id
   desc: Restore a disk.

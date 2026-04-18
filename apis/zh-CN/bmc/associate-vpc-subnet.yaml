@@ -2,7 +2,15 @@ name: AssociateVpcSubnet
 product: bmc
 use: associate-vpc-subnet
 short: Subnet绑定VPC
-long: 本接口用于为VPC添加Subnet。
+long: |-
+  本接口用于为VPC添加Subnet。
+  **注意事项**
+
+  * 本接口属于异步接口，即系统会先返回一个请求ID，并不表示Subnet绑定VPC完成，系统后台的绑定任务仍在进行。您可以调用`DescribeSubnets`查询Subnet绑定VPC状态。
+  * 指定Subnet的CIDR必须在VPC的CIDR范围内，且不能和VPC下其他子网的CIDR有重叠。
+  * 指定的Subnet的可用区必须包含在指定VPC节点内，可以通过`DescribeVpcAvailableRegions`来查看VPC节点下的可用区。
+  * 如果Subnet已经在VPC下，将不会进行任何操作。
+  * VPC状态需是`AVAILABLE`且Subnet状态需是`AVAILABLE`才能进行操作。
 examples:
 - cmd: zeno bmc associate-vpc-subnet --subnet-id your-subnet-id --vpc-id your-vpc-id
   desc: VPC添加Subnet。

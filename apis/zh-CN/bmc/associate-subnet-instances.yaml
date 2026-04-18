@@ -2,7 +2,19 @@ name: AssociateSubnetInstances
 product: bmc
 use: associate-subnet-instances
 short: Subnet绑定实例
-long: 本接口用于将一台或多台实例加入同一个子网并分配内网IP。
+long: |-
+  本接口用于将一台或多台实例加入同一个子网并分配内网IP。
+  **注意事项**
+
+  * 本接口属于异步接口，即系统会先返回一个请求ID，并不表示实例绑定Subnet完成，系统后台的绑定任务仍在进行。您可以调用DescribeSubnets 查询Subnet 下实例绑定状态：
+    * 当privateIpStatus 处于**BINDED**状态时，表示实例已成功绑定Subnet
+    * 当privateIpStatus 处于**BINDING**状态时，表示实例正在绑定Subnet
+    * 当privateIpStatus 处于**UNBINDING**状态时，表示实例正在解绑Subnet
+  * 实例状态需为`RUNNING`才能够绑定Subnet 。
+  * Subnet与实例的可用区需一致。
+  * Subnet状态需为`AVAILABLE`且Subnet还有剩余可用IP。
+  * 通常情况下，一台实例只允许加入一个子网如果实例已经加入其他子网，则操作将会失败。如果有特殊场景需要加入多个子网，请联系Support。
+  * 支持批量操作，每次请求批量实例上限为100。
 examples:
 - cmd: zeno bmc associate-subnet-instances --subnet-id your-subnet-id --subnet-instance-list "{instanceId=your-instance-id, privateIpAddress=10.0.0.2}"
   desc: 实例绑定Subnet。

@@ -1,8 +1,12 @@
 name: UnAssignSecurityGroupVpc
 product: zec
 use: un-assign-security-group-vpc
-short: Dissociates a VPC from a security group.
-long: dissociate a VPC from a security group.
+short: Dissociates a VPC from a security group
+long: |-
+  Dissociate a VPC from a security group.
+  **Note**
+
+  Rebinding the VPC’s security group will not affect the security groups already bound to the network interfaces under the VPC.
 examples:
 - cmd: zeno zec un-assign-security-group-vpc --vpc-id <vpcId>
   desc: Dissociate the VPC from the security group.

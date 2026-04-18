@@ -2,7 +2,7 @@ name: DescribeZoneInstanceConfigInfos
 product: zec
 use: describe-zone-instance-config-infos
 short: 查询可用区售卖的机型信息
-long: 查询可用区售卖的机型信息
+long: 查询可用区售卖的机型信息。
 examples:
 - cmd: zeno zec describe-zone-instance-config-infos --instance-type z2a.cpu.4
   desc: 获取规格为z2a.cpu.4的可用配置。

@@ -1,8 +1,8 @@
 name: DescribeSubnets
 product: bmc
 use: describe-subnets
-short: Queries list of subnets.
-long: query the details of one or more subnets. You can filter the query results with the subnet ID, VPC ID, zone ID and subnet name.
+short: Queries list of subnets
+long: Query the details of one or more subnets. You can filter the query results with the subnet ID, VPC ID, zone ID and subnet name.
 examples:
 - cmd: zeno bmc describe-subnets --cidr-block 10.0.0.0/8 --page-size 10 --page-num 1
   desc: ''

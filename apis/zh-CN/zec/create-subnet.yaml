@@ -2,7 +2,13 @@ name: CreateSubnet
 product: zec
 use: create-subnet
 short: 创建子网
-long: 创建子网。
+long: |-
+  创建子网。
+  **注意事项**
+
+  * 同一个VPC能创建的子网资源个数也是有限制的，每个子网的的CIDR网段必须属于VPC的CIDR网段内。
+  * 同一个VPC内,子网的CIDR地址段不可有重叠。
+  * 调用[`DescribeSubnetRegion`](describesubnetregions.md)接口查询子网区域是否支持创建。
 examples:
 - cmd: zeno zec create-subnet --vpc-id <vpcId> --region-id asia-east-1 --stack-type IPv4_IPv6 --ipv6-type Public --name XXX --cidr-block 10.0.0.0/9
   desc: 创建一个子网。堆栈类型为IPv4_IPv6。IPv6为公网。

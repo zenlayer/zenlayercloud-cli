@@ -1,8 +1,13 @@
 name: ModifySubnetsAttribute
 product: bmc
 use: modify-subnets-attribute
-short: Modifies the information about subnets.
-long: The API is used to modify the attributes of one or more subnets. Only the subnet name to be displayed can be modified for now.
+short: Modifies the information about subnets
+long: |-
+  The API is used to modify the attributes of one or more subnets. Only the subnet name to be displayed can be modified for now.
+  **Note**
+
+  * Batch operations are supported. Each request can modify up to 100 subnets.
+  * If any of the subnet IDs does not exist, the operation will fail immediately.
 examples:
 - cmd: zeno bmc modify-subnets-attribute --subnet-ids 827235796401527000 --subnet-name 123
   desc: ''

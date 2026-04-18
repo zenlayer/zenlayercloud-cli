@@ -1,8 +1,8 @@
 name: DescribeAvailableNats
 product: zec
 use: describe-available-nats
-short: Obtains list of NAT gateways that can be bound to a border gateway.
-long: obtain list of NAT gateways that can be bound to a border gateway.
+short: Obtains list of NAT gateways that can be bound to a border gateway
+long: Obtain list of NAT gateways that can be bound to a border gateway.
 examples:
 - cmd: zeno zec describe-available-nats --zbg-id xxx
   desc: Obtain list of NAT gateways that can be bound to a border gateway.

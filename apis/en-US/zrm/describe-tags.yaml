@@ -1,8 +1,8 @@
 name: DescribeTags
 product: zrm
 use: describe-tags
-short: Queries pages of tags.
-long: retrieve all tags bound to a specific resource
+short: Queries pages of tags
+long: Retrieve all tags bound to a specific resource.
 examples:
 - cmd: zeno zrm describe-tags --page-num 1 --page-size 20 --created-date-sort ascend --tag-keys tagKeys_0a847c6582a7 --tags "{key=key_e8a77c6a9fab, value=value_b1c085a59870}"
   desc: Query a single page of tags.

@@ -2,7 +2,14 @@ name: ReleaseCidrBlocks
 product: bmc
 use: release-cidr-blocks
 short: Releases one or more CIDR blocks
-long: release one or more IPv4 CIDR blocks.
+long: |-
+  Release one or more IPv4 CIDR blocks.
+  **Note**
+
+  * IPv4 CIDR blocks in recycle bin are remained for 24 hours by default.
+  * Only operations on IPv4 CIDR blocks in recycle bin with the status of `RECYCLE` are supported.
+  * This API is not applicable to IPv6 CIDR block.
+  * Batch operations are supported. The maximum number of instances in each request is 100.
 examples:
 - cmd: zeno bmc release-cidr-blocks --cidr-block-ids cidrBlockId1 --cidr-block-ids cidrBlockId2
   desc: ''

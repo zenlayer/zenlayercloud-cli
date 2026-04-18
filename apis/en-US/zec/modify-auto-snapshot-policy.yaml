@@ -1,8 +1,8 @@
 name: ModifyAutoSnapshotPolicy
 product: zec
 use: modify-auto-snapshot-policy
-short: Modifies the basic information of the snapshot schedule.
-long: modify the basic information of the snapshot schedule.
+short: Modifies the basic information of the snapshot schedule
+long: Modify the basic information of the snapshot schedule.
 examples:
 - cmd: zeno zec modify-auto-snapshot-policy --auto-snapshot-policy-id <autoSnapshotPolicyId> --auto-snapshot-policy-name Test --retention-days 3
   desc: Modify the attributes of the snapshot schedule, including the name, and set the retention time to 3 days.

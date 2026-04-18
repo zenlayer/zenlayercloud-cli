@@ -2,7 +2,12 @@ name: ReleaseInstances
 product: zec
 use: release-instances
 short: 销毁虚拟机实例
-long: 销毁一台或多台虚拟机实例。
+long: |-
+  销毁一台或多台虚拟机实例。
+  **注意事项**
+
+  * 普通账号删除弹性后，资源会直接回收。操作不可逆，请谨慎操作。
+  * 支持批量操作。每次请求批量实例的上限为100。
 examples:
 - cmd: zeno zec release-instances --instance-ids instanceId1 --instance-ids instanceId2
   desc: 批量释放实例。

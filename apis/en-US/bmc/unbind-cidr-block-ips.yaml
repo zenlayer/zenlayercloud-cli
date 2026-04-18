@@ -1,10 +1,10 @@
 name: UnbindCidrBlockIps
 product: bmc
 use: unbind-cidr-block-ips
-short: Unassigns CIDR block IPs from instances.
+short: Unassigns CIDR block IPs from instances
 long: |-
-  unbind one or more CIDR block IPs from instances.
-  ***
+  Unbind one or more CIDR block IPs from instances.
+  ***.
 examples:
 - cmd: zeno bmc unbind-cidr-block-ips --cidr-block-id cidrBlockId --ip-list 2602:ffe4:1:11::1
   desc: ''

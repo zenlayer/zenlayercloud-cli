@@ -1,8 +1,13 @@
 name: ReleaseDisk
 product: zec
 use: release-disk
-short: Releases a disk.
-long: release a disk.
+short: Releases a disk
+long: |-
+  Release a disk.
+  **Note**
+
+  * Operations on boot disks are not supported.
+  * This operation is irreversible. Once the operation is successful, the disks will be completely released. Please operate with caution.
 examples:
 - cmd: zeno zec release-disk --disk-id your-disk-id
   desc: Release a disk.

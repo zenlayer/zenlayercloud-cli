@@ -1,8 +1,12 @@
 name: ModifyCommand
 product: zos
 use: modify-command
-short: 修改命令。
-long: 修改一个命令。
+short: 修改命令
+long: |-
+  修改一个命令。
+  **注意事项**
+
+  * 如果存在运行的执行记录，则无法进行命令内容修改。
 examples:
 - cmd: zeno zos modify-command --command-id <commandId> --name Test --content ""echo 2""
   desc: 修改命令内容和名称。

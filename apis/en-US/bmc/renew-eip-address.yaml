@@ -1,8 +1,12 @@
 name: RenewEipAddress
 product: bmc
 use: renew-eip-address
-short: Renews an elastic IP.
-long: renew an elastic IP.
+short: Renews an elastic IP
+long: |-
+  Renew an elastic IP.
+  **Note**
+
+  Please ensure that the account balance is sufficient when renewing.
 sdk:
   service: bmc
   version: '2026-02-01'

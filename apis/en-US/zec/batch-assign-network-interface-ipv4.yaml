@@ -1,8 +1,13 @@
 name: BatchAssignNetworkInterfaceIpv4
 product: zec
 use: batch-assign-network-interface-ipv4
-short: Batch assigns the private IPv4 addresses to the vNIC.
-long: batch assign the private IPv4 addresses to the vNIC.
+short: Batch assigns the private IPv4 addresses to the vNIC
+long: |-
+  Batch assign the private IPv4 addresses to the vNIC.
+  **Note**
+
+  * vNIC state must be `AVAILABLE` or `USED`.
+  * If any of the private IPv4 addresses is illegal, the operation will fail immediately.
 examples:
 - cmd: zeno zec batch-assign-network-interface-ipv4 --nic-id <nicId> --ip-addresses 10.0.0.3 --ip-addresses 10.0.0.4
   desc: Batch bind the private IPv4 to the vNIC.

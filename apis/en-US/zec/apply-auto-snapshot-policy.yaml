@@ -1,8 +1,15 @@
 name: ApplyAutoSnapshotPolicy
 product: zec
 use: apply-auto-snapshot-policy
-short: Attaches a disk to the specified snapshot schedule.
-long: attach a disk to the specified snapshot schedule.
+short: Attaches a disk to the specified snapshot schedule
+long: |-
+  Attach a disk to the specified snapshot schedule.
+  **Note**
+
+  * If the disk is already attached to this snapshot schedule, repeated operations will not return an error.
+  * If the disk is already attached to another snapshot schedule, the error `INVALID_DISK_AUTO_SNAPSHOT_POLICY_EXIST` will be reported. And the operation will fail immediately.
+  * If the attached disk is in unavailable state when the snapshot schedule is executed, the snapshot will not be created automatically.
+  * A disk can only be attached to one snapshot schedule.
 examples:
 - cmd: zeno zec apply-auto-snapshot-policy --auto-snapshot-policy-id <autoSnapshotPolicyId> --disk-ids <diskId>
   desc: Attach disks to the snapshot schedule.

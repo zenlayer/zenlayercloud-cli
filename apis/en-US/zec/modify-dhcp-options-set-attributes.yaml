@@ -1,8 +1,8 @@
 name: ModifyDhcpOptionsSetAttributes
 product: zec
 use: modify-dhcp-options-set-attributes
-short: Edits configuration information of a DHCP options set.
-long: edit the configuration information of a DHCP options set.
+short: Edits configuration information of a DHCP options set
+long: Edit the configuration information of a DHCP options set.
 examples:
 - cmd: zeno zec modify-dhcp-options-set-attributes --dhcp-options-set-id dhcpOptionsSetId1 --dhcp-options-set-name dhcpOptionsSetName1
   desc: Edit configuration information of a DHCP options set.

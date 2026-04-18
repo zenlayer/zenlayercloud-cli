@@ -1,8 +1,12 @@
 name: InquiryPriceInstanceTrafficPackage
 product: bmc
 use: inquiry-price-instance-traffic-package
-short: Queries the price of instance traffic package.
-long: query the price of modified instance traffic package.
+short: Queries the price of instance traffic package
+long: |-
+  Query the price of modified instance traffic package.
+  **Note**
+
+  Use this API only when [`InternetChargeType`](../datastructure.md#internetchargetype) is `ByTrafficPackage.`
 examples:
 - cmd: zeno bmc inquiry-price-instance-traffic-package --instance-id instanceId --traffic-package-size 100
   desc: Query the price of modified instance traffic package

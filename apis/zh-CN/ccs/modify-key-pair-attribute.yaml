@@ -1,8 +1,12 @@
 name: ModifyKeyPairAttribute
 product: ccs
 use: modify-key-pair-attribute
-short: 修改一个密钥对的属性。
-long: 修改一个密钥对的属性。
+short: 修改一个密钥对的属性
+long: |-
+  修改一个密钥对的属性。
+  **注意事项**
+
+  * 目前支持修改描述的属性，不支持名称的修改。
 examples:
 - cmd: zeno ccs modify-key-pair-attribute --key-id key-xxxx --key-description test-description
   desc: 修改密钥对描述信息。

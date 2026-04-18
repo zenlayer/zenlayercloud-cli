@@ -2,7 +2,11 @@ name: TerminateLoadBalancer
 product: zlb
 use: terminate-load-balancer
 short: 删除负载均衡器实例
-long: 本接口用户删除一个指定的负载均衡器实例。
+long: |-
+  本接口用户删除一个指定的负载均衡器实例。
+  **注意事项**
+
+  * 删除实例后实例可能会保留一段时间，保留时状态为`RECYCLED`. 可以通过[`RestoreLoadBalancer`](restoreloadbalancer.md)接口恢复实例。
 examples:
 - cmd: zeno zlb terminate-load-balancer --load-balancer-id <loadBalancerId>
   desc: 终止一个负载均衡器。

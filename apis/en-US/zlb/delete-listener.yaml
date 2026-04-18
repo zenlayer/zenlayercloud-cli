@@ -1,8 +1,8 @@
 name: DeleteListener
 product: zlb
 use: delete-listener
-short: Deletes a load balance listener.
-long: delete a load balance listener.
+short: Deletes a load balance listener
+long: Delete a load balance listener.
 examples:
 - cmd: zeno zlb delete-listener --load-balancer-id <loadBalancerId> --listener-id <listenerId>
   desc: Delete a listener.

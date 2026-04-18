@@ -2,7 +2,12 @@ name: DeleteBorderGateway
 product: zec
 use: delete-border-gateway
 short: 删除边界网关
-long: 删除一个指定的边界网关。
+long: |-
+  删除一个指定的边界网关。
+  **注意事项**
+
+  * 如果边界网关已经绑定了NAT网关，则必须解绑NAT网关才能删除。
+  * 如果边界网关加入了三层网络，则必须将边界网关从三层网络中移除才能删除。
 examples:
 - cmd: zeno zec delete-border-gateway --zbg-id <zbgId>
   desc: 删除边界网关。

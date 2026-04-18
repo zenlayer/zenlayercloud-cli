@@ -1,8 +1,8 @@
 name: ModifyDnatEntry
 product: zec
 use: modify-dnat-entry
-short: Modifies a DNAT rule.
-long: modify a DNAT rule.
+short: Modifies a DNAT rule
+long: Modify a DNAT rule.
 examples:
 - cmd: zeno zec modify-dnat-entry --dnat-entry-id <dnatEntryId> --eip-id <eipId> --private-ip 10.0.0.2 --protocol TCP --listener-port 1-30 --internal-port 1-30
   desc: Modify a DNAT entry.

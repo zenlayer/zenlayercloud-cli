@@ -1,8 +1,12 @@
 name: DeleteDhcpOptionsSet
 product: zec
 use: delete-dhcp-options-set
-short: Deletes a DHCP options set.
-long: delete a DHCP options set.
+short: Deletes a DHCP options set
+long: |-
+  Delete a DHCP options set.
+  **Note**
+
+  Before deleting a DHCP options set, make sure all associated subnets are disassociated.
 examples:
 - cmd: zeno zec delete-dhcp-options-set --dhcp-options-set-id dhcpOptionsSetId1
   desc: Deletes a DHCP options set.

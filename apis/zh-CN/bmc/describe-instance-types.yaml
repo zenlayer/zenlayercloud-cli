@@ -2,7 +2,11 @@ name: DescribeInstanceTypes
 product: bmc
 use: describe-instance-types
 short: 查询实例机型列表
-long: 查询实例机型配置。
+long: |-
+  查询实例机型配置。
+  **注意事项**
+
+  `DescribeInstanceTypes`仅查询实例机型的配置和性能信息，如果您需要查询具体地域下可购买的实例机型，请查询 `DescribeAvailableResources。`
 sdk:
   service: bmc
   version: '2026-02-01'
@@ -85,7 +89,7 @@ parameters:
     查询实例机型时，期望最大磁盘大小。
     取值范围：正整数。
     单位：GB。
-- name: is-h-a
+- name: is-ha
   type: boolean
   required: false
   sdk-field: isHA

@@ -1,8 +1,12 @@
 name: StartIpForward
 product: zec
 use: start-ip-forward
-short: Enables IP forwarding of the instance.
-long: enable IP forwarding of the instance.
+short: Enables IP forwarding of the instance
+long: |-
+  Enable IP forwarding of the instance.
+  **Note**
+
+  Only operations on instances that are in powered-off or power-on state are supported.
 examples:
 - cmd: zeno zec start-ip-forward --instance-id instanceId1
   desc: Enable IP forwarding of the instance

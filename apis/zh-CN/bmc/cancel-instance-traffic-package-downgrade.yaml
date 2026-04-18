@@ -2,7 +2,11 @@ name: CancelInstanceTrafficPackageDowngrade
 product: bmc
 use: cancel-instance-traffic-package-downgrade
 short: 取消流量包降配订单
-long: 取消流量包降配订单。
+long: |-
+  取消流量包降配订单。
+  **注意事项**
+
+  * 需实例存在流量包降配订单。
 examples:
 - cmd: zeno bmc cancel-instance-traffic-package-downgrade --instance-id instanceId
   desc: 取消实例流量包降配订单

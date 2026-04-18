@@ -2,7 +2,11 @@ name: AssignNetworkInterfaceIpv4
 product: zec
 use: assign-network-interface-ipv4
 short: 网卡绑定内网IPv4
-long: 网卡绑定内网IPv4
+long: |-
+  网卡绑定内网IPv4。
+  **注意事项**
+
+  * 网卡状态需为`AVAILABLE`或`USED`
 examples:
 - cmd: zeno zec assign-network-interface-ipv4 --nic-id <nicId> --ip-address 10.0.0.3
   desc: 网卡绑定内网IPv4。

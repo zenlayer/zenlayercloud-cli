@@ -1,8 +1,13 @@
 name: ImportKeyPair
 product: ccs
 use: import-key-pair
-short: 导入密钥对。
-long: 导入公钥到密钥对。
+short: 导入密钥对
+long: |-
+  导入公钥到密钥对。
+  **注意事项**
+
+  * 本接口的功能是将密钥对导入到用户账户，可用于后续的实例创建。
+  * 需指定密钥对名称以及该密钥对的公钥文本。
 examples:
 - cmd: zeno ccs import-key-pair --key-name my-key --public-key ""ssh-rsa XXXXXXXXXXXX== example""
   desc: 导入一个密钥对。

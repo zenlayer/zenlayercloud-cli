@@ -1,8 +1,8 @@
 name: TagUnbindResources
 product: zrm
 use: tag-unbind-resources
-short: Unbinds resources to a tag in batches.
-long: unbind resources to a tag in batches
+short: Unbinds resources to a tag in batches
+long: Unbind resources to a tag in batches.
 examples:
 - cmd: zeno zrm tag-unbind-resources --resource-uuids resourceUuids_ef279be49ba4
   desc: Unbind an instance from a tag.

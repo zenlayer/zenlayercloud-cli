@@ -2,7 +2,12 @@ name: ResizeDisk
 product: zec
 use: resize-disk
 short: 扩容云硬盘
-long: 将一个云硬盘扩容到指定大小。
+long: |-
+  将一个云硬盘扩容到指定大小。
+  **注意事项**
+
+  * 本接口只支持扩容云盘
+  * 本接口为异步接口，调用接口成功后，可通过接口[`DescribeDisks`](describedisks.md)来查询对应云盘的状态，如果云盘的状态为`CHANGING`，表示正在扩容中。
 examples:
 - cmd: zeno zec resize-disk --disk-id "<Disk ID>" --disk-size 100
   desc: 扩容弹性云盘到100GiB。

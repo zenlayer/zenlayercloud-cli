@@ -1,0 +1,84 @@
+name: InquiryCreateIPTransitPrice
+product: ipt
+use: inquiry-create-ip-transit-price
+short: Query the price of creating an IP Transit
+long: Queries the price of creating an IP Transit.
+examples:
+- cmd: zeno ipt inquiry-create-ip-transit-price --ipt-description test_ipt_desc --peer-port-id your-port-id --internet-type ByBandwidth --bandwidth 50 --ipt-dc-id AMS1 --routing-type Static --public-ipv4-block-size 25
+  desc: Query the price of creating an IP Transit with a /25 public CIDR. Bandwidth cap is 50 Mbps, billing method is fixed bandwidth.
+sdk:
+  service: ipt
+  version: '2024-09-01'
+  action: InquiryCreateIPTransitPrice
+parameters:
+- name: peer-port-id
+  type: string
+  required: true
+  sdk-field: peerPortId
+  description: Port ID.
+- name: ipt-dc-id
+  type: string
+  required: false
+  sdk-field: iptDcId
+  description: |-
+    IP Transit destination data center ID.
+    If not specified, it means the IP Transit is in the same data center as the port.
+- name: internet-type
+  type: enum
+  required: false
+  sdk-field: internetType
+  description: Bandwidth billing method of the IP Transit.
+  enum-values:
+  - value: ByBandwidth
+    desc: Billed by fixed bandwidth.
+  - value: ByInstanceBandwidth95
+    desc: Billed by 95th percentile bandwidth.
+- name: commit-bandwidth
+  type: integer
+  required: false
+  sdk-field: commitBandwidth
+  description: |-
+    Committed bandwidth.
+    Unit: Mbps.
+    This field is required if and only if internetType is ByInstanceBandwidth95.
+- name: bandwidth
+  type: integer
+  required: false
+  sdk-field: bandwidth
+  description: |-
+    Bandwidth cap.
+    Unit: Mbps.
+    Minimum value: 10 Mbps.
+- name: routing-type
+  type: enum
+  required: true
+  sdk-field: routingType
+  description: Routing type.
+  enum-values:
+  - value: BGP
+    desc: BGP. (Currently not supported via API)
+  - value: Static
+    desc: Static routing.
+  - value: Gateway
+    desc: Gateway mode.
+- name: public-ipv4-block-size
+  type: integer-array
+  required: false
+  sdk-field: publicIPv4BlockSize
+  description: |-
+    Public IPv4 address block.
+    Netmask range: 24-30.
+    This field is required if and only if routing type is Static or Gateway.
+    Currently, only one public CIDR is allowed.
+- name: bgp-route-type
+  type: enum
+  required: false
+  sdk-field: bgpRouteType
+  description: BGP inbound route type.
+  enum-values:
+  - value: ALL_ROUTES
+    desc: Full routes.
+  - value: ALL_ROUTES_WITH_DEFAULT_ROUTES
+    desc: All routes with default routes.
+  - value: DEFAULT_ROUTES
+    desc: Default routes.

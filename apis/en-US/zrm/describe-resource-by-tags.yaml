@@ -1,0 +1,35 @@
+name: DescribeResourceByTags
+product: zrm
+use: describe-resource-by-tags
+short: Queries resources bound to tags
+long: |-
+  Query resources bound to tags.
+  **Note**
+
+  * At least one of `tags` or `tagKeys` must be provided.
+examples:
+- cmd: zeno zrm describe-resource-by-tags --tags "{key=key_b1b29f0f5533, value=value_0827e7e1a82b}" --tag-keys tagKeys_fb657b711e3a
+  desc: Query all resources bound to tags.
+sdk:
+  service: zrm
+  version: '2025-10-14'
+  action: DescribeResourceByTags
+parameters:
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: List of tags.
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: List of tag keys.

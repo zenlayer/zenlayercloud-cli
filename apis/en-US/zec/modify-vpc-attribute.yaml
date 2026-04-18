@@ -1,8 +1,8 @@
 name: ModifyVpcAttribute
 product: zec
 use: modify-vpc-attribute
-short: Modifies the attributes of a global VPC.
-long: modify the attributes of a global VPC.
+short: Modifies the attributes of a global VPC
+long: Modify the attributes of a global VPC.
 examples:
 - cmd: zeno zec modify-vpc-attribute --vpc-id <vpcId> --vpc-name TestVpcName --enable-ipv6 true
   desc: Modify the information of a global VPC, and enable the private IPv6 CIDR block.
@@ -33,7 +33,7 @@ parameters:
     10.0.0.0/9 10.128.0.0/9 172.16.0.0/12 192.168.0.0/16
     If the global VPC has subnets, the new CIDR must include the original CIDR.
     The default global VPC cannot be modified.
-- name: enable-i-pv6
+- name: enable-ipv6
   type: boolean
   required: false
   sdk-field: enableIPv6

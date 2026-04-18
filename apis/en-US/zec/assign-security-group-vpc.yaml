@@ -1,8 +1,13 @@
 name: AssignSecurityGroupVpc
 product: zec
 use: assign-security-group-vpc
-short: Associates a VPC to a security group.
-long: associate a VPC to a security group.
+short: Associates a VPC to a security group
+long: |-
+  Associate a VPC to a security group.
+  **Note**
+
+  * A VPC can be associated with only one security group. This API will rebind the VPC from its current security group to the specified one.
+  * Rebinding the VPC’s security group will not affect the security groups already bound to the network interfaces under the VPC.
 examples:
 - cmd: zeno zec assign-security-group-vpc --vpc-id your-vpc-id --security-group-id your-security-group-id
   desc: Associate a VPC to a security group.

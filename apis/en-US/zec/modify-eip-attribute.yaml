@@ -1,8 +1,8 @@
 name: ModifyEipAttribute
 product: zec
 use: modify-eip-attribute
-short: Modifies the name of the elastic IP.
-long: modify the name of the elastic IP.
+short: Modifies the name of the elastic IP
+long: Modify the name of the elastic IP.
 examples:
 - cmd: zeno zec modify-eip-attribute --eip-id <eipId> --name Test-IP
   desc: Modify the name of the elastic IP.

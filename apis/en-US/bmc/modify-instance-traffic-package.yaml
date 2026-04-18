@@ -1,8 +1,18 @@
 name: ModifyInstanceTrafficPackage
 product: bmc
 use: modify-instance-traffic-package
-short: Modifies the traffic package of an instance.
-long: The API is used to modify the traffic package of an instance.
+short: Modifies the traffic package of an instance
+long: |-
+  The API is used to modify the traffic package of an instance.
+  **Note**
+
+  * You can only perform this operation on instances whose status is `RUNNING or STOPPED`.
+  * If the [`internetChargeType`](../datastructure.md#internetchargetype) of your instance is `ByTrafficPackage`
+    * For a `PREPAID` instance:
+      * Upgrade (target > current) operation will deduct the amount required for this instance purchase. If the balance is insufficient, the request will fail and take effect immediately.
+      * Downgrade (target < current) operation will generate an order for the next billing cycle and will take effect by then.
+  * Use `InquiryPriceInstanceTrafficPackage` to query price of traffic package.
+  * Use `DescribeInstanceInternetStatus` to query bandwidth status of an instance.
 examples:
 - cmd: zeno bmc modify-instance-traffic-package --instance-id instanceId --traffic-package-size 100
   desc: Upgrade the traffic package of an instance

@@ -1,8 +1,8 @@
 name: DescribeCidrBlockIps
 product: bmc
 use: describe-cidr-block-ips
-short: Queries list of CIDR block IPs.
-long: query the IPs of a CIDR block.
+short: Queries list of CIDR block IPs
+long: Query the IPs of a CIDR block.
 examples:
 - cmd: zeno bmc describe-cidr-block-ips --cidr-block-id aCidrBlockId
   desc: ''

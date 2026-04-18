@@ -1,8 +1,23 @@
 name: CreateZecInstances
 product: zec
 use: create-zec-instances
-short: Creates one or more instances with specified configurations.
-long: create one or more elastic compute instances with specified configurations.
+short: Creates one or more instances with specified configurations
+long: |-
+  Create one or more elastic compute instances with specified configurations.
+  #### Prerequisites
+
+  * Query instance models: call [`DescribeZoneInstanceConfigInfos`](describezoneinstanceconfiginfos.md) to check specifications.
+  * Query images: call [`DescribeImages`](../image/describeimages.md) to check information on image.
+  * Query key pairs: call [`DescribeKeyPairs`](../../../security/key-service/key-pair/describekeypairs.md) to check information on key pair ID.
+
+
+  **Note**
+
+  * After an instance is created successfully, it will start up automatically, and the instance status will become "`RUNNING`".
+  * Please ensure your account balance is sufficient before calling this API.
+  * Vouchers can be used for fee deduction in instance creation. See [Vouchers](https://docs.console.zenlayer.com/welcome/platform/billing-center/vouchers) for more details.
+  * This API is an async API. An instance ID list is returned after the creation request is sent. However, it does not mean the creation has been completed. The status of the instance will be `DEPLOYING` during the creation. You can use [`DescribeInstances`](describeinstances.md) to query the status of the instance. If the status changes from `DEPLOYING` to `Running`, it means that the instance has been created successfully; `CREATE_FAILED` means creation failed. Any operations on the instances are not allowed while creating.
+  * A maximum of 100 instances can be created in one request.
 examples:
 - cmd: zeno zec create-zec-instances --zone-id asia-east-1a --instance-type z2a.cpu.1 --image-id ubuntu2404_20240712 --instance-name Test-InstanceName --key-id key-rcfljdP5 --subnet-id 1272168087751233112 --nic-network-type Auto
   desc: Create an instance with the simplest parameters with no public IPv4 assigned.

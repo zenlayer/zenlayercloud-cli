@@ -1,8 +1,8 @@
 name: DescribeNetworkInterfaces
 product: zec
 use: describe-network-interfaces
-short: Queries the information of one or more specified vNICs.
-long: query the information of one or more specified vNICs. Users can search for vNIC information based on vNIC ID, vNIC name, etc.
+short: Queries the information of one or more specified vNICs
+long: Query the information of one or more specified vNICs. Users can search for vNIC information based on vNIC ID, vNIC name, etc.
 examples:
 - cmd: zeno zec describe-network-interfaces --nic-type Secondary --page-size 1 --page-num 1
   desc: Query the list of secondary vNICs.

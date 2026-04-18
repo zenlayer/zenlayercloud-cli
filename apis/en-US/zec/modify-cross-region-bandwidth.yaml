@@ -1,8 +1,13 @@
 name: ModifyCrossRegionBandwidth
 product: zec
 use: modify-cross-region-bandwidth
-short: Modifies the configurations of the cross-region bandwidth.
-long: modify the configurations of the cross-region bandwidth.
+short: Modifies the configurations of the cross-region bandwidth
+long: |-
+  Modify the configurations of the cross-region bandwidth.
+  **Note**
+
+  * If the network billing model is `ByBandwidth`, the new bandwidth cap must be different from the original one.
+  * If the network billing model is `ByInstanceBandwidth95`, one of the bandwidth commitment and the burst bandwidth must be modified at least. If the burst bandwidth is not specified, it is not changed by default.
 examples:
 - cmd: zeno zec modify-cross-region-bandwidth --cross-region-bandwidth-id "<your cross id>" --bandwidth 500
   desc: For a cross-region bandwidth with the network billing model of `ByBandwidth`, modify the bandwidth cap to 500 Mbps.

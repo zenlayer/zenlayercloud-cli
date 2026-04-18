@@ -1,8 +1,8 @@
 name: ModifySnatEntry
 product: zec
 use: modify-snat-entry
-short: Modifies a SNAT rule.
-long: modify a SNAT rule.
+short: Modifies a SNAT rule
+long: Modify a SNAT rule.
 examples:
 - cmd: zeno zec modify-snat-entry --snat-entry-id <snatEntryId> --subnet-ids <subnetId> --eip-ids <eipId>
   desc: Modify a SNAT entry of type `subnet`.

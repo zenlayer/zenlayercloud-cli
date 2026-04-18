@@ -2,7 +2,11 @@ name: ApplySnapshot
 product: zec
 use: apply-snapshot
 short: 回滚快照
-long: 回滚快照到原云盘。
+long: |-
+  回滚快照到原云盘。
+  **注意事项**
+
+  * 用于回滚的快照必须处于AVAILABLE状态。快照状态可以通过[`DescribeSnapshots`](describesnapshots.md)接口查询，见输出参数中`SnapshotState`字段解释。
 examples:
 - cmd: zeno zec apply-snapshot --snapshot-id snapshotId1 --disk-id disk1
   desc: 回滚快照

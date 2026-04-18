@@ -1,8 +1,8 @@
 name: DescribeCommands
 product: zos
 use: describe-commands
-short: Queries command list.
-long: query command list.
+short: Queries command list
+long: Query command list.
 examples:
 - cmd: zeno zos describe-commands
   desc: Query command list.

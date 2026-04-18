@@ -1,0 +1,72 @@
+name: CreatePlacementGroup
+product: zec
+use: create-placement-group
+short: 创建置放组
+long: |-
+  创建一个置放组。
+  **注意事项**
+
+  * 使用置放组功能前需要开通权限，请联系support。
+  * 分区数（partitionNum）取值范围为2到5，决定置放组最大可关联实例数（分区数=最大实例数）。
+  * 亲和度（affinity）取值范围为1到分区数向下取整除以2，不填时默认为分区数向下取整除以2。亲和度确保单物理机虚机数不超过分区数的1/2，保障高可用打散逻辑。
+examples:
+- cmd: zeno zec create-placement-group --zone-id asia-east-1a --name my-placement-group --partition-num 3 --affinity 1
+  desc: 创建一个置放组。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CreatePlacementGroup
+parameters:
+- name: zone-id
+  type: string
+  required: true
+  sdk-field: zoneId
+  description: |-
+    置放组所属可用区ID。
+    置放组的管理范围为zone维度。
+- name: name
+  type: string
+  required: true
+  sdk-field: name
+  description: |-
+    置放组名称。
+    长度2到63个字符。
+    必须以字母或数字开头和结尾，支持字母、数字、空格、连字符、斜杠、点号。
+- name: partition-num
+  type: integer
+  required: true
+  sdk-field: partitionNum
+  description: |-
+    置放组的分区数。
+    决定置放组最大可关联实例数。
+- name: affinity
+  type: integer
+  required: false
+  sdk-field: affinity
+  description: |-
+    置放组的亲和度。
+    取值范围为1到分区数向下取整除以2。
+    不填时默认为分区数向下取整除以2。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: 资源组ID。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: 创建置放组时关联的标签。--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。

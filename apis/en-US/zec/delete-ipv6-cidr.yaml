@@ -1,8 +1,13 @@
 name: DeleteIpv6Cidr
 product: zec
 use: delete-ipv6-cidr
-short: Deletes an IPv6 CIDR block.
-long: delete an IPv6 CIDR block.
+short: Deletes an IPv6 CIDR block
+long: |-
+  Delete an IPv6 CIDR block.
+  **Note**
+
+  * If any IP ranges of the CIDR block have been assigned to subnets, the CIDR block cannot be deleted.
+  * For regular accounts, once a CIDR block is deleted, the resource will be immediately reclaimed. This operation is irreversible.
 examples:
 - cmd: zeno zec delete-ipv6-cidr --cidr-id <cidrId>
   desc: Delete a CIDR block.

@@ -2,7 +2,7 @@ name: DescribeTimeZones
 product: zec
 use: describe-time-zones
 short: 查询时区信息
-long: 查询时区信息
+long: 查询时区信息。
 examples:
 - cmd: zeno zec describe-time-zones
   desc: 查询时区。

@@ -2,7 +2,15 @@ name: UnAssociateEipAddress
 product: bmc
 use: un-associate-eip-address
 short: 解绑Elastic IP
-long: 将EIP上已绑定的机器实例解绑。
+long: |-
+  将EIP上已绑定的机器实例解绑。
+  **注意事项**
+
+  * 对于状态为 **`ASSOCIATED`** 和 **`AVAILABLE`** 的 EIP 可以进行该操作，如果状态已为 **`AVAILABLE`** 将不会有任何变更。
+  * 对 **`ASSOCIATED`** 的EIP进行操作成功后，EIP的状态将变为 **`UNACCOSCIATING`** 。
+  * 本接口属于异步接口，即系统会先返回一个请求ID，但EIP并未完成解绑，系统后台的解绑任务仍在进行。您可以调用`DescribeEipAddresses`查询EIP的状态：
+    * 当EIP处于**UNACCOSCIATING**状态时，表示EIP正在解绑中，在该状态下，您只能执行查询操作，不能执行其他操作。
+    * 当EIP处于**AVAILABLE** 时，表示EIP完成解绑。
 examples:
 - cmd: zeno bmc un-associate-eip-address --eip-id eipId1
   desc: EIP解绑机器实例

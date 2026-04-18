@@ -1,0 +1,32 @@
+name: ModifyInstancePlacement
+product: zec
+use: modify-instance-placement
+short: Modify the assignment of an instance placement group
+long: |-
+  Add an instance to a placement group, migrate it from one placement group to another, or remove it from a placement group.
+  **Precautions**
+
+  * When `placementGroupId` is empty, it indicates removing the instance from the current placement group.
+  * When `placementGroupId` is not empty, it indicates adding the instance to the specified placement group; if the instance is already in another placement group, it will be removed from the original placement group and then added to the new one (i.e., migration).
+examples:
+- cmd: zeno zec modify-instance-placement --instance-id instance-xxxxxxxx --placement-group-id placementgroup-yyyyyyyy
+  desc: Add an instance to a placement group (or migrate it from another placement group to this one).
+- cmd: zeno zec modify-instance-placement --instance-id instance-xxxxxxxx
+  desc: Remove the instance from its current placement group.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyInstancePlacement
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: Instance ID.
+- name: placement-group-id
+  type: string
+  required: false
+  sdk-field: placementGroupId
+  description: |-
+    Placement group ID.
+    If empty, the instance is removed from the current placement group.

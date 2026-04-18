@@ -1,8 +1,8 @@
 name: DescribeVncUrl
 product: zec
 use: describe-vnc-url
-short: Obtains the VNC address of the instance.
-long: obtain the VNC address of the instance.
+short: Obtains the VNC address of the instance
+long: Obtain the VNC address of the instance.
 examples:
 - cmd: zeno zec describe-vnc-url --instance-id instanceId1
   desc: Obtain the VNC address of the instance.

@@ -1,8 +1,20 @@
 name: AssociateSubnetInstances
 product: bmc
 use: associate-subnet-instances
-short: Adds instances into a subnet.
-long: add one or more instances into a subnet and assign private IPs to instances.
+short: Adds instances into a subnet
+long: |-
+  Add one or more instances into a subnet and assign private IPs to instances.
+  **Note**
+
+  * This API is an async API. A request ID is returned after the request is sent. However, it does not mean the binding has been completed. You can use [`DescribeSubnets`](describesubnets.md) to query the status of `privateIpStatus`.
+    * If the status is `BINDED`, it means that the private IP has been bound.
+    * If the status is `BINDING`, it means that the private IP is being bound.
+    * If the status is `UNBINDING`, it means that the private IP is being unbound.
+  * Only operations on instances in `RUNNING` status are supported.
+  * Instances can only be added into the subnet in the same zone.
+  * The status of subnet should be AVAILABLE and there are still available private IPs in it.
+  * Generally, an instance can only be added into one subnet. If the instance is already in other subnet, the request will fail. However, if you do need to add one instance into two or more subnets, please contact Zenlayer Support.
+  * Batch operations are supported. Each request can add up to 100 instances.
 examples:
 - cmd: zeno bmc associate-subnet-instances --subnet-id 833049815985166808 --subnet-instance-list "{instanceId=820653960707704280, privateIpAddress=10.0.0.2}"
   desc: ''

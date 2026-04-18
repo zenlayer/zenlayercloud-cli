@@ -1,8 +1,12 @@
 name: CreateDisks
 product: zec
 use: create-disks
-short: Creates one or more disks.
-long: create one or more disks.
+short: Creates one or more disks
+long: |-
+  Create one or more disks.
+  **Note**
+
+  This API is an async API. A disk `ID` list is returned after the creation request is sent. However, it does not mean the creation has been completed. You can use [`DescribeDisks`](describedisks.md) to query the status of the disk. If disk has been queried with the **AVAILABLE** status, it means that the disk has been created successfully; if disk has been attached to a certain instance while creating, the **IN\_USE** status means attaching successfully.
 examples:
 - cmd: zeno zec create-disks --disk-name Test-Disk --disk-size 30 --disk-amount 1 --zone-id HKG-A
   desc: Create one or more disks.

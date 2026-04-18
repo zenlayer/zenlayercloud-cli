@@ -2,7 +2,11 @@ name: CreateBandwidthCluster
 product: traffic
 use: create-bandwidth-cluster
 short: 创建共享带宽包
-long: 创建一个共享带宽包。
+long: |-
+  创建一个共享带宽包。
+  **注意事项**
+
+  * 如果没有共享带宽包权限，请联系 Zenlayer Support 获取权限。
 examples:
 - cmd: zeno traffic create-bandwidth-cluster --area-code SHA --charge-type POSTPAID --commit-bandwidth-mbps 1000 --network-type CMI --internet-charge-type MonthlyPercent95Bandwidth --name sample
   desc: 在上海（SHA) 开通中国移动线路的共享带宽包， 保底设置为1G。

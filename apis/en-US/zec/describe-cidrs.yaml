@@ -1,8 +1,8 @@
 name: DescribeCidrs
 product: zec
 use: describe-cidrs
-short: Queries the information of one or more specified CIDR blocks.
-long: query the information of one or more specified CIDR blocks. Users can search for CIDR block information based on CIDR block ID, CIDR block name, etc.
+short: Queries the information of one or more specified CIDR blocks
+long: Query the information of one or more specified CIDR blocks. Users can search for CIDR block information based on CIDR block ID, CIDR block name, etc.
 examples:
 - cmd: zeno zec describe-cidrs --cidr-ids xxx --region-id asia-east-1 --cidr-block 128.0.0.0/24 --page-size 10 --page-num 1
   desc: Query CIDR block list with IP range of `10.0.0.0/24`.
@@ -45,6 +45,8 @@ parameters:
     desc: CIDR block created on Console.
   - value: BYOIP
     desc: Bring your own IP (BYOIP).
+  - value: SDN_RIPT
+    desc: IP Transit CIDR block.
 - name: resource-group-id
   type: string
   required: false

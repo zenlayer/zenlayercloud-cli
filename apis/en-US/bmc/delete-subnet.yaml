@@ -1,8 +1,14 @@
 name: DeleteSubnet
 product: bmc
 use: delete-subnet
-short: Deletes subnet.
-long: delete a subnet.
+short: Deletes subnet
+long: |-
+  Delete a subnet.
+  **Note**
+
+  * This API is an async API. A subnet ID list is returned after the deletion request is sent. However, it does not mean the deletion has been completed. The status of the subnet will be `DELETING` during the deletion. You can use [`DescribeSubnets`](describesubnets.md) to query the status of the subnet. If this subnet does not exist in the subnet list, it means that the subnet has been deleted successfully. Any operations on the subnets are not allowed while deleting.
+  * Operations on subnets with instances in it are not supported. You can use [`DescribeSubnets`](describesubnets.md) to query the status of the subnet.
+  * Only operations on subnets in the status of `AVAILABLE` or `CREATE_FAILED` are supported.
 examples:
 - cmd: zeno bmc delete-subnet --subnet-id 833032938374308056
   desc: ''

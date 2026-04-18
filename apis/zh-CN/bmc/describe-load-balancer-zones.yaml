@@ -1,7 +1,7 @@
 name: DescribeLoadBalancerZones
 product: bmc
 use: describe-load-balancer-zones
-short: 查询支持创建负载均衡的区域。
+short: 查询支持创建负载均衡的区域
 long: 查询支持创建负载均衡的区域。
 examples:
 - cmd: zeno bmc describe-load-balancer-zones --charge-type POSTPAID
@@ -19,7 +19,7 @@ parameters:
     付费类型。
     PREPAID：预付费，即包年包月 POSTPAID：后付费。
   enum-values:
-  - value: POSTPAID
-    desc: 后付费。即按量付费。
   - value: PREPAID
     desc: 预付费。
+  - value: POSTPAID
+    desc: 后付费。即按量付费。

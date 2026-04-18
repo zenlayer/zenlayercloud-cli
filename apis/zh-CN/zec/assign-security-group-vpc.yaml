@@ -1,8 +1,13 @@
 name: AssignSecurityGroupVpc
 product: zec
 use: assign-security-group-vpc
-short: VPC更换绑定安全组。
-long: VPC更换绑定安全组。
+short: VPC更换绑定安全组
+long: |-
+  VPC更换绑定安全组。
+  **注意事项**
+
+  * 一个VPC只能关联一个安全组。本接口将会将VPC对应的安全组换绑到指定安全组。
+  * VPC换绑安全组，不会影响VPC下网卡已经绑定的安全组。
 examples:
 - cmd: zeno zec assign-security-group-vpc --vpc-id your-vpc-id --security-group-id your-security-group-id
   desc: VPC换绑安全组。

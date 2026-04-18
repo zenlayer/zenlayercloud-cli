@@ -1,8 +1,8 @@
 name: AvailableLanIp
 product: zec
 use: available-lan-ip
-short: Obtains the available private IP.
-long: obtain the available private IP.
+short: Obtains the available private IP
+long: Obtain the available private IP.
 sdk:
   service: zec
   version: '2025-09-01'

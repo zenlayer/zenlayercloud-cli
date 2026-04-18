@@ -1,8 +1,8 @@
 name: ModifyCidrAttribute
 product: zec
 use: modify-cidr-attribute
-short: Modifies the attributes of a CIDR block.
-long: modify the attributes of a CIDR block. Only the name of the CIDR block can be modified for now.
+short: Modifies the attributes of a CIDR block
+long: Modify the attributes of a CIDR block. Only the name of the CIDR block can be modified for now.
 examples:
 - cmd: zeno zec modify-cidr-attribute --cidr-id <cidrId> --name TestCidrName
   desc: Modify the name of a CIDR block.

@@ -1,8 +1,20 @@
 name: CreateIpv4Block
 product: bmc
 use: create-ipv4-block
-short: Creates IPv4 CIDR blocks.
-long: create one or more IPv4 CIDR blocks.
+short: Creates IPv4 CIDR blocks
+long: |-
+  Create one or more IPv4 CIDR blocks.
+  #### Prerequisites
+
+  * Query stock: call [`DescribeAvailableIpv4Resources`](describeavailableipv4resources.md) to check available resources.
+  * Cost estimation: know of CIDR block pricing. See [Billing Method](https://docs.console.zenlayer.com/welcome/pricing/bare-metal-cloud-pricing/billing-method#cidr-block) for more details.
+
+
+  **Note**
+
+  * If you create a subscription CIDR block, the amount required will be pre-deducted. If the balance is insufficient, the request will fail. If you create a pay-as-you-go CIDR block, please ensure your account balance is sufficient before calling this API.
+  * Vouchers can be used for fee deduction in instance creation. See [Vouchers](https://docs.console.zenlayer.com/welcome/platform/billing-center/vouchers) for more details.
+  * This API is an async API. A CIDR block ID list is returned after the creation request is sent. However, it does not mean the creation has been completed. The status of the CIDR block will be `CREATING` during the creation. You can use [DescribeCidrBlocks](describecidrblocks.md) to query the status of the CIDR block. If the status changes from `Creating` to `Available`, it means that the CIDR block has been created successfully; `CREATE_FAILED` means the CIDR block has been created failed. Any operations on the instances are not allowed while creating.
 examples:
 - cmd: zeno bmc create-ipv4-block --zone-id IST-B --name example1 --charge-type POSTPAID --netmask 29
   desc: ''
@@ -41,10 +53,10 @@ parameters:
     CIDR block pricing model .
     PREPAID: subscription POSTPAID: pay-as-you-go
   enum-values:
-  - value: POSTPAID
-    desc: Pay-as-you-go.
   - value: PREPAID
     desc: Subscription.
+  - value: POSTPAID
+    desc: Pay-as-you-go.
 - name: charge-prepaid
   type: object
   required: false

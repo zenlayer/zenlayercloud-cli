@@ -2,7 +2,12 @@ name: ModifyInstanceType
 product: zec
 use: modify-instance-type
 short: 变更实例的规格
-long: 变更实例的规格
+long: |-
+  变更实例的规格。
+  **注意事项**
+
+  * 仅实例状态为`STOPPED` 状态的实例才能进行此操作。
+  * GPU实例不允许执行该操作。
 examples:
 - cmd: zeno zec modify-instance-type --instance-id instanceId --instance-type z2a.cpu.4
   desc: 变更实例的规格。

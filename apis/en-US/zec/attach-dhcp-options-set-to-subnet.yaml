@@ -1,8 +1,8 @@
 name: AttachDhcpOptionsSetToSubnet
 product: zec
 use: attach-dhcp-options-set-to-subnet
-short: Associates a DHCP options set with subnets.
-long: associate a DHCP options set with subnets.
+short: Associates a DHCP options set with subnets
+long: Associate a DHCP options set with subnets.
 examples:
 - cmd: zeno zec attach-dhcp-options-set-to-subnet --dhcp-options-set-id dhcpOptionsSetId1 --subnet-ids subnetId1 --subnet-ids subnetId2
   desc: Associate a DHCP options set with subnets.

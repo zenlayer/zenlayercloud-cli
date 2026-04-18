@@ -1,8 +1,25 @@
 name: CreateInstances
 product: bmc
 use: create-instances
-short: Creates one or more pay-as-you-go or subscription instances.
-long: create one or more instances with a specified configuration.
+short: Creates one or more pay-as-you-go or subscription instances
+long: |-
+  Create one or more instances with a specified configuration.
+  #### Prerequisites
+
+  * Query stock: call [`DescribeAvailableResources`](describeavailableresources.md) to check available resources.
+  * Query key pairs: call [`DescribeKeyPairs`](../../../security/key-service/key-pair/describekeypairs.md) to check information on key pair ID.
+  * Query instance model: call [`DescribeInstanceTypes`](describeinstancetypes.md) to check specifications.
+  * Query image: call [`DescribeImages`](describeimages.md) to check information on image.
+  * Cost estimation: know of bare metal cloud pricing. See [Billing Method](https://docs.console.zenlayer.com/welcome/pricing/bare-metal-cloud-pricing/billing-method) for more details.
+
+
+  **Note**
+
+  * After an instance is created successfully, it will start up automatically, and the instance status will become "`RUNNING`".
+  * If you create a subscription instance, the amount required will be pre-deducted. If the balance is insufficient, the request will fail. If you create a pay-as-you-go instance, please ensure your account balance is sufficient before calling this API.
+  * Vouchers can be used for fee deduction in instance creation. See [Vouchers](https://docs.console.zenlayer.com/welcome/platform/billing-center/vouchers) for more details.
+  * This API is an async API. An instance ID list is returned after the creation request is sent. However, it does not mean the creation has been completed. The status of the instance will be `PENDING` or `CREATING` during the creation. You can use [DescribeInstances](describeinstances.md) to query the status of the instance. If the status changes from `PENDING` or `Creating` to `Running`, it means that the instance has been created successfully; `CREATE_FAILED` means the instance has been created failed. Any operations on the instances are not allowed while creating.
+  * A maximum of 100 instances can be created in one request.
 sdk:
   service: bmc
   version: '2026-02-01'
@@ -23,10 +40,10 @@ parameters:
     POSTPAID :pay-as-you-go
     Only PREPAID is supported currently.If you need POSTPAID ,contact us.
   enum-values:
-  - value: POSTPAID
-    desc: Pay-as-you-go.
   - value: PREPAID
     desc: Subscription.
+  - value: POSTPAID
+    desc: Pay-as-you-go.
 - name: instance-charge-prepaid
   type: object
   required: false
@@ -231,7 +248,7 @@ parameters:
   description: |-
     User Data.
     You can specify user data during instance installation. When the instance is launched for the first time, the user data is passed to the server as text and executed. The maximum supported data size is 32 KB.
-- name: enable-primary-i-pv6
+- name: enable-primary-ipv6
   type: boolean
   required: false
   sdk-field: enablePrimaryIPv6

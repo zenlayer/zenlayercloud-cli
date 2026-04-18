@@ -1,8 +1,8 @@
 name: DescribeInstanceMonitorData
 product: zec
 use: describe-instance-monitor-data
-short: Queries the performance data of the instance.
-long: query the performance data of the elastic compute instance.
+short: Queries the performance data of the instance
+long: Query the performance data of the elastic compute instance.
 examples:
 - cmd: zeno zec describe-instance-monitor-data --instance-id "< instanceId >" --metric-type VCPU_TIME --start-time 2025-06-25T01:55:00Z --end-time 2025-06-25T07:55:00Z
   desc: Query the performance data of the elastic compute instance.

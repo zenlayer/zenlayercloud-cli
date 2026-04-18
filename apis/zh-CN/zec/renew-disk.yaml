@@ -2,7 +2,12 @@ name: RenewDisk
 product: zec
 use: renew-disk
 short: 恢复云硬盘
-long: 恢复云硬盘
+long: |-
+  恢复云硬盘。
+  **注意事项**
+
+  * 系统盘不支持该操作，系统盘随实例一起恢复。
+  * 如果账户余额不足，则恢复将会失败。
 examples:
 - cmd: zeno zec renew-disk --disk-id your-disk-id
   desc: 用户恢复云硬盘。

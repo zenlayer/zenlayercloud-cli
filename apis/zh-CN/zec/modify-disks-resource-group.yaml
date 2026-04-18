@@ -1,8 +1,13 @@
 name: ModifyDisksResourceGroup
 product: zec
 use: modify-disks-resource-group
-short: 修改云硬盘所属的资源组。
-long: 修改云硬盘所属的资源组。
+short: 修改云硬盘所属的资源组
+long: |-
+  修改云硬盘所属的资源组。
+  **注意事项**
+
+  * 资源组为一个虚拟概念，用户可以在一个账户下面建立多个资源组，每个资源组中管理不同的资源；将多个不同实例分属到不同资源组中，后续使用[`DescribeDisks`](describedisks.md)接口查询实例，通过`resourceGroupId`可用于过滤结果。
+  * 该接口只有管理员角色的用户能够进行操作。
 examples:
 - cmd: zeno zec modify-disks-resource-group --disk-ids diskId1 --disk-ids diskId2 --resource-group-id resourceGroup1
   desc: 将云盘移动到指定资源组。

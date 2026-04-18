@@ -1,8 +1,8 @@
 name: DescribeReflectUdpPortOptions
 product: zec
 use: describe-reflect-udp-port-options
-short: Gets a list of default UDP reflection source ports.
-long: get a list of default UDP reflection source ports.
+short: Gets a list of default UDP reflection source ports
+long: Get a list of default UDP reflection source ports.
 examples:
 - cmd: zeno zec describe-reflect-udp-port-options
   desc: Get a list of default UDP reflection source ports.

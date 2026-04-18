@@ -1,8 +1,8 @@
 name: DescribeSubnetRegions
 product: zec
 use: describe-subnet-regions
-short: Queries regions supporting subnet creation.
-long: query regions supporting subnet creation.
+short: Queries regions supporting subnet creation
+long: Query regions supporting subnet creation.
 sdk:
   service: zec
   version: '2025-09-01'

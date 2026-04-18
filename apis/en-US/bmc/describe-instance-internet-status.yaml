@@ -1,8 +1,8 @@
 name: DescribeInstanceInternetStatus
 product: bmc
 use: describe-instance-internet-status
-short: Queries the status of instance bandwidth and traffic package.
-long: query the bandwidth and traffic package status of an instance.
+short: Queries the status of instance bandwidth and traffic package
+long: Query the bandwidth and traffic package status of an instance.
 sdk:
   service: bmc
   version: '2026-02-01'

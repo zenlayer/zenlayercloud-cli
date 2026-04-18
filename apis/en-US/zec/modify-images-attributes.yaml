@@ -1,8 +1,8 @@
 name: ModifyImagesAttributes
 product: zec
 use: modify-images-attributes
-short: Modifies attributes of custom images.
-long: modify attributes of custom images.
+short: Modifies attributes of custom images
+long: Modify attributes of custom images.
 examples:
 - cmd: zeno zec modify-images-attributes --image-ids imageId1 --image-ids imageId2 --image-name imageNameX
   desc: Modify attributes of custom images.

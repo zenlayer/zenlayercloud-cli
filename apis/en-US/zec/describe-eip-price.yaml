@@ -1,8 +1,8 @@
 name: DescribeEipPrice
 product: zec
 use: describe-eip-price
-short: Queries the price of elastic IPs.
-long: query the price of elastic IPs.
+short: Queries the price of elastic IPs
+long: Query the price of elastic IPs.
 sdk:
   service: zec
   version: '2025-09-01'

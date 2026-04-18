@@ -1,10 +1,10 @@
 name: DeleteLoadBalancerVIP
 product: bmc
-use: delete-load-balancer-v-i-p
-short: 删除负载均衡的IP。
+use: delete-load-balancer-vip
+short: 删除负载均衡的IP
 long: 删除负载均衡的IP。
 examples:
-- cmd: zeno bmc delete-load-balancer-v-i-p --vip-id xxxx
+- cmd: zeno bmc delete-load-balancer-vip --vip-id xxxx
   desc: 删除负载均衡VIP。
 sdk:
   service: bmc

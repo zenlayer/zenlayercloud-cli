@@ -1,8 +1,8 @@
 name: DetachFromPolicy
 product: zec
 use: detach-from-policy
-short: Removes a protection strategy from a protection target.
-long: remove a protection strategy from a protection target.
+short: Removes a protection strategy from a protection target
+long: Remove a protection strategy from a protection target.
 examples:
 - cmd: zeno zec detach-from-policy --policy-id <policyId> --ipv4-id-list eipId1 --ipv4-id-list eipId2
   desc: Remove a protection strategy from a protection target.

@@ -1,8 +1,12 @@
 name: DeleteCommand
 product: zos
 use: delete-command
-short: Deletes a command.
-long: delete a command.
+short: Deletes a command
+long: |-
+  Delete a command.
+  **Note**
+
+  If the command is running, you cannot delete it.
 examples:
 - cmd: zeno zos delete-command --command-id <commandId>
   desc: Delete a command.

@@ -1,7 +1,7 @@
 name: DescribeEipTraffic
 product: zec
 use: describe-eip-traffic
-short: 查询弹性公网IP指定时间段内的流量信息。
+short: 查询弹性公网IP指定时间段内的流量信息
 long: 查询弹性公网IP指定时间段内的流量信息。
 examples:
 - cmd: zeno zec describe-eip-traffic --eip-id 926368879272403391 --start-time 2023-07-11T08:00:011Z --end-time 2023-07-11T08:10:00Z

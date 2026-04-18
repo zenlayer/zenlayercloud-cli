@@ -1,7 +1,7 @@
 name: DescribeCidrPrice
 product: zec
 use: describe-cidr-price
-short: 查询IPv4 CIDR地址块售卖价格。
+short: 查询IPv4 CIDR地址块售卖价格
 long: 查询IPv4 CIDR地址块售卖价格。
 examples:
 - cmd: zeno zec describe-cidr-price --region-id asia-east-1 --network-line-type PremiumBGP

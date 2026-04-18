@@ -1,7 +1,7 @@
 name: DescribeSnapshots
 product: zec
 use: describe-snapshots
-short: 查询快照的信息。
+short: 查询快照的信息
 long: 查询快照的详细信息。
 examples:
 - cmd: zeno zec describe-snapshots --snapshot-ids snapshotId1 --snapshot-ids snapshotId2 --zone-id asia-east-1a --status AVAILABLE --snapshot-name snapshot-state --page-size 20 --page-num 1

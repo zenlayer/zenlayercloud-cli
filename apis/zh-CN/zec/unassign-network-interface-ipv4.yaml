@@ -2,7 +2,12 @@ name: UnassignNetworkInterfaceIpv4
 product: zec
 use: unassign-network-interface-ipv4
 short: 网卡解绑内网IPv4地址
-long: 将网卡上的内网IPv4地址解绑。
+long: |-
+  将网卡上的内网IPv4地址解绑。
+  **注意事项**
+
+  * 网卡上的默认IP (即第一个内网IP地址)无法解绑。
+  * 当网卡存在弹性IP时，无法解绑网卡上的内网IP。
 examples:
 - cmd: zeno zec unassign-network-interface-ipv4 --nic-id <nicId> --ip-addresses 10.0.0.2
   desc: 网卡解绑内网IPv4地址。

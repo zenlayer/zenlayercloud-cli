@@ -2,7 +2,14 @@ name: CreateRoute
 product: zec
 use: create-route
 short: 创建自定义路由
-long: 创建一个自定义路由。
+long: |-
+  创建一个自定义路由。
+  **注意事项**
+
+  * 指定的下一跳网卡状态必须处于这几种状态之一：`AVAILABLE`、`ATTACHING`、`DETACHING`、`USED`
+  * 指定的下一跳网卡必须在指定的VPC下。
+  * 路由类型支持创建静态和策略两种。
+  * 同一个VPC不能存在多个相同的配置，即（策略路由：**源IP**和**目的CIDR**不能都一样, 静态路由：目的CIDR不能相同)
 examples:
 - cmd: zeno zec create-route --vpc-id <vpcId> --ip-version IPv4 --route-type RouteTypeStatic --destination-cidr-block 10.0.0.0/8 --priority 2 --next-hop-id <nicId> --name Test
   desc: 创建一条IPv4的静态路由。

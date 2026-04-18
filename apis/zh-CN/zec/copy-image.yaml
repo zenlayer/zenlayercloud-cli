@@ -1,0 +1,26 @@
+name: CopyImage
+product: zec
+use: copy-image
+short: 复制自定义镜像到其它区域
+long: |-
+  将自定义镜像复制到指定区域列表。
+  将自定义镜像复制到指定区域；禁止跨境复制。
+  复制任务异步完成；复制中镜像不可再次发起复制或删除副本。
+examples:
+- cmd: zeno zec copy-image --image-id "<custom image id>" --region-id-list region-a --region-id-list region-b
+  desc: 复制到多个区域
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CopyImage
+parameters:
+- name: image-id
+  type: string
+  required: true
+  sdk-field: imageId
+  description: 自定义镜像 ID。
+- name: region-id-list
+  type: string-array
+  required: true
+  sdk-field: regionIdList
+  description: 目标区域 ID 列表。

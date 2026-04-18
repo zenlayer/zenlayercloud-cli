@@ -2,7 +2,12 @@ name: BatchAssignNetworkInterfaceIpv4
 product: zec
 use: batch-assign-network-interface-ipv4
 short: 网卡绑定内网IPv4地址
-long: 将一张网卡额外添加内网IPv4地址。
+long: |-
+  将一张网卡额外添加内网IPv4地址。
+  **注意事项**
+
+  * 网卡状态需为`AVAILABLE`或`USED`才能进行操作。
+  * 如果指定了内网IPv4不合法，则本操作会立即失败。
 examples:
 - cmd: zeno zec batch-assign-network-interface-ipv4 --nic-id <nicId> --ip-addresses 10.0.0.3 --ip-addresses 10.0.0.4
   desc: 网卡批量绑定指定内网IPv4。

@@ -1,8 +1,8 @@
 name: DescribeBackends
 product: zlb
 use: describe-backends
-short: Queries the list of backend servers added to a load balancer instance.
-long: query the list of backend servers added to a load balancer instance.
+short: Queries the list of backend servers added to a load balancer instance
+long: Query the list of backend servers added to a load balancer instance.
 examples:
 - cmd: zeno zlb describe-backends --load-balancer-id <loadBalancerId>
   desc: Query all backend servers added to a load balancer instance.

@@ -1,8 +1,8 @@
 name: DescribeBackendHealth
 product: zlb
 use: describe-backend-health
-short: Queries the bound backend server list of a load balancer.
-long: query the bound backend server list of a load balancer.
+short: Queries the bound backend server list of a load balancer
+long: Query the bound backend server list of a load balancer.
 examples:
 - cmd: zeno zlb describe-backend-health --load-balancer-id <loadBalancerId>
   desc: Query the health state of all bound backend servers of a load balancer.

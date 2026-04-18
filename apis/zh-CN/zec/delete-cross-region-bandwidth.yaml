@@ -2,7 +2,11 @@ name: DeleteCrossRegionBandwidth
 product: zec
 use: delete-cross-region-bandwidth
 short: 删除内网跨区域带宽
-long: 删除内网跨区域带宽。
+long: |-
+  删除内网跨区域带宽。
+  **注意事项**
+
+  * 普通账号删除内网跨区域带宽后，资源会直接回收。操作不可逆，请谨慎操作。
 examples:
 - cmd: zeno zec delete-cross-region-bandwidth --cross-region-bandwidth-id "<your cross id>"
   desc: 删除内网跨区域带宽

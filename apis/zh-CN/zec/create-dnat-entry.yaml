@@ -2,7 +2,11 @@ name: CreateDnatEntry
 product: zec
 use: create-dnat-entry
 short: 创建DNAT规则
-long: 创建DNAT规则。
+long: |-
+  创建DNAT规则。
+  **注意事项**
+
+  * 默认一个NAT网关可以创建100条DNAT规则. 如果想扩大可以联系Console Support。
 examples:
 - cmd: zeno zec create-dnat-entry --nat-gateway-id <natGatewayId> --eip-id <eipId> --private-ip 10.0.0.2 --protocol TCP --listener-port 1-30 --internal-port 1-30
   desc: 创建一个DNAT规则。

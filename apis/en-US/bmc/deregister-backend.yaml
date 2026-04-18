@@ -1,8 +1,8 @@
 name: DeregisterBackend
 product: bmc
 use: deregister-backend
-short: Removes a load balance backend server.
-long: remove a load balance backend server.
+short: Removes a load balance backend server
+long: Remove a load balance backend server.
 examples:
 - cmd: zeno bmc deregister-backend --backend-id xxxx
   desc: Remove a backend server.

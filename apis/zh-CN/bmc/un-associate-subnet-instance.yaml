@@ -2,7 +2,14 @@ name: UnAssociateSubnetInstance
 product: bmc
 use: un-associate-subnet-instance
 short: Subnet解绑实例
-long: 本接口用于将某子网下一台实例从Subnet中解绑。
+long: |-
+  本接口用于将某子网下一台实例从Subnet中解绑。
+  **注意事项**
+
+  * 本接口属于异步接口，即系统会先返回一个请求ID，并不表示实例解绑Subnet完成，系统后台的解绑任务仍在进行。您可以调用`DescribeSubnets`查询Subnet下实例绑定状态：
+    * 当privateIpStatus 处于**UNBINDING**状态时，表示实例正在解绑Subnet
+    * 当Subnet不存在实例，表示实例解绑Subnet成功
+  * Subnet与实例的绑定状态privateIpStatus为**BINDED**才能操作，如果实例不在子网下，将不会进行任何操作。
 examples:
 - cmd: zeno bmc un-associate-subnet-instance --subnet-id your-subnet-id --instance-id your-instance-id
   desc: 实例解绑Subnet。

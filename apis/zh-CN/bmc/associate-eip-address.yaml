@@ -2,7 +2,18 @@ name: AssociateEipAddress
 product: bmc
 use: associate-eip-address
 short: 绑定Elastic IP
-long: 将EIP绑定到同区域的机器实例上。
+long: |-
+  将EIP绑定到同区域的机器实例上。
+  **注意事项**
+
+  * 只有状态为 **AVAILABLE** 的EIP才能操作。
+  * Esxi操作系统的机器实例无法绑定EIP。
+  * EIP与机器实例的可用区需一致。
+  * 机器实例的状态需要是**RUNNING。**
+  * 一个机器实例绑定的EIP数量有限额，如需提高限额，请联系support。
+  * 本接口属于异步接口，即系统会先返回一个请求ID，但EIP与机器实例并未绑定完成，系统后台的绑定任务仍在进行。您可以调用`DescribeEipAddresses`查询EIP的状态：
+    * 当EIP处于 **ASSOCIATING** 状态时，表示EIP正在绑定中，在该状态下，您只能执行查询操作，不能执行其他操作。
+    * 当EIP处于 **ASSOCIATED** 状态时，表示EIP绑定完成。
 examples:
 - cmd: zeno bmc associate-eip-address --eip-id eipId1 --instance-id instanceId1
   desc: EIP绑定机器实例

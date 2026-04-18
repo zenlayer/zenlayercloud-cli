@@ -2,7 +2,11 @@ name: DeleteImages
 product: zec
 use: delete-images
 short: 删除镜像
-long: 删除一个或多个镜像。
+long: |-
+  删除一个或多个镜像。
+  **注意事项**
+
+  * 接口会返回删除失败的镜像id集合，如果集合为空则说明全部成功。
 examples:
 - cmd: zeno zec delete-images --image-ids imageId1 --image-ids imageId2
   desc: 批量删除自定义镜像

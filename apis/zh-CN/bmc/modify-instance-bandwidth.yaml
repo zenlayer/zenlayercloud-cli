@@ -2,7 +2,21 @@ name: ModifyInstanceBandwidth
 product: bmc
 use: modify-instance-bandwidth
 short: 修改实例带宽
-long: 修改实例带宽。
+long: |-
+  修改实例带宽。
+  **注意事项**
+
+  * 不同机型带宽上限范围不一致（可通过`DescribeInstanceTypes`接口获取）。
+  * 仅实例状态处于`RUNNING`状态，接口才能调用。
+  * 若当前实例的带宽在赠送带宽内，要修改的带宽在赠送带宽内，不涉及价格，立即生效。
+  * 若实例的[internetChargeType](../datastructure.md#internetchargetype)为ByBandwidth：
+    * 实例的`instanceChargeType`为PREPAID：
+      * 升配（target > cur）会预先扣除本次实例购买所需金额，如果余额不足，请求将会失败，立即生效。
+      * 降配（target < cur）会生成下个周期的降配订单，下周期生效。
+    * 实例的`instanceChargeType`为POSTPAID：
+      * 立即生效。
+    * 询带宽变更价格接口 InquiryPriceInstanceBandwidth。
+  * 若要查询实例带宽状态，可调用 DescribeInstanceInternetStatus。
 sdk:
   service: bmc
   version: '2026-02-01'

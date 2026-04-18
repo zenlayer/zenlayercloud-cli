@@ -2,7 +2,13 @@ name: MigrateBandwidthClusterResources
 product: traffic
 use: migrate-bandwidth-cluster-resources
 short: 共享带宽包资源迁移
-long: 共享带宽包之间的资源迁移。
+long: |-
+  共享带宽包之间的资源迁移。
+  **注意事项**
+
+  * 如果资源已经在目标带宽包中，则会忽略该资源。
+  * 如果存在资源不支持加入到目标带宽包，则整个迁移将会失败。不会有任何资源迁移到目标带宽包。
+  * 请注意变更前流量将计入原带宽组，变更后流量计入新带宽组。
 examples:
 - cmd: zeno traffic migrate-bandwidth-cluster-resources --resource-id-list <id1> --resource-id-list <id2> --target-bandwidth-cluster-id <targetBandwidthClusterId>
   desc: 将多个资源前一到同指定带宽包。

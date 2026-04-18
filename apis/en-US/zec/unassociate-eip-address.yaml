@@ -1,8 +1,12 @@
 name: UnassociateEipAddress
 product: zec
 use: unassociate-eip-address
-short: Disassociates elastic IPs from resources in the same region.
-long: disassociate elastic IPs from resources in the same region.
+short: Disassociates elastic IPs from resources in the same region
+long: |-
+  Disassociate elastic IPs from resources in the same region.
+  **Note**
+
+  The API returns the elastic IP IDs that failed to operate. An empty list indicates all operations succeeded.
 sdk:
   service: zec
   version: '2025-09-01'

@@ -1,8 +1,8 @@
 name: TerminateLoadBalancer
 product: bmc
 use: terminate-load-balancer
-short: Terminates a load balancer.
-long: terminate a load balancer.
+short: Terminates a load balancer
+long: Terminate a load balancer.
 examples:
 - cmd: zeno bmc terminate-load-balancer --load-balancer-id xxxx
   desc: Terminate a load balancer.

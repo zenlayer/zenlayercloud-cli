@@ -1,10 +1,10 @@
 name: DescribeNetworkInterfacePublicIPv6
 product: zec
-use: describe-network-interface-public-i-pv6
-short: Queries the public IPv6 information of a vNIC.
-long: query the public IPv6 information of a vNIC.
+use: describe-network-interface-public-ipv6
+short: Queries the public IPv6 information of a vNIC
+long: Query the public IPv6 information of a vNIC.
 examples:
-- cmd: zeno zec describe-network-interface-public-i-pv6 --nic-id <nicId>
+- cmd: zeno zec describe-network-interface-public-ipv6 --nic-id <nicId>
   desc: Query the public IPv6 information of a vNIC.
 sdk:
   service: zec

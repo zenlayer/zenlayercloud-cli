@@ -25,10 +25,10 @@ parameters:
     PREPAID：预付费，即包年包月。
     POSTPAID：后付费。
   enum-values:
-  - value: POSTPAID
-    desc: 后付费。即按量付费。
   - value: PREPAID
     desc: 预付费。
+  - value: POSTPAID
+    desc: 后付费。即按量付费。
 - name: eip-charge-prepaid
   type: object
   required: false

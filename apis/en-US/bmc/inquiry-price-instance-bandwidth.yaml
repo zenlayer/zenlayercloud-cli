@@ -1,8 +1,13 @@
 name: InquiryPriceInstanceBandwidth
 product: bmc
 use: inquiry-price-instance-bandwidth
-short: Queries the price of instance bandwidth.
-long: query the price of modified instance bandwidth.
+short: Queries the price of instance bandwidth
+long: |-
+  Query the price of modified instance bandwidth.
+  **Note**
+
+  * Use this API only when [`InternetChargeType`](../datastructure.md#internetchargetype) is `ByBandwidth`. When the target bandwidth > default bandwidth, a price returns.
+  * Price structure varies by `instanceChargeType`.
 examples:
 - cmd: zeno bmc inquiry-price-instance-bandwidth --instance-id instanceId --bandwidth-out-mbps 100
   desc: Query the price of modified instance bandwidth

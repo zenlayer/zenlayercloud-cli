@@ -1,7 +1,7 @@
 name: DescribeLoadBalancerSpecs
 product: bmc
 use: describe-load-balancer-specs
-short: 查询可用区节点下可用的负载均衡规格列表。
+short: 查询可用区节点下可用的负载均衡规格列表
 long: 查询可用区节点下可用的负载均衡规格列表。
 examples:
 - cmd: zeno bmc describe-load-balancer-specs --zone-id HKG-A --charge-type POSTPAID
@@ -19,10 +19,10 @@ parameters:
     付费类型。
     PREPAID：预付费，即包年包月 POSTPAID：后付费。
   enum-values:
-  - value: POSTPAID
-    desc: 后付费。即按量付费。
   - value: PREPAID
     desc: 预付费。
+  - value: POSTPAID
+    desc: 后付费。即按量付费。
 - name: zone-id
   type: string
   required: true

@@ -1,7 +1,7 @@
 name: ModifyBorderGatewayAsn
 product: zec
 use: modify-border-gateway-asn
-short: Modifies the ASN of a border gateway.
+short: Modifies the ASN of a border gateway
 long: The API is used to modify the ASN of a border gateway.
 examples:
 - cmd: zeno zec modify-border-gateway-asn --zbg-id xxx --asn 65000

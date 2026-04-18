@@ -1,8 +1,8 @@
 name: DescribeCidrBlocks
 product: bmc
 use: describe-cidr-blocks
-short: Queries list of CIDR blocks.
-long: query the details of CIDR blocks.
+short: Queries list of CIDR blocks
+long: Query the details of CIDR blocks.
 examples:
 - cmd: zeno bmc describe-cidr-blocks --page-num 1 --page-size 1
   desc: ''
@@ -58,10 +58,10 @@ parameters:
     CIDR block pricing model .
     PREPAID: subscription POSTPAID: pay-as-you-go
   enum-values:
-  - value: POSTPAID
-    desc: Pay-as-you-go.
   - value: PREPAID
     desc: Subscription.
+  - value: POSTPAID
+    desc: Pay-as-you-go.
 - name: resource-group-id
   type: string
   required: false

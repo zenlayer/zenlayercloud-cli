@@ -1,8 +1,12 @@
 name: StopIpForward
 product: zec
 use: stop-ip-forward
-short: Disables IP forwarding of the instance.
-long: disable IP forwarding of the instance.
+short: Disables IP forwarding of the instance
+long: |-
+  Disable IP forwarding of the instance.
+  **Note**
+
+  Only operations on instances that are in powered-off or power-on state are supported.
 examples:
 - cmd: zeno zec stop-ip-forward --instance-id instanceId1
   desc: Disable IP forwarding of the instance

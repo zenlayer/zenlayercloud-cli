@@ -1,8 +1,16 @@
 name: DetachDisks
 product: zec
 use: detach-disks
-short: 卸载云硬盘。
-long: 将云硬盘从主机实例上卸载。
+short: 卸载云硬盘
+long: |-
+  将云硬盘从主机实例上卸载。
+  **注意事项**
+
+  * 卸载挂载在同一实例上的多块云盘。如果多块云盘中存在不允许卸载的云盘，则操作不执行
+  * 只有当云硬盘状态为`IN_USE`时才允许卸载。
+  * 只有当云硬盘可插拔为`true`才允许卸载。
+  * 云硬盘类型为`DATA`时才允许卸载。
+  * 单次最多可卸载10块云硬盘。
 examples:
 - cmd: zeno zec detach-disks --disk-ids your-disk-id
   desc: 从云主机实例上卸载单块或多块云硬盘。

@@ -1,8 +1,12 @@
 name: CreateDnatEntry
 product: zec
 use: create-dnat-entry
-short: Creates a DNAT rule.
-long: create a DNAT rule.
+short: Creates a DNAT rule
+long: |-
+  Create a DNAT rule.
+  **Note**
+
+  By default, you can create up to 100 DNAT rules for a NAT gateway. For additional quota, please contact us.
 examples:
 - cmd: zeno zec create-dnat-entry --nat-gateway-id <natGatewayId> --eip-id <eipId> --private-ip 10.0.0.2 --protocol TCP --listener-port 1-30 --internal-port 1-30
   desc: Create a DNAT entry.

@@ -1,8 +1,8 @@
 name: CreateBorderGateway
 product: zec
 use: create-border-gateway
-short: Creates a border gateway.
-long: create a border gateway.
+short: Creates a border gateway
+long: Create a border gateway.
 sdk:
   service: zec
   version: '2025-09-01'

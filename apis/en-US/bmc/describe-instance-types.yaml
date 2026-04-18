@@ -1,8 +1,12 @@
 name: DescribeInstanceTypes
 product: bmc
 use: describe-instance-types
-short: Queries instance types.
-long: query the model configuration of an instance.
+short: Queries instance types
+long: |-
+  Query the model configuration of an instance.
+  **Note**
+
+  Use `DescribeInstanceTypes` to query the configuration and performance information of an instance model. If you need to check the available instance models in a specific zone, please call `DescribeAvailableResources.`
 sdk:
   service: bmc
   version: '2026-02-01'
@@ -85,7 +89,7 @@ parameters:
     Desired maximum memory size.
     Value range: positive integer.
     Unit: GB.
-- name: is-h-a
+- name: is-ha
   type: boolean
   required: false
   sdk-field: isHA

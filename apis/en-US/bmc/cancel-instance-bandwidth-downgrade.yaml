@@ -1,8 +1,12 @@
 name: CancelInstanceBandwidthDowngrade
 product: bmc
 use: cancel-instance-bandwidth-downgrade
-short: Cancels the downgrade of instance bandwidth.
-long: The API is used to cancel bandwidth downgrade order.
+short: Cancels the downgrade of instance bandwidth
+long: |-
+  The API is used to cancel bandwidth downgrade order.
+  **Note**
+
+  The bandwidth of instance has been downgraded and an order exists.
 sdk:
   service: bmc
   version: '2026-02-01'

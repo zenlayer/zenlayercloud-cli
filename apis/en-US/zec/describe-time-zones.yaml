@@ -1,8 +1,8 @@
 name: DescribeTimeZones
 product: zec
 use: describe-time-zones
-short: Obtains the time zone information.
-long: obtain the time zone information.
+short: Obtains the time zone information
+long: Obtain the time zone information.
 examples:
 - cmd: zeno zec describe-time-zones
   desc: Obtain the time zone information.

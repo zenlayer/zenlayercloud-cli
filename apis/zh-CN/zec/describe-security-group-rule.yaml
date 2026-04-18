@@ -1,7 +1,7 @@
 name: DescribeSecurityGroupRule
 product: zec
 use: describe-security-group-rule
-short: 查询安全组规则。
+short: 查询安全组规则
 long: 查询指定安全组内的规则。
 examples:
 - cmd: zeno zec describe-security-group-rule --security-group-id 791721259766392536

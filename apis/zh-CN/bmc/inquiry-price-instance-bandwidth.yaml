@@ -2,7 +2,12 @@ name: InquiryPriceInstanceBandwidth
 product: bmc
 use: inquiry-price-instance-bandwidth
 short: 修改带宽询价
-long: 实例修改带宽询价。
+long: |-
+  实例修改带宽询价。
+  **注意事项**
+
+  * 仅当机器的[`internetChargeType`](../datastructure.md#internetchargetype)为`ByBandwidth时可用`，且当修改的带宽大于默认带宽时，接口会返回价格。
+  * 机器的`instanceChargeType`不同，返回的价格结构是不同的。
 examples:
 - cmd: zeno bmc inquiry-price-instance-bandwidth --instance-id instanceId --bandwidth-out-mbps 100
   desc: 实例修改带宽询价

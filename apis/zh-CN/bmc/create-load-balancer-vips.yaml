@@ -1,10 +1,10 @@
 name: CreateLoadBalancerVIPs
 product: bmc
-use: create-load-balancer-v-i-ps
-short: 创建负载均衡的VIP。
+use: create-load-balancer-vips
+short: 创建负载均衡的VIP
 long: 创建负载均衡的VIP。
 examples:
-- cmd: zeno bmc create-load-balancer-v-i-ps --load-balancer-id xxxx --count 2
+- cmd: zeno bmc create-load-balancer-vips --load-balancer-id xxxx --count 2
   desc: LoadBalancer下创建VIP。
 sdk:
   service: bmc

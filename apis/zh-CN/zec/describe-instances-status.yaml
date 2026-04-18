@@ -1,7 +1,7 @@
 name: DescribeInstancesStatus
 product: zec
 use: describe-instances-status
-short: 查询实例的状态。
+short: 查询实例的状态
 long: 查询实例的状态。
 examples:
 - cmd: zeno zec describe-instances-status

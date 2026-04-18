@@ -2,7 +2,12 @@ name: ModifyCrossRegionBandwidth
 product: zec
 use: modify-cross-region-bandwidth
 short: 调整内网跨区域带宽
-long: 调整内网跨区域带宽。
+long: |-
+  调整内网跨区域带宽。
+  **注意事项**
+
+  * 如果计费类型为`ByBandwidth`，则带宽必须与原带宽不同。
+  * 如果计费类型为`ByInstanceBandwidth95`，则保底带宽与突发带宽至少修改其中之一，若不指定突发带宽则默认不改变。
 examples:
 - cmd: zeno zec modify-cross-region-bandwidth --cross-region-bandwidth-id "<your cross id>" --bandwidth 500
   desc: 调整网络模式为`ByBandwidth`的内网跨区域带宽，修改带宽为500Mbps

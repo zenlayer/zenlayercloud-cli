@@ -1,8 +1,12 @@
 name: ModifyEipBandwidth
 product: zec
 use: modify-eip-bandwidth
-short: Modifies bandwidth of the elastic IP.
-long: modify bandwidth of the elastic IP.
+short: Modifies bandwidth of the elastic IP
+long: |-
+  Modify bandwidth of the elastic IP.
+  **Note**
+
+  Operation is only supported for the elastic IP in status of `BINDED` or `UNBIND`.
 examples:
 - cmd: zeno zec modify-eip-bandwidth --eip-id "< EipId >" --bandwidth 10
   desc: Change bandwidth of the elastic IP to `10` Mbps.

@@ -2,7 +2,16 @@ name: TerminateEipAddress
 product: bmc
 use: terminate-eip-address
 short: 退还Elastic IP
-long: 本接口用于退还一个EIP。
+long: |-
+  本接口用于退还一个EIP。
+  **注意事项**
+
+  * 不再使用的EIP，可通过本接口主动退还。如果是后付费，退还的EIP将停止计费。
+  * 本接口无法主动退还预付费订阅模式的EIP，**订阅模式**的EIP将会在订阅到期后自动退还。
+  * 退还后的EIP将进入回收站，进入回收站后如无其他操作EIP将在24小时后自动释放，也可以调用`ReleaseEipAddresses`接口主动进行释放。
+  * 该接口只能被 EIP 状态处于 **AVAILABLE** 或 **ASSOCIATED** 或 **CREATE\_FAILED** 调用。
+  * 对于创建失败状态为 **CREATE\_FAILED**的EIP， 会自动退还所有的已支付金额。
+  * 处于 **ASSOCIATED** 状态的EIP，系统会将EIP与机器解绑。
 examples:
 - cmd: zeno bmc terminate-eip-address --eip-id eipId
   desc: ''

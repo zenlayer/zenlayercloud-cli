@@ -1,8 +1,13 @@
 name: AssignBorderGatewayRoute
 product: zec
 use: assign-border-gateway-route
-short: Advertises custom routes to a border gateway.
-long: advertise custom routes to a border gateway.
+short: Advertises custom routes to a border gateway
+long: |-
+  Advertise custom routes to a border gateway.
+  **Note**
+
+  * Only the custom routes with the type of Static Routes or Policy-based Route are supported.
+  * If the border gateway is in a `Regional` dynamic routing mode, the next-hop region of the custom routes to be advertised must be the same as the region of the border gateway.
 examples:
 - cmd: zeno zec assign-border-gateway-route --zbg-id xxx --advertised-route-ids routeId1 --advertised-route-ids routeId2
   desc: Advertise custom routes to a border gateway.

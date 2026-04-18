@@ -1,8 +1,17 @@
 name: CreateRoute
 product: zec
 use: create-route
-short: Creates a route.
-long: create a route.
+short: Creates a route
+long: |-
+  Create a route.
+  **Note**
+
+  * The specified next-hop network interface must be in one of the following states: `AVAILABLE`, `ATTACHING`, `DETACHING`, or `USED`.
+  * The specified next-hop network interface must belong to the specified VPC.
+  * The route type supports creation of static routes and policy-based routes.
+  * Within the same VPC, duplicate route configurations are not allowed:
+    * For policy-based routes, the source IP and destination IP range cannot both be identical.
+    * For static routes, the destination IP range must be unique.
 examples:
 - cmd: zeno zec create-route --vpc-id <vpcId> --ip-version IPv4 --route-type RouteTypeStatic --destination-cidr-block 10.0.0.0/8 --priority 2 --next-hop-id <nicId> --name Test
   desc: Create an IPv4 static route.

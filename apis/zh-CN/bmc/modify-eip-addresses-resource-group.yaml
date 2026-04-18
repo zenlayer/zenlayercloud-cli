@@ -1,8 +1,13 @@
 name: ModifyEipAddressesResourceGroup
 product: bmc
 use: modify-eip-addresses-resource-group
-short: 修改弹性IP所属的资源组。
-long: 修改弹性IP所属的资源组。
+short: 修改弹性IP所属的资源组
+long: |-
+  修改弹性IP所属的资源组。
+  **注意事项**
+
+  * 支持批量操作。每次请求批量IP数的上限为100。
+  * 该接口只有管理员角色的用户能够进行操作。
 examples:
 - cmd: zeno bmc modify-eip-addresses-resource-group --eip-ids eipId1 --eip-ids eipId2 --resource-group-id resourceGroup1
   desc: 将EIP移动到指定资源组。

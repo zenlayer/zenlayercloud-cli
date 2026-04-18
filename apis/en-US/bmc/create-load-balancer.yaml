@@ -1,8 +1,21 @@
 name: CreateLoadBalancer
 product: bmc
 use: create-load-balancer
-short: Creates a load balancing instance.
-long: create a load balancing instance.
+short: Creates a load balancing instance
+long: |-
+  Create a load balancing instance.
+  #### Prerequisites
+
+  * Query the available zones for creating load balancers: call the [DescribeLoadBalancerZones](describeloadbalancerzones.md).
+  * Query whether the load balancing IP can be created in a zone: call the [DescribeLoadBalancerIPv4](describeloadbalanceripv4.md) or [DescribeLoadBalancerIPv6](describeinstances.md).
+  * Query whether the load balancing specifications can be created in a zone: call the [DescribeLoadBalancerSpecs](describeloadbalancerspecs.md).
+  * Cost estimation: to know of load balancer pricing, see [Pricing](https://docs.console.zenlayer.com/welcome/pricing/general-pricing-rules) for more details.
+
+
+  **Note**
+
+  * If you create a subscription instance, the amount required will be pre-deducted. If the balance is insufficient, the request will fail. If you create a pay-as-you-go instance, please ensure your account balance is sufficient before calling this API.
+  * Vouchers can be used for fee deduction in instance creation. See [Vouchers](https://docs.console.zenlayer.com/welcome/platform/billing-center/vouchers) for more details.
 examples:
 - cmd: zeno bmc create-load-balancer --zone-id HKG-A --load-balancer-name xxxx --spec-name xxxx --client-token xxxx --charge-type xxxx --bandwidth 100 --subnet-id xxxx --ip-type IPv4
   desc: Create a load balancing instance.
@@ -35,10 +48,10 @@ parameters:
     PREPAID : subscription;
     POSTPAID : pay-as-you-go.
   enum-values:
-  - value: POSTPAID
-    desc: Pay-as-you-go.
   - value: PREPAID
     desc: Subscription.
+  - value: POSTPAID
+    desc: Pay-as-you-go.
 - name: instance-charge-prepaid
   type: object
   required: false

@@ -2,7 +2,11 @@ name: DeleteCommand
 product: zos
 use: delete-command
 short: 删除命令
-long: 删除命令。
+long: |-
+  删除命令。
+  **注意事项**
+
+    * 如果存在运行的执行记录，暂时无法对命令进行删除。
 examples:
 - cmd: zeno zos delete-command --command-id <commandId>
   desc: 删除命令。

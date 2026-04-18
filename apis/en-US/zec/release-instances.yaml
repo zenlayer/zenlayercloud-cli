@@ -1,8 +1,12 @@
 name: ReleaseInstances
 product: zec
 use: release-instances
-short: Releases one or more elastic compute instances.
-long: release one or more elastic compute instances.
+short: Releases one or more elastic compute instances
+long: |-
+  Release one or more elastic compute instances.
+  **Note**
+
+  Batch operations are supported. The maximum number of instances in each request is 100.
 examples:
 - cmd: zeno zec release-instances --instance-ids instanceId1 --instance-ids instanceId2
   desc: Release instances in batches.

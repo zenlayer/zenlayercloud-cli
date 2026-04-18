@@ -1,8 +1,12 @@
 name: RestoreLoadBalancer
 product: bmc
 use: restore-load-balancer
-short: 恢复被删除的负载均衡实例。
-long: 恢复被删除的负载均衡实例。
+short: 恢复被删除的负载均衡实例
+long: |-
+  恢复被删除的负载均衡实例。
+  **注意事项**
+
+  * 只有在回收站中的负载均衡实例才支持该操作。
 examples:
 - cmd: zeno bmc restore-load-balancer --load-balancer-id xxxx
   desc: 恢复负载均衡实例。
