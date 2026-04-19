@@ -29,3 +29,7 @@ parameters:
   required: false
   sdk-field: zoneId
   description: Cidr Block所属的可用区ID。
+response:
+- name: availableIpv4Resources
+  type: object-array
+  description: 可用资源的集合。

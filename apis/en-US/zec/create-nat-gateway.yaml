@@ -69,3 +69,10 @@ parameters:
   - name: value
     type: string
     description: 'Tag value. Length limit: 1 to 64 characters.'
+response:
+- name: orderNumber
+  type: string
+  description: Order number.
+- name: natGatewayId
+  type: string
+  description: The unique ID of the NAT gateway.

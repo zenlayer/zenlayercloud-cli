@@ -51,3 +51,7 @@ parameters:
     指定子网ID集合。
     该参数表示该子网内的实例均可以通过SNAT规则访问外部网络。
     与sourceCidrBlocks必须指定其中的一种。
+response:
+- name: snatEntryId
+  type: string
+  description: SNAT规则唯一ID。

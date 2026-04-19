@@ -1,8 +1,8 @@
 name: DescribeTimeZones
 product: zec
 use: describe-time-zones
-short: Obtains the time zone information
-long: Obtain the time zone information.
+short: Queries the time zone information
+long: Query the time zone information.
 examples:
 - cmd: zeno zec describe-time-zones
   desc: Obtain the time zone information.
@@ -10,3 +10,7 @@ sdk:
   service: zec
   version: '2025-09-01'
   action: DescribeTimeZones
+response:
+- name: timeZones
+  type: string-array
+  description: List of time zones.

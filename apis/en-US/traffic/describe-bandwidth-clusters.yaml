@@ -43,3 +43,10 @@ parameters:
     Number of items in the current page result.
     Default value: 20;
     Maximum value: 1000.
+response:
+- name: totalCount
+  type: integer
+  description: Number of bandwidth clusters meeting the filtering conditions.
+- name: dataSet
+  type: object-array
+  description: Information on bandwidth clusters.

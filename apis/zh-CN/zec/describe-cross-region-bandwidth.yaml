@@ -73,3 +73,10 @@ parameters:
   required: false
   sdk-field: resourceGroupId
   description: 根据资源组ID过滤。
+response:
+- name: totalCount
+  type: integer
+  description: 匹配筛选条件的内网跨区域带宽的总数量。
+- name: dataSet
+  type: object-array
+  description: 返回分页的内网跨区域带宽的集合数据。

@@ -1,8 +1,8 @@
 name: StopAgentMonitor
 product: zec
 use: stop-agent-monitor
-short: 关闭Agent监控采集
-long: 关闭Agent监控采集。
+short: 关闭实例的 Agent 监控数据采集。
+long: 为指定弹性计算实例关闭 QEMU Guest Agent（QGA）监控数据采集功能，关闭后将无法通过监控接口获取实例内部性能数据。
 examples:
 - cmd: zeno zec stop-agent-monitor --instance-id <instanceId>
   desc: 关闭实例Agent采集监控。

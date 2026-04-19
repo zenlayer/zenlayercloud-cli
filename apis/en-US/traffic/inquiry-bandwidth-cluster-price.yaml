@@ -76,3 +76,7 @@ parameters:
     desc: Virtual machine service.
   - value: OFFLINE
     desc: Offline serveice.
+response:
+- name: price
+  type: object
+  description: The price of bandwidth cluster.

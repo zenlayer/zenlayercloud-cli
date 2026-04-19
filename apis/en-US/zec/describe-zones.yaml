@@ -16,3 +16,7 @@ parameters:
   required: false
   sdk-field: zoneIds
   description: List of availability zone IDs.
+response:
+- name: zoneSet
+  type: object-array
+  description: Information on availability zones.

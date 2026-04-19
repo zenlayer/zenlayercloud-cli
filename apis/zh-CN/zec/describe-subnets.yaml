@@ -53,3 +53,10 @@ parameters:
   required: false
   sdk-field: dhcpOptionsSetId
   description: 子网绑定的DHCP 选项集ID。
+response:
+- name: totalCount
+  type: integer
+  description: 符合条件的数据总数。
+- name: dataSet
+  type: object-array
+  description: 子网的结果集。

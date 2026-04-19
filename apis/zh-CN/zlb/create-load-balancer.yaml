@@ -192,3 +192,10 @@ parameters:
   description: |-
     负载均衡实例绑定的安全组ID。
     可以通过[DescribeSecurityGroups](../../zec/security-group/describesecuritygroups.md)接口获取。
+response:
+- name: orderNumber
+  type: string
+  description: 下单编号。
+- name: loadBalancerIds
+  type: string-array
+  description: 由负载均衡实例唯一 ID 组成的集合。

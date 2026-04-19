@@ -1,9 +1,9 @@
 name: StartIpForward
 product: zec
 use: start-ip-forward
-short: 开启IP转发
+short: 开启实例的 IP 转发功能
 long: |-
-  开启IP转发。
+  为指定弹性计算实例开启 IP 转发，开启后该实例可作为路由器或网关转发来自其他资源的网络流量。
   **注意事项**
 
   * 实例状态必须处理运行(`RUNNING`)或关机的（`STOPPED`),才能让进行该操作。

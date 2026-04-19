@@ -16,3 +16,16 @@ parameters:
   required: true
   sdk-field: natGatewayId
   description: NAT gateway ID.
+response:
+- name: natGatewayId
+  type: string
+  description: The unique ID of the NAT gateway.
+- name: name
+  type: string
+  description: NAT gateway name.
+- name: snats
+  type: object-array
+  description: SNAT rule list.
+- name: dnats
+  type: object-array
+  description: DNAT rule list.

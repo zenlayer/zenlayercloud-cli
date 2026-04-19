@@ -21,3 +21,7 @@ parameters:
   required: true
   sdk-field: cidrIds
   description: 要删除的cidrId列表。
+response:
+- name: failedCidrIds
+  type: string-array
+  description: 操作失败的CIDR ID列表。

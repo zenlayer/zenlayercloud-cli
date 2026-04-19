@@ -1,9 +1,9 @@
 name: ResetInstances
 product: zec
 use: reset-instances
-short: 重装多台虚拟机实例操作系统
+short: 批量重装实例的操作系统
 long: |-
-  重装多台虚拟机实例操作系统。
+  对一批弹性计算实例执行操作系统重装，可重新指定镜像、登录方式（密码或密钥对）、时区及实例名称。
   #### 准备工作
 
   * 查询镜像：调用[DescribeImages](../image/describeimages.md)可以查询到需要重装的操作系统镜像信息。
@@ -81,3 +81,7 @@ parameters:
   required: false
   sdk-field: userData
   description: 初始化命令。
+response:
+- name: instanceIds
+  type: string-array
+  description: 重装操作失败的实例ID列表。

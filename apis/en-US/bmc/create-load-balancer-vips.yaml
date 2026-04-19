@@ -21,3 +21,10 @@ parameters:
   required: true
   sdk-field: count
   description: Number of additional IPs to be created.
+response:
+- name: orderNumber
+  type: string
+  description: Order number. If the load balancer is of the Virtual IPv6 type, it returns null.
+- name: vipIdSet
+  type: string-array
+  description: IP ID list.

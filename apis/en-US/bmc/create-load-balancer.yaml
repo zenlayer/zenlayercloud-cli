@@ -145,3 +145,10 @@ parameters:
   - name: value
     type: string
     description: 'Tag value. Length limit: 1 to 128 characters.'
+response:
+- name: orderNumber
+  type: string
+  description: Order number.
+- name: loadBalancerId
+  type: string
+  description: Load balancer ID.

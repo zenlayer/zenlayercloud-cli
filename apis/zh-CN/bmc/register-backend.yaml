@@ -43,3 +43,7 @@ parameters:
   required: false
   sdk-field: weight
   description: 权重。
+response:
+- name: backendId
+  type: string
+  description: 后端配置服务器的ID。

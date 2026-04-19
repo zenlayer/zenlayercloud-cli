@@ -47,3 +47,10 @@ parameters:
   required: false
   sdk-field: resourceGroupId
   description: Filter by resource group ID.
+response:
+- name: totalCount
+  type: integer
+  description: Total number of data that meets the conditions.
+- name: dataSet
+  type: object-array
+  description: Placement group result set.

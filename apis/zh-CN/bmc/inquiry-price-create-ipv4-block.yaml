@@ -66,3 +66,7 @@ parameters:
   required: false
   sdk-field: amount
   description: 购买的数量。
+response:
+- name: price
+  type: object
+  description: Cidr Block价格。

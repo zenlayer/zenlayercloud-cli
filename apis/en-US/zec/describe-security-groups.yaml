@@ -2,7 +2,7 @@ name: DescribeSecurityGroups
 product: zec
 use: describe-security-groups
 short: Queries the information of one or more specified security groups
-long: Query the information of one or more specified security groups. Users can search for security group information based on information such as security group ID, security group name, etc.
+long: Query security group information in the account. You can filter results by security group ID or name. Supports pagination.
 examples:
 - cmd: zeno zec describe-security-groups --security-group-name --page-size 5 --page-num 1
   desc: Obtain all security group information. Query all security groups without any parameters.
@@ -38,3 +38,10 @@ parameters:
   description: |-
     Number of pages returned.
     Default value: 1 .
+response:
+- name: totalCount
+  type: integer
+  description: Number of security groups meeting the filtering conditions.
+- name: dataSet
+  type: object-array
+  description: Information on security groups.

@@ -101,3 +101,16 @@ parameters:
   description: |-
     共享带宽包ID。
     指定此参数时，IP网络计费模式(internetChargeType) 需为BandwidthCluster, 否则该参数不生效。
+response:
+- name: loadBalancerInstancePrice
+  type: object
+  description: 负载均衡实例的价格。
+- name: eipPrice
+  type: object
+  description: 弹性IP的价格。
+- name: eipNetworkPrice
+  type: object
+  description: 弹性IP的网络计费的价格。
+- name: lcuPrice
+  type: object
+  description: 负载均衡实例LCU的价格。

@@ -110,3 +110,10 @@ parameters:
     desc: Virtual machine service.
   - value: OFFLINE
     desc: Offline serveice.
+response:
+- name: orderNumber
+  type: string
+  description: Order number.
+- name: bandwidthClusterId
+  type: string
+  description: Bandwidth cluster ID.

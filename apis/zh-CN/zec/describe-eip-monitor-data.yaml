@@ -44,3 +44,49 @@ parameters:
   description: |-
     查询结束时间。
     时间格式：yyyy-MM-ddTHH:mm:ssZ。
+response:
+- name: inMaxValue
+  type: float
+  description: 入方向最大值。
+- name: inAvgValue
+  type: float
+  description: 入方向平均值。
+- name: inMinValue
+  type: float
+  description: 入方向最小值。
+- name: inTotalValue
+  type: float
+  description: 入方向总和值。
+- name: outMaxValue
+  type: float
+  description: 出方向最大值。
+- name: outAvgValue
+  type: float
+  description: 出方向平均值。
+- name: outMinValue
+  type: float
+  description: 出方向最小值。
+- name: outTotalValue
+  type: float
+  description: 出方向总和值。
+- name: loseOutMaxValue
+  type: float
+  description: 丢失出方向最大值。
+- name: loseOutMinValue
+  type: float
+  description: 丢失出方向最小值。
+- name: loseOutTotalValue
+  type: float
+  description: 丢失出方向总和值。
+- name: loseInMaxValue
+  type: float
+  description: 丢失入方向最大值。
+- name: loseInMinValue
+  type: float
+  description: 丢失入方向最小值。
+- name: loseInTotalValue
+  type: float
+  description: 丢失入方向总和值。
+- name: dataList
+  type: object-array
+  description: 监控数据集合。

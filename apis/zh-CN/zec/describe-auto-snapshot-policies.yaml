@@ -69,3 +69,10 @@ parameters:
     description: |-
       标签值。
       长度限制：1～64个字符。
+response:
+- name: dataSet
+  type: object-array
+  description: 查询的自动快照策略数据结果。
+- name: totalCount
+  type: integer
+  description: 符合匹配的总数量。

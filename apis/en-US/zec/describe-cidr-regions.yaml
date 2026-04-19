@@ -7,3 +7,7 @@ sdk:
   service: zec
   version: '2025-09-01'
   action: DescribeCidrRegions
+response:
+- name: regionIds
+  type: string-array
+  description: Information on regions.

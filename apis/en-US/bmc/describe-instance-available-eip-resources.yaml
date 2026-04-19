@@ -18,3 +18,7 @@ parameters:
   description: |-
     Instance ID.
     To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response.
+response:
+- name: instanceEipResources
+  type: object-array
+  description: List of available elastic IPs that can be bound to an instance.

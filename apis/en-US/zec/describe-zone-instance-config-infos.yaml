@@ -21,3 +21,7 @@ parameters:
   required: false
   sdk-field: instanceType
   description: Instance size.
+response:
+- name: instanceTypeQuotaSet
+  type: object-array
+  description: Information on instance size in the zone.

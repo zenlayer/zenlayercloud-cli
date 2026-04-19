@@ -65,3 +65,7 @@ parameters:
     description: |-
       标签值。
       长度限制：1～128字符。
+response:
+- name: cidrBlockIds
+  type: string-array
+  description: Cidr Block ID列表。

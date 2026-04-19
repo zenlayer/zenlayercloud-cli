@@ -79,3 +79,7 @@ parameters:
   - name: amount
     type: integer
     description: CIDR的数量。
+response:
+- name: cidrPrice
+  type: object
+  description: CIDR的价格信息。

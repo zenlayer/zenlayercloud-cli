@@ -76,3 +76,10 @@ parameters:
   required: false
   sdk-field: resourceGroupId
   description: Filter by resource group ID.
+response:
+- name: totalCount
+  type: integer
+  description: Number of resources meeting the filtering conditions.
+- name: dataSet
+  type: object-array
+  description: Information on list of cross-region bandwidth.

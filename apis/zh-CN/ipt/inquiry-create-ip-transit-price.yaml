@@ -82,3 +82,15 @@ parameters:
     desc: 全路由+默认路由。
   - value: DEFAULT_ROUTES
     desc: 默认路由。
+response:
+- name: privateConnectPrice
+  type: object
+  description: |-
+    IP Transit 的 专线价格。
+    如果IP Transit 和端口位于同一个数据中心，则取值为null。
+- name: iptBandwidthPrice
+  type: object
+  description: IP Transit 的公网带宽价格。
+- name: publicIpPrices
+  type: object-array
+  description: IP Transit 的公网IP价格。

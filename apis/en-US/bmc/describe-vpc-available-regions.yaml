@@ -25,3 +25,7 @@ parameters:
   required: false
   sdk-field: vpcRegionId
   description: IDs of availability regions for VPCs.
+response:
+- name: vpcRegionSet
+  type: object-array
+  description: Information on availability regions for VPCs.

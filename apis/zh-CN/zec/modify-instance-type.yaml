@@ -3,7 +3,7 @@ product: zec
 use: modify-instance-type
 short: 变更实例的规格
 long: |-
-  变更实例的规格。
+  将指定弹性计算实例的规格变更为目标规格。
   **注意事项**
 
   * 仅实例状态为`STOPPED` 状态的实例才能进行此操作。

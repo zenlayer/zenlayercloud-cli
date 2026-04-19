@@ -115,3 +115,10 @@ parameters:
   required: false
   sdk-field: burstingEnabled
   description: 是否开启性能突发。
+response:
+- name: diskIds
+  type: string-array
+  description: 创建的云硬盘ID列表。
+- name: orderNumber
+  type: string
+  description: 本次创建对应的订单编号。

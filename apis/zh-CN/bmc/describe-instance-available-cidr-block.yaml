@@ -28,3 +28,7 @@ parameters:
     desc: IPv4。
   - value: IPV6
     desc: IPv6。
+response:
+- name: instanceAvailableCidrBlocks
+  type: object-array
+  description: 实例可用的Cidr Block列表。

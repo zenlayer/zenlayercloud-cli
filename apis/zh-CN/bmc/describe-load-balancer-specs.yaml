@@ -28,3 +28,7 @@ parameters:
   required: true
   sdk-field: zoneId
   description: 可用区的节点ID。
+response:
+- name: specSet
+  type: object-array
+  description: 规格集合。

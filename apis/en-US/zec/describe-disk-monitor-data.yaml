@@ -56,3 +56,16 @@ parameters:
   description: |-
     End time.
     Format: YYYY-MM-ddTHH:mm:ssZ .
+response:
+- name: maxValue
+  type: float
+  description: Maximum value.
+- name: minValue
+  type: float
+  description: Minimum value.
+- name: avgValue
+  type: float
+  description: Average value.
+- name: metrics
+  type: object-array
+  description: Information on performance metrics.

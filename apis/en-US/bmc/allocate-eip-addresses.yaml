@@ -104,3 +104,14 @@ parameters:
   - name: value
     type: string
     description: 'Tag value. Length limit: 1 to 128 characters.'
+response:
+- name: eipIdSet
+  type: string-array
+  description: |-
+    ID list of elastic IPs.
+    The returned ID list does not mean the creation has been completed.uery the status of the elastic IPs. If the status changes from Creating to Available , it means that the elastic IPs have been created successfully.
+- name: orderNumber
+  type: string
+  description: |-
+    Number of order.
+    This parameter returns when eipChargeType is PREPAID .

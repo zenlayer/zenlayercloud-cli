@@ -103,3 +103,16 @@ parameters:
   description: |-
     ID of bandwidth cluster.
     The parameter is only required when internetChargeType is BandwidthCluster.
+response:
+- name: loadBalancerInstancePrice
+  type: object
+  description: The price of the load balancer instance.
+- name: eipPrice
+  type: object
+  description: The price of the elastic IP.
+- name: eipNetworkPrice
+  type: object
+  description: The price of network billing for the elastic IP.
+- name: lcuPrice
+  type: object
+  description: The price of LCU for the load balance instance.

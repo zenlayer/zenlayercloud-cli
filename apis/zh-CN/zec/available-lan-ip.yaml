@@ -1,8 +1,8 @@
 name: AvailableLanIp
 product: zec
 use: available-lan-ip
-short: 查询可供弹性公网IP绑定的网卡及内网IP信息
-long: 查询可供弹性公网IP绑定的网卡及内网IP信息。
+short: 查询可与指定弹性公网 IP 绑定的内网 IP 列表
+long: 查询可与指定弹性公网 IP（EIP）进行绑定的弹性网卡（vNIC）及其内网 IPv4 地址列表。
 examples:
 - cmd: zeno zec available-lan-ip --eip-id xxx
   desc: 获取可用内网IP。
@@ -15,4 +15,11 @@ parameters:
   type: string
   required: true
   sdk-field: eipId
-  description: 要查询的公网弹性IP ID。
+  description: |-
+    待查询的弹性公网 IP 的 ID。
+    接口将返回与该 EIP 同地域子网下的所有可绑定 vNIC 及内网 IP。
+    可通过 DescribeEips 接口获取 EIP ID。
+response:
+- name: lanIps
+  type: object-array
+  description: 可与指定 EIP 绑定的 vNIC 与内网 IP 组合列表。

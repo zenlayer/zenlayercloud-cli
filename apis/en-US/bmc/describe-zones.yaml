@@ -15,9 +15,12 @@ parameters:
   description: |-
     The languages of zones available. The optional values are as follows:
     zh-CN: Chinese en-US: English
-    Default value: en-US.
 - name: is-cloud-router-available
   type: boolean
   required: false
   sdk-field: isCloudRouterAvailable
   description: "Query the zone supports Layer 3 cloud router.\nAvailable values:\ntrue : supported \nfalse : not supported"
+response:
+- name: zoneSet
+  type: object-array
+  description: The list of zones available.

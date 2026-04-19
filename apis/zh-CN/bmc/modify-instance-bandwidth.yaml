@@ -36,3 +36,7 @@ parameters:
   description: |-
     带宽。
     范围：1~机型最大。
+response:
+- name: orderNumber
+  type: string
+  description: 订单编号。

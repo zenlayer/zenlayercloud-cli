@@ -10,3 +10,7 @@ sdk:
   service: traffic
   version: '2024-03-26'
   action: DescribeBandwidthClusterAreas
+response:
+- name: areas
+  type: object-array
+  description: Location list of bandwidth cluster.

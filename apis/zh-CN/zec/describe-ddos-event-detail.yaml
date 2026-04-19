@@ -21,3 +21,57 @@ parameters:
   required: true
   sdk-field: regionId
   description: 区域节点ID。
+response:
+- name: eventId
+  type: string
+  description: 攻击事件唯一ID。
+- name: status
+  type: enum
+  description: 攻击状态。
+- name: type
+  type: enum
+  description: 攻击类型。
+- name: ipAddress
+  type: string
+  description: 被攻击的IP。
+- name: protecting
+  type: boolean
+  description: IP是否正在防护中。
+- name: startTime
+  type: string
+  description: 攻击开始时间。
+- name: endTime
+  type: string
+  description: 攻击结束时间。
+- name: endBlackholeTime
+  type: string
+  description: 从黑洞解封时间。
+- name: attackBandwidthMax
+  type: float
+  description: |-
+    攻击带宽峰值。
+    单位bps。
+- name: protectedBandwidthMax
+  type: float
+  description: |-
+    防护带宽峰值。
+    单位bps。
+- name: attackPackageMax
+  type: float
+  description: |-
+    攻击峰值包速率。
+    单位pps。
+- name: protectedPackageMax
+  type: float
+  description: |-
+    防护峰值包速率。
+    单位pps。
+- name: sourceIp
+  type: string-array
+  description: 攻击来源IP。
+- name: sourcePort
+  type: object-array
+  description: 攻击来源端口。
+- name: desertionPort
+  type: object-array
+  description: 攻击目标端口。

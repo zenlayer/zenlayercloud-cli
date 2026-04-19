@@ -132,6 +132,42 @@ parameters:
     desc: |-
       该Nic的VF网卡+Virtio网卡出方向相加的每秒错误包数量。
       单位Packets。
+  - value: RX_BITS
+    desc: |-
+      虚拟机VF网卡的每秒接收比特数。
+      单位bits。
+  - value: TX_BITS
+    desc: |-
+      虚拟机VF网卡的每秒发送比特数。
+      单位bits。
+  - value: UPTIME
+    desc: |-
+      实例运行时长。
+      单位秒。
+  - value: GPU_UTILIZATION
+    desc: |-
+      GPU 使用率。
+      单位百分比。
+  - value: GPU_TEMPERATURE
+    desc: |-
+      GPU 温度。
+      单位摄氏度。
+  - value: GPU_MEMORY_USED
+    desc: |-
+      GPU 显存使用量。
+      单位MiB。
+  - value: GPU_MEMORY_UTILIZATION
+    desc: |-
+      GPU 显存使用率。
+      单位百分比。
+  - value: GPU_POWER_DRAW
+    desc: |-
+      GPU 功耗。
+      单位瓦特(W)。
+  - value: GPU_FAN_SPEED
+    desc: |-
+      GPU 风扇速率。
+      单位百分比。
 - name: start-time
   type: string
   required: true
@@ -146,3 +182,16 @@ parameters:
   description: |-
     查询结束时间。
     时间格式：yyyy-MM-ddTHH:mm:ssZ。
+response:
+- name: maxValue
+  type: float
+  description: 数据点的最大值。
+- name: minValue
+  type: float
+  description: 数据点的最小值。
+- name: avgValue
+  type: float
+  description: 数据点的平均值。
+- name: metrics
+  type: object-array
+  description: 监控数据集合。

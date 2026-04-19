@@ -15,3 +15,7 @@ parameters:
   description: |-
     Zone ID.
     If the value is empty, return information about all the zones available for subnet.
+response:
+- name: zoneIdSet
+  type: string-array
+  description: Information about zones available.

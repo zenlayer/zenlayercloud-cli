@@ -178,3 +178,28 @@ parameters:
       Basic NVMe SSD: 经济型 NVMe SSD。
       Standard NVMe SSD: 标准型 NVMe SSD。
       默认为Standard NVMe SSD。
+response:
+- name: specPrice
+  type: object
+  description: 规格的价格。
+- name: gpuPrice
+  type: object
+  description: GPU规格的价格。
+- name: ipv4Price
+  type: object
+  description: 公网IPv4的保留价格。
+- name: ipv4BandwidthPrice
+  type: object
+  description: 公网IPv4的带宽价格。
+- name: ipv6Price
+  type: object
+  description: IPv6的价格。
+- name: ipv6BandwidthPrice
+  type: object
+  description: IPv6的带宽价格。
+- name: systemDiskPrice
+  type: object
+  description: 系统盘的价格。
+- name: dataDiskPrice
+  type: object
+  description: 数据盘的价格。

@@ -53,3 +53,10 @@ parameters:
   - name: value
     type: string
     description: 'Tag value. Length limit: 1 to 64 characters.'
+response:
+- name: imageId
+  type: string
+  description: Image ID.
+- name: imageName
+  type: string
+  description: Image name.

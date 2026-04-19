@@ -158,3 +158,7 @@ parameters:
   required: false
   sdk-field: idleTimeout
   description: 'Idle timeout period. Unit: seconds.'
+response:
+- name: listenerId
+  type: string
+  description: The created listener ID.

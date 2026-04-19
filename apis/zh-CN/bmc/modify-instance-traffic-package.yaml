@@ -35,3 +35,7 @@ parameters:
   description: |-
     流量包大小。
     必须是0.05的倍数。
+response:
+- name: orderNumber
+  type: string
+  description: 订单编号。

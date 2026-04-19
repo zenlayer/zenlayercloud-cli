@@ -1,9 +1,9 @@
 name: StartAgentMonitor
 product: zec
 use: start-agent-monitor
-short: 开启Agent监控采集
+short: 开启实例的 Agent 监控数据采集
 long: |-
-  开启Agent监控采集。
+  为指定弹性计算实例开启 QEMU Guest Agent（QGA）监控数据采集，开启后可通过监控接口获取实例内部性能指标数据。
   **注意事项**
 
   * 要开启Agent监控采集，要确保安装了QGA(QEMU Guest Agent)。

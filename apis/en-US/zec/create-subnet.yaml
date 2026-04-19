@@ -84,3 +84,7 @@ parameters:
     This parameter must be used together with the ipv6CidrBlockId parameter.
     The default value is 96 if not explicitly provided.
     The minimum value must be greater than or equal to the prefix of the specified ipv6CidrBlockId, and the maximum value cannot exceed 96.
+response:
+- name: subnetId
+  type: string
+  description: Subnet ID.

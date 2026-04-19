@@ -10,3 +10,7 @@ sdk:
   service: zec
   version: '2025-09-01'
   action: DescribeCidrRegions
+response:
+- name: regionIds
+  type: string-array
+  description: 支持售卖CIDR的节点ID。

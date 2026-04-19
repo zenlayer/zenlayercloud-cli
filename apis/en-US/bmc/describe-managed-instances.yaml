@@ -59,3 +59,10 @@ parameters:
   description: |-
     Resource group ID.
     If the value is null, then return all the instances in the authorized resource groups.
+response:
+- name: totalCount
+  type: integer
+  description: Number of instances meeting the filtering conditions.
+- name: dataSet
+  type: object-array
+  description: Information on an instance.

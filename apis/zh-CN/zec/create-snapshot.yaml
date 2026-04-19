@@ -36,3 +36,7 @@ parameters:
     格式为：yyyy-MM-ddTHH:mm:ssZ。
     如果不传，则代表永久保留。
     指定时间必须在当前时间24小时后。
+response:
+- name: snapshotId
+  type: string
+  description: 创建的快照ID。

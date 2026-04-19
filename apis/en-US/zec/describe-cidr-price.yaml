@@ -76,3 +76,7 @@ parameters:
   - name: amount
     type: integer
     description: CIDR block quantity.
+response:
+- name: cidrPrice
+  type: object
+  description: CIDR block price

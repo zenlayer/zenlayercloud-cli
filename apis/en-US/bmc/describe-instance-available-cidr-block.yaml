@@ -30,3 +30,7 @@ parameters:
     desc: IPv4.
   - value: IPV6
     desc: IPv6.
+response:
+- name: instanceAvailableCidrBlocks
+  type: object-array
+  description: List of available CIDR blocks for the instance.

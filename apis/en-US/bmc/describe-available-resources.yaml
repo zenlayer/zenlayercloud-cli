@@ -48,3 +48,7 @@ parameters:
     desc: Available for sale, stock <= 10.
   - value: SELL
     desc: Available for sale, stock > 10.
+response:
+- name: availableResources
+  type: object-array
+  description: Information on available resources, including zoneId, status, quantity, etc.

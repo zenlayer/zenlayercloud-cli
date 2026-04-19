@@ -26,3 +26,10 @@ parameters:
   required: false
   sdk-field: pageNum
   description: Number of pages returned.
+response:
+- name: totalCount
+  type: integer
+  description: Number of results meeting the filtering conditions.
+- name: dataSet
+  type: object-array
+  description: Bandwidth usage dataset.

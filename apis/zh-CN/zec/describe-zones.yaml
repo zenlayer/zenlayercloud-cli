@@ -16,3 +16,7 @@ parameters:
   required: false
   sdk-field: zoneIds
   description: 根据可用区ID过滤。
+response:
+- name: zoneSet
+  type: object-array
+  description: 可用区列表。

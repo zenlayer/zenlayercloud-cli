@@ -15,3 +15,36 @@ parameters:
   description: |-
     待操作的实例ID。
     可通过DescribeInstances接口返回值中的instanceId获取。
+response:
+- name: instanceId
+  type: string
+  description: 实例ID
+- name: instanceName
+  type: string
+  description: 实例名称
+- name: internetMaxBandwidthOut
+  type: integer
+  description: 当前实例带宽
+- name: modifiedInternetMaxBandwidthOut
+  type: integer
+  description: 实例修改带宽
+- name: modifiedBandwidthStatus
+  type: string
+  description: |-
+    实例带宽状态
+    Processing: 变更中
+    Enable: 可用
+    WaitToEnable: 下周期变更
+- name: trafficPackageSize
+  type: float
+  description: 当前实例流量包
+- name: modifiedTrafficPackageSize
+  type: float
+  description: 实例修改流量包
+- name: modifiedTrafficPackageStatus
+  type: string
+  description: |-
+    实例流量包状态
+    Processing: 变更中
+    Enable: 可用
+    WaitToEnable: 下周期变更

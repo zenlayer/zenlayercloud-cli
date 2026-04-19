@@ -20,3 +20,9 @@ parameters:
   required: true
   sdk-field: placementGroupIds
   description: 要删除的置放组ID列表。
+response:
+- name: failedPlacementGroupIds
+  type: string-array
+  description: |-
+    删除失败的置放组ID列表。
+    若全量成功则为空。

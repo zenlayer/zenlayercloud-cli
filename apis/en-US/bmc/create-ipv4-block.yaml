@@ -122,3 +122,10 @@ parameters:
   - name: value
     type: string
     description: 'Tag value. Length limit: 1 to 128 characters.'
+response:
+- name: orderNumber
+  type: string
+  description: Number of order.
+- name: cidrBlockIds
+  type: string-array
+  description: List of CIDR block IDs.

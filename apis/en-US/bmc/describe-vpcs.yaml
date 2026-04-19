@@ -89,3 +89,10 @@ parameters:
   - name: value
     type: string
     description: 'Tag value. Length limit: 1 to 128 characters.'
+response:
+- name: totalCount
+  type: integer
+  description: Number of VPCs meeting the filtering conditions.
+- name: dataSet
+  type: object-array
+  description: Information on VPCs.

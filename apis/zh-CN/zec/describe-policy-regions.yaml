@@ -1,8 +1,8 @@
 name: DescribePolicyRegions
 product: zec
 use: describe-policy-regions
-short: 获取区域封禁可选区域列表
-long: 获取区域封禁可选区域列表。
+short: 查询区域封禁可选的地区列表
+long: 查询 DDoS 防护策略中区域封禁功能支持的可选地区列表，用于配置防护策略 `blockRegions` 参数前的参考。
 examples:
 - cmd: zeno zec describe-policy-regions
   desc: 获取区域封禁可选区域列表
@@ -10,3 +10,7 @@ sdk:
   service: zec
   version: '2025-09-01'
   action: DescribePolicyRegions
+response:
+- name: regions
+  type: object-array
+  description: 区域可选列表。

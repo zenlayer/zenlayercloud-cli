@@ -27,3 +27,7 @@ parameters:
   - name: regionId
     type: string
     description: Region ID.
+response:
+- name: byoipPrices
+  type: object-array
+  description: Price of the BYOIP CIDR block.

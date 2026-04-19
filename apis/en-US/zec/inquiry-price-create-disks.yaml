@@ -40,3 +40,7 @@ parameters:
     Basic NVMe SSD: the Basic NVMe SSD. Standard NVMe SSD: the Standard NVMe SSD.
     Default value: Standard NVMe SSD.
     Call DescribeDiskCategory to obtain disk type.
+response:
+- name: dataDiskPrice
+  type: object
+  description: Disk price.

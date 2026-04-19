@@ -398,3 +398,15 @@ parameters:
     description: |-
       Whether to the instance for nested virtualization.
       To enable nested virtualization, you must contact Support to activate it; otherwise, the setting will be ineffective.
+response:
+- name: orderNumber
+  type: string
+  description: Number of order.
+- name: instanceIdSet
+  type: string-array
+  description: |-
+    List of instance IDs.
+    The returned instance ID list does not mean the creation has been completed.uery the status of the instance according to dataSet . If the status changes from DEPLOYING to RUNNING , it means that the instance has been created successfully; CREATE_FAILED or no instance found means the instance has been created failed.
+- name: instances
+  type: object-array
+  description: Set of disk IDs created along with the instances. If no disk is specified, the value is empty.

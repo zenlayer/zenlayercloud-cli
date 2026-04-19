@@ -23,3 +23,7 @@ parameters:
   description: |-
     The listener ID of the load balancer.
     If not specified, all backend servers will be queried.
+response:
+- name: backends
+  type: object-array
+  description: List of backend servers.

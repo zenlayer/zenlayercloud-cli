@@ -52,3 +52,7 @@ parameters:
   required: false
   sdk-field: vpcId
   description: VPC ID.
+response:
+- name: subnetId
+  type: string
+  description: Subnet ID.

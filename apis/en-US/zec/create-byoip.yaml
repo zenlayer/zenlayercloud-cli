@@ -77,3 +77,13 @@ parameters:
   - name: value
     type: string
     description: 'Tag value. Length limit: 1 to 64 characters.'
+response:
+- name: rpkiFailedList
+  type: string-array
+  description: List of CIDR blocks that failed RPKI validation.
+- name: irrFailedList
+  type: string-array
+  description: List of CIDR blocks that failed IRR validation.
+- name: byoipIds
+  type: string-array
+  description: ID list of created BYOIP CIDR blocks.

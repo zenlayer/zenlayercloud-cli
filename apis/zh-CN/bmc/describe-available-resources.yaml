@@ -47,3 +47,7 @@ parameters:
     desc: 可购买，但是库存小于等于10台。
   - value: SELL
     desc: 实例可购买，且库存大于10。
+response:
+- name: availableResources
+  type: object-array
+  description: 可用资源的集合。

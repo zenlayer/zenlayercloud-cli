@@ -41,3 +41,10 @@ parameters:
   required: false
   sdk-field: pageNum
   description: 返回的分页数。
+response:
+- name: dataSet
+  type: object-array
+  description: 命令执行记录列表。
+- name: totalCount
+  type: integer
+  description: 匹配条件的命令执行记录总数。

@@ -10,3 +10,7 @@ sdk:
   service: zec
   version: '2025-09-01'
   action: DescribeNatGatewayRegions
+response:
+- name: regionIds
+  type: string-array
+  description: 节点ID集合。

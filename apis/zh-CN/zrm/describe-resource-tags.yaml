@@ -16,3 +16,10 @@ parameters:
   required: true
   sdk-field: resourceUuid
   description: 资源的唯一标识。
+response:
+- name: totalCount
+  type: integer
+  description: 列表总数量。
+- name: dataSet
+  type: object-array
+  description: 数据列表。

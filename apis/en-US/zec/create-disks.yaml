@@ -114,3 +114,10 @@ parameters:
   required: false
   sdk-field: burstingEnabled
   description: Whether to enable disk bursting.
+response:
+- name: diskIds
+  type: string-array
+  description: ID list of disks.
+- name: orderNumber
+  type: string
+  description: Number of order.

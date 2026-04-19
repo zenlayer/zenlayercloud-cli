@@ -1,8 +1,8 @@
 name: DescribeNetworkInterfacePublicIPv6
 product: zec
 use: describe-network-interface-public-ipv6
-short: 查询网卡的公网IPv6信息
-long: 查询网卡的公网IPv6信息。
+short: 查询网卡的公网 IPv6 信息
+long: 查询指定弹性网卡（vNIC）上已分配的公网 IPv6 地址及其计费、带宽配置信息。
 examples:
 - cmd: zeno zec describe-network-interface-public-ipv6 --nic-id <nicId>
   desc: 查询网卡上的公网IPv6信息。
@@ -16,3 +16,9 @@ parameters:
   required: true
   sdk-field: nicId
   description: 网卡ID。
+response:
+- name: address
+  type: object
+  description: |-
+    公网IPv6信息。
+    网卡如果没有公网IPv6,则取值为空。

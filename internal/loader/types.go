@@ -6,14 +6,15 @@ import "gopkg.in/yaml.v3"
 
 // APIDefinition represents a single YAML API definition file.
 type APIDefinition struct {
-	Name       string      `yaml:"name"`
-	Product    string      `yaml:"product"`
-	Use        string      `yaml:"use"`
-	Short      string      `yaml:"short"`
-	Long       string      `yaml:"long"`
-	Examples   []Example   `yaml:"examples"`
-	SDK        SDKInfo     `yaml:"sdk"`
-	Parameters []Parameter `yaml:"parameters"`
+	Name       string        `yaml:"name"`
+	Product    string        `yaml:"product"`
+	Use        string        `yaml:"use"`
+	Short      string        `yaml:"short"`
+	Long       string        `yaml:"long"`
+	Examples   []Example     `yaml:"examples"`
+	SDK        SDKInfo       `yaml:"sdk"`
+	Parameters []Parameter   `yaml:"parameters"`
+	Response   []SchemaField `yaml:"response"`
 }
 
 // Example is a CLI usage example shown in the command's help text.

@@ -21,3 +21,7 @@ parameters:
   required: true
   sdk-field: cidrIds
   description: List of CIDR IDs.
+response:
+- name: failedCidrIds
+  type: string-array
+  description: List of CIDR IDs failed to be deleted.

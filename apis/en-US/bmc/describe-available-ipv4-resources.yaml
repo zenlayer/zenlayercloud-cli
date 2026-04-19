@@ -28,3 +28,7 @@ parameters:
   required: false
   sdk-field: zoneId
   description: Zone ID to which the CIDR blocks belong.
+response:
+- name: availableIpv4Resources
+  type: object-array
+  description: List of available IPv4 CIDR blocks.

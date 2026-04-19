@@ -16,3 +16,7 @@ parameters:
   required: true
   sdk-field: instanceId
   description: 要查询的实例ID。
+response:
+- name: url
+  type: string
+  description: VNC地址URL。

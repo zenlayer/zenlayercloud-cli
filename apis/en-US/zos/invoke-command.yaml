@@ -40,3 +40,7 @@ parameters:
     Unit: seconds.
     Valid range: [1, 60].
     Default: 30.
+response:
+- name: invocationId
+  type: string
+  description: Execution ID.

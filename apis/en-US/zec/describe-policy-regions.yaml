@@ -1,8 +1,8 @@
 name: DescribePolicyRegions
 product: zec
 use: describe-policy-regions
-short: Gets a list of regions available for Geo-Blocking
-long: Get a list of regions available for geo-blocking.
+short: Queries available regions for geo-blocking
+long: Query the list of regions available for the geo-blocking feature in DDoS protection policies. Use this as a reference when configuring the `blockRegions` parameter.
 examples:
 - cmd: zeno zec describe-policy-regions
   desc: Get a list of regions available for Geo-Blocking.
@@ -10,3 +10,7 @@ sdk:
   service: zec
   version: '2025-09-01'
   action: DescribePolicyRegions
+response:
+- name: regions
+  type: object-array
+  description: List of available regions.

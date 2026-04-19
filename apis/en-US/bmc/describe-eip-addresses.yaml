@@ -115,3 +115,10 @@ parameters:
   - name: value
     type: string
     description: 'Tag value. Length limit: 1 to 128 characters.'
+response:
+- name: totalCount
+  type: integer
+  description: The total number of elastic IPs.
+- name: dataSet
+  type: object-array
+  description: List of elastic IPs.

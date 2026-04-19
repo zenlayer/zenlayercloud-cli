@@ -3,7 +3,7 @@ product: zec
 use: reset-instances
 short: Reinstalls the operating system on multiple instances
 long: |-
-  Reinstall the operating system on multiple instances.
+  Reinstalls the operating system on one or more elastic compute instances. You can specify a new image, login method (password or key pair), time zone, and instance name.
   #### Preparation
 
   * Query images: Call [DescribeImages](../image/describeimages.md) to obtain the operating system image information required for reinstallation.
@@ -80,3 +80,7 @@ parameters:
   required: false
   sdk-field: userData
   description: Initialization command.
+response:
+- name: instanceIds
+  type: string-array
+  description: List of instance IDs for which the reinstallation operation failed.

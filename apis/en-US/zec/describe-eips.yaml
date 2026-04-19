@@ -141,3 +141,10 @@ parameters:
     desc: Billed by the traffic package size purchased.
   - value: BandwidthCluster
     desc: Billed by the burstable 95th bandwidth of all compute resources in a city-based or regional bandwidth cluster with a shared commitment.
+response:
+- name: totalCount
+  type: integer
+  description: Number of elastic IPs meeting the filtering conditions.
+- name: dataSet
+  type: object-array
+  description: List of elastic IPs.

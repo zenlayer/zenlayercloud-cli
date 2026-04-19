@@ -31,3 +31,7 @@ parameters:
   description: |-
     Zone ID to which the elastic IPs belong.
     If this parameter is not passed in, the elastic IPs in all zones return.
+response:
+- name: eipResources
+  type: object-array
+  description: Zone list of available elastic IPs.

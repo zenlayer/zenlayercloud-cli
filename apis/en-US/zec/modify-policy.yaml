@@ -1,8 +1,8 @@
 name: ModifyPolicy
 product: zec
 use: modify-policy
-short: Modifies a protection strategy
-long: Modify a protection strategy.
+short: Modifies a DDoS protection policy
+long: Modify the configuration of the specified DDoS protection policy, including its name, IP allowlists/blocklists, protocol blocking, geo-blocking, fingerprinting, and traffic control rules.
 examples:
 - cmd: zeno zec modify-policy --policy-id <policyId> --config-type UdpReflect --policy-name policyName --reflect-udp-port {port=22} --reflect-udp-port {port=34}
   desc: Modify a protection strategy.

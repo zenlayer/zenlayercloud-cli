@@ -62,3 +62,7 @@ parameters:
   required: false
   sdk-field: instanceTypeId
   description: 支持的机型ID。
+response:
+- name: images
+  type: object-array
+  description: 结果集。

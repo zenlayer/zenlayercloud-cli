@@ -82,3 +82,10 @@ parameters:
   description: |-
     Security group ID.
     You can call DescribeSecurityGroups to obtain details.
+response:
+- name: totalCount
+  type: integer
+  description: The total number of load balance instances that meet the filtering conditions.
+- name: dataSet
+  type: object-array
+  description: The returned list of load balance instances.

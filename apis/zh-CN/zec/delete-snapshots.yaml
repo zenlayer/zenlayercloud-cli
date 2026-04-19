@@ -22,3 +22,7 @@ parameters:
   required: true
   sdk-field: snapshotIds
   description: 快照ID列表。
+response:
+- name: snapshotIds
+  type: string-array
+  description: 操作失败的快照ID。

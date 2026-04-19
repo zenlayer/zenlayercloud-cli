@@ -16,3 +16,7 @@ parameters:
   required: true
   sdk-field: natGatewayId
   description: NAT网关 ID。
+response:
+- name: zbgId
+  type: string
+  description: 可绑定NAT的边界网关ID。

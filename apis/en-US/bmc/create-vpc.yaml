@@ -61,3 +61,7 @@ parameters:
   - name: value
     type: string
     description: 'Tag value. Length limit: 1 to 128 characters.'
+response:
+- name: vpcId
+  type: string
+  description: VPC ID.

@@ -1,8 +1,8 @@
 name: DescribePolicyDetail
 product: zec
 use: describe-policy-detail
-short: Gets details of a protection strategy
-long: Get details of a protection strategy.
+short: Queries the details of a DDoS protection policy
+long: Query the detailed configuration of the specified DDoS protection policy, including IP allowlists/blocklists, protocol blocking, geo-blocking, traffic fingerprinting, and traffic control rules.
 examples:
 - cmd: zeno zec describe-policy-detail --policy-id <policyId>
   desc: Get protection strategy details.
@@ -16,3 +16,43 @@ parameters:
   required: true
   sdk-field: policyId
   description: Protection strategy ID.
+response:
+- name: policyId
+  type: string
+  description: Protection strategy ID.
+- name: policyName
+  type: string
+  description: The name of the protection strategy.
+- name: attachmentIps
+  type: string-array
+  description: List of linked protection target IPs.
+- name: createTime
+  type: string
+  description: Creation time.
+- name: blackIps
+  type: string-array
+  description: IP deny list.
+- name: whiteIps
+  type: string-array
+  description: IP allow list.
+- name: blackIpListExpireAt
+  type: integer
+  description: IP deny timeout.
+- name: blockProtocols
+  type: string-array
+  description: Enabled protocol blocking. UDP and TCP cannot be enabled at the same time.
+- name: ports
+  type: object-array
+  description: Port blocking.
+- name: blockRegions
+  type: string-array
+  description: Regions blocked.
+- name: reflectUdpPort
+  type: object-array
+  description: Port list for reflection attack filtering.
+- name: trafficControl
+  type: object
+  description: Source IP rate limiting configurations.
+- name: fingerPrintRules
+  type: object-array
+  description: Fingerprint filtering configurations.

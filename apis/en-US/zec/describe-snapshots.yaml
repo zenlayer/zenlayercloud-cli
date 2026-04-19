@@ -84,3 +84,10 @@ parameters:
   required: false
   sdk-field: resourceGroupId
   description: Filter by resource group ID.
+response:
+- name: totalCount
+  type: integer
+  description: The total number of snapshots that meet the filtering conditions.
+- name: dataSet
+  type: object-array
+  description: The returned snapshot list data.

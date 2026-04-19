@@ -16,3 +16,10 @@ parameters:
   required: true
   sdk-field: bandwidthClusterId
   description: 共享带宽包ID。
+response:
+- name: resources
+  type: object-array
+  description: 共享带宽包里的资源信息。
+- name: totalCount
+  type: integer
+  description: 共享带宽包里的资源数量。

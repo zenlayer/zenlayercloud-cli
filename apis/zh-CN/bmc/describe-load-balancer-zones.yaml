@@ -23,3 +23,7 @@ parameters:
     desc: 预付费。
   - value: POSTPAID
     desc: 后付费。即按量付费。
+response:
+- name: zoneIdSet
+  type: string-array
+  description: zoneId结果集。

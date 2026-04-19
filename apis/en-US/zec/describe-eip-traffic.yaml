@@ -1,8 +1,8 @@
 name: DescribeEipTraffic
 product: zec
 use: describe-eip-traffic
-short: Queries the traffic of an elastic IP in a specified time range
-long: Query the traffic of an elastic IP in a specified time range.
+short: Queries traffic monitoring data of an elastic IP
+long: Query the traffic monitoring data of the specified elastic IP within a given time range. Supports data aggregation by statistical granularity (step) and filtering by outbound public IP.
 examples:
 - cmd: zeno zec describe-eip-traffic --eip-id 926368879272403391 --start-time 2023-07-11T08:00:011Z --end-time 2023-07-11T08:10:00Z
   desc: Query the traffic of an elastic IP in a specified time range.
@@ -43,3 +43,37 @@ parameters:
   required: false
   sdk-field: wanIp
   description: If the IP is a 3-in-1 elastic IP, the value is required.
+response:
+- name: dataList
+  type: object-array
+  description: List of bandwidth data.
+- name: in95
+  type: integer
+  description: Inbound burstable 95th bandwidth.
+- name: inAvg
+  type: integer
+  description: Average value of inbound bandwidth.
+- name: inMax
+  type: integer
+  description: Maximum value of inbound bandwidth.
+- name: inMin
+  type: integer
+  description: Minimum value of inbound bandwidth.
+- name: inTotal
+  type: integer
+  description: Total data transfer of inbound bandwidth.
+- name: out95
+  type: integer
+  description: Outbound burstable 95th bandwidth.
+- name: outAvg
+  type: integer
+  description: Average value of outbound bandwidth.
+- name: outMax
+  type: integer
+  description: Maximum value of outbound bandwidth.
+- name: outMin
+  type: integer
+  description: Minimum value of outbound bandwidth.
+- name: outTotal
+  type: integer
+  description: Total data transfer of outbound bandwidth.

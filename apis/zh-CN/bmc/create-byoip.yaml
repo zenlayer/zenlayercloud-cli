@@ -40,3 +40,10 @@ parameters:
   required: true
   sdk-field: publicVirtualInterfaceId
   description: 公网VLAN 唯一标识。
+response:
+- name: byoipId
+  type: string
+  description: 创建成功的 BYOIP ID。
+- name: cidrBlockId
+  type: string
+  description: 创建成功的 CIDR ID。

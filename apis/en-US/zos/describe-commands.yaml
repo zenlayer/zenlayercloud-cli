@@ -68,3 +68,10 @@ parameters:
   - name: value
     type: string
     description: 'Tag value. Length limit: 1 to 64 characters.'
+response:
+- name: dataSet
+  type: object-array
+  description: Command list.
+- name: totalCount
+  type: integer
+  description: Number of commands meeting the filtering conditions.

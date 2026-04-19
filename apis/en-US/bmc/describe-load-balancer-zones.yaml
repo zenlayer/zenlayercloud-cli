@@ -24,3 +24,7 @@ parameters:
     desc: Subscription.
   - value: POSTPAID
     desc: Pay-as-you-go.
+response:
+- name: zoneIdSet
+  type: string-array
+  description: zoneId result set.

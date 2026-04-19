@@ -58,3 +58,10 @@ parameters:
   required: false
   sdk-field: resourceGroupId
   description: 资源组ID。
+response:
+- name: totalCount
+  type: integer
+  description: 实例数量。
+- name: dataSet
+  type: object-array
+  description: 实例列表。

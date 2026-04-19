@@ -23,3 +23,7 @@ parameters:
   description: |-
     负载均衡监听器的 ID。
     如果未指定，则查询所有后端。
+response:
+- name: backends
+  type: object-array
+  description: 负载均衡的后端服务器状态。

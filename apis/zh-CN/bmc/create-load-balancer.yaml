@@ -147,3 +147,10 @@ parameters:
     description: |-
       标签值。
       长度限制：1～128字符。
+response:
+- name: orderNumber
+  type: string
+  description: 订单号。
+- name: loadBalancerId
+  type: string
+  description: 负载均衡ID。

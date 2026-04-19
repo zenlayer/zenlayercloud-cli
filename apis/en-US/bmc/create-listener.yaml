@@ -130,3 +130,7 @@ parameters:
   - name: apiAddress
     type: string
     description: Alarm address.
+response:
+- name: listenerId
+  type: string
+  description: The listener ID.

@@ -47,3 +47,10 @@ parameters:
     Number of pages returned.
     Default value: 1.
     Value range: [1, +).
+response:
+- name: dataSet
+  type: object-array
+  description: Execution list.
+- name: totalCount
+  type: integer
+  description: Number of executions meeting the filtering conditions.

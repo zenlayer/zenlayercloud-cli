@@ -34,7 +34,7 @@ parameters:
     必须以字母或数字开头和结尾，支持字母、数字、空格、连字符、斜杠、点号。
 - name: partition-num
   type: integer
-  required: true
+  required: false
   sdk-field: partitionNum
   description: |-
     置放组的分区数。
@@ -70,3 +70,7 @@ parameters:
     description: |-
       标签值。
       长度限制：1～64个字符。
+response:
+- name: placementGroupId
+  type: string
+  description: 创建成功的置放组ID。

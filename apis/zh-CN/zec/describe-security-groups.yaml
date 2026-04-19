@@ -2,7 +2,7 @@ name: DescribeSecurityGroups
 product: zec
 use: describe-security-groups
 short: 查询安全组列表
-long: 查询安全组列表。
+long: 查询账户下的安全组信息，支持按安全组 ID 或名称进行筛选，支持分页查询。
 examples:
 - cmd: zeno zec describe-security-groups --security-group-name --page-size 5 --page-num 1
   desc: 查询安全组列表。
@@ -33,3 +33,10 @@ parameters:
   required: false
   sdk-field: pageNum
   description: 返回的分页数。
+response:
+- name: totalCount
+  type: integer
+  description: 符合条件的数据总数。
+- name: dataSet
+  type: object-array
+  description: 安全组的结果数据。

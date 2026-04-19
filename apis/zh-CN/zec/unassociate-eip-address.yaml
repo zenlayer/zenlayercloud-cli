@@ -22,3 +22,7 @@ parameters:
   required: true
   sdk-field: eipIds
   description: 要解绑的弹性公网IP的ID列表。
+response:
+- name: failedEipIds
+  type: string-array
+  description: 操作失败的弹性IP的ID集合。

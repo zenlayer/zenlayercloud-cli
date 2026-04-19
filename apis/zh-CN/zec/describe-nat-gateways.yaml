@@ -86,3 +86,10 @@ parameters:
     description: |-
       标签值。
       长度限制：1～64个字符。
+response:
+- name: totalCount
+  type: integer
+  description: 满足过滤条件的NAT网关总数。
+- name: dataSet
+  type: object-array
+  description: 返回的NAT网关列表。

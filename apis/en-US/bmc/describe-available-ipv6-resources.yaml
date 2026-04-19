@@ -16,3 +16,7 @@ parameters:
   required: false
   sdk-field: zoneId
   description: Zone ID to which the CIDR blocks belong.
+response:
+- name: availableIpv6Resources
+  type: object-array
+  description: List of available IPv6 CIDR blocks.

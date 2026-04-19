@@ -31,3 +31,7 @@ parameters:
     公网出带宽上限。
     单位：Mbps。
     不同机型带宽上限范围不一致，具体限制详见购买网络带宽。
+response:
+- name: bandwidthPrice
+  type: object
+  description: 带宽的价格。

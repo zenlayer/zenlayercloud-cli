@@ -1,8 +1,10 @@
 name: DescribeEipInternetChargeTypes
 product: zec
 use: describe-eip-internet-charge-types
-short: Queries the information of network billing methods for a specified IP network type in a region
-long: Query the information of network billing methods for a specified IP network type in a region.
+short: |-
+  Queries the supported billing methods
+  for elastic IPs
+long: Query the available elastic IP billing methods for the specified region and line type. Use this to confirm valid billing options before creating an elastic IP.
 sdk:
   service: zec
   version: '2025-09-01'
@@ -64,3 +66,7 @@ parameters:
     desc: 1-Line IP China Telecom.
   - value: ThreeLine
     desc: 3-in-1 IP Pool.
+response:
+- name: internetChargeTypes
+  type: string-array
+  description: Information on network types.

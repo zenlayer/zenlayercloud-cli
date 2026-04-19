@@ -2,7 +2,7 @@ name: ModifyRouteAttribute
 product: zec
 use: modify-route-attribute
 short: Modifies basic informations of a route
-long: Modify basic informations of a route, including the route name.
+long: Modify basic information of a route, including the route name.
 examples:
 - cmd: zeno zec modify-route-attribute --route-id <routeId> --name Test
   desc: Modify the route name.

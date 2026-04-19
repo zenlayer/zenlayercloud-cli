@@ -37,3 +37,10 @@ parameters:
   required: false
   sdk-field: tagKeys
   description: 查询的标签键列表。
+response:
+- name: totalCount
+  type: integer
+  description: 列表总数量。
+- name: dataSet
+  type: object-array
+  description: 数据列表。

@@ -78,3 +78,7 @@ parameters:
   - name: desc
     type: string
     description: 备注,长度在255个以内。
+response:
+- name: securityGroupId
+  type: string
+  description: 创建的安全组ID。

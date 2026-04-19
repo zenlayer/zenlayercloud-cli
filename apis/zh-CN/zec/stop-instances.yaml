@@ -27,3 +27,7 @@ parameters:
   required: false
   sdk-field: forceShutdown
   description: 是否强制关机。
+response:
+- name: instanceIds
+  type: string-array
+  description: 操作失败的实例ID列表。

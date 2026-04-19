@@ -1,8 +1,8 @@
 name: DescribeIpv6Cidrs
 product: zec
 use: describe-ipv6-cidrs
-short: 查询IPV6 CIDR地址块列表
-long: 查询IPV6 CIDR地址块列表。
+short: 查询 IPv6 CIDR 地址块列表
+long: 查询账户下的 IPv6 CIDR 地址块信息，支持按 CIDR ID、地域、名称、地址段筛选，支持标签过滤和分页查询。
 examples:
 - cmd: zeno zec describe-ipv6-cidrs --cidr-ids xxx --region-id asia-east-1 --cidr-block 2400:8a00::/28 --page-size 10 --page-num 1
   desc: 查询CidrBlock为`2400:8a00::/28`的Cidr列表
@@ -72,3 +72,10 @@ parameters:
     description: |-
       标签值。
       长度限制：1～64个字符。
+response:
+- name: totalCount
+  type: integer
+  description: 符合条件的数据总数。
+- name: dataSet
+  type: object-array
+  description: 查询IPV6 CIDR地址的结果数据。

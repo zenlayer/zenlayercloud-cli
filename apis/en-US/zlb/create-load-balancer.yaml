@@ -190,3 +190,10 @@ parameters:
   description: |-
     Security group ID.
     You can call DescribeSecurityGroups to obtain details.
+response:
+- name: orderNumber
+  type: string
+  description: Order number.
+- name: loadBalancerIds
+  type: string-array
+  description: A collection of unique IDs of the load balancers.

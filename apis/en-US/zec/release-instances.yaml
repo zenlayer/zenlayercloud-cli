@@ -22,3 +22,7 @@ parameters:
   description: |-
     Instance ID(s).
     To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response. The maximum number of instances in each request is 100.
+response:
+- name: instanceIds
+  type: string-array
+  description: List of instance IDs that failed the operation.

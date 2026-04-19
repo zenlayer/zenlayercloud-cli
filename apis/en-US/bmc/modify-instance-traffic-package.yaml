@@ -35,3 +35,7 @@ parameters:
   description: |-
     Traffic package size.
     The value must be a multiple of 0.05.
+response:
+- name: orderNumber
+  type: string
+  description: Number of order.

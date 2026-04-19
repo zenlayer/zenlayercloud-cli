@@ -43,3 +43,7 @@ parameters:
   required: false
   sdk-field: weight
   description: Weight of the instance.
+response:
+- name: backendId
+  type: string
+  description: Backend server ID.

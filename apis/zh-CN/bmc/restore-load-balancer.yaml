@@ -20,3 +20,7 @@ parameters:
   required: true
   sdk-field: loadBalancerId
   description: 负载均衡实例的ID。
+response:
+- name: orderNumber
+  type: string
+  description: 订单号。

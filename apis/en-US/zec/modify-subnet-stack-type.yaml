@@ -1,9 +1,9 @@
 name: ModifySubnetStackType
 product: zec
 use: modify-subnet-stack-type
-short: Modifies the IP stack type of subnet under a global VPC
+short: Modifies the IP stack type of a subnet.
 long: |-
-  Modify the IP stack type of subnet under a global VPC.
+  Modify the IP stack type of the specified subnet (IPv4, IPv4_IPv6, or IPv6). When switching to dual-stack or IPv6-only, you must provide the IPv6 type and the corresponding CIDR block configuration.
   **Note**
 
   You can only change the IP stack type of subnet from `IPv4` to `IPv4_IPv6`.
@@ -60,3 +60,7 @@ parameters:
     This parameter must be used together with the ipv6CidrBlockId parameter.
     The default value is 96 if not explicitly provided.
     The minimum value must be greater than or equal to the prefix of the specified ipv6CidrBlockId, and the maximum value cannot exceed 96.
+response:
+- name: ipv6CidrBlock
+  type: string
+  description: IPv6 CIDR block of subnet.

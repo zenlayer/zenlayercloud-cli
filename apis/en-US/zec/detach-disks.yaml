@@ -31,3 +31,7 @@ parameters:
   description: |-
     Check instance running status.
     Default value: true , meaning disk detach allowed only when instance is shut down.
+response:
+- name: failedDiskIds
+  type: string-array
+  description: Disks failed to be detached.

@@ -25,3 +25,7 @@ parameters:
   required: false
   sdk-field: vpcRegionId
   description: VPC的节点ID。
+response:
+- name: vpcRegionSet
+  type: object-array
+  description: VpcRegionInfo结果集。

@@ -155,3 +155,10 @@ parameters:
     description: |-
       标签值。
       长度限制：1～128字符。
+response:
+- name: totalCount
+  type: integer
+  description: 符合条件的数据总数。
+- name: dataSet
+  type: object-array
+  description: 结果集。

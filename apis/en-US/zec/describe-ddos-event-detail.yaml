@@ -21,3 +21,49 @@ parameters:
   required: true
   sdk-field: regionId
   description: Region ID.
+response:
+- name: eventId
+  type: string
+  description: The unique ID of the attack event.
+- name: status
+  type: enum
+  description: Attack state.
+- name: type
+  type: enum
+  description: Attack type.
+- name: ipAddress
+  type: string
+  description: Attacked target IP.
+- name: protecting
+  type: boolean
+  description: Whether the IP is being protected.
+- name: startTime
+  type: string
+  description: Attack start time.
+- name: endTime
+  type: string
+  description: Attack end time.
+- name: endBlackholeTime
+  type: string
+  description: Time to unblock from blackhole.
+- name: attackBandwidthMax
+  type: float
+  description: 'Peak attack bandwidth. Unit: bps.'
+- name: protectedBandwidthMax
+  type: float
+  description: 'Peak mitigation bandwidth. Unit: bps.'
+- name: attackPackageMax
+  type: float
+  description: 'Peak attack packet rate. Unit: pps.'
+- name: protectedPackageMax
+  type: float
+  description: 'Peak mitigation packet rate. Unit: pps.'
+- name: sourceIp
+  type: string-array
+  description: Attack source IP.
+- name: sourcePort
+  type: object-array
+  description: Attack source port.
+- name: desertionPort
+  type: object-array
+  description: Attack target port.

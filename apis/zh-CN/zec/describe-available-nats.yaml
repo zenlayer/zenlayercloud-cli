@@ -16,3 +16,7 @@ parameters:
   required: true
   sdk-field: zbgId
   description: 要查询需要绑定的边界网关ID。
+response:
+- name: natIds
+  type: string-array
+  description: 可以绑定边界网关的NAT ID集合。

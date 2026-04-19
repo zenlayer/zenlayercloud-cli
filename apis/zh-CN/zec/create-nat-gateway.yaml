@@ -74,3 +74,10 @@ parameters:
     description: |-
       标签值。
       长度限制：1～64个字符。
+response:
+- name: orderNumber
+  type: string
+  description: 下单编号。
+- name: natGatewayId
+  type: string
+  description: NAT网关唯一ID。

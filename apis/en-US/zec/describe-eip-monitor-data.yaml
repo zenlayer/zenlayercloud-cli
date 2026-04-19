@@ -40,3 +40,49 @@ parameters:
   required: true
   sdk-field: endTime
   description: End time.
+response:
+- name: inMaxValue
+  type: float
+  description: Inbound maximum value.
+- name: inAvgValue
+  type: float
+  description: Inbound average value.
+- name: inMinValue
+  type: float
+  description: Inbound minimum value.
+- name: inTotalValue
+  type: float
+  description: Inbound total value.
+- name: outMaxValue
+  type: float
+  description: Outbound maximum value.
+- name: outAvgValue
+  type: float
+  description: Outbound average value.
+- name: outMinValue
+  type: float
+  description: Outbound minimum value.
+- name: outTotalValue
+  type: float
+  description: Outbound total value.
+- name: loseOutMaxValue
+  type: float
+  description: Outbound maximum loss value.
+- name: loseOutMinValue
+  type: float
+  description: Outbound minimum loss value.
+- name: loseOutTotalValue
+  type: float
+  description: Outbound total loss value.
+- name: loseInMaxValue
+  type: float
+  description: Inbound maximum loss value.
+- name: loseInMinValue
+  type: float
+  description: Inbound minimum loss value.
+- name: loseInTotalValue
+  type: float
+  description: Inbound total loss value.
+- name: dataList
+  type: object-array
+  description: Information on performance data.

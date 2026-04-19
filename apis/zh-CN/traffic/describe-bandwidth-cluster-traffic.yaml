@@ -46,3 +46,62 @@ parameters:
     该值可以是城市英文名也可以是城市码。
     指定该值，将会只返回该城市的带宽流量数据。
     当前带宽组的城市码和城市名称可以在[DescribeBandwidthClusters](../bandwidth-cluster/describebandwidthclusters.md)中的cities字段中查看。
+response:
+- name: dataList
+  type: object-array
+  description: 带宽数据列表。
+- name: in95
+  type: integer
+  description: 入口带宽95值。
+- name: in95Time
+  type: string
+  description: |-
+    入口带宽95值时间。
+    格式为：YYYY-MM-ddTHH:mm:ssZ。
+- name: inAvg
+  type: integer
+  description: 入口带宽平均值。
+- name: inMax
+  type: integer
+  description: 入口带宽最大值。
+- name: inMin
+  type: integer
+  description: 入口带宽最小值。
+- name: inTotal
+  type: integer
+  description: 入口带宽总流量。
+- name: out95
+  type: integer
+  description: 出口带宽95值。
+- name: out95Time
+  type: string
+  description: |-
+    出口带宽95值时间。
+    格式为：YYYY-MM-ddTHH:mm:ssZ。
+- name: outAvg
+  type: integer
+  description: 出口带宽平均值。
+- name: outMax
+  type: integer
+  description: 出口带宽最大值。
+- name: outMin
+  type: integer
+  description: 出口带宽最小值。
+- name: outTotal
+  type: integer
+  description: 出口带宽总流量。
+- name: maxBandwidth95ValueMbps
+  type: float
+  description: |-
+    最大带宽95值。
+    单位：Mbps。
+- name: totalUnit
+  type: string
+  description: |-
+    总流量单位。
+    例如：B。
+- name: unit
+  type: string
+  description: |-
+    带宽值单位。
+    例如：bps。

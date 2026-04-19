@@ -18,3 +18,7 @@ parameters:
   description: |-
     机器实例ID 。
     可通过DescribeInstances接口返回的instanceId获取。
+response:
+- name: instanceEipResources
+  type: object-array
+  description: 实例可用EIP列表。

@@ -36,3 +36,10 @@ parameters:
   required: false
   sdk-field: pageSize
   description: 返回的分页大小。默认为20，最大为1000。
+response:
+- name: totalCount
+  type: integer
+  description: 符合条件的后端配置服务器总数量。
+- name: dataSet
+  type: object-array
+  description: 后端配置服务器集合。

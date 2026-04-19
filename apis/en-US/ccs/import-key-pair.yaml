@@ -40,3 +40,7 @@ parameters:
     Public SSH keys in OpenSSH format.
     Up to 5 public keys are allowed, separated by pressing ENTER key.
     For example: ssh-rsa XXXXXXXXXXXX key
+response:
+- name: keyId
+  type: string
+  description: Key pair ID.

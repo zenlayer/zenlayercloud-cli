@@ -16,3 +16,10 @@ parameters:
   required: true
   sdk-field: regionId
   description: 区域节点ID。
+response:
+- name: natGatewayPrice
+  type: object
+  description: NAT网关的价格。
+- name: cuPrice
+  type: object
+  description: NAT网关CU的价格。

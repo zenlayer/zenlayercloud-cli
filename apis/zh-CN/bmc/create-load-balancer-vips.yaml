@@ -21,3 +21,10 @@ parameters:
   required: true
   sdk-field: count
   description: 额外创建IP数量。
+response:
+- name: orderNumber
+  type: string
+  description: 订单号。若LB是VIP6类型则返回空
+- name: vipIdSet
+  type: string-array
+  description: IP ID集合。

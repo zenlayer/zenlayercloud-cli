@@ -1,9 +1,15 @@
 name: DescribeDiskRegions
 product: zec
 use: describe-disk-regions
-short: Queries the regional information supporting the sale of disks
-long: Query the regional information supporting the sale of disks.
+short: Queries regions that support cloud disk sales
+long: |-
+  Query all regions and zones where cloud disks can be created and purchased under the current
+  account.
 sdk:
   service: zec
   version: '2025-09-01'
   action: DescribeDiskRegions
+response:
+- name: regionIds
+  type: string-array
+  description: Information on regions.

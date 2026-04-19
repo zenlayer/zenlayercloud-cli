@@ -66,3 +66,7 @@ parameters:
   required: false
   sdk-field: advertisedRouteIds
   description: ID list of the custom routes to be advertised.
+response:
+- name: zbgId
+  type: string
+  description: Border gateway ID.

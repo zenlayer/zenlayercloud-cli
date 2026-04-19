@@ -85,3 +85,10 @@ parameters:
   - name: value
     type: string
     description: 'Tag value. Length limit: 1 to 64 characters.'
+response:
+- name: totalCount
+  type: integer
+  description: The total number of NAT gateways that meet the filtering conditions.
+- name: dataSet
+  type: object-array
+  description: The returned NAT gateway list.

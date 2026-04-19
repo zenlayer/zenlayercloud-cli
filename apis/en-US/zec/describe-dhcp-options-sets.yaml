@@ -73,3 +73,10 @@ parameters:
   - name: value
     type: string
     description: 'Tag value. Length limit: 1 to 64 characters.'
+response:
+- name: totalCount
+  type: integer
+  description: Number of disks meeting the filtering conditions.
+- name: dataSet
+  type: object-array
+  description: Data for the list of DHCP options sets.

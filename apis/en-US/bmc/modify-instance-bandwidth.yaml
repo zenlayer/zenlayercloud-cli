@@ -35,3 +35,7 @@ parameters:
   description: |-
     Bandwidth.
     Value range: from 1 to maximum supported for the instance model.
+response:
+- name: orderNumber
+  type: string
+  description: Number of order.

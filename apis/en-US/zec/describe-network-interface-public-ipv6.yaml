@@ -2,7 +2,7 @@ name: DescribeNetworkInterfacePublicIPv6
 product: zec
 use: describe-network-interface-public-ipv6
 short: Queries the public IPv6 information of a vNIC
-long: Query the public IPv6 information of a vNIC.
+long: Query the public IPv6 address and its associated billing method and bandwidth configuration assigned to the specified vNIC.
 examples:
 - cmd: zeno zec describe-network-interface-public-ipv6 --nic-id <nicId>
   desc: Query the public IPv6 information of a vNIC.
@@ -16,3 +16,9 @@ parameters:
   required: true
   sdk-field: nicId
   description: vNIC ID.
+response:
+- name: address
+  type: object
+  description: |-
+    Public IPv6 information.
+    If the vNIC does not have a public IPv6 address, the value is empty.

@@ -30,3 +30,7 @@ parameters:
   description: |-
     ID of the CIDR block.
     You can find the cidrBlockId in the response by calling DescribeCidrBlocks .
+response:
+- name: cidrBlockIps
+  type: object-array
+  description: IPs of the CIDR block.

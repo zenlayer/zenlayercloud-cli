@@ -38,3 +38,7 @@ parameters:
   description: |-
     每台实例执行命令的超时时间。
     单位秒。
+response:
+- name: invocationId
+  type: string
+  description: 命令执行记录编号。

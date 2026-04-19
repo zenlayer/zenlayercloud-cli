@@ -20,3 +20,7 @@ parameters:
   required: true
   sdk-field: imageIds
   description: 镜像ID列表。
+response:
+- name: imageIds
+  type: string-array
+  description: 操作失败的镜像ID列表。

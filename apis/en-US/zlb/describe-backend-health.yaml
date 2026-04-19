@@ -23,3 +23,7 @@ parameters:
   description: |-
     Load balance listener ID.
     If not specified, all backend servers will be queried.
+response:
+- name: backends
+  type: object-array
+  description: Health state of backend servers.

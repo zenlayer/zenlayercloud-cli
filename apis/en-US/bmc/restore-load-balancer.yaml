@@ -20,3 +20,7 @@ parameters:
   required: true
   sdk-field: loadBalancerId
   description: The ID of the load balance instance.
+response:
+- name: orderNumber
+  type: string
+  description: Order number.

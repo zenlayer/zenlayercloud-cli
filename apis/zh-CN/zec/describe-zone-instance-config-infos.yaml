@@ -25,3 +25,7 @@ parameters:
   description: |-
     要查询的实例规格。
     例如：z2a.cpu.1。
+response:
+- name: instanceTypeQuotaSet
+  type: object-array
+  description: 实例规格信息。

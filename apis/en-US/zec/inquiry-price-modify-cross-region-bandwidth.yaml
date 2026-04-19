@@ -27,3 +27,7 @@ parameters:
   required: true
   sdk-field: bandwidth
   description: Bandwidth cap.
+response:
+- name: crossRegionBandwidthPrice
+  type: object
+  description: The price of cross-region bandwidth.

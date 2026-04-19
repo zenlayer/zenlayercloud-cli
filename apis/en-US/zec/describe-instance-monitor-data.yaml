@@ -136,6 +136,42 @@ parameters:
     desc: |-
       Total outbound error packets per second for the vNIC’s VF and Virtio interfaces.
       Unit: packets .
+  - value: RX_BITS
+    desc: |-
+      Number of bits received per second by the VM VF NIC.
+      Unit: bits.
+  - value: TX_BITS
+    desc: |-
+      Number of bits sent per second by the VM VF NIC.
+      Unit: bits.
+  - value: UPTIME
+    desc: |-
+      Instance uptime duration.
+      Unit: seconds.
+  - value: GPU_UTILIZATION
+    desc: |-
+      GPU utilization.
+      Unit: percentage.
+  - value: GPU_TEMPERATURE
+    desc: |-
+      GPU temperature.
+      Unit: degrees Celsius.
+  - value: GPU_MEMORY_USED
+    desc: |-
+      GPU memory used.
+      Unit: MiB.
+  - value: GPU_MEMORY_UTILIZATION
+    desc: |-
+      GPU memory utilization.
+      Unit: percentage.
+  - value: GPU_POWER_DRAW
+    desc: |-
+      GPU power draw.
+      Unit: watts (W).
+  - value: GPU_FAN_SPEED
+    desc: |-
+      GPU fan speed.
+      Unit: percentage.
 - name: start-time
   type: string
   required: true
@@ -146,3 +182,16 @@ parameters:
   required: true
   sdk-field: endTime
   description: End time.
+response:
+- name: maxValue
+  type: float
+  description: Maximum value.
+- name: minValue
+  type: float
+  description: Minimum value.
+- name: avgValue
+  type: float
+  description: Average value.
+- name: metrics
+  type: object-array
+  description: Information on performance data.

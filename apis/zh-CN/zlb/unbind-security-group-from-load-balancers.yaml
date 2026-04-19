@@ -16,3 +16,7 @@ parameters:
   required: true
   sdk-field: loadBalancerIds
   description: 要解绑安全组的负载均衡ID集合。
+response:
+- name: failedLoadBalancerIds
+  type: string-array
+  description: 解绑失败的负载均衡实例集合。

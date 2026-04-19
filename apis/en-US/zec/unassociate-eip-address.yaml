@@ -17,3 +17,7 @@ parameters:
   required: true
   sdk-field: eipIds
   description: ID list of elastic IPs.
+response:
+- name: failedEipIds
+  type: string-array
+  description: Elastic IP IDs that failed to operate.

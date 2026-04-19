@@ -32,3 +32,7 @@ parameters:
     是否检测实例的运行状态。
     默认为true，即实例关机才允许被卸载。
     否则必须实例关机才能调用本接口。
+response:
+- name: failedDiskIds
+  type: string-array
+  description: 解绑失败的云硬盘。

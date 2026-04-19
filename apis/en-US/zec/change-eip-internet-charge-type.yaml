@@ -36,3 +36,7 @@ parameters:
   description: |-
     Bandwidth cluster ID.
     Must be specified if changing to bandwidth cluster billing.
+response:
+- name: orderNumber
+  type: string
+  description: Order No.

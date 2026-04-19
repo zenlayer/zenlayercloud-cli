@@ -20,3 +20,9 @@ parameters:
   required: true
   sdk-field: placementGroupIds
   description: List of placement group IDs to delete.
+response:
+- name: failedPlacementGroupIds
+  type: string-array
+  description: |-
+    List of placement group IDs that failed to be deleted.
+    Empty if all deletions succeeded.

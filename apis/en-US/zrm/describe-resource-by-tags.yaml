@@ -33,3 +33,10 @@ parameters:
   required: false
   sdk-field: tagKeys
   description: List of tag keys.
+response:
+- name: totalCount
+  type: integer
+  description: Total number of results.
+- name: dataSet
+  type: object-array
+  description: Detailed result information.

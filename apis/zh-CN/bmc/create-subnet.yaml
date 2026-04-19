@@ -52,3 +52,7 @@ parameters:
   required: false
   sdk-field: vpcId
   description: VPC的ID。
+response:
+- name: subnetId
+  type: string
+  description: Subnet的ID。

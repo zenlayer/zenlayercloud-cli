@@ -44,3 +44,31 @@ parameters:
   description: |-
     End time.
     Time format: yyyy-MM-ddTHH: mm: ssZ .
+response:
+- name: inMaxValue
+  type: float
+  description: Maximum inbound bandwidth.
+- name: inAvgValue
+  type: float
+  description: Average inbound bandwidth.
+- name: inMinValue
+  type: float
+  description: Minimum inbound bandwidth.
+- name: inTotalValue
+  type: float
+  description: Total inbound bandwidth.
+- name: outMaxValue
+  type: float
+  description: Maximum outbound bandwidth.
+- name: outAvgValue
+  type: float
+  description: Average outbound bandwidth.
+- name: outMinValue
+  type: float
+  description: Minimum outbound bandwidth.
+- name: outTotalValue
+  type: float
+  description: Total outbound bandwidth.
+- name: dataList
+  type: object-array
+  description: Information on performance metric data.

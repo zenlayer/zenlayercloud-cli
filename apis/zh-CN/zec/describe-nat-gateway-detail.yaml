@@ -16,3 +16,16 @@ parameters:
   required: true
   sdk-field: natGatewayId
   description: NAT网关 ID。
+response:
+- name: natGatewayId
+  type: string
+  description: NAT网关唯一ID。
+- name: name
+  type: string
+  description: NAT网关名称。
+- name: snats
+  type: object-array
+  description: SNAT网关规则集合。
+- name: dnats
+  type: object-array
+  description: DNAT网关规则集合。

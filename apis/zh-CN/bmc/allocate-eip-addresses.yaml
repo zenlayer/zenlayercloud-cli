@@ -114,3 +114,14 @@ parameters:
     description: |-
       标签值。
       长度限制：1～128字符。
+response:
+- name: eipIdSet
+  type: string-array
+  description: |-
+    EIP 的ID列表。
+    当通过本接口来创建EIP时会返回该参数，表示一个或多个EIP ID。返回EIP ID列表并不代表EIP创建成功，可根据 DescribeEipAddresses 接口查询对应EIP ID的状态来判断创建是否完成；如果EIP状态由CREATING(创建中)变为AVAILABLE，则为创建成功。
+- name: orderNumber
+  type: string
+  description: |-
+    订单编号。
+    当eipChargeType为PREPAID时会返回。

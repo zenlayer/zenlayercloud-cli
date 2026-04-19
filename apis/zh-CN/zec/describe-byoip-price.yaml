@@ -27,3 +27,7 @@ parameters:
   - name: regionId
     type: string
     description: 区域id。
+response:
+- name: byoipPrices
+  type: object-array
+  description: BYOIP 价格列表。

@@ -15,3 +15,36 @@ parameters:
   description: |-
     Instance ID.
     To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response.
+response:
+- name: instanceId
+  type: string
+  description: Instance ID.
+- name: instanceName
+  type: string
+  description: Instance name.
+- name: internetMaxBandwidthOut
+  type: integer
+  description: Current instance bandwidth.
+- name: modifiedInternetMaxBandwidthOut
+  type: integer
+  description: Modified instance bandwidth.
+- name: modifiedBandwidthStatus
+  type: string
+  description: |-
+    Status of instance bandwidth.
+    Processing : modifying.
+    Enable : effective now.
+    WaitToEnable : effective in next billing cycle.
+- name: trafficPackageSize
+  type: float
+  description: Current instance traffic package
+- name: modifiedTrafficPackageSize
+  type: float
+  description: Modified instance traffic package
+- name: modifiedTrafficPackageStatus
+  type: string
+  description: |-
+    Status of instance traffic package
+    Processing : modifying.
+    Enable : effective now.
+    WaitToEnable : effective in next billing cycle.

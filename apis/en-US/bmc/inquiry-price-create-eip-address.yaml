@@ -55,3 +55,7 @@ parameters:
   description: |-
     The netmask.
     You can obtain the list of available netmasks from the DescribeEipAvailableResources API.
+response:
+- name: eipPrice
+  type: object
+  description: Price of the elastic IP.

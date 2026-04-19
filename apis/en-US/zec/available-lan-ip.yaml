@@ -1,8 +1,8 @@
 name: AvailableLanIp
 product: zec
 use: available-lan-ip
-short: Obtains the available private IP
-long: Obtain the available private IP.
+short: List of vNIC/IP pairs eligible for association with the specified EIP
+long: Query a list of NIC/IP pairs (within the same subnet) that are eligible to be associated with the specified EIP.
 sdk:
   service: zec
   version: '2025-09-01'
@@ -12,4 +12,8 @@ parameters:
   type: string
   required: true
   sdk-field: eipId
-  description: ID of the elastic IP.
+  description: "ID of the elastic IP to check association eligibility for.\nOnly vNICs whose subnet is within the same region as this EIP will be returned. \nTo obtain an EIP ID, call DescribeEips."
+response:
+- name: lanIps
+  type: object-array
+  description: List of NIC/IP pairs (within the same subnet) that are eligible to be associated with the specified EIP.

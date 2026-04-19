@@ -22,3 +22,7 @@ parameters:
   required: true
   sdk-field: snapshotIds
   description: List of snapshot IDs.
+response:
+- name: snapshotIds
+  type: string-array
+  description: The IDs of the snapshots that failed to be deleted.

@@ -81,3 +81,10 @@ parameters:
   required: false
   sdk-field: pageNum
   description: 返回的分页数。
+response:
+- name: totalCount
+  type: integer
+  description: 符合条件的数据总数。
+- name: dataSet
+  type: object-array
+  description: 路由列表数据。

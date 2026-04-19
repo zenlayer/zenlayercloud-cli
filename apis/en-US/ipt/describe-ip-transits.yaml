@@ -81,3 +81,10 @@ parameters:
     description: |-
       Tag value.
       Length limit: 1-128 characters.
+response:
+- name: totalCount
+  type: integer
+  description: Total number of data meeting the conditions.
+- name: dataSet
+  type: object-array
+  description: IP Transit result set.

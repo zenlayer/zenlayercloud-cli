@@ -1,8 +1,8 @@
 name: ModifyEipAttribute
 product: zec
 use: modify-eip-attribute
-short: 修改弹性公网IP属性
-long: 修改弹性公网IP属性。
+short: 修改弹性公网 IP 的名称
+long: 修改指定弹性公网 IP 的名称。如需修改计费方式或带宽，请使用 ChangeEipInternetChargeType 或 ModifyEipBandwidth 接口。
 examples:
 - cmd: zeno zec modify-eip-attribute --eip-id <eipId> --name Test-IP
   desc: 修改弹性IP的名称。

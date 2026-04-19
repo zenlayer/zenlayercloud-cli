@@ -94,3 +94,7 @@ parameters:
   required: false
   sdk-field: isHA
   description: 查询实例机型时，是否是高可用机型。
+response:
+- name: instanceTypes
+  type: object-array
+  description: 查询的机型信息。

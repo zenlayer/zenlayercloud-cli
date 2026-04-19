@@ -20,3 +20,7 @@ parameters:
   required: true
   sdk-field: imageIds
   description: List of image IDs.
+response:
+- name: imageIds
+  type: string-array
+  description: List of image IDs that failed to be deleted.

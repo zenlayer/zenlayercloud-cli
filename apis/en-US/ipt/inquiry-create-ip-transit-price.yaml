@@ -82,3 +82,15 @@ parameters:
     desc: All routes with default routes.
   - value: DEFAULT_ROUTES
     desc: Default routes.
+response:
+- name: privateConnectPrice
+  type: object
+  description: |-
+    Private connect price of the IP Transit.
+    If the IP Transit and port are in the same data center, the value is empty.
+- name: iptBandwidthPrice
+  type: object
+  description: Public bandwidth price of the IP Transit.
+- name: publicIpPrices
+  type: object-array
+  description: Public IP prices of the IP Transit.

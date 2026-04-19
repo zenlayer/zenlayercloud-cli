@@ -67,3 +67,7 @@ parameters:
   required: false
   sdk-field: advertisedRouteIds
   description: 自定义路由ID集合。
+response:
+- name: zbgId
+  type: string
+  description: 边界网关的ID。

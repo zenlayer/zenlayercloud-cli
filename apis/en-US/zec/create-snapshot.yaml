@@ -36,3 +36,7 @@ parameters:
     Format: YYYY-MM-ddTHH:mm:ssZ.
     If not transmitted, it means that it is retained indefinitely.
     The specified time must be 24 hours after the current time.
+response:
+- name: snapshotId
+  type: string
+  description: The IDs of the created snapshots.

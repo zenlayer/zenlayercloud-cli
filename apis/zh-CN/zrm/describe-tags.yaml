@@ -55,3 +55,10 @@ parameters:
     description: |-
       标签值。
       长度限制：1～64个字符。
+response:
+- name: totalCount
+  type: integer
+  description: 列表总数量。
+- name: dataSet
+  type: object-array
+  description: 数据列表。

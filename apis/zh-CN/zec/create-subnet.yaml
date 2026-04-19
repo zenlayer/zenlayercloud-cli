@@ -90,3 +90,7 @@ parameters:
     该参数必须与ipv6CidrBlockId参数配合使用。
     当未显式传递时，默认值为96。
     最小必须大于或等于指定ipv6CidrBlockId的前缀，最大不能超过96。
+response:
+- name: subnetId
+  type: string
+  description: 创建的子网ID。

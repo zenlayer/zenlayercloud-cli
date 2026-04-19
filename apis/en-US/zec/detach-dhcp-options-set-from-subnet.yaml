@@ -16,3 +16,7 @@ parameters:
   required: true
   sdk-field: subnetIds
   description: ID list of the subnets to be disassociated from the DHCP options set.
+response:
+- name: failedSubnetIds
+  type: string-array
+  description: A list of subnet IDs that failed to be operated.

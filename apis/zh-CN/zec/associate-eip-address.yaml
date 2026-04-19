@@ -66,3 +66,7 @@ parameters:
     desc: 普通NAT模式。
   - value: Passthrough
     desc: 高速模式。
+response:
+- name: failedEipIds
+  type: string-array
+  description: 绑定失败的IP。

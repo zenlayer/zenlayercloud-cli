@@ -65,3 +65,10 @@ parameters:
   - name: value
     type: string
     description: 'Tag value. Length limit: 1 to 64 characters.'
+response:
+- name: dataSet
+  type: object-array
+  description: The data results of the snapshot schedule queried.
+- name: totalCount
+  type: integer
+  description: The total number of matching results.

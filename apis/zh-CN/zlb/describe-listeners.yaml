@@ -33,3 +33,7 @@ parameters:
     desc: TCP 协议。
   - value: UDP
     desc: UDP 协议。
+response:
+- name: listeners
+  type: object-array
+  description: 监听器列表。

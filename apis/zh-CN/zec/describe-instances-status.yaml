@@ -1,8 +1,8 @@
 name: DescribeInstancesStatus
 product: zec
 use: describe-instances-status
-short: 查询实例的状态
-long: 查询实例的状态。
+short: 查询实例的运行状态
+long: 批量查询一个或多个弹性计算实例的当前运行状态，支持按实例 ID 列表和资源组筛选，支持分页查询。
 examples:
 - cmd: zeno zec describe-instances-status
   desc: 查询实例状态。
@@ -31,3 +31,10 @@ parameters:
   required: false
   sdk-field: resourceGroupId
   description: 根据资源组ID过滤。
+response:
+- name: totalCount
+  type: integer
+  description: 符合条件的数据总数。
+- name: dataSet
+  type: object-array
+  description: 实例状态数据。

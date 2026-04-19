@@ -84,3 +84,10 @@ parameters:
     突发带宽。
     单位：Mbps。
     当且仅当internetChargeType为ByInstanceBandwidth95时此字段必填。
+response:
+- name: orderNumber
+  type: string
+  description: 下单编号。
+- name: crossRegionBandwidthId
+  type: string
+  description: 内网跨区域带宽唯一ID。

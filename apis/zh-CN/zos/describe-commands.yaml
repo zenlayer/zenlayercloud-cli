@@ -66,3 +66,10 @@ parameters:
     description: |-
       标签值。
       长度限制：1～64个字符。
+response:
+- name: dataSet
+  type: object-array
+  description: 命令列表。
+- name: totalCount
+  type: integer
+  description: 匹配条件的命令总数。

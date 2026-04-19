@@ -1,8 +1,8 @@
 name: DescribeReflectUdpPortOptions
 product: zec
 use: describe-reflect-udp-port-options
-short: 获取默认UDP反射源端口列表
-long: 获取默认UDP反射源端口列表。
+short: 查询默认 UDP 反射源端口列表
+long: 查询 DDoS 防护策略中 UDP 反射攻击防护功能的默认封禁源端口列表，用于配置防护策略 `reflectUdpPort` 参数前的参考。
 examples:
 - cmd: zeno zec describe-reflect-udp-port-options
   desc: 获取默认UDP反射源端口列表
@@ -10,3 +10,7 @@ sdk:
   service: zec
   version: '2025-09-01'
   action: DescribeReflectUdpPortOptions
+response:
+- name: reflectUdpPorts
+  type: object-array
+  description: 默认UDP反射源端口列表。

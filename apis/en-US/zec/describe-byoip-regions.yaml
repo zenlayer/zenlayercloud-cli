@@ -10,3 +10,7 @@ sdk:
   service: zec
   version: '2025-09-01'
   action: DescribeByoipRegions
+response:
+- name: regions
+  type: object-array
+  description: Query the list of regions that support BYOIP CIDR block.

@@ -1,8 +1,8 @@
 name: ModifyPolicy
 product: zec
 use: modify-policy
-short: 修改防护策略
-long: 修改防护策略。
+short: 修改 DDoS 防护策略
+long: 修改指定 DDoS 防护策略的配置，包括策略名称、IP 黑白名单、封禁协议、区域封禁、特征过滤及流量控制规则。
 examples:
 - cmd: zeno zec modify-policy --policy-id <policyId> --config-type UdpReflect --policy-name policyName --reflect-udp-port {port=22} --reflect-udp-port {port=34}
   desc: 修改防护策略

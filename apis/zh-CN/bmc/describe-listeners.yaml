@@ -44,3 +44,10 @@ parameters:
   description: |-
     返回的分页大小。
     默认为20，最大为1000。
+response:
+- name: totalCount
+  type: integer
+  description: 符合条件的Listener总数量。
+- name: dataSet
+  type: object-array
+  description: 监听器集合。

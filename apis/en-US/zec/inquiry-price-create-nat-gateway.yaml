@@ -16,3 +16,10 @@ parameters:
   required: true
   sdk-field: regionId
   description: Region ID.
+response:
+- name: natGatewayPrice
+  type: object
+  description: Price of a NAT gateway.
+- name: cuPrice
+  type: object
+  description: CU fee of a NAT gateway.

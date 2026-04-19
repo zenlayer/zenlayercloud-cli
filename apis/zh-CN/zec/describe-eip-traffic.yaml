@@ -1,8 +1,8 @@
 name: DescribeEipTraffic
 product: zec
 use: describe-eip-traffic
-short: 查询弹性公网IP指定时间段内的流量信息
-long: 查询弹性公网IP指定时间段内的流量信息。
+short: 查询弹性公网 IP 的流量监控数据
+long: 查询指定弹性公网 IP 在指定时间段内的流量监控数据，支持按统计粒度（step）聚合，可按出口公网 IP 过滤。
 examples:
 - cmd: zeno zec describe-eip-traffic --eip-id 926368879272403391 --start-time 2023-07-11T08:00:011Z --end-time 2023-07-11T08:10:00Z
   desc: 查询EIP一段时间内的流量数据。
@@ -45,3 +45,57 @@ parameters:
   required: false
   sdk-field: wanIp
   description: 指定IP查询，该字段用于三线IP,可以指定IP地址查询流量。
+response:
+- name: dataList
+  type: object-array
+  description: 查询的数据点。
+- name: in95
+  type: integer
+  description: |-
+    入方向带宽95值。
+    单位：bps。
+- name: inAvg
+  type: integer
+  description: |-
+    入方向带宽平均值。
+    单位：bps。
+- name: inMax
+  type: integer
+  description: |-
+    入方向带宽的最大值。
+    单位：bps。
+- name: inMin
+  type: integer
+  description: |-
+    入方向带宽的最小值。
+    单位：bps。
+- name: inTotal
+  type: integer
+  description: |-
+    入方向的总字节。
+    单位：Byte。
+- name: out95
+  type: integer
+  description: |-
+    出方向带宽95值。
+    单位：bps。
+- name: outAvg
+  type: integer
+  description: |-
+    出方向带宽平均值。
+    单位：bps。
+- name: outMax
+  type: integer
+  description: |-
+    出方向带宽最大值。
+    单位：bps。
+- name: outMin
+  type: integer
+  description: |-
+    出方向带宽最小值。
+    单位：bps。
+- name: outTotal
+  type: integer
+  description: |-
+    入方向的总字节。
+    单位：bps。

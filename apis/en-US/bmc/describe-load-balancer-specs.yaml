@@ -29,3 +29,7 @@ parameters:
   required: true
   sdk-field: zoneId
   description: The zone ID.
+response:
+- name: specSet
+  type: object-array
+  description: Specification set.

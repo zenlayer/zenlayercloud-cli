@@ -78,3 +78,7 @@ parameters:
     description: |-
       标签值。
       长度限制：1～64个字符。
+response:
+- name: autoSnapshotPolicyId
+  type: string
+  description: 自动快照策略的ID。

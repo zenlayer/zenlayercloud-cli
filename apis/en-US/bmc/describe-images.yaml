@@ -59,3 +59,7 @@ parameters:
   required: false
   sdk-field: instanceTypeId
   description: Supported instance model ID.
+response:
+- name: images
+  type: object-array
+  description: Information on images.

@@ -73,3 +73,10 @@ parameters:
     description: |-
       标签值。
       长度限制：1～64个字符。
+response:
+- name: totalCount
+  type: integer
+  description: 匹配筛选条件的vpc总数量。
+- name: dataSet
+  type: object-array
+  description: 返回分页的vpc集合数据。

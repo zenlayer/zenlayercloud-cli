@@ -35,3 +35,7 @@ parameters:
   description: |-
     Number of additional private IPs to assign.
     Either this field or ipAddresses must be specified. If both are provided, ipAddresses takes precedence.
+response:
+- name: ipAddresses
+  type: string-array
+  description: Assigned private IPs.

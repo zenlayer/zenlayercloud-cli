@@ -33,3 +33,7 @@ parameters:
   description: |-
     Whether to force shutdown.
     If the value is empty, a forced shutdown will be performed by default.
+response:
+- name: instanceIds
+  type: string-array
+  description: A list of instance IDs that failed to shut down.

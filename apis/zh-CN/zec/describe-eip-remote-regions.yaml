@@ -67,3 +67,7 @@ parameters:
     desc: 中国电信。
   - value: ThreeLine
     desc: 三线IP。
+response:
+- name: peerRegionIds
+  type: string-array
+  description: 支持的远端的节点ID列表。

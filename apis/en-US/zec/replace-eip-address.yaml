@@ -29,3 +29,7 @@ parameters:
   - name: targetIp
     type: string
     description: Target IP.
+response:
+- name: failedEipIds
+  type: string-array
+  description: Elastic IP IDs that failed to replace.

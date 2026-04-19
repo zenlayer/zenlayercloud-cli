@@ -31,3 +31,7 @@ parameters:
   description: |-
     EIP所属的可用区ID。
     不传则查询所有区域可用的EIP。
+response:
+- name: eipResources
+  type: object-array
+  description: 购买EIP区域列表。

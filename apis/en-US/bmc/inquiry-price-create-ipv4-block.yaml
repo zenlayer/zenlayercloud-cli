@@ -63,3 +63,7 @@ parameters:
   description: |-
     Quantity of IPv4 CIDR blocks you want to purchase.
     Default value: 1.
+response:
+- name: price
+  type: object
+  description: Price of IPv4 CIDR blocks.

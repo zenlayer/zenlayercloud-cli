@@ -83,3 +83,15 @@ parameters:
     desc: 单产品合并95计费城市带宽组
   - value: ByBandwidthCluster
     desc: 跨产品合并95计费的带宽包
+response:
+- name: instancePrice
+  type: object
+  description: 实例价格。
+- name: bandwidthPrice
+  type: object-array
+  description: |-
+    公网带宽价格。
+    可能有多个价格，比如流量包计费，包含包的价格和用量超出包后的价格
+- name: primaryIpPrice
+  type: object
+  description: 主IP的价格。

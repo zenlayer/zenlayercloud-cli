@@ -16,3 +16,10 @@ parameters:
   required: true
   sdk-field: securityGroupId
   description: Security group ID.
+response:
+- name: ingressRuleList
+  type: object-array
+  description: Inbound rules.
+- name: egressRuleList
+  type: object-array
+  description: Outbound rules.

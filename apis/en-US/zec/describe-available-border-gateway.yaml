@@ -16,3 +16,7 @@ parameters:
   required: true
   sdk-field: natGatewayId
   description: Public NAT gateway ID.
+response:
+- name: zbgId
+  type: string
+  description: Border gateway ID.

@@ -1,8 +1,8 @@
 name: DescribeDiskCategory
 product: zec
 use: describe-disk-category
-short: 获取某个区域支持的云盘类型
-long: 获取某个区域支持的云盘类型。
+short: 查询可用区支持的云盘类型
+long: 查询指定可用区支持的云硬盘类型列表，可按云盘类别进行过滤，用于创建云盘前的参数确认。
 examples:
 - cmd: zeno zec describe-disk-category --zone-id europe-central-1a
   desc: 查询区域云硬盘支持的类型。
@@ -25,3 +25,7 @@ parameters:
     Basic NVMe SSD: 经济型 NVMe SSD。
     Standard NVMe SSD: 标准型 NVMe SSD。
     默认为Standard NVMe SSD。
+response:
+- name: categoryZoneSet
+  type: object-array
+  description: 可用区支持的云盘类型。

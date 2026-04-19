@@ -180,3 +180,28 @@ parameters:
       Basic NVMe SSD: the Basic NVMe SSD.
       Standard NVMe SSD: the Standard NVMe SSD.
       Default value: Standard NVMe SSD.
+response:
+- name: specPrice
+  type: object
+  description: Price of specifications.
+- name: gpuPrice
+  type: object
+  description: GPU price.
+- name: ipv4Price
+  type: object
+  description: IPv4 price.
+- name: ipv4BandwidthPrice
+  type: object
+  description: Public network IPv4 bandwidth price.
+- name: ipv6Price
+  type: object
+  description: IPv6 price.
+- name: ipv6BandwidthPrice
+  type: object
+  description: Public network IPv6 bandwidth price.
+- name: systemDiskPrice
+  type: object
+  description: Price of the boot disk.
+- name: dataDiskPrice
+  type: object
+  description: The price of the attached disk.

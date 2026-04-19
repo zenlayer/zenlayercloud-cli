@@ -1,8 +1,8 @@
 name: ModifyNatGatewayAttribute
 product: zec
 use: modify-nat-gateway-attribute
-short: Modifies the attributes of the NAT gateway
-long: Modify the attributes of the NAT gateway.
+short: Modifies the attributes of a NAT gateway
+long: Modify the name, associated subnets, ICMP reply setting, and security group of the specified NAT gateway.
 examples:
 - cmd: zeno zec modify-nat-gateway-attribute --nat-gateway-id natGatewayId --subnet-ids subnetId1 --subnet-ids subnetId2
   desc: Modify the attributes of the NAT gateway by attaching to specified subnets.

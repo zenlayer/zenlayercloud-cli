@@ -15,3 +15,7 @@ parameters:
   description: |-
     可用区ID。
     不传则查询所有可创建Subnet的可用区。
+response:
+- name: zoneIdSet
+  type: string-array
+  description: zone结果集。

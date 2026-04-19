@@ -16,3 +16,10 @@ parameters:
   required: true
   sdk-field: resourceUuid
   description: The unique ID of the resource.
+response:
+- name: totalCount
+  type: integer
+  description: Number of tags meeting the filtering conditions.
+- name: dataSet
+  type: object-array
+  description: Information on tags.

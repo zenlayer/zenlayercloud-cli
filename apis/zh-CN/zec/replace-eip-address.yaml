@@ -35,3 +35,7 @@ parameters:
     description: |-
       需要变更的目标IP。
       如果未指定，将由系统随机分配。
+response:
+- name: failedEipIds
+  type: string-array
+  description: 替换失败的IP的ID集合。

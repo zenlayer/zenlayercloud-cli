@@ -39,3 +39,7 @@ parameters:
     密钥对的公钥内容，OpenSSH 格式。
     公钥内容至多传5个公钥，通过换行(\n)分隔。
     示例值：ssh-rsa XXXXXXXXXXXX key。
+response:
+- name: keyId
+  type: string
+  description: 密钥对ID。

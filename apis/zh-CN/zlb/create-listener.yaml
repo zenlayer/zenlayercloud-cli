@@ -148,3 +148,7 @@ parameters:
   required: false
   sdk-field: idleTimeout
   description: 空闲超时时间，单位秒。
+response:
+- name: listenerId
+  type: string
+  description: 创建的监听器ID。

@@ -60,3 +60,7 @@ parameters:
     desc: NAT mode.
   - value: Passthrough
     desc: Bypass mode.
+response:
+- name: failedEipIds
+  type: string-array
+  description: Elastic IP IDs that failed to bind.

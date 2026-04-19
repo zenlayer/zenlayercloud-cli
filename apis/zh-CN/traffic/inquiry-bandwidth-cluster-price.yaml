@@ -73,3 +73,7 @@ parameters:
     desc: 虚拟机产品范围。
   - value: OFFLINE
     desc: 线下产品范围。
+response:
+- name: price
+  type: object
+  description: 描述带宽包的价格信息。

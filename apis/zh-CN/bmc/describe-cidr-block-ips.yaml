@@ -30,3 +30,7 @@ parameters:
   description: |-
     Cidr Block ID。
     可通过DescribeCidrBlocks接口返回值中的cidrBlockId获取。
+response:
+- name: cidrBlockIps
+  type: object-array
+  description: 结果集。

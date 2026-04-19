@@ -79,3 +79,7 @@ parameters:
   - name: desc
     type: string
     description: Description. 255 characters in length.
+response:
+- name: securityGroupId
+  type: string
+  description: The security group ID.

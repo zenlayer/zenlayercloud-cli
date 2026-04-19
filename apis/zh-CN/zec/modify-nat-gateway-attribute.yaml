@@ -2,7 +2,7 @@ name: ModifyNatGatewayAttribute
 product: zec
 use: modify-nat-gateway-attribute
 short: 修改NAT网关的属性
-long: 修改NAT网关的属性。
+long: 修改指定 NAT 网关的名称、关联子网、ICMP 回应及安全组配置。
 examples:
 - cmd: zeno zec modify-nat-gateway-attribute --nat-gateway-id natGatewayId --subnet-ids subnetId1 --subnet-ids subnetId2
   desc: 修改NAT网关属性, 修改指定的子网。

@@ -214,3 +214,10 @@ parameters:
     desc: NAT mode.
   - value: Passthrough
     desc: Bypass mode.
+response:
+- name: eipIds
+  type: string-array
+  description: ID list of elastic IPs.
+- name: orderNumber
+  type: string
+  description: Order No.

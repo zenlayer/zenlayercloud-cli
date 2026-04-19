@@ -35,3 +35,34 @@ parameters:
     Query end time.
     Use UTC time according to the ISO 8601 standard. Format: YYYY-MM-ddTHH:mm:ssZ.
     Defaults to current time.
+response:
+- name: dataList
+  type: object-array
+  description: List of bandwidth data.
+- name: in95
+  type: integer
+  description: 95th percentile value of inbound bandwidth.
+- name: inAvg
+  type: integer
+  description: Average value of inbound bandwidth.
+- name: inMax
+  type: integer
+  description: Maximum value of inbound bandwidth.
+- name: inMin
+  type: integer
+  description: Minimum value of inbound bandwidth.
+- name: out95
+  type: integer
+  description: 95th percentile value of outbound bandwidth.
+- name: outAvg
+  type: integer
+  description: Average value of outbound bandwidth.
+- name: outMax
+  type: integer
+  description: Maximum value of outbound bandwidth.
+- name: outMin
+  type: integer
+  description: Minimum value of outbound bandwidth.
+- name: unit
+  type: string
+  description: Bandwidth unit, e.g., bps.

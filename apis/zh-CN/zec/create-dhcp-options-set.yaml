@@ -82,3 +82,7 @@ parameters:
   description: |-
     DHCP选项集 描述信息。
     最长不超过255个字符。
+response:
+- name: dhcpOptionsSetId
+  type: string
+  description: DHCP 选项集ID。

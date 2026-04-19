@@ -56,3 +56,7 @@ parameters:
   description: |-
     购买的掩码。
     可以从DescribeEipAvailableResources接口中获取可用的掩码列表。
+response:
+- name: eipPrice
+  type: object
+  description: EIP价格。

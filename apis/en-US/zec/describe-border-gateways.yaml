@@ -48,3 +48,10 @@ parameters:
   description: |-
     Number of pages returned.
     Default value: 1.
+response:
+- name: totalCount
+  type: integer
+  description: Number of border gateways meeting the filtering conditions.
+- name: dataSet
+  type: object-array
+  description: Information on border gateways.

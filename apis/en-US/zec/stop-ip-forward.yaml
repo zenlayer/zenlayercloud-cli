@@ -1,9 +1,9 @@
 name: StopIpForward
 product: zec
 use: stop-ip-forward
-short: Disables IP forwarding of the instance
+short: Disables IP forwarding for an instance
 long: |-
-  Disable IP forwarding of the instance.
+  Disables IP forwarding on the specified elastic compute instance. After disabling, the instance will no longer forward network traffic destined for other hosts.
   **Note**
 
   Only operations on instances that are in powered-off or power-on state are supported.

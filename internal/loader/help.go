@@ -51,6 +51,12 @@ func GenerateHelp(def *APIDefinition, inheritedFlags *pflag.FlagSet) string {
 		b.WriteString(helpDoubleIndent + "(default 100 if not set).\n\n")
 	}
 
+	// OUTPUT
+	if len(def.Response) > 0 {
+		b.WriteString("\nOUTPUT\n")
+		b.WriteString(buildSchemaDoc(def.Response, helpIndent))
+	}
+
 	// EXAMPLES
 	if len(def.Examples) > 0 {
 		b.WriteString("\nEXAMPLES\n")

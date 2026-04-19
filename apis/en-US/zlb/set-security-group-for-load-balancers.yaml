@@ -23,3 +23,7 @@ parameters:
   required: true
   sdk-field: loadBalancerIds
   description: ID list of load balancers.
+response:
+- name: failedLoadBalancerIds
+  type: string-array
+  description: ID list of load balancers failed to change security group.

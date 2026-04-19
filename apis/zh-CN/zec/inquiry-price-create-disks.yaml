@@ -41,3 +41,7 @@ parameters:
     Basic NVMe SSD: 经济型 NVMe SSD。
     Standard NVMe SSD: 标准型 NVMe SSD。
     默认为Standard NVMe SSD。
+response:
+- name: dataDiskPrice
+  type: object
+  description: 云硬盘的价格。

@@ -1,9 +1,9 @@
 name: ModifySubnetStackType
 product: zec
 use: modify-subnet-stack-type
-short: 修改子网堆栈类型
+short: 修改子网的 IP 堆栈类型
 long: |-
-  修改子网堆栈类型。
+  修改指定子网的 IP 地址堆栈类型（IPv4 / IPv4_IPv6 / IPv6）。变更为双栈或纯 IPv6 时须配置 IPv6 类型及对应的 CIDR 地址块。
   **注意事项**
 
   * 当前子网的堆栈类型只能从`IPv4`切换为`IPv4_IPv6`。切换后，将得到一个IPv6地址段。
@@ -62,3 +62,7 @@ parameters:
     该参数必须与ipv6CidrBlockId参数配合使用。
     当未显式传递时，默认值为96。
     最小必须大于或等于指定ipv6CidrBlockId的前缀，最大不能超过96。
+response:
+- name: ipv6CidrBlock
+  type: string
+  description: 分配的IPv6地址段。

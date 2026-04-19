@@ -55,3 +55,16 @@ parameters:
   description: |-
     查询结束时间。
     时间格式：yyyy-MM-ddTHH:mm:ssZ。
+response:
+- name: maxValue
+  type: float
+  description: 数据点的最大值。
+- name: minValue
+  type: float
+  description: 数据点的最小值。
+- name: avgValue
+  type: float
+  description: 数据点的平均值。
+- name: metrics
+  type: object-array
+  description: 监控数据集合。

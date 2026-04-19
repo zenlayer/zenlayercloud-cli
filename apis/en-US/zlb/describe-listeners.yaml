@@ -33,3 +33,7 @@ parameters:
     desc: TCP protocol.
   - value: UDP
     desc: UDP protocol.
+response:
+- name: listeners
+  type: object-array
+  description: List of listeners.

@@ -1,9 +1,9 @@
 name: StopIpForward
 product: zec
 use: stop-ip-forward
-short: 关闭IP转发
+short: 关闭实例的 IP 转发功能
 long: |-
-  关闭IP转发。
+  为指定弹性计算实例关闭 IP 转发功能，关闭后该实例将不再转发非本机目的地的网络流量。
   **注意事项**
 
   * 实例状态必须处理运行(`RUNNING`)或关机的（`STOPPED`),才能让进行该操作。

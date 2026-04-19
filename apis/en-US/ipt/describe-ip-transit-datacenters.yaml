@@ -18,3 +18,7 @@ parameters:
   required: false
   sdk-field: peerDcId
   description: Specified data center ID.
+response:
+- name: supportSet
+  type: object-array
+  description: Result set.

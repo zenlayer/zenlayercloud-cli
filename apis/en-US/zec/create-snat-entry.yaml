@@ -47,3 +47,7 @@ parameters:
   description: |-
     IDs of subnets.
     Either cidr or subnetIds must be specified.
+response:
+- name: snatEntryId
+  type: string
+  description: The unique ID of the SNAT rule.

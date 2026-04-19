@@ -34,7 +34,7 @@ parameters:
     Must start and end with a letter or digit. Letters, digits, spaces, hyphens, slashes, and periods are supported.
 - name: partition-num
   type: integer
-  required: true
+  required: false
   sdk-field: partitionNum
   description: |-
     Number of partitions in the placement group.
@@ -66,3 +66,7 @@ parameters:
   - name: value
     type: string
     description: 'Tag value. Length limit: 1 to 64 characters.'
+response:
+- name: placementGroupId
+  type: string
+  description: ID of the successfully created placement group.

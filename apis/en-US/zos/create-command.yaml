@@ -63,3 +63,7 @@ parameters:
   - name: value
     type: string
     description: 'Tag value. Length limit: 1 to 64 characters.'
+response:
+- name: commandId
+  type: string
+  description: Created command ID.

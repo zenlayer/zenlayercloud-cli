@@ -1,9 +1,9 @@
 name: RenewDisk
 product: zec
 use: renew-disk
-short: Restores a disk
+short: Restores a disk from the recycle bin
 long: |-
-  Restore a disk.
+  Restores a cloud disk that is in the recycle bin, making it available again. Only disks within the retention period can be restored; resources are permanently destroyed after the period expires.
   **Note**
 
   * Operations on boot disks are not supported

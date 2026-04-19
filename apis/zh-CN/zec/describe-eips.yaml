@@ -140,3 +140,10 @@ parameters:
     desc: 流量包计费方式。
   - value: BandwidthCluster
     desc: 共享带宽包计费方式。
+response:
+- name: totalCount
+  type: integer
+  description: 满足过滤条件的EIP总数。
+- name: dataSet
+  type: object-array
+  description: 返回的EIP列表。

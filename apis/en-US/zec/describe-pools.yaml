@@ -1,8 +1,8 @@
 name: DescribePools
 product: zec
 use: describe-pools
-short: Queries the information of one or more specified IP pools
-long: Query the information of one or more IP pools. Users can search for IP pool information based on pool ID, pool name, etc.
+short: Queries the details of one or more IP pools
+long: Query public IP pool information in the account. You can filter results by pool ID, region, or name. Supports pagination.
 sdk:
   service: zec
   version: '2025-09-01'
@@ -37,3 +37,10 @@ parameters:
   required: false
   sdk-field: pageNum
   description: Number of pages returned.
+response:
+- name: totalCount
+  type: integer
+  description: Number of pools meeting the filtering conditions.
+- name: dataSet
+  type: object-array
+  description: Information on pools.

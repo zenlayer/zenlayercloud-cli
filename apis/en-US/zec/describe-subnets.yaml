@@ -56,3 +56,10 @@ parameters:
   required: false
   sdk-field: dhcpOptionsSetId
   description: ID of the associated DHCP options set.
+response:
+- name: totalCount
+  type: integer
+  description: Number of subnets meeting the filtering conditions.
+- name: dataSet
+  type: object-array
+  description: Information on a subnet.

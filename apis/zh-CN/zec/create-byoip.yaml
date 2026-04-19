@@ -83,3 +83,13 @@ parameters:
     description: |-
       标签值。
       长度限制：1～64个字符。
+response:
+- name: rpkiFailedList
+  type: string-array
+  description: RPKI 校验失败的 BYOIP 列表。
+- name: irrFailedList
+  type: string-array
+  description: IRR 校验失败的 BYOIP 列表。
+- name: byoipIds
+  type: string-array
+  description: 创建成功的 BYOIP ID 列表。

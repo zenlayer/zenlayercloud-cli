@@ -65,3 +65,7 @@ parameters:
     description: |-
       标签值。
       长度限制：1～128字符。
+response:
+- name: vpcId
+  type: string
+  description: VPC的ID。

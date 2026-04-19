@@ -16,3 +16,7 @@ parameters:
   required: false
   sdk-field: regionIds
   description: 根据节点ID过滤。
+response:
+- name: regionSet
+  type: object-array
+  description: 支持子网的节点信息。

@@ -23,3 +23,7 @@ parameters:
     Instance ID(s).
     To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response.
     The maximum number of instances in each request is 10.
+response:
+- name: monitorHealthList
+  type: object-array
+  description: List of hardware health information.

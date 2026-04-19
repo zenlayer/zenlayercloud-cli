@@ -10,3 +10,7 @@ sdk:
   service: zlb
   version: '2025-04-01'
   action: DescribeLoadBalancerRegions
+response:
+- name: regions
+  type: object-array
+  description: 节点列表。

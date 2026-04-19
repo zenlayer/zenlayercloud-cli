@@ -108,3 +108,13 @@ parameters:
   required: false
   sdk-field: peerRegionId
   description: Remote region ID.
+response:
+- name: eipPrice
+  type: object
+  description: Price of elastic IP.
+- name: bandwidthPrice
+  type: object
+  description: Price of bandwidth.
+- name: remoteBandwidthPrice
+  type: object
+  description: Price of remote ipt.

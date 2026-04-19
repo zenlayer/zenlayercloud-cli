@@ -47,3 +47,10 @@ parameters:
     Number of items in the current page result.
     Default value: 20 ;
     Maximum value: 1000 .
+response:
+- name: totalCount
+  type: integer
+  description: The total number of listeners that meet the filtering conditions.
+- name: dataSet
+  type: object-array
+  description: Listener set.

@@ -10,3 +10,7 @@ sdk:
   service: zec
   version: '2025-09-01'
   action: DescribeCrossRegionBandwidthRegions
+response:
+- name: regionIds
+  type: string-array
+  description: List of region IDs that supporting the sale of cross-region bandwidth.

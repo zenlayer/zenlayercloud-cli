@@ -94,3 +94,7 @@ parameters:
   required: false
   sdk-field: isHA
   description: High availability supported or not.
+response:
+- name: instanceTypes
+  type: object-array
+  description: Information on instance model.

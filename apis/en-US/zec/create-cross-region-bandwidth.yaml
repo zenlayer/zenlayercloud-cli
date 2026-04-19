@@ -83,3 +83,10 @@ parameters:
     Unit: Mbps.
     This field is required only when internetChargeType is set to ByInstanceBandwidth95 .
     Available range: [1, +).
+response:
+- name: orderNumber
+  type: string
+  description: Order number.
+- name: crossRegionBandwidthId
+  type: string
+  description: Unique ID of cross-region bandwidth.

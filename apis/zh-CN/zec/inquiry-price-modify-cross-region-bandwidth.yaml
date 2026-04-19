@@ -29,3 +29,7 @@ parameters:
   description: |-
     带宽|保底带宽。
     单位：Mbps。
+response:
+- name: crossRegionBandwidthPrice
+  type: object
+  description: 内网跨区域带宽的价格。

@@ -180,3 +180,10 @@ parameters:
     description: |-
       标签值。
       长度限制：1～128个字符。
+response:
+- name: orderNumber
+  type: string
+  description: 创建时产生的订单编号。
+- name: iptId
+  type: string
+  description: IP Transit 的 ID。

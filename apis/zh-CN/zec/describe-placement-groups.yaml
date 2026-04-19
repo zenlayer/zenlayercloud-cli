@@ -47,3 +47,10 @@ parameters:
   required: false
   sdk-field: resourceGroupId
   description: 根据资源组ID筛选。
+response:
+- name: totalCount
+  type: integer
+  description: 符合条件的数据总数。
+- name: dataSet
+  type: object-array
+  description: 置放组结果集。

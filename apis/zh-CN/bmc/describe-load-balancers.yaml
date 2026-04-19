@@ -67,3 +67,10 @@ parameters:
     description: |-
       标签值。
       长度限制：1～128字符。
+response:
+- name: totalCount
+  type: integer
+  description: 符合条件的LB总数量。
+- name: dataSet
+  type: object-array
+  description: LoadBalancer集合。

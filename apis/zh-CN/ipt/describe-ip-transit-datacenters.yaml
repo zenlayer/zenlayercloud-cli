@@ -18,3 +18,7 @@ parameters:
   required: false
   sdk-field: peerDcId
   description: 指定数据中心ID。
+response:
+- name: supportSet
+  type: object-array
+  description: 结果集。

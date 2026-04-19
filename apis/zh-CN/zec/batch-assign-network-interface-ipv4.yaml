@@ -37,3 +37,7 @@ parameters:
   description: |-
     指定额外绑定的内网IP数量。
     该字段和ipAddresses必须指定其一，如果都指定，则会以 ipAddresses 有效。
+response:
+- name: ipAddresses
+  type: string-array
+  description: 绑定的内网IP地址。

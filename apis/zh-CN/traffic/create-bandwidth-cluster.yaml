@@ -111,3 +111,10 @@ parameters:
     desc: 虚拟机产品范围。
   - value: OFFLINE
     desc: 线下产品范围。
+response:
+- name: orderNumber
+  type: string
+  description: 订单编号。
+- name: bandwidthClusterId
+  type: string
+  description: 创建的共享带宽包ID。

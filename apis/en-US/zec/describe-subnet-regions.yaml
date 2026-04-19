@@ -13,3 +13,7 @@ parameters:
   required: false
   sdk-field: regionIds
   description: Region ID(s).
+response:
+- name: regionSet
+  type: object-array
+  description: Information on regions.

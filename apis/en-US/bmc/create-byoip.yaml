@@ -40,3 +40,10 @@ parameters:
   required: true
   sdk-field: publicVirtualInterfaceId
   description: The unique identifier of the public VLAN.
+response:
+- name: byoipId
+  type: string
+  description: The ID of the successfully created BYOIP.
+- name: cidrBlockId
+  type: string
+  description: The ID of the successfully created CIDR.

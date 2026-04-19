@@ -1,9 +1,9 @@
 name: StartIpForward
 product: zec
 use: start-ip-forward
-short: Enables IP forwarding of the instance
+short: Enables IP forwarding for an instance
 long: |-
-  Enable IP forwarding of the instance.
+  Enables IP forwarding on the specified elastic compute instance, allowing it to act as a router or gateway to forward network traffic from other resources.
   **Note**
 
   Only operations on instances that are in powered-off or power-on state are supported.

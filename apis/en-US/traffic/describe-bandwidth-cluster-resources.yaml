@@ -16,3 +16,10 @@ parameters:
   required: true
   sdk-field: bandwidthClusterId
   description: Bandwidth cluster ID.
+response:
+- name: resources
+  type: object-array
+  description: Information on resources in a bandwidth cluster.
+- name: totalCount
+  type: integer
+  description: Quantity of resources in a bandwidth cluster.

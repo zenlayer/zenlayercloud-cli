@@ -3,7 +3,7 @@ product: zec
 use: modify-instance-type
 short: Modifies the type of an elastic compute instance
 long: |-
-  Modify the type of an elastic compute instance.
+  Changes the instance type of the specified elastic compute instance.
   **Note**
 
   You can only perform this operation on instances whose status is `STOPPED`.

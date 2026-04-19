@@ -83,3 +83,10 @@ parameters:
   required: false
   sdk-field: securityGroupId
   description: 负载均衡实例绑定的安全组ID。
+response:
+- name: totalCount
+  type: integer
+  description: 满足过滤条件的负载均衡实例总数。
+- name: dataSet
+  type: object-array
+  description: 返回的负载均衡实例列表。

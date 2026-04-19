@@ -1,8 +1,8 @@
 name: DescribePolicyDetail
 product: zec
 use: describe-policy-detail
-short: 获取防护策略详情
-long: 获取防护策略详情。
+short: 查询 DDoS 防护策略详情
+long: 查询指定 DDoS 防护策略的详细配置，包括黑白名单、封禁协议、区域封禁、特征过滤及流量控制规则等。
 examples:
 - cmd: zeno zec describe-policy-detail --policy-id <policyId>
   desc: 获取防护策略详情
@@ -16,3 +16,45 @@ parameters:
   required: true
   sdk-field: policyId
   description: 防护策略ID。
+response:
+- name: policyId
+  type: string
+  description: 防护策略的ID。
+- name: policyName
+  type: string
+  description: 防护策略的名称。
+- name: attachmentIps
+  type: string-array
+  description: 防护对象关联IP列表。
+- name: createTime
+  type: string
+  description: 创建时间。
+- name: blackIps
+  type: string-array
+  description: 黑名单IP列表。
+- name: whiteIps
+  type: string-array
+  description: 白名单IP列表。
+- name: blackIpListExpireAt
+  type: integer
+  description: 黑名单超时时间。
+- name: blockProtocols
+  type: string-array
+  description: |-
+    开启的封禁协议。
+    不能同时开启UDP和TCP。
+- name: ports
+  type: object-array
+  description: 端口封禁。
+- name: blockRegions
+  type: string-array
+  description: 封禁的区域。
+- name: reflectUdpPort
+  type: object-array
+  description: 反射攻击防护过滤的端口列表。
+- name: trafficControl
+  type: object
+  description: 源限速配置。
+- name: fingerPrintRules
+  type: object-array
+  description: 指纹过滤相关配置。

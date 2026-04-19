@@ -125,3 +125,7 @@ parameters:
   - name: apiAddress
     type: string
     description: 地址。
+response:
+- name: listenerId
+  type: string
+  description: 监听器的ID。

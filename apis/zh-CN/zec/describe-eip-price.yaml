@@ -119,3 +119,15 @@ parameters:
   required: false
   sdk-field: peerRegionId
   description: 远端的节点ID。
+response:
+- name: eipPrice
+  type: object
+  description: |-
+    公网弹性IP的保留价格。
+    如果是通过cidr创建，则保留价格为null。
+- name: bandwidthPrice
+  type: object
+  description: 公网弹性IP的带宽价格。
+- name: remoteBandwidthPrice
+  type: object
+  description: Remote IPT的带宽价格。

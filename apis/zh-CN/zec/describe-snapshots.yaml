@@ -84,3 +84,10 @@ parameters:
   required: false
   sdk-field: resourceGroupId
   description: 根据资源组ID过滤。
+response:
+- name: totalCount
+  type: integer
+  description: 满足过滤条件的快照总数。
+- name: dataSet
+  type: object-array
+  description: 返回的快照列表数据。

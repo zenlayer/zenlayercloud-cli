@@ -80,3 +80,7 @@ parameters:
   description: |-
     DHCP options set description information.
     The length is up to 255 characters.
+response:
+- name: dhcpOptionsSetId
+  type: string
+  description: DHCP options set ID.

@@ -21,3 +21,7 @@ parameters:
   required: true
   sdk-field: subnetIds
   description: 要与 DHCP 选项集关联的 Subnet 的 ID集合。
+response:
+- name: failedSubnetIds
+  type: string-array
+  description: 操作失败的subnet ID集合。

@@ -44,3 +44,56 @@ parameters:
     This value can be the name of the city or the city code.
     By specifying this value, only the bandwidth traffic data for that city will be returned.
     The city code and city name of the current bandwidth cluster can be viewed in the cities field of DescribeBandwidthClusters.
+response:
+- name: dataList
+  type: object-array
+  description: List of bandwidth data.
+- name: in95
+  type: integer
+  description: Inbound burstable 95th bandwidth.
+- name: in95Time
+  type: string
+  description: |-
+    Time of inbound burstable 95th bandwidth.
+    Format: YYYY-MM-ddTHH:mm:ssZ.
+- name: inAvg
+  type: integer
+  description: Average value of inbound bandwidth.
+- name: inMax
+  type: integer
+  description: Maximum value of inbound bandwidth.
+- name: inMin
+  type: integer
+  description: Minimum value of inbound bandwidth.
+- name: inTotal
+  type: integer
+  description: Total data transfer of inbound bandwidth.
+- name: out95
+  type: integer
+  description: Outbound burstable 95th bandwidth.
+- name: out95Time
+  type: string
+  description: |-
+    Time of outbound burstable 95th bandwidth.
+    Format: YYYY-MM-ddTHH:mm:ssZ.
+- name: outAvg
+  type: integer
+  description: Average value of outbound bandwidth.
+- name: outMax
+  type: integer
+  description: Maximum value of outbound bandwidth.
+- name: outMin
+  type: integer
+  description: Minimum value of outbound bandwidth.
+- name: outTotal
+  type: integer
+  description: Total data transfer of outbound bandwidth.
+- name: maxBandwidth95ValueMbps
+  type: float
+  description: 'Maximum inbound burstable 95th bandwidth. Unit: Mbps.'
+- name: totalUnit
+  type: string
+  description: Unit of data transfer. For example, B.
+- name: unit
+  type: string
+  description: Unit of bandwidth. For example, bps.

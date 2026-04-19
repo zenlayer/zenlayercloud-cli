@@ -1,8 +1,8 @@
 name: DescribeDiskCategory
 product: zec
 use: describe-disk-category
-short: Queries supported disk type
-long: Query supported disk type.
+short: Queries the supported disk types in a zone
+long: Query the list of cloud disk types supported in the specified zone. You can filter by disk category. Use this to confirm available disk types before creating a disk.
 examples:
 - cmd: zeno zec describe-disk-category --zone-id europe-central-1a --disk-category ""Basic NVMe SSD""
   desc: Query supported disk type.
@@ -23,3 +23,7 @@ parameters:
   description: |-
     Disk type.
     Basic NVMe SSD: the Basic NVMe SSD. Standard NVMe SSD: the Standard NVMe SSD.
+response:
+- name: categoryZoneSet
+  type: object-array
+  description: Information on disks.

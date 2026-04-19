@@ -23,3 +23,7 @@ parameters:
   required: true
   sdk-field: loadBalancerIds
   description: 要更换安全组的负载均衡ID集合。
+response:
+- name: failedLoadBalancerIds
+  type: string-array
+  description: 更换失败的负载均衡实例集合。

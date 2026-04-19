@@ -16,3 +16,10 @@ parameters:
   required: true
   sdk-field: securityGroupId
   description: 安全组ID。
+response:
+- name: ingressRuleList
+  type: object-array
+  description: 入方向规则列表。
+- name: egressRuleList
+  type: object-array
+  description: 出方向规则列表。

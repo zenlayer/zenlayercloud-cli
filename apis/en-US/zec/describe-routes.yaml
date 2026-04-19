@@ -84,3 +84,10 @@ parameters:
   description: |-
     Number of pages returned.
     Available value range: [1, +).
+response:
+- name: totalCount
+  type: integer
+  description: Number of routes meeting the filtering conditions.
+- name: dataSet
+  type: object-array
+  description: Information on a route.
