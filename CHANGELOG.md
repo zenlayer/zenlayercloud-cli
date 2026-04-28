@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.4](https://github.com/zenlayer/zenlayercloud-cli/releases/tag/v1.0.4) - 2026-04-28
+
+### Bug Fixes
+
+- update apis (user permission & resource group management)
+
+### Documentation
+
+- update CHANGELOG.md for v1.0.2
+
+### Features
+
+- add Agent skills description
+- add zeno-guidance skills
+- add output infomation
 ## [1.0.2](https://github.com/zenlayer/zenlayercloud-cli/releases/tag/v1.0.2) - 2026-04-18
 
 ### Bug Fixes
