@@ -7,9 +7,11 @@ The official command line interface for [Zenlayer Cloud](https://console.zenlaye
 
 [简体中文](README_zh-CN.md) · [English](README.md) · [Reference](https://docs.console.zenlayer.com/zenlayer-cli) · [Changelog](CHANGELOG.md)
 
+[Install](#installation) · [Agent Skills](#agent-skills) · [Quick Start](#quick-start) · [Configuration](#configuration) · [Commands](#commands)
+
 ## Overview
 
-Zenlayer Cloud CLI (`zeno`) is a powerful command-line tool that enables you to manage your Zenlayer Cloud resources efficiently. It provides a unified interface to interact with various Zenlayer Cloud services.
+Zenlayer Cloud CLI (`zeno`) is a powerful command-line tool that enables you to manage your Zenlayer Cloud resources efficiently. It provides a unified interface to interact with various Zenlayer Cloud services — built for humans and AI Agents, with structured [Agent Skills](./skills/) included.
 
 ## Features
 
@@ -21,6 +23,7 @@ Zenlayer Cloud CLI (`zeno`) is a powerful command-line tool that enables you to 
 - 💻 **Shell Completion** - Auto-completion for Bash, Zsh, Fish, and PowerShell
 - 📄 **Automatic Pagination** - Fetch all pages of results with a single `--page-all` flag
 - 🐛 **Debug Mode** - Detailed logging for troubleshooting
+- 🤖 **Agent-Native** - Structured [Agent Skills](./skills/) for AI Agents out of the box
 
 ## Installation
 
@@ -72,6 +75,21 @@ The binary will be available at `bin/zeno`.
 ```bash
 zeno version
 ```
+
+## Agent Skills
+
+| Skill | Description |
+|-------|-------------|
+| `zeno-guidance` | Safe `zeno` operation: dry-run preflight, confirmation gates for write/delete ops, JSON-only output, credential safety rules, and command discovery via `--help` |
+
+### Install Skills
+
+```bash
+npx skills add zenlayer/zenlayercloud-cli -y -g
+```
+
+Restart your agent session after installation.
+
 
 ## Quick Start
 
