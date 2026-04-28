@@ -111,6 +111,29 @@ parameters:
     desc: 虚拟机产品范围。
   - value: OFFLINE
     desc: 线下产品范围。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: 创建后共享带宽包所在的资源组ID，如不指定则放入默认资源组。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: 创建共享带宽包时关联的标签。--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。
 response:
 - name: orderNumber
   type: string

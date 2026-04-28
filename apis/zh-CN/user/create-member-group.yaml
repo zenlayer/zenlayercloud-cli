@@ -1,0 +1,22 @@
+name: CreateMemberGroup
+product: user
+use: create-member-group
+short: 创建成员组
+long: 创建一个成员组。
+examples:
+- cmd: zeno user create-member-group --name name
+  desc: 创建成员组信息。
+sdk:
+  service: user
+  version: '2024-05-29'
+  action: CreateMemberGroup
+parameters:
+- name: name
+  type: string
+  required: true
+  sdk-field: name
+  description: 成员组名称。
+response:
+- name: memberGroupId
+  type: string
+  description: 成员组唯一ID。

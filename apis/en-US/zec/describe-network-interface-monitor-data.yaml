@@ -1,0 +1,83 @@
+name: DescribeNetworkInterfaceMonitorData
+product: zec
+use: describe-network-interface-monitor-data
+short: Query Network Interface Monitoring Metric Data
+long: Query network interface monitoring metric data within a specified time range. Includes metrics such as bandwidth, packet count, packet loss, and error packets.
+examples:
+- cmd: zeno zec describe-network-interface-monitor-data --nic-id <nicId> --metric-type RX_BITS --start-time 2025-06-25T01:55:00Z --end-time 2025-06-25T07:55:00Z
+  desc: Query the `RX_BITS` monitoring metric data for a network interface over a specified time range.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeNetworkInterfaceMonitorData
+parameters:
+- name: nic-id
+  type: string
+  required: true
+  sdk-field: nicId
+  description: The unique identifier ID of the network interface.
+- name: metric-type
+  type: enum
+  required: true
+  sdk-field: metricType
+  description: The type of network interface monitoring metric.
+  enum-values:
+  - value: RX_BITS
+    desc: |-
+      The number of bits received per second by the VF NIC of the virtual machine.
+      Unit: bits.
+  - value: TX_BITS
+    desc: |-
+      The number of bits sent per second by the VF NIC of the virtual machine.
+      Unit: bits.
+  - value: RX_PACKETS
+    desc: |-
+      The number of packets received per second by the VF NIC of the virtual machine.
+      Unit: Packets.
+  - value: TX_PACKETS
+    desc: |-
+      The number of packets sent per second by the VF NIC of the virtual machine.
+      Unit: Packets.
+  - value: RX_DROPPED
+    desc: |-
+      The number of dropped packets per second in the inbound direction, summed across the VF NIC and Virtio NIC for this NIC.
+      Unit: Packets.
+  - value: TX_DROPPED
+    desc: |-
+      The number of dropped packets per second in the outbound direction, summed across the VF NIC and Virtio NIC for this NIC.
+      Unit: Packets.
+  - value: RX_ERRORS
+    desc: |-
+      The number of error packets per second in the inbound direction, summed across the VF NIC and Virtio NIC for this NIC.
+      Unit: Packets.
+  - value: TX_ERRORS
+    desc: |-
+      The number of error packets per second in the outbound direction, summed across the VF NIC and Virtio NIC for this NIC.
+      Unit: Packets.
+- name: start-time
+  type: string
+  required: true
+  sdk-field: startTime
+  description: |-
+    The query start time.
+    Time format: yyyy-MM-ddTHH:mm:ssZ.
+- name: end-time
+  type: string
+  required: true
+  sdk-field: endTime
+  description: |-
+    The query end time.
+    Time format: yyyy-MM-ddTHH:mm:ssZ.
+response:
+- name: maxValue
+  type: float
+  description: The maximum value of the data point.
+- name: minValue
+  type: float
+  description: The minimum value of the data point.
+- name: avgValue
+  type: float
+  description: The average value of the data point.
+- name: metrics
+  type: object-array
+  description: The collection of monitoring data.

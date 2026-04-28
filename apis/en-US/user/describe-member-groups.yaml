@@ -1,0 +1,35 @@
+name: DescribeMemberGroups
+product: user
+use: describe-member-groups
+short: Query Member Group List
+long: Query member group list. Users can search member group information by name.
+examples:
+- cmd: zeno user describe-member-groups --name name --page-num 1 --page-size 1
+  desc: Query member group list. Users can search member group information by name.
+sdk:
+  service: user
+  version: '2024-05-29'
+  action: DescribeMemberGroups
+parameters:
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: Member group name.
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: Page number.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: Page size.
+response:
+- name: totalCount
+  type: integer
+  description: Total number of matching data.
+- name: dataSet
+  type: object-array
+  description: Member group list information.

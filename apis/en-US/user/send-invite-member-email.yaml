@@ -1,0 +1,18 @@
+name: SendInviteMemberEmail
+product: user
+use: send-invite-member-email
+short: Send Invite Member Email
+long: Resend a member information email.
+examples:
+- cmd: zeno user send-invite-member-email --user-uid userUid
+  desc: Send invite member email.
+sdk:
+  service: user
+  version: '2024-05-29'
+  action: SendInviteMemberEmail
+parameters:
+- name: user-uid
+  type: string
+  required: true
+  sdk-field: userUid
+  description: User unique ID.

@@ -1,0 +1,35 @@
+name: DescribeMemberGroups
+product: user
+use: describe-member-groups
+short: 查询成员组列表
+long: 查询成员组列表。用户可以根据名称信息来搜索成员组信息。
+examples:
+- cmd: zeno user describe-member-groups --name name --page-num 1 --page-size 1
+  desc: 查询成员组列表。用户可以根据名称信息来搜索成员组信息。
+sdk:
+  service: user
+  version: '2024-05-29'
+  action: DescribeMemberGroups
+parameters:
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: 成员组名称。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: 分页数。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: 分页大小。
+response:
+- name: totalCount
+  type: integer
+  description: 符合条件的数据总数。
+- name: dataSet
+  type: object-array
+  description: 成员组列表信息。

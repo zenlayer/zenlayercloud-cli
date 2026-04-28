@@ -1,0 +1,83 @@
+name: DescribeNetworkInterfaceMonitorData
+product: zec
+use: describe-network-interface-monitor-data
+short: 查询网卡监控指标数据
+long: 查询一段时间内的网卡监控指标数据。包含带宽、包量、丢包、错误包等指标。
+examples:
+- cmd: zeno zec describe-network-interface-monitor-data --nic-id <nicId> --metric-type RX_BITS --start-time 2025-06-25T01:55:00Z --end-time 2025-06-25T07:55:00Z
+  desc: 查询某段时间的网卡的 `RX_BITS` 监控指标数据。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeNetworkInterfaceMonitorData
+parameters:
+- name: nic-id
+  type: string
+  required: true
+  sdk-field: nicId
+  description: 网卡唯一标识ID。
+- name: metric-type
+  type: enum
+  required: true
+  sdk-field: metricType
+  description: 网卡监控指标类型。
+  enum-values:
+  - value: RX_BITS
+    desc: |-
+      虚拟机VF网卡的每秒接收比特数。
+      单位bits。
+  - value: TX_BITS
+    desc: |-
+      虚拟机VF网卡的每秒发送比特数。
+      单位bits。
+  - value: RX_PACKETS
+    desc: |-
+      虚拟机VF网卡的每秒接收包量。
+      单位Packets。
+  - value: TX_PACKETS
+    desc: |-
+      虚拟机VF网卡的每秒发送包量。
+      单位Packets。
+  - value: RX_DROPPED
+    desc: |-
+      该Nic的VF网卡+Virtio网卡入方向相加的每秒丢包数量。
+      单位Packets。
+  - value: TX_DROPPED
+    desc: |-
+      该Nic的VF网卡+Virtio网卡出方向相加的每秒丢包数量。
+      单位Packets。
+  - value: RX_ERRORS
+    desc: |-
+      该Nic的VF网卡+Virtio网卡入方向相加的每秒错误包数量。
+      单位Packets。
+  - value: TX_ERRORS
+    desc: |-
+      该Nic的VF网卡+Virtio网卡出方向相加的每秒错误包数量。
+      单位Packets。
+- name: start-time
+  type: string
+  required: true
+  sdk-field: startTime
+  description: |-
+    查询开始时间。
+    时间格式：yyyy-MM-ddTHH:mm:ssZ。
+- name: end-time
+  type: string
+  required: true
+  sdk-field: endTime
+  description: |-
+    查询结束时间。
+    时间格式：yyyy-MM-ddTHH:mm:ssZ。
+response:
+- name: maxValue
+  type: float
+  description: 数据点的最大值。
+- name: minValue
+  type: float
+  description: 数据点的最小值。
+- name: avgValue
+  type: float
+  description: 数据点的平均值。
+- name: metrics
+  type: object-array
+  description: 监控数据集合。

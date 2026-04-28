@@ -1,0 +1,16 @@
+name: DescribeResourceGroups
+product: user
+use: describe-resource-groups
+short: 查询资源组列表信息
+long: 查询所有资源组列表信息。
+examples:
+- cmd: zeno user describe-resource-groups
+  desc: 查询全部资源组列表
+sdk:
+  service: user
+  version: '2024-05-29'
+  action: DescribeResourceGroups
+response:
+- name: resourceGroups
+  type: object-array
+  description: 资源组列表信息。

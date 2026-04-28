@@ -1,0 +1,18 @@
+name: SendInviteMemberEmail
+product: user
+use: send-invite-member-email
+short: 发送邀请成员邮件
+long: 重新发送一个成员信息的邮件。
+examples:
+- cmd: zeno user send-invite-member-email --user-uid userUid
+  desc: 发送邀请成员邮件。
+sdk:
+  service: user
+  version: '2024-05-29'
+  action: SendInviteMemberEmail
+parameters:
+- name: user-uid
+  type: string
+  required: true
+  sdk-field: userUid
+  description: 用户唯一ID。

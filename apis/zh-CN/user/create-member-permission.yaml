@@ -1,0 +1,35 @@
+name: CreateMemberPermission
+product: user
+use: create-member-permission
+short: 授予成员权限信息
+long: 授予成员对于资源组相关的访问策略，从而对资源组进行权限控制。
+examples:
+- cmd: zeno user create-member-permission --all-resource 0 --resource-group-id resourceGroupId --policies policyId --users userUid
+  desc: 创建成员组信息。
+sdk:
+  service: user
+  version: '2024-05-29'
+  action: CreateMemberPermission
+parameters:
+- name: all-resource
+  type: integer
+  required: true
+  sdk-field: allResource
+  description: |-
+    是否为全部资源。
+    1：是；0：否 ，当0 是resourceGroupUid为必填。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: 资源组唯一ID。
+- name: policies
+  type: string-array
+  required: true
+  sdk-field: policies
+  description: 访问策略唯一ID列表。
+- name: users
+  type: string-array
+  required: true
+  sdk-field: users
+  description: 用户唯一ID列表。

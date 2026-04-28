@@ -1,0 +1,28 @@
+name: CreateResourceGroup
+product: user
+use: create-resource-group
+short: 创建资源组信息
+long: 创建一个资源组信息。
+examples:
+- cmd: zeno user create-resource-group --name ResourceGroupName
+  desc: 创建资源组
+sdk:
+  service: user
+  version: '2024-05-29'
+  action: CreateResourceGroup
+parameters:
+- name: name
+  type: string
+  required: true
+  sdk-field: name
+  description: 资源组名称。
+response:
+- name: resourceGroupId
+  type: string
+  description: 资源组唯一ID。
+- name: name
+  type: string
+  description: 资源组名称。
+- name: createTime
+  type: string
+  description: 创建时间。

@@ -1,0 +1,81 @@
+name: DescribePermissions
+product: user
+use: describe-permissions
+short: 查询权限列表
+long: 查询权限列表。用户可以根据成员ID、策略名称、成员组等信息来搜索权限信息。
+examples:
+- cmd: zeno user describe-permissions --policy-name policyName --resource-group-name resourceGroupName --resource-group-id resourceGroupId --user-uid userUid --username username --real-name realName --all-resource 1 --member-group-name memberGroupName --member-group-id memberGroupId --associated USER_GROUP --order 1 --page-num 1 --page-size 20
+  desc: 查询权限列表。
+sdk:
+  service: user
+  version: '2024-05-29'
+  action: DescribePermissions
+parameters:
+- name: policy-name
+  type: string
+  required: false
+  sdk-field: policyName
+  description: 访问策略名称。
+- name: resource-group-name
+  type: string
+  required: false
+  sdk-field: resourceGroupName
+  description: 资源组名称。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: 资源组唯一ID。
+- name: user-uid
+  type: string
+  required: false
+  sdk-field: userUid
+  description: 用户唯一ID。
+- name: all-resource
+  type: integer
+  required: false
+  sdk-field: allResource
+  description: |-
+    是否为全部资源。
+    1：是；0：否。
+- name: member-group-name
+  type: string
+  required: false
+  sdk-field: memberGroupName
+  description: 用户组名称。
+- name: member-group-id
+  type: string
+  required: false
+  sdk-field: memberGroupId
+  description: 用户组唯一ID。
+- name: associated
+  type: string
+  required: false
+  sdk-field: associated
+  description: |-
+    权限类别 成员或者成员组 默认查询全部。
+    成员：BY_SELF，成员组：BY_MEMBER_GROUP
+- name: order
+  type: integer
+  required: false
+  sdk-field: order
+  description: |-
+    按时间排序默认1。
+    1：顺序，0：倒序。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: 分页数。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: 分页大小。
+response:
+- name: totalCount
+  type: integer
+  description: 符合条件的数据总数。
+- name: dataSet
+  type: object-array
+  description: 权限列表信息。

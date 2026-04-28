@@ -43,6 +43,37 @@ parameters:
     Number of items in the current page result.
     Default value: 20;
     Maximum value: 1000.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: Filter by resource group ID.
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    Query using tags.
+    A maximum of 20 tags can be used.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    Query using tags.
+    A maximum of 20 tags can be used.
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      The tag key.
+      Length limit: 1 to 64 characters.
+  - name: value
+    type: string
+    description: |-
+      The tag value.
+      Length limit: 1 to 64 characters.
 response:
 - name: totalCount
   type: integer

@@ -1,0 +1,16 @@
+name: DescribeResourceGroups
+product: user
+use: describe-resource-groups
+short: Query Resource Group List Information
+long: Query all resource group list information.
+examples:
+- cmd: zeno user describe-resource-groups
+  desc: Query all resource group list
+sdk:
+  service: user
+  version: '2024-05-29'
+  action: DescribeResourceGroups
+response:
+- name: resourceGroups
+  type: object-array
+  description: Resource group list information.

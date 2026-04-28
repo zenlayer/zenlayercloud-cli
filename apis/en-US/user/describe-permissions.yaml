@@ -1,0 +1,81 @@
+name: DescribePermissions
+product: user
+use: describe-permissions
+short: Query Permission List
+long: Query permission list. Users can search permission information by member ID, policy name, member group, etc.
+examples:
+- cmd: zeno user describe-permissions --policy-name policyName --resource-group-name resourceGroupName --resource-group-id resourceGroupId --user-uid userUid --username username --real-name realName --all-resource 1 --member-group-name memberGroupName --member-group-id memberGroupId --associated USER_GROUP --order 1 --page-num 1 --page-size 20
+  desc: Query permission list.
+sdk:
+  service: user
+  version: '2024-05-29'
+  action: DescribePermissions
+parameters:
+- name: policy-name
+  type: string
+  required: false
+  sdk-field: policyName
+  description: Access policy name.
+- name: resource-group-name
+  type: string
+  required: false
+  sdk-field: resourceGroupName
+  description: Resource group name.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: Resource group unique ID.
+- name: user-uid
+  type: string
+  required: false
+  sdk-field: userUid
+  description: User unique ID.
+- name: all-resource
+  type: integer
+  required: false
+  sdk-field: allResource
+  description: |-
+    Whether it is for all resources.
+    1: Yes; 0: No.
+- name: member-group-name
+  type: string
+  required: false
+  sdk-field: memberGroupName
+  description: User group name.
+- name: member-group-id
+  type: string
+  required: false
+  sdk-field: memberGroupId
+  description: User group unique ID.
+- name: associated
+  type: string
+  required: false
+  sdk-field: associated
+  description: |-
+    Permission category: member or member group. Query all by default.
+    Member: BY_SELF, Member Group: BY_MEMBER_GROUP
+- name: order
+  type: integer
+  required: false
+  sdk-field: order
+  description: |-
+    Sort by time, default 1.
+    1: Ascending, 0: Descending.
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: Page number.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: Page size.
+response:
+- name: totalCount
+  type: integer
+  description: Total number of matching data.
+- name: dataSet
+  type: object-array
+  description: Permission list information.

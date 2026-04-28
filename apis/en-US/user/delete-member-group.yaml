@@ -1,0 +1,18 @@
+name: DeleteMemberGroup
+product: user
+use: delete-member-group
+short: Delete Member Group Information
+long: Delete a member group information.
+examples:
+- cmd: zeno user delete-member-group --member-group-id memberGroupId
+  desc: Delete a member group information.
+sdk:
+  service: user
+  version: '2024-05-29'
+  action: DeleteMemberGroup
+parameters:
+- name: member-group-id
+  type: string
+  required: true
+  sdk-field: memberGroupId
+  description: Member group unique ID.

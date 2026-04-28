@@ -1,0 +1,18 @@
+name: DeletePermission
+product: user
+use: delete-permission
+short: Delete Permission
+long: Delete a permission information.
+examples:
+- cmd: zeno user delete-permission --permission-id permissionId
+  desc: Delete a permission.
+sdk:
+  service: user
+  version: '2024-05-29'
+  action: DeletePermission
+parameters:
+- name: permission-id
+  type: string
+  required: true
+  sdk-field: permissionId
+  description: Permission unique ID.

@@ -1,0 +1,45 @@
+name: DescribeMember
+product: user
+use: describe-member
+short: 查询单个成员信息
+long: 查询单个成员信息。
+examples:
+- cmd: zeno user describe-member --user-uid userUid
+  desc: 查询单个成员。
+sdk:
+  service: user
+  version: '2024-05-29'
+  action: DescribeMember
+parameters:
+- name: user-uid
+  type: string
+  required: true
+  sdk-field: userUid
+  description: 用户唯一ID。
+response:
+- name: memberId
+  type: string
+  description: 成员列表唯一ID。
+- name: userUid
+  type: string
+  description: 用户唯一ID。
+- name: firstName
+  type: string
+  description: 用户名称。
+- name: lastName
+  type: string
+  description: 用户姓氏。
+- name: username
+  type: string
+  description: 用户邮箱。
+- name: assignmentStatus
+  type: string
+  description: |-
+    用户邀请状态。
+    ACTIVE：已加入,PENDING: 待确认
+- name: updateTime
+  type: string
+  description: 更新时间。
+- name: createTime
+  type: string
+  description: 加入时间。

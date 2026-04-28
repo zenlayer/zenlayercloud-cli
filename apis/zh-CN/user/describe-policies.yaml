@@ -1,0 +1,16 @@
+name: DescribePolicies
+product: user
+use: describe-policies
+short: 查询访问策略
+long: 查询访问策略。
+examples:
+- cmd: zeno user describe-policies
+  desc: 查询所有权限策略列表。
+sdk:
+  service: user
+  version: '2024-05-29'
+  action: DescribePolicies
+response:
+- name: policies
+  type: object-array
+  description: 访问策略列表的数据。

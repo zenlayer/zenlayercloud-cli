@@ -1,0 +1,23 @@
+name: AddResourceResourceGroup
+product: user
+use: add-resource-resource-group
+short: Add Resources to Resource Group
+long: Add resources to a resource group.
+examples:
+- cmd: zeno user add-resource-resource-group --resource-group-id ResourceGroupId --resources bizUid
+  desc: Move resources to resource group
+sdk:
+  service: user
+  version: '2024-05-29'
+  action: AddResourceResourceGroup
+parameters:
+- name: resources
+  type: string-array
+  required: true
+  sdk-field: resources
+  description: List of resource IDs.
+- name: resource-group-id
+  type: string
+  required: true
+  sdk-field: resourceGroupId
+  description: Resource group unique ID.

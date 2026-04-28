@@ -110,6 +110,31 @@ parameters:
     desc: Virtual machine service.
   - value: OFFLINE
     desc: Offline serveice.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    Resource group ID where the instances reside.
+    If the value is empty, the instance will be added into the default resource group.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: The tags associated with the shared bandwidth package at the time of creation.--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      The tag key.
+      Length limit: 1 to 64 characters.
+  - name: value
+    type: string
+    description: |-
+      The tag value.
+      Length limit: 1 to 64 characters.
 response:
 - name: orderNumber
   type: string

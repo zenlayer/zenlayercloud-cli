@@ -1,0 +1,16 @@
+name: DescribePolicies
+product: user
+use: describe-policies
+short: Query Access Policies
+long: Query access policies.
+examples:
+- cmd: zeno user describe-policies
+  desc: Query all permission policy list.
+sdk:
+  service: user
+  version: '2024-05-29'
+  action: DescribePolicies
+response:
+- name: policies
+  type: object-array
+  description: Access policy list data.

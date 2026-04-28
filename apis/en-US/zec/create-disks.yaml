@@ -113,7 +113,7 @@ parameters:
   type: boolean
   required: false
   sdk-field: burstingEnabled
-  description: Whether to enable disk bursting.
+  description: Whether to enable burstable performance.
 response:
 - name: diskIds
   type: string-array

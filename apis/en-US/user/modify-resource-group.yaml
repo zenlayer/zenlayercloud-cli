@@ -1,0 +1,33 @@
+name: ModifyResourceGroup
+product: user
+use: modify-resource-group
+short: Modify Resource Group Information
+long: Modify a resource group information.
+examples:
+- cmd: zeno user modify-resource-group --resource-group-id ResourceGroupId --name ResourceGroupName
+  desc: Modify resource group
+sdk:
+  service: user
+  version: '2024-05-29'
+  action: ModifyResourceGroup
+parameters:
+- name: name
+  type: string
+  required: true
+  sdk-field: name
+  description: Resource group name.
+- name: resource-group-id
+  type: string
+  required: true
+  sdk-field: resourceGroupId
+  description: Resource group unique ID.
+response:
+- name: resourceGroupId
+  type: string
+  description: Resource group unique ID.
+- name: name
+  type: string
+  description: Resource group name.
+- name: createTime
+  type: string
+  description: Creation time.

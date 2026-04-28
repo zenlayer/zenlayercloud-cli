@@ -1,0 +1,18 @@
+name: DeleteResourceGroup
+product: user
+use: delete-resource-group
+short: Delete Resource Group Information
+long: Delete a resource group information.
+examples:
+- cmd: zeno user delete-resource-group --resource-group-id ResourceGroupId
+  desc: Query all resource group list
+sdk:
+  service: user
+  version: '2024-05-29'
+  action: DeleteResourceGroup
+parameters:
+- name: resource-group-id
+  type: string
+  required: true
+  sdk-field: resourceGroupId
+  description: Resource group unique ID.

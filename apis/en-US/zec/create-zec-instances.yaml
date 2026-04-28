@@ -8,7 +8,7 @@ long: |-
 
   * Query instance models: call [`DescribeZoneInstanceConfigInfos`](describezoneinstanceconfiginfos.md) to check specifications.
   * Query images: call [`DescribeImages`](../image/describeimages.md) to check information on image.
-  * Query key pairs: call [`DescribeKeyPairs`](../../../security/key-service/key-pair/describekeypairs.md) to check information on key pair ID.
+  * Query key pairs: call [`DescribeKeyPairs`](../../../security/ccs/key-pair/describekeypairs.md) to check information on key pair ID.
 
 
   **Note**
@@ -136,7 +136,7 @@ parameters:
       Default is Standard NVMe SSD.
   - name: burstingEnabled
     type: boolean
-    description: Whether to enable disk bursting.
+    description: Whether to enable burstable performance.
 - name: data-disks
   type: object-array
   required: false
@@ -176,7 +176,7 @@ parameters:
       false means the disk will be deleted when the instance is deleted.
   - name: burstingEnabled
     type: boolean
-    description: Whether to enable disk bursting.
+    description: Whether to enable burstable performance.
   - name: diskCategory
     type: string
     description: |-

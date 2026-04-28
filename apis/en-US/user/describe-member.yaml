@@ -1,0 +1,45 @@
+name: DescribeMember
+product: user
+use: describe-member
+short: Query Single Member Information
+long: Query single member information.
+examples:
+- cmd: zeno user describe-member --user-uid userUid
+  desc: Query single member.
+sdk:
+  service: user
+  version: '2024-05-29'
+  action: DescribeMember
+parameters:
+- name: user-uid
+  type: string
+  required: true
+  sdk-field: userUid
+  description: User unique ID.
+response:
+- name: memberId
+  type: string
+  description: Member list unique ID.
+- name: userUid
+  type: string
+  description: User unique ID.
+- name: firstName
+  type: string
+  description: User name.
+- name: lastName
+  type: string
+  description: User last name.
+- name: username
+  type: string
+  description: User email.
+- name: assignmentStatus
+  type: string
+  description: |-
+    User invitation status.
+    ACTIVE: Joined, PENDING: Pending confirmation
+- name: updateTime
+  type: string
+  description: Update time.
+- name: createTime
+  type: string
+  description: Join time.

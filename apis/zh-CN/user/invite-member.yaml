@@ -1,0 +1,28 @@
+name: InviteMember
+product: user
+use: invite-member
+short: 邀请成员
+long: 邀请单个成员信息。
+examples:
+- cmd: zeno user invite-member --email Email --member-group-id memberGroupId --open-api false
+  desc: 邀请成员。
+sdk:
+  service: user
+  version: '2024-05-29'
+  action: InviteMember
+parameters:
+- name: email
+  type: string
+  required: true
+  sdk-field: email
+  description: 用户邮箱。
+- name: member-group-id
+  type: string
+  required: false
+  sdk-field: memberGroupId
+  description: 成员组唯一ID。
+- name: open-api
+  type: boolean
+  required: false
+  sdk-field: openApi
+  description: 是否生成API访问密钥。

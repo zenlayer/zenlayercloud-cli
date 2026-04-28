@@ -1,0 +1,23 @@
+name: AddResourceResourceGroup
+product: user
+use: add-resource-resource-group
+short: 将资源添加到资源组
+long: 将资源添加到一个资源组。
+examples:
+- cmd: zeno user add-resource-resource-group --resource-group-id ResourceGroupId --resources bizUid
+  desc: 移动资源到资源组
+sdk:
+  service: user
+  version: '2024-05-29'
+  action: AddResourceResourceGroup
+parameters:
+- name: resources
+  type: string-array
+  required: true
+  sdk-field: resources
+  description: 资源ID列表。
+- name: resource-group-id
+  type: string
+  required: true
+  sdk-field: resourceGroupId
+  description: 资源组唯一ID。

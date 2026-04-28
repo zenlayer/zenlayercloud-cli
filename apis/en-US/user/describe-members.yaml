@@ -1,0 +1,40 @@
+name: DescribeMembers
+product: user
+use: describe-members
+short: Query Member List
+long: Query member list. Users can search member information by name, email, etc.
+examples:
+- cmd: zeno user describe-members --name name --username username --member-group-name memberGroupName --member-group-uid memberGroupUid --page-num 1 --page-size 1
+  desc: Query member group list. Users can search member group information by name.
+sdk:
+  service: user
+  version: '2024-05-29'
+  action: DescribeMembers
+parameters:
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: Member name.
+- name: username
+  type: string
+  required: false
+  sdk-field: username
+  description: Member email.
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: Page number.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: Page size.
+response:
+- name: totalCount
+  type: integer
+  description: Total number of matching data.
+- name: dataSet
+  type: object-array
+  description: Member list information.

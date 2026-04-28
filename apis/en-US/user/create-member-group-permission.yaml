@@ -1,0 +1,35 @@
+name: CreateMemberGroupPermission
+product: user
+use: create-member-group-permission
+short: Grant Member Group Permissions
+long: Grant access policies to a member group, thereby controlling permissions for all members in the member group.
+examples:
+- cmd: zeno user create-member-group-permission --all-resource 0 --resource-group-id resourceGroupId --policies policyId --member-group-id memberGroupId
+  desc: Create member group information.
+sdk:
+  service: user
+  version: '2024-05-29'
+  action: CreateMemberGroupPermission
+parameters:
+- name: all-resource
+  type: integer
+  required: true
+  sdk-field: allResource
+  description: |-
+    Whether it is for all resources.
+    1: Yes; 0: No. When 0, resourceGroupUid is required.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: Resource group unique ID.
+- name: policies
+  type: string-array
+  required: true
+  sdk-field: policies
+  description: List of access policy unique IDs.
+- name: member-group-id
+  type: string
+  required: true
+  sdk-field: memberGroupId
+  description: Member group unique ID.

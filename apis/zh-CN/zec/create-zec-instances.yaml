@@ -7,7 +7,7 @@ long: |-
   #### 准备工作
   * 查询机型规格：调用[`DescribeZoneInstanceConfigInfos`](describezoneinstanceconfiginfos.md) 可以查询到规格信息。
   * 查询镜像：调用[`DescribeImages`](../image/describeimages.md)可以查询到镜像信息。
-  * 查询密钥对：调用 [`DescribeKeyPairs`](../../../security/key-service/key-pair/describekeypairs.md)可以查询到密钥对ID信息。
+  * 查询密钥对：调用 [`DescribeKeyPairs`](../../../security/ccs/key-pair/describekeypairs.md)可以查询到密钥对ID信息。
 
 
   **注意事项**

@@ -1,0 +1,119 @@
+name: DescribeCustomImages
+product: zec
+use: describe-custom-images
+short: Describe Custom Images
+long: Query the list of custom images under the current account.
+examples:
+- cmd: zeno zec describe-custom-images --page-num 1 --page-size 20
+  desc: Query all custom images under the current account.
+- cmd: zeno zec describe-custom-images --region-id asia-east-1 --page-num 1 --page-size 20
+  desc: Query custom images available in the `asia-east-1` region.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeCustomImages
+parameters:
+- name: region-id
+  type: string
+  required: false
+  sdk-field: regionId
+  description: Region ID. When specified, only custom images available in that region are returned.
+- name: image-ids
+  type: string-array
+  required: false
+  sdk-field: imageIds
+  description: List of image IDs.
+- name: image-name
+  type: string
+  required: false
+  sdk-field: imageName
+  description: |-
+    Filter by image name.
+    This field supports fuzzy search.
+- name: category
+  type: string
+  required: false
+  sdk-field: category
+  description: The category to which the image belongs.
+- name: os-type
+  type: enum
+  required: false
+  sdk-field: osType
+  description: Type of operating system.
+  enum-values:
+  - value: linux
+    desc: Linux operating system.
+  - value: bsd
+    desc: BSD operating system.
+  - value: windows
+    desc: Windows operating system.
+  - value: android
+    desc: Android operating system.
+  - value: any
+    desc: Any other operating systems.
+- name: image-status
+  type: enum
+  required: false
+  sdk-field: imageStatus
+  description: Status of the image.
+  enum-values:
+  - value: CREATING
+    desc: Image is being created.
+  - value: AVAILABLE
+    desc: Image creation succeeded.
+  - value: UNAVAILABLE
+    desc: Image is unavailable.
+  - value: SYNCING
+    desc: Image is being replicated.
+  - value: FAILED
+    desc: Image creation failed.
+  - value: DELETING
+    desc: Image is being deleted.
+  - value: PROCESSING
+    desc: Image is being operated.
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: The page number of the returned results.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    The pagination size of the returned results.
+    Default is 20, maximum is 1000.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: Filter by resource group ID.
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    Filter by tag keys.
+    No more than 20 tag keys are allowed.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    Filter by tags.
+    No more than 20 tags are allowed.
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'
+response:
+- name: totalCount
+  type: integer
+  description: Total number of records matching the criteria.
+- name: dataSet
+  type: object-array
+  description: Image list data.

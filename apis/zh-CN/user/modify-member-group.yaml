@@ -1,0 +1,23 @@
+name: ModifyMemberGroup
+product: user
+use: modify-member-group
+short: 修改成员组信息
+long: 修改一个成员组信息。
+examples:
+- cmd: zeno user modify-member-group --member-group-id memberGroupId --name name
+  desc: 修改成员组信息。
+sdk:
+  service: user
+  version: '2024-05-29'
+  action: ModifyMemberGroup
+parameters:
+- name: name
+  type: string
+  required: true
+  sdk-field: name
+  description: 成员组唯一名称。
+- name: member-group-id
+  type: string
+  required: true
+  sdk-field: memberGroupId
+  description: 成员组唯一ID。
