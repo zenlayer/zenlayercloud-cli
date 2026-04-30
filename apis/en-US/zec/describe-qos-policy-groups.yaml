@@ -1,0 +1,84 @@
+name: DescribeQosPolicyGroups
+product: zec
+use: describe-qos-policy-groups
+short: List QoS Policy Groups
+long: Query detailed information about one or more QoS policy groups.
+examples:
+- cmd: zeno zec describe-qos-policy-groups --region-id SEA-A --page-size 20 --page-num 1
+  desc: List QoS policy groups.
+- cmd: zeno zec describe-qos-policy-groups --resource-group-id xxxxxxxx
+  desc: Filter by resource group.
+- cmd: zeno zec describe-qos-policy-groups --resource-id eip-xxxxxxxx
+  desc: Query policy groups containing a specific member resource.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeQosPolicyGroups
+parameters:
+- name: qos-policy-group-ids
+  type: string-array
+  required: false
+  sdk-field: qosPolicyGroupIds
+  description: |-
+    List of QoS policy group IDs.
+    Supports up to 100 IDs per query.
+- name: region-id
+  type: string
+  required: false
+  sdk-field: regionId
+  description: Region ID where the QoS policy group is located.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: Filter by resource group ID.
+- name: resource-id
+  type: string
+  required: false
+  sdk-field: resourceId
+  description: |-
+    Member resource ID (console-side UUID of EIP, IPv6, or UNMANAGED egress IP).
+    Returns policy groups containing the specified resource.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    Page size for returned results.
+    Default is 20, maximum is 1000.
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    Page number for returned results.
+    Default is 1.
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    Search by tag keys.
+    Maximum 20 tag keys.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    Search by tags.
+    Maximum 20 tags.
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'
+response:
+- name: totalCount
+  type: integer
+  description: Total number of matching records.
+- name: dataSet
+  type: object-array
+  description: QoS policy group result set.

@@ -1,0 +1,43 @@
+name: DescribeQosPolicyGroupTraffic
+product: zec
+use: describe-qos-policy-group-traffic
+short: Describe QoS Policy Group Traffic
+long: Query aggregated traffic monitoring data for a QoS policy group.
+examples:
+- cmd: zeno zec describe-qos-policy-group-traffic --qos-policy-group-id qos-xxxxxxxx --start-time 2026-04-24T00:00:00Z --end-time 2026-04-25T00:00:00Z --period 300
+  desc: Query traffic monitoring data for a QoS policy group.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeQosPolicyGroupTraffic
+parameters:
+- name: qos-policy-group-id
+  type: string
+  required: true
+  sdk-field: qosPolicyGroupId
+  description: QoS policy group ID.
+- name: start-time
+  type: string
+  required: true
+  sdk-field: startTime
+  description: |-
+    Query start time.
+    Time format: yyyy-MM-ddTHH:mm:ssZ.
+- name: end-time
+  type: string
+  required: true
+  sdk-field: endTime
+  description: |-
+    Query end time.
+    Time format: yyyy-MM-ddTHH:mm:ssZ.
+- name: period
+  type: integer
+  required: true
+  sdk-field: period
+  description: |-
+    Data granularity, in seconds.
+    Supported values: 60, 300, 600, 3600.
+response:
+- name: dataSet
+  type: object-array
+  description: List of traffic monitoring data points.

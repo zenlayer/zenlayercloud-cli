@@ -1,0 +1,18 @@
+name: DeleteQosPolicyGroup
+product: zec
+use: delete-qos-policy-group
+short: Delete QoS Policy Group
+long: Delete a QoS policy group. Ensure the group has no members before deletion.
+examples:
+- cmd: zeno zec delete-qos-policy-group --qos-policy-group-id qos-xxxxxxxx
+  desc: Delete a QoS policy group.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DeleteQosPolicyGroup
+parameters:
+- name: qos-policy-group-id
+  type: string
+  required: true
+  sdk-field: qosPolicyGroupId
+  description: QoS policy group ID.

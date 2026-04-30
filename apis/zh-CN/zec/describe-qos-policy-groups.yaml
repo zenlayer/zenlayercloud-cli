@@ -1,0 +1,88 @@
+name: DescribeQosPolicyGroups
+product: zec
+use: describe-qos-policy-groups
+short: 查询QoS策略组列表
+long: 查询一个或多个QoS策略组的详细信息。
+examples:
+- cmd: zeno zec describe-qos-policy-groups --region-id SEA-A --page-size 20 --page-num 1
+  desc: 查询QoS策略组列表。
+- cmd: zeno zec describe-qos-policy-groups --resource-group-id xxxxxxxx
+  desc: 按资源组过滤查询。
+- cmd: zeno zec describe-qos-policy-groups --resource-id eip-xxxxxxxx
+  desc: 查询包含指定成员资源的策略组。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeQosPolicyGroups
+parameters:
+- name: qos-policy-group-ids
+  type: string-array
+  required: false
+  sdk-field: qosPolicyGroupIds
+  description: |-
+    QoS策略组ID列表。
+    最多支持100个ID查询。
+- name: region-id
+  type: string
+  required: false
+  sdk-field: regionId
+  description: QoS策略组所在地域ID。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: 根据资源组ID进行过滤。
+- name: resource-id
+  type: string
+  required: false
+  sdk-field: resourceId
+  description: |-
+    成员资源ID（EIP、IPv6或UNMANAGED出口IP的console侧UUID）。
+    返回包含该资源的策略组。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    返回的分页大小。
+    默认为20，最大为1000。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    返回的分页数。
+    默认为1。
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    根据标签键进行搜索。
+    最长不得超过20个标签键。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    根据标签进行搜索。
+    最长不得超过20个标签。
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。
+response:
+- name: totalCount
+  type: integer
+  description: 符合条件的数据总数。
+- name: dataSet
+  type: object-array
+  description: QoS策略组结果集。

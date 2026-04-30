@@ -1,0 +1,72 @@
+name: CreateQosPolicyGroup
+product: zec
+use: create-qos-policy-group
+short: Create QoS Policy Group
+long: |-
+  Create a QoS policy group to apply shared bandwidth rate limiting to EIPs, IPv6 addresses, or UNMANAGED egress IPs within the same group.
+  **Bandwidth Limit**
+
+  * The minimum bandwidth limit is 10,000 Mbps (10G) by default.
+  * If you need a bandwidth limit lower than 10G, please contact [Zenlayer Support](https://www.zenlayer.com/support/).
+examples:
+- cmd: zeno zec create-qos-policy-group --region-id SEA-A --name my-qos-group --bandwidth-limit 1000 --rate-limit-mode LOOSE
+  desc: Create a QoS policy group.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CreateQosPolicyGroup
+parameters:
+- name: region-id
+  type: string
+  required: true
+  sdk-field: regionId
+  description: Region ID where the QoS policy group is located.
+- name: name
+  type: string
+  required: true
+  sdk-field: name
+  description: |-
+    QoS policy group name.
+    Cannot exceed 64 characters.
+- name: bandwidth-limit
+  type: integer
+  required: true
+  sdk-field: bandwidthLimit
+  description: |-
+    Bandwidth limit, in Mbps.
+    Maximum is 100,000,000 Mbps.
+- name: rate-limit-mode
+  type: enum
+  required: false
+  sdk-field: rateLimitMode
+  description: Rate limit mode.
+  enum-values:
+  - value: LOOSE
+    desc: 'Loose mode: allows short-term bursts exceeding the limit.'
+  - value: STRICT
+    desc: 'Strict mode: strictly enforced, no bursts allowed.'
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    Resource group ID.
+    If not specified, joins the default resource group.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: Tag list.--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'
+response:
+- name: qosPolicyGroupId
+  type: string
+  description: ID of the newly created QoS policy group.

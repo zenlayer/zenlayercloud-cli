@@ -1,0 +1,76 @@
+name: CreateQosPolicyGroup
+product: zec
+use: create-qos-policy-group
+short: 创建QoS策略组
+long: |-
+  创建一个QoS策略组，将EIP、IPv6或UNMANAGED出口IP纳入同一策略组实施共享带宽限速。
+  **Bandwidth Limit**
+
+  * The minimum bandwidth limit is 10,000 Mbps (10G) by default.
+  * If you need a bandwidth limit lower than 10G, please contact [Zenlayer Support](https://www.zenlayer.com/support/).
+examples:
+- cmd: zeno zec create-qos-policy-group --region-id SEA-A --name my-qos-group --bandwidth-limit 1000 --rate-limit-mode LOOSE
+  desc: 创建一个QoS策略组。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CreateQosPolicyGroup
+parameters:
+- name: region-id
+  type: string
+  required: true
+  sdk-field: regionId
+  description: QoS策略组所在地域ID。
+- name: name
+  type: string
+  required: true
+  sdk-field: name
+  description: |-
+    QoS策略组名称。
+    长度不能超过64个字符。
+- name: bandwidth-limit
+  type: integer
+  required: true
+  sdk-field: bandwidthLimit
+  description: |-
+    带宽限制，单位Mbps。
+    最大不得超过100000000 Mbps。
+- name: rate-limit-mode
+  type: enum
+  required: false
+  sdk-field: rateLimitMode
+  description: 限速模式。
+  enum-values:
+  - value: LOOSE
+    desc: 宽松模式：允许短时间突发超出限制。
+  - value: STRICT
+    desc: 严格模式：严格限制，不允许任何突发。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    资源组ID。
+    不填则加入默认资源组。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: 标签列表。--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。
+response:
+- name: qosPolicyGroupId
+  type: string
+  description: 新建QoS策略组ID。

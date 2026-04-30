@@ -1,0 +1,43 @@
+name: DescribeQosPolicyGroupTraffic
+product: zec
+use: describe-qos-policy-group-traffic
+short: 查询QoS策略组流量
+long: 查询QoS策略组的聚合流量监控数据。
+examples:
+- cmd: zeno zec describe-qos-policy-group-traffic --qos-policy-group-id qos-xxxxxxxx --start-time 2026-04-24T00:00:00Z --end-time 2026-04-25T00:00:00Z --period 300
+  desc: 查询QoS策略组的流量监控数据。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeQosPolicyGroupTraffic
+parameters:
+- name: qos-policy-group-id
+  type: string
+  required: true
+  sdk-field: qosPolicyGroupId
+  description: QoS策略组ID。
+- name: start-time
+  type: string
+  required: true
+  sdk-field: startTime
+  description: |-
+    查询开始时间。
+    时间格式：yyyy-MM-ddTHH:mm:ssZ。
+- name: end-time
+  type: string
+  required: true
+  sdk-field: endTime
+  description: |-
+    查询结束时间。
+    时间格式：yyyy-MM-ddTHH:mm:ssZ。
+- name: period
+  type: integer
+  required: true
+  sdk-field: period
+  description: |-
+    数据粒度，单位秒。
+    支持的值：60、300、600、3600。
+response:
+- name: dataSet
+  type: object-array
+  description: 流量监控数据点列表。

@@ -1,0 +1,27 @@
+name: RemoveQosPolicyGroupMembers
+product: zec
+use: remove-qos-policy-group-members
+short: Remove QoS Policy Group Members
+long: Remove members from a QoS policy group.
+examples:
+- cmd: zeno zec remove-qos-policy-group-members --qos-policy-group-id qos-xxxxxxxx --resource-ids eip-xxxxxxxx --resource-ids ipv6-xxxxxxxx
+  desc: Remove specified members from a QoS policy group.
+- cmd: zeno zec remove-qos-policy-group-members --qos-policy-group-id qos-xxxxxxxx
+  desc: Remove all members from a QoS policy group (without passing resourceIds).
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: RemoveQosPolicyGroupMembers
+parameters:
+- name: qos-policy-group-id
+  type: string
+  required: true
+  sdk-field: qosPolicyGroupId
+  description: QoS policy group ID.
+- name: resource-ids
+  type: string-array
+  required: false
+  sdk-field: resourceIds
+  description: |-
+    List of member resource IDs to remove from the policy group.
+    If not specified, all members are removed.

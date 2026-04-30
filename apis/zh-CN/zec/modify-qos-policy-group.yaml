@@ -1,0 +1,47 @@
+name: ModifyQosPolicyGroup
+product: zec
+use: modify-qos-policy-group
+short: 修改QoS策略组
+long: |-
+  修改QoS策略组的名称或带宽限制。
+  **Bandwidth Limit**
+
+  * The minimum bandwidth limit is 10,000 Mbps (10G) by default.
+  * If you need a bandwidth limit lower than 10G, please contact [Zenlayer Support](https://www.zenlayer.com/support/).
+examples:
+- cmd: zeno zec modify-qos-policy-group --qos-policy-group-id qos-xxxxxxxx --name new-qos-group-name --bandwidth-limit 2000 --rate-limit-mode STRICT
+  desc: 修改QoS策略组的名称和带宽限制。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyQosPolicyGroup
+parameters:
+- name: qos-policy-group-id
+  type: string
+  required: true
+  sdk-field: qosPolicyGroupId
+  description: QoS策略组ID。
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: |-
+    QoS策略组新名称。
+    长度不能超过64个字符。
+- name: bandwidth-limit
+  type: integer
+  required: false
+  sdk-field: bandwidthLimit
+  description: |-
+    新的带宽限制，单位Mbps。
+    最大不得超过100000000 Mbps。
+- name: rate-limit-mode
+  type: enum
+  required: false
+  sdk-field: rateLimitMode
+  description: 新的限速模式。
+  enum-values:
+  - value: LOOSE
+    desc: 宽松模式：允许短时间突发超出限制。
+  - value: STRICT
+    desc: 严格模式：严格限制，不允许任何突发。

@@ -1,0 +1,31 @@
+name: AddQosPolicyGroupMembers
+product: zec
+use: add-qos-policy-group-members
+short: Add QoS Policy Group Members
+long: Add EIPs, IPv6 addresses, or UNMANAGED egress IPs to a QoS policy group.
+examples:
+- cmd: zeno zec add-qos-policy-group-members --qos-policy-group-id qos-xxxxxxxx --members "{resourceId=eip-xxxxxxxx, ipType=Eip}" --members "{resourceId=ipv6-xxxxxxxx, ipType=Ipv6}"
+  desc: Add members to a QoS policy group.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: AddQosPolicyGroupMembers
+parameters:
+- name: qos-policy-group-id
+  type: string
+  required: true
+  sdk-field: qosPolicyGroupId
+  description: QoS policy group ID.
+- name: members
+  type: object-array
+  required: true
+  sdk-field: members
+  description: List of members to add to the policy group.
+  array-style: json
+  item-schema:
+  - name: resourceId
+    type: string
+    description: ID of IP resource.
+  - name: ipType
+    type: enum
+    description: IP type.

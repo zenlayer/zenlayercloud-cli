@@ -1,0 +1,47 @@
+name: ModifyQosPolicyGroup
+product: zec
+use: modify-qos-policy-group
+short: Modify QoS Policy Group
+long: |-
+  Modify the name or bandwidth limit of a QoS policy group.
+  **Bandwidth Limit**
+
+  * The minimum bandwidth limit is 10,000 Mbps (10G) by default.
+  * If you need a bandwidth limit lower than 10G, please contact [Zenlayer Support](https://www.zenlayer.com/support/).
+examples:
+- cmd: zeno zec modify-qos-policy-group --qos-policy-group-id qos-xxxxxxxx --name new-qos-group-name --bandwidth-limit 2000 --rate-limit-mode STRICT
+  desc: Modify the name and bandwidth limit of a QoS policy group.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyQosPolicyGroup
+parameters:
+- name: qos-policy-group-id
+  type: string
+  required: true
+  sdk-field: qosPolicyGroupId
+  description: QoS policy group ID.
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: |-
+    New name for the QoS policy group.
+    Cannot exceed 64 characters.
+- name: bandwidth-limit
+  type: integer
+  required: false
+  sdk-field: bandwidthLimit
+  description: |-
+    New bandwidth limit, in Mbps.
+    Maximum is 100,000,000 Mbps.
+- name: rate-limit-mode
+  type: enum
+  required: false
+  sdk-field: rateLimitMode
+  description: New rate limit mode.
+  enum-values:
+  - value: LOOSE
+    desc: 'Loose mode: allows short-term bursts exceeding the limit.'
+  - value: STRICT
+    desc: 'Strict mode: strictly enforced, no bursts allowed.'
