@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.5](https://github.com/zenlayer/zenlayercloud-cli/releases/tag/v1.0.5) - 2026-04-30
+
+### Documentation
+
+- update CHANGELOG.md for v1.0.4
+
+### Features
+
+- add qos policy group apis
 ## [1.0.4](https://github.com/zenlayer/zenlayercloud-cli/releases/tag/v1.0.4) - 2026-04-28
 
 ### Bug Fixes
