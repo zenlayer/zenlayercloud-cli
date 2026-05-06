@@ -51,3 +51,44 @@ response:
 - name: availableResources
   type: object-array
   description: 可用资源的集合。
+  array-style: json
+  item-schema:
+  - name: zoneId
+    type: string
+    description: 可用区ID。
+  - name: sellStatus
+    type: enum
+    description: |-
+      售卖的状态。
+      <ul><li>SELL：表示实例可购买，且库存>10。</li><li>SELL_SHORTAGE: 表示可购买，但是库存<10台。</li><li>SOLD_OUT：表示实例已售罄。</li></ul>
+    enum-values:
+    - value: SOLD_OUT
+      desc: 已售罄。
+    - value: SELL_SHORTAGE
+      desc: 可购买，但是库存小于等于10台。
+    - value: SELL
+      desc: 实例可购买，且库存大于10。
+  - name: internetChargeTypes
+    type: string-array
+    description: 网络计费类型。
+  - name: instanceTypeId
+    type: string
+    description: 机型ID。
+  - name: maximumBandwidthOut
+    type: integer
+    description: |-
+      最大的公网出口带宽限制。
+      单位：Mbps。
+  - name: defaultBandwidthOut
+    type: integer
+    description: |-
+      固定带宽计费方式时默认赠送公网带宽。
+      单位：GB。
+  - name: defaultTrafficPackageSize
+    type: float
+    description: |-
+      流量包计费方式时默认增送的流量包大小。
+      单位：TB。
+  - name: qty
+    type: integer
+    description: 库存数量。

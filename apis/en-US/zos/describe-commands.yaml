@@ -72,6 +72,42 @@ response:
 - name: dataSet
   type: object-array
   description: Command list.
+  array-style: json
+  item-schema:
+  - name: commandId
+    type: string
+    description: Command ID.
+  - name: name
+    type: string
+    description: Command name.
+  - name: description
+    type: string
+    description: Command note.
+  - name: content
+    type: string
+    description: Script content.
+  - name: type
+    type: enum
+    description: Script language type.
+    enum-values:
+    - value: SHELL
+      desc: Shell script running on Linux instances.
+    - value: POWERSHELL
+      desc: PowerShell script running on Windows instances.
+    - value: BAT
+      desc: Bat script running on Windows instances.
+  - name: createTime
+    type: string
+    description: Creation time of command.
+  - name: latestInvocationTime
+    type: string
+    description: Latest execution time.
+  - name: tags
+    type: object
+    description: Tag of command
+  - name: resourceGroup
+    type: object
+    description: Resource group of command.
 - name: totalCount
   type: integer
   description: Number of commands meeting the filtering conditions.

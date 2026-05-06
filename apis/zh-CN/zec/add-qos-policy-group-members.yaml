@@ -29,3 +29,10 @@ parameters:
   - name: ipType
     type: enum
     description: IP类型。
+    enum-values:
+    - value: Eip
+      desc: 弹性公网IP（EIP）。
+    - value: Ipv6
+      desc: IPv6地址。
+    - value: UnmanagedEgressIp
+      desc: 非托管出口IP。

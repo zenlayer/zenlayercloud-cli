@@ -28,4 +28,41 @@ parameters:
 response:
 - name: instanceTypeQuotaSet
   type: object-array
+  required: true
   description: 实例规格信息。
+  array-style: json
+  item-schema:
+  - name: zoneId
+    type: string
+    description: 可用区ID。
+  - name: instanceType
+    type: string
+    description: 实例规格ID。
+  - name: instanceTypeName
+    type: string
+    description: 实例规格的名称。
+  - name: cpuCount
+    type: integer
+    description: |-
+      CPU核数。
+      单位：核。
+  - name: memory
+    type: integer
+    description: |-
+      实例内存容量。
+      单位：GiB。
+  - name: bps
+    type: integer
+    description: 单张网卡的带宽上限。
+  - name: pps
+    type: integer
+    description: 单张网卡的收发包上限。
+  - name: internetMaxBandwidthOutLimit
+    type: integer
+    description: 最大出口带宽限制。
+  - name: withStock
+    type: boolean
+    description: 是否有库存。
+  - name: internetChargeTypes
+    type: string-array
+    description: 支持的网络计费类型。

@@ -24,3 +24,23 @@ response:
 - name: zoneSet
   type: object-array
   description: The list of zones available.
+  array-style: json
+  item-schema:
+  - name: zoneId
+    type: string
+    description: Zone ID. For example, SEL-A .
+  - name: zoneName
+    type: string
+    description: Zone name.
+  - name: cityName
+    type: string
+    description: City name of the zone.
+  - name: areaName
+    type: string
+    description: Region name of the zone.
+  - name: isCloudRouterAvailable
+    type: boolean
+    description: Whether the zone supports Layer 3 cloud router.
+  - name: isByoipEnabled
+    type: boolean
+    description: Indicate whether the availability zone support BYO IP addressing or not.

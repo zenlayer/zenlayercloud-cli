@@ -34,3 +34,36 @@ response:
 - name: cidrBlockIps
   type: object-array
   description: IPs of the CIDR block.
+  array-style: json
+  item-schema:
+  - name: cidrBlockId
+    type: string
+    description: ID of CIDR block.
+  - name: cidrBlockType
+    type: enum
+    description: |-
+      Type of CIDR block. The optional values are as follows:
+      IPv4 IPv6
+    enum-values:
+    - value: IPV4
+      desc: IPv4.
+    - value: IPV6
+      desc: IPv6.
+  - name: ip
+    type: string
+    description: IP address.
+  - name: instanceId
+    type: string
+    description: List of instance IDs.
+  - name: status
+    type: enum
+    description: Status of IPs .
+    enum-values:
+    - value: BINDING
+      desc: Binding.
+    - value: UNBINDING
+      desc: Unbinding.
+    - value: BOUND
+      desc: Bound.
+    - value: AVAILABLE
+      desc: Available.

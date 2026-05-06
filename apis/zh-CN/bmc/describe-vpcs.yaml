@@ -99,3 +99,37 @@ response:
 - name: dataSet
   type: object-array
   description: VpcInfo结果集。
+  array-style: json
+  item-schema:
+  - name: vpcId
+    type: string
+    description: VPC唯一ID。
+  - name: vpcRegionId
+    type: string
+    description: VPC的节点ID。
+  - name: vpcRegionName
+    type: string
+    description: VPC的节点名称。
+  - name: vpcName
+    type: string
+    description: VPC的名称。
+  - name: cidrBlock
+    type: string
+    description: VPC的CIDR。
+  - name: createTime
+    type: string
+    description: |-
+      创建时间。
+      格式为：YYYY-MM-ddTHH:mm:ssZ。
+  - name: vpcStatus
+    type: string
+    description: VPC的状态。
+  - name: resourceGroupId
+    type: string
+    description: 资源组ID。
+  - name: resourceGroupName
+    type: string
+    description: 资源组名称。
+  - name: tags
+    type: object
+    description: 资源关联的标签信息。

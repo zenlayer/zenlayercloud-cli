@@ -14,3 +14,43 @@ response:
 - name: regions
   type: object-array
   description: Query the list of regions that support BYOIP CIDR block.
+  array-style: json
+  item-schema:
+  - name: netmask
+    type: integer
+    description: Supported subnet mask.
+  - name: regionId
+    type: string
+    description: Supported regions.
+  - name: network
+    type: enum
+    description: Supported network types.
+    enum-values:
+    - value: PremiumBGP
+      desc: |-
+        Premium BGP network.
+        High-performance network.
+    - value: CN2
+      desc: China Telecom CN2 network.
+    - value: LocalLine
+      desc: Provided by a local ISP.
+    - value: StandardBGP
+      desc: |-
+        Standard BGP network.
+        General-purpose network with cost optimization.
+    - value: CMI
+      desc: 1-Line IP China Mobile.
+    - value: CUG
+      desc: 1-Line IP China Unicom.
+    - value: CTG
+      desc: 1-Line IP China Telecom.
+    - value: ThreeLine
+      desc: 3-in-1 IP Pool.
+  - name: ipType
+    type: enum
+    description: Supported IP types.
+    enum-values:
+    - value: IPv4
+      desc: IPv4 address.
+    - value: IPv6
+      desc: IPv6 address.

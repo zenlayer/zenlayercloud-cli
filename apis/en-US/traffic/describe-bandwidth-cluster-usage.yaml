@@ -33,3 +33,14 @@ response:
 - name: dataSet
   type: object-array
   description: Bandwidth usage dataset.
+  array-style: json
+  item-schema:
+  - name: time
+    type: string
+    description: "Time. \nMonthly Burstable 95th. Format: yyyy-MM. \nDaily Peak. Format: yyyy-MM-dd."
+  - name: value
+    type: float
+    description: "Bandwidth value. \nUnit: Mbps."
+  - name: details
+    type: object-array
+    description: List of bandwidth usage details.

@@ -26,6 +26,27 @@ parameters:
     description: |-
       线路类型。
       IPv6仅支持PremiumBGP。
+    enum-values:
+    - value: PremiumBGP
+      desc: |-
+        优质 BGP。
+        高性能网络。
+    - value: CN2
+      desc: 回国优化线路。
+    - value: LocalLine
+      desc: 本地IP。
+    - value: StandardBGP
+      desc: |-
+        标准 BGP。
+        通用网络，成本优化。
+    - value: CMI
+      desc: 中国移动。
+    - value: CUG
+      desc: 中国联通。
+    - value: CTG
+      desc: 中国电信。
+    - value: ThreeLine
+      desc: 三线IP。
   - name: regionId
     type: string
     description: 区域id。

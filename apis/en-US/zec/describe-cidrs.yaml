@@ -95,3 +95,118 @@ response:
 - name: dataSet
   type: object-array
   description: Information on CIDR blocks.
+  array-style: json
+  item-schema:
+  - name: cidrId
+    type: string
+    description: CIDR block ID.
+  - name: regionId
+    type: string
+    description: Region ID.
+  - name: name
+    type: string
+    description: CIDR block name.
+  - name: cidrBlock
+    type: string
+    description: CIDR IP range.
+  - name: totalCount
+    type: integer
+    description: Quantity of available CIDR IPs.
+  - name: usedCount
+    type: integer
+    description: Quantity of used CIDR IPs.
+  - name: source
+    type: enum
+    description: IP type. IP leasing or BYOIP.
+    enum-values:
+    - value: CONSOLE
+      desc: CIDR block created on Console.
+    - value: BYOIP
+      desc: Bring your own IP (BYOIP).
+    - value: SDN_RIPT
+      desc: IP Transit CIDR block.
+  - name: eipV4Type
+    type: enum
+    description: |-
+      Network type of elastic IP.
+      Deprecated. Please use networkLineType instead.
+    enum-values:
+    - value: BGPLine
+      desc: BGP network type.
+    - value: CN2Line
+      desc: CN2 GIA (CN2 Global Internet Access) network type.
+    - value: LocalLine
+      desc: Local IP network type.
+    - value: ChinaMobile
+      desc: China Mobile network type.
+    - value: ChinaUnicom
+      desc: China Unicom network type.
+    - value: ChinaTelecom
+      desc: China Telecom network type.
+    - value: Cogent
+      desc: Cogent Communications network type.
+    - value: ThreeLine
+      desc: 3-in-1 IP pool network type.
+  - name: networkLineType
+    type: enum
+    description: Network type of elastic IP.
+    enum-values:
+    - value: PremiumBGP
+      desc: |-
+        Premium BGP network.
+        High-performance network.
+    - value: CN2
+      desc: China Telecom CN2 network.
+    - value: LocalLine
+      desc: Provided by a local ISP.
+    - value: StandardBGP
+      desc: |-
+        Standard BGP network.
+        General-purpose network with cost optimization.
+    - value: CMI
+      desc: 1-Line IP China Mobile.
+    - value: CUG
+      desc: 1-Line IP China Unicom.
+    - value: CTG
+      desc: 1-Line IP China Telecom.
+    - value: ThreeLine
+      desc: 3-in-1 IP Pool.
+  - name: netmask
+    type: integer
+    description: CIDR block size.
+  - name: poolId
+    type: string
+    description: IP pool ID.
+  - name: createTime
+    type: string
+    description: Creation time.
+  - name: expiredTime
+    type: string
+    description: Expiration time.
+  - name: resourceGroupId
+    type: string
+    description: Resource group ID.
+  - name: resourceGroupName
+    type: string
+    description: Resource group name.
+  - name: status
+    type: enum
+    description: CIDR block status.
+    enum-values:
+    - value: CREATING
+      desc: Creating.
+    - value: AVAILABLE
+      desc: Available to be used.
+    - value: CHANGING
+      desc: Changing.
+    - value: RECYCLING
+      desc: Recycling.
+    - value: RECYCLED
+      desc: Recycled.
+    - value: DELETING
+      desc: Deleting.
+    - value: FAILED
+      desc: Created failed.
+  - name: tags
+    type: object
+    description: Tags bound to resources.

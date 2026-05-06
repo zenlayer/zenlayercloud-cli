@@ -410,3 +410,11 @@ response:
 - name: instances
   type: object-array
   description: Set of disk IDs created along with the instances. If no disk is specified, the value is empty.
+  array-style: json
+  item-schema:
+  - name: instanceId
+    type: string
+    description: Instance ID.
+  - name: diskIdSet
+    type: string-array
+    description: Data disk ID created along with the instance.

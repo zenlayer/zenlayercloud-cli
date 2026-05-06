@@ -81,3 +81,95 @@ response:
 - name: dataSet
   type: object-array
   description: Information on bandwidth clusters.
+  array-style: json
+  item-schema:
+  - name: bandwidthClusterId
+    type: string
+    description: Bandwidth cluster ID.
+  - name: bandwidthClusterName
+    type: string
+    description: Bandwidth cluster name.
+  - name: networkType
+    type: enum
+    description: IP network type.
+    enum-values:
+    - value: BGP
+      desc: BGP network.
+    - value: Cogent
+      desc: Cogent network.
+    - value: CN2
+      desc: China Telecom Next Carrier Network.
+    - value: CMI
+      desc: China Mobile network.
+    - value: CUG
+      desc: China Unicom network.
+    - value: CTG
+      desc: China Telecom network.
+  - name: networkLineType
+    type: enum
+    description: IP network type information.
+    enum-values:
+    - value: PremiumBGP
+      desc: Premium BGP for optimized network performance.
+    - value: StandardBGP
+      desc: Standard BGP for general use with cost optimization.
+    - value: CN2
+      desc: China Telecom Next Carrier Network.
+    - value: CMI
+      desc: China Mobile.
+    - value: CUG
+      desc: China Unicom.
+    - value: CTG
+      desc: China Telecom.
+  - name: product
+    type: enum
+    description: Service type covered by bandwidth cluster.
+    enum-values:
+    - value: AllProduct
+      desc: |-
+        All compute services.
+        This service type maybe unavailable in the future.
+    - value: BMC
+      desc: Bare metal service.
+    - value: ZEC
+      desc: Elastic compute service.
+    - value: VM
+      desc: Virtual machine service.
+    - value: OFFLINE
+      desc: Offline serveice.
+  - name: areaCode
+    type: string
+    description: Location code of bandwidth cluster.
+  - name: internetChargeType
+    type: enum
+    description: Network billing method.
+    enum-values:
+    - value: MonthlyPercent95Bandwidth
+      desc: Monthly Burstable 95th billing method.
+    - value: DayPeakBandwidth
+      desc: Daily Peak billing method.
+  - name: commitBandwidthMbps
+    type: integer
+    description: |-
+      Bandwidth commitment.
+      Unit: Mbps.
+  - name: location
+    type: string
+    description: Location of bandwidth cluster.
+  - name: createTime
+    type: string
+    description: |-
+      Creation time.
+      Format: YYYY-MM-ddTHH:mm:ssZ.
+  - name: resourceNumber
+    type: integer
+    description: Resource quantity in the bandwidth cluster.
+  - name: cities
+    type: object-array
+    description: City information of the bandwidth cluster.
+  - name: tags
+    type: object
+    description: The tags associated with the shared bandwidth package.
+  - name: resourceGroup
+    type: object
+    description: The resource group to which the shared bandwidth package belongs.

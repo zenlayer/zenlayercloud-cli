@@ -52,3 +52,44 @@ response:
 - name: availableResources
   type: object-array
   description: Information on available resources, including zoneId, status, quantity, etc.
+  array-style: json
+  item-schema:
+  - name: zoneId
+    type: string
+    description: Zone ID
+  - name: sellStatus
+    type: enum
+    description: |-
+      Status for sale.
+      SELL : available for sale, stock > 10. SELL_SHORTAGE : available for sale, stock SOLD_OUT : sold out.
+    enum-values:
+    - value: SOLD_OUT
+      desc: Sold out.
+    - value: SELL_SHORTAGE
+      desc: Available for sale, stock <= 10.
+    - value: SELL
+      desc: Available for sale, stock > 10.
+  - name: internetChargeTypes
+    type: string-array
+    description: Network pricing model.
+  - name: instanceTypeId
+    type: string
+    description: ID of the instance model.
+  - name: maximumBandwidthOut
+    type: integer
+    description: |-
+      Public outbound bandwidth cap.
+      Unit: Mbps.
+  - name: defaultBandwidthOut
+    type: integer
+    description: |-
+      Default free public bandwidth for the pricing model of flat rate.
+      Unit: GB.
+  - name: defaultTrafficPackageSize
+    type: float
+    description: |-
+      Default free traffic package for the pricing model of data transfer.
+      Unit: TB.
+  - name: qty
+    type: integer
+    description: The inventory quantity of the instance model at zone.

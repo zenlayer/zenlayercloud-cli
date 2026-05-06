@@ -37,3 +37,68 @@ response:
 - name: listeners
   type: object-array
   description: List of listeners.
+  array-style: json
+  item-schema:
+  - name: listenerId
+    type: string
+    description: Listener ID.
+  - name: listenerName
+    type: string
+    description: Listener name.
+  - name: protocol
+    type: enum
+    description: Listening protocols.
+    enum-values:
+    - value: TCP
+      desc: TCP protocol.
+    - value: UDP
+      desc: UDP protocol.
+  - name: port
+    type: string
+    description: |-
+      Listening port.
+      Use commas (,) to separate multiple ports.
+      Use a hyphen (-) to define a port range, e.g., 10000-10005.
+      If multiple consecutive individual ports are provided, they will be automatically aggregated into a port range.
+  - name: healthCheck
+    type: object
+    description: Heath check information of a listener.
+  - name: scheduler
+    type: enum
+    description: Scheduling algorithm.
+    enum-values:
+    - value: mh
+      desc: Maglev Hashing (mh).
+    - value: rr
+      desc: Round Robin (rr).
+    - value: wrr
+      desc: Weighted Round Robin (wrr).
+    - value: lc
+      desc: Least Connections (lc).
+    - value: wlc
+      desc: Weighted Least Connections (wlc).
+    - value: sh
+      desc: Source Hashing (sh).
+    - value: dh
+      desc: Destination Hashing (dh).
+  - name: kind
+    type: enum
+    description: Forwarding mode.
+    enum-values:
+    - value: FNAT
+      desc: Full NAT.
+    - value: DR
+      desc: Direct Routing.
+    - value: DNAT
+      desc: Destination NAT.
+  - name: createTime
+    type: string
+    description: |-
+      Creation time.
+      Format: YYYY-MM-ddTHH:mm:ssZ
+  - name: persistent
+    type: integer
+    description: Session persistence duration, in seconds.
+  - name: idleTimeout
+    type: integer
+    description: 'Idle timeout period. Unit: seconds.'

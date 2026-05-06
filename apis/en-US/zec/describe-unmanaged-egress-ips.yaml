@@ -1,0 +1,127 @@
+name: DescribeUnmanagedEgressIps
+product: zec
+use: describe-unmanaged-egress-ips
+short: Describe Unmanaged Egress IPs
+long: Query the list of unmanaged egress IPs that match the specified criteria, returning basic IP information and bandwidth rate limit mode.
+examples:
+- cmd: zeno zec describe-unmanaged-egress-ips --unmanaged-egress-ip-ids unmanagedEgressIp-xxx1 --unmanaged-egress-ip-ids unmanagedEgressIp-xxx2 --region-id asia-east-1a --vpc-id vpc-xxxxxx --page-size 20 --page-num 1
+  desc: Query the list of unmanaged egress IPs
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeUnmanagedEgressIps
+parameters:
+- name: unmanaged-egress-ip-ids
+  type: string-array
+  required: false
+  sdk-field: unmanagedEgressIpIds
+  description: Filter by unmanaged egress IP unique IDs. A maximum of 100 IDs are supported per request.
+- name: region-id
+  type: string
+  required: false
+  sdk-field: regionId
+  description: Filter by region ID.
+- name: vpc-id
+  type: string
+  required: false
+  sdk-field: vpcId
+  description: Filter by the unique ID of the VPC.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    Page size of the returned results.
+    Default value: 20. Maximum value: 1000.
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    Page number of the returned results.
+    Default value: 1.
+response:
+- name: totalCount
+  type: integer
+  description: Total number of unmanaged egress IPs that match the filter criteria.
+- name: dataSet
+  type: object-array
+  description: List of returned unmanaged egress IPs.
+  array-style: json
+  item-schema:
+  - name: unmanagedEgressIpId
+    type: string
+    description: Unique ID of the unmanaged egress IP.
+  - name: ip
+    type: string
+    description: Public IP address.
+  - name: regionId
+    type: string
+    description: Region ID.
+  - name: vpcId
+    type: string
+    description: Unique ID of the VPC.
+  - name: status
+    type: enum
+    description: Resource status.
+    enum-values:
+    - value: CREATING
+      desc: Creating.
+    - value: AVAILABLE
+      desc: Available.
+    - value: RECYCLED
+      desc: In the recycle bin.
+    - value: DELETING
+      desc: Deleting.
+    - value: FAILED
+      desc: Creation failed.
+  - name: networkLineType
+    type: enum
+    description: Network type.
+    enum-values:
+    - value: PremiumBGP
+      desc: |-
+        Premium BGP network.
+        High-performance network.
+    - value: CN2
+      desc: China Telecom CN2 network.
+    - value: LocalLine
+      desc: Provided by a local ISP.
+    - value: StandardBGP
+      desc: |-
+        Standard BGP network.
+        General-purpose network with cost optimization.
+    - value: CMI
+      desc: 1-Line IP China Mobile.
+    - value: CUG
+      desc: 1-Line IP China Unicom.
+    - value: CTG
+      desc: 1-Line IP China Telecom.
+    - value: ThreeLine
+      desc: 3-in-1 IP Pool.
+  - name: internetChargeType
+    type: enum
+    description: Internet charge type.
+    enum-values:
+    - value: ByBandwidth
+      desc: Billed by the flat rate bandwidth.
+    - value: ByTrafficPackage
+      desc: Billed by the traffic package size purchased.
+    - value: BandwidthCluster
+      desc: Billed by the burstable 95th bandwidth of all compute resources in a city-based or regional bandwidth cluster with a shared commitment.
+  - name: bandwidthCap
+    type: integer
+    description: |-
+      Bandwidth cap, in Mbps.
+      Null if no fixed bandwidth is configured.
+  - name: rateLimitMode
+    type: enum
+    description: Rate limit mode.
+    enum-values:
+    - value: LOOSE
+      desc: 'Loose mode: allows short-term bursts exceeding the limit.'
+    - value: STRICT
+      desc: 'Strict mode: strictly enforced, no bursts allowed.'
+  - name: createTime
+    type: string
+    description: Creation time.

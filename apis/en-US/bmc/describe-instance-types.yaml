@@ -98,3 +98,53 @@ response:
 - name: instanceTypes
   type: object-array
   description: Information on instance model.
+  array-style: json
+  item-schema:
+  - name: imageIds
+    type: string-array
+    description: 'Image ID supported. Hint: only accessible in DescribeInstanceType .'
+  - name: instanceTypeId
+    type: string
+    description: Instance model ID.
+  - name: description
+    type: string
+    description: Model description, including memory size, disk, etc.
+  - name: cpuCoreCount
+    type: integer
+    description: Quantity of CPUs.
+  - name: cpuDetail
+    type: string
+    description: Details of CPU.
+  - name: cpuCores
+    type: integer
+    description: Quantity of CPU cores.
+  - name: cpuThreads
+    type: integer
+    description: CPU threads.
+  - name: baseFrequency
+    type: string
+    description: CPU base frequency.
+  - name: memorySize
+    type: integer
+    description: |-
+      Memory size.
+      Unit: GB.
+  - name: maximumBandwidth
+    type: integer
+    description: |-
+      Outbound bandwidth cap.
+      Unit: Mbps.
+  - name: supportRaids
+    type: integer-array
+    description: RAID level supported.
+  - name: supportSubnet
+    type: boolean
+    description: Subnet supported or not.
+  - name: isHA
+    type: boolean
+    description: High availability supported or not.
+  - name: diskInfo
+    type: object
+    description: |-
+      Disk size.
+      Unit: GB.

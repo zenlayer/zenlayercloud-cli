@@ -24,4 +24,45 @@ parameters:
 response:
 - name: instanceTypeQuotaSet
   type: object-array
+  required: true
   description: Information on instance size in the zone.
+  array-style: json
+  item-schema:
+  - name: zoneId
+    type: string
+    description: Zone ID.
+  - name: instanceType
+    type: string
+    description: Instance model.
+  - name: instanceTypeName
+    type: string
+    description: Instance model name.
+  - name: cpuCount
+    type: integer
+    description: |-
+      Quantity of CPU cores.
+      Unit: cores.
+  - name: memory
+    type: integer
+    description: |-
+      Memory size.
+      Unit: GiB.
+  - name: bps
+    type: integer
+    description: Bandwidth cap per vNIC.
+  - name: pps
+    type: integer
+    description: Maximum packet send/receive rate per vNIC.
+  - name: internetMaxBandwidthOutLimit
+    type: integer
+    description: |-
+      Outbound bandwidth cap.
+      Unit: Mbps.
+  - name: withStock
+    type: boolean
+    description: Whether the instance model is in stock.
+  - name: internetChargeTypes
+    type: string-array
+    description: |-
+      Network billing model. See
+      InternetChargeType for more details.

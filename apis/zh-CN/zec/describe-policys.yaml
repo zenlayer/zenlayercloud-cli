@@ -68,3 +68,23 @@ response:
 - name: dataSet
   type: object-array
   description: 防护策略列表的数据。
+  array-style: json
+  item-schema:
+  - name: policyId
+    type: string
+    description: 防护策略唯一ID。
+  - name: policyName
+    type: string
+    description: 防护策略名称。
+  - name: createTime
+    type: string
+    description: 创建时间。
+  - name: resourceGroupId
+    type: string
+    description: 防护策略所属的资源组ID。
+  - name: resourceGroupName
+    type: string
+    description: 防护策略所属的资源组名称。
+  - name: tags
+    type: object
+    description: 防护策略关联的标签。

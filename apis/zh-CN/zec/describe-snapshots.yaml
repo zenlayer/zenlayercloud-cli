@@ -91,3 +91,53 @@ response:
 - name: dataSet
   type: object-array
   description: 返回的快照列表数据。
+  array-style: json
+  item-schema:
+  - name: snapshotId
+    type: string
+    description: 快照唯一ID。
+  - name: snapshotName
+    type: string
+    description: 快照显示名称。
+  - name: zoneId
+    type: string
+    description: 快照所属的可用区ID。
+  - name: status
+    type: enum
+    description: 快照的状态。
+    enum-values:
+    - value: CREATING
+      desc: 创建中。
+    - value: AVAILABLE
+      desc: 创建成功。
+    - value: FAILED
+      desc: 创建失败。
+    - value: ROLLING_BACK
+      desc: 回滚到此快照中。
+    - value: DELETING
+      desc: 释放中。
+  - name: snapshotType
+    type: enum
+    description: 快照的类型。
+    enum-values:
+    - value: Auto
+      desc: 自动创建快照。
+    - value: Manual
+      desc: 手动创建快照。
+  - name: retentionTime
+    type: string
+    description: |-
+      快照的保留到期时间。
+      如果取不到值，说明快照为永久保留。
+  - name: diskId
+    type: string
+    description: 云盘ID。
+  - name: createTime
+    type: string
+    description: 创建时间。
+  - name: diskAbility
+    type: boolean
+    description: 是否具备创建disk的能力。
+  - name: resourceGroup
+    type: object
+    description: 所属的资源组信息。

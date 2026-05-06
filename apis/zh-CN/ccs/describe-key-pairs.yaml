@@ -42,3 +42,27 @@ response:
 - name: dataSet
   type: object-array
   description: 密钥对结果集。
+  array-style: json
+  item-schema:
+  - name: keyId
+    type: string
+    description: |-
+      密钥对ID。
+      示例值：key-xxxxxxxx。
+  - name: keyName
+    type: string
+    description: 密钥对名称。
+  - name: publicKey
+    type: string
+    description: |-
+      密钥对的公钥内容。
+      OpenSSH 格式。
+      示例值：ssh-rsa XXXXXXXXXXXX key_xxx。
+  - name: keyDescription
+    type: string
+    description: 密钥对描述信息。
+  - name: createTime
+    type: string
+    description: |-
+      创建时间。
+      格式为：YYYY-MM-ddTHH:mm:ssZ。

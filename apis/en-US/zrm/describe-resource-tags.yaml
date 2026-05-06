@@ -23,3 +23,14 @@ response:
 - name: dataSet
   type: object-array
   description: Information on tags.
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: Tag key.
+  - name: value
+    type: string
+    description: Tag value.
+  - name: createdDate
+    type: string
+    description: Creation time.

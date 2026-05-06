@@ -39,6 +39,19 @@ response:
 - name: dataList
   type: object-array
   description: 带宽数据列表。
+  array-style: json
+  item-schema:
+  - name: internetRX
+    type: integer
+    description: 入口带宽。单位：bps。
+  - name: internetTX
+    type: integer
+    description: 出口带宽。单位：bps。
+  - name: time
+    type: string
+    description: |-
+      数据时间。
+      格式为：YYYY-MM-ddTHH:mm:ssZ。
 - name: in95
   type: integer
   description: 入口带宽95值。

@@ -6,7 +6,8 @@ long: |-
   销毁一台或多台虚拟机实例。
   **注意事项**
 
-  * 普通账号删除弹性后，资源会直接回收。操作不可逆，请谨慎操作。
+  * 本接口为异步接口，释放实例请求发送成功后会立即返回，此时操作并未完成。实例状态可以通过调用[`DescribeInstances`](describeinstances.md)接口查询，当实例不再出现在查询结果中时则代表已完全销毁。释放过程中不可对实例进行任何操作。
+  * 一般情况下实例释放后资源直接回收，不可恢复。部分账号实例释放后会先进入`RECYCLED`（回收站）状态保留一段时间，期间可再次调用本接口对其彻底删除，请谨慎操作。
   * 支持批量操作。每次请求批量实例的上限为100。
 examples:
 - cmd: zeno zec release-instances --instance-ids instanceId1 --instance-ids instanceId2

@@ -54,3 +54,48 @@ response:
 - name: dataSet
   type: object-array
   description: Listener set.
+  array-style: json
+  item-schema:
+  - name: loadBalancerId
+    type: string
+    description: Load balance instance ID.
+  - name: listenerId
+    type: string
+    description: Listener ID.
+  - name: listenerName
+    type: string
+    description: Listener name.
+  - name: status
+    type: string
+    description: State of a listener.
+  - name: port
+    type: string
+    description: Listening port.
+  - name: protocol
+    type: string
+    description: Listening protocol.
+  - name: backendProtocol
+    type: string
+    description: Backend forwarding protocol.
+  - name: scheduler
+    type: string
+    description: Scheduling algorithm.
+  - name: kind
+    type: enum
+    description: Forwarding mode.
+    enum-values:
+    - value: DR
+      desc: Direct Routing.
+    - value: FNAT
+      desc: Global Network Address Translation.
+  - name: healthCheck
+    type: object
+    description: Heath check information of a listener.
+  - name: notify
+    type: object
+    description: Alarm.
+  - name: createTime
+    type: string
+    description: |-
+      Creation time.
+      Use UTC time according to the ISO8601 standard. Format: YYYY-MM-ddTHH:mm:ssZ .

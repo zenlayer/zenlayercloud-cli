@@ -22,3 +22,44 @@ response:
   description: |-
     公网IPv6信息。
     网卡如果没有公网IPv6,则取值为空。
+  object-schema:
+  - name: ipv6CidrId
+    type: string
+    description: IPv6 CIDR的ID。
+  - name: ipv6Cidr
+    type: string
+    description: IPv6 CIDR的地址。
+  - name: primaryIpv6Address
+    type: string
+    description: 网卡的主IPv6地址。
+  - name: internetChargeType
+    type: enum
+    description: IPv6的网络计费类型。
+    enum-values:
+    - value: ByBandwidth
+      desc: 固定带宽计费方式。
+    - value: ByTrafficPackage
+      desc: 流量包计费方式。
+    - value: BandwidthCluster
+      desc: 共享带宽包计费方式。
+  - name: bandwidth
+    type: integer
+    description: |-
+      IPv6的公网带宽限速。
+      单位：Mbps。
+  - name: rateLimitMode
+    type: enum
+    description: 限速模式。
+    enum-values:
+    - value: LOOSE
+      desc: 宽松模式：允许短时间突发超出限制。
+    - value: STRICT
+      desc: 严格模式：严格限制，不允许任何突发。
+  - name: trafficPackageSize
+    type: float
+    description: |-
+      IPv6的流量包大小。
+      单位：TB。
+  - name: bandwidthCluster
+    type: object
+    description: 关联的带宽组信息。

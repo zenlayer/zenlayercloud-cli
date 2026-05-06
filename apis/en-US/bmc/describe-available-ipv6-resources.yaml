@@ -20,3 +20,20 @@ response:
 - name: availableIpv6Resources
   type: object-array
   description: List of available IPv6 CIDR blocks.
+  array-style: json
+  item-schema:
+  - name: zoneId
+    type: string
+    description: Zone ID to which the CIDR block belongs.
+  - name: sellStatus
+    type: enum
+    description: |-
+      Status for sale.
+      SELL : available for sale, stock > 10. SELL_SHORTAGE : available for sale, stock SOLD_OUT : sold out.
+    enum-values:
+    - value: SOLD_OUT
+      desc: Sold out.
+    - value: SELL_SHORTAGE
+      desc: Available for sale, stock <= 10.
+    - value: SELL
+      desc: Available for sale, stock > 10.

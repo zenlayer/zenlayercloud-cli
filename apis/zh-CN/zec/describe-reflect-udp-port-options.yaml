@@ -14,3 +14,11 @@ response:
 - name: reflectUdpPorts
   type: object-array
   description: 默认UDP反射源端口列表。
+  array-style: json
+  item-schema:
+  - name: name
+    type: string
+    description: 反射攻击类型。
+  - name: port
+    type: integer
+    description: 反射源端口。

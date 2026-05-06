@@ -410,3 +410,11 @@ response:
   description: |-
     随机器创建的数据盘id集合。
     如果请求中没有指定数据盘，返回空数组。
+  array-style: json
+  item-schema:
+  - name: instanceId
+    type: string
+    description: 实例ID。
+  - name: diskIdSet
+    type: string-array
+    description: 随机器创建的数据盘ID集合。

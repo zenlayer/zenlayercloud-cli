@@ -14,3 +14,14 @@ response:
 - name: resourceGroups
   type: object-array
   description: 资源组列表信息。
+  array-style: json
+  item-schema:
+  - name: resourceGroupId
+    type: string
+    description: 资源组唯一ID。
+  - name: name
+    type: string
+    description: 资源组名称。
+  - name: createTime
+    type: string
+    description: 创建时间。

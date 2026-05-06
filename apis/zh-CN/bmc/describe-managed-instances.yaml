@@ -65,3 +65,23 @@ response:
 - name: dataSet
   type: object-array
   description: 实例列表。
+  array-style: json
+  item-schema:
+  - name: instanceId
+    type: string
+    description: 实例ID。
+  - name: instanceName
+    type: string
+    description: 实例名称。
+  - name: facName
+    type: string
+    description: 地域名称。
+  - name: ips
+    type: string-array
+    description: 公网IP列表。
+  - name: lanIps
+    type: string-array
+    description: 内网IP列表。
+  - name: createTime
+    type: string
+    description: 创建时间。

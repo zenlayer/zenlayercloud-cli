@@ -45,3 +45,23 @@ response:
 - name: dataSet
   type: object-array
   description: 公网IP池列表的结果数据。
+  array-style: json
+  item-schema:
+  - name: poolId
+    type: string
+    description: 公网IP池的ID。
+  - name: regionId
+    type: string
+    description: 公网IP池所在的节点ID。
+  - name: name
+    type: string
+    description: 公网IP池的名称。
+  - name: createTime
+    type: string
+    description: 公网IP池的创建时间。
+  - name: ipv4CidrCount
+    type: integer
+    description: CIDR IPv4的数量。
+  - name: ipv6CidrCount
+    type: integer
+    description: CIDR IPv6的数量。

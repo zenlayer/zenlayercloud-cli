@@ -27,3 +27,11 @@ response:
 - name: categoryZoneSet
   type: object-array
   description: Information on disks.
+  array-style: json
+  item-schema:
+  - name: zoneId
+    type: string
+    description: Availability zone ID.
+  - name: categorySet
+    type: string-array
+    description: The supported disk types.

@@ -91,3 +91,53 @@ response:
 - name: dataSet
   type: object-array
   description: The returned snapshot list data.
+  array-style: json
+  item-schema:
+  - name: snapshotId
+    type: string
+    description: Snapshot ID.
+  - name: snapshotName
+    type: string
+    description: Snapshot name.
+  - name: zoneId
+    type: string
+    description: Availability zone ID of the snapshot.
+  - name: status
+    type: enum
+    description: Snapshot state.
+    enum-values:
+    - value: CREATING
+      desc: Creating.
+    - value: AVAILABLE
+      desc: Creating succeeded.
+    - value: FAILED
+      desc: Creating failed.
+    - value: ROLLING_BACK
+      desc: Reverting to the snapshot.
+    - value: DELETING
+      desc: Deleting.
+  - name: snapshotType
+    type: enum
+    description: Snapshot type.
+    enum-values:
+    - value: Auto
+      desc: Automatic snapshot.
+    - value: Manual
+      desc: Manual snapshot.
+  - name: retentionTime
+    type: string
+    description: |-
+      Snapshot retention time.
+      If no value can be retrieved, it indicates that the snapshot is retained permanently.
+  - name: diskId
+    type: string
+    description: Disk ID.
+  - name: createTime
+    type: string
+    description: Creation time.
+  - name: diskAbility
+    type: boolean
+    description: Whether the disk can be created by the snapshot.
+  - name: resourceGroup
+    type: object
+    description: Resource group information.

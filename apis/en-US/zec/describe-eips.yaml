@@ -148,3 +148,180 @@ response:
 - name: dataSet
   type: object-array
   description: List of elastic IPs.
+  array-style: json
+  item-schema:
+  - name: eipId
+    type: string
+    description: ID of elastic IP.
+  - name: name
+    type: string
+    description: Name of elastic IP.
+  - name: regionId
+    type: string
+    description: Region ID.
+  - name: peerRegionId
+    type: string
+    description: |-
+      Remote region ID.
+      This field is valid only when the IP is a Remote IP.
+  - name: isDefault
+    type: boolean
+    description: Default IP or not.
+  - name: status
+    type: enum
+    description: ​Status of elastic IP.​
+    enum-values:
+    - value: CREATING
+      desc: Creating.
+    - value: DELETING
+      desc: Deleting.
+    - value: ASSIGNING
+      desc: Binding.
+    - value: BINDED
+      desc: Bound.
+    - value: RECYCLING
+      desc: Recycling.
+    - value: RECYCLED
+      desc: Recycled.
+    - value: UNBIND
+      desc: Unbound.
+    - value: CREATE_FAILED
+      desc: Creating failed.
+  - name: publicIpAddresses
+    type: string-array
+    description: Public IP address.
+  - name: privateIpAddress
+    type: string
+    description: Private IP bound to the elastic IP.
+  - name: eipV4Type
+    type: enum
+    description: |-
+      ​Network type of elastic IP​.
+      Deprecated. Please use networkLineType instead.
+    enum-values:
+    - value: BGPLine
+      desc: BGP network type.
+    - value: CN2Line
+      desc: CN2 GIA (CN2 Global Internet Access) network type.
+    - value: LocalLine
+      desc: Local IP network type.
+    - value: ChinaMobile
+      desc: China Mobile network type.
+    - value: ChinaUnicom
+      desc: China Unicom network type.
+    - value: ChinaTelecom
+      desc: China Telecom network type.
+    - value: Cogent
+      desc: Cogent Communications network type.
+    - value: ThreeLine
+      desc: 3-in-1 IP pool network type.
+  - name: networkLineType
+    type: enum
+    description: ​Network type of elastic IP​.
+    enum-values:
+    - value: PremiumBGP
+      desc: |-
+        Premium BGP network.
+        High-performance network.
+    - value: CN2
+      desc: China Telecom CN2 network.
+    - value: LocalLine
+      desc: Provided by a local ISP.
+    - value: StandardBGP
+      desc: |-
+        Standard BGP network.
+        General-purpose network with cost optimization.
+    - value: CMI
+      desc: 1-Line IP China Mobile.
+    - value: CUG
+      desc: 1-Line IP China Unicom.
+    - value: CTG
+      desc: 1-Line IP China Telecom.
+    - value: ThreeLine
+      desc: 3-in-1 IP Pool.
+  - name: internetChargeType
+    type: enum
+    description: ​Network billing method of elastic IP.​
+    enum-values:
+    - value: ByBandwidth
+      desc: Billed by the flat rate bandwidth.
+    - value: ByTrafficPackage
+      desc: Billed by the traffic package size purchased.
+    - value: BandwidthCluster
+      desc: Billed by the burstable 95th bandwidth of all compute resources in a city-based or regional bandwidth cluster with a shared commitment.
+  - name: cidrId
+    type: string
+    description: CIDR block ID from which the elastic IP originates.
+  - name: nicId
+    type: string
+    description: |-
+      vNIC ID associated with the elastic IP.
+      This field is deprecated; please use the associatedId field instead.
+  - name: associatedId
+    type: string
+    description: |-
+      Resource ID bound to the elastic IP.
+      It may be an instance ID, vNIC ID, or NAT gateway ID.
+  - name: associatedType
+    type: enum
+    description: |-
+      Resource type bound to the elastic IP.
+      It may be an instance, vNIC, or NAT gateway.
+    enum-values:
+    - value: NIC
+      desc: vNIC.
+    - value: NAT
+      desc: NAT gateway.
+    - value: LB
+      desc: Load balancer.
+  - name: instanceId
+    type: string
+    description: |-
+      ID of the instance to which elastic IP is bound.
+      This field may have a value only when the associatedType is NIC .
+  - name: bindType
+    type: enum
+    description: Elastic IP mode.
+    enum-values:
+    - value: FullNat
+      desc: NAT mode.
+    - value: Passthrough
+      desc: Bypass mode.
+  - name: flowPackage
+    type: float
+    description: Data transfer package.
+  - name: bandwidth
+    type: integer
+    description: Bandwidth
+  - name: rateLimitMode
+    type: enum
+    description: Rate limit mode.
+    enum-values:
+    - value: LOOSE
+      desc: 'Loose mode: allows short-term bursts exceeding the limit.'
+    - value: STRICT
+      desc: 'Strict mode: strictly enforced, no bursts allowed.'
+  - name: eipGeoRefs
+    type: object-array
+    description: Elastic IP geolocation information.
+  - name: blockInfoList
+    type: object-array
+    description: Elastic IP block threshold.
+  - name: createTime
+    type: string
+    description: Creation time.
+  - name: expiredTime
+    type: string
+    description: Expiration time.
+  - name: resourceGroupId
+    type: string
+    description: Resource group ID.
+  - name: resourceGroupName
+    type: string
+    description: Resource group name.
+  - name: bandwidthCluster
+    type: object
+    description: Bandwidth cluster ID.
+  - name: tags
+    type: object
+    description: Tags bound to resources.

@@ -35,3 +35,19 @@ response:
 - name: dataSet
   type: object-array
   description: 带宽用量数据集。
+  array-style: json
+  item-schema:
+  - name: time
+    type: string
+    description: |-
+      时间。
+      95计费时间为月（格式yyyy-MM）。
+      日峰值计费时间为日（格式yyyy-MM-dd）。
+  - name: value
+    type: float
+    description: |-
+      带宽值。
+      单位：Mbps。
+  - name: details
+    type: object-array
+    description: 带宽详情列表。

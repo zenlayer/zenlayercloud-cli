@@ -51,3 +51,46 @@ response:
 - name: dataSet
   type: object-array
   description: 监听器集合。
+  array-style: json
+  item-schema:
+  - name: loadBalancerId
+    type: string
+    description: LoadBalancerId唯一ID。
+  - name: listenerId
+    type: string
+    description: Listener的ID。
+  - name: listenerName
+    type: string
+    description: Listener的名称。
+  - name: status
+    type: string
+    description: 状态。
+  - name: port
+    type: string
+    description: 监听端口。
+  - name: protocol
+    type: string
+    description: 监听协议。
+  - name: backendProtocol
+    type: string
+    description: 后段服务器协议。
+  - name: scheduler
+    type: string
+    description: 调度算法。
+  - name: kind
+    type: enum
+    description: 流量转发模式。
+    enum-values:
+    - value: DR
+      desc: 直接路由（Direct Routing)。
+    - value: FNAT
+      desc: 全局网络地址转换(Full NAT)。
+  - name: healthCheck
+    type: object
+    description: 健康检查。
+  - name: notify
+    type: object
+    description: 通知地址。
+  - name: createTime
+    type: string
+    description: 创建时间。按照`ISO8601`标准表示，并且使用`UTC`时间。格式为：`YYYY-MM-ddTHH:mm:ssZ`。

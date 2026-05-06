@@ -14,3 +14,11 @@ response:
 - name: reflectUdpPorts
   type: object-array
   description: List of default UDP reflection source ports.
+  array-style: json
+  item-schema:
+  - name: name
+    type: string
+    description: Reflection attack type.
+  - name: port
+    type: integer
+    description: Reflection source port.

@@ -136,3 +136,79 @@ response:
 - name: dataSet
   type: object-array
   description: 镜像列表数据。
+  array-style: json
+  item-schema:
+  - name: imageId
+    type: string
+    description: 镜像ID。
+  - name: imageName
+    type: string
+    description: 镜像的名称。
+  - name: imageType
+    type: enum
+    description: 镜像的类型。
+    enum-values:
+    - value: PUBLIC_IMAGE
+      desc: 公共镜像。
+    - value: CUSTOM_IMAGE
+      desc: 自定义镜像。
+  - name: imageSource
+    type: enum
+    description: 镜像的来源。
+    enum-values:
+    - value: OFFICIAL
+      desc: 官方镜像。
+    - value: MARKETING
+      desc: 市场镜像。
+    - value: CUSTOM
+      desc: 自定义镜像。
+  - name: imageSize
+    type: string
+    description: 镜像的大小。
+  - name: imageDescription
+    type: string
+    description: 镜像描述信息。
+  - name: imageVersion
+    type: string
+    description: 镜像的版本。
+  - name: imageStatus
+    type: enum
+    description: 镜像的状态。
+    enum-values:
+    - value: CREATING
+      desc: 镜像创建中。
+    - value: AVAILABLE
+      desc: 镜像创建成功。
+    - value: UNAVAILABLE
+      desc: 镜像下架。
+    - value: SYNCING
+      desc: 镜像复制中。
+    - value: FAILED
+      desc: 镜像创建失败。
+    - value: DELETING
+      desc: 镜像释放中。
+    - value: PROCESSING
+      desc: 镜像进行中。
+  - name: nicNetworkType
+    type: string-array
+    description: 镜像支持的网卡类型。
+  - name: category
+    type: string
+    description: 镜像的分类。
+  - name: osType
+    type: enum
+    description: 操作系统类型。
+    enum-values:
+    - value: linux
+      desc: Linux操作系统。
+    - value: bsd
+      desc: BSD操作系统。
+    - value: windows
+      desc: Windows操作系统。
+    - value: android
+      desc: Android操作系统。
+    - value: any
+      desc: 任意类型。
+  - name: tags
+    type: object
+    description: 实例关联的标签。

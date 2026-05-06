@@ -124,3 +124,99 @@ response:
 - name: dataSet
   type: object-array
   description: Information on vNIC(s).
+  array-style: json
+  item-schema:
+  - name: nicId
+    type: string
+    description: vNIC ID.
+  - name: name
+    type: string
+    description: vNIC name.
+  - name: status
+    type: enum
+    description: vNIC status.
+    enum-values:
+    - value: PENDING
+      desc: Creating.
+    - value: AVAILABLE
+      desc: Available. Not bound to any instance.
+    - value: ATTACHING
+      desc: Binding.
+    - value: DETACHING
+      desc: Unbinding.
+    - value: DELETING
+      desc: Deleting.
+    - value: CREATE_FAILED
+      desc: Creating failed.
+    - value: USED
+      desc: Bound.
+  - name: nicType
+    type: enum
+    description: vNIC type.
+    enum-values:
+    - value: Primary
+      desc: Primary network interface.
+    - value: Secondary
+      desc: Secondary network interface.
+  - name: regionId
+    type: string
+    description: Region ID.
+  - name: nicSubnetType
+    type: enum
+    description: IP stack type of the vNIC.
+    enum-values:
+    - value: IPv4
+      desc: IPv4 stack type only.
+    - value: IPv4_IPv6
+      desc: IPv4 and IPv6 stack type.
+    - value: IPv6
+      desc: IPv6 stack type only.
+  - name: publicIpList
+    type: string-array
+    description: Public IP addresses.
+  - name: privateIpList
+    type: string-array
+    description: Private IP addresses.
+  - name: primaryIpv4
+    type: string
+    description: Primary private IPv4 address.
+  - name: primaryIpv6
+    type: string
+    description: |-
+      Primary private IPv6 address.
+      If the IP stack type is IPv4, this value is null.
+  - name: ipv6Cidr
+    type: string
+    description: |-
+      IPv6 CIDR block.
+      If the IP stack type is IPv4, this value is null.
+  - name: secondaryIpv4s
+    type: string-array
+    description: Secondary private IPv4 addresses.
+  - name: macAddress
+    type: string
+    description: MAC address.
+  - name: instanceId
+    type: string
+    description: Instance ID.
+  - name: vpcId
+    type: string
+    description: VPC ID.
+  - name: subnetId
+    type: string
+    description: Subnet ID.
+  - name: createTime
+    type: string
+    description: Creation time.
+  - name: updateTime
+    type: string
+    description: Updating time.
+  - name: resourceGroup
+    type: object
+    description: Resource group information.
+  - name: securityGroupId
+    type: string
+    description: Associated security group ID of the vNIC.
+  - name: tags
+    type: object
+    description: Tags bound to resources.

@@ -44,3 +44,11 @@ response:
 - name: dataSet
   type: object-array
   description: 数据列表。
+  array-style: json
+  item-schema:
+  - name: resourceType
+    type: string
+    description: 资源类型。
+  - name: resourceUuid
+    type: string
+    description: 资源唯一标识。

@@ -41,3 +41,16 @@ response:
 - name: dataSet
   type: object-array
   description: List of traffic monitoring data points.
+  array-style: json
+  item-schema:
+  - name: timestamp
+    type: string
+    description: |-
+      Data point time.
+      Time format: yyyy-MM-ddTHH:mm:ssZ.
+  - name: bandwidthIn
+    type: integer
+    description: Inbound bandwidth, in bps.
+  - name: bandwidthOut
+    type: integer
+    description: Outbound bandwidth, in bps.

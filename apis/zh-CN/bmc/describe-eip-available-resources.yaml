@@ -35,3 +35,17 @@ response:
 - name: eipResources
   type: object-array
   description: 购买EIP区域列表。
+  array-style: json
+  item-schema:
+  - name: zoneId
+    type: string
+    description: EIP所属的可用区ID。
+  - name: status
+    type: string
+    description: |-
+      EIP是否售卖。
+      取值范围：
+      <ul><li>SELL：表示EIP可购买，且库存>10台。</li><li>SELL_SHORTAGE: 表示可购买，但是库存<10台。</li><li>SOLD_OUT：表示EIP已售罄。</li></ul>
+  - name: netmask
+    type: integer
+    description: IP掩码。

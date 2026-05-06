@@ -37,4 +37,33 @@ response:
   description: Total number of matching data.
 - name: dataSet
   type: object-array
+  required: true
   description: Member list information.
+  array-style: json
+  item-schema:
+  - name: memberId
+    type: string
+    description: Unique ID of the member list.
+  - name: userUid
+    type: string
+    description: User unique ID.
+  - name: firstName
+    type: string
+    description: User first name.
+  - name: lastName
+    type: string
+    description: User last name.
+  - name: username
+    type: string
+    description: User email.
+  - name: assignmentStatus
+    type: string
+    description: |-
+      User invitation status.
+      ACTIVE: Joined, PENDING: Pending confirmation
+  - name: updateTime
+    type: string
+    description: Update time.
+  - name: createTime
+    type: string
+    description: Join time.

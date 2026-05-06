@@ -29,3 +29,14 @@ response:
 - name: vpcRegionSet
   type: object-array
   description: Information on availability regions for VPCs.
+  array-style: json
+  item-schema:
+  - name: vpcRegionId
+    type: string
+    description: Availability region ID of VPC.
+  - name: vpcRegionName
+    type: string
+    description: Availability region name of VPC.
+  - name: zoneIds
+    type: string-array
+    description: List if zone IDs.

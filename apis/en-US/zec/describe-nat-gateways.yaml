@@ -92,3 +92,68 @@ response:
 - name: dataSet
   type: object-array
   description: The returned NAT gateway list.
+  array-style: json
+  item-schema:
+  - name: natGatewayId
+    type: string
+    description: The unique ID of the NAT gateway.
+  - name: vpcId
+    type: string
+    description: VPC network ID to which the NAT gateway belongs.
+  - name: regionId
+    type: string
+    description: Region ID.
+  - name: status
+    type: enum
+    description: NAT gateway state.
+    enum-values:
+    - value: CREATING
+      desc: NAT gateway is being created.
+    - value: RUNNING
+      desc: NAT gateway is running.
+    - value: RECYCLED
+      desc: NAT gateway is in the recycle bin.
+    - value: CREATE_FAILED
+      desc: NAT gateway creation failed.
+    - value: RELEASING
+      desc: NAT gateway is being released.
+  - name: name
+    type: string
+    description: The name of the NAT gateway.
+  - name: subnetIds
+    type: string-array
+    description: Subnet ID list to which the NAT gateway belongs.
+  - name: isAllSubnets
+    type: boolean
+    description: Whether all subnets within a region are associated with the NAT gateway.
+  - name: eipIds
+    type: string-array
+    description: Elastic IP ID list bound to the NAT gateway.
+  - name: zbgId
+    type: string
+    description: Border gateway ID.
+  - name: icmpReplyEnabled
+    type: boolean
+    description: Whether to enable ICMP echo reply or not.
+  - name: securityGroupId
+    type: string
+    description: Associated security group ID of the NAT gateway.
+  - name: resourceGroupId
+    type: string
+    description: Resource group ID.
+  - name: resourceGroupName
+    type: string
+    description: Resource group name.
+  - name: createTime
+    type: string
+    description: |-
+      Creation time.
+      Use UTC time according to the ISO8601 standard. Format: YYYY-MM-ddTHH:mm:ssZ.
+  - name: expiredTime
+    type: string
+    description: |-
+      Expiration time.
+      Use UTC time according to the ISO8601 standard. Format: YYYY-MM-ddTHH:mm:ssZ.
+  - name: tags
+    type: object
+    description: Tags bound to resources.

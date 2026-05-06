@@ -80,3 +80,50 @@ response:
 - name: dataSet
   type: object-array
   description: Data for the list of DHCP options sets.
+  array-style: json
+  item-schema:
+  - name: dhcpOptionsSetId
+    type: string
+    description: DHCP options set ID.
+  - name: dhcpOptionsSetName
+    type: string
+    description: |-
+      DHCP options set name. The length must be between 1 and 64 characters.
+      Value range: [1.0, +).
+  - name: domainNameServers
+    type: string
+    description: |-
+      DNS server IP.
+      Up to 4 DNS server IPv4s can be passed in, separated by a comma (,).
+  - name: ipv6DomainNameServers
+    type: string
+    description: |-
+      DNS server IP.
+      Up to 4 DNS server IPv6s can be passed in, separated by a comma (,).
+  - name: leaseTime
+    type: string
+    description: |-
+      Lease duration for the IPv4 DHCP options set.
+      Unit: h.
+  - name: ipv6LeaseTime
+    type: string
+    description: |-
+      Lease duration for the IPv6 DHCP options set.
+      Unit: h.
+  - name: createTime
+    type: string
+    description: |-
+      Creation time.
+      Use UTC time according to the ISO8601 standard. Format: YYYY-MM-ddTHH:mm:ssZ .
+  - name: description
+    type: string
+    description: Description information of the DHCP options set.
+  - name: resourceGroupId
+    type: string
+    description: Resource group ID.
+  - name: resourceGroupName
+    type: string
+    description: Resource group name.
+  - name: tags
+    type: object
+    description: Bound tags.

@@ -22,3 +22,16 @@ response:
 - name: instanceEipResources
   type: object-array
   description: 实例可用EIP列表。
+  array-style: json
+  item-schema:
+  - name: eipId
+    type: string
+    description: |-
+      一个EIP ID。
+      可通过DescribeEipAddresses接口返回值中的eipId获取。
+  - name: ipAddress
+    type: string
+    description: IP地址。
+  - name: netmask
+    type: integer
+    description: IP掩码。

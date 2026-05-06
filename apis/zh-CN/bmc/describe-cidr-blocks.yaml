@@ -113,3 +113,92 @@ response:
 - name: dataSet
   type: object-array
   description: 结果集。
+  array-style: json
+  item-schema:
+  - name: cidrBlockId
+    type: string
+    description: Cidr Block唯一ID。
+  - name: cidrBlockType
+    type: enum
+    description: CIDR的类型。
+    enum-values:
+    - value: IPV4
+      desc: IPv4。
+    - value: IPV6
+      desc: IPv6。
+  - name: cidrType
+    type: enum
+    description: CIDR地址块的类型。
+    enum-values:
+    - value: BGP
+      desc: BGP IP。
+    - value: Local
+      desc: 本地 IP。
+  - name: cidrBlockName
+    type: string
+    description: Cidr Block名称。
+  - name: zoneId
+    type: string
+    description: Cidr Block所属的可用区ID。
+  - name: cidrBlock
+    type: string
+    description: CIDR。
+  - name: gateway
+    type: string
+    description: 网关地址。
+  - name: availableIpStart
+    type: string
+    description: 可用IP的开头。
+  - name: availableIpEnd
+    type: string
+    description: 可用IP的结尾。
+  - name: availableIpCount
+    type: integer
+    description: 可用IP的数量。
+  - name: instanceIds
+    type: string-array
+    description: 已绑定的实例ID列表。
+  - name: status
+    type: enum
+    description: Cidr Block状态。
+    enum-values:
+    - value: CREATING
+      desc: 创建中
+    - value: CREATE_FAILED
+      desc: 创建失败
+    - value: RECYCLING
+      desc: 回收中
+    - value: RECYCLE
+      desc: 在回收站中
+    - value: AVAILABLE
+      desc: 可用
+  - name: chargeType
+    type: enum
+    description: |-
+      计费类型。
+      PREPAID：预付费，即包年包月。
+      POSTPAID：后付费。
+    enum-values:
+    - value: PREPAID
+      desc: 预付费。
+    - value: POSTPAID
+      desc: 后付费。即按量付费。
+  - name: createTime
+    type: string
+    description: |-
+      创建时间。
+      格式为：YYYY-MM-ddTHH:mm:ssZ。
+  - name: expireTime
+    type: string
+    description: |-
+      到期时间。
+      格式为：YYYY-MM-ddTHH:mm:ssZ。
+  - name: resourceGroupId
+    type: string
+    description: 所属资源组的ID。
+  - name: resourceGroupName
+    type: string
+    description: 所属资源组的名称。
+  - name: tags
+    type: object
+    description: 资源关联的标签信息。

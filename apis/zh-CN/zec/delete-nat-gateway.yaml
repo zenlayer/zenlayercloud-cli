@@ -6,6 +6,7 @@ long: |-
   删除一个指定的NAT网关。
   **注意事项**
 
+  * 本接口为异步接口，删除NAT网关请求发送成功后会立即返回，此时操作并未完成。NAT网关状态可以通过调用[`DescribeNatGateways`](describenatgateways.md)接口查询，当NAT网关状态变为`RECYCLED`时代表进入回收站，资源最终将被销毁。
   * 删除实例后实例可能会保留一段时间，保留时状态为`RECYCLED`. 可以通过[`RenewNatGateway`](renewnatgateway.md)接口恢复
 examples:
 - cmd: zeno zec delete-nat-gateway --nat-gateway-id <natGatewayId>

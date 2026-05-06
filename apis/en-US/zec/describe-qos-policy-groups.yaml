@@ -82,3 +82,40 @@ response:
 - name: dataSet
   type: object-array
   description: QoS policy group result set.
+  array-style: json
+  item-schema:
+  - name: qosPolicyGroupId
+    type: string
+    description: QoS policy group ID.
+  - name: name
+    type: string
+    description: QoS policy group name.
+  - name: regionId
+    type: string
+    description: Region ID.
+  - name: bandwidthLimit
+    type: integer
+    description: Bandwidth limit, in Mbps.
+  - name: rateLimitMode
+    type: enum
+    description: Rate limit mode.
+    enum-values:
+    - value: LOOSE
+      desc: 'Loose mode: allows short-term bursts exceeding the limit.'
+    - value: STRICT
+      desc: 'Strict mode: strictly enforced, no bursts allowed.'
+  - name: memberCount
+    type: integer
+    description: Number of members.
+  - name: members
+    type: object-array
+    description: Member list.
+  - name: createTime
+    type: string
+    description: Creation time.
+  - name: resourceGroup
+    type: object
+    description: Information about the resource group it belongs to.
+  - name: tags
+    type: object
+    description: Tag list.

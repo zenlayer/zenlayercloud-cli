@@ -37,4 +37,33 @@ response:
   description: 符合条件的数据总数。
 - name: dataSet
   type: object-array
+  required: true
   description: 成员列表信息。
+  array-style: json
+  item-schema:
+  - name: memberId
+    type: string
+    description: 成员列表唯一ID。
+  - name: userUid
+    type: string
+    description: 用户唯一ID。
+  - name: firstName
+    type: string
+    description: 用户名称。
+  - name: lastName
+    type: string
+    description: 用户姓氏。
+  - name: username
+    type: string
+    description: 用户邮箱。
+  - name: assignmentStatus
+    type: string
+    description: |-
+      用户邀请状态。
+      ACTIVE：已加入,PENDING: 待确认
+  - name: updateTime
+    type: string
+    description: 更新时间。
+  - name: createTime
+    type: string
+    description: 加入时间。

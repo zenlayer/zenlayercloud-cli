@@ -60,3 +60,62 @@ response:
 - name: dataSet
   type: object-array
   description: 子网的结果集。
+  array-style: json
+  item-schema:
+  - name: subnetId
+    type: string
+    description: 子网的ID。
+  - name: regionId
+    type: string
+    description: 子网所在节点的ID。
+  - name: name
+    type: string
+    description: 子网的名称。
+  - name: cidrBlock
+    type: string
+    description: 子网的CIDR地址。
+  - name: gatewayIpAddress
+    type: string
+    description: 网关地址。
+  - name: ipv6CidrBlock
+    type: string
+    description: |-
+      子网的IPv6 CIDR地址段。
+      如果子网的IP堆栈类型不包括V6,该字段取不到值。
+  - name: ipv6GatewayIpAddress
+    type: string
+    description: IPv6的网关地址。
+  - name: stackType
+    type: string
+    description: 子网的IP堆栈类型。
+  - name: ipv6Type
+    type: string
+    description: |-
+      子网上IPv6类型。
+      如果子网的IP堆栈类型不包括V6,该字段取不到值。
+  - name: vpcId
+    type: string
+    description: 子网所属VPC的ID。
+  - name: vpcName
+    type: string
+    description: 子网所属VPC的名称。
+  - name: usageIpv4Count
+    type: integer
+    description: 子网已使用IPv4数量。
+  - name: usageIpv6Count
+    type: integer
+    description: 子网已使用IPv6数量。
+  - name: createTime
+    type: string
+    description: 子网的创建时间。
+  - name: isDefault
+    type: boolean
+    description: 子网是否为默认。
+  - name: dhcpOptionsSetId
+    type: string
+    description: DHCP选项集ID。
+  - name: ipv6MaskLength
+    type: integer
+    description: |-
+      分配给网卡的IPv6掩码长度。
+      如果子网的IP堆栈类型不包括V6,该字段取不到值。

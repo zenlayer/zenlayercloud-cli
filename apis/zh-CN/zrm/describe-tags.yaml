@@ -62,3 +62,17 @@ response:
 - name: dataSet
   type: object-array
   description: 数据列表。
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: 标签键。
+  - name: value
+    type: string
+    description: 标签值。
+  - name: bindResourceCount
+    type: integer
+    description: 标签下绑定的资源总数。
+  - name: createdDate
+    type: string
+    description: 创建时间。

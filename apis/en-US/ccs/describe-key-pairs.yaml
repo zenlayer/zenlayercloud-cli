@@ -43,3 +43,22 @@ response:
 - name: dataSet
   type: object-array
   description: Information on key pairs.
+  array-style: json
+  item-schema:
+  - name: keyId
+    type: string
+    description: SSH key pair ID, e.g. key-xxxxxxxx.
+  - name: keyName
+    type: string
+    description: SSH key pair name.
+  - name: publicKey
+    type: string
+    description: |-
+      Public SSH keys in OpenSSH format.
+      For example: ssh-rsa XXXXXXXXXXXX key_xxx
+  - name: keyDescription
+    type: string
+    description: Description information on SSH key pair.
+  - name: createTime
+    type: string
+    description: 'Creation time. Format: YYYY-MM-ddTHH:mm:ssZ.'

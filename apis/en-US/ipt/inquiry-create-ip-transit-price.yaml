@@ -88,9 +88,144 @@ response:
   description: |-
     Private connect price of the IP Transit.
     If the IP Transit and port are in the same data center, the value is empty.
+  object-schema:
+  - name: discount
+    type: float
+    description: |-
+      Discount.
+      For example, 80.0 means 20% off.
+  - name: discountPrice
+    type: float
+    description: |-
+      Discount unit price of pay-as-you-go resources.
+      Only used in pay-as-you-go model. For tiered billing, the value is empty.
+  - name: originalPrice
+    type: float
+    description: |-
+      Original price of subscription resources.
+      Only used in subscription model. For pay-as-you-go model, the value is empty.
+  - name: unitPrice
+    type: float
+    description: |-
+      Original unit price of pay-as-you-go resources.
+      Only used in pay-as-you-go model. For tiered billing, the value is empty.
+  - name: discountUnitPrice
+    type: float
+    description: |-
+      Discount unit price of pay-as-you-go resources.
+      Only used in pay-as-you-go model. For tiered billing, the value is empty.
+  - name: chargeUnit
+    type: string
+    description: |-
+      Unit of pay-as-you-go billing.
+      Only used in pay-as-you-go model. Value range:<br/>HOUR: you will be billed by hour.
+      DAY: you will be billed by day.
+      MONTH: you will be billed by month. For example, the burstable 95th pricing model.
+  - name: stepPrices
+    type: object-array
+    description: |-
+      Tiered price of pay-as-you-go billing.
+      Only used in pay-as-you-go model. If it is not tiered price, the value is empty.
+  - name: amountUnit
+    type: string
+    description: |-
+      Usage unit, such as Mbps, LCU, etc.
+      If null, the value is not available.
+  - name: excessUnitPrice
+    type: float
+    description: Original excess unit price.
+  - name: excessDiscountUnitPrice
+    type: float
+    description: Discounted excess unit price.
+  - name: excessAmountUnit
+    type: string
+    description: |-
+      Excess usage unit.
+      If null, the value is not available.
+  - name: category
+    type: enum
+    description: Price category.
+    enum-values:
+    - value: STANDARD
+      desc: Standard price.
+    - value: CUSTOMIZED
+      desc: Customized price.
 - name: iptBandwidthPrice
   type: object
   description: Public bandwidth price of the IP Transit.
+  object-schema:
+  - name: discount
+    type: float
+    description: |-
+      Discount.
+      For example, 80.0 means 20% off.
+  - name: discountPrice
+    type: float
+    description: |-
+      Discount unit price of pay-as-you-go resources.
+      Only used in pay-as-you-go model. For tiered billing, the value is empty.
+  - name: originalPrice
+    type: float
+    description: |-
+      Original price of subscription resources.
+      Only used in subscription model. For pay-as-you-go model, the value is empty.
+  - name: unitPrice
+    type: float
+    description: |-
+      Original unit price of pay-as-you-go resources.
+      Only used in pay-as-you-go model. For tiered billing, the value is empty.
+  - name: discountUnitPrice
+    type: float
+    description: |-
+      Discount unit price of pay-as-you-go resources.
+      Only used in pay-as-you-go model. For tiered billing, the value is empty.
+  - name: chargeUnit
+    type: string
+    description: |-
+      Unit of pay-as-you-go billing.
+      Only used in pay-as-you-go model. Value range:<br/>HOUR: you will be billed by hour.
+      DAY: you will be billed by day.
+      MONTH: you will be billed by month. For example, the burstable 95th pricing model.
+  - name: stepPrices
+    type: object-array
+    description: |-
+      Tiered price of pay-as-you-go billing.
+      Only used in pay-as-you-go model. If it is not tiered price, the value is empty.
+  - name: amountUnit
+    type: string
+    description: |-
+      Usage unit, such as Mbps, LCU, etc.
+      If null, the value is not available.
+  - name: excessUnitPrice
+    type: float
+    description: Original excess unit price.
+  - name: excessDiscountUnitPrice
+    type: float
+    description: Discounted excess unit price.
+  - name: excessAmountUnit
+    type: string
+    description: |-
+      Excess usage unit.
+      If null, the value is not available.
+  - name: category
+    type: enum
+    description: Price category.
+    enum-values:
+    - value: STANDARD
+      desc: Standard price.
+    - value: CUSTOMIZED
+      desc: Customized price.
 - name: publicIpPrices
   type: object-array
   description: Public IP prices of the IP Transit.
+  array-style: json
+  item-schema:
+  - name: price
+    type: object
+    description: Price information of the IP CIDR.
+  - name: netmask
+    type: integer
+    description: IP CIDR netmask.
+  - name: qty
+    type: integer
+    description: Number of IP CIDRs.

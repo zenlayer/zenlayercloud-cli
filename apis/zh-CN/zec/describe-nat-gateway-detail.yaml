@@ -19,13 +19,64 @@ parameters:
 response:
 - name: natGatewayId
   type: string
+  required: true
   description: NAT网关唯一ID。
 - name: name
   type: string
+  required: true
   description: NAT网关名称。
 - name: snats
   type: object-array
   description: SNAT网关规则集合。
+  array-style: json
+  item-schema:
+  - name: snatEntryId
+    type: string
+    description: SNAT规则 ID。
+  - name: cidrs
+    type: string-array
+    description: |-
+      CIDR网段，不传默认是0.0.0.0/0。
+      `cidrs` 和 `snatSubnets` 不会同时存在。
+  - name: eipIds
+    type: string-array
+    description: SNAT规则添加的弹性公网IP ID集合。
+  - name: isAllEip
+    type: boolean
+    description: 弹性公网IP是否为所有的NAT网关上的公网弹性IP。
+  - name: snatSubnets
+    type: object-array
+    description: SNAT规则添加的subnet ID集合。
 - name: dnats
   type: object-array
   description: DNAT网关规则集合。
+  array-style: json
+  item-schema:
+  - name: dnatEntryId
+    type: string
+    description: DNAT规则 ID。
+  - name: status
+    type: string
+    description: DNAT规则状态。
+  - name: privateIp
+    type: string
+    description: DNAT规则的内网IP地址。
+  - name: eipId
+    type: string
+    description: DNAT规则添加的eip ID。
+  - name: protocol
+    type: enum
+    description: DNAT规则的协议类型。
+    enum-values:
+    - value: TCP
+      desc: TCP 协议。
+    - value: UDP
+      desc: UDP 协议。
+    - value: Any
+      desc: Any 所有协议。
+  - name: listenerPort
+    type: string
+    description: DNAT规则端口转发的外部端口或端口段，取值范围1-65535。
+  - name: internalPort
+    type: string
+    description: DNAT规则端口转发的内部端口或端口段，取值范围1-65535。

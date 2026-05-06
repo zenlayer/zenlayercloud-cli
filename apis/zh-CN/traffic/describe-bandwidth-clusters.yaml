@@ -80,3 +80,101 @@ response:
 - name: dataSet
   type: object-array
   description: 共享带宽包结果集。
+  array-style: json
+  item-schema:
+  - name: bandwidthClusterId
+    type: string
+    description: 共享带宽包唯一ID。
+  - name: bandwidthClusterName
+    type: string
+    description: 共享带宽包显示名称。
+  - name: networkType
+    type: enum
+    description: |-
+      IP 网络类型。
+      请使用`ipNetworkType`。
+    enum-values:
+    - value: BGP
+      desc: BGP。
+    - value: Cogent
+      desc: Cogent。
+    - value: CN2
+      desc: 回国优化线路。
+    - value: CMI
+      desc: 中国移动。
+    - value: CUG
+      desc: 中国联通。
+    - value: CTG
+      desc: 中国电信。
+  - name: networkLineType
+    type: enum
+    description: 网络线路类型。
+    enum-values:
+    - value: PremiumBGP
+      desc: |-
+        精品 BGP。
+        高性能网络。
+    - value: StandardBGP
+      desc: |-
+        标准 BGP。
+        通用网络，成本优化。
+    - value: CN2
+      desc: 回国优化线路。
+    - value: CMI
+      desc: 中国移动。
+    - value: CUG
+      desc: 中国联通。
+    - value: CTG
+      desc: 中国电信。
+  - name: product
+    type: enum
+    description: 产品范围。
+    enum-values:
+    - value: AllProduct
+      desc: |-
+        全算力产品范围。
+        该范围可能会在未来移除。
+    - value: BMC
+      desc: 裸金属产品范围。
+    - value: ZEC
+      desc: 弹性算力产品凡范围。
+    - value: VM
+      desc: 虚拟机产品范围。
+    - value: OFFLINE
+      desc: 线下产品范围。
+  - name: areaCode
+    type: string
+    description: 区域代号。
+  - name: internetChargeType
+    type: enum
+    description: 带宽计费方式。
+    enum-values:
+    - value: MonthlyPercent95Bandwidth
+      desc: 月95带宽计费。
+    - value: DayPeakBandwidth
+      desc: 日峰值带宽计费。
+  - name: commitBandwidthMbps
+    type: integer
+    description: |-
+      保底带宽。
+      单位：Mbps。
+  - name: location
+    type: string
+    description: 所属区域。
+  - name: createTime
+    type: string
+    description: |-
+      创建时间。
+      格式为：YYYY-MM-ddTHH:mm:ssZ。
+  - name: resourceNumber
+    type: integer
+    description: 带宽包内的资源数量。
+  - name: cities
+    type: object-array
+    description: 城市信息。
+  - name: tags
+    type: object
+    description: 共享带宽包关联的标签。
+  - name: resourceGroup
+    type: object
+    description: 共享带宽包所属的资源组。

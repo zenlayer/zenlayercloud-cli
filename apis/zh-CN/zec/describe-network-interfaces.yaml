@@ -128,3 +128,99 @@ response:
 - name: dataSet
   type: object-array
   description: 网卡的结果集。
+  array-style: json
+  item-schema:
+  - name: nicId
+    type: string
+    description: 网卡的ID。
+  - name: name
+    type: string
+    description: 网卡的名称。
+  - name: status
+    type: enum
+    description: 网卡状态。
+    enum-values:
+    - value: PENDING
+      desc: 网卡创建中。
+    - value: AVAILABLE
+      desc: 可用未绑定实例的。
+    - value: ATTACHING
+      desc: 绑定实例过程中。
+    - value: DETACHING
+      desc: 解绑实例过程中。
+    - value: DELETING
+      desc: 删除中。
+    - value: CREATE_FAILED
+      desc: 创建失败的。
+    - value: USED
+      desc: 已经绑定实例的。
+  - name: nicType
+    type: enum
+    description: 网卡类型。
+    enum-values:
+    - value: Primary
+      desc: 主网卡类型。
+    - value: Secondary
+      desc: 辅助网卡类型。
+  - name: regionId
+    type: string
+    description: 所属节点ID。
+  - name: nicSubnetType
+    type: enum
+    description: 网卡的IP堆栈类型。
+    enum-values:
+    - value: IPv4
+      desc: 仅IPv4。
+    - value: IPv4_IPv6
+      desc: IPv4和IPv6。
+    - value: IPv6
+      desc: 仅IPv6。
+  - name: publicIpList
+    type: string-array
+    description: 关联的公网IP。
+  - name: privateIpList
+    type: string-array
+    description: 关联的内网IP。
+  - name: primaryIpv4
+    type: string
+    description: 主的内网IPv4地址。
+  - name: primaryIpv6
+    type: string
+    description: |-
+      网卡上的主IPv6地址。
+      如果堆栈类型是V4,该值取值为空。
+  - name: ipv6Cidr
+    type: string
+    description: |-
+      网卡上的IPv6地址。
+      如果堆栈类型是V4,该值取值为空。
+  - name: secondaryIpv4s
+    type: string-array
+    description: 网卡上的辅助 IPv4 地址。
+  - name: macAddress
+    type: string
+    description: 网卡的MAC地址。
+  - name: instanceId
+    type: string
+    description: 所绑定的实例ID。
+  - name: vpcId
+    type: string
+    description: 所关联VPC ID。
+  - name: subnetId
+    type: string
+    description: 所关联的子网ID。
+  - name: createTime
+    type: string
+    description: 网卡的创建时间。
+  - name: updateTime
+    type: string
+    description: 网卡的更新时间。
+  - name: resourceGroup
+    type: object
+    description: 网卡所属的资源组信息。
+  - name: securityGroupId
+    type: string
+    description: 网卡关联的安全组ID。
+  - name: tags
+    type: object
+    description: 该网卡关联的标签。

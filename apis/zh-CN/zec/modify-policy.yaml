@@ -72,6 +72,15 @@ parameters:
     description: |-
       协议类型。
       只支持 `UDP` / `TCP` 两种协议。
+    enum-values:
+    - value: TCP
+      desc: TCP 协议。
+    - value: UDP
+      desc: UDP 协议。
+    - value: ICMP
+      desc: |-
+        ICMP 协议。
+        端口封禁不支持该协议。
   - name: srcPortStart
     type: integer
     description: 源端口范围的起始值。
@@ -87,6 +96,9 @@ parameters:
   - name: action
     type: enum
     description: 匹配后的动作。
+    enum-values:
+    - value: Drop
+      desc: 丢弃：丢弃流量。
 - name: block-protocol
   type: string-array
   required: false
@@ -109,6 +121,15 @@ parameters:
   - name: protocol
     type: enum
     description: 设置指纹的协议。
+    enum-values:
+    - value: TCP
+      desc: TCP 协议。
+    - value: UDP
+      desc: UDP 协议。
+    - value: ICMP
+      desc: |-
+        ICMP 协议。
+        端口封禁不支持该协议。
   - name: srcPortStart
     type: integer
     description: 指纹源端口的范围起始值。
@@ -140,6 +161,9 @@ parameters:
   - name: action
     type: enum
     description: 设置指纹匹配后的动作。
+    enum-values:
+    - value: Drop
+      desc: 丢弃：丢弃流量。
 - name: reflect-udp-port
   type: object-array
   required: false

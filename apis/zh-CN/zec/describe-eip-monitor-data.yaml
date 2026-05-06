@@ -90,3 +90,20 @@ response:
 - name: dataList
   type: object-array
   description: 监控数据集合。
+  array-style: json
+  item-schema:
+  - name: time
+    type: string
+    description: 数据点时间。
+  - name: inValue
+    type: float
+    description: 入方向值。
+  - name: outValue
+    type: float
+    description: 出方向值。
+  - name: loseIn
+    type: float
+    description: 丢失入方向值。
+  - name: loseOut
+    type: float
+    description: 丢失出方向值。

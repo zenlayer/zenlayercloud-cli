@@ -27,3 +27,47 @@ response:
 - name: backends
   type: object-array
   description: List of backend servers.
+  array-style: json
+  item-schema:
+  - name: instanceId
+    type: string
+    description: |-
+      Instance ID.
+      To obtain valid instance ID, you can call DescribeInstances, and find InstanceId in the response.
+  - name: privateIpAddress
+    type: string
+    description: Private IP address of the network interface attached to the instance.
+  - name: weight
+    type: integer
+    description: |-
+      Forwarding weight of the backend server.
+      The default value is 100 when adding a server. If not specified during modification, the value will remain unchanged.
+      This parameter is not required when deleting a server.
+      Optional range: [0, 65535].
+  - name: backendPort
+    type: integer
+    description: |-
+      Target port for request forwarding and health checks.
+      If left empty, it will follow the listener's port configuration.
+      This parameter is not required when deleting a server.
+      Optional range: [1, 65535].
+  - name: listenerId
+    type: string
+    description: Listener ID.
+  - name: listenerName
+    type: string
+    description: Listener name.
+  - name: protocol
+    type: enum
+    description: Listening protocols.
+    enum-values:
+    - value: TCP
+      desc: TCP protocol.
+    - value: UDP
+      desc: UDP protocol.
+  - name: listenerPort
+    type: string
+    description: |-
+      Listening port.
+      Use commas (,) to separate multiple ports.
+      Use a hyphen (-) to define a port range, e.g., 10000-10005.

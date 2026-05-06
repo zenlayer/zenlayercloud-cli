@@ -79,3 +79,46 @@ response:
 - name: dataSet
   type: object-array
   description: Information on subnets.
+  array-style: json
+  item-schema:
+  - name: subnetId
+    type: string
+    description: Subnet ID.
+  - name: subnetName
+    type: string
+    description: Subnet name.
+  - name: zoneId
+    type: string
+    description: Zone ID to which the subnet belongs.
+  - name: availableIpCount
+    type: integer
+    description: Quantity of available IPs in subnet.
+  - name: cidrBlock
+    type: string
+    description: CIDR block of subnet.
+  - name: subnetStatus
+    type: string
+    description: Status of subnet .
+  - name: createTime
+    type: string
+    description: |-
+      Creation time.
+      Use UTC time according to the ISO8601 standard. Format: YYYY-MM-ddTHH:mm:ssZ .
+  - name: vpcSubnetStatus
+    type: string
+    description: Status of subnets in VPC .
+  - name: vpcId
+    type: string
+    description: VPC ID.
+  - name: vpcName
+    type: string
+    description: VPC name.
+  - name: resourceGroupId
+    type: string
+    description: Resource group ID.
+  - name: resourceGroupName
+    type: string
+    description: Resource group name.
+  - name: subnetInstanceSet
+    type: object-array
+    description: Information about instances in the subnet.

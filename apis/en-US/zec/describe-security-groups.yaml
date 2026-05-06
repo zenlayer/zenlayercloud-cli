@@ -45,3 +45,36 @@ response:
 - name: dataSet
   type: object-array
   description: Information on security groups.
+  array-style: json
+  item-schema:
+  - name: securityGroupId
+    type: string
+    description: Security group ID.
+  - name: securityGroupName
+    type: string
+    description: Security group name.
+  - name: scope
+    type: string
+    description: |-
+      Security group deployed scope.
+      Currently only support Global .
+  - name: createTime
+    type: string
+    description: |-
+      Creation time.
+      Format: YYYY-MM-ddTHH:mm:ssZ .
+  - name: vpcIds
+    type: string-array
+    description: Associated global VPC ID list.
+  - name: isDefault
+    type: boolean
+    description: Whether the security group is default or not.
+  - name: nicIdList
+    type: string-array
+    description: ID list of associated vNICs.
+  - name: natIdList
+    type: string-array
+    description: ID list of associated NAT gateways.
+  - name: loadBalancerIdList
+    type: string-array
+    description: ID list of associated load balancers.

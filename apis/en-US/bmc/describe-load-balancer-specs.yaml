@@ -33,3 +33,17 @@ response:
 - name: specSet
   type: object-array
   description: Specification set.
+  array-style: json
+  item-schema:
+  - name: specName
+    type: string
+    description: Specification name.
+  - name: maxConnection
+    type: integer
+    description: Max connections.
+  - name: cps
+    type: integer
+    description: Connections Per Second (CPS).
+  - name: qps
+    type: integer
+    description: Queries Per Second (QPS).

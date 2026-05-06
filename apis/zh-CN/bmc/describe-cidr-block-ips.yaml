@@ -34,3 +34,34 @@ response:
 - name: cidrBlockIps
   type: object-array
   description: 结果集。
+  array-style: json
+  item-schema:
+  - name: cidrBlockId
+    type: string
+    description: Cidr Block唯一ID。
+  - name: cidrBlockType
+    type: enum
+    description: CIDR的类型。
+    enum-values:
+    - value: IPV4
+      desc: IPv4。
+    - value: IPV6
+      desc: IPv6。
+  - name: ip
+    type: string
+    description: IP。
+  - name: instanceId
+    type: string
+    description: 绑定的实例ID。
+  - name: status
+    type: enum
+    description: IP的状态。
+    enum-values:
+    - value: BINDING
+      desc: 绑定中
+    - value: UNBINDING
+      desc: 解绑中
+    - value: BOUND
+      desc: 已绑定
+    - value: AVAILABLE
+      desc: 可用

@@ -70,6 +70,42 @@ response:
 - name: dataSet
   type: object-array
   description: 命令列表。
+  array-style: json
+  item-schema:
+  - name: commandId
+    type: string
+    description: 命令ID。
+  - name: name
+    type: string
+    description: 命令的名称。
+  - name: description
+    type: string
+    description: 命令的描述信息。
+  - name: content
+    type: string
+    description: 命令的内容。
+  - name: type
+    type: enum
+    description: 命令的类型。
+    enum-values:
+    - value: SHELL
+      desc: 在 Linux 实例中运行的 Shell 脚本。
+    - value: POWERSHELL
+      desc: 在 Windows 中运行的 PowerShell 类型。
+    - value: BAT
+      desc: 在 Windows 中运行的 Bat 脚本。
+  - name: createTime
+    type: string
+    description: 命令的创建时间。
+  - name: latestInvocationTime
+    type: string
+    description: 最近执行的时间。
+  - name: tags
+    type: object
+    description: 指令的标签。
+  - name: resourceGroup
+    type: object
+    description: 指令所属的资源组。
 - name: totalCount
   type: integer
   description: 匹配条件的命令总数。

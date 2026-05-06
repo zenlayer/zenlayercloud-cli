@@ -33,3 +33,14 @@ response:
 - name: dataSet
   type: object-array
   description: 成员组列表信息。
+  array-style: json
+  item-schema:
+  - name: memberGroupId
+    type: string
+    description: 成员组唯一ID。
+  - name: name
+    type: string
+    description: 成员组名称。
+  - name: createTime
+    type: string
+    description: 成员组创建时间。

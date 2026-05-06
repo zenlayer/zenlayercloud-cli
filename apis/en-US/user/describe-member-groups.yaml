@@ -33,3 +33,14 @@ response:
 - name: dataSet
   type: object-array
   description: Member group list information.
+  array-style: json
+  item-schema:
+  - name: memberGroupId
+    type: string
+    description: Member group unique ID.
+  - name: name
+    type: string
+    description: Member group name.
+  - name: createTime
+    type: string
+    description: Member group creation time.

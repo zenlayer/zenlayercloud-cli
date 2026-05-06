@@ -222,6 +222,16 @@ parameters:
     desc: 普通NAT模式。
   - value: Passthrough
     desc: 高速模式。
+- name: rate-limit-mode
+  type: enum
+  required: false
+  sdk-field: rateLimitMode
+  description: 限速模式。
+  enum-values:
+  - value: LOOSE
+    desc: 宽松模式：允许短时间突发超出限制。
+  - value: STRICT
+    desc: 严格模式：严格限制，不允许任何突发。
 response:
 - name: eipIds
   type: string-array

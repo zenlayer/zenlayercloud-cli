@@ -40,3 +40,34 @@ response:
 - name: dataSet
   type: object-array
   description: 安全组的结果数据。
+  array-style: json
+  item-schema:
+  - name: securityGroupId
+    type: string
+    description: 安全组ID。
+  - name: securityGroupName
+    type: string
+    description: 安全组名称。
+  - name: scope
+    type: string
+    description: |-
+      范围。
+      目前只有全球范围(`Global`)。
+  - name: createTime
+    type: string
+    description: 创建时间。
+  - name: vpcIds
+    type: string-array
+    description: 关联的VPC ID列表。
+  - name: isDefault
+    type: boolean
+    description: 是否是默认安全组。
+  - name: nicIdList
+    type: string-array
+    description: 关联安全组的网卡ID列表。
+  - name: natIdList
+    type: string-array
+    description: 关联安全组的NAT网关ID列表。
+  - name: loadBalancerIdList
+    type: string-array
+    description: 关联安全组的负载均衡ID列表。

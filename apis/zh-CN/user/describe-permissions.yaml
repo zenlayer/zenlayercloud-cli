@@ -79,3 +79,54 @@ response:
 - name: dataSet
   type: object-array
   description: 权限列表信息。
+  array-style: json
+  item-schema:
+  - name: permissionId
+    type: string
+    description: 权限唯一ID。
+  - name: resourceGroupId
+    type: string
+    description: 资源组唯一ID。
+  - name: allResource
+    type: integer
+    description: |-
+      是否为全部资源。
+      1：是；0：否。
+  - name: userUid
+    type: string
+    description: 用户唯一ID。
+  - name: createTime
+    type: string
+    description: 创建时间。
+  - name: resourceGroupName
+    type: string
+    description: 资源组名称。
+  - name: policyId
+    type: string
+    description: 访问策略唯一ID。
+  - name: policyName
+    type: string
+    description: 访问策略名称。
+  - name: policyDesc
+    type: string
+    description: 访问策略描述。
+  - name: firstName
+    type: string
+    description: 用户名称。
+  - name: lastName
+    type: string
+    description: 用户姓氏。
+  - name: username
+    type: string
+    description: 用户邮箱。
+  - name: memberGroupName
+    type: string
+    description: 用户组名称。
+  - name: memberGroupId
+    type: string
+    description: 用户组唯一ID。
+  - name: associated
+    type: string
+    description: |-
+      权限类别。
+      成员：SELF，成员组：USER_GROUP

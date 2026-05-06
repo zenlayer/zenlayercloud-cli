@@ -98,3 +98,57 @@ response:
 - name: instanceTypes
   type: object-array
   description: 查询的机型信息。
+  array-style: json
+  item-schema:
+  - name: imageIds
+    type: string-array
+    description: |-
+      机型支持的镜像ID。
+      仅在DescribeInstanceType可取值
+  - name: instanceTypeId
+    type: string
+    description: 实例机型ID。
+  - name: description
+    type: string
+    description: |-
+      机型描述。
+      一般包括内存大小，硬盘。
+  - name: cpuCoreCount
+    type: integer
+    description: CPU数量。
+  - name: cpuDetail
+    type: string
+    description: CPU详情。
+  - name: cpuCores
+    type: integer
+    description: CPU核心数。
+  - name: cpuThreads
+    type: integer
+    description: CPU线程。
+  - name: baseFrequency
+    type: string
+    description: CPU基础频率。
+  - name: memorySize
+    type: integer
+    description: |-
+      内存大小。
+      单位：GB。
+  - name: maximumBandwidth
+    type: integer
+    description: |-
+      机型支持的最大出口带宽。
+      单位：Mbps。
+  - name: supportRaids
+    type: integer-array
+    description: 机型支持的raid。
+  - name: supportSubnet
+    type: boolean
+    description: 是否支持内网组网。
+  - name: isHA
+    type: boolean
+    description: 是否是高可用机型。
+  - name: diskInfo
+    type: object
+    description: |-
+      硬盘配置。
+      单位：GB。

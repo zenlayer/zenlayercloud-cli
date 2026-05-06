@@ -22,3 +22,44 @@ response:
   description: |-
     Public IPv6 information.
     If the vNIC does not have a public IPv6 address, the value is empty.
+  object-schema:
+  - name: ipv6CidrId
+    type: string
+    description: The ID of the IPv6 address.
+  - name: ipv6Cidr
+    type: string
+    description: The IPv6 address.
+  - name: primaryIpv6Address
+    type: string
+    description: The primary IPv6 address of the network interface.
+  - name: internetChargeType
+    type: enum
+    description: The network billing model of the IPv6 address.
+    enum-values:
+    - value: ByBandwidth
+      desc: Billed by the flat rate bandwidth.
+    - value: ByTrafficPackage
+      desc: Billed by the traffic package size purchased.
+    - value: BandwidthCluster
+      desc: Billed by the burstable 95th bandwidth of all compute resources in a city-based or regional bandwidth cluster with a shared commitment.
+  - name: bandwidth
+    type: integer
+    description: |-
+      Public bandwidth cap for IPv6 address.
+      Unit: Mbps.
+  - name: rateLimitMode
+    type: enum
+    description: Rate limit mode.
+    enum-values:
+    - value: LOOSE
+      desc: 'Loose mode: allows short-term bursts exceeding the limit.'
+    - value: STRICT
+      desc: 'Strict mode: strictly enforced, no bursts allowed.'
+  - name: trafficPackageSize
+    type: float
+    description: |-
+      The size of the IPv6 data transfer package.
+      Unit: TB.
+  - name: bandwidthCluster
+    type: object
+    description: The associated bandwidth cluster information.

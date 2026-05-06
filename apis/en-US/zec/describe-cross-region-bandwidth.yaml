@@ -83,3 +83,70 @@ response:
 - name: dataSet
   type: object-array
   description: Information on list of cross-region bandwidth.
+  array-style: json
+  item-schema:
+  - name: crossRegionBandwidthId
+    type: string
+    description: Cross-region bandwidth ID.
+  - name: crossRegionBandwidthName
+    type: string
+    description: Cross-region bandwidth name.
+  - name: status
+    type: enum
+    description: Cross-region bandwidth state.
+    enum-values:
+    - value: CREATING
+      desc: The cross-region bandwidth is being created.
+    - value: AVAILABLE
+      desc: The cross-region bandwidth is available.
+    - value: CHANGING
+      desc: The cross-region bandwidth is being changed.
+    - value: RECYCLING
+      desc: The cross-region bandwidth is being recycled.
+    - value: RECYCLED
+      desc: The cross-region bandwidth is recycled.
+    - value: DELETING
+      desc: The cross-region bandwidth is being deleted.
+    - value: CREATE_FAILED
+      desc: The cross-region bandwidth is creating failed.
+  - name: vpcId
+    type: string
+    description: Global VPC ID where the cross-region bandwidth belong.
+  - name: regionA
+    type: string
+    description: One end of the cross-region bandwidth.
+  - name: regionZ
+    type: string
+    description: The other end of the cross-region bandwidth.
+  - name: bandwidth
+    type: integer
+    description: Bandwidth cap.
+  - name: bandwidthCap
+    type: integer
+    description: |-
+      Burst bandwidth.
+      The value may be empty.
+  - name: createTime
+    type: string
+    description: Creation time.
+  - name: internetChargeType
+    type: enum
+    description: Network pricing model.
+    enum-values:
+    - value: ByBandwidth
+      desc: Billed by the flat rate bandwidth.
+    - value: ByTrafficPackage
+      desc: Billed by the traffic package size purchased.
+    - value: BandwidthCluster
+      desc: Billed by the burstable 95th bandwidth of all compute resources in a city-based or regional bandwidth cluster with a shared commitment.
+  - name: expiredTime
+    type: string
+    description: |-
+      Expiration time.
+      The value may be empty.
+  - name: resourceGroupId
+    type: string
+    description: Resource group ID.
+  - name: resourceGroupName
+    type: string
+    description: Resource group name.

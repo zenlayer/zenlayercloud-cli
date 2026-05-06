@@ -1,0 +1,127 @@
+name: DescribeUnmanagedEgressIps
+product: zec
+use: describe-unmanaged-egress-ips
+short: 查询非托管出口IP列表
+long: 查询满足条件的非托管出口IP列表，返回IP基础信息及带宽限速模式。
+examples:
+- cmd: zeno zec describe-unmanaged-egress-ips --unmanaged-egress-ip-ids unmanagedEgressIp-xxx1 --unmanaged-egress-ip-ids unmanagedEgressIp-xxx2 --region-id asia-east-1a --vpc-id vpc-xxxxxx --page-size 20 --page-num 1
+  desc: 查询非托管出口IP列表
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeUnmanagedEgressIps
+parameters:
+- name: unmanaged-egress-ip-ids
+  type: string-array
+  required: false
+  sdk-field: unmanagedEgressIpIds
+  description: 按照非托管出口IP的唯一ID过滤，每次请求最多支持100个。
+- name: region-id
+  type: string
+  required: false
+  sdk-field: regionId
+  description: 按照节点ID过滤。
+- name: vpc-id
+  type: string
+  required: false
+  sdk-field: vpcId
+  description: 按照所属VPC的唯一ID过滤。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    返回的分页大小。
+    默认为20，最大为1000。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    返回的分页页码。
+    默认为1。
+response:
+- name: totalCount
+  type: integer
+  description: 满足过滤条件的非托管出口IP总数。
+- name: dataSet
+  type: object-array
+  description: 返回的非托管出口IP列表。
+  array-style: json
+  item-schema:
+  - name: unmanagedEgressIpId
+    type: string
+    description: 非托管出口IP的唯一ID。
+  - name: ip
+    type: string
+    description: 公网IP地址。
+  - name: regionId
+    type: string
+    description: 节点ID。
+  - name: vpcId
+    type: string
+    description: 所属VPC的唯一ID。
+  - name: status
+    type: enum
+    description: 资源状态。
+    enum-values:
+    - value: CREATING
+      desc: 创建中。
+    - value: AVAILABLE
+      desc: 正常可用。
+    - value: RECYCLED
+      desc: 处于回收站。
+    - value: DELETING
+      desc: 删除中。
+    - value: FAILED
+      desc: 创建失败。
+  - name: networkLineType
+    type: enum
+    description: 网络类型。
+    enum-values:
+    - value: PremiumBGP
+      desc: |-
+        优质 BGP。
+        高性能网络。
+    - value: CN2
+      desc: 回国优化线路。
+    - value: LocalLine
+      desc: 本地IP。
+    - value: StandardBGP
+      desc: |-
+        标准 BGP。
+        通用网络，成本优化。
+    - value: CMI
+      desc: 中国移动。
+    - value: CUG
+      desc: 中国联通。
+    - value: CTG
+      desc: 中国电信。
+    - value: ThreeLine
+      desc: 三线IP。
+  - name: internetChargeType
+    type: enum
+    description: 网络计费方式。
+    enum-values:
+    - value: ByBandwidth
+      desc: 固定带宽计费方式。
+    - value: ByTrafficPackage
+      desc: 流量包计费方式。
+    - value: BandwidthCluster
+      desc: 共享带宽包计费方式。
+  - name: bandwidthCap
+    type: integer
+    description: |-
+      带宽上限，单位 Mbps。
+      无固定带宽时为 null。
+  - name: rateLimitMode
+    type: enum
+    description: 限速模式。
+    enum-values:
+    - value: LOOSE
+      desc: 宽松模式：允许短时间突发超出限制。
+    - value: STRICT
+      desc: 严格模式：严格限制，不允许任何突发。
+  - name: createTime
+    type: string
+    description: 创建时间。

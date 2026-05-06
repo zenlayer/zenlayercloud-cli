@@ -45,6 +45,63 @@ response:
 - name: dataSet
   type: object-array
   description: 命令执行记录列表。
+  array-style: json
+  item-schema:
+  - name: invocationId
+    type: string
+    description: 执行ID。
+  - name: commandId
+    type: string
+    description: 命令的ID。
+  - name: commandName
+    type: string
+    description: 命令的名称。
+  - name: commandType
+    type: enum
+    description: 命令的类型。
+    enum-values:
+    - value: SHELL
+      desc: 在 Linux 实例中运行的 Shell 脚本。
+    - value: POWERSHELL
+      desc: 在 Windows 中运行的 PowerShell 类型。
+    - value: BAT
+      desc: 在 Windows 中运行的 Bat 脚本。
+  - name: content
+    type: string
+    description: 执行的内容。
+  - name: timeout
+    type: integer
+    description: 超时时间。
+  - name: createTime
+    type: string
+    description: 命令执行的创建时间。
+  - name: invocationStatus
+    type: enum
+    description: 命令的执行的总执行状态。
+    enum-values:
+    - value: Pending
+      desc: |-
+        任务还未执行。
+        所有实例任务状态均处于`Pending`。
+    - value: Running
+      desc: |-
+        任务执行中。
+        所有实例任务状态均处于`Running`。
+    - value: PartialFailed
+      desc: |-
+        部分失败。
+        所有实例执行完毕，且有部分实例任务状态成功，有部分失败未失败。
+    - value: Failed
+      desc: |-
+        全部失败。
+        所有实例执行完毕，所有实例执行状态均为失败。
+    - value: Success
+      desc: |-
+        全部成功。
+        所有实例执行完毕，所有实例执行状态均为成功。
+  - name: invocationInstances
+    type: object-array
+    description: 命令执行实例列表。
 - name: totalCount
   type: integer
   description: 匹配条件的命令执行记录总数。

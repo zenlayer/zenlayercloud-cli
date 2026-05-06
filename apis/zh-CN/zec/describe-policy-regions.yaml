@@ -14,3 +14,14 @@ response:
 - name: regions
   type: object-array
   description: 区域可选列表。
+  array-style: json
+  item-schema:
+  - name: regionId
+    type: string
+    description: 区域ID。
+  - name: regionName
+    type: string
+    description: 国家名称。
+  - name: areaName
+    type: string
+    description: 地域名称。

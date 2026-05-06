@@ -51,6 +51,63 @@ response:
 - name: dataSet
   type: object-array
   description: Execution list.
+  array-style: json
+  item-schema:
+  - name: invocationId
+    type: string
+    description: Execution ID.
+  - name: commandId
+    type: string
+    description: Command ID.
+  - name: commandName
+    type: string
+    description: Command name.
+  - name: commandType
+    type: enum
+    description: Script language type.
+    enum-values:
+    - value: SHELL
+      desc: Shell script running on Linux instances.
+    - value: POWERSHELL
+      desc: PowerShell script running on Windows instances.
+    - value: BAT
+      desc: Bat script running on Windows instances.
+  - name: content
+    type: string
+    description: Script content.
+  - name: timeout
+    type: integer
+    description: Execution timeout.
+  - name: createTime
+    type: string
+    description: Execution creation time.
+  - name: invocationStatus
+    type: enum
+    description: Execution state.
+    enum-values:
+    - value: Pending
+      desc: |-
+        Command executions are pending.
+        All instance tasks are Pending.
+    - value: Running
+      desc: |-
+        Command executions are running.
+        All instance tasks are Running.
+    - value: PartialFailed
+      desc: |-
+        Command executions are partially failed.
+        All instance tasks completed with mixed results.
+    - value: Failed
+      desc: |-
+        Command executions are failed.
+        All instance tasks completed and failed.
+    - value: Success
+      desc: |-
+        Command executions are succeeded.
+        All instance tasks completed successfully.
+  - name: invocationInstances
+    type: object-array
+    description: Target instance list for command execution.
 - name: totalCount
   type: integer
   description: Number of executions meeting the filtering conditions.

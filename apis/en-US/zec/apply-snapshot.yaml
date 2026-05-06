@@ -4,9 +4,10 @@ use: apply-snapshot
 short: Reverts to a snapshot
 long: |-
   Revert to a snapshot.
-  **Note**
+  **Notes**
 
-  The snapshot used for rollback must be in the `NORMAL` state. You can use [`DescribeSnapshots`](describesnapshots.md) to query the state of the snapshot. See the description of the `SnapshotState` field in the output parameters.
+  * This is an asynchronous API. The request returns immediately after submission, but the operation is not yet complete. You can query the disk rollback status by calling [`DescribeDisks`](../disk/describedisks.md). If the disk status changes from `ROLLING_BACK` to `AVAILABLE` or `IN_USE`, the rollback was successful. No operations can be performed on the disk during the rollback process.
+  * The snapshot used for rollback must be in AVAILABLE state. You can query the snapshot status by calling [`DescribeSnapshots`](describesnapshots.md). See the `SnapshotState` field in the output parameters for details.
 examples:
 - cmd: zeno zec apply-snapshot --snapshot-id snapshotId1 --disk-id disk1
   desc: Revert to a snapshot.

@@ -55,3 +55,56 @@ response:
 - name: dataSet
   type: object-array
   description: Information on border gateways.
+  array-style: json
+  item-schema:
+  - name: zbgId
+    type: string
+    description: Border gateway ID.
+  - name: name
+    type: string
+    description: Border gateway name.
+  - name: vpcId
+    type: string
+    description: VPC ID.
+  - name: regionId
+    type: string
+    description: Region ID.
+  - name: asn
+    type: integer
+    description: Autonomous System Number.
+  - name: interConnectCidr
+    type: string
+    description: Interconnect IP range.
+  - name: createTime
+    type: string
+    description: Creation time.
+  - name: cloudRouterIds
+    type: string-array
+    description: Cloud router IDs that border gateway is added into.
+  - name: routingMode
+    type: enum
+    description: Dynamic routing mode.
+    enum-values:
+    - value: Regional
+      desc: Regional routing. Learn routes only within the region it was created in.
+    - value: Global
+      desc: Global routing. Dynamically learn and distribute routes across all regions using a single VPN or Interconnect.
+  - name: natId
+    type: string
+    description: NAT gateway ID.
+  - name: advertisedSubnet
+    type: enum
+    description: Subnet route advertisement.
+    enum-values:
+    - value: ALL
+      desc: Advertise all.
+    - value: NONE
+      desc: Do not advertise.
+    - value: PART
+      desc: Advertise partial.
+  - name: advertisedCidrs
+    type: string-array
+    description: Custom IPv4 CIDR block list.
+  - name: advertisedRouteIds
+    type: string-array
+    description: ID list of the custom routes to be advertised.

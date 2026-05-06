@@ -79,3 +79,44 @@ response:
 - name: dataSet
   type: object-array
   description: Information on global VPCs.
+  array-style: json
+  item-schema:
+  - name: vpcId
+    type: string
+    description: Global VPC ID.
+  - name: name
+    type: string
+    description: Global VPC name.
+  - name: cidrBlock
+    type: string
+    description: CIDR block of global VPC.
+  - name: ipv6CidrBlock
+    type: string
+    description: IPv6 CIDR block of global VPC.
+  - name: mtu
+    type: integer
+    description: MTU of global VPC.
+  - name: isDefault
+    type: boolean
+    description: Whether is default global VPC or not.
+  - name: createTime
+    type: string
+    description: Creation time of global VPC.
+  - name: usageIpv4Count
+    type: integer
+    description: Used IPv4 quantity of the global VPC.
+  - name: usageIpv6Count
+    type: integer
+    description: Used IPv6 quantity of the global VPC.
+  - name: securityGroupId
+    type: string
+    description: Associated security group ID of global VPC.
+  - name: dnsZoneIds
+    type: string-array
+    description: The DNS Zone ID associated with the VPC.
+  - name: resourceGroup
+    type: object
+    description: Resource group information.
+  - name: tags
+    type: object
+    description: Tags bound to resources.

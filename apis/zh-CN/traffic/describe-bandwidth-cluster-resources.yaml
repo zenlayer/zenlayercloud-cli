@@ -20,6 +20,25 @@ response:
 - name: resources
   type: object-array
   description: 共享带宽包里的资源信息。
+  array-style: json
+  item-schema:
+  - name: resourceId
+    type: string
+    description: 资源ID。
+  - name: resourceType
+    type: enum
+    description: 资源类型。
+    enum-values:
+    - value: VM_INSTANCE
+      desc: 虚拟机实例。
+    - value: BMC_INSTANCE
+      desc: 裸金属实例。
+    - value: ZEC_EIP_INSTANCE
+      desc: 弹性算力IP。
+    - value: ZEC_IPV6_INSTANCE
+      desc: 弹性算力IPv6。
+    - value: OTHERS
+      desc: 其他资源。
 - name: totalCount
   type: integer
   description: 共享带宽包里的资源数量。

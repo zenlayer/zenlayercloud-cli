@@ -32,3 +32,31 @@ response:
 - name: availableIpv4Resources
   type: object-array
   description: List of available IPv4 CIDR blocks.
+  array-style: json
+  item-schema:
+  - name: zoneId
+    type: string
+    description: Zone ID to which the CIDR block belongs.
+  - name: netmask
+    type: integer
+    description: Netmask.
+  - name: sellStatus
+    type: enum
+    description: |-
+      Status for sale.
+      SELL : available for sale, stock > 10. SELL_SHORTAGE : available for sale, stock SOLD_OUT : sold out.
+    enum-values:
+    - value: SOLD_OUT
+      desc: Sold out.
+    - value: SELL_SHORTAGE
+      desc: Available for sale, stock <= 10.
+    - value: SELL
+      desc: Available for sale, stock > 10.
+  - name: cidrType
+    type: enum
+    description: CIDR block type.
+    enum-values:
+    - value: BGP
+      desc: BGP IP.
+    - value: Local
+      desc: Local IP.

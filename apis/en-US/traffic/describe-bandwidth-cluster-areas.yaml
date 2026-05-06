@@ -14,3 +14,17 @@ response:
 - name: areas
   type: object-array
   description: Location list of bandwidth cluster.
+  array-style: json
+  item-schema:
+  - name: areaCode
+    type: string
+    description: Location code of bandwidth cluster.
+  - name: areaName
+    type: string
+    description: Location name of bandwidth cluster.
+  - name: networkTypes
+    type: string-array
+    description: The network type supported in the location.
+  - name: products
+    type: string-array
+    description: The service types supported in the location.

@@ -125,3 +125,137 @@ response:
 - name: dataSet
   type: object-array
   description: 实例列表的数据。
+  array-style: json
+  item-schema:
+  - name: instanceId
+    type: string
+    description: 实例唯一ID。
+  - name: instanceName
+    type: string
+    description: 实例显示名称。
+  - name: zoneId
+    type: string
+    description: 实例所属的可用区ID。
+  - name: instanceType
+    type: string
+    description: |-
+      CPU 规格。
+      如果是GPU实例，该字段取值为null。
+  - name: cpu
+    type: integer
+    description: |-
+      CPU 核数。
+      单位：个。
+  - name: memory
+    type: integer
+    description: |-
+      内存容量。
+      单位：GiB。
+  - name: imageId
+    type: string
+    description: 镜像ID。
+  - name: imageName
+    type: string
+    description: 镜像名称。
+  - name: timeZone
+    type: string
+    description: 设置的系统时区信息。
+  - name: nicNetworkType
+    type: enum
+    description: 网卡模式。
+    enum-values:
+    - value: Auto
+      desc: 默认模式(镜像自适应)。
+    - value: FailOver
+      desc: 故障转移模式。
+    - value: VirtioOnly
+      desc: 软件模拟模式。
+    - value: VfOnly
+      desc: 物理直通模式。
+  - name: status
+    type: enum
+    description: 实例状态。
+    enum-values:
+    - value: DEPLOYING
+      desc: 创建部署中。
+    - value: REBUILDING
+      desc: 重装系统中。
+    - value: REBOOT
+      desc: 系统重启中。
+    - value: RUNNING
+      desc: 运行开机。
+    - value: STOPPED
+      desc: 已关机状态。
+    - value: BOOTING
+      desc: 系统启动中。
+    - value: RELEASING
+      desc: 实例释放中。
+    - value: STOPPING
+      desc: 系统关机中。
+    - value: RECYCLE
+      desc: 实例处于回收站。
+    - value: RECYCLING
+      desc: 实例回收中。
+    - value: CREATE_FAILED
+      desc: 创建失败。
+    - value: IMAGING
+      desc: 镜像制作中。
+    - value: RESIZING
+      desc: 变更规格大小中。
+  - name: systemDisk
+    type: object
+    description: 系统盘信息。
+  - name: dataDisks
+    type: object-array
+    description: 实例上挂载的数据盘信息。
+  - name: publicIpAddresses
+    type: string-array
+    description: 实例上公网IPv4列表。
+  - name: privateIpAddresses
+    type: string-array
+    description: 实例上内网IP列表。
+  - name: keyId
+    type: string
+    description: 安装的SSH密钥ID。
+  - name: subnetId
+    type: string
+    description: 实例主网卡关联的子网ID。
+  - name: securityGroupId
+    type: string
+    description: 实例主网卡关联的安全组ID。
+  - name: enableAgent
+    type: boolean
+    description: 是否开启QGA Agent。
+  - name: enableAgentMonitor
+    type: boolean
+    description: 是否开启QGA 监控采集。
+  - name: enableIpForward
+    type: boolean
+    description: 是否开启IP转发。
+  - name: createTime
+    type: string
+    description: 创建时间。
+  - name: expiredTime
+    type: string
+    description: 到期时间。
+  - name: resourceGroupId
+    type: string
+    description: 实例所属的资源组ID。
+  - name: resourceGroupName
+    type: string
+    description: 实例所属的资源组名称。
+  - name: nics
+    type: object-array
+    description: 实例上绑定的网卡信息。
+  - name: tags
+    type: object
+    description: 实例关联的标签。
+  - name: loadBalancerIds
+    type: string-array
+    description: 实例上绑定的负载均衡ID列表。
+  - name: placementGroupId
+    type: string
+    description: 实例所属的置放组ID。
+  - name: instanceOptions
+    type: object
+    description: 实例选项配置。

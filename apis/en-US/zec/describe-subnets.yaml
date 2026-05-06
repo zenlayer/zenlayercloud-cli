@@ -63,3 +63,64 @@ response:
 - name: dataSet
   type: object-array
   description: Information on a subnet.
+  array-style: json
+  item-schema:
+  - name: subnetId
+    type: string
+    description: Subnet ID.
+  - name: regionId
+    type: string
+    description: Region ID.
+  - name: name
+    type: string
+    description: Subnet name.
+  - name: cidrBlock
+    type: string
+    description: CIDR block of subnet.
+  - name: gatewayIpAddress
+    type: string
+    description: Gateway ip address.
+  - name: ipv6CidrBlock
+    type: string
+    description: IPv6 CIDR block of subnet.
+  - name: ipv6GatewayIpAddress
+    type: string
+    description: IPv6 gateway ip address.
+  - name: stackType
+    type: string
+    description: |-
+      Subnet IP stack type.
+      The optional values are as follows:
+      IPv4 , IPv4_IPv6 , IPv6
+  - name: ipv6Type
+    type: string
+    description: |-
+      Subnet IPv6 type.
+      The optional values are as follows:
+      Public , Private
+  - name: vpcId
+    type: string
+    description: Global VPC ID to which the subnet belong.
+  - name: vpcName
+    type: string
+    description: Global VPC name to which the subnet belong.
+  - name: usageIpv4Count
+    type: integer
+    description: Used IPv4 quantity of the subnet.
+  - name: usageIpv6Count
+    type: integer
+    description: Used IPv6 quantity of the subnet.
+  - name: createTime
+    type: string
+    description: Creation time of subnet.
+  - name: isDefault
+    type: boolean
+    description: Whether is default subnet or not.
+  - name: dhcpOptionsSetId
+    type: string
+    description: DHCP options set ID.
+  - name: ipv6MaskLength
+    type: integer
+    description: |-
+      IPv6 mask length assigned to the vNIC.
+      This field is empty if the subnet's IP stack type does not include V6.

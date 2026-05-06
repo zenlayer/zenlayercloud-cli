@@ -46,15 +46,127 @@ response:
 - name: ports
   type: object-array
   description: 端口封禁。
+  array-style: json
+  item-schema:
+  - name: protocol
+    type: enum
+    description: |-
+      协议类型。
+      只支持 `UDP` / `TCP` 两种协议。
+    enum-values:
+    - value: TCP
+      desc: TCP 协议。
+    - value: UDP
+      desc: UDP 协议。
+    - value: ICMP
+      desc: |-
+        ICMP 协议。
+        端口封禁不支持该协议。
+  - name: srcPortStart
+    type: integer
+    description: 源端口范围的起始值。
+  - name: srcPortEnd
+    type: integer
+    description: 源端口范围的结束值。
+  - name: dstPortStart
+    type: integer
+    description: 目的端口范围的起始值。
+  - name: dstPortEnd
+    type: integer
+    description: 目的端口范围的结束值。
+  - name: action
+    type: enum
+    description: 匹配后的动作。
+    enum-values:
+    - value: Drop
+      desc: 丢弃：丢弃流量。
 - name: blockRegions
   type: string-array
   description: 封禁的区域。
 - name: reflectUdpPort
   type: object-array
   description: 反射攻击防护过滤的端口列表。
+  array-style: json
+  item-schema:
+  - name: port
+    type: integer
+    description: 反射攻击防护过滤的端口。
 - name: trafficControl
   type: object
   description: 源限速配置。
+  object-schema:
+  - name: bpsEnabled
+    type: boolean
+    description: 是否开启 bps 限速。
+  - name: bps
+    type: integer
+    description: bps 限速值。
+  - name: ppsEnabled
+    type: boolean
+    description: 是否开启 pps 限速。
+  - name: pps
+    type: integer
+    description: pps 限速值。
+  - name: synBPSEnabled
+    type: boolean
+    description: 是否开启 sync bps 限速。
+  - name: synBPS
+    type: integer
+    description: syn bps 限速值。
+  - name: synPPSEnabled
+    type: boolean
+    description: 是否开启 sync pps 限速。
+  - name: synPPS
+    type: integer
+    description: syn pps 限速值。
 - name: fingerPrintRules
   type: object-array
   description: 指纹过滤相关配置。
+  array-style: json
+  item-schema:
+  - name: protocol
+    type: enum
+    description: 设置指纹的协议。
+    enum-values:
+    - value: TCP
+      desc: TCP 协议。
+    - value: UDP
+      desc: UDP 协议。
+    - value: ICMP
+      desc: |-
+        ICMP 协议。
+        端口封禁不支持该协议。
+  - name: srcPortStart
+    type: integer
+    description: 指纹源端口的范围起始值。
+  - name: srcPortEnd
+    type: integer
+    description: 指纹源端口的范围结束值。
+  - name: dstPortStart
+    type: integer
+    description: 指纹目的端口的范围起始值。
+  - name: dstPortEnd
+    type: integer
+    description: 指纹目的端口的范围结束值。
+  - name: minPktLength
+    type: integer
+    description: 需要过滤出的最小包长。
+  - name: maxPktLength
+    type: integer
+    description: 需要过滤出的最大包长。
+  - name: offset
+    type: integer
+    description: |-
+      报文载荷特征的偏移量。
+      TCP/UDP payload 的偏移 [0-1500]。
+  - name: matchBytes
+    type: string
+    description: |-
+      检测载荷。
+      不含0x 的16进制 小写 补足2位。
+  - name: action
+    type: enum
+    description: 设置指纹匹配后的动作。
+    enum-values:
+    - value: Drop
+      desc: 丢弃：丢弃流量。

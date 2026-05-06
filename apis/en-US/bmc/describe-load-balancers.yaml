@@ -77,3 +77,67 @@ response:
 - name: dataSet
   type: object-array
   description: Load balancer set.
+  array-style: json
+  item-schema:
+  - name: loadBalancerId
+    type: string
+    description: Load balance instance ID.
+  - name: zoneId
+    type: string
+    description: Zone ID of a load balancer.
+  - name: loadBalancerName
+    type: string
+    description: Load balance instance name.
+  - name: specName
+    type: string
+    description: Specification name.
+  - name: vipList
+    type: object-array
+    description: Virtual IP list of a load balancer.
+  - name: chargeType
+    type: string
+    description: Pricing model.
+  - name: period
+    type: integer
+    description: Billing cycle.
+  - name: createTime
+    type: string
+    description: |-
+      Creation time.
+      Use UTC time according to the ISO8601 standard. Format: YYYY-MM-ddTHH:mm:ssZ .
+  - name: expiredTime
+    type: string
+    description: Expiration time.
+  - name: status
+    type: string
+    description: State of a load balancer.
+  - name: resourceGroupId
+    type: string
+    description: Resource group ID.
+  - name: resourceGroupName
+    type: string
+    description: Resource group name.
+  - name: masterIp
+    type: string
+    description: Primary IP.
+  - name: backupIp
+    type: string
+    description: Secondary IP.
+  - name: ipType
+    type: string
+    description: IPv4.
+  - name: bandwidth
+    type: integer
+    description: Bandwidth.
+  - name: isWorking
+    type: boolean
+    description: Whether the load balancer is active or not.
+  - name: listenerList
+    type: object-array
+    description: Listener set.
+  - name: backendList
+    type: object-array
+    description: Backend server set.
+  - name: tags
+    type: object
+    description: Bound tags.

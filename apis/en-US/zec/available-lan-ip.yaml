@@ -17,3 +17,24 @@ response:
 - name: lanIps
   type: object-array
   description: List of NIC/IP pairs (within the same subnet) that are eligible to be associated with the specified EIP.
+  array-style: json
+  item-schema:
+  - name: lanIp
+    type: string
+    description: Private IPv4 address assigned to the vNIC that can be bound to the specified EIP.
+  - name: nicId
+    type: string
+    description: ID of the vNIC.
+  - name: nicName
+    type: string
+    description: vNIC name.
+  - name: instanceId
+    type: string
+    description: |-
+      ID of the instance the vNIC is attached to.
+      Null if the vNIC is not attached to any instance.
+  - name: instanceName
+    type: string
+    description: |-
+      Name of the instance the vNIC is attached to.
+      Null if the vNIC is not attached to any instance.

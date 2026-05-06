@@ -6,6 +6,7 @@ long: |-
   对指定云盘创建快照。
   **注意事项**
 
+  * 本接口为异步接口，创建快照请求发送成功后会立即返回，此时操作并未完成。快照创建结果可以通过调用[`DescribeSnapshots`](../snapshot/describesnapshots.md)接口查询，如果快照状态由`CREATING`变为`AVAILABLE`则代表创建成功，创建过程中不可删除该快照。
   * 云盘是否支持创建快照可根据`SnapshotAbility`字段判断。该值可通过[`DescribeDisks`](../disk/describedisks.md)接口查询。
   * 云盘必须处于**使用中**或**待挂载**状态。
   * 可创建快照数量限制见产品使用限制。

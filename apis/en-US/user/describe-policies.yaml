@@ -14,3 +14,20 @@ response:
 - name: policies
   type: object-array
   description: Access policy list data.
+  array-style: json
+  item-schema:
+  - name: policyId
+    type: string
+    description: Access policy unique ID.
+  - name: allResource
+    type: integer
+    description: 'Whether access policy is for all resource groups (1: Yes; 0: No).'
+  - name: name
+    type: string
+    description: Access policy display name.
+  - name: desc
+    type: string
+    description: Access policy description information.
+  - name: authorizationTime
+    type: integer
+    description: Access policy authorization count.

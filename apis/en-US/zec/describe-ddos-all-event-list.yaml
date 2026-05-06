@@ -57,3 +57,42 @@ response:
 - name: dataSet
   type: object-array
   description: Data for the list of attack events.
+  array-style: json
+  item-schema:
+  - name: eventId
+    type: string
+    description: DDoS attack event ID.
+  - name: status
+    type: enum
+    description: Attack state.
+    enum-values:
+    - value: ATTACKING
+      desc: The attack target is under attack.
+    - value: ATTACKED
+      desc: The attack event is resolved.
+    - value: BLOCKING
+      desc: The attack event is mitigating.
+  - name: ipAddress
+    type: string
+    description: Attack target IP.
+  - name: protecting
+    type: boolean
+    description: Whether the IP is being protected.
+  - name: startTime
+    type: string
+    description: Attack start time.
+  - name: endTime
+    type: string
+    description: Attack end time.
+  - name: endBlackholeTime
+    type: string
+    description: Time to unblock from blackhole.
+  - name: attackBandwidthMax
+    type: float
+    description: 'Peak attack bandwidth. Unit: bps.'
+  - name: attackPackageMax
+    type: float
+    description: 'Peak attack packet rate. Unit: pps.'
+  - name: regionId
+    type: string
+    description: Region ID of attack event.

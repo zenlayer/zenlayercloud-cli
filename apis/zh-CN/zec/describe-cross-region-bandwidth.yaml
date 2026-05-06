@@ -80,3 +80,70 @@ response:
 - name: dataSet
   type: object-array
   description: 返回分页的内网跨区域带宽的集合数据。
+  array-style: json
+  item-schema:
+  - name: crossRegionBandwidthId
+    type: string
+    description: 内网跨区域带宽的唯一ID。
+  - name: crossRegionBandwidthName
+    type: string
+    description: 内网跨区域带宽的名称。
+  - name: status
+    type: enum
+    description: 内网跨区域带宽的状态。
+    enum-values:
+    - value: CREATING
+      desc: 创建中。
+    - value: AVAILABLE
+      desc: 正常可用。
+    - value: CHANGING
+      desc: 变更中。
+    - value: RECYCLING
+      desc: 回收中。
+    - value: RECYCLED
+      desc: 处于回收站。
+    - value: DELETING
+      desc: 删除中。
+    - value: CREATE_FAILED
+      desc: 创建失败。
+  - name: vpcId
+    type: string
+    description: 内网跨区域带宽所属的VPC ID。
+  - name: regionA
+    type: string
+    description: 内网跨区域带宽的其中一端的区域连接点（A）。
+  - name: regionZ
+    type: string
+    description: 内网跨区域带宽的另一端的区域连接点（Z）。
+  - name: bandwidth
+    type: integer
+    description: 内网跨区域带宽的带宽|保底带宽。
+  - name: bandwidthCap
+    type: integer
+    description: |-
+      内网跨区域带宽的突发带宽。
+      该字段可能为null。
+  - name: createTime
+    type: string
+    description: 内网跨区域带宽的创建时间。
+  - name: internetChargeType
+    type: enum
+    description: 内网跨区域带宽的网络模型。
+    enum-values:
+    - value: ByBandwidth
+      desc: 固定带宽计费方式。
+    - value: ByTrafficPackage
+      desc: 流量包计费方式。
+    - value: BandwidthCluster
+      desc: 共享带宽包计费方式。
+  - name: expiredTime
+    type: string
+    description: |-
+      内网跨区域带宽的到期时间。
+      该字段可能为null。
+  - name: resourceGroupId
+    type: string
+    description: 内网跨区域带宽的所属的资源组。
+  - name: resourceGroupName
+    type: string
+    description: 内网跨区域带宽的所属资源组的名称。

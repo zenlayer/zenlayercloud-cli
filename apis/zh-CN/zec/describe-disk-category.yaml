@@ -29,3 +29,11 @@ response:
 - name: categoryZoneSet
   type: object-array
   description: 可用区支持的云盘类型。
+  array-style: json
+  item-schema:
+  - name: zoneId
+    type: string
+    description: 可用区ID。
+  - name: categorySet
+    type: string-array
+    description: 支持的云硬盘类型。

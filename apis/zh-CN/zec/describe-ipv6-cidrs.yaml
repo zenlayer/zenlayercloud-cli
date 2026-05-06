@@ -79,3 +79,101 @@ response:
 - name: dataSet
   type: object-array
   description: 查询IPV6 CIDR地址的结果数据。
+  array-style: json
+  item-schema:
+  - name: cidrId
+    type: string
+    description: CIDR ID。
+  - name: regionId
+    type: string
+    description: CIDR所属的区域节点ID。
+  - name: name
+    type: string
+    description: CIDR的名称。
+  - name: cidrBlock
+    type: string
+    description: CIDR地址块，例如：2400:8a00::/28。
+  - name: source
+    type: enum
+    description: |-
+      CIDR的来源。
+      如CONSOLE（属于zenlayer）或 BYOIP（客户自带IP）。
+    enum-values:
+    - value: CONSOLE
+      desc: 归属于Zenlayer创建的IP。
+    - value: BYOIP
+      desc: 客户自带IP(bring your own IP)。
+    - value: SDN_RIPT
+      desc: SDN 场景创建的 CIDR。
+  - name: networkLineType
+    type: enum
+    description: |-
+      CIDR网络类型。
+      表示该CIDR支持的公网IP线路类型。
+    enum-values:
+    - value: PremiumBGP
+      desc: |-
+        优质 BGP。
+        高性能网络。
+    - value: CN2
+      desc: 回国优化线路。
+    - value: LocalLine
+      desc: 本地IP。
+    - value: StandardBGP
+      desc: |-
+        标准 BGP。
+        通用网络，成本优化。
+    - value: CMI
+      desc: 中国移动。
+    - value: CUG
+      desc: 中国联通。
+    - value: CTG
+      desc: 中国电信。
+    - value: ThreeLine
+      desc: 三线IP。
+  - name: subnetIds
+    type: string-array
+    description: 子网ID集合。
+  - name: nicIds
+    type: string-array
+    description: 网卡ID集合。
+  - name: netmask
+    type: integer
+    description: |-
+      子网掩码。
+      表示CIDR的网络位长度。
+  - name: poolId
+    type: string
+    description: |-
+      Pool的ID。
+      表示该CIDR所属的公网IP池。
+  - name: createTime
+    type: string
+    description: CIDR的创建时间。
+  - name: expiredTime
+    type: string
+    description: CIDR的到期时间。
+  - name: resourceGroup
+    type: object
+    description: 该CIDR所属的资源组。
+  - name: status
+    type: enum
+    description: CIDR的状态。
+    enum-values:
+    - value: CREATING
+      desc: 创建中。
+    - value: AVAILABLE
+      desc: 正常可用。
+    - value: CHANGING
+      desc: 变更中。
+    - value: RECYCLING
+      desc: 回收中。
+    - value: RECYCLED
+      desc: 处于回收站。
+    - value: DELETING
+      desc: 删除中。
+    - value: FAILED
+      desc: 创建失败。
+  - name: tags
+    type: object
+    description: 该CIDR地址段关联的标签。

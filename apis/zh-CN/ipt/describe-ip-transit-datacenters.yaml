@@ -22,3 +22,11 @@ response:
 - name: supportSet
   type: object-array
   description: 结果集。
+  array-style: json
+  item-schema:
+  - name: dataCenter
+    type: object
+    description: 数据中心信息。
+  - name: availableRoutingTypes
+    type: object-array
+    description: 支持的路由类型配置。

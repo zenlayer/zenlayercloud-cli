@@ -28,9 +28,19 @@ response:
 - name: status
   type: enum
   description: Attack state.
+  enum-values:
+  - value: ATTACKING
+    desc: The attack target is under attack.
+  - value: ATTACKED
+    desc: The attack event is resolved.
+  - value: BLOCKING
+    desc: The attack event is mitigating.
 - name: type
   type: enum
   description: Attack type.
+  enum-values:
+  - value: DDOS
+    desc: DDoS protection.
 - name: ipAddress
   type: string
   description: Attacked target IP.
@@ -64,6 +74,22 @@ response:
 - name: sourcePort
   type: object-array
   description: Attack source port.
+  array-style: json
+  item-schema:
+  - name: protocol
+    type: string
+    description: Port protocol.
+  - name: port
+    type: integer
+    description: Port number.
 - name: desertionPort
   type: object-array
   description: Attack target port.
+  array-style: json
+  item-schema:
+  - name: protocol
+    type: string
+    description: Port protocol.
+  - name: port
+    type: integer
+    description: Port number.

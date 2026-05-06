@@ -54,3 +54,47 @@ response:
 - name: dataSet
   type: object-array
   description: Placement group result set.
+  array-style: json
+  item-schema:
+  - name: placementGroupId
+    type: string
+    description: Placement group ID
+  - name: name
+    type: string
+    description: Placement group name.
+  - name: zoneId
+    type: string
+    description: Zone ID of the placement group.
+  - name: partitionNum
+    type: integer
+    description: |-
+      Number of partitions in the placement group.
+      Valid values range from 2 to 5, which determines the maximum number of associated instances.
+  - name: affinity
+    type: integer
+    description: |-
+      Affinity of the placement group.
+      Valid values range from 1 to floor(partitionNum / 2).
+  - name: instanceCount
+    type: integer
+    description: Number of instances within the placement group.
+  - name: instanceIds
+    type: string-array
+    description: List of instance IDs associated with the placement group.
+  - name: constraintStatus
+    type: enum
+    description: Constraint satisfaction status of the placement group.
+    enum-values:
+    - value: Satisfied
+      desc: Placement policy constraint is satisfied.
+    - value: Unsatisfied
+      desc: Placement policy constraint is not satisfied.
+  - name: createTime
+    type: string
+    description: Creation time.
+  - name: resourceGroup
+    type: object
+    description: Resource group information to which the placement group belongs.
+  - name: tags
+    type: object
+    description: Tags of the placement group.

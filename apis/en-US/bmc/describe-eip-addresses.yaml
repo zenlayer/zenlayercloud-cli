@@ -122,3 +122,59 @@ response:
 - name: dataSet
   type: object-array
   description: List of elastic IPs.
+  array-style: json
+  item-schema:
+  - name: eipId
+    type: string
+    description: ID of the elastic IP.
+  - name: zoneId
+    type: string
+    description: Zone ID to which the elastic IPs belong.
+  - name: ipAddress
+    type: string
+    description: IP address.
+  - name: netmask
+    type: integer
+    description: IP netmask.
+  - name: instanceId
+    type: string
+    description: Instance ID
+  - name: instanceName
+    type: string
+    description: Instance name.
+  - name: eipChargeType
+    type: string
+    description: |-
+      Pricing model.
+      PREPAID: monthly subscription.
+      POSTPAID: pay-as-you-go.
+  - name: period
+    type: integer
+    description: |-
+      Period of elastic IP subscription.
+      Unit: month.
+      The value is empty for pay-as-you-go elastic IPs.
+  - name: createTime
+    type: string
+    description: |-
+      Creation time.
+      Use UTC time according to the ISO8601 standard. Format: YYYY-MM-ddTHH:mm:ssZ .
+  - name: expiredTime
+    type: string
+    description: |-
+      Expiration time.
+      Use UTC time according to the ISO8601 standard. Format: YYYY-MM-ddTHH:mm:ssZ .
+      Note:
+      The value is empty for pay-as-you-go resources.
+  - name: resourceGroupId
+    type: string
+    description: Resource group ID.
+  - name: resourceGroupName
+    type: string
+    description: Resource group name.
+  - name: eipStatus
+    type: string
+    description: Status of elastic IP .
+  - name: tags
+    type: object
+    description: Bound tags.

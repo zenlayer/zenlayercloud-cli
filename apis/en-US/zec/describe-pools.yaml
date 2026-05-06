@@ -44,3 +44,23 @@ response:
 - name: dataSet
   type: object-array
   description: Information on pools.
+  array-style: json
+  item-schema:
+  - name: poolId
+    type: string
+    description: Pool ID.
+  - name: regionId
+    type: string
+    description: Region ID.
+  - name: name
+    type: string
+    description: Pool name.
+  - name: createTime
+    type: string
+    description: Creation time.
+  - name: ipv4CidrCount
+    type: integer
+    description: The number of CIDR IPv4.
+  - name: ipv6CidrCount
+    type: integer
+    description: The number of CIDR IPv6.

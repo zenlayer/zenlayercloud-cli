@@ -19,13 +19,68 @@ parameters:
 response:
 - name: natGatewayId
   type: string
+  required: true
   description: The unique ID of the NAT gateway.
 - name: name
   type: string
+  required: true
   description: NAT gateway name.
 - name: snats
   type: object-array
   description: SNAT rule list.
+  array-style: json
+  item-schema:
+  - name: snatEntryId
+    type: string
+    description: SNAT entry ID.
+  - name: cidrs
+    type: string-array
+    description: |-
+      CIDR block. The default value is 0.0.0.0/0 if not passed in.
+      `cidrs` and `snatSubnets` cannot exist simultaneously.
+  - name: eipIds
+    type: string-array
+    description: The elastic IP ID list configured in the SNAT rule.
+  - name: isAllEip
+    type: boolean
+    description: Whether the public egress IPs are all elastic IPs bound to this NAT gateway
+  - name: snatSubnets
+    type: object-array
+    description: The subnet ID list configured in the SNAT rule.
 - name: dnats
   type: object-array
   description: DNAT rule list.
+  array-style: json
+  item-schema:
+  - name: dnatEntryId
+    type: string
+    description: DNAT entry ID.
+  - name: status
+    type: string
+    description: DNAT rule status.
+  - name: privateIp
+    type: string
+    description: The private IP address configured in the DNAT rule.
+  - name: eipId
+    type: string
+    description: The elastic IP ID configured in the DNAT rule.
+  - name: protocol
+    type: enum
+    description: The protocol type configured in the DNAT rule.
+    enum-values:
+    - value: TCP
+      desc: TCP protocol.
+    - value: UDP
+      desc: UDP protocol.
+    - value: Any
+      desc: Any protocol.
+  - name: listenerPort
+    type: string
+    description: |-
+      The public port or port range forwarded by the DNAT rule.
+      Valid values: 1–65535.
+  - name: internalPort
+    type: string
+    description: |-
+      The private port or port range forwarded by the DNAT rule.
+      Valid values: 1–65535.

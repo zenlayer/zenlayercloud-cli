@@ -88,3 +88,87 @@ response:
 - name: dataSet
   type: object-array
   description: 路由列表数据。
+  array-style: json
+  item-schema:
+  - name: routeId
+    type: string
+    description: 路由ID。
+  - name: name
+    type: string
+    description: 路由的名称。
+  - name: vpcId
+    type: string
+    description: 路由关联的VPC的ID。
+  - name: vpcName
+    type: string
+    description: 路由关联的VPC的名称。
+  - name: ipVersion
+    type: enum
+    description: |-
+      IP类型。
+      支持`IPv4`和`IPv6`两种类型。
+    enum-values:
+    - value: IPv4
+      desc: IPv4。
+    - value: IPv6
+      desc: IPv6。
+  - name: type
+    type: enum
+    description: 路由类型。
+    enum-values:
+    - value: RouteTypeSubnet
+      desc: |-
+        子网路由。
+        该路由为系统生成的路由。
+    - value: RouteTypeStatic
+      desc: |-
+        静态路由。
+        可以通过创建自定义路由。
+    - value: RouteTypePolicy
+      desc: |-
+        策略路由。
+        可以通过创建自定义路由。
+    - value: RouteTypeNatGw
+      desc: NAT 网关路由。
+    - value: RouteTypeTransit
+      desc: 动态路由。
+  - name: sourceCidrBlock
+    type: string
+    description: |-
+      源IP地址。
+      当`路由类型`是`RouteTypePolicy(策略路由)`时可取值。
+  - name: destinationCidrBlock
+    type: string
+    description: |-
+      IPv4或IPv6的目标网段。
+      例如：10.0.1.0/24。
+  - name: cidrBlock
+    type: string
+    description: |-
+      IPv4或IPv6的目标网段。
+      例如：10.0.1.0/24。
+      该字段已废弃，请使用`destinationCidrBlock`。
+  - name: priority
+    type: integer
+    description: 路由优先级。
+  - name: nextHopId
+    type: string
+    description: 下一跳资源ID。
+  - name: nextHopName
+    type: string
+    description: 下一跳资源名称。
+  - name: nextHopType
+    type: enum
+    description: 下一跳的类型。
+    enum-values:
+    - value: NIC
+      desc: 虚拟网卡。
+    - value: VPC
+      desc: 全球VPC。
+    - value: NAT
+      desc: NAT网关。
+    - value: ZBG
+      desc: 边界网关。
+  - name: createTime
+    type: string
+    description: 路由的创建时间。

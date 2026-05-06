@@ -17,3 +17,17 @@ response:
 - name: regionSet
   type: object-array
   description: Information on regions.
+  array-style: json
+  item-schema:
+  - name: regionId
+    type: string
+    description: Region ID.
+  - name: regionName
+    type: string
+    description: Region name.
+  - name: regionTitle
+    type: string
+    description: Region title.
+  - name: enablePubIpv6
+    type: boolean
+    description: Whether support public IPv6 or not.

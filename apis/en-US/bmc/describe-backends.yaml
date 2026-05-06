@@ -48,3 +48,34 @@ response:
 - name: dataSet
   type: object-array
   description: Backend server list.
+  array-style: json
+  item-schema:
+  - name: listenerId
+    type: string
+    description: Listener ID.
+  - name: backendId
+    type: string
+    description: Backend server ID.
+  - name: backendName
+    type: string
+    description: Backend server name.
+  - name: status
+    type: string
+    description: Backend server state.
+  - name: port
+    type: string
+    description: Backend port.
+  - name: weight
+    type: integer
+    description: Backend server weight.
+  - name: instanceId
+    type: string
+    description: Instance ID.
+  - name: instanceName
+    type: string
+    description: Instance name.
+  - name: createTime
+    type: string
+    description: |-
+      Creation time.
+      Use UTC time according to the ISO8601 standard. Format: YYYY-MM-ddTHH:mm:ssZ .

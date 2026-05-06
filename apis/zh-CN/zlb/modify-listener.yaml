@@ -48,6 +48,13 @@ parameters:
     description: |-
       健康检查使用的协议。
       当开启健康检查时， 该字段必填。
+    enum-values:
+    - value: PING_CHECK
+      desc: Ping 检查。
+    - value: TCP
+      desc: TCP 检查。
+    - value: HTTP_GET
+      desc: HTTP Get 请求检查。
   - name: checkPort
     type: integer
     description: |-

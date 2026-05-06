@@ -34,3 +34,36 @@ response:
 - name: instanceAvailableCidrBlocks
   type: object-array
   description: List of available CIDR blocks for the instance.
+  array-style: json
+  item-schema:
+  - name: cidrBlockId
+    type: string
+    description: ID of CIDR block.
+  - name: zoneId
+    type: string
+    description: Zone ID to which the CIDR block belongs.
+  - name: cidrBlockType
+    type: enum
+    description: CIDR block type.
+    enum-values:
+    - value: IPV4
+      desc: IPv4.
+    - value: IPV6
+      desc: IPv6.
+  - name: cidrType
+    type: enum
+    description: CIDR block type.
+    enum-values:
+    - value: BGP
+      desc: BGP IP.
+    - value: Local
+      desc: Local IP.
+  - name: cidrBlock
+    type: string
+    description: CIDR block.
+  - name: availableIps
+    type: string-array
+    description: List of available IPs.
+  - name: availableIpCount
+    type: integer
+    description: Quantity of available IPs.

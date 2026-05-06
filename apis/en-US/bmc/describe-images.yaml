@@ -63,3 +63,41 @@ response:
 - name: images
   type: object-array
   description: Information on images.
+  array-style: json
+  item-schema:
+  - name: imageId
+    type: string
+    description: Image ID
+  - name: imageName
+    type: string
+    description: Image name.
+  - name: catalog
+    type: string
+    description: |-
+      Image catalog.
+      The optional values are as follows:
+      CentOS Windows Ubuntu Debian ESXi
+  - name: imageType
+    type: enum
+    description: |-
+      Image type.
+      The optional values are as follows:
+      PUBLIC_IMAGE: public image.
+      CUSTOM_IMAGE: custom image.
+      You cannot create a custom image by yourself currently. If necessary, please submit a ticket.
+    enum-values:
+    - value: PUBLIC_IMAGE
+      desc: System image.
+    - value: CUSTOM_IMAGE
+      desc: Custom image.
+  - name: osType
+    type: enum
+    description: |-
+      Operating system type.
+      The optional values are as follows:
+      Windows Linux
+    enum-values:
+    - value: windows
+      desc: Windows.
+    - value: linux
+      desc: Linux.

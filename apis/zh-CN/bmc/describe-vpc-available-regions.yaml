@@ -29,3 +29,14 @@ response:
 - name: vpcRegionSet
   type: object-array
   description: VpcRegionInfo结果集。
+  array-style: json
+  item-schema:
+  - name: vpcRegionId
+    type: string
+    description: VPC的节点ID。
+  - name: vpcRegionName
+    type: string
+    description: VPC的节点名称。
+  - name: zoneIds
+    type: string-array
+    description: Zone ID 列表。

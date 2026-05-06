@@ -14,3 +14,20 @@ response:
 - name: policies
   type: object-array
   description: 访问策略列表的数据。
+  array-style: json
+  item-schema:
+  - name: policyId
+    type: string
+    description: 访问策略唯一ID。
+  - name: allResource
+    type: integer
+    description: 权访问策略是否为全部资源组(1:是；0否)。
+  - name: name
+    type: string
+    description: 访问策略显示名称。
+  - name: desc
+    type: string
+    description: 访问策略描述信息。
+  - name: authorizationTime
+    type: integer
+    description: 访问策略授权次数。

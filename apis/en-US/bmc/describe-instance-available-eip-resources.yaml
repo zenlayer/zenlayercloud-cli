@@ -22,3 +22,16 @@ response:
 - name: instanceEipResources
   type: object-array
   description: List of available elastic IPs that can be bound to an instance.
+  array-style: json
+  item-schema:
+  - name: eipId
+    type: string
+    description: |-
+      ID of an elastic IP.
+      To obtain the elastic IP ID, you can call DescribeEipAddresses and look for eipId in the response.
+  - name: ipAddress
+    type: string
+    description: IP address.
+  - name: netmask
+    type: integer
+    description: IP netmask.

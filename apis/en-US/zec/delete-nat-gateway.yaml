@@ -4,9 +4,10 @@ use: delete-nat-gateway
 short: Deletes a specified NAT gateway
 long: |-
   Delete a specified NAT gateway.
-  **Note**
+  **Notes**
 
-  * After deleting an instance, it may be retained for a period of time in the `RECYCLED` state. It can be restored using the [`RenewNatGateway`](renewnatgateway.md) API.
+  * This is an asynchronous API. The request returns immediately after submission, but the operation is not yet complete. You can query the NAT gateway status by calling [`DescribeNatGateways`](describenatgateways.md). When the NAT gateway status changes to `RECYCLED`, it has entered the recycle bin and will eventually be destroyed.
+  * After deletion, the instance may be retained for a period of time in `RECYCLED` state. You can restore it via the [`RenewNatGateway`](renewnatgateway.md) API.
 examples:
 - cmd: zeno zec delete-nat-gateway --nat-gateway-id sample
   desc: Delete a specified NAT gateway.

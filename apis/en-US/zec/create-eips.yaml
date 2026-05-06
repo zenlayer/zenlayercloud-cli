@@ -214,6 +214,16 @@ parameters:
     desc: NAT mode.
   - value: Passthrough
     desc: Bypass mode.
+- name: rate-limit-mode
+  type: enum
+  required: false
+  sdk-field: rateLimitMode
+  description: Rate limit mode.
+  enum-values:
+  - value: LOOSE
+    desc: 'Loose mode: allows short-term bursts exceeding the limit.'
+  - value: STRICT
+    desc: 'Strict mode: strictly enforced, no bursts allowed.'
 response:
 - name: eipIds
   type: string-array

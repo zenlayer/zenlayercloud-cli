@@ -61,3 +61,13 @@ parameters:
   description: |-
     公网IPv6所指定的共享带宽包ID。
     当子网的堆栈类型包括V6且为公网时，且网络计费方式是共享带宽包计费(BandwidthCluster)需要指定。
+- name: rate-limit-mode
+  type: enum
+  required: false
+  sdk-field: rateLimitMode
+  description: 限速模式。
+  enum-values:
+  - value: LOOSE
+    desc: 宽松模式：允许短时间突发超出限制。
+  - value: STRICT
+    desc: 严格模式：严格限制，不允许任何突发。

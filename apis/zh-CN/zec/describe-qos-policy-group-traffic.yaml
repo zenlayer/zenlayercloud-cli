@@ -41,3 +41,16 @@ response:
 - name: dataSet
   type: object-array
   description: 流量监控数据点列表。
+  array-style: json
+  item-schema:
+  - name: timestamp
+    type: string
+    description: |-
+      数据点时间。
+      时间格式：yyyy-MM-ddTHH:mm:ssZ。
+  - name: bandwidthIn
+    type: integer
+    description: 入向带宽，单位bps。
+  - name: bandwidthOut
+    type: integer
+    description: 出向带宽，单位bps。

@@ -4,9 +4,11 @@ use: release-instances
 short: Releases one or more elastic compute instances
 long: |-
   Release one or more elastic compute instances.
-  **Note**
+  **Notes**
 
-  Batch operations are supported. The maximum number of instances in each request is 100.
+  * This is an asynchronous API. The request returns immediately after submission, but the operation is not yet complete. You can query the instance status by calling [`DescribeInstances`](describeinstances.md). When the instance no longer appears in the query results, it has been fully destroyed. No operations can be performed on the instance during the release process.
+  * In most cases, instance resources are reclaimed immediately after release and cannot be recovered. For some accounts, released instances may first enter the `RECYCLED` (recycle bin) state and be retained for a period of time, during which you can call this API again to permanently delete them. Please proceed with caution.
+  * Batch operations are supported. The maximum number of instances per batch request is 100.
 examples:
 - cmd: zeno zec release-instances --instance-ids instanceId1 --instance-ids instanceId2
   desc: Release instances in batches.

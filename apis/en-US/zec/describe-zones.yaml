@@ -20,3 +20,20 @@ response:
 - name: zoneSet
   type: object-array
   description: Information on availability zones.
+  array-style: json
+  item-schema:
+  - name: zoneId
+    type: string
+    description: Zone ID. For example, SEL-A .
+  - name: regionId
+    type: string
+    description: Region ID of the zone.
+  - name: zoneName
+    type: string
+    description: Zone name.
+  - name: supportSecurityGroup
+    type: boolean
+    description: Support security groups or not.
+  - name: timeZone
+    type: string
+    description: Time zone of the availability zone.

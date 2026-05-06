@@ -74,3 +74,65 @@ response:
 - name: dataSet
   type: object-array
   description: LoadBalancer集合。
+  array-style: json
+  item-schema:
+  - name: loadBalancerId
+    type: string
+    description: LoadBalancerId唯一ID。
+  - name: zoneId
+    type: string
+    description: LoadBalancer所属的可用区ID。
+  - name: loadBalancerName
+    type: string
+    description: LoadBalancer的名称。
+  - name: specName
+    type: string
+    description: 规格名称。
+  - name: vipList
+    type: object-array
+    description: LoadBalancer的VIP集合。
+  - name: chargeType
+    type: string
+    description: 计费方式。
+  - name: period
+    type: integer
+    description: 周期。
+  - name: createTime
+    type: string
+    description: 创建时间。按照`ISO8601`标准表示，并且使用`UTC`时间。格式为：`YYYY-MM-ddTHH:mm:ssZ`。
+  - name: expiredTime
+    type: string
+    description: 过期时间。
+  - name: status
+    type: string
+    description: LoadBalancer的状态。
+  - name: resourceGroupId
+    type: string
+    description: 资源组ID。
+  - name: resourceGroupName
+    type: string
+    description: 资源组名称。
+  - name: masterIp
+    type: string
+    description: 主IP。
+  - name: backupIp
+    type: string
+    description: 备IP。
+  - name: ipType
+    type: string
+    description: IPv4。
+  - name: bandwidth
+    type: integer
+    description: 带宽。
+  - name: isWorking
+    type: boolean
+    description: 是否工作。
+  - name: listenerList
+    type: object-array
+    description: 监听器集合。
+  - name: backendList
+    type: object-array
+    description: 后端服务器集合。
+  - name: tags
+    type: object
+    description: 资源关联的标签信息。

@@ -20,3 +20,17 @@ response:
 - name: regionSet
   type: object-array
   description: 支持子网的节点信息。
+  array-style: json
+  item-schema:
+  - name: regionId
+    type: string
+    description: 节点ID。
+  - name: regionName
+    type: string
+    description: 节点名称。
+  - name: regionTitle
+    type: string
+    description: 节点标题。
+  - name: enablePubIpv6
+    type: boolean
+    description: 是否支持IPv6。

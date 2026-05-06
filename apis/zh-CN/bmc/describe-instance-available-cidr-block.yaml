@@ -32,3 +32,36 @@ response:
 - name: instanceAvailableCidrBlocks
   type: object-array
   description: 实例可用的Cidr Block列表。
+  array-style: json
+  item-schema:
+  - name: cidrBlockId
+    type: string
+    description: Cidr Block唯一ID。
+  - name: zoneId
+    type: string
+    description: Cidr Block所属的可用区ID。
+  - name: cidrBlockType
+    type: enum
+    description: CIDR的类型。
+    enum-values:
+    - value: IPV4
+      desc: IPv4。
+    - value: IPV6
+      desc: IPv6。
+  - name: cidrType
+    type: enum
+    description: CIDR地址块的类型。
+    enum-values:
+    - value: BGP
+      desc: BGP IP。
+    - value: Local
+      desc: 本地 IP。
+  - name: cidrBlock
+    type: string
+    description: CIDR。
+  - name: availableIps
+    type: string-array
+    description: 可用的IP列表。
+  - name: availableIpCount
+    type: integer
+    description: 可用的IP数量。

@@ -43,3 +43,38 @@ response:
 - name: dataSet
   type: object-array
   description: Status list of instances.
+  array-style: json
+  item-schema:
+  - name: instanceId
+    type: string
+    description: Instance ID.
+  - name: instanceStatus
+    type: enum
+    description: Instance status. See InstanceStatusValue for more detailed information.
+    enum-values:
+    - value: DEPLOYING
+      desc: Creating.
+    - value: REBUILDING
+      desc: Rebuilding.
+    - value: REBOOT
+      desc: Rebooting.
+    - value: RUNNING
+      desc: Running.
+    - value: STOPPED
+      desc: Powered off.
+    - value: BOOTING
+      desc: Powered on.
+    - value: RELEASING
+      desc: Releasing.
+    - value: STOPPING
+      desc: Powering off.
+    - value: RECYCLE
+      desc: Recycled.
+    - value: RECYCLING
+      desc: Recycling.
+    - value: CREATE_FAILED
+      desc: Creating failed.
+    - value: IMAGING
+      desc: Image creating.
+    - value: RESIZING
+      desc: Resizing.

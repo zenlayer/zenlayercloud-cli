@@ -6,6 +6,7 @@ long: |-
   回滚快照到原云盘。
   **注意事项**
 
+  * 本接口为异步接口，回滚快照请求发送成功后会立即返回，此时操作并未完成。云盘回滚状态可以通过调用[`DescribeDisks`](../disk/describedisks.md)接口查询，如果云盘状态由`ROLLING_BACK`变为`AVAILABLE`或`IN_USE`则代表回滚成功，回滚过程中不可对云盘进行任何操作。
   * 用于回滚的快照必须处于AVAILABLE状态。快照状态可以通过[`DescribeSnapshots`](describesnapshots.md)接口查询，见输出参数中`SnapshotState`字段解释。
 examples:
 - cmd: zeno zec apply-snapshot --snapshot-id snapshotId1 --disk-id disk1

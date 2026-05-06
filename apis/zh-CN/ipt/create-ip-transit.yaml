@@ -148,6 +148,13 @@ parameters:
   - name: routeType
     type: enum
     description: 入站路由类型。
+    enum-values:
+    - value: ALL_ROUTES
+      desc: 全路由。
+    - value: ALL_ROUTES_WITH_DEFAULT_ROUTES
+      desc: 全路由+默认路由。
+    - value: DEFAULT_ROUTES
+      desc: 默认路由。
   - name: asn
     type: integer
     description: 宣告出站路由的ASN号。

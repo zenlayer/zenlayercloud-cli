@@ -147,3 +147,190 @@ response:
 - name: dataSet
   type: object-array
   description: 返回的EIP列表。
+  array-style: json
+  item-schema:
+  - name: eipId
+    type: string
+    description: EIP 的唯一 ID。
+  - name: name
+    type: string
+    description: EIP 的名称。
+  - name: regionId
+    type: string
+    description: 节点ID。
+  - name: peerRegionId
+    type: string
+    description: |-
+      对端节点ID。
+      仅当IP为Remote IP时该字段有效。
+  - name: isDefault
+    type: boolean
+    description: 是否是默认类型。
+  - name: status
+    type: enum
+    description: EIP 的状态。
+    enum-values:
+    - value: CREATING
+      desc: 创建过程中。
+    - value: DELETING
+      desc: 删除过程中。
+    - value: ASSIGNING
+      desc: 绑定过程中。
+    - value: BINDED
+      desc: 已绑定资源状态。
+    - value: RECYCLING
+      desc: 回收状态中。
+    - value: RECYCLED
+      desc: 处于回收站中。
+    - value: UNBIND
+      desc: 未绑定状态中。
+    - value: CREATE_FAILED
+      desc: 创建失败的。
+  - name: publicIpAddresses
+    type: string-array
+    description: 公网IP地址。
+  - name: privateIpAddress
+    type: string
+    description: EIP 绑定的内网IP地址。
+  - name: eipV4Type
+    type: enum
+    description: |-
+      EIP网络类型。
+      表示该CIDR支持的公网IP线路类型。
+      已废弃，请参考`networkLineType`。
+    enum-values:
+    - value: BGPLine
+      desc: BGP 线路。
+    - value: CN2Line
+      desc: CN2 回国优化线路。
+    - value: LocalLine
+      desc: 本地IP。
+    - value: ChinaMobile
+      desc: 中国移动线路。
+    - value: ChinaUnicom
+      desc: 中国联通线路。
+    - value: ChinaTelecom
+      desc: 中国电信线路。
+    - value: Cogent
+      desc: Cogent。
+    - value: ThreeLine
+      desc: 三线IP。
+  - name: networkLineType
+    type: enum
+    description: |-
+      EIP网络类型。
+      表示该CIDR支持的公网IP线路类型。
+    enum-values:
+    - value: PremiumBGP
+      desc: |-
+        优质 BGP。
+        高性能网络。
+    - value: CN2
+      desc: 回国优化线路。
+    - value: LocalLine
+      desc: 本地IP。
+    - value: StandardBGP
+      desc: |-
+        标准 BGP。
+        通用网络，成本优化。
+    - value: CMI
+      desc: 中国移动。
+    - value: CUG
+      desc: 中国联通。
+    - value: CTG
+      desc: 中国电信。
+    - value: ThreeLine
+      desc: 三线IP。
+  - name: internetChargeType
+    type: enum
+    description: EIP 的网络计费方式。
+    enum-values:
+    - value: ByBandwidth
+      desc: 固定带宽计费方式。
+    - value: ByTrafficPackage
+      desc: 流量包计费方式。
+    - value: BandwidthCluster
+      desc: 共享带宽包计费方式。
+  - name: cidrId
+    type: string
+    description: EIP 来自的CIDR地址段ID。
+  - name: nicId
+    type: string
+    description: |-
+      EIP 关联的网卡ID。
+      该字段已废弃，请使用 `associatedId` 字段。
+  - name: associatedId
+    type: string
+    description: |-
+      EIP 绑定的资源ID。
+      可能为负载均衡ID、网卡ID或者NAT网关ID。
+  - name: associatedType
+    type: enum
+    description: |-
+      EIP 资源类型。
+      可能为负载均衡ID、网卡ID或者NAT网关ID。
+    enum-values:
+    - value: NIC
+      desc: 网卡类型。
+    - value: NAT
+      desc: NAT网关类型。
+    - value: LB
+      desc: 负载均衡类型。
+  - name: instanceId
+    type: string
+    description: |-
+      EIP 绑定的实例ID。
+      当且仅当`associatedType`字段为`NIC`时可能有值。
+  - name: bindType
+    type: enum
+    description: EIP 绑定类型。
+    enum-values:
+    - value: FullNat
+      desc: 普通NAT模式。
+    - value: Passthrough
+      desc: 高速模式。
+  - name: flowPackage
+    type: float
+    description: |-
+      EIP 流量包大小。
+      仅当网络计费方式为流量计费时可取到值。
+      该字段可能为null。
+  - name: bandwidth
+    type: integer
+    description: |-
+      EIP 的带宽限速。
+      单位为Mbps。
+  - name: rateLimitMode
+    type: enum
+    description: 限速模式。
+    enum-values:
+    - value: LOOSE
+      desc: 宽松模式：允许短时间突发超出限制。
+    - value: STRICT
+      desc: 严格模式：严格限制，不允许任何突发。
+  - name: eipGeoRefs
+    type: object-array
+    description: EIP 的地理位置信息。
+  - name: blockInfoList
+    type: object-array
+    description: EIP的封堵阈值。
+  - name: createTime
+    type: string
+    description: EIP 的创建时间。
+  - name: expiredTime
+    type: string
+    description: |-
+      EIP 的到期时间。
+      该字段可能为null。
+  - name: resourceGroupId
+    type: string
+    description: EIP 关联的资源组ID。
+  - name: resourceGroupName
+    type: string
+    description: EIP 关联的资源组名称。
+  - name: bandwidthCluster
+    type: object
+    description: EIP 关联的带宽组ID。
+  - name: tags
+    type: object
+    description: EIP关联的标签。

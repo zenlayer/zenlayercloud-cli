@@ -91,3 +91,86 @@ response:
 - name: dataSet
   type: object-array
   description: Information on a route.
+  array-style: json
+  item-schema:
+  - name: routeId
+    type: string
+    description: Route ID.
+  - name: name
+    type: string
+    description: Route name.
+  - name: vpcId
+    type: string
+    description: Global VPC ID.
+  - name: vpcName
+    type: string
+    description: Global VPC name.
+  - name: ipVersion
+    type: enum
+    description: |-
+      IP type.
+      The optional values are as follows: IPv4 , IPv6
+    enum-values:
+    - value: IPv4
+      desc: IPv4 address.
+    - value: IPv6
+      desc: IPv6 address.
+  - name: type
+    type: enum
+    description: Route type.
+    enum-values:
+    - value: RouteTypeSubnet
+      desc: |-
+        Subnet route.
+        Subnet route is auto-generated when a subnet is created.
+    - value: RouteTypeStatic
+      desc: |-
+        Static route.
+        Static route is a kind of custom route.
+    - value: RouteTypePolicy
+      desc: |-
+        Policy-based route.
+        Policy-based route is a kind of custom route.
+    - value: RouteTypeNatGw
+      desc: NAT gateway route.
+    - value: RouteTypeTransit
+      desc: Dynamic route.
+  - name: sourceCidrBlock
+    type: string
+    description: |-
+      Source CIDR block.
+      This field is applicable only when the route type is RouteTypePolicy (policy-based route).
+  - name: destinationCidrBlock
+    type: string
+    description: |-
+      Destination CIDR block for IPv4 or IPv6.
+      For example: 10.0.1.0/24 .
+  - name: cidrBlock
+    type: string
+    description: |-
+      CIDR block destination address.
+      This field is deprecated. Please use destinationCidrBlock instead.
+  - name: priority
+    type: integer
+    description: Route priority.
+  - name: nextHopId
+    type: string
+    description: Next hop ID.
+  - name: nextHopName
+    type: string
+    description: Next hop name.
+  - name: nextHopType
+    type: enum
+    description: Next hop type.
+    enum-values:
+    - value: NIC
+      desc: Network interface.
+    - value: VPC
+      desc: Global VPC.
+    - value: NAT
+      desc: NAT gateway.
+    - value: ZBG
+      desc: Border gateway.
+  - name: createTime
+    type: string
+    description: Route creation time.

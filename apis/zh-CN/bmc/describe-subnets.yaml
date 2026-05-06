@@ -78,3 +78,44 @@ response:
 - name: dataSet
   type: object-array
   description: SubnetInfo结果集。
+  array-style: json
+  item-schema:
+  - name: subnetId
+    type: string
+    description: Subnet唯一ID。
+  - name: subnetName
+    type: string
+    description: Subnet的名称。
+  - name: zoneId
+    type: string
+    description: Subnet所属的可用区ID。
+  - name: availableIpCount
+    type: integer
+    description: Subnet下可用的IP数量。
+  - name: cidrBlock
+    type: string
+    description: Subnet的CIDR。
+  - name: subnetStatus
+    type: string
+    description: Subnet的状态。
+  - name: createTime
+    type: string
+    description: 创建时间。按照`ISO8601`标准表示，并且使用`UTC`时间。格式为：`YYYY-MM-ddTHH:mm:ssZ`。
+  - name: vpcSubnetStatus
+    type: string
+    description: VPC与Subnet的绑定状态。
+  - name: vpcId
+    type: string
+    description: VPC唯一ID。
+  - name: vpcName
+    type: string
+    description: VPC的名称。
+  - name: resourceGroupId
+    type: string
+    description: 资源组ID。
+  - name: resourceGroupName
+    type: string
+    description: 资源组名称。
+  - name: subnetInstanceSet
+    type: object-array
+    description: Subnet下实例集合。

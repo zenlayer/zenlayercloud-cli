@@ -48,6 +48,13 @@ parameters:
     description: |-
       Health check protocols.
       When health check is enabled, the value is required.
+    enum-values:
+    - value: PING_CHECK
+      desc: PING check.
+    - value: TCP
+      desc: TCP check.
+    - value: HTTP_GET
+      desc: HTTP check.
   - name: checkPort
     type: integer
     description: |-

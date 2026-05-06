@@ -88,3 +88,124 @@ response:
 - name: dataSet
   type: object-array
   description: IP Transit列表结果集。
+  array-style: json
+  item-schema:
+  - name: iptId
+    type: string
+    description: IP Transit ID。
+  - name: iptName
+    type: string
+    description: IP Transit 名称。
+  - name: iptDescription
+    type: string
+    description: IP Transit 描述信息。
+  - name: dataCenter
+    type: object
+    description: IP Transit 对应的数据中心。
+  - name: peerPortId
+    type: string
+    description: 连接的端口ID。
+  - name: peerPortName
+    type: string
+    description: 连接的端口名称。
+  - name: peerDataCenter
+    type: object
+    description: 端口侧所属数据中心。
+  - name: deliveryType
+    type: enum
+    description: 交付类型。
+    enum-values:
+    - value: Auto
+      desc: 自动化交付（一般在分钟内完成）。
+    - value: Manual
+      desc: 手动交付（一般在3天内交付完成）。
+  - name: resourceGroupId
+    type: string
+    description: IP Transit 所属资源组ID。
+  - name: resourceGroupName
+    type: string
+    description: IP Transit 所属资源组名称。
+  - name: createTime
+    type: string
+    description: |-
+      创建时间。
+      格式为：YYYY-MM-ddTHH:mm:ssZ。
+  - name: routingType
+    type: enum
+    description: 路由类型。
+    enum-values:
+    - value: BGP
+      desc: BGP。（目前api暂不支持该方式）
+    - value: Static
+      desc: 静态路由。
+    - value: Gateway
+      desc: 网关模式。
+  - name: internetType
+    type: enum
+    description: 带宽计费方式。
+    enum-values:
+    - value: ByBandwidth
+      desc: 按固定带宽计费。
+    - value: ByInstanceBandwidth95
+      desc: 实例95计费。
+  - name: bandwidth
+    type: integer
+    description: |-
+      带宽限速。
+      单位Mbps。
+  - name: commitBandwidth
+    type: integer
+    description: |-
+      承诺保底带宽。
+      仅当带宽计费方式为ByInstanceBandwidth95 可取到值。
+  - name: bfd
+    type: object
+    description: BFD 配置。
+  - name: bgp
+    type: object
+    description: BGP相关配置。
+  - name: interconnect
+    type: object
+    description: 互联IP地址信息。
+  - name: privateConnectId
+    type: string
+    description: IP Transit 互联的专线ID。
+  - name: privateConnectName
+    type: string
+    description: IP Transit 互联的专线名称。
+  - name: publicIpv4Addresses
+    type: object-array
+    description: 公网IP信息。
+  - name: iptStatus
+    type: enum
+    description: IP Transit 的业务状态。
+    enum-values:
+    - value: CREATING
+      desc: 创建中。
+    - value: UPDATING
+      desc: 更新中。
+    - value: DELETING
+      desc: 终止中。
+    - value: DESTROYING
+      desc: 销毁中。
+    - value: RECOVERING
+      desc: 恢复中。
+    - value: RUNNING
+      desc: 正常运行中。
+    - value: RECYCLED
+      desc: 已入回收站。
+    - value: DESTROYED
+      desc: 已销毁。
+    - value: CREATING_FAILED
+      desc: 创建失败。
+    - value: UPDATING_FAILED
+      desc: 更新失败。
+    - value: DELETING_FAILED
+      desc: 终止失败。
+    - value: DESTROYING_FAILED
+      desc: 销毁失败。
+    - value: RECOVERING_FAILED
+      desc: 恢复失败。
+  - name: tags
+    type: object
+    description: 该IP Transit关联的标签。

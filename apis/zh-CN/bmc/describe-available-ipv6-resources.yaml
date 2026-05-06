@@ -20,3 +20,20 @@ response:
 - name: availableIpv6Resources
   type: object-array
   description: 可用资源的集合。
+  array-style: json
+  item-schema:
+  - name: zoneId
+    type: string
+    description: Cidr Block所属的可用区ID。
+  - name: sellStatus
+    type: enum
+    description: |-
+      售卖的状态。
+      <ul><li>SELL：表示实例可购买，且库存>10。</li><li>SELL_SHORTAGE: 表示可购买，但是库存<10台。</li><li>SOLD_OUT：表示实例已售罄。</li></ul>
+    enum-values:
+    - value: SOLD_OUT
+      desc: 已售罄。
+    - value: SELL_SHORTAGE
+      desc: 可购买，但是库存小于等于10台。
+    - value: SELL
+      desc: 实例可购买，且库存大于10。

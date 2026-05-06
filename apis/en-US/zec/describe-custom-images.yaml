@@ -117,3 +117,88 @@ response:
 - name: dataSet
   type: object-array
   description: Image list data.
+  array-style: json
+  item-schema:
+  - name: regionIdList
+    type: string-array
+    description: List of region IDs where the image is currently available.
+  - name: resourceGroupId
+    type: string
+    description: Resource group ID.
+  - name: resourceGroupName
+    type: string
+    description: Resource group name.
+  - name: imageId
+    type: string
+    description: Image ID.
+  - name: imageName
+    type: string
+    description: Name of the image.
+  - name: imageType
+    type: enum
+    description: Type of the image.
+    enum-values:
+    - value: PUBLIC_IMAGE
+      desc: System image.
+    - value: CUSTOM_IMAGE
+      desc: Custom image.
+  - name: imageSource
+    type: enum
+    description: Source of the image.
+    enum-values:
+    - value: OFFICIAL
+      desc: System image.
+    - value: MARKETING
+      desc: Marketplace image.
+    - value: CUSTOM
+      desc: Custom image.
+  - name: imageSize
+    type: string
+    description: Size of the image.
+  - name: imageDescription
+    type: string
+    description: Description of the image.
+  - name: imageVersion
+    type: string
+    description: Version of the image.
+  - name: imageStatus
+    type: enum
+    description: Status of the image.
+    enum-values:
+    - value: CREATING
+      desc: Image is being created.
+    - value: AVAILABLE
+      desc: Image creation succeeded.
+    - value: UNAVAILABLE
+      desc: Image is unavailable.
+    - value: SYNCING
+      desc: Image is being replicated.
+    - value: FAILED
+      desc: Image creation failed.
+    - value: DELETING
+      desc: Image is being deleted.
+    - value: PROCESSING
+      desc: Image is being operated.
+  - name: nicNetworkType
+    type: string-array
+    description: Network interface types supported by the image.
+  - name: category
+    type: string
+    description: Category of the image.
+  - name: osType
+    type: enum
+    description: Type of operating system.
+    enum-values:
+    - value: linux
+      desc: Linux operating system.
+    - value: bsd
+      desc: BSD operating system.
+    - value: windows
+      desc: Windows operating system.
+    - value: android
+      desc: Android operating system.
+    - value: any
+      desc: Any other operating systems.
+  - name: tags
+    type: object
+    description: Tags associated with the instance.

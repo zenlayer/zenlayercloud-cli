@@ -86,3 +86,40 @@ response:
 - name: dataSet
   type: object-array
   description: QoS策略组结果集。
+  array-style: json
+  item-schema:
+  - name: qosPolicyGroupId
+    type: string
+    description: QoS策略组ID。
+  - name: name
+    type: string
+    description: QoS策略组名称。
+  - name: regionId
+    type: string
+    description: 地域ID。
+  - name: bandwidthLimit
+    type: integer
+    description: 带宽限制，单位Mbps。
+  - name: rateLimitMode
+    type: enum
+    description: 限速模式。
+    enum-values:
+    - value: LOOSE
+      desc: 宽松模式：允许短时间突发超出限制。
+    - value: STRICT
+      desc: 严格模式：严格限制，不允许任何突发。
+  - name: memberCount
+    type: integer
+    description: 成员数量。
+  - name: members
+    type: object-array
+    description: 成员列表。
+  - name: createTime
+    type: string
+    description: 创建时间。
+  - name: resourceGroup
+    type: object
+    description: 所属资源组信息。
+  - name: tags
+    type: object
+    description: 标签列表。

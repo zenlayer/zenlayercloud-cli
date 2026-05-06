@@ -14,3 +14,14 @@ response:
 - name: regions
   type: object-array
   description: List of regions.
+  array-style: json
+  item-schema:
+  - name: regionId
+    type: string
+    description: Region ID.
+  - name: cityName
+    type: string
+    description: Name of the city where the region is located.
+  - name: cityCode
+    type: string
+    description: IATA airport code for the city.

@@ -72,3 +72,14 @@ response:
 - name: dataList
   type: object-array
   description: Information on performance metric data.
+  array-style: json
+  item-schema:
+  - name: time
+    type: string
+    description: Data time.
+  - name: inValue
+    type: float
+    description: Inbound value.
+  - name: outValue
+    type: float
+    description: Outbound value.

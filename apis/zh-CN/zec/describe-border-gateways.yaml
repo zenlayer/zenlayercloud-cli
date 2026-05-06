@@ -50,3 +50,56 @@ response:
 - name: dataSet
   type: object-array
   description: 边界网关的列表数据。
+  array-style: json
+  item-schema:
+  - name: zbgId
+    type: string
+    description: 边界网关ID。
+  - name: name
+    type: string
+    description: 边界网关名称。
+  - name: vpcId
+    type: string
+    description: VPC的ID。
+  - name: regionId
+    type: string
+    description: 节点的ID。
+  - name: asn
+    type: integer
+    description: ASN号。
+  - name: interConnectCidr
+    type: string
+    description: 互联IP地址段。
+  - name: createTime
+    type: string
+    description: 创建时间。
+  - name: cloudRouterIds
+    type: string-array
+    description: 关联的三层网络ID集合。
+  - name: routingMode
+    type: enum
+    description: 路由模式。
+    enum-values:
+    - value: Regional
+      desc: 节点级别路由。
+    - value: Global
+      desc: 全节点级别路由。
+  - name: natId
+    type: string
+    description: NAT的ID。
+  - name: advertisedSubnet
+    type: enum
+    description: 子网控制。
+    enum-values:
+    - value: ALL
+      desc: 全部宣告。
+    - value: NONE
+      desc: 不宣告。
+    - value: PART
+      desc: 部分宣告。
+  - name: advertisedCidrs
+    type: string-array
+    description: IPv4 Cidr集合。
+  - name: advertisedRouteIds
+    type: string-array
+    description: 自定义路由集合。

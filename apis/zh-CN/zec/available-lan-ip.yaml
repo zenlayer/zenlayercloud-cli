@@ -23,3 +23,24 @@ response:
 - name: lanIps
   type: object-array
   description: 可与指定 EIP 绑定的 vNIC 与内网 IP 组合列表。
+  array-style: json
+  item-schema:
+  - name: lanIp
+    type: string
+    description: 该 vNIC 上已分配的内网 IPv4 地址，可用于与指定 EIP 进行绑定。
+  - name: nicId
+    type: string
+    description: 弹性网卡（vNIC）的 ID。
+  - name: nicName
+    type: string
+    description: 弹性网卡（vNIC）的名称。
+  - name: instanceId
+    type: string
+    description: |-
+      vNIC 所挂载实例的 ID。
+      若 vNIC 未挂载至任何实例，则为 null。
+  - name: instanceName
+    type: string
+    description: |-
+      vNIC 所挂载实例的名称。
+      若 vNIC 未挂载至任何实例，则为 null。

@@ -81,3 +81,13 @@ response:
 - name: metrics
   type: object-array
   description: The collection of monitoring data.
+  array-style: json
+  item-schema:
+  - name: time
+    type: string
+    description: The time of a data point.
+  - name: value
+    type: float
+    description: |-
+      The value of a data point.
+      If the value is null, it means the corresponding data could not be retrieved.

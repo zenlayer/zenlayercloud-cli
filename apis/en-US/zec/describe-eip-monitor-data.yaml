@@ -86,3 +86,20 @@ response:
 - name: dataList
   type: object-array
   description: Information on performance data.
+  array-style: json
+  item-schema:
+  - name: time
+    type: string
+    description: Time.
+  - name: inValue
+    type: float
+    description: Inbound value.
+  - name: outValue
+    type: float
+    description: Outbound value.
+  - name: loseIn
+    type: float
+    description: Inbound loss value.
+  - name: loseOut
+    type: float
+    description: Outbound loss value.

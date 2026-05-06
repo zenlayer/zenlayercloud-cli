@@ -14,3 +14,17 @@ response:
 - name: areas
   type: object-array
   description: 可开通共享流量包区域列表。
+  array-style: json
+  item-schema:
+  - name: areaCode
+    type: string
+    description: 带宽包区域代码。
+  - name: areaName
+    type: string
+    description: 带宽包区域名称。
+  - name: networkTypes
+    type: string-array
+    description: 该地区支持的IP网络类型。
+  - name: products
+    type: string-array
+    description: 该地区支持的产品线。

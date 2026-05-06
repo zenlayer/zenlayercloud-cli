@@ -20,6 +20,25 @@ response:
 - name: resources
   type: object-array
   description: Information on resources in a bandwidth cluster.
+  array-style: json
+  item-schema:
+  - name: resourceId
+    type: string
+    description: Resource ID.
+  - name: resourceType
+    type: enum
+    description: Resource type.
+    enum-values:
+    - value: VM_INSTANCE
+      desc: Virtual machine instances.
+    - value: BMC_INSTANCE
+      desc: Bare metal instances.
+    - value: ZEC_EIP_INSTANCE
+      desc: Elastic compute elastic IP addresses.
+    - value: ZEC_IPV6_INSTANCE
+      desc: Elastic compute IPv6 addresses.
+    - value: OTHERS
+      desc: Other resources.
 - name: totalCount
   type: integer
   description: Quantity of resources in a bandwidth cluster.

@@ -26,3 +26,72 @@ response:
 - name: monitorHealthList
   type: object-array
   description: 硬件状态信息列表。
+  array-style: json
+  item-schema:
+  - name: instanceId
+    type: string
+    description: 实例ID。
+  - name: cpuStatus
+    type: string
+    description: |-
+      CPU状态。
+      <ul><li>OK：硬件状态正常。</li><li>WARNING：硬件原生告警。</li><li>UNKNOWN：数据未采集到。</li></ul>
+  - name: diskStatus
+    type: string
+    description: |-
+      Disk状态。
+      <ul><li>OK：硬件状态正常。</li><li>WARNING：硬件原生告警。</li><li>UNKNOWN：数据未采集到。</li></ul>
+  - name: ipmiPing
+    type: string
+    description: |-
+      Ipmi IP状态。
+      <ul><li>OK：ICMP探测正常。</li><li>CRITICAL：ICMP探测失败。</li><li>UNKNOWN：数据未采集到。</li></ul>
+  - name: ipmiStatus
+    type: string
+    description: |-
+      Ipmi状态。
+      <ul><li>OK：ICMP探测正常。</li><li>WARNING：硬件原生告警。</li><li>UNKNOWN：数据未采集到。</li></ul>
+  - name: memoryStatus
+    type: string
+    description: |-
+      Memory状态。
+      <ul><li>OK：硬件状态正常。</li><li>WARNING：硬件原生告警。</li><li>UNKNOWN：数据未采集到。</li></ul>
+  - name: psuStatus
+    type: string
+    description: |-
+      Power Supply状态。
+      <ul><li>OK：硬件状态正常。</li><li>WARNING：硬件原生告警。</li><li>UNKNOWN：数据未采集到。</li></ul>
+  - name: wanPortStatus
+    type: string
+    description: |-
+      服务器公网口连接的交换机端口的状态。
+      <ul><li>OK：硬件状态正常。</li><li>WARNING：硬件原生告警。</li><li>UNKNOWN：数据未采集到。</li></ul>
+  - name: fanStatus
+    type: string
+    description: |-
+      风扇状态。
+      <ul><li>OK：硬件状态正常。</li><li>WARNING：硬件原生告警。</li><li>UNKNOWN：数据未采集到。</li></ul>
+  - name: serverBrand
+    type: string
+    description: 服务器供应商品牌。
+  - name: serverModel
+    type: string
+    description: 服务器供应商型号。
+  - name: cpuTemp
+    type: integer
+    description: 超微 Supermicro 对于刀片机单 CPU 的温度，范围[0-100]，为空代表取不到值。
+  - name: cpu0Temp
+    type: integer
+    description: CPU0 的温度，范围[0-100]，为空代表取不到值。
+  - name: cpu1Temp
+    type: integer
+    description: CPU1 的温度，范围[0-100]，为空代表取不到值。
+  - name: cpu2Temp
+    type: integer
+    description: CPU2 的温度，范围[0-100]，为空代表取不到值。
+  - name: inletTemp
+    type: integer
+    description: 进入服务器的空气温度，可简单认为是服务器所在机房的温度。
+  - name: tempUnit
+    type: string
+    description: 温度单位，目前只有Celsius，即摄氏温度。

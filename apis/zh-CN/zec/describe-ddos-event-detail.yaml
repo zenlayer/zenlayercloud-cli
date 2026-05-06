@@ -28,9 +28,19 @@ response:
 - name: status
   type: enum
   description: 攻击状态。
+  enum-values:
+  - value: ATTACKING
+    desc: 攻击中。
+  - value: ATTACKED
+    desc: 攻击结束。
+  - value: BLOCKING
+    desc: 封堵中。
 - name: type
   type: enum
   description: 攻击类型。
+  enum-values:
+  - value: DDOS
+    desc: ddos。
 - name: ipAddress
   type: string
   description: 被攻击的IP。
@@ -72,6 +82,22 @@ response:
 - name: sourcePort
   type: object-array
   description: 攻击来源端口。
+  array-style: json
+  item-schema:
+  - name: protocol
+    type: string
+    description: 协议。
+  - name: port
+    type: integer
+    description: 端口号。
 - name: desertionPort
   type: object-array
   description: 攻击目标端口。
+  array-style: json
+  item-schema:
+  - name: protocol
+    type: string
+    description: 协议。
+  - name: port
+    type: integer
+    description: 端口号。

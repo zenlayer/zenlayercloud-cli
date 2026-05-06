@@ -66,3 +66,23 @@ response:
 - name: dataSet
   type: object-array
   description: Data for the list of protection strategies.
+  array-style: json
+  item-schema:
+  - name: policyId
+    type: string
+    description: Protection strategy ID.
+  - name: policyName
+    type: string
+    description: Protection strategy name.
+  - name: createTime
+    type: string
+    description: Creation time.
+  - name: resourceGroupId
+    type: string
+    description: Resource group ID.
+  - name: resourceGroupName
+    type: string
+    description: Resource group name.
+  - name: tags
+    type: object
+    description: Bound tags when creating resources.

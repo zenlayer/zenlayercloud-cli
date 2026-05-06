@@ -79,3 +79,54 @@ response:
 - name: dataSet
   type: object-array
   description: Permission list information.
+  array-style: json
+  item-schema:
+  - name: permissionId
+    type: string
+    description: Permission unique ID.
+  - name: resourceGroupId
+    type: string
+    description: Resource group unique ID.
+  - name: allResource
+    type: integer
+    description: |-
+      Whether it is for all resources.
+      1: Yes; 0: No.
+  - name: userUid
+    type: string
+    description: User unique ID.
+  - name: createTime
+    type: string
+    description: Creation time.
+  - name: resourceGroupName
+    type: string
+    description: Resource group name.
+  - name: policyId
+    type: string
+    description: Access policy unique ID.
+  - name: policyName
+    type: string
+    description: Access policy name.
+  - name: policyDesc
+    type: string
+    description: Access policy description.
+  - name: firstName
+    type: string
+    description: User name.
+  - name: lastName
+    type: string
+    description: User last name.
+  - name: username
+    type: string
+    description: User email.
+  - name: memberGroupName
+    type: string
+    description: User group name.
+  - name: memberGroupId
+    type: string
+    description: User group unique ID.
+  - name: associated
+    type: string
+    description: |-
+      Permission category.
+      Member: SELF, Member Group: USER_GROUP

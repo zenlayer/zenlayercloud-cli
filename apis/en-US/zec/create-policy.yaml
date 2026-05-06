@@ -54,6 +54,15 @@ parameters:
     description: |-
       Supported protocols of port blocking.
       Only UDP and TCP are supported.
+    enum-values:
+    - value: TCP
+      desc: Block TCP traffic.
+    - value: UDP
+      desc: Block UDP traffic.
+    - value: ICMP
+      desc: |-
+        Blocks all ICMP traffic.
+        ICMP protocol is not supported for port blocking.
   - name: srcPortStart
     type: integer
     description: |-
@@ -77,6 +86,9 @@ parameters:
   - name: action
     type: enum
     description: Action to perform after the port blocking is matched.
+    enum-values:
+    - value: Drop
+      desc: Drop traffic based on packet fingerprint rules.
 - name: block-protocol
   type: string-array
   required: false
@@ -99,6 +111,15 @@ parameters:
   - name: protocol
     type: enum
     description: Supported protocols of the fingerprint.
+    enum-values:
+    - value: TCP
+      desc: Block TCP traffic.
+    - value: UDP
+      desc: Block UDP traffic.
+    - value: ICMP
+      desc: |-
+        Blocks all ICMP traffic.
+        ICMP protocol is not supported for port blocking.
   - name: srcPortStart
     type: integer
     description: |-
@@ -143,6 +164,9 @@ parameters:
   - name: action
     type: enum
     description: Action to perform after the fingerprint is matched.
+    enum-values:
+    - value: Drop
+      desc: Drop traffic based on packet fingerprint rules.
 - name: reflect-udp-port
   type: object-array
   required: false

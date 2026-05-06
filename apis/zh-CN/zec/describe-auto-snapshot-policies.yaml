@@ -73,6 +73,49 @@ response:
 - name: dataSet
   type: object-array
   description: 查询的自动快照策略数据结果。
+  array-style: json
+  item-schema:
+  - name: autoSnapshotPolicyId
+    type: string
+    description: 自动快照策略ID。
+  - name: zoneId
+    type: string
+    description: 可用区ID。
+  - name: autoSnapshotPolicyName
+    type: string
+    description: 自动快照策略的名称。
+  - name: repeatWeekDays
+    type: integer-array
+    description: |-
+      自动快照的重复日期。
+      单位为天，周期为星期，例如 1 表示周一。
+  - name: hours
+    type: integer-array
+    description: |-
+      指定定期快照策略的触发时间。
+      使用 UTC 时间，单位为小时。
+      00:00 ~ 23:00 共 24 个时间点可选，1表示 01:00，依此类推。
+  - name: retentionDays
+    type: integer
+    description: |-
+      自动快照的保留时间，单位为天。
+      如果该值设置-1，则代表永久保留。
+      取值范围：-1或[1,65535]。
+  - name: diskNum
+    type: integer
+    description: 关联的云盘数量。
+  - name: createTime
+    type: string
+    description: 策略创建时间。
+  - name: resourceGroup
+    type: object
+    description: 资源组信息。
+  - name: diskIdSet
+    type: string-array
+    description: 关联的云盘ID。
+  - name: tags
+    type: object
+    description: 自动快照策略关联的标签。
 - name: totalCount
   type: integer
   description: 符合匹配的总数量。

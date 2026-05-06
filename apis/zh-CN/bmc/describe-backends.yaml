@@ -43,3 +43,32 @@ response:
 - name: dataSet
   type: object-array
   description: 后端配置服务器集合。
+  array-style: json
+  item-schema:
+  - name: listenerId
+    type: string
+    description: Listener的ID。
+  - name: backendId
+    type: string
+    description: Backend的ID。
+  - name: backendName
+    type: string
+    description: Backend的名称。
+  - name: status
+    type: string
+    description: 状态。
+  - name: port
+    type: string
+    description: 端口。
+  - name: weight
+    type: integer
+    description: 权重。
+  - name: instanceId
+    type: string
+    description: 实例ID。
+  - name: instanceName
+    type: string
+    description: 实例名称。
+  - name: createTime
+    type: string
+    description: 创建时间。按照`ISO8601`标准表示，并且使用`UTC`时间。格式为：`YYYY-MM-ddTHH:mm:ssZ`。

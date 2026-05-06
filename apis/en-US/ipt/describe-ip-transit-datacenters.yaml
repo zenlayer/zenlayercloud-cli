@@ -22,3 +22,11 @@ response:
 - name: supportSet
   type: object-array
   description: Result set.
+  array-style: json
+  item-schema:
+  - name: dataCenter
+    type: object
+    description: Data center information.
+  - name: availableRoutingTypes
+    type: object-array
+    description: Supported routing type configurations.

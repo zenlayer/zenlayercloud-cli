@@ -4,9 +4,11 @@ use: modify-instance-type
 short: Modifies the type of an elastic compute instance
 long: |-
   Changes the instance type of the specified elastic compute instance.
-  **Note**
+  **Notes**
 
-  You can only perform this operation on instances whose status is `STOPPED`.
+  * This is an asynchronous API. The request returns immediately after submission, but the operation is not yet complete. You can query the instance operation result by calling [`DescribeInstancesStatus`](describeinstancesstatus.md). If the instance status (`instanceStatus`) changes from `RESIZING` to `STOPPED`, the instance type change was successful. No operations can be performed on the instance during the change process.
+  * Only instances in `STOPPED` state can perform this operation.
+  * GPU instances are not allowed to perform this operation.
 sdk:
   service: zec
   version: '2025-09-01'

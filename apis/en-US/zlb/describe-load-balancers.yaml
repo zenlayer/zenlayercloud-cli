@@ -89,3 +89,57 @@ response:
 - name: dataSet
   type: object-array
   description: The returned list of load balance instances.
+  array-style: json
+  item-schema:
+  - name: regionId
+    type: string
+    description: Region ID.
+  - name: loadBalancerId
+    type: string
+    description: Load balance instance ID.
+  - name: loadBalancerName
+    type: string
+    description: Load balance instance name.
+  - name: vpcId
+    type: string
+    description: VPC ID to which the load balance backend server belongs.
+  - name: status
+    type: enum
+    description: Load balance instance state.
+    enum-values:
+    - value: CREATING
+      desc: Creating.
+    - value: RUNNING
+      desc: Running.
+    - value: RECYCLED
+      desc: Recycled.
+    - value: CREATE_FAILED
+      desc: Creating failed.
+    - value: RELEASING
+      desc: Releasing.
+  - name: publicIpAddress
+    type: string-array
+    description: Public Virtual IP list of the load balancer instance.
+  - name: privateIpAddress
+    type: string-array
+    description: Private Virtual IP list of the load balancer instance.
+  - name: healthCheckPrivateIps
+    type: string-array
+    description: Health probe source private IP list.
+  - name: listenerCount
+    type: integer
+    description: Listener quantity.
+  - name: createTime
+    type: string
+    description: |-
+      Creation time.
+      Format: YYYY-MM-ddTHH:mm:ssZ
+  - name: resourceGroup
+    type: object
+    description: Resource group information.
+  - name: tags
+    type: object
+    description: Tags bound to resources.
+  - name: securityGroupId
+    type: string
+    description: Security group ID.

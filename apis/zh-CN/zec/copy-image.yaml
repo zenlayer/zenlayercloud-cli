@@ -4,8 +4,10 @@ use: copy-image
 short: 复制自定义镜像到其它区域
 long: |-
   将自定义镜像复制到指定区域列表。
-  将自定义镜像复制到指定区域；禁止跨境复制。
-  复制任务异步完成；复制中镜像不可再次发起复制或删除副本。
+  **注意事项**
+
+  * 本接口为异步接口，复制镜像请求发送成功后会立即返回，此时操作并未完成。镜像复制结果可以通过调用[`DescribeCustomImages`](describecustomimages.md)接口查询目标区域，如果镜像状态由`SYNCING`变为`AVAILABLE`则代表复制成功，如果变为`FAILED`则代表复制失败，复制过程中不可再次发起复制或删除副本。
+  * 禁止跨境复制。
 examples:
 - cmd: zeno zec copy-image --image-id "<custom image id>" --region-id-list region-a --region-id-list region-b
   desc: 复制到多个区域

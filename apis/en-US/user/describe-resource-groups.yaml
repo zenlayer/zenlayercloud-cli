@@ -14,3 +14,14 @@ response:
 - name: resourceGroups
   type: object-array
   description: Resource group list information.
+  array-style: json
+  item-schema:
+  - name: resourceGroupId
+    type: string
+    description: Resource group ID
+  - name: name
+    type: string
+    description: Resource group name
+  - name: createTime
+    type: string
+    description: Creation time

@@ -27,3 +27,64 @@ response:
 - name: backends
   type: object-array
   description: Health state of backend servers.
+  array-style: json
+  item-schema:
+  - name: healthStatus
+    type: enum
+    description: State of backend server health check.
+    enum-values:
+    - value: Alive
+      desc: Healthy.
+    - value: Dead
+      desc: Unhealthy.
+    - value: Unknown
+      desc: Not detected.
+    - value: Close
+      desc: Health check disabled.
+  - name: healthStatusDetail
+    type: object-array
+    description: |-
+      Health check status of the backend port.
+      When healthStatus is Close or Unknown, no detailed information is available.
+  - name: instanceId
+    type: string
+    description: |-
+      Instance ID.
+      You can obtain this value from the InstanceId field in the response of the DescribeInstances API.
+  - name: privateIpAddress
+    type: string
+    description: The private IP of the vNIC attached to the instance.
+  - name: weight
+    type: integer
+    description: |-
+      The forwarding weight of the backend server after modification.
+      The default value is 100 when adding a server. If not specified during modification, the weight will remain unchanged.
+      This parameter is not required when deleting a backend server.
+      Valid range: [0, 65535].
+  - name: backendPort
+    type: integer
+    description: |-
+      The target port used for request forwarding and health checks.
+      If left empty, it follows the listener port configuration.
+      This parameter is not required when deleting a backend server.
+      Valid range: [1, 65535].
+  - name: listenerId
+    type: string
+    description: Load balancer ID.
+  - name: listenerName
+    type: string
+    description: Load balancer name.
+  - name: protocol
+    type: enum
+    description: Listener protocol.
+    enum-values:
+    - value: TCP
+      desc: TCP protocol.
+    - value: UDP
+      desc: UDP protocol.
+  - name: listenerPort
+    type: string
+    description: |-
+      Listening port.
+      Use commas (,) to separate multiple ports.
+      For port ranges, use a hyphen (-), e.g., 10000-10005.

@@ -113,3 +113,94 @@ response:
 - name: dataSet
   type: object-array
   description: Information on a CIDR block.
+  array-style: json
+  item-schema:
+  - name: cidrBlockId
+    type: string
+    description: ID of CIDR block.
+  - name: cidrBlockType
+    type: enum
+    description: |-
+      Type of CIDR block. The optional values are as follows:
+      IPv4 IPv6
+    enum-values:
+    - value: IPV4
+      desc: IPv4.
+    - value: IPV6
+      desc: IPv6.
+  - name: cidrType
+    type: enum
+    description: CIDR block type.
+    enum-values:
+    - value: BGP
+      desc: BGP IP.
+    - value: Local
+      desc: Local IP.
+  - name: cidrBlockName
+    type: string
+    description: CIDR block name.
+  - name: zoneId
+    type: string
+    description: Zone ID to which the CIDR block belong.
+  - name: cidrBlock
+    type: string
+    description: CIDR block.
+  - name: gateway
+    type: string
+    description: Gateway address.
+  - name: availableIpStart
+    type: string
+    description: Available IP starts.
+  - name: availableIpEnd
+    type: string
+    description: Available IP ends.
+  - name: availableIpCount
+    type: integer
+    description: Quantity of available IPs.
+  - name: instanceIds
+    type: string-array
+    description: List of instance IDs.
+  - name: status
+    type: enum
+    description: Status of CIDR block .
+    enum-values:
+    - value: CREATING
+      desc: Creating.
+    - value: CREATE_FAILED
+      desc: Creating failed.
+    - value: RECYCLING
+      desc: Recycling.
+    - value: RECYCLE
+      desc: Recycled.
+    - value: AVAILABLE
+      desc: Available.
+  - name: chargeType
+    type: enum
+    description: |-
+      Pricing model.
+      PREPAID: monthly subscription.
+      POSTPAID: pay-as-you-go.
+    enum-values:
+    - value: PREPAID
+      desc: Subscription.
+    - value: POSTPAID
+      desc: Pay-as-you-go.
+  - name: createTime
+    type: string
+    description: |-
+      Creation time.
+      Format: YYYY-MM-ddTHH:mm:ssZ .
+  - name: expireTime
+    type: string
+    description: |-
+      Expiration time.
+      Format: YYYY-MM-ddTHH:mm:ssZ .
+  - name: resourceGroupId
+    type: string
+    description: Resource group ID.
+  - name: resourceGroupName
+    type: string
+    description: Resource group name.
+  - name: tags
+    type: object
+    description: Bound tags.

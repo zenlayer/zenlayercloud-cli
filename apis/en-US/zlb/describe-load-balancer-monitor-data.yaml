@@ -66,3 +66,13 @@ response:
 - name: metrics
   type: object-array
   description: All data set.
+  array-style: json
+  item-schema:
+  - name: time
+    type: string
+    description: Metric value time.
+  - name: value
+    type: float
+    description: |-
+      Metric value.
+      If the value is null, it indicates the corresponding data is unavailable.

@@ -135,3 +135,79 @@ response:
 - name: dataSet
   type: object-array
   description: Information on an image.
+  array-style: json
+  item-schema:
+  - name: imageId
+    type: string
+    description: Image ID.
+  - name: imageName
+    type: string
+    description: Image name.
+  - name: imageType
+    type: enum
+    description: Image type.
+    enum-values:
+    - value: PUBLIC_IMAGE
+      desc: System image.
+    - value: CUSTOM_IMAGE
+      desc: Custom image.
+  - name: imageSource
+    type: enum
+    description: Image source.
+    enum-values:
+    - value: OFFICIAL
+      desc: System image.
+    - value: MARKETING
+      desc: Marketplace image.
+    - value: CUSTOM
+      desc: Custom image.
+  - name: imageSize
+    type: string
+    description: Image size.
+  - name: imageDescription
+    type: string
+    description: Image note.
+  - name: imageVersion
+    type: string
+    description: Image version.
+  - name: imageStatus
+    type: enum
+    description: Image state.
+    enum-values:
+    - value: CREATING
+      desc: Image is being created.
+    - value: AVAILABLE
+      desc: Image creation succeeded.
+    - value: UNAVAILABLE
+      desc: Image is unavailable.
+    - value: SYNCING
+      desc: Image is being replicated.
+    - value: FAILED
+      desc: Image creation failed.
+    - value: DELETING
+      desc: Image is being deleted.
+    - value: PROCESSING
+      desc: Image is being operated.
+  - name: nicNetworkType
+    type: string-array
+    description: vNIC type supported by the image.
+  - name: category
+    type: string
+    description: Image category.
+  - name: osType
+    type: enum
+    description: Image operating system.
+    enum-values:
+    - value: linux
+      desc: Linux operating system.
+    - value: bsd
+      desc: BSD operating system.
+    - value: windows
+      desc: Windows operating system.
+    - value: android
+      desc: Android operating system.
+    - value: any
+      desc: Any other operating systems.
+  - name: tags
+    type: object
+    description: Tags associated with the resources.

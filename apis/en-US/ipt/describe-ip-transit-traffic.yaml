@@ -39,6 +39,19 @@ response:
 - name: dataList
   type: object-array
   description: List of bandwidth data.
+  array-style: json
+  item-schema:
+  - name: internetRX
+    type: integer
+    description: "Inbound bandwidth. \nUnit: bps."
+  - name: internetTX
+    type: integer
+    description: "Outbound bandwidth. \nUnit: bps."
+  - name: time
+    type: string
+    description: |-
+      Data time.
+      Format: YYYY-MM-DDThh:mm:ssZ.
 - name: in95
   type: integer
   description: 95th percentile value of inbound bandwidth.

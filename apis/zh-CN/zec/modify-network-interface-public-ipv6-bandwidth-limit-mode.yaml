@@ -1,0 +1,28 @@
+name: ModifyNetworkInterfacePublicIPv6BandwidthLimitMode
+product: zec
+use: modify-network-interface-public-ipv6-bandwidth-limit-mode
+short: 修改公网IPv6带宽限速模式
+long: 修改指定公网IPv6的带宽限速模式。LOOSE为宽松模式（允许短时突发），STRICT为严格模式（不允许突发）。仅支持已配置固定带宽的IPv6。
+examples:
+- cmd: zeno zec modify-network-interface-public-ipv6-bandwidth-limit-mode --ipv6-cidr-id ipv6CidrId-xxx --rate-limit-mode STRICT
+  desc: 修改公网IPv6带宽限速模式
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyNetworkInterfacePublicIPv6BandwidthLimitMode
+parameters:
+- name: ipv6-cidr-id
+  type: string
+  required: true
+  sdk-field: ipv6CidrId
+  description: IPv6 CIDR的ID。
+- name: rate-limit-mode
+  type: enum
+  required: true
+  sdk-field: rateLimitMode
+  description: 新的限速模式。
+  enum-values:
+  - value: LOOSE
+    desc: 宽松模式：允许短时间突发超出限制。
+  - value: STRICT
+    desc: 严格模式：严格限制，不允许任何突发。

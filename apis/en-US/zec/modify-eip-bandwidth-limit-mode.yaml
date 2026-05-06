@@ -1,0 +1,34 @@
+name: ModifyEipBandwidthLimitMode
+product: zec
+use: modify-eip-bandwidth-limit-mode
+short: Modify Elastic IP Bandwidth Rate Limit Mode
+long: |-
+  Modify the bandwidth rate limit mode of the specified elastic IP. LOOSE allows short-term bursts, while STRICT strictly enforces the rate limit without any bursts. Only supported for IPs with a fixed bandwidth configured.
+  **Notes**
+
+  * Only EIPs in an available status (`BINDED`, `UNBIND`) support this operation.
+  * Only EIPs with a fixed bandwidth configured (billed by bandwidth or by bandwidth package) support this operation. EIPs without a fixed bandwidth do not support this operation.
+  * `LOOSE` (relaxed mode) allows short-term bursts exceeding the rate limit; `STRICT` (strict mode) enforces the rate limit strictly without any bursts.
+examples:
+- cmd: zeno zec modify-eip-bandwidth-limit-mode --eip-id <EipId> --rate-limit-mode STRICT
+  desc: Modify the bandwidth rate limit mode of an EIP to strict mode.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyEipBandwidthLimitMode
+parameters:
+- name: eip-id
+  type: string
+  required: true
+  sdk-field: eipId
+  description: Unique ID of the elastic IP.
+- name: rate-limit-mode
+  type: enum
+  required: true
+  sdk-field: rateLimitMode
+  description: New rate limit mode.
+  enum-values:
+  - value: LOOSE
+    desc: 'Loose mode: allows short-term bursts exceeding the limit.'
+  - value: STRICT
+    desc: 'Strict mode: strictly enforced, no bursts allowed.'

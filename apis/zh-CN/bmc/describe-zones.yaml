@@ -26,3 +26,25 @@ response:
 - name: zoneSet
   type: object-array
   description: 可用区列表。
+  array-style: json
+  item-schema:
+  - name: zoneId
+    type: string
+    description: |-
+      可用区ID。
+      例如：SEL-A
+  - name: zoneName
+    type: string
+    description: 可用区的名称。
+  - name: cityName
+    type: string
+    description: 可用区的城市名称。
+  - name: areaName
+    type: string
+    description: 可用区所在的大区名称。
+  - name: isCloudRouterAvailable
+    type: boolean
+    description: 可用区是否支持SDN三层网络。
+  - name: isByoipEnabled
+    type: boolean
+    description: 可用区是否支持BYO IP 宣告。

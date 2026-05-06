@@ -59,3 +59,68 @@ response:
 - name: eipPrice
   type: object
   description: Price of the elastic IP.
+  object-schema:
+  - name: discount
+    type: float
+    description: |-
+      Discount.
+      For example, 80.0 means 20% off.
+  - name: discountPrice
+    type: float
+    description: |-
+      Discount price of postpaid resources.
+      Only used in pay-as-you-go model. For tiered billing, the value is empty.
+  - name: originalPrice
+    type: float
+    description: |-
+      Original price of prepaid resources.
+      Only used in subscription model. For pay-as-you-go model, the value is empty.
+  - name: unitPrice
+    type: float
+    description: |-
+      Original unit price of postpaid resources.
+      Only used in pay-as-you-go model. For tiered billing, the value is empty.
+  - name: discountUnitPrice
+    type: float
+    description: |-
+      Discount unit price of postpaid resources.
+      Only used in pay-as-you-go model. For tiered billing, the value is empty.
+  - name: chargeUnit
+    type: string
+    description: |-
+      Unit of postpaid billing.
+      Only used in pay-as-you-go model.
+      Value range:
+      HOUR: you will be billed by hour.
+      DAY: you will be billed by day.
+      MONTH: you will be billed by month. For example, the burstable 95th pricing model.
+  - name: stepPrices
+    type: object-array
+    description: |-
+      Tiered price of postpaid billing.
+      Only used in pay-as-you-go model. If it is not tiered price, the value is empty.
+  - name: amountUnit
+    type: string
+    description: |-
+      Unit of usage,
+      such as Mbps, LCU, and etc.
+      If the value is empty, it means there is no unit.
+  - name: excessUnitPrice
+    type: float
+    description: Original unit price of overages.
+  - name: excessDiscountUnitPrice
+    type: float
+    description: Discount unit price of overages.
+  - name: excessAmountUnit
+    type: string
+    description: |-
+      Unit of overage usage.
+      If the value is empty, it means there is no unit.
+  - name: category
+    type: enum
+    description: The price category
+    enum-values:
+    - value: STANDARD
+      desc: Standard price.
+    - value: CUSTOMIZED
+      desc: Fixed price.

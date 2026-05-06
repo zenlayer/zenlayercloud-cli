@@ -66,3 +66,23 @@ response:
 - name: dataSet
   type: object-array
   description: Information on an instance.
+  array-style: json
+  item-schema:
+  - name: instanceId
+    type: string
+    description: Instance ID.
+  - name: instanceName
+    type: string
+    description: Instance name.
+  - name: facName
+    type: string
+    description: Location name.
+  - name: ips
+    type: string-array
+    description: Public IP list.
+  - name: lanIps
+    type: string-array
+    description: Private IP list.
+  - name: createTime
+    type: string
+    description: Creation time.

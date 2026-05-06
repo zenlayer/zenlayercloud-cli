@@ -55,3 +55,13 @@ parameters:
   description: |-
     The ID of the bandwidth cluster assigned to the public IPv6.
     This parameter must be specified when the subnet's stack type includes public IPv6, and the network billing model is BandwidthCluster.
+- name: rate-limit-mode
+  type: enum
+  required: false
+  sdk-field: rateLimitMode
+  description: Rate limit mode.
+  enum-values:
+  - value: LOOSE
+    desc: 'Loose mode: allows short-term bursts exceeding the limit.'
+  - value: STRICT
+    desc: 'Strict mode: strictly enforced, no bursts allowed.'

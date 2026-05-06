@@ -14,3 +14,14 @@ response:
 - name: regions
   type: object-array
   description: 节点列表。
+  array-style: json
+  item-schema:
+  - name: regionId
+    type: string
+    description: 节点ID。
+  - name: cityName
+    type: string
+    description: 节点所属的城市名称。
+  - name: cityCode
+    type: string
+    description: 城市对应的三字码。

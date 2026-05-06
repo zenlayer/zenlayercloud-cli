@@ -26,6 +26,27 @@ parameters:
     description: |-
       Network type.
       Only Premium BGP is supported for IPv6.
+    enum-values:
+    - value: PremiumBGP
+      desc: |-
+        Premium BGP network.
+        High-performance network.
+    - value: CN2
+      desc: China Telecom CN2 network.
+    - value: LocalLine
+      desc: Provided by a local ISP.
+    - value: StandardBGP
+      desc: |-
+        Standard BGP network.
+        General-purpose network with cost optimization.
+    - value: CMI
+      desc: 1-Line IP China Mobile.
+    - value: CUG
+      desc: 1-Line IP China Unicom.
+    - value: CTG
+      desc: 1-Line IP China Telecom.
+    - value: ThreeLine
+      desc: 3-in-1 IP Pool.
   - name: regionId
     type: string
     description: Region ID.

@@ -148,6 +148,13 @@ parameters:
   - name: routeType
     type: enum
     description: Inbound route type.
+    enum-values:
+    - value: ALL_ROUTES
+      desc: Full routes.
+    - value: ALL_ROUTES_WITH_DEFAULT_ROUTES
+      desc: All routes with default routes.
+    - value: DEFAULT_ROUTES
+      desc: Default routes.
   - name: asn
     type: integer
     description: ASN for announcing outbound routes.

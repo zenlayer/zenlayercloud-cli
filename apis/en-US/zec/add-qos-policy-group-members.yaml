@@ -29,3 +29,10 @@ parameters:
   - name: ipType
     type: enum
     description: IP type.
+    enum-values:
+    - value: Eip
+      desc: Elastic IP (EIP).
+    - value: Ipv6
+      desc: IPv6 address.
+    - value: UnmanagedEgressIp
+      desc: Unmanaged egress IP.

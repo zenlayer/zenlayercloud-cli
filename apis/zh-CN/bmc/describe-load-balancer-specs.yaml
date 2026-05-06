@@ -32,3 +32,17 @@ response:
 - name: specSet
   type: object-array
   description: 规格集合。
+  array-style: json
+  item-schema:
+  - name: specName
+    type: string
+    description: 规格名称。
+  - name: maxConnection
+    type: integer
+    description: 最大连接数。
+  - name: cps
+    type: integer
+    description: CPS。
+  - name: qps
+    type: integer
+    description: QPS。

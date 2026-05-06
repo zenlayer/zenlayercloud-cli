@@ -155,3 +155,159 @@ response:
 - name: dataSet
   type: object-array
   description: Information on an instance.
+  array-style: json
+  item-schema:
+  - name: instanceId
+    type: string
+    description: Instance ID
+  - name: zoneId
+    type: string
+    description: Zone ID to which the instances belong.
+  - name: instanceName
+    type: string
+    description: Instance name to be displayed.
+  - name: hostname
+    type: string
+    description: Instance hostname.
+  - name: instanceTypeId
+    type: string
+    description: Instance model ID.
+  - name: instanceType
+    type: object
+    description: Instance model configuration info.
+  - name: imageId
+    type: string
+    description: Image ID.
+  - name: imageName
+    type: string
+    description: Image name.
+  - name: ipxeUrl
+    type: string
+    description: iPXE URL.
+  - name: instanceChargeType
+    type: enum
+    description: |-
+      Instance pricing model.
+      PREPAID:monthly subscription.
+      POSTPAID:pay-as-you-go.
+    enum-values:
+    - value: PREPAID
+      desc: Subscription.
+    - value: POSTPAID
+      desc: Pay-as-you-go.
+  - name: bandwidthOutMbps
+    type: integer
+    description: |-
+      Public outbound bandwidth.
+      Unit:Mbps.
+      Value 0 means no limit,but not exceeds the upper limit of the instance model supported.
+  - name: internetChargeType
+    type: enum
+    description: Network pricing model.
+    enum-values:
+    - value: ByBandwidth
+      desc: Billed by the flat rate bandwidth.
+    - value: ByTrafficPackage
+      desc: Billed by the traffic package size purchased.
+    - value: ByInstanceBandwidth95
+      desc: Burstable 95th billing.
+    - value: ByClusterBandwidth95
+      desc: Billed by the burstable 95th bandwidth of instances in a city-based bandwidth cluster.
+    - value: ByBandwidthCluster
+      desc: Billed by the burstable 95th bandwidth of all compute resources in a city-based or regional bandwidth cluster with a shared commitment.
+  - name: period
+    type: integer
+    description: |-
+      Period of instance subscription.
+      Unit:month.
+      For postpaid instances,the value is empty.
+  - name: primaryPublicIpAddress
+    type: string
+    description: Instance primary IP address.
+  - name: primaryPublicIPv6Address
+    type: string
+    description: Instance primary IPv6 address.
+  - name: publicIpAddresses
+    type: string-array
+    description: |-
+      List of public IPv4 addresses.
+      If the instance primary IP is not added to the public network interface,the primary IP will not be available.,and its value will not be returned.
+  - name: privateIpAddresses
+    type: string-array
+    description: List of private IPv4 addresses.
+  - name: ipv6Addresses
+    type: string-array
+    description: |-
+      Instance IPv6 addresses.
+      The value may be empty,which means no available IPv6 address exists.
+  - name: subnetIds
+    type: string-array
+    description: List of subnet IDs.
+  - name: createTime
+    type: string
+    description: |-
+      Creation time.
+      Use UTC time according to the ISO8601 standard.Format: YYYY-MM-ddTHH:mm:ssZ .
+  - name: expiredTime
+    type: string
+    description: |-
+      Expiration time.
+      Use UTC time according to the ISO8601 standard.Format: YYYY-MM-ddTHH:mm:ssZ .
+  - name: resourceGroupId
+    type: string
+    description: Resource group ID to which instances belong.
+  - name: resourceGroupName
+    type: string
+    description: Resource group name to which instances belong.
+  - name: instanceStatus
+    type: enum
+    description: Status of instances.
+    enum-values:
+    - value: PENDING
+      desc: To be created.
+    - value: CREATING
+      desc: Creating.
+    - value: CREATE_FAILED
+      desc: Creating failed.
+    - value: INSTALLING
+      desc: Installing.
+    - value: INSTALL_FAILED
+      desc: Installing failed.
+    - value: RUNNING
+      desc: Running.
+    - value: STOPPED
+      desc: Powered off.
+    - value: BOOTING
+      desc: Powered on.
+    - value: STOPPING
+      desc: Powering off.
+    - value: RECYCLE
+      desc: Recycled.
+  - name: trafficPackageSize
+    type: float
+    description: |-
+      Traffic package size purchased.
+      Unit:TB.
+  - name: raidConfig
+    type: object
+    description: Disk array configuration.
+  - name: partitions
+    type: object-array
+    description: Partition configuration.
+  - name: nic
+    type: object
+    description: NIC configuration.
+  - name: autoRenew
+    type: boolean
+    description: Whether to enable auto-renewal.
+  - name: keyId
+    type: string
+    description: |-
+      SSH key pair ID.
+      The value may be null,indicating that there is no valid value.
+  - name: tags
+    type: object
+    description: Bound tags.
+  - name: enableGatewayMode
+    type: boolean
+    description: Whether to enable Gateway Mode.

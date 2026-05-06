@@ -96,3 +96,37 @@ response:
 - name: dataSet
   type: object-array
   description: Information on VPCs.
+  array-style: json
+  item-schema:
+  - name: vpcId
+    type: string
+    description: VPC ID.
+  - name: vpcRegionId
+    type: string
+    description: Availability region ID of VPC.
+  - name: vpcRegionName
+    type: string
+    description: Availability region name of VPC.
+  - name: vpcName
+    type: string
+    description: VPC name.
+  - name: cidrBlock
+    type: string
+    description: CIDR block of VPC.
+  - name: createTime
+    type: string
+    description: |-
+      Creation time.
+      Format: YYYY-MM-ddTHH:mm:ssZ .
+  - name: vpcStatus
+    type: string
+    description: Status of VPC .
+  - name: resourceGroupId
+    type: string
+    description: Resource group ID.
+  - name: resourceGroupName
+    type: string
+    description: Resource group name.
+  - name: tags
+    type: object
+    description: Bound tags.

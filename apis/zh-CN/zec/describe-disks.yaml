@@ -136,3 +136,102 @@ response:
 - name: dataSet
   type: object-array
   description: 云盘的结果集。
+  array-style: json
+  item-schema:
+  - name: diskId
+    type: string
+    description: 云盘的 ID。
+  - name: diskName
+    type: string
+    description: 云盘的名称。
+  - name: regionId
+    type: string
+    description: 云盘所在的节点ID。
+  - name: zoneId
+    type: string
+    description: 云盘所在节点的可用区ID。
+  - name: diskType
+    type: enum
+    description: 云盘的类型。
+    enum-values:
+    - value: SYSTEM
+      desc: 代表系统盘。
+    - value: DATA
+      desc: 代表数据盘。
+  - name: portable
+    type: boolean
+    description: 是否可卸载。
+  - name: diskCategory
+    type: string
+    description: 云盘的类别。
+  - name: diskSize
+    type: integer
+    description: |-
+      云盘的大小。
+      单位：GiB。
+  - name: diskStatus
+    type: enum
+    description: 云盘的状态。
+    enum-values:
+    - value: CREATING
+      desc: 创建中。
+    - value: IN_USE
+      desc: 挂载使用中。
+    - value: AVAILABLE
+      desc: 未挂载。
+    - value: CHANGING
+      desc: 变更大小中。
+    - value: ATTACHING
+      desc: 云盘挂载实例中。
+    - value: DETACHING
+      desc: 云盘解绑实例中。
+    - value: DELETING
+      desc: 销毁中。
+    - value: RECYCLED
+      desc: 处于回收状态，等待销毁。
+    - value: RECYCLING
+      desc: 回收中。
+    - value: FAILED
+      desc: 创建失败。
+    - value: SNAPSHOT_CREATING
+      desc: 快照创建过程中。
+    - value: ROLLING_BACK
+      desc: 云盘使用快照回滚过程中。
+  - name: instanceId
+    type: string
+    description: 云盘绑定实例的ID。
+  - name: instanceName
+    type: string
+    description: 云盘绑定实例的名称。
+  - name: createTime
+    type: string
+    description: 创建时间。
+  - name: expiredTime
+    type: string
+    description: 到期时间。
+  - name: period
+    type: integer
+    description: 周期。
+  - name: resourceGroupId
+    type: string
+    description: 云盘所属的资源组ID。
+  - name: resourceGroupName
+    type: string
+    description: 云盘所属的资源组名称。
+  - name: serial
+    type: string
+    description: |-
+      云盘序号。
+      可能为null，表示取不到值。
+  - name: snapshotAbility
+    type: boolean
+    description: 是否具体快照能力。
+  - name: autoSnapshotPolicyId
+    type: string
+    description: 云盘关联的自动快照策略ID。
+  - name: tags
+    type: object
+    description: 该云盘关联的标签。
+  - name: burstingEnabled
+    type: boolean
+    description: 是否开启 Burst。

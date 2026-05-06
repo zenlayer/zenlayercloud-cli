@@ -1,0 +1,34 @@
+name: ModifyEipBandwidthLimitMode
+product: zec
+use: modify-eip-bandwidth-limit-mode
+short: 修改弹性公网IP带宽限速模式
+long: |-
+  修改指定弹性公网IP的带宽限速模式。LOOSE为宽松模式（允许短时突发），STRICT为严格模式（不允许突发）。仅支持已配置固定带宽的IP。
+  **注意事项**
+
+  * 只有可用状态（`BINDED`、`UNBIND`）的EIP才支持该操作。
+  * 仅支持已配置固定带宽的EIP（按带宽计费或按带宽包计费），未配置固定带宽的EIP不支持此操作。
+  * `LOOSE`（宽松模式）允许短时间突发超出限速上限；`STRICT`（严格模式）严格限制，不允许任何突发。
+examples:
+- cmd: zeno zec modify-eip-bandwidth-limit-mode --eip-id <EipId> --rate-limit-mode STRICT
+  desc: 将EIP的带宽限速模式修改为严格模式。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyEipBandwidthLimitMode
+parameters:
+- name: eip-id
+  type: string
+  required: true
+  sdk-field: eipId
+  description: 弹性公网IP的唯一ID。
+- name: rate-limit-mode
+  type: enum
+  required: true
+  sdk-field: rateLimitMode
+  description: 新的限速模式。
+  enum-values:
+  - value: LOOSE
+    desc: 宽松模式：允许短时间突发超出限制。
+  - value: STRICT
+    desc: 严格模式：严格限制，不允许任何突发。

@@ -66,3 +66,40 @@ response:
 - name: images
   type: object-array
   description: 结果集。
+  array-style: json
+  item-schema:
+  - name: imageId
+    type: string
+    description: 镜像ID。
+  - name: imageName
+    type: string
+    description: 镜像名称。
+  - name: catalog
+    type: string
+    description: |-
+      镜像所属分类。
+      可能值：
+      <ul><li>centos</li><li>windows</li><li>ubuntu</li><li>debian</li><li>esxi</li></ul>
+  - name: imageType
+    type: enum
+    description: |-
+      镜像类型。
+      PUBLIC_IMAGE: 公共镜像。
+      CUSTOM_IMAGE：自定义镜像。
+      目前不支持自主的创建自定义镜像，可联系support沟通。
+    enum-values:
+    - value: PUBLIC_IMAGE
+      desc: 公共镜像。
+    - value: CUSTOM_IMAGE
+      desc: 自定义镜像。
+  - name: osType
+    type: enum
+    description: |-
+      操作系统类型。
+      可能值：
+      <ul><li>windows</li><li>linux</li></ul>
+    enum-values:
+    - value: windows
+      desc: Windows。
+    - value: linux
+      desc: Linux。

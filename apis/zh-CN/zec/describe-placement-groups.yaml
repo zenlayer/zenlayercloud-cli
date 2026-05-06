@@ -54,3 +54,47 @@ response:
 - name: dataSet
   type: object-array
   description: 置放组结果集。
+  array-style: json
+  item-schema:
+  - name: placementGroupId
+    type: string
+    description: 置放组ID。
+  - name: name
+    type: string
+    description: 置放组名称。
+  - name: zoneId
+    type: string
+    description: 置放组所属可用区ID。
+  - name: partitionNum
+    type: integer
+    description: |-
+      置放组的分区数。
+      取值范围为2到5，决定置放组最大可关联实例数。
+  - name: affinity
+    type: integer
+    description: |-
+      置放组的亲和度。
+      取值范围为1到分区数向下取整除以2。
+  - name: instanceCount
+    type: integer
+    description: 置放组内的实例数量。
+  - name: instanceIds
+    type: string-array
+    description: 置放组内关联的实例ID列表。
+  - name: constraintStatus
+    type: enum
+    description: 置放组约束满足状态。
+    enum-values:
+    - value: Satisfied
+      desc: 已满足放置策略约束。
+    - value: Unsatisfied
+      desc: 未满足放置策略约束。
+  - name: createTime
+    type: string
+    description: 置放组的创建时间。
+  - name: resourceGroup
+    type: object
+    description: 置放组所属的资源组信息。
+  - name: tags
+    type: object
+    description: 置放组的标签。

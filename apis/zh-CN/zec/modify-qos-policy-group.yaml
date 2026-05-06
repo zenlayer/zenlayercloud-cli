@@ -4,10 +4,10 @@ use: modify-qos-policy-group
 short: 修改QoS策略组
 long: |-
   修改QoS策略组的名称或带宽限制。
-  **Bandwidth Limit**
+  **带宽限制**
 
-  * The minimum bandwidth limit is 10,000 Mbps (10G) by default.
-  * If you need a bandwidth limit lower than 10G, please contact [Zenlayer Support](https://www.zenlayer.com/support/).
+  * 默认情况下，最低带宽限制为 10,000 Mbps（10G）。
+  * 如果您需要的带宽限制低于 10G，请联系[Zenlayer 客服](https://www.zenlayer.com/support/)。
 examples:
 - cmd: zeno zec modify-qos-policy-group --qos-policy-group-id qos-xxxxxxxx --name new-qos-group-name --bandwidth-limit 2000 --rate-limit-mode STRICT
   desc: 修改QoS策略组的名称和带宽限制。

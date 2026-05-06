@@ -88,3 +88,124 @@ response:
 - name: dataSet
   type: object-array
   description: IP Transit result set.
+  array-style: json
+  item-schema:
+  - name: iptId
+    type: string
+    description: IP Transit ID.
+  - name: iptName
+    type: string
+    description: IP Transit name.
+  - name: iptDescription
+    type: string
+    description: IP Transit description.
+  - name: dataCenter
+    type: object
+    description: Data center of the IP Transit.
+  - name: peerPortId
+    type: string
+    description: Connected port ID.
+  - name: peerPortName
+    type: string
+    description: Connected port name.
+  - name: peerDataCenter
+    type: object
+    description: Data center of the port side.
+  - name: deliveryType
+    type: enum
+    description: Delivery type.
+    enum-values:
+    - value: Auto
+      desc: Automated delivery (Usually completed within minutes).
+    - value: Manual
+      desc: Manual delivery. (Usually completed within 3 days).
+  - name: resourceGroupId
+    type: string
+    description: Resource group ID of the IP Transit.
+  - name: resourceGroupName
+    type: string
+    description: Resource group name of the IP Transit.
+  - name: createTime
+    type: string
+    description: |-
+      Creation time.
+      Format: YYYY-MM-ddTHH:mm:ssZ.
+  - name: routingType
+    type: enum
+    description: Routing type.
+    enum-values:
+    - value: BGP
+      desc: BGP. (Currently not supported via API)
+    - value: Static
+      desc: Static routing.
+    - value: Gateway
+      desc: Gateway mode.
+  - name: internetType
+    type: enum
+    description: Bandwidth billing method.
+    enum-values:
+    - value: ByBandwidth
+      desc: Billed by fixed bandwidth.
+    - value: ByInstanceBandwidth95
+      desc: Billed by 95th percentile bandwidth.
+  - name: bandwidth
+    type: integer
+    description: |-
+      Bandwidth cap.
+      Unit: Mbps.
+  - name: commitBandwidth
+    type: integer
+    description: |-
+      Committed bandwidth.
+      Only available when bandwidth billing method is ByInstanceBandwidth95.
+  - name: bfd
+    type: object
+    description: BFD configuration.
+  - name: bgp
+    type: object
+    description: BGP configurations.
+  - name: interconnect
+    type: object
+    description: Interconnect IP address information.
+  - name: privateConnectId
+    type: string
+    description: Private connect ID associated with the IP Transit.
+  - name: privateConnectName
+    type: string
+    description: Name of the private connect associated with the IP Transit.
+  - name: publicIpv4Addresses
+    type: object-array
+    description: Public IP information.
+  - name: iptStatus
+    type: enum
+    description: IP Transit state.
+    enum-values:
+    - value: CREATING
+      desc: Creating.
+    - value: UPDATING
+      desc: Updating.
+    - value: DELETING
+      desc: Deleting.
+    - value: DESTROYING
+      desc: Releasing.
+    - value: RECOVERING
+      desc: Restoring.
+    - value: RUNNING
+      desc: Running.
+    - value: RECYCLED
+      desc: Recycled.
+    - value: DESTROYED
+      desc: Released.
+    - value: CREATING_FAILED
+      desc: Creating failed.
+    - value: UPDATING_FAILED
+      desc: Updating failed.
+    - value: DELETING_FAILED
+      desc: Deleting failed.
+    - value: DESTROYING_FAILED
+      desc: Releasing failed.
+    - value: RECOVERING_FAILED
+      desc: Restoring failed.
+  - name: tags
+    type: object
+    description: Tags bound to the IP Transit.

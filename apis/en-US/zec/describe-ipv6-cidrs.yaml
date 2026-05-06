@@ -75,3 +75,101 @@ response:
 - name: dataSet
   type: object-array
   description: Data for the list of IPv6 CIDR blocks.
+  array-style: json
+  item-schema:
+  - name: cidrId
+    type: string
+    description: IPv6 CIDR block ID.
+  - name: regionId
+    type: string
+    description: The region ID to which the CIDR block belongs.
+  - name: name
+    type: string
+    description: CIDR block name.
+  - name: cidrBlock
+    type: string
+    description: 'CIDR block address, for example: 2400:8a00::/28.'
+  - name: source
+    type: enum
+    description: |-
+      The ownership of the CIDR block.
+      For example, CONSOLE (owned by Zenlayer) or BYOIP (customer-provided IP).
+    enum-values:
+    - value: CONSOLE
+      desc: CIDR block created on Console.
+    - value: BYOIP
+      desc: Bring your own IP (BYOIP).
+    - value: SDN_RIPT
+      desc: IP Transit CIDR block.
+  - name: networkLineType
+    type: enum
+    description: |-
+      CIDR network type.
+      The public IP line type supported by this CIDR block.
+    enum-values:
+    - value: PremiumBGP
+      desc: |-
+        Premium BGP network.
+        High-performance network.
+    - value: CN2
+      desc: China Telecom CN2 network.
+    - value: LocalLine
+      desc: Provided by a local ISP.
+    - value: StandardBGP
+      desc: |-
+        Standard BGP network.
+        General-purpose network with cost optimization.
+    - value: CMI
+      desc: 1-Line IP China Mobile.
+    - value: CUG
+      desc: 1-Line IP China Unicom.
+    - value: CTG
+      desc: 1-Line IP China Telecom.
+    - value: ThreeLine
+      desc: 3-in-1 IP Pool.
+  - name: subnetIds
+    type: string-array
+    description: Set of subnet IDs.
+  - name: nicIds
+    type: string-array
+    description: Set of network interface IDs.
+  - name: netmask
+    type: integer
+    description: |-
+      Subnet mask.
+      The length of the network prefix in CIDR notation.
+  - name: poolId
+    type: string
+    description: |-
+      The ID of the pool.
+      The public IP pool to which this CIDR block belongs.
+  - name: createTime
+    type: string
+    description: The creation time of the CIDR block.
+  - name: expiredTime
+    type: string
+    description: The expiration time of the CIDR block.
+  - name: resourceGroup
+    type: object
+    description: The resource group to which this CIDR block belongs.
+  - name: status
+    type: enum
+    description: The state of the CIDR block .
+    enum-values:
+    - value: CREATING
+      desc: Creating.
+    - value: AVAILABLE
+      desc: Available to be used.
+    - value: CHANGING
+      desc: Changing.
+    - value: RECYCLING
+      desc: Recycling.
+    - value: RECYCLED
+      desc: Recycled.
+    - value: DELETING
+      desc: Deleting.
+    - value: FAILED
+      desc: Created failed.
+  - name: tags
+    type: object
+    description: The bound tags of this CIDR block.

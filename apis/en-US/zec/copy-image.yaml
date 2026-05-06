@@ -4,8 +4,10 @@ use: copy-image
 short: Replicates a custom image to other regions
 long: |-
   Replicate a custom image to other regions.
-  Custom images can be replicated to specified regions; replication between Mainland China and other regions is not allowed.
-  Replication is performed asynchronously; while in progress, the image cannot be replicated again or have its replicas deleted.
+  **Notes**
+
+  * This is an asynchronous API. The request returns immediately after submission, but the operation is not yet complete. You can query the image copy result by calling [`DescribeCustomImages`](describecustomimages.md) in the target region. If the image status changes from `SYNCING` to `AVAILABLE`, the copy was successful. If it changes to `FAILED`, the copy failed. During the copy process, the image cannot be copied again or have its replicas deleted.
+  * Cross-border copying is not allowed.
 examples:
 - cmd: zeno zec copy-image --image-id "<custom image id>" --region-id-list region-a --region-id-list region-b
   desc: Replicate a custom image to more than one regions.

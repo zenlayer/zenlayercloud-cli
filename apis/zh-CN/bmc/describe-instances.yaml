@@ -162,3 +162,160 @@ response:
 - name: dataSet
   type: object-array
   description: 结果集。
+  array-style: json
+  item-schema:
+  - name: instanceId
+    type: string
+    description: 实例唯一ID。
+  - name: zoneId
+    type: string
+    description: 实例所属的可用区ID。
+  - name: instanceName
+    type: string
+    description: 实例显示名称。
+  - name: hostname
+    type: string
+    description: 实例的主机名。
+  - name: instanceTypeId
+    type: string
+    description: 实例机型ID。
+  - name: instanceType
+    type: object
+    description: 实例机型配置信息。
+  - name: imageId
+    type: string
+    description: 镜像ID。
+  - name: imageName
+    type: string
+    description: 镜像名称。
+  - name: ipxeUrl
+    type: string
+    description: IpxeUrl。
+  - name: instanceChargeType
+    type: enum
+    description: |-
+      实例计费类型。
+      PREPAID：预付费，即包年包月。 POSTPAID：后付费。
+    enum-values:
+    - value: PREPAID
+      desc: 预付费。
+    - value: POSTPAID
+      desc: 后付费。即按量付费。
+  - name: bandwidthOutMbps
+    type: integer
+    description: |-
+      公网出口带宽。
+      单位：Mbps。
+      0 代表无限制，但是不会超过机型的最大上限。
+  - name: internetChargeType
+    type: enum
+    description: 网络计费类型。
+    enum-values:
+    - value: ByBandwidth
+      desc: 按固定带宽计费
+    - value: ByTrafficPackage
+      desc: 购买流量包计费
+    - value: ByInstanceBandwidth95
+      desc: 单实例95计费方式。
+    - value: ByClusterBandwidth95
+      desc: 单产品合并95计费城市带宽组
+    - value: ByBandwidthCluster
+      desc: 跨产品合并95计费的带宽包
+  - name: period
+    type: integer
+    description: |-
+      购买实例的时长。
+      单位：月。
+      后付费实例该字段为null。
+  - name: primaryPublicIpAddress
+    type: string
+    description: 实例的母IP。
+  - name: primaryPublicIPv6Address
+    type: string
+    description: 实例的主IPv6地址。
+  - name: publicIpAddresses
+    type: string-array
+    description: |-
+      实例公网IPv4列表。
+      如果机器的主IP未加入到公网组网接口，那么主IP将无法使用，且该字段也不会返回该IP。
+  - name: privateIpAddresses
+    type: string-array
+    description: 实例内网IP列表。
+  - name: ipv6Addresses
+    type: string-array
+    description: |-
+      实例的IPv6地址。
+      注意：此字段可能返回null，表示取不到有效值。
+  - name: subnetIds
+    type: string-array
+    description: 实例所属的内网组网ID列表。
+  - name: createTime
+    type: string
+    description: |-
+      创建时间。
+      格式为：YYYY-MM-ddTHH:mm:ssZ。
+  - name: expiredTime
+    type: string
+    description: |-
+      到期时间。
+      格式为：YYYY-MM-ddTHH:mm:ssZ。
+  - name: resourceGroupId
+    type: string
+    description: 实例所属资源组的ID。
+  - name: resourceGroupName
+    type: string
+    description: 实例所属资源组的名称。
+  - name: instanceStatus
+    type: enum
+    description: |-
+      实例状态。
+      状态类型详见实例状态。
+    enum-values:
+    - value: PENDING
+      desc: 待创建
+    - value: CREATING
+      desc: 创建中
+    - value: CREATE_FAILED
+      desc: 创建失败
+    - value: INSTALLING
+      desc: 安装中
+    - value: INSTALL_FAILED
+      desc: 安装失败
+    - value: RUNNING
+      desc: 运行中
+    - value: STOPPED
+      desc: 关机
+    - value: BOOTING
+      desc: 启动中
+    - value: STOPPING
+      desc: 关机中
+    - value: RECYCLE
+      desc: 在回收站中
+  - name: trafficPackageSize
+    type: float
+    description: |-
+      流量包订购大小。
+      单位为TB。
+  - name: raidConfig
+    type: object
+    description: 磁盘阵列配置。
+  - name: partitions
+    type: object-array
+    description: 分区配置。
+  - name: nic
+    type: object
+    description: 网卡配置。
+  - name: autoRenew
+    type: boolean
+    description: |-
+      是否自动续费。
+      对于预付费实例，取消订阅后，该字段值将返回 false
+  - name: keyId
+    type: string
+    description: 安装的SSH密钥ID。
+  - name: tags
+    type: object
+    description: 资源关联的标签信息。
+  - name: enableGatewayMode
+    type: boolean
+    description: 网关模式是否开启。
