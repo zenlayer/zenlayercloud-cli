@@ -101,9 +101,11 @@ func (e EnumOptions) Equal(other EnumOptions) bool {
 
 // SchemaField describes a field inside an object or object-array parameter.
 type SchemaField struct {
-	Name        string      `yaml:"name"`
-	Type        string      `yaml:"type"`
-	Description string      `yaml:"description"`
-	Required    bool        `yaml:"required"`
-	EnumValues  EnumOptions `yaml:"enum-values"`
+	Name         string        `yaml:"name"`
+	Type         string        `yaml:"type"`
+	Description  string        `yaml:"description"`
+	Required     bool          `yaml:"required"`
+	EnumValues   EnumOptions   `yaml:"enum-values"`
+	ObjectSchema []SchemaField `yaml:"object-schema"`
+	ItemSchema   []SchemaField `yaml:"item-schema"`
 }

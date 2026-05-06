@@ -179,7 +179,8 @@ func buildSchemaDoc(schema []SchemaField, indent string) string {
 		}
 
 		// Enum values for schema fields
-		if field.Type == "enum" && len(field.EnumValues) > 0 {
+		switch {
+		case field.Type == "enum" && len(field.EnumValues) > 0:
 			b.WriteString("\n")
 			b.WriteString(nextIndent)
 			b.WriteString("Possible values:\n\n")
@@ -193,7 +194,14 @@ func buildSchemaDoc(schema []SchemaField, indent string) string {
 				}
 				b.WriteString("\n\n")
 			}
-		} else {
+		case field.Type == "object" && len(field.ObjectSchema) > 0:
+			b.WriteString("\n")
+			b.WriteString(buildSchemaDoc(field.ObjectSchema, nextIndent))
+		case field.Type == "object-array" && len(field.ItemSchema) > 0:
+			b.WriteString("\n")
+			b.WriteString(nextIndent + "(structure)\n")
+			b.WriteString(buildSchemaDoc(field.ItemSchema, nextIndent+"    "))
+		default:
 			b.WriteString("\n")
 		}
 	}

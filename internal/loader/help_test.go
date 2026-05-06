@@ -222,6 +222,58 @@ func TestGenerateHelp_EnumField(t *testing.T) {
 	}
 }
 
+func TestGenerateHelp_NestedResponseFields(t *testing.T) {
+	def := &APIDefinition{
+		Use:   "describe-instances",
+		Short: "Describes instances",
+		Long:  "Query instances.",
+		Response: []SchemaField{
+			{Name: "totalCount", Type: "integer", Description: "Total number."},
+			{
+				Name:        "dataSet",
+				Type:        "object-array",
+				Description: "Instance list.",
+				ItemSchema: []SchemaField{
+					{Name: "instanceId", Type: "string", Description: "Instance ID."},
+					{Name: "status", Type: "enum", Description: "Status.", EnumValues: EnumOptions{
+						{Value: "RUNNING", Description: "Running."},
+					}},
+					{
+						Name:        "systemDisk",
+						Type:        "object",
+						Description: "Boot disk.",
+						ObjectSchema: []SchemaField{
+							{Name: "diskSize", Type: "integer", Description: "Disk size in GB."},
+						},
+					},
+				},
+			},
+		},
+	}
+
+	flags := pflag.NewFlagSet("test", pflag.ContinueOnError)
+	help := GenerateHelp(def, flags)
+
+	if !strings.Contains(help, "OUTPUT") {
+		t.Error("help should contain OUTPUT section")
+	}
+	if !strings.Contains(help, "dataSet -> (list)") {
+		t.Error("help should show dataSet as list")
+	}
+	if !strings.Contains(help, "(structure)") {
+		t.Error("help should show (structure) for object-array items")
+	}
+	if !strings.Contains(help, "instanceId -> (string)") {
+		t.Error("help should show nested instanceId field")
+	}
+	if !strings.Contains(help, "systemDisk -> (structure)") {
+		t.Error("help should show nested systemDisk field")
+	}
+	if !strings.Contains(help, "diskSize -> (integer)") {
+		t.Error("help should show doubly-nested diskSize field")
+	}
+}
+
 func TestBuildSynopsis(t *testing.T) {
 	def := &APIDefinition{
 		Use: "test-cmd",

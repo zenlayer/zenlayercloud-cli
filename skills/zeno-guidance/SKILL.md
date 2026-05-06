@@ -94,7 +94,42 @@ zeno zec create-zec-instances \
 
 Keep intermediate IDs in shell variables or a local scratch file — never retype from memory.
 
-### 4. Handle errors
+### 4. Handle async operations
+
+Many Zenlayer write APIs are **asynchronous** — the request returns immediately but the actual operation (instance creation, release, reboot, etc.) continues in the background. The API's `--help` description will say "This is an asynchronous API" when this applies.
+
+**Understand the full flow before acting.** Before executing any async operation, read the API's `--help` to understand all stages (e.g. recycle bin, intermediate states, required follow-up calls). Present the complete end-to-end plan to the user in the confirmation message — including any automatic follow-up steps — and get a **single "yes" before touching anything**. Never execute the first step and then ask mid-flow.
+
+After the user confirms and the operation is submitted:
+- Poll with `describe-*` at a reasonable interval (every 10–30 s), printing status on each poll.
+- Handle intermediate states automatically as described in the plan (e.g. if the resource enters a recycle/pending-delete state, issue the follow-up call without asking again).
+- Use **`totalCount`** to detect resource deletion — not the `status` field. When the dataset is empty, `dataSet[0].status` returns the string `"null"` rather than an empty string and cannot reliably indicate deletion.
+- **Before writing any poll loop, you MUST look up the exact status enum values.** Run `zeno <service> describe-<resources> --help` and find the `status` field in the OUTPUT section — it lists every possible value. Never guess or recall status strings from memory. The recycle-bin status varies by resource type (e.g. `RECYCLE` for ZEC instances, but other types may differ).
+
+Example poll loop for a delete-with-recycle-bin flow:
+```bash
+# Step 0 (REQUIRED): get exact status values before writing this loop:
+#   zeno <service> describe-<resources> --help   →  read OUTPUT > status enum
+# Fill in <recycle-status-from-help> with the value you see there, e.g. RECYCLE
+FOLLOW_UP_DONE=false
+for i in $(seq 1 30); do
+  COUNT=$(zeno <service> describe-<resources> --<id-flag> <id> -o json -q 'totalCount' 2>/dev/null | tr -d '"')
+  STATUS=$(zeno <service> describe-<resources> --<id-flag> <id> -o json -q 'dataSet[0].status' 2>/dev/null | tr -d '"')
+  echo "$(date '+%H:%M:%S') totalCount=${COUNT} status=${STATUS}"
+  if [ "$COUNT" = "0" ]; then
+    echo "Resource permanently deleted."
+    break
+  fi
+  if [ "$STATUS" = "<recycle-status-from-help>" ] && [ "$FOLLOW_UP_DONE" = "false" ]; then
+    echo "Resource in recycle bin, issuing permanent delete..."
+    zeno <service> release-<resources> --<id-flag> <id> -o json
+    FOLLOW_UP_DONE=true
+  fi
+  sleep 10
+done
+```
+
+### 5. Handle errors
 
 - `AUTHFAILURE_SIGNATURE_FAILURE` → credentials are wrong, clock is skewed, or something mutated the request after signing. Re-check the profile (`zeno configure list`), system time, and that no proxy is rewriting the request.
 - `InvalidParameter` / `ResourceNotFound` → re-read the relevant `--help`; the flag name or value enum is almost always the issue. Do not retry with a guess.
