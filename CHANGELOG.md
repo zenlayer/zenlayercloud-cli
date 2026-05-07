@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.6](https://github.com/zenlayer/zenlayercloud-cli/releases/tag/v1.0.6) - 2026-05-06
+
+### Bug Fixes
+
+- --help output format & update zeno skills content, add "handle async operations"
+- api schema yaml missing item-schema for array type field
+
+### Documentation
+
+- update CHANGELOG.md for v1.0.5
 ## [1.0.5](https://github.com/zenlayer/zenlayercloud-cli/releases/tag/v1.0.5) - 2026-04-30
 
 ### Documentation
