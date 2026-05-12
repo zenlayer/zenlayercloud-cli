@@ -82,8 +82,6 @@ parameters:
     desc: 中国联通。
   - value: CTG
     desc: 中国电信。
-  - value: ThreeLine
-    desc: 三线IP。
 - name: bandwidth
   type: integer
   required: false

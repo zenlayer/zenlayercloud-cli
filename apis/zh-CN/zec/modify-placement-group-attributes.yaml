@@ -6,7 +6,8 @@ long: |-
   修改置放组的名称、分区数、亲和度等属性。
   **注意事项**
 
-  * 当存在实例时，分区数（partitionNum）只能调大，不能调小。
+  * 分区数（partitionNum）需要大于等于当前实例数量。
+  * 亲和度取值范围是 1到分区数除以2再向下取整。
   * 若修改后的分区数或亲和度不满足当前实例的分布状态，会拒绝修改，请移除相关实例后再操作。
 examples:
 - cmd: zeno zec modify-placement-group-attributes --placement-group-id placementgroup-xxxxxxxx --name new-placement-group-name

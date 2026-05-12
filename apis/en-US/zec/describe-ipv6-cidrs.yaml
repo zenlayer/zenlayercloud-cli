@@ -31,6 +31,11 @@ parameters:
   required: false
   sdk-field: cidrBlock
   description: Filter by CIDR block address.
+- name: asn
+  type: integer
+  required: false
+  sdk-field: asn
+  description: Filter by ASN.
 - name: resource-group-id
   type: string
   required: false
@@ -125,8 +130,6 @@ response:
       desc: 1-Line IP China Unicom.
     - value: CTG
       desc: 1-Line IP China Telecom.
-    - value: ThreeLine
-      desc: 3-in-1 IP Pool.
   - name: subnetIds
     type: string-array
     description: Set of subnet IDs.
@@ -170,6 +173,11 @@ response:
       desc: Deleting.
     - value: FAILED
       desc: Created failed.
+  - name: asn
+    type: integer
+    description: |-
+      ASN.
+      Only available when the CIDR source is BYOIP.
   - name: tags
     type: object
     description: The bound tags of this CIDR block.

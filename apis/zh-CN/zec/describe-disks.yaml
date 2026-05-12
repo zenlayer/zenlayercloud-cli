@@ -80,14 +80,14 @@ parameters:
   type: integer
   required: false
   sdk-field: pageNum
-  description: |-
-    返回的分页大小。
-    默认为20，最大为1000。
+  description: 返回的分页数。
 - name: page-size
   type: integer
   required: false
   sdk-field: pageSize
-  description: 返回的分页数。
+  description: |-
+    返回的分页大小。
+    默认为20，最大为1000。
 - name: region-id
   type: string
   required: false

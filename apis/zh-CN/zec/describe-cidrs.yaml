@@ -43,6 +43,11 @@ parameters:
     desc: 客户自带IP(bring your own IP)。
   - value: SDN_RIPT
     desc: SDN 场景创建的 CIDR。
+- name: asn
+  type: integer
+  required: false
+  sdk-field: asn
+  description: 根据ASN编号进行过滤。
 - name: resource-group-id
   type: string
   required: false
@@ -170,8 +175,6 @@ response:
       desc: 中国联通。
     - value: CTG
       desc: 中国电信。
-    - value: ThreeLine
-      desc: 三线IP。
   - name: netmask
     type: integer
     description: |-
@@ -212,6 +215,11 @@ response:
       desc: 删除中。
     - value: FAILED
       desc: 创建失败。
+  - name: asn
+    type: integer
+    description: |-
+      ASN编号。
+      仅当CIDR来源为BYOIP时存在。
   - name: tags
     type: object
     description: 该CIDR地址段关联的标签。

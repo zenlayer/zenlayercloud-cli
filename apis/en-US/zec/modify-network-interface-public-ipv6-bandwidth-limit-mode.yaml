@@ -2,7 +2,13 @@ name: ModifyNetworkInterfacePublicIPv6BandwidthLimitMode
 product: zec
 use: modify-network-interface-public-ipv6-bandwidth-limit-mode
 short: Modify Public IPv6 Bandwidth Rate Limit Mode
-long: Modify the bandwidth rate limit mode of the specified public IPv6. LOOSE allows short-term bursts, while STRICT strictly enforces the rate limit without any bursts. Only supported for IPv6 with a fixed bandwidth configured.
+long: |-
+  Modify the bandwidth rate limit mode of the specified public IPv6.
+  **Notes**
+
+  * Only public IPv6 in the available status (`RUNNING`) support this operation.
+  * Public IPv6 without bandwidth configured do not support this operation.
+  * `LOOSE` (relaxed mode) allows short-term bursts exceeding the rate limit; `STRICT` (strict mode) enforces the rate limit strictly without any bursts.
 examples:
 - cmd: zeno zec modify-network-interface-public-ipv6-bandwidth-limit-mode --ipv6-cidr-id ipv6CidrId-xxx --rate-limit-mode STRICT
   desc: Modify the bandwidth rate limit mode of a public IPv6

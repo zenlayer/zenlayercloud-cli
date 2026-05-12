@@ -2,7 +2,13 @@ name: ModifyUnmanagedEgressIpBandwidthLimitMode
 product: zec
 use: modify-unmanaged-egress-ip-bandwidth-limit-mode
 short: 修改非托管出口IP带宽限速模式
-long: 修改指定非托管出口IP的带宽限速模式。LOOSE为宽松模式（允许短时突发），STRICT为严格模式（不允许突发）。仅支持已配置固定带宽的IP。
+long: |-
+  修改指定非托管出口IP的带宽限速模式。
+  **注意事项**
+
+  * 只有可用状态（`AVAILABLE`）的非托管出口IP才支持该操作。
+  * 未配置带宽的非托管出口IP不支持此操作。
+  * `LOOSE`（宽松模式）允许短时间突发超出限速上限；`STRICT`（严格模式）严格限制，不允许任何突发。
 examples:
 - cmd: zeno zec modify-unmanaged-egress-ip-bandwidth-limit-mode --unmanaged-egress-ip-id unmanagedEgressIpId-xxx --rate-limit-mode STRICT
   desc: 修改非托管出口IP带宽限速模式

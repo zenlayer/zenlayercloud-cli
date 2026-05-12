@@ -1,0 +1,48 @@
+name: DescribeVmInventoryCapacity
+product: zec
+use: describe-vm-inventory-capacity
+short: VM Inventory Capacity
+long: Query vm inventory capacity level information for each region.
+examples:
+- cmd: zeno zec describe-vm-inventory-capacity
+  desc: Query the VM inventory capacity of all regions.
+- cmd: zeno zec describe-vm-inventory-capacity --region-ids asia-southeast-1
+  desc: Query the VM inventory capacity of specified regions.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeVmInventoryCapacity
+parameters:
+- name: region-ids
+  type: string-array
+  required: false
+  sdk-field: regionIds
+  description: |-
+    List of region IDs in the format of asia-north-1.
+    If not specified, all regions are returned.
+response:
+- name: dataSet
+  type: object-array
+  description: Inventory capacity list for each region.
+  array-style: json
+  item-schema:
+  - name: regionId
+    type: string
+    description: Region ID in the format of asia-north-1.
+  - name: capacity
+    type: enum
+    description: |-
+      The overall inventory capacity level for this region.
+      Inventory capacity is defined based on available vCPU cores across all instance types, excluding memory, storage, or other resource factors.
+    enum-values:
+    - value: LIMITED
+      desc: Limited inventory, with available vCPU cores < 1000.
+    - value: NORMAL
+      desc: Normal inventory, with available vCPU cores from 1000 to 2000.
+    - value: SUFFICIENT
+      desc: Sufficient inventory, with available vCPU cores from 2000 to 5000.
+    - value: ABUNDANT
+      desc: Abundant inventory, with available vCPU cores ≥ 5000.
+  - name: instanceTypes
+    type: object-array
+    description: Inventory capacity details for each instance type, excluding entries with zero inventory.

@@ -31,6 +31,11 @@ parameters:
   required: false
   sdk-field: cidrBlock
   description: 根据CIDR地址进行过滤。
+- name: asn
+  type: integer
+  required: false
+  sdk-field: asn
+  description: 根据ASN编号进行过滤。
 - name: resource-group-id
   type: string
   required: false
@@ -129,8 +134,6 @@ response:
       desc: 中国联通。
     - value: CTG
       desc: 中国电信。
-    - value: ThreeLine
-      desc: 三线IP。
   - name: subnetIds
     type: string-array
     description: 子网ID集合。
@@ -174,6 +177,11 @@ response:
       desc: 删除中。
     - value: FAILED
       desc: 创建失败。
+  - name: asn
+    type: integer
+    description: |-
+      ASN编号。
+      仅当CIDR来源为BYOIP时存在。
   - name: tags
     type: object
     description: 该CIDR地址段关联的标签。

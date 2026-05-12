@@ -2,7 +2,13 @@ name: ModifyUnmanagedEgressIpBandwidthLimitMode
 product: zec
 use: modify-unmanaged-egress-ip-bandwidth-limit-mode
 short: Modify Unmanaged Egress IP Bandwidth Rate Limit Mode
-long: Modify the bandwidth rate limit mode of the specified unmanaged egress IP. LOOSE allows short-term bursts, while STRICT strictly enforces the rate limit without any bursts. Only supported for IPs with a fixed bandwidth configured.
+long: |-
+  Modify the bandwidth rate limit mode of the specified unmanaged egress IP.
+  **Notes**
+
+  * Only unmanaged egress IPs in the available status (`AVAILABLE`) support this operation.
+  * Unmanaged egress IPs without bandwidth configured do not support this operation.
+  * `LOOSE` (relaxed mode) allows short-term bursts exceeding the rate limit; `STRICT` (strict mode) enforces the rate limit strictly without any bursts.
 examples:
 - cmd: zeno zec modify-unmanaged-egress-ip-bandwidth-limit-mode --unmanaged-egress-ip-id unmanagedEgressIpId-xxx --rate-limit-mode STRICT
   desc: Modify the bandwidth rate limit mode of an unmanaged egress IP

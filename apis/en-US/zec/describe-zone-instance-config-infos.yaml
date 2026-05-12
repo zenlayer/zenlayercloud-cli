@@ -47,12 +47,6 @@ response:
     description: |-
       Memory size.
       Unit: GiB.
-  - name: bps
-    type: integer
-    description: Bandwidth cap per vNIC.
-  - name: pps
-    type: integer
-    description: Maximum packet send/receive rate per vNIC.
   - name: internetMaxBandwidthOutLimit
     type: integer
     description: |-

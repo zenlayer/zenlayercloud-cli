@@ -4,7 +4,7 @@ use: describe-zones
 short: 查询可用区信息
 long: 查询可用区信息。包括名称，所属的节点等。
 examples:
-- cmd: zeno zec describe-zones --zone-ids asia-east-1a --zone-ids asia-south-1a
+- cmd: zeno zec describe-zones --zone-ids sa-north-1a --zone-ids asia-east-1a
   desc: 查询可用区列表。
 sdk:
   service: zec
@@ -39,3 +39,15 @@ response:
   - name: timeZone
     type: string
     description: 可用区所在的时区。
+  - name: cityName
+    type: string
+    description: 可用区所在的城市名称。
+  - name: cityCode
+    type: string
+    description: 城市三字码。
+  - name: countryCode
+    type: string
+    description: 可用区所在的国家，ISO 3166-1 alpha-2 两字母代码（如 US、JP）。
+  - name: countryName
+    type: string
+    description: 可用区所在的国家名称。

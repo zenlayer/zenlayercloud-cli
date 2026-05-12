@@ -43,8 +43,6 @@ parameters:
       desc: 中国联通。
     - value: CTG
       desc: 中国电信。
-    - value: ThreeLine
-      desc: 三线IP。
   - name: regionId
     type: string
     description: 区域id。

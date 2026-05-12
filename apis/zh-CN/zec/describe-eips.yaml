@@ -239,8 +239,6 @@ response:
       desc: 中国联通。
     - value: CTG
       desc: 中国电信。
-    - value: ThreeLine
-      desc: 三线IP。
   - name: internetChargeType
     type: enum
     description: EIP 的网络计费方式。

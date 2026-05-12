@@ -51,12 +51,6 @@ response:
     description: |-
       实例内存容量。
       单位：GiB。
-  - name: bps
-    type: integer
-    description: 单张网卡的带宽上限。
-  - name: pps
-    type: integer
-    description: 单张网卡的收发包上限。
   - name: internetMaxBandwidthOutLimit
     type: integer
     description: 最大出口带宽限制。

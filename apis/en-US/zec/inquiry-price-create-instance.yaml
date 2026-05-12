@@ -75,8 +75,6 @@ parameters:
     desc: 1-Line IP China Unicom.
   - value: CTG
     desc: 1-Line IP China Telecom.
-  - value: ThreeLine
-    desc: 3-in-1 IP Pool.
 - name: internet-charge-type
   type: enum
   required: true

@@ -3,11 +3,11 @@ product: zec
 use: modify-eip-bandwidth-limit-mode
 short: 修改弹性公网IP带宽限速模式
 long: |-
-  修改指定弹性公网IP的带宽限速模式。LOOSE为宽松模式（允许短时突发），STRICT为严格模式（不允许突发）。仅支持已配置固定带宽的IP。
+  修改指定弹性公网IP的带宽限速模式。
   **注意事项**
 
   * 只有可用状态（`BINDED`、`UNBIND`）的EIP才支持该操作。
-  * 仅支持已配置固定带宽的EIP（按带宽计费或按带宽包计费），未配置固定带宽的EIP不支持此操作。
+  * 未配置带宽的EIP不支持此操作。
   * `LOOSE`（宽松模式）允许短时间突发超出限速上限；`STRICT`（严格模式）严格限制，不允许任何突发。
 examples:
 - cmd: zeno zec modify-eip-bandwidth-limit-mode --eip-id <EipId> --rate-limit-mode STRICT

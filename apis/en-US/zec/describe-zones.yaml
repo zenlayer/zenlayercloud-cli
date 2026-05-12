@@ -4,8 +4,8 @@ use: describe-zones
 short: Queries available zones
 long: Query availability zones available.
 examples:
-- cmd: zeno zec describe-zones --zone-ids asia-east-1a --zone-ids asia-south-1a
-  desc: Query available zone list.
+- cmd: zeno zec describe-zones --zone-ids sa-north-1a --zone-ids asia-east-1a
+  desc: Query the available zone list.
 sdk:
   service: zec
   version: '2025-09-01'
@@ -37,3 +37,15 @@ response:
   - name: timeZone
     type: string
     description: Time zone of the availability zone.
+  - name: cityName
+    type: string
+    description: Name of the city where the availability zone is located.
+  - name: cityCode
+    type: string
+    description: Three-letter IATA city code (e.g., LAX, HKG).
+  - name: countryCode
+    type: string
+    description: Country where the availability zone is located, in ISO 3166-1 alpha-2 format (e.g., US, JP).
+  - name: countryName
+    type: string
+    description: Name of the country where the availability zone is located.

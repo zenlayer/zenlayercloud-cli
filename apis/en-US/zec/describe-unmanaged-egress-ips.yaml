@@ -4,7 +4,7 @@ use: describe-unmanaged-egress-ips
 short: Describe Unmanaged Egress IPs
 long: Query the list of unmanaged egress IPs that match the specified criteria, returning basic IP information and bandwidth rate limit mode.
 examples:
-- cmd: zeno zec describe-unmanaged-egress-ips --unmanaged-egress-ip-ids unmanagedEgressIp-xxx1 --unmanaged-egress-ip-ids unmanagedEgressIp-xxx2 --region-id asia-east-1a --vpc-id vpc-xxxxxx --page-size 20 --page-num 1
+- cmd: zeno zec describe-unmanaged-egress-ips --unmanaged-egress-ip-ids unmanagedEgressIp-xxx1 --unmanaged-egress-ip-ids unmanagedEgressIp-xxx2 --region-id asia-east-1 --vpc-id vpc-xxxxxx --page-size 20 --page-num 1
   desc: Query the list of unmanaged egress IPs
 sdk:
   service: zec
@@ -37,9 +37,7 @@ parameters:
   type: integer
   required: false
   sdk-field: pageNum
-  description: |-
-    Page number of the returned results.
-    Default value: 1.
+  description: Page number of the returned results.
 response:
 - name: totalCount
   type: integer
@@ -97,8 +95,6 @@ response:
       desc: 1-Line IP China Unicom.
     - value: CTG
       desc: 1-Line IP China Telecom.
-    - value: ThreeLine
-      desc: 3-in-1 IP Pool.
   - name: internetChargeType
     type: enum
     description: Internet charge type.
@@ -111,9 +107,7 @@ response:
       desc: Billed by the burstable 95th bandwidth of all compute resources in a city-based or regional bandwidth cluster with a shared commitment.
   - name: bandwidthCap
     type: integer
-    description: |-
-      Bandwidth cap, in Mbps.
-      Null if no fixed bandwidth is configured.
+    description: Bandwidth cap, in Mbps. Returns the team's default bandwidth cap if no separate bandwidth is configured for the resource.
   - name: rateLimitMode
     type: enum
     description: Rate limit mode.
