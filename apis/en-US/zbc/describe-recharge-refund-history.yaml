@@ -1,0 +1,78 @@
+name: DescribeRechargeRefundHistory
+product: zbc
+use: describe-recharge-refund-history
+short: Query recharge and refund history
+long: Query the account's recharge records and order refund records.
+examples:
+- cmd: zeno zbc describe-recharge-refund-history --page-num 1 --page-size 20
+  desc: Query recharge and refund history with pagination.
+- cmd: zeno zbc describe-recharge-refund-history --start-time 2025-01-01T00:00:00Z --end-time 2025-03-31T23:59:59Z
+  desc: Query recharge and refund history within a time range.
+sdk:
+  service: zbc
+  version: '2024-08-08'
+  action: DescribeRechargeRefundHistory
+parameters:
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    Number of pages returned.
+    Default value: 1.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: Number of items in the current page result.
+- name: state
+  type: string-array
+  required: false
+  sdk-field: state
+  description: Filter by transaction state.
+- name: start-time
+  type: string
+  required: false
+  sdk-field: startTime
+  description: |-
+    Query start time.
+    Format: yyyy-MM-ddTHH:mm:ssZ.
+- name: end-time
+  type: string
+  required: false
+  sdk-field: endTime
+  description: |-
+    Query end time.
+    Format: yyyy-MM-ddTHH:mm:ssZ.
+response:
+- name: totalCount
+  type: integer
+  description: Total number of records matching the filter criteria.
+- name: dataSet
+  type: object-array
+  description: Recharge and refund history result set.
+  array-style: json
+  item-schema:
+  - name: transactionId
+    type: string
+    description: Unique transaction ID.
+  - name: transactionType
+    type: string
+    description: Transaction type.
+  - name: amount
+    type: float
+    description: Transaction amount.
+  - name: paymentMethod
+    type: string
+    description: Payment method.
+  - name: state
+    type: string
+    description: Transaction state.
+  - name: transactionTime
+    type: string
+    description: |-
+      Transaction time.
+      Format: yyyy-MM-ddTHH:mm:ssZ.
+  - name: accountUid
+    type: string
+    description: Account UID.

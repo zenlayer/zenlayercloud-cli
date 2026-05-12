@@ -1,0 +1,28 @@
+name: DescribeCustomerBalance
+product: zbc
+use: describe-customer-balance
+short: Query account balance
+long: Query the balance information of the current account, including cash balance, credit value, and purchasing power.
+examples:
+- cmd: zeno zbc describe-customer-balance
+  desc: Query current account balance.
+sdk:
+  service: zbc
+  version: '2024-08-08'
+  action: DescribeCustomerBalance
+response:
+- name: accountUid
+  type: string
+  description: Account UID.
+- name: cashBalance
+  type: float
+  description: Cash balance.
+- name: creditValue
+  type: float
+  description: Credit value.
+- name: purchasingPower
+  type: float
+  description: Purchasing power (cash balance plus credit value).
+- name: orderFrozenAmount
+  type: float
+  description: Amount frozen for pending orders.

@@ -1,0 +1,78 @@
+name: DescribeRechargeRefundHistory
+product: zbc
+use: describe-recharge-refund-history
+short: 查询充值退款记录
+long: 查询账户的充值记录以及订单退款记录。
+examples:
+- cmd: zeno zbc describe-recharge-refund-history --page-num 1 --page-size 20
+  desc: 分页查询充值退款记录
+- cmd: zeno zbc describe-recharge-refund-history --start-time 2025-01-01T00:00:00Z --end-time 2025-03-31T23:59:59Z
+  desc: 查询指定时间段内的充值退款记录
+sdk:
+  service: zbc
+  version: '2024-08-08'
+  action: DescribeRechargeRefundHistory
+parameters:
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    返回的分页数。
+    默认为1。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: 返回的分页大小。
+- name: state
+  type: string-array
+  required: false
+  sdk-field: state
+  description: 按交易状态过滤。
+- name: start-time
+  type: string
+  required: false
+  sdk-field: startTime
+  description: |-
+    查询开始时间。
+    格式为：yyyy-MM-ddTHH:mm:ssZ。
+- name: end-time
+  type: string
+  required: false
+  sdk-field: endTime
+  description: |-
+    查询结束时间。
+    格式为：yyyy-MM-ddTHH:mm:ssZ。
+response:
+- name: totalCount
+  type: integer
+  description: 符合条件的数据总数。
+- name: dataSet
+  type: object-array
+  description: 充值退款记录结果集。
+  array-style: json
+  item-schema:
+  - name: transactionId
+    type: string
+    description: 交易唯一ID。
+  - name: transactionType
+    type: string
+    description: 交易类型。
+  - name: amount
+    type: float
+    description: 交易金额。
+  - name: paymentMethod
+    type: string
+    description: 支付方式。
+  - name: state
+    type: string
+    description: 交易状态。
+  - name: transactionTime
+    type: string
+    description: |-
+      交易时间。
+      格式为：yyyy-MM-ddTHH:mm:ssZ。
+  - name: accountUid
+    type: string
+    description: 账户UID。

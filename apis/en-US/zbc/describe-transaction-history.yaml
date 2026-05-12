@@ -1,0 +1,100 @@
+name: DescribeTransactionHistory
+product: zbc
+use: describe-transaction-history
+short: Query account transaction history
+long: Query account transaction records. Maximum of 10,000 records returned. Query time range cannot exceed 3 months.
+examples:
+- cmd: zeno zbc describe-transaction-history --page-num 1 --page-size 20
+  desc: Query account transaction history with pagination.
+- cmd: zeno zbc describe-transaction-history --start-time 2025-01-01T00:00:00Z --end-time 2025-03-31T23:59:59Z
+  desc: Query account transaction history within a time range.
+sdk:
+  service: zbc
+  version: '2024-08-08'
+  action: DescribeTransactionHistory
+parameters:
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    Number of pages returned.
+    Default value: 1.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    Number of items in the current page result.
+    Maximum value: 10000.
+- name: transaction-type
+  type: string-array
+  required: false
+  sdk-field: transactionType
+  description: Filter by transaction type.
+- name: start-time
+  type: string
+  required: false
+  sdk-field: startTime
+  description: |-
+    Query start time.
+    Format: yyyy-MM-ddTHH:mm:ssZ.
+    Defaults to one month before current time.
+- name: end-time
+  type: string
+  required: false
+  sdk-field: endTime
+  description: |-
+    Query end time.
+    Format: yyyy-MM-ddTHH:mm:ssZ.
+    Defaults to current time.
+response:
+- name: incomeSum
+  type: float
+  description: Total income amount.
+- name: expenditureSum
+  type: float
+  description: Total expenditure amount.
+- name: totalCount
+  type: integer
+  description: Total number of records matching the filter criteria.
+- name: dataSet
+  type: object-array
+  description: Transaction history result set.
+  array-style: json
+  item-schema:
+  - name: accountUid
+    type: string
+    description: Account UID.
+  - name: uid
+    type: string
+    description: Unique transaction record ID.
+  - name: transactionTime
+    type: string
+    description: |-
+      Transaction time.
+      Format: yyyy-MM-ddTHH:mm:ssZ.
+  - name: orderSn
+    type: string
+    description: Order number.
+  - name: description
+    type: string
+    description: Transaction description.
+  - name: transactionType
+    type: string
+    description: Transaction type.
+  - name: paymentMethod
+    type: string
+    description: Payment method.
+  - name: amount
+    type: float
+    description: Transaction amount.
+  - name: cashBalance
+    type: float
+    description: Cash balance after the transaction.
+  - name: tradeType
+    type: string
+    description: Trade category.
+  - name: tradeNo
+    type: string
+    description: Third-party transaction reference number.

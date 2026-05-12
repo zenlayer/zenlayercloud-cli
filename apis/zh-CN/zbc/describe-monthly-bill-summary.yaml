@@ -1,0 +1,79 @@
+name: DescribeMonthlyBillSummary
+product: zbc
+use: describe-monthly-bill-summary
+short: 查询月账单汇总
+long: 按产品或资源组维度查询月度账单汇总金额，以及整体账户的账单信息。
+examples:
+- cmd: zeno zbc describe-monthly-bill-summary --bill-monthly 202503
+  desc: 查询指定月份的账单汇总（按产品分组）
+- cmd: zeno zbc describe-monthly-bill-summary --bill-monthly 202503 --summary-type RESOURCE_GROUP
+  desc: 查询指定月份的账单汇总（按资源组分组）
+sdk:
+  service: zbc
+  version: '2024-08-08'
+  action: DescribeMonthlyBillSummary
+parameters:
+- name: summary-type
+  type: enum
+  required: false
+  sdk-field: summaryType
+  description: |-
+    账单分组维度。
+    默认为 PRODUCT。
+  enum-values:
+  - value: PRODUCT
+    desc: 按产品维度分组。
+  - value: RESOURCE_GROUP
+    desc: 按资源组维度分组。
+- name: bill-monthly
+  type: integer
+  required: false
+  sdk-field: billMonthly
+  description: |-
+    账单月份。
+    格式为：yyyyMM。
+    默认为当前月。
+response:
+- name: billMonthly
+  type: integer
+  description: |-
+    账单月份。
+    格式为：yyyyMM。
+- name: totalSpend
+  type: float
+  description: 总费用金额。
+- name: totalCash
+  type: float
+  description: 现金总支付金额。
+- name: totalRefund
+  type: float
+  description: 退款总金额。
+- name: totalVoucher
+  type: float
+  description: 代金券总支付金额。
+- name: summaryInfoList
+  type: object-array
+  description: 账单分组列表。
+  array-style: json
+  item-schema:
+  - name: product
+    type: string
+    description: 产品名称。
+  - name: resourceGroupId
+    type: string
+    description: 资源组ID。
+  - name: resourceGroupName
+    type: string
+    description: 资源组名称。
+  - name: spend
+    type: float
+    description: 该分组的总费用金额。
+  - name: cash
+    type: float
+    description: 该分组的现金支付金额。
+  - name: voucher
+    type: float
+    description: 该分组的代金券支付金额。
+  - name: refund
+    type: float
+    description: 该分组的退款金额。

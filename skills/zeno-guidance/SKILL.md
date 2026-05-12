@@ -1,6 +1,6 @@
 ---
 name: zeno-guidance
-description: Use when managing Zenlayer Cloud resources (BMC bare metal, ZEC elastic compute, ZLB load balancers, ZOS ororchestration system, ZRM resource management, CCS(key pair), IPT (IP transit), traffic, USER (resource group & permission management)) or writing shell/Python scripts that call Zenlayer. Also use whenever the user mentions `zeno`, `zenlayer-cli`, "Zenlayer Cloud", Zenlayer API error codes (e.g. AUTHFAILURE_SIGNATURE_FAILURE), asks to list/create/modify/delete Zenlayer resources, asks how to authenticate to Zenlayer, or pastes a command starting with `zeno`. Covers install/credential/profile setup, discovering commands via `--help`, parameter typing (list/structure shorthand vs JSON), dry-run validation, confirmation gates for destructive ops, and JSON-only output for scripting.
+description: Use when managing Zenlayer Cloud resources (BMC bare metal, ZEC elastic compute, ZLB load balancers, ZOS ororchestration system, ZRM resource management, CCS(key pair), IPT (IP transit), traffic, USER (resource group & permission management), ZBC (billing: account balance, monthly bill summary, bill details, recharge/refund history, transaction history)) or writing shell/Python scripts that call Zenlayer. Also use whenever the user mentions `zeno`, `zenlayer-cli`, "Zenlayer Cloud", Zenlayer API error codes (e.g. AUTHFAILURE_SIGNATURE_FAILURE), asks to list/create/modify/delete Zenlayer resources, asks how to authenticate to Zenlayer, or pastes a command starting with `zeno`. Covers install/credential/profile setup, discovering commands via `--help`, parameter typing (list/structure shorthand vs JSON), dry-run validation, confirmation gates for destructive ops, and JSON-only output for scripting.
 ---
 
 # Zenlayer Cloud CLI (zeno)
@@ -47,7 +47,7 @@ If the user needs a different profile, use `--profile <name>` on each command or
 
 ### 1. Discover the command
 
-Zenlayer groups APIs by service. Top-level services include `bmc` (bare metal), `zec` (elastic compute), `zlb` (load balancer), `zos` (object storage), `zrm`, `ccs`, `ipt`, `traffic`.
+Zenlayer groups APIs by service. Top-level services include `bmc` (bare metal), `zec` (elastic compute), `zlb` (load balancer), `zos` (object storage), `zrm`, `ccs`, `ipt`, `traffic`, `zbc` (billing — account balance, monthly bill summary, bill details, recharge/refund history, transaction history).
 
 ```bash
 zeno --help             # list services

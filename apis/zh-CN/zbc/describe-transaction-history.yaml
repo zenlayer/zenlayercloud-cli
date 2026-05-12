@@ -1,0 +1,100 @@
+name: DescribeTransactionHistory
+product: zbc
+use: describe-transaction-history
+short: 查询账户流水记录
+long: 查询账户的流水记录。最多返回10000条记录，查询时间跨度不能超过3个月。
+examples:
+- cmd: zeno zbc describe-transaction-history --page-num 1 --page-size 20
+  desc: 分页查询账户流水记录
+- cmd: zeno zbc describe-transaction-history --start-time 2025-01-01T00:00:00Z --end-time 2025-03-31T23:59:59Z
+  desc: 查询指定时间段内的账户流水记录
+sdk:
+  service: zbc
+  version: '2024-08-08'
+  action: DescribeTransactionHistory
+parameters:
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    返回的分页数。
+    默认为1。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    返回的分页大小。
+    最大为10000。
+- name: transaction-type
+  type: string-array
+  required: false
+  sdk-field: transactionType
+  description: 按交易类型过滤。
+- name: start-time
+  type: string
+  required: false
+  sdk-field: startTime
+  description: |-
+    查询开始时间。
+    格式为：yyyy-MM-ddTHH:mm:ssZ。
+    默认为当前时间前一个月。
+- name: end-time
+  type: string
+  required: false
+  sdk-field: endTime
+  description: |-
+    查询结束时间。
+    格式为：yyyy-MM-ddTHH:mm:ssZ。
+    默认为当前时间。
+response:
+- name: incomeSum
+  type: float
+  description: 收入总金额。
+- name: expenditureSum
+  type: float
+  description: 支出总金额。
+- name: totalCount
+  type: integer
+  description: 符合条件的数据总数。
+- name: dataSet
+  type: object-array
+  description: 流水记录结果集。
+  array-style: json
+  item-schema:
+  - name: accountUid
+    type: string
+    description: 账户UID。
+  - name: uid
+    type: string
+    description: 流水唯一ID。
+  - name: transactionTime
+    type: string
+    description: |-
+      交易时间。
+      格式为：yyyy-MM-ddTHH:mm:ssZ。
+  - name: orderSn
+    type: string
+    description: 订单号。
+  - name: description
+    type: string
+    description: 流水描述。
+  - name: transactionType
+    type: string
+    description: 交易类型。
+  - name: paymentMethod
+    type: string
+    description: 支付方式。
+  - name: amount
+    type: float
+    description: 交易金额。
+  - name: cashBalance
+    type: float
+    description: 交易后现金余额。
+  - name: tradeType
+    type: string
+    description: 交易分类。
+  - name: tradeNo
+    type: string
+    description: 第三方交易流水号。

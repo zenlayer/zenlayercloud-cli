@@ -1,0 +1,122 @@
+name: DescribeBillDetail
+product: zbc
+use: describe-bill-detail
+short: 查询账单明细
+long: 查询每月账单的详细信息，包括总费用，支持按订单号或资源ID过滤。
+examples:
+- cmd: zeno zbc describe-bill-detail --bill-monthly 202503 --page-num 1 --page-size 20
+  desc: 分页查询指定月份的账单明细
+sdk:
+  service: zbc
+  version: '2024-08-08'
+  action: DescribeBillDetail
+parameters:
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    返回的分页数。
+    默认为1。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    返回的分页大小。
+    默认为20，最大为5000。
+- name: bill-monthly
+  type: integer
+  required: false
+  sdk-field: billMonthly
+  description: |-
+    账单月份。
+    格式为：yyyyMM。
+    默认为当前月。
+- name: order-sn
+  type: string
+  required: false
+  sdk-field: orderSn
+  description: 订单号，用于过滤查询结果。
+- name: resource-id
+  type: string
+  required: false
+  sdk-field: resourceId
+  description: 资源ID，用于过滤查询结果。
+response:
+- name: totalSpend
+  type: float
+  description: 总费用金额。
+- name: totalCash
+  type: float
+  description: 现金总支付金额。
+- name: totalVoucher
+  type: float
+  description: 代金券总支付金额。
+- name: totalRefund
+  type: float
+  description: 退款总金额。
+- name: totalCount
+  type: integer
+  description: 符合条件的数据总数。
+- name: dataSet
+  type: object-array
+  description: 账单明细结果集。
+  array-style: json
+  item-schema:
+  - name: resourceId
+    type: string
+    description: 资源ID（实例ID）。
+  - name: product
+    type: string
+    description: 产品名称。
+  - name: productSubitem
+    type: string
+    description: 产品子项名称。
+  - name: amount
+    type: float
+    description: 费用金额。
+  - name: billingMode
+    type: string
+    description: 计费模式。
+  - name: voucher
+    type: float
+    description: 代金券支付金额。
+  - name: cash
+    type: float
+    description: 现金支付金额。
+  - name: label
+    type: string
+    description: 资源标签/名称。
+  - name: location
+    type: string
+    description: 资源所在地域。
+  - name: orderSn
+    type: string
+    description: 订单号。
+  - name: billMonthly
+    type: integer
+    description: |-
+      账单月份。
+      格式为：yyyyMM。
+  - name: resourceGroupId
+    type: string
+    description: 资源组ID。
+  - name: resourceGroupName
+    type: string
+    description: 资源组名称。
+  - name: startTime
+    type: string
+    description: |-
+      服务开始时间。
+      格式为：yyyy-MM-ddTHH:mm:ssZ。
+  - name: endTime
+    type: string
+    description: |-
+      服务结束时间。
+      格式为：yyyy-MM-ddTHH:mm:ssZ。
+  - name: deductionTime
+    type: string
+    description: |-
+      扣费时间。
+      格式为：yyyy-MM-ddTHH:mm:ssZ。

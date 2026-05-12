@@ -1,0 +1,79 @@
+name: DescribeMonthlyBillSummary
+product: zbc
+use: describe-monthly-bill-summary
+short: Query monthly bill summary
+long: Query monthly bill summary amounts at the product or resource group dimension, along with overall account billing information.
+examples:
+- cmd: zeno zbc describe-monthly-bill-summary --bill-monthly 202503
+  desc: Query monthly bill summary grouped by product.
+- cmd: zeno zbc describe-monthly-bill-summary --bill-monthly 202503 --summary-type RESOURCE_GROUP
+  desc: Query monthly bill summary grouped by resource group.
+sdk:
+  service: zbc
+  version: '2024-08-08'
+  action: DescribeMonthlyBillSummary
+parameters:
+- name: summary-type
+  type: enum
+  required: false
+  sdk-field: summaryType
+  description: |-
+    Billing grouping dimension.
+    Default value: PRODUCT.
+  enum-values:
+  - value: PRODUCT
+    desc: Group by product dimension.
+  - value: RESOURCE_GROUP
+    desc: Group by resource group dimension.
+- name: bill-monthly
+  type: integer
+  required: false
+  sdk-field: billMonthly
+  description: |-
+    Billing month.
+    Format: yyyyMM.
+    Defaults to current month.
+response:
+- name: billMonthly
+  type: integer
+  description: |-
+    Billing month.
+    Format: yyyyMM.
+- name: totalSpend
+  type: float
+  description: Total expenditure amount.
+- name: totalCash
+  type: float
+  description: Total cash payment amount.
+- name: totalRefund
+  type: float
+  description: Total refund amount.
+- name: totalVoucher
+  type: float
+  description: Total voucher payment amount.
+- name: summaryInfoList
+  type: object-array
+  description: Bill grouping list.
+  array-style: json
+  item-schema:
+  - name: product
+    type: string
+    description: Product name.
+  - name: resourceGroupId
+    type: string
+    description: Resource group ID.
+  - name: resourceGroupName
+    type: string
+    description: Resource group name.
+  - name: spend
+    type: float
+    description: Total expenditure for this group.
+  - name: cash
+    type: float
+    description: Cash payment amount for this group.
+  - name: voucher
+    type: float
+    description: Voucher payment amount for this group.
+  - name: refund
+    type: float
+    description: Refund amount for this group.

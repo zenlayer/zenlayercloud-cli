@@ -1,0 +1,122 @@
+name: DescribeBillDetail
+product: zbc
+use: describe-bill-detail
+short: Query billing details
+long: Query monthly billing statement details including total fees, with support for filtering by order number or resource ID.
+examples:
+- cmd: zeno zbc describe-bill-detail --bill-monthly 202503 --page-num 1 --page-size 20
+  desc: Query billing details for a specific month with pagination.
+sdk:
+  service: zbc
+  version: '2024-08-08'
+  action: DescribeBillDetail
+parameters:
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    Number of pages returned.
+    Default value: 1.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    Number of items in the current page result.
+    Default value: 20; Maximum value: 5000.
+- name: bill-monthly
+  type: integer
+  required: false
+  sdk-field: billMonthly
+  description: |-
+    Billing month.
+    Format: yyyyMM.
+    Defaults to current month.
+- name: order-sn
+  type: string
+  required: false
+  sdk-field: orderSn
+  description: Order number for filtering.
+- name: resource-id
+  type: string
+  required: false
+  sdk-field: resourceId
+  description: Resource ID for filtering.
+response:
+- name: totalSpend
+  type: float
+  description: Total expenditure amount.
+- name: totalCash
+  type: float
+  description: Total cash payment amount.
+- name: totalVoucher
+  type: float
+  description: Total voucher payment amount.
+- name: totalRefund
+  type: float
+  description: Total refund amount.
+- name: totalCount
+  type: integer
+  description: Total number of records matching the filter criteria.
+- name: dataSet
+  type: object-array
+  description: Billing detail result set.
+  array-style: json
+  item-schema:
+  - name: resourceId
+    type: string
+    description: Resource ID.
+  - name: product
+    type: string
+    description: Product name.
+  - name: productSubitem
+    type: string
+    description: Product sub-item name.
+  - name: amount
+    type: float
+    description: Billing amount.
+  - name: billingMode
+    type: string
+    description: Billing mode.
+  - name: voucher
+    type: float
+    description: Voucher payment amount.
+  - name: cash
+    type: float
+    description: Cash payment amount.
+  - name: label
+    type: string
+    description: Resource label or name.
+  - name: location
+    type: string
+    description: Resource location.
+  - name: orderSn
+    type: string
+    description: Order number.
+  - name: billMonthly
+    type: integer
+    description: |-
+      Billing month.
+      Format: yyyyMM.
+  - name: resourceGroupId
+    type: string
+    description: Resource group ID.
+  - name: resourceGroupName
+    type: string
+    description: Resource group name.
+  - name: startTime
+    type: string
+    description: |-
+      Service start time.
+      Format: yyyy-MM-ddTHH:mm:ssZ.
+  - name: endTime
+    type: string
+    description: |-
+      Service end time.
+      Format: yyyy-MM-ddTHH:mm:ssZ.
+  - name: deductionTime
+    type: string
+    description: |-
+      Deduction time.
+      Format: yyyy-MM-ddTHH:mm:ssZ.
