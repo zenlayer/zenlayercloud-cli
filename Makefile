@@ -5,7 +5,7 @@ BINARY_NAME=zeno
 BUILD_DIR=bin
 # Version from git tag (strip 'v' prefix). Override with TAG= or VERSION=.
 TAG ?= $(shell git describe --tags --exact-match 2>/dev/null || echo "")
-VERSION ?= $(shell git describe --tags --exact-match 2>/dev/null | sed 's/^v//' || echo "dev")
+VERSION ?= $(shell git describe --tags --exact-match 2>/dev/null | sed 's/^v//' | grep . || echo "dev")
 GIT_COMMIT=$(shell git rev-parse --short HEAD 2>/dev/null || echo "none")
 BUILD_TIME=$(shell date -u +%Y-%m-%dT%H:%M:%SZ)
 LDFLAGS=-ldflags "-X github.com/zenlayer/zenlayercloud-cli/internal/version.Version=$(VERSION) \
