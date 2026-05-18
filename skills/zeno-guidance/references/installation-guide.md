@@ -62,6 +62,46 @@ zeno version
 
 Should print a version string (e.g. `1.0.2`). If not, `PATH` is wrong or the binary didn't install.
 
+## Upgrade
+
+Once installed, use the built-in upgrade command — no need to re-run the install script.
+
+```bash
+# Check whether a newer version is available (no install)
+zeno upgrade --check
+
+# Upgrade to the latest version (interactive confirmation)
+zeno upgrade
+
+# Skip confirmation prompt
+zeno upgrade -y
+
+# Upgrade to a specific version
+zeno upgrade --version v1.0.8
+
+# List all available versions (* marks the current one)
+zeno upgrade --list
+
+# Roll back to the previous version (uses the .bak backup left by the last upgrade)
+zeno upgrade --rollback
+```
+
+> If zeno is installed in a system directory (e.g. `/usr/local/bin`), you may need `sudo zeno upgrade`.
+
+### Test upgrade locally (dev builds)
+
+Build with a fake old version, then upgrade to verify the full flow:
+
+```bash
+# Build with an old version number
+go build -ldflags "-X github.com/zenlayer/zenlayercloud-cli/internal/version.Version=0.1.0" -o bin/zeno .
+
+./bin/zeno upgrade --check   # shows: Update available: 0.1.0 → v1.0.x
+./bin/zeno upgrade -y        # downloads, verifies checksum, replaces bin/zeno
+./bin/zeno version           # shows new version
+./bin/zeno upgrade --rollback  # restores bin/zeno.bak (the old binary)
+```
+
 ## Configure access credentials
 
 Zenlayer uses an **Access Key ID + Access Key Secret** pair. Create one in the console at the user/API key section, then:
