@@ -197,6 +197,25 @@ zeno configure set <key> <value>
 zeno version
 ```
 
+### Upgrade
+
+```bash
+# Check for updates without installing
+zeno upgrade --check
+
+# Upgrade to the latest version (interactive confirmation)
+zeno upgrade
+
+# Upgrade to a specific version
+zeno upgrade --version v1.0.8
+
+# List all available versions
+zeno upgrade --list
+
+# Roll back to the previous version
+zeno upgrade --rollback
+```
+
 ### Load Balancer Commands
 
 ```bash

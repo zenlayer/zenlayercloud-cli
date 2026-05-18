@@ -197,6 +197,25 @@ zeno configure set <key> <value>
 zeno version
 ```
 
+### 升级
+
+```bash
+# 检查是否有新版本（不安装）
+zeno upgrade --check
+
+# 升级到最新版本（交互式确认）
+zeno upgrade
+
+# 升级到指定版本
+zeno upgrade --version v1.0.8
+
+# 列出所有可用版本
+zeno upgrade --list
+
+# 回滚到上一个版本
+zeno upgrade --rollback
+```
+
 ### 负载均衡器命令
 
 ```bash
