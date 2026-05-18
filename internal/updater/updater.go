@@ -21,6 +21,8 @@ const (
 	binaryName = "zeno"
 )
 
+var httpCli = &http.Client{Timeout: 60 * time.Second}
+
 // Release represents a single GitHub release entry.
 type Release struct {
 	TagName     string    `json:"tag_name"`
@@ -110,7 +112,7 @@ func ChecksumURL(tag string) string {
 // Download fetches url into a temp file and returns its path.
 // The caller must remove the file when done.
 func Download(url string) (string, error) {
-	resp, err := http.Get(url)
+	resp, err := httpCli.Get(url)
 	if err != nil {
 		return "", fmt.Errorf("download failed: %w", err)
 	}
@@ -123,7 +125,8 @@ func Download(url string) (string, error) {
 		return "", err
 	}
 	defer f.Close()
-	if _, err := io.Copy(f, resp.Body); err != nil {
+	const maxDownloadSize = 100 << 20 // 100 MB
+	if _, err := io.Copy(f, io.LimitReader(resp.Body, maxDownloadSize)); err != nil {
 		os.Remove(f.Name())
 		return "", fmt.Errorf("download failed: %w", err)
 	}
@@ -132,7 +135,7 @@ func Download(url string) (string, error) {
 
 // VerifyChecksum checks the SHA256 of archivePath against the entry in checksumURL for archiveName.
 func VerifyChecksum(archivePath, checksumURL, archiveName string) error {
-	resp, err := http.Get(checksumURL)
+	resp, err := httpCli.Get(checksumURL)
 	if err != nil {
 		return fmt.Errorf("failed to download checksums: %w", err)
 	}
@@ -149,6 +152,9 @@ func VerifyChecksum(archivePath, checksumURL, archiveName string) error {
 			expected = fields[0]
 			break
 		}
+	}
+	if err := scanner.Err(); err != nil {
+		return fmt.Errorf("failed to read checksums: %w", err)
 	}
 	if expected == "" {
 		return fmt.Errorf("no checksum entry for %s in checksums.txt", archiveName)
@@ -192,6 +198,14 @@ func ExtractBinary(archivePath, destDir string) (string, error) {
 		if err != nil {
 			return "", fmt.Errorf("corrupt archive: %w", err)
 		}
+		// 跳过 symlink/hardlink 防止攻击
+		if hdr.Typeflag == tar.TypeSymlink || hdr.Typeflag == tar.TypeLink {
+			continue
+		}
+		// 拒绝含 ".." 的路径
+		if strings.Contains(filepath.Clean(hdr.Name), "..") {
+			return "", fmt.Errorf("archive contains unsafe path: %s", hdr.Name)
+		}
 		if filepath.Base(hdr.Name) == binaryName && hdr.Typeflag == tar.TypeReg {
 			dest := filepath.Join(destDir, binaryName)
 			out, err := os.OpenFile(dest, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0755)
@@ -211,13 +225,18 @@ func ExtractBinary(archivePath, destDir string) (string, error) {
 }
 
 // Install replaces currentBinary with newBinary, backing up current as <path>.bak.
+// Falls back to copy+delete if os.Rename fails across device boundaries.
 func Install(newBinary, currentBinary string) error {
 	backup := currentBinary + ".bak"
 	if err := copyFile(currentBinary, backup); err != nil {
 		return fmt.Errorf("failed to create backup: %w", err)
 	}
 	if err := os.Rename(newBinary, currentBinary); err != nil {
-		return fmt.Errorf("failed to install new binary: %w", err)
+		// Fallback: copy then delete (handles cross-device links)
+		if err2 := copyFile(newBinary, currentBinary); err2 != nil {
+			return fmt.Errorf("failed to install new binary: %w (rename: %v)", err2, err)
+		}
+		os.Remove(newBinary)
 	}
 	return nil
 }
@@ -258,7 +277,7 @@ type httpClient struct{}
 
 func (c *httpClient) FetchLatest() (*Release, error) {
 	url := fmt.Sprintf("https://api.github.com/repos/%s/releases/latest", githubRepo)
-	resp, err := http.Get(url)
+	resp, err := httpCli.Get(url)
 	if err != nil {
 		return nil, fmt.Errorf("failed to fetch latest release: %w", err)
 	}
@@ -278,7 +297,7 @@ func (c *httpClient) FetchLatest() (*Release, error) {
 
 func (c *httpClient) FetchAll() ([]*Release, error) {
 	url := fmt.Sprintf("https://api.github.com/repos/%s/releases?per_page=100", githubRepo)
-	resp, err := http.Get(url)
+	resp, err := httpCli.Get(url)
 	if err != nil {
 		return nil, fmt.Errorf("failed to fetch releases: %w", err)
 	}

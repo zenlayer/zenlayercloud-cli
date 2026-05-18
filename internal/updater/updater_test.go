@@ -1,6 +1,8 @@
 package updater
 
 import (
+	"archive/tar"
+	"compress/gzip"
 	"errors"
 	"os"
 	"path/filepath"
@@ -173,4 +175,63 @@ func TestUpdaterFetchAll(t *testing.T) {
 	if len(releases) != 2 {
 		t.Errorf("FetchAll() returned %d releases, want 2", len(releases))
 	}
+}
+
+func TestExtractBinary(t *testing.T) {
+	// Build a minimal tar.gz containing a fake "zeno" binary
+	archivePath := buildTestArchive(t, "zeno", []byte("fake-binary"))
+
+	destDir := t.TempDir()
+	got, err := ExtractBinary(archivePath, destDir)
+	if err != nil {
+		t.Fatalf("ExtractBinary failed: %v", err)
+	}
+	data, _ := os.ReadFile(got)
+	if string(data) != "fake-binary" {
+		t.Errorf("extracted content = %q, want %q", data, "fake-binary")
+	}
+}
+
+func TestExtractBinaryNotFound(t *testing.T) {
+	// Archive contains a file with wrong name
+	archivePath := buildTestArchive(t, "other-binary", []byte("data"))
+
+	destDir := t.TempDir()
+	_, err := ExtractBinary(archivePath, destDir)
+	if err == nil {
+		t.Fatal("expected error when binary not in archive, got nil")
+	}
+	if !strings.Contains(err.Error(), "not found in archive") {
+		t.Errorf("error = %q, want to contain %q", err.Error(), "not found in archive")
+	}
+}
+
+// buildTestArchive creates a .tar.gz archive with a single file named fileName
+// containing content, and returns the archive path.
+func buildTestArchive(t *testing.T, fileName string, content []byte) string {
+	t.Helper()
+	f, err := os.CreateTemp(t.TempDir(), "archive-*.tar.gz")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer f.Close()
+
+	gw := gzip.NewWriter(f)
+	tw := tar.NewWriter(gw)
+
+	hdr := &tar.Header{
+		Name:     fileName,
+		Mode:     0755,
+		Size:     int64(len(content)),
+		Typeflag: tar.TypeReg,
+	}
+	if err := tw.WriteHeader(hdr); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := tw.Write(content); err != nil {
+		t.Fatal(err)
+	}
+	tw.Close()
+	gw.Close()
+	return f.Name()
 }
