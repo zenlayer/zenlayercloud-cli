@@ -3,6 +3,7 @@ package cmd
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"os"
 	"strings"
 
@@ -26,6 +27,7 @@ var upgradeCmd = &cobra.Command{
 
 The current binary is backed up as <path>.bak before replacement,
 enabling rollback with --rollback if needed.`,
+	Args: cobra.NoArgs,
 	RunE: runUpgrade,
 }
 
@@ -39,6 +41,9 @@ func init() {
 }
 
 func runUpgrade(cmd *cobra.Command, args []string) error {
+	if upgradeRollback && (upgradeVersion != "" || upgradeCheck || upgradeList) {
+		return fmt.Errorf("--rollback cannot be combined with --check, --list, or --version")
+	}
 	if upgradeRollback {
 		exe, err := os.Executable()
 		if err != nil {
@@ -116,7 +121,10 @@ func runUpgrade(cmd *cobra.Command, args []string) error {
 	if !upgradeYes {
 		fmt.Print("Proceed with upgrade? [y/N]: ")
 		reader := bufio.NewReader(os.Stdin)
-		answer, _ := reader.ReadString('\n')
+		answer, readErr := reader.ReadString('\n')
+		if readErr != nil && readErr != io.EOF {
+			return fmt.Errorf("failed to read confirmation: %w", readErr)
+		}
 		if strings.ToLower(strings.TrimSpace(answer)) != "y" {
 			fmt.Println("Upgrade cancelled.")
 			return nil
