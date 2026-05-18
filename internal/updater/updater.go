@@ -218,11 +218,17 @@ func ExtractBinary(archivePath, destDir string) (string, error) {
 			if err != nil {
 				return "", err
 			}
-			_, copyErr := io.Copy(out, tr)
+			const maxExtractSize int64 = 100 << 20 // 100 MB
+			lr := io.LimitReader(tr, maxExtractSize+1)
+			n, copyErr := io.Copy(out, lr)
 			out.Close()
 			if copyErr != nil {
 				os.Remove(dest)
 				return "", fmt.Errorf("failed to extract binary: %w", copyErr)
+			}
+			if n > maxExtractSize {
+				os.Remove(dest)
+				return "", fmt.Errorf("extracted binary exceeds 100 MB limit")
 			}
 			return dest, nil
 		}
