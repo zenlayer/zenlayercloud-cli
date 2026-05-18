@@ -55,6 +55,36 @@ Use "{{.CommandPath}} <api-name> --help" for more information about a command.{{
 // setTestFS replaces apisFS for use in unit tests.
 func setTestFS(fsys fs.FS) { apisFS = fsys }
 
+// loadProductDescriptions reads apis/{lang}/products.yaml and returns a map of
+// product name → short description. Falls back to en-US when the lang file is
+// absent. Returns an empty map on any error so callers can always use it safely.
+func loadProductDescriptions(lang string) map[string]string {
+	descs := make(map[string]string)
+	paths := []string{
+		fmt.Sprintf("apis/%s/products.yaml", lang),
+		"apis/en-US/products.yaml",
+	}
+	for _, p := range paths {
+		data, err := fs.ReadFile(apisFS, p)
+		if err != nil {
+			continue
+		}
+		if err := yaml.Unmarshal(data, &descs); err == nil && len(descs) > 0 {
+			return descs
+		}
+	}
+	return descs
+}
+
+// productShort returns the localised short description for a product, falling
+// back to a generic "Manage XYZ resources" when not found.
+func productShort(product string, descs map[string]string) string {
+	if s, ok := descs[product]; ok && s != "" {
+		return s
+	}
+	return fmt.Sprintf("Manage %s resources", strings.ToUpper(product))
+}
+
 // RegisterAll scans the provided embedded APIs filesystem, parses each YAML
 // definition, and registers cobra product sub-commands on root. Multiple APIs
 // in the same product share one parent command.
@@ -64,6 +94,7 @@ func setTestFS(fsys fs.FS) { apisFS = fsys }
 func RegisterAll(root *cobra.Command, fsys embed.FS, getAccessKeyID, getAccessKeySecret func() string, getOutput, getQuery, getDebug, getEndpoint, getDryRun func() interface{}) error {
 	apisFS = fsys
 	lang := langDir(config.GetLanguage())
+	productDescs := loadProductDescriptions(lang)
 
 	// Collect en-US definitions to iterate over (source of truth for file list).
 	enFiles, err := listYAMLFiles("apis/en-US")
@@ -103,7 +134,7 @@ func RegisterAll(root *cobra.Command, fsys embed.FS, getAccessKeyID, getAccessKe
 		if !ok {
 			prodCmd = &cobra.Command{
 				Use:   product + " <api-name> [--param1 value1] [flags]",
-				Short: fmt.Sprintf("Manage %s resources", strings.ToUpper(product)),
+				Short: productShort(product, productDescs),
 				RunE: func(cmd *cobra.Command, args []string) error {
 					if len(args) > 0 {
 						return fmt.Errorf("unknown command %q for %q", args[0], cmd.CommandPath())

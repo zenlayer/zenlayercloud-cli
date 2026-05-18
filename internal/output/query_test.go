@@ -22,8 +22,8 @@ func TestApplyQuery(t *testing.T) {
 		{
 			name:  "extract single field",
 			query: "a",
-			data:  map[string]interface{}{"a": 1, "b": "two"},
-			want:  1.0,
+			data:  map[string]interface{}{"a": float64(1), "b": "two"},
+			want:  float64(1),
 		},
 		{
 			name:  "nested path",
