@@ -60,14 +60,14 @@ func runUpgrade(cmd *cobra.Command, args []string) error {
 			return err
 		}
 		current := strings.TrimPrefix(version.Version, "v")
-		fmt.Printf("%-16s  %s\n", "Version", "Published")
-		fmt.Printf("%-16s  %s\n", strings.Repeat("-", 16), strings.Repeat("-", 10))
+		fmt.Printf("%-16s %-3s %s\n", "Version", "", "Published")
+		fmt.Printf("%-16s %-3s %s\n", strings.Repeat("-", 16), "", strings.Repeat("-", 10))
 		for _, r := range releases {
-			marker := "  "
+			marker := ""
 			if strings.TrimPrefix(r.TagName, "v") == current {
-				marker = " *"
+				marker = "*"
 			}
-			fmt.Printf("%-16s%s  %s\n", r.TagName, marker, r.PublishedAt.Format("2006-01-02"))
+			fmt.Printf("%-16s %-3s %s\n", r.TagName, strings.TrimSpace(marker), r.PublishedAt.Format("2006-01-02"))
 		}
 		return nil
 	}
@@ -92,7 +92,11 @@ func runUpgrade(cmd *cobra.Command, args []string) error {
 
 	if upgradeCheck {
 		fmt.Printf("Current version: %s\n", current)
-		fmt.Printf("Latest version:  %s\n", targetTag)
+		label := "Latest version: "
+		if upgradeVersion != "" {
+			label = "Target version: "
+		}
+		fmt.Printf("%s%s\n", label, targetTag)
 		if updater.CompareVersions(cur, target) >= 0 {
 			fmt.Println("Already up to date.")
 		} else {
