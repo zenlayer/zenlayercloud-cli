@@ -3,7 +3,11 @@ package updater
 import (
 	"archive/tar"
 	"compress/gzip"
+	"crypto/sha256"
 	"errors"
+	"fmt"
+	"net/http"
+	"net/http/httptest"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -234,4 +238,169 @@ func buildTestArchive(t *testing.T, fileName string, content []byte) string {
 	tw.Close()
 	gw.Close()
 	return f.Name()
+}
+
+func TestExtractBinarySymlinkSkipped(t *testing.T) {
+	// Create an archive with a symlink entry named "zeno" — should be skipped
+	archivePath := buildTestArchiveWithSymlink(t, "zeno", "/etc/passwd")
+
+	destDir := t.TempDir()
+	_, err := ExtractBinary(archivePath, destDir)
+	if err == nil {
+		t.Fatal("expected error when only a symlink named 'zeno' is present, got nil")
+	}
+	if !strings.Contains(err.Error(), "not found in archive") {
+		t.Errorf("error = %q, want to contain %q", err.Error(), "not found in archive")
+	}
+}
+
+func TestExtractBinaryPathTraversal(t *testing.T) {
+	// Create an archive with a path-traversal entry
+	archivePath := buildTestArchiveWithPath(t, "../../etc/zeno", []byte("payload"))
+
+	destDir := t.TempDir()
+	_, err := ExtractBinary(archivePath, destDir)
+	if err == nil {
+		t.Fatal("expected error for path-traversal entry, got nil")
+	}
+	if !strings.Contains(err.Error(), "unsafe path") {
+		t.Errorf("error = %q, want to contain %q", err.Error(), "unsafe path")
+	}
+}
+
+// buildTestArchiveWithSymlink creates a tar.gz with a single symlink entry.
+func buildTestArchiveWithSymlink(t *testing.T, linkName, linkTarget string) string {
+	t.Helper()
+	f, err := os.CreateTemp(t.TempDir(), "archive-*.tar.gz")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer f.Close()
+
+	gw := gzip.NewWriter(f)
+	tw := tar.NewWriter(gw)
+	hdr := &tar.Header{
+		Name:     linkName,
+		Typeflag: tar.TypeSymlink,
+		Linkname: linkTarget,
+	}
+	if err := tw.WriteHeader(hdr); err != nil {
+		t.Fatal(err)
+	}
+	tw.Close()
+	gw.Close()
+	return f.Name()
+}
+
+// buildTestArchiveWithPath creates a tar.gz with a single regular file at the given path.
+func buildTestArchiveWithPath(t *testing.T, path string, content []byte) string {
+	t.Helper()
+	f, err := os.CreateTemp(t.TempDir(), "archive-*.tar.gz")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer f.Close()
+
+	gw := gzip.NewWriter(f)
+	tw := tar.NewWriter(gw)
+	hdr := &tar.Header{
+		Name:     path,
+		Mode:     0755,
+		Size:     int64(len(content)),
+		Typeflag: tar.TypeReg,
+	}
+	if err := tw.WriteHeader(hdr); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := tw.Write(content); err != nil {
+		t.Fatal(err)
+	}
+	tw.Close()
+	gw.Close()
+	return f.Name()
+}
+
+func TestVerifyChecksumMatch(t *testing.T) {
+	// Create a temp file with known content
+	content := []byte("test content")
+	f, err := os.CreateTemp(t.TempDir(), "archive-*")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err := f.Write(content); err != nil {
+		t.Fatal(err)
+	}
+	f.Close()
+
+	// Compute expected SHA256
+	h := sha256.New()
+	h.Write(content)
+	expected := fmt.Sprintf("%x", h.Sum(nil))
+
+	archiveName := "zeno_1.0.9_linux_amd64.tar.gz"
+	checksumContent := expected + "  " + archiveName + "\n"
+
+	// Start a local HTTP server that returns the checksums.txt
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte(checksumContent))
+	}))
+	defer srv.Close()
+
+	if err := VerifyChecksum(f.Name(), srv.URL+"/checksums.txt", archiveName); err != nil {
+		t.Fatalf("VerifyChecksum failed: %v", err)
+	}
+}
+
+func TestVerifyChecksumMismatch(t *testing.T) {
+	f, err := os.CreateTemp(t.TempDir(), "archive-*")
+	if err != nil {
+		t.Fatal(err)
+	}
+	f.Write([]byte("real content"))
+	f.Close()
+
+	archiveName := "zeno_1.0.9_linux_amd64.tar.gz"
+	checksumContent := "0000000000000000000000000000000000000000000000000000000000000000  " + archiveName + "\n"
+
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte(checksumContent))
+	}))
+	defer srv.Close()
+
+	err = VerifyChecksum(f.Name(), srv.URL+"/checksums.txt", archiveName)
+	if err == nil {
+		t.Fatal("expected checksum mismatch error, got nil")
+	}
+	if !strings.Contains(err.Error(), "checksum mismatch") {
+		t.Errorf("error = %q, want to contain %q", err.Error(), "checksum mismatch")
+	}
+}
+
+func TestVerifyChecksumMissingEntry(t *testing.T) {
+	f, err := os.CreateTemp(t.TempDir(), "archive-*")
+	if err != nil {
+		t.Fatal(err)
+	}
+	f.Write([]byte("content"))
+	f.Close()
+
+	archiveName := "zeno_1.0.9_linux_amd64.tar.gz"
+	// checksums.txt has an entry for a different file
+	checksumContent := "abc123  other_file.tar.gz\n"
+
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte(checksumContent))
+	}))
+	defer srv.Close()
+
+	err = VerifyChecksum(f.Name(), srv.URL+"/checksums.txt", archiveName)
+	if err == nil {
+		t.Fatal("expected 'no checksum entry' error, got nil")
+	}
+	if !strings.Contains(err.Error(), "no checksum entry") {
+		t.Errorf("error = %q, want to contain %q", err.Error(), "no checksum entry")
+	}
 }

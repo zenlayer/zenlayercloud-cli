@@ -260,7 +260,11 @@ func Rollback(binaryPath string) error {
 		return fmt.Errorf("no backup found at %s", backup)
 	}
 	if err := os.Rename(backup, binaryPath); err != nil {
-		return fmt.Errorf("failed to restore backup: %w", err)
+		// Fallback: copy then delete (handles cross-device links)
+		if err2 := copyFile(backup, binaryPath); err2 != nil {
+			return fmt.Errorf("failed to restore backup: %w (rename: %v)", err2, err)
+		}
+		os.Remove(backup)
 	}
 	return nil
 }
