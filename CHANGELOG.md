@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.9](https://github.com/zenlayer/zenlayercloud-cli/releases/tag/v1.0.9) - 2026-05-18
+
+### Bug Fixes
+
+- add cross-device fallback to Rollback and add security/checksum tests
+- correctly fall back to 'dev' version when no git tag is matched
+- add flag mutual exclusion, handle stdin EOF, add cobra.NoArgs to upgrade
+- improve upgrade --check label and --list alignment
+- add size limit to ExtractBinary to prevent large file extraction
+- detect and reject downloads exceeding 100 MB in Download func
+- harden updater package (timeout, size limit, tar safety, cross-device install)
+- update product command description
+- skills yaml format error
+
+### Documentation
+
+- add upgrade section to installation guide
+- add upgrade command to README and add --rollback to upgrade docs
+- update CHANGELOG.md for v1.0.8
+
+### Features
+
+- add upgrade command with --check, --list, --version, --rollback, --yes
+- add internal/updater package with core upgrade logic
 ## [1.0.8](https://github.com/zenlayer/zenlayercloud-cli/releases/tag/v1.0.8) - 2026-05-12
 
 ### Documentation
