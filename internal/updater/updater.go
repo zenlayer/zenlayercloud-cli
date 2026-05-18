@@ -125,10 +125,16 @@ func Download(url string) (string, error) {
 		return "", err
 	}
 	defer f.Close()
-	const maxDownloadSize = 100 << 20 // 100 MB
-	if _, err := io.Copy(f, io.LimitReader(resp.Body, maxDownloadSize)); err != nil {
+	const maxDownloadSize int64 = 100 << 20 // 100 MB
+	lr := io.LimitReader(resp.Body, maxDownloadSize+1)
+	n, copyErr := io.Copy(f, lr)
+	if copyErr != nil {
 		os.Remove(f.Name())
-		return "", fmt.Errorf("download failed: %w", err)
+		return "", fmt.Errorf("download failed: %w", copyErr)
+	}
+	if n > maxDownloadSize {
+		os.Remove(f.Name())
+		return "", fmt.Errorf("download exceeded 100 MB limit for %s", url)
 	}
 	return f.Name(), nil
 }
