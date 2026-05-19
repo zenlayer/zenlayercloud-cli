@@ -152,3 +152,12 @@ response:
     description: |-
       硬盘配置。
       单位：GB。
+  - name: vpuVendor
+    type: string
+    description: VPU 供应商
+  - name: vpuCard
+    type: string
+    description: VPU 型号。示例：T1U
+  - name: vpuCount
+    type: integer
+    description: VPU 数量

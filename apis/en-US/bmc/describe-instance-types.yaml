@@ -148,3 +148,12 @@ response:
     description: |-
       Disk size.
       Unit: GB.
+  - name: vpuVendor
+    type: string
+    description: VPU vendor
+  - name: vpuCard
+    type: string
+    description: 'VPU Model. Example: T1U'
+  - name: vpuCount
+    type: integer
+    description: VPU count.

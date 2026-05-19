@@ -26,6 +26,16 @@ parameters:
   required: false
   sdk-field: backendName
   description: 后端配置服务器的名称。
+- name: instance-type
+  type: enum
+  required: false
+  sdk-field: instanceType
+  description: 实例类型。默认为BM
+  enum-values:
+  - value: BM
+    desc: 裸金属
+  - value: VM
+    desc: VM
 - name: page-num
   type: integer
   required: false
@@ -66,6 +76,14 @@ response:
   - name: instanceId
     type: string
     description: 实例ID。
+  - name: instanceType
+    type: enum
+    description: 实例类型。
+    enum-values:
+    - value: BM
+      desc: 裸金属
+    - value: VM
+      desc: VM
   - name: instanceName
     type: string
     description: 实例名称。

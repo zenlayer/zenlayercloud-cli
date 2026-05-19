@@ -26,6 +26,16 @@ parameters:
   required: false
   sdk-field: backendName
   description: Backend server name.
+- name: instance-type
+  type: enum
+  required: false
+  sdk-field: instanceType
+  description: 'Instance type. Default value: BM'
+  enum-values:
+  - value: BM
+    desc: Bare Metal
+  - value: VM
+    desc: Virtual machine.
 - name: page-num
   type: integer
   required: false
@@ -71,6 +81,14 @@ response:
   - name: instanceId
     type: string
     description: Instance ID.
+  - name: instanceType
+    type: enum
+    description: Instance type.
+    enum-values:
+    - value: BM
+      desc: Bare Metal
+    - value: VM
+      desc: Virtual machine.
   - name: instanceName
     type: string
     description: Instance name.

@@ -28,6 +28,16 @@ parameters:
   required: true
   sdk-field: instanceId
   description: Bare metal instance ID.
+- name: instance-type
+  type: enum
+  required: false
+  sdk-field: instanceType
+  description: Instance type.
+  enum-values:
+  - value: BM
+    desc: Bare Metal
+  - value: VM
+    desc: Virtual machine.
 - name: client-token
   type: string
   required: true

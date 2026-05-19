@@ -28,6 +28,16 @@ parameters:
   required: true
   sdk-field: instanceId
   description: 裸金属实例ID。
+- name: instance-type
+  type: enum
+  required: false
+  sdk-field: instanceType
+  description: 实例类型。
+  enum-values:
+  - value: BM
+    desc: 裸金属
+  - value: VM
+    desc: VM
 - name: client-token
   type: string
   required: true
