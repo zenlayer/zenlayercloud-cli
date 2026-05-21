@@ -14,6 +14,10 @@ import (
 // colPadding is the total horizontal padding applied inside each cell (2 spaces each side).
 const colPadding = 4
 
+// longTextThreshold is the minimum rune-count at which a top-level scalar value
+// is extracted as a footnote instead of occupying an inline table cell.
+const longTextThreshold = 60
+
 // TableFormatter formats output as a human-readable table using box-drawing
 // borders, matching the style of Tencent Cloud CLI (tccli).
 //
@@ -155,9 +159,15 @@ func (s *tableSection) convertToVertical() {
 
 // ─── multiTable ───────────────────────────────────────────────────────────────
 
+type footnote struct {
+	key   string
+	value string
+}
+
 type multiTable struct {
-	sections []*tableSection
-	current  *tableSection
+	sections  []*tableSection
+	current   *tableSection
+	footnotes []footnote
 }
 
 func (mt *multiTable) newSection(title string, indent int) {
@@ -178,21 +188,35 @@ func (mt *multiTable) addRow(row []string) {
 	}
 }
 
-// buildFromDict populates the current section with scalar key-value pairs and
-// recursively creates sub-sections for complex (non-scalar) values.
+// buildFromDict populates the current section with inline key-value pairs and
+// recursively creates sub-sections for complex (non-inline) values.
+// At indent 0, scalar values exceeding longTextThreshold are collected as
+// footnotes and printed after the table rather than in a cell.
 func (mt *multiTable) buildFromDict(m map[string]interface{}, indent int) {
-	scalars, complex := groupKeys(m)
+	inlines, complex := groupKeys(m)
+
+	var short, long []string
+	for _, k := range inlines {
+		if indent == 0 && (len(inlines) > 1 || len(complex) > 0) &&
+			utf8.RuneCountInString(formatValue(m[k])) > longTextThreshold {
+			long = append(long, k)
+		} else {
+			short = append(short, k)
+		}
+	}
+	for _, k := range long {
+		mt.footnotes = append(mt.footnotes, footnote{key: k, value: formatValue(m[k])})
+	}
+
 	switch {
-	case len(scalars) == 1:
-		// Single scalar → vertical key | value row (no header).
-		k := scalars[0]
-		mt.addRow([]string{k, formatScalar(m[k])})
-	case len(scalars) > 1:
-		// Multiple scalars → horizontal header + single data row.
-		mt.addHeader(scalars)
-		row := make([]string, len(scalars))
-		for i, k := range scalars {
-			row[i] = formatScalar(m[k])
+	case len(short) == 1:
+		k := short[0]
+		mt.addRow([]string{k, formatValue(m[k])})
+	case len(short) > 1:
+		mt.addHeader(short)
+		row := make([]string, len(short))
+		for i, k := range short {
+			row[i] = formatValue(m[k])
 		}
 		mt.addRow(row)
 	}
@@ -219,12 +243,12 @@ func (mt *multiTable) buildValue(title string, v interface{}, indent int) {
 		} else {
 			mt.newSection(title, indent)
 			for _, item := range val {
-				mt.addRow([]string{formatScalar(item)})
+				mt.addRow([]string{fmt.Sprintf("%v", item)})
 			}
 		}
 	default:
 		mt.newSection(title, indent)
-		mt.addRow([]string{formatScalar(val)})
+		mt.addRow([]string{fmt.Sprintf("%v", val)})
 	}
 }
 
@@ -244,10 +268,11 @@ func (mt *multiTable) buildFromList(title string, items []interface{}, indent in
 		if !ok {
 			continue
 		}
-		// When an element has nested columns, start a new sub-table section for
-		// subsequent elements so nested sub-sections follow the correct row.
+		// When an element has nested columns, start a new (untitled) sub-table
+		// section so nested sub-sections follow the correct row.
+		// No title on continuation sections to avoid repeating the parent label.
 		if !first && len(complexCols) > 0 {
-			mt.newSection(title, indent)
+			mt.newSection("", indent)
 			if len(scalarCols) > 0 {
 				mt.addHeader(scalarCols)
 			}
@@ -257,7 +282,7 @@ func (mt *multiTable) buildFromList(title string, items []interface{}, indent in
 		if len(scalarCols) > 0 {
 			row := make([]string, len(scalarCols))
 			for i, col := range scalarCols {
-				row[i] = formatScalar(m[col])
+				row[i] = formatValue(m[col])
 			}
 			mt.addRow(row)
 		}
@@ -302,6 +327,9 @@ func (mt *multiTable) renderAll(w io.Writer) {
 	fmt.Fprintln(w, strings.Repeat("-", maxW))
 	for _, s := range mt.sections {
 		renderSection(w, s, maxW)
+	}
+	for _, fn := range mt.footnotes {
+		fmt.Fprintf(w, "\n%s:\n%s\n", fn.key, fn.value)
 	}
 }
 
@@ -493,21 +521,21 @@ func terminalWidth() int {
 
 // ─── helpers ──────────────────────────────────────────────────────────────────
 
-func groupKeys(m map[string]interface{}) (scalars, complex []string) {
+func groupKeys(m map[string]interface{}) (inlines, complex []string) {
 	for k, v := range m {
-		if isScalar(v) {
-			scalars = append(scalars, k)
+		if isInlineValue(v) {
+			inlines = append(inlines, k)
 		} else {
 			complex = append(complex, k)
 		}
 	}
-	sort.Strings(scalars)
+	sort.Strings(inlines)
 	sort.Strings(complex)
 	return
 }
 
-func groupKeysFromList(items []interface{}) (scalars, complex []string) {
-	scalarSet := make(map[string]struct{})
+func groupKeysFromList(items []interface{}) (inlines, complex []string) {
+	inlineSet := make(map[string]struct{})
 	complexSet := make(map[string]struct{})
 	for _, item := range items {
 		m, ok := item.(map[string]interface{})
@@ -515,25 +543,29 @@ func groupKeysFromList(items []interface{}) (scalars, complex []string) {
 			continue
 		}
 		for k, v := range m {
-			if isScalar(v) {
-				scalarSet[k] = struct{}{}
+			if isInlineValue(v) {
+				// Only add to inlines if not already classified as complex by another item.
+				if _, alreadyComplex := complexSet[k]; !alreadyComplex {
+					inlineSet[k] = struct{}{}
+				}
 			} else {
 				complexSet[k] = struct{}{}
+				delete(inlineSet, k) // complex takes priority if a previous item was inline
 			}
 		}
 	}
-	for k := range scalarSet {
-		scalars = append(scalars, k)
+	for k := range inlineSet {
+		inlines = append(inlines, k)
 	}
 	for k := range complexSet {
 		complex = append(complex, k)
 	}
-	sort.Strings(scalars)
+	sort.Strings(inlines)
 	sort.Strings(complex)
 	return
 }
 
-// isScalar returns true when v can be rendered inline as a single value.
+// isScalar returns true when v is a primitive value (not a collection).
 func isScalar(v interface{}) bool {
 	switch v.(type) {
 	case nil, bool, int, int8, int16, int32, int64,
@@ -543,6 +575,57 @@ func isScalar(v interface{}) bool {
 	default:
 		return false
 	}
+}
+
+// isInlineValue reports whether v can be rendered as a single-line string.
+// Extends isScalar to cover scalar arrays and small flat-object arrays.
+func isInlineValue(v interface{}) bool {
+	switch val := v.(type) {
+	case nil, bool, int, int8, int16, int32, int64,
+		uint, uint8, uint16, uint32, uint64,
+		float32, float64, string:
+		return true
+	case []interface{}:
+		return isInlineArray(val)
+	default:
+		return false
+	}
+}
+
+// isInlineArray reports whether an array is renderable as a compact inline string.
+// Scalar arrays are always inline. Object arrays are inline when every item is a
+// flat map (all-scalar fields, ≤ 4 fields per item) and the list has ≤ 10 items.
+func isInlineArray(arr []interface{}) bool {
+	if len(arr) == 0 {
+		return true
+	}
+	if isAllScalar(arr) {
+		return true
+	}
+	if !allMaps(arr) || len(arr) > 10 {
+		return false
+	}
+	for _, item := range arr {
+		m := item.(map[string]interface{})
+		if len(m) > 4 {
+			return false
+		}
+		for _, mv := range m {
+			if !isScalar(mv) {
+				return false
+			}
+		}
+	}
+	return true
+}
+
+func isAllScalar(arr []interface{}) bool {
+	for _, item := range arr {
+		if !isScalar(item) {
+			return false
+		}
+	}
+	return true
 }
 
 // allMaps returns true when every element of items is a map[string]interface{}.
@@ -555,10 +638,82 @@ func allMaps(items []interface{}) bool {
 	return true
 }
 
-// formatScalar converts a scalar value to its display string.
-func formatScalar(v interface{}) string {
+// formatValue renders any value accepted by isInlineValue.
+func formatValue(v interface{}) string {
 	if v == nil {
 		return ""
 	}
+	if arr, ok := v.([]interface{}); ok {
+		return formatInlineArray(arr)
+	}
 	return fmt.Sprintf("%v", v)
+}
+
+// formatInlineArray renders a scalar or small-object array as a compact string.
+func formatInlineArray(arr []interface{}) string {
+	if len(arr) == 0 {
+		return ""
+	}
+	if isAllScalar(arr) {
+		parts := make([]string, len(arr))
+		for i, item := range arr {
+			parts[i] = fmt.Sprintf("%v", item)
+		}
+		return strings.Join(parts, ", ")
+	}
+	parts := make([]string, 0, len(arr))
+	for _, item := range arr {
+		m, ok := item.(map[string]interface{})
+		if !ok {
+			parts = append(parts, fmt.Sprintf("%v", item))
+			continue
+		}
+		parts = append(parts, formatInlineObject(m))
+	}
+	return strings.Join(parts, ", ")
+}
+
+// formatInlineObject renders a flat map as "primaryVal(secondary1,secondary2,...)"
+// using identifier-like fields as the primary, or "val1/val2" when none found.
+func formatInlineObject(m map[string]interface{}) string {
+	keys := make([]string, 0, len(m))
+	for k := range m {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+
+	primary := findPrimaryKey(keys)
+	if primary == "" || len(keys) == 1 {
+		parts := make([]string, len(keys))
+		for i, k := range keys {
+			parts[i] = fmt.Sprintf("%v", m[k])
+		}
+		return strings.Join(parts, "/")
+	}
+
+	var sb strings.Builder
+	sb.WriteString(fmt.Sprintf("%v", m[primary]))
+	others := make([]string, 0, len(keys)-1)
+	for _, k := range keys {
+		if k != primary {
+			others = append(others, fmt.Sprintf("%v", m[k]))
+		}
+	}
+	sb.WriteByte('(')
+	sb.WriteString(strings.Join(others, ","))
+	sb.WriteByte(')')
+	return sb.String()
+}
+
+// findPrimaryKey returns the most identifier-like key from a sorted key list,
+// scanning common suffixes in order of specificity.
+func findPrimaryKey(keys []string) string {
+	for _, suffix := range []string{"type", "id", "name", "code", "key"} {
+		for _, k := range keys {
+			if strings.HasSuffix(strings.ToLower(k), suffix) {
+				return k
+			}
+		}
+	}
+	return ""
 }

@@ -88,14 +88,16 @@ func TestTableFormatter_Format_MapStringInterface(t *testing.T) {
 			contains: []string{"name", "Alice", "disk", "size", "ssd"},
 		},
 		{
-			name: "array of objects renders as table",
+			name: "array of objects renders as inline",
 			data: map[string]interface{}{
 				"instances": []interface{}{
 					map[string]interface{}{"id": "ins-1", "status": "RUNNING"},
 					map[string]interface{}{"id": "ins-2", "status": "STOPPED"},
 				},
 			},
-			contains: []string{"id", "status", "ins-1", "RUNNING", "ins-2", "STOPPED"},
+			// Small object arrays are now rendered inline: "ins-1(RUNNING), ins-2(STOPPED)".
+			// Field names are not repeated as column headers.
+			contains: []string{"instances", "ins-1", "RUNNING", "ins-2", "STOPPED"},
 		},
 		{
 			name: "scalar array renders as list",
