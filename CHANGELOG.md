@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.13](https://github.com/zenlayer/zenlayercloud-cli/releases/tag/v1.0.13) - 2026-05-21
+
+### Bug Fixes
+
+- update table output format
+
+### Documentation
+
+- update CHANGELOG.md for v1.0.12
 ## [1.0.12](https://github.com/zenlayer/zenlayercloud-cli/releases/tag/v1.0.12) - 2026-05-21
 
 ### Documentation
