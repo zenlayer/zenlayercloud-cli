@@ -1,0 +1,24 @@
+name: TerminateDisk
+product: vm
+use: terminate-disk
+short: 终止云硬盘
+long: |-
+  终止云硬盘。
+  **注意事项**
+
+  * 终止的云硬盘将会放入回收站。**24小时**后云硬盘会自动从回收站中删除。
+  * 目前只能终止后付费的云硬盘，预付费云硬盘将会在到期后自动终止。
+  * 本接口无法终止**系统盘**
+examples:
+- cmd: zeno vm terminate-disk --disk-id your-disk-id
+  desc: 将云硬盘放入回收站。
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: TerminateDisk
+parameters:
+- name: disk-id
+  type: string
+  required: true
+  sdk-field: diskId
+  description: 云硬盘ID。

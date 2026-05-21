@@ -1,0 +1,41 @@
+name: DescribeVmInventoryCapacity
+product: vm
+use: describe-vm-inventory-capacity
+short: 获取可用区库存
+long: 获取可用区库存。
+examples:
+- cmd: zeno vm describe-vm-inventory-capacity --zone-id <zoneId>
+  desc: 获取可用区库存。
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: DescribeVmInventoryCapacity
+parameters:
+- name: zone-id
+  type: string
+  required: false
+  sdk-field: zoneId
+  description: 可用区ID。
+response:
+- name: dataSet
+  type: object-array
+  description: 可用区库存集合。
+  array-style: json
+  item-schema:
+  - name: zoneId
+    type: string
+    description: 可用区ID。
+  - name: capacity
+    type: enum
+    description: |-
+      档位。
+      库存容量根据所有机型可售核数定义。
+    enum-values:
+    - value: LIMITED
+      desc: 库存有限，可售核数 < 1000。
+    - value: STANDARD
+      desc: 库存一般，可售核数 1000–2000。
+    - value: SUFFICIENT
+      desc: 库存充足，可售核数 2000–5000。
+    - value: ABUNDANT
+      desc: 库存富余，可售核数 ≥ 5000。

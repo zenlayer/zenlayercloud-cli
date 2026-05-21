@@ -1,0 +1,34 @@
+name: DescribeAiModels
+product: aigw
+use: describe-ai-models
+short: 查询ai模型列表
+long: |-
+  查询ai模型列表
+  **注意事项**
+
+  * 本接口认证方式请参考[认证方式](../../../api-introduction/instruction/authorization/README.md)
+examples:
+- cmd: zeno aigw describe-ai-models
+  desc: 查询 AI 模型列表。
+sdk:
+  service: aigw
+  version: '2026-04-14'
+  action: DescribeAiModels
+response:
+- name: modelSet
+  type: object-array
+  description: AI网关模型。
+  array-style: json
+  item-schema:
+  - name: modelUuid
+    type: string
+    description: 模型uuid。
+  - name: modelName
+    type: string
+    description: 模型名称。
+  - name: modelType
+    type: string
+    description: 模型类型。
+  - name: providerName
+    type: string
+    description: 厂商名称。

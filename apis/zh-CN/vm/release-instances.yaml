@@ -1,0 +1,24 @@
+name: ReleaseInstances
+product: vm
+use: release-instances
+short: 释放虚拟机实例
+long: |-
+  释放一个或多个虚拟机实例。
+  **注意事项**
+
+  * 本操作不可逆，一旦操作成功，实例将被彻底释放，请谨慎操作。
+  * 只有在回收站中的实例才支持该操作。
+  * 支持批量操作。每次请求批量实例的上限为100。
+examples:
+- cmd: zeno vm release-instances --instance-ids instanceId1 --instance-ids instanceId2
+  desc: 批量释放实例
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: ReleaseInstances
+parameters:
+- name: instance-ids
+  type: string-array
+  required: true
+  sdk-field: instanceIds
+  description: 一个或多个待操作的实例ID。

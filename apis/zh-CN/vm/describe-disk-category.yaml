@@ -1,0 +1,53 @@
+name: DescribeDiskCategory
+product: vm
+use: describe-disk-category
+short: 查询云硬盘支持的类型
+long: 查询云硬盘支持的类型。
+examples:
+- cmd: zeno vm describe-disk-category --zone-id SEL-A
+  desc: 查询可用区`SEL-A`下支持的云硬盘类型。
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: DescribeDiskCategory
+parameters:
+- name: instance-charge-type
+  type: enum
+  required: true
+  sdk-field: instanceChargeType
+  description: |-
+    实例计费类型。
+    PREPAID：预付费，即包年包月。
+    POSTPAID：后付费。
+  enum-values:
+  - value: PREPAID
+    desc: 预付费计费方式。
+  - value: POSTPAID
+    desc: 后付费计费方式。
+- name: zone-id
+  type: string
+  required: false
+  sdk-field: zoneId
+  description: |-
+    可用区ID。
+    可从DescribeZones接口中获取。
+- name: disk-category
+  type: string
+  required: false
+  sdk-field: diskCategory
+  description: |-
+    云硬盘种类。
+    STANDARD：标准云盘。
+    SSD：固态硬盘。
+response:
+- name: categoryZoneSet
+  type: object-array
+  description: 云硬盘类型与可用区关系结果集。
+  array-style: json
+  item-schema:
+  - name: zoneId
+    type: string
+    description: 可用区ID。
+  - name: categorySet
+    type: string-array
+    description: 该可用区支持的云硬盘种类集合。

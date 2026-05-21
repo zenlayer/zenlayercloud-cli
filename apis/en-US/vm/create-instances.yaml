@@ -1,0 +1,355 @@
+name: CreateInstances
+product: vm
+use: create-instances
+short: Creates one or more virtual machine instances with a specified configuration
+long: |-
+  Create one or more virtual machine instances with a specified configuration.
+  #### Prerequisites
+  * Query instance model: call [`DescribeZoneInstanceConfigInfos`](describezoneinstanceconfiginfos.md) to check specifications.
+  * Query image: call [`DescribeImages`](../image/describeimages.md) to check information on image.
+  **Note**
+
+  * After an instance is created successfully, it will start up automatically, and the instance status will become "`RUNNING`".
+  * If you create a subscription instance, the amount required will be pre-deducted. If the balance is insufficient, the request will fail. If you create a pay-as-you-go instance, please ensure your account balance is sufficient before calling this API.
+  * Vouchers can be used for fee deduction in instance creation. See [Vouchers](https://docs.console.zenlayer.com/welcome/platform/billing-center/vouchers) for more details.
+  * This API is an async API. An instance ID list is returned after the creation request is sent. However, it does not mean the creation has been completed. The status of the instance will be `PENDING` or `DEPLOYING` during the creation. You can use `DescribeInstances` to query the status of the instance. If the status (`instanceStatus`) changes from `PENDING` or `DEPLOYING` to `Running`, it means that the instance has been created successfully; if no instance has been queried, it means the instance has been created failed. Any operations on the instances are not allowed while creating.
+  * A maximum of 100 instances can be created in one request.
+examples:
+- cmd: zeno vm create-instances --zone-id SEL-A --instance-type c.1c2g --image-id img-yKK4q6XybymPgfx7ynUUqC3N8 --instance-charge-type POSTPAID --internet-charge-type ByBandwidth
+  desc: ''
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: CreateInstances
+parameters:
+- name: zone-id
+  type: string
+  required: true
+  sdk-field: zoneId
+  description: Zone ID to which the instances belong.
+- name: image-id
+  type: string
+  required: true
+  sdk-field: imageId
+  description: |-
+    Valid image ID.
+    To obtain valid image ID, you can call DescribeImages, and find imageId in the response.
+- name: instance-type
+  type: string
+  required: true
+  sdk-field: instanceType
+  description: |-
+    Instance model ID.
+    To view specific values, you can call
+    DescribeZoneInstanceConfigInfos.
+- name: instance-name
+  type: string
+  required: false
+  sdk-field: instanceName
+  description: |-
+    Instance name to be displayed.
+    Default value: instance.
+    This parameter can contain up to 64 characters. Only letters, numbers, - and periods (.) are supported.
+    If you purchase multiple instances at the same time, you can specify a pattern string [begin_number,bits].
+    begin_number: the starting value of an ordered number, value range: [0,99999], default value: 0.
+    bits: the number of digits occupied by an ordered value, value range: [1,6], default value: 6.
+    For example, if you purchase 1 instance and the instance name body is server_[3,3], the instance name will be server003; if you purchase 2 instances, the instance names will be server003, server004.
+    Note:Spaces are not supported in the pattern string.Multiple pattern strings are supported, such as server_[3,3]_[1,1].
+- name: password
+  type: string
+  required: false
+  sdk-field: password
+  description: |-
+    Instance password.
+    The parameter must be 8-16 characters, including:lowercase letters: [a-z]uppercase letters: [A-Z]digits: 0-9special characters: !@#$%^&#x26;*~()-+=You must and can only pass the value of either password or keyId.
+- name: key-id
+  type: string
+  required: false
+  sdk-field: keyId
+  description: |-
+    SSH key pair ID.
+    Your SSH key pair contains several public keys that can be placed on your server. You can access your instance with the private key. SSH key pairs and passwords cannot to set at the same time. SSH key pairs are not supported for Windows operating system.
+    For example: key-YWD2QFOl
+    You must and can only pass the value of either password or keyId.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    Resource group ID where the instances reside.
+    If the value is empty, the instance will be added into the default resource group.
+- name: instance-charge-type
+  type: enum
+  required: true
+  sdk-field: instanceChargeType
+  description: |-
+    Instance pricing model.
+    PREPAID: subscription
+    POSTPAID: pay-as-you-go.
+  enum-values:
+  - value: PREPAID
+    desc: Subscription.
+  - value: POSTPAID
+    desc: Pay-as-you-go.
+- name: instance-charge-prepaid
+  type: object
+  required: false
+  sdk-field: instanceChargePrepaid
+  description: Details of the monthly subscription, including the purchase period, auto-renewal. It is required if the instanceChargeType is PREPAID.
+  object-schema:
+  - name: period
+    type: integer
+    description: |-
+      Period of subscription.
+      Unit: month.
+- name: instance-charge-postpaid
+  type: object
+  required: false
+  sdk-field: instanceChargePostpaid
+  description: Postpaid mode parameter settings.
+  object-schema:
+  - name: period
+    type: integer
+    description: |-
+      Postpaid duration.
+      Unit: Month.
+- name: internet-charge-type
+  type: enum
+  required: true
+  sdk-field: internetChargeType
+  description: |-
+    Public network pricing model.
+    See InternetChargeType for details.
+  enum-values:
+  - value: ByBandwidth
+    desc: Billed by the flat rate bandwidth.
+  - value: ByTrafficPackage
+    desc: Billed by the traffic package size purchased.
+  - value: ByClusterBandwidth95
+    desc: Billed by the burstable 95th bandwidth of instances in a city-based bandwidth cluster
+  - value: BandwidthCluster
+    desc: Billed by the burstable 95th bandwidth of all compute resources in a city-based or regional bandwidth cluster with a shared commitment.
+- name: traffic-package-size
+  type: float
+  required: false
+  sdk-field: trafficPackageSize
+  description: |-
+    Traffic package size (TB).
+    The parameter is valid only when internetChargeType is ByTrafficPackage.
+    If not passed in, the default value will be the size of the free traffic package.
+- name: internet-max-bandwidth-out
+  type: integer
+  required: false
+  sdk-field: internetMaxBandwidthOut
+  description: |-
+    Public network bandwidth cap (Mbps).
+    Default value: 1 Mbps.
+    The parameter value differs with different instance models. See bandwidth configuration for details.
+- name: instance-count
+  type: integer
+  required: true
+  sdk-field: instanceCount
+  description: |-
+    The number of instances to be purchased.
+    Value range: [1,100].
+    Default value: 1.
+- name: system-disk
+  type: object
+  required: false
+  sdk-field: systemDisk
+  description: |-
+    System disk configuration.
+    If the value is empty, the system disk size is the minimum default value to store the operating system.
+  object-schema:
+  - name: diskId
+    type: string
+    description: |-
+      System disk ID.This is an output parameter returned in the data query APIs like DescribeInstances. Can't be used as an input parameter in data writer interfaces like
+      CreateInstances.
+  - name: diskSize
+    type: integer
+    description: 'Size of system disk.Unit: GiB.'
+  - name: diskCategory
+    type: string
+    description: 'Disk type.STANDARD: Standard DiskSSD: Solid State DriveThe default value is Standard Disk.'
+- name: data-disks
+  type: object-array
+  required: false
+  sdk-field: dataDisks
+  description: |-
+    Data disk configuration.
+    If the value is empty, no data disk is attached by default.
+    Only 10 data disk can be attached along with the instance for now.
+  array-style: json
+  item-schema:
+  - name: diskId
+    type: string
+    description: |-
+      Data disk ID.
+      This is an output parameter returned in the data query APIs like DescribeInstances. Can't be used as an input parameter in data writer interfaces like
+      CreateInstances.
+  - name: diskName
+    type: string
+    description: |-
+      Data disk name.
+      This is an output parameter returned in the data query APIs like DescribeInstances.
+  - name: diskSize
+    type: integer
+    description: |-
+      Size of data disk.
+      Unit: GiB.
+  - name: diskAmount
+    type: integer
+    description: |-
+      Quantity of data disks.
+      This parameter is used only as the input parameter in interfaces such as CreateInstances and InquiryPriceCreateInstance.
+  - name: portable
+    type: boolean
+    description: |-
+      Whether the data disk is detachable or not.
+      This parameter is only used to query the output parameter, while not the input parameter.
+      true: the data disk is detachable, and thus will not be deleted while deleting its attached instance.
+      false: the data disk is undetachable, and thus will be deleted at the same time while deleting its attached instance.
+  - name: diskCategory
+    type: string
+    description: 'Disk type.STANDARD: Standard DiskSSD: Solid State DriveThe default value is STANDARD.'
+  - name: diskPrice
+    type: object
+    description: |-
+      Price of data disks.
+      This parameter is used only as the output parameter in interfaces such as
+      InquiryPriceCreateInstance.
+- name: subnet-id
+  type: string
+  required: true
+  sdk-field: subnetId
+  description: Subnet ID.
+- name: enable-ipv6
+  type: boolean
+  required: false
+  sdk-field: enableIpv6
+  description: Whether enable public IPv6 or not.
+- name: enable-ipv4
+  type: boolean
+  required: false
+  sdk-field: enableIpv4
+  description: Whether to enable public IPv4.
+- name: cpu-pass-through
+  type: boolean
+  required: false
+  sdk-field: cpuPassThrough
+  description: Whether CPU passthrough is enabled.
+- name: init-script
+  type: string
+  required: false
+  sdk-field: initScript
+  description: Initialize the script. The string's byte size must not exceed 32 KB.
+- name: network-mode
+  type: enum
+  required: false
+  sdk-field: networkMode
+  description: 'Network interface mode.Vf: VFIO ModeVirtio: Virtio-net Mode'
+  enum-values:
+  - value: Virtio
+    desc: Virtio-net mode.
+  - value: Vf
+    desc: VFIO mode.
+- name: disk-pre-allocated
+  type: boolean
+  required: false
+  sdk-field: diskPreAllocated
+  description: Pre allocate disk performance
+- name: nic
+  type: object
+  required: false
+  sdk-field: nic
+  description: Name of network interface configuration.
+  object-schema:
+  - name: wanName
+    type: string
+    description: |-
+      Public NIC name.
+      Only numbers and lowercase letters are allowed, starting with a letter with a length limit of 4 to 15 characters.
+      The default public NIC name is eth0.
+  - name: lanName
+    type: string
+    description: |-
+      Private NIC name.
+      Only numbers and lowercase letters are allowed, starting with a letter with a length limit of 4 to 15 characters.
+      The default private NIC name is eth1.
+- name: security-group-id
+  type: string
+  required: false
+  sdk-field: securityGroupId
+  description: |-
+    Security group ID.
+    To obtain security group ID, you can call DescribeSecurityGroups , and find sgId in the response.
+- name: cluster-id
+  type: string
+  required: false
+  sdk-field: clusterId
+  description: Bandwidth cluster ID.
+- name: cidr-block-id
+  type: string
+  required: false
+  sdk-field: cidrBlockId
+  description: CIDR Address Block ID. This field specifies the public IP address to be assigned from the CIDR address block.
+- name: start-cidr-ipv4
+  type: string
+  required: false
+  sdk-field: startCidrIpv4
+  description: "The starting IP address within the CIDR address range. \nThis field requires the quota cidrBlockId to be used together, and it represents the public IP address to be assigned to the machine from the address range starting at this address."
+- name: marketing-options
+  type: object
+  required: false
+  sdk-field: marketingOptions
+  description: Information on marketing campaigns.
+  object-schema:
+  - name: discountCode
+    type: string
+    description: |-
+      Promo Code.
+      If no Promo Code exists, the final discount will not apply.
+  - name: usePocVoucher
+    type: boolean
+    description: |-
+      Whether to use POC voucher.
+      If no POC voucher exists, the related creation will fail.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    Tags associated when creating resources.
+    Note: The associated tag key cannot be duplicated.--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      Tag key.
+      Length limit: 1 to 64 characters.
+  - name: value
+    type: string
+    description: "Tag value. \nLength limit: 1 to 64 characters."
+response:
+- name: orderNumber
+  type: string
+  description: Number of order.
+- name: instanceIdSet
+  type: string-array
+  description: |-
+    List of instance IDs.
+    The returned instance ID list does not mean the creation has been completed. The status of the instance will be PENDING or DEPLOYING during the creation. You can call DescribeInstances to query the status of the instance according to dataSet. If the status changes from PENDING or DEPLOYING to RUNNING, it means that the instance has been created successfully; CREATE_FAILED or no instance found means the instance has been created failed.
+- name: instances
+  type: object-array
+  description: Set of data disk IDs created along with the instances. If no data disk is specified, the value is empty.
+  array-style: json
+  item-schema:
+  - name: instanceId
+    type: string
+    description: Instance ID.
+  - name: diskIdSet
+    type: string-array
+    description: Data disk ID created along with the instance.

@@ -1,0 +1,104 @@
+name: DescribeSubnets
+product: vm
+use: describe-subnets
+short: 查询经典子网列表
+long: 查询一台或多台指定子网的信息。用户可以根据Subnet ID、区域、Subnet名称等信息来搜索Subnet信息。
+examples:
+- cmd: zeno vm describe-subnets --cidr-block 10.0.0.0/24 --page-size 10 --page-num 1
+  desc: 分页查询CidrBlock为“10.0.0.0/24”的Subnet列表
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: DescribeSubnets
+parameters:
+- name: zone-id
+  type: string
+  required: false
+  sdk-field: zoneId
+  description: 子网所属的可用区ID。
+- name: subnet-ids
+  type: string-array
+  required: false
+  sdk-field: subnetIds
+  description: |-
+    子网 ID。
+    取值可以由多个Subnet ID组成一个。
+    最多支持100个ID查询。
+- name: cidr-block
+  type: string
+  required: false
+  sdk-field: cidrBlock
+  description: |-
+    子网的CIDR。
+    支持模糊查询。
+- name: subnet-status
+  type: string
+  required: false
+  sdk-field: subnetStatus
+  description: Subnet的状态。
+- name: subnet-name
+  type: string
+  required: false
+  sdk-field: subnetName
+  description: |-
+    子网的名称。
+    支持模糊查询。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    返回的分页大小。
+    默认为20，最大为1000。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    返回的分页数。
+    默认为1。
+response:
+- name: totalCount
+  type: integer
+  description: 符合条件的数据总数。
+- name: dataSet
+  type: object-array
+  description: 子网结果集。
+  array-style: json
+  item-schema:
+  - name: subnetId
+    type: string
+    description: Subnet的ID。
+  - name: zoneId
+    type: string
+    description: Subnet的机房ID。
+  - name: subnetName
+    type: string
+    description: Subnet的名称。
+  - name: subnetStatus
+    type: string
+    description: Subnet的状态。
+  - name: cidrBlockList
+    type: string-array
+    description: Subnet的CIDR列表。
+  - name: usageIpCount
+    type: integer
+    description: Subnet的已用IP数。
+  - name: totalIpCount
+    type: integer
+    description: Subnet的总IP数。
+  - name: createTime
+    type: string
+    description: Subnet的创建时间。
+  - name: instanceIdList
+    type: string-array
+    description: Subnet下绑定的实例列表。
+  - name: subnetDescription
+    type: string
+    description: Subnet的描述信息。
+  - name: cidrBlock
+    type: string
+    description: Subnet的CIDR。
+  - name: isDefault
+    type: boolean
+    description: Subnet是否为默认。

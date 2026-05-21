@@ -1,0 +1,38 @@
+name: ModifyInstanceType
+product: vm
+use: modify-instance-type
+short: 修改实例机型
+long: |-
+  修改一台虚拟机实例的机型。
+  **注意事项**
+
+  * 仅实例状态处于`RUNNING`、`STOPPED`状态，接口才能调用。
+  * 实例的`instanceChargeType`为PREPAID：
+  * 升配（原机型的原价 < 要变更机型的原价）会生成待支付的订单，需要扣除本次升配的费用，立即生效。
+  * 降配（原机型的原价 > 要变更机型的原价）会生成下个周期的降配订单，下周期生效。
+  * 实例的`instanceChargeType`为POSTPAID：
+  * 立即生效。
+  * 本接口调用是异步操作，你可以调用`DescribeInstanceTypeStatus`来查看变更的结果。
+  * 变更规则：
+  * 相同系列机型可以互相变更，如c.1c2g -> c.2c4g
+  * 部分支持跨规格变更，如c、g、m系列
+  * 部分机型不允许跨规格变更，如s、h系列
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: ModifyInstanceType
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: 待操作的实例ID。
+- name: instance-type-id
+  type: string
+  required: true
+  sdk-field: instanceTypeId
+  description: 要更换的机型ID。
+response:
+- name: orderNumber
+  type: string
+  description: 订单编号。

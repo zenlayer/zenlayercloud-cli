@@ -1,0 +1,82 @@
+name: DescribeAiUsageDetailData
+product: aigw
+use: describe-ai-usage-detail-data
+short: 查询AI网关用量明细数据
+long: |-
+  查询AI网关用量明细数据
+  **注意事项**
+
+  * 本接口认证方式请参考[认证方式](../../../api-introduction/instruction/authorization/README.md)
+examples:
+- cmd: zeno aigw describe-ai-usage-detail-data --instance-ids 1597494548165039443 --start 1776927600 --end 1776931200
+  desc: 查询 AI 网关在指定时间范围内的用量明细。
+sdk:
+  service: aigw
+  version: '2026-04-14'
+  action: DescribeAiUsageDetailData
+parameters:
+- name: instance-ids
+  type: string
+  required: false
+  sdk-field: instanceIds
+  description: 实例ID。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: 资源组ID。
+- name: start
+  type: integer
+  required: true
+  sdk-field: start
+  description: 开始时间戳10位，示例：1659427200。
+- name: end
+  type: integer
+  required: true
+  sdk-field: end
+  description: 结束时间戳10位，示例：1659434400。
+response:
+- name: request
+  type: object-array
+  description: 请求数明细数据。
+  array-style: json
+  item-schema:
+  - name: time
+    type: integer
+    description: 时间戳（毫秒）。
+  - name: data
+    type: object-array
+    description: 各模型的用量值列表。
+- name: token
+  type: object-array
+  description: 总Token明细数据。
+  array-style: json
+  item-schema:
+  - name: time
+    type: integer
+    description: 时间戳（毫秒）。
+  - name: data
+    type: object-array
+    description: 各模型的用量值列表。
+- name: inputToken
+  type: object-array
+  description: 输入Token明细数据。
+  array-style: json
+  item-schema:
+  - name: time
+    type: integer
+    description: 时间戳（毫秒）。
+  - name: data
+    type: object-array
+    description: 各模型的用量值列表。
+- name: outToken
+  type: object-array
+  description: 输出Token明细数据。
+  array-style: json
+  item-schema:
+  - name: time
+    type: integer
+    description: 时间戳（毫秒）。
+  - name: data
+    type: object-array
+    description: 各模型的用量值列表。

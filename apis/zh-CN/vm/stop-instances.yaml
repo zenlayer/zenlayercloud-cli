@@ -1,0 +1,32 @@
+name: StopInstances
+product: vm
+use: stop-instances
+short: 关闭虚拟机实例
+long: |-
+  关闭一个或多个虚拟机实例。
+  **注意事项**
+
+  * 只有状态为 **`RUNNING`** 并且未终止放入回收站的实例才可以进行此操作。
+  * 接口调用成功时，实例会进入 **`STOPPING`** 状态；关闭实例成功时，实例会进入 **`STOPPED`** 状态。
+  * 本接口为异步接口，关闭实例请求发送成功后会立即返回，此时操作并未完成。实例操作结果可以通过调用[`DescribeInstancesStatus`](describeinstancesstatus.md)接口查询，如果实例状态(instanceStatus)由 **`STOPPING`** 变为 **`STOPPED`**，则代表实例关闭成功，关闭过程中不可对实例进行任何操作。
+  * 支持批量操作。每次请求批量实例的上限为100。
+examples:
+- cmd: zeno vm stop-instances --instance-ids instanceId1 --instance-ids instanceId2
+  desc: 关闭指定ID的实例
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: StopInstances
+parameters:
+- name: instance-ids
+  type: string-array
+  required: true
+  sdk-field: instanceIds
+  description: 一个或多个待操作的实例ID。
+- name: force-shutdown
+  type: boolean
+  required: false
+  sdk-field: forceShutdown
+  description: |-
+    是否强制关机。
+    如果不指定默认为是。

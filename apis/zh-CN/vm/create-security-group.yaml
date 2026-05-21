@@ -1,0 +1,75 @@
+name: CreateSecurityGroup
+product: vm
+use: create-security-group
+short: 创建安全组
+long: |-
+  创建安全组。
+  **注意事项**
+
+  * 同一个Team能创建的安全组资源个数是有限制的，如果需要申请更多资源，请提交Support申请。
+  * 安全组的规则数量最多40条，入方向最多20条、出方向最多20条。
+  * 同一规则方向，规则不能重复。
+examples:
+- cmd: zeno vm create-security-group --security-group-name test123 --rule-infos "{direction=ingress, policy=accept, ipProtocol=tcp, portRange=22/22, cidrIp=0.0.0.0/0}" --description 123456
+  desc: 创建安全组。
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: CreateSecurityGroup
+parameters:
+- name: security-group-name
+  type: string
+  required: true
+  sdk-field: securityGroupName
+  description: |-
+    安全组名称。
+    范围1到64个字符，仅支持字母、数字、-和英文句点(.)。
+- name: rule-infos
+  type: object-array
+  required: false
+  sdk-field: ruleInfos
+  description: 安全组规则。
+  array-style: json
+  item-schema:
+  - name: direction
+    type: string
+    description: |-
+      规则方向。
+      ingress：入方向。
+      egress：出方向。
+  - name: policy
+    type: string
+    description: |-
+      设置访问权限。
+      accept：接受访问。
+      目前只支持accept。
+  - name: priority
+    type: integer
+    description: 规则优先级。
+  - name: ipProtocol
+    type: string
+    description: |-
+      传输层协议。
+      取值范围：tcp、udp、icmp、all。
+  - name: portRange
+    type: string
+    description: 目的端安全组开放的传输层协议相关的端口范围。
+  - name: cidrIp
+    type: string
+    description: |-
+      源端IP地址范围。
+      支持CIDR格式和IPv4格式的IP地址范围。
+  - name: description
+    type: string
+    description: 规则描述。
+- name: description
+  type: string
+  required: false
+  sdk-field: description
+  description: |-
+    安全组描述。
+    范围2到256个字符。
+response:
+- name: securityGroupId
+  type: string
+  description: 安全组ID。

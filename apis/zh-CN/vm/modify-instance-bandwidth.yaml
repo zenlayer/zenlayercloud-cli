@@ -1,0 +1,36 @@
+name: ModifyInstanceBandwidth
+product: vm
+use: modify-instance-bandwidth
+short: 修改实例公网出口带宽
+long: |-
+  修改虚拟机实例的公网出口带宽。
+  **注意事项**
+
+  * 仅实例状态处于`RUNNING`状态，接口才能调用。
+  * 若实例的[internetChargeType](../datastructure.md#internetchargetype)为ByBandwidth：
+  * 实例的`instanceChargeType`为PREPAID：
+  * 升配（target > cur）会生成待支付的订单，需要扣除本次升配的费用，立即生效。
+  * 降配（target < cur）会生成下个周期的降配订单，下周期生效。
+  * 实例的`instanceChargeType`为POSTPAID：
+  * 立即生效。
+  * 实例的[internetChargeType](../datastructure.md#internetchargetype)为其他类型，则变更带宽立刻生效。
+  * 本接口调用是异步操作，你可以调用`DescribeInstanceInternetStatus`来查看变更的结果。
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: ModifyInstanceBandwidth
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: 待操作的实例ID。
+- name: internet-max-bandwidth-out
+  type: integer
+  required: true
+  sdk-field: internetMaxBandwidthOut
+  description: 出口带宽大小。
+response:
+- name: orderNumber
+  type: string
+  description: 订单编号。

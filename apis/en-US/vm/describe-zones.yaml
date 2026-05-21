@@ -1,0 +1,54 @@
+name: DescribeZones
+product: vm
+use: describe-zones
+short: Queries available zones
+long: Query zones available.
+examples:
+- cmd: zeno vm describe-zones --zone-ids FRA-A --zone-ids SIN-E
+  desc: Query zones available.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: DescribeZones
+parameters:
+- name: zone-ids
+  type: string-array
+  required: false
+  sdk-field: zoneIds
+  description: List of zone IDs.
+response:
+- name: zoneSet
+  type: object-array
+  description: The list of zones available.
+  array-style: json
+  item-schema:
+  - name: zoneId
+    type: string
+    description: Zone ID. For example, SEL-A.
+  - name: zoneName
+    type: string
+    description: Zone name.
+  - name: supportSecurityGroup
+    type: boolean
+    description: Support security groups or not.
+  - name: supportNetworkType
+    type: string
+    description: 'Supported network types.CLASSICS: Classic networkVPC: VPC network'
+  - name: supportIpv6
+    type: boolean
+    description: Whether support public IPv6 or not
+  - name: supportCpuPassThrough
+    type: boolean
+    description: Whether CPU passthrough is enabled.
+  - name: networkLineType
+    type: enum
+    description: |-
+      Network line information.
+      NetworkLineType
+    enum-values:
+    - value: BGP
+      desc: Premium BGP for optimized network performance.
+    - value: CN2
+      desc: China Telecom Next Carrier Network.
+    - value: Cogent
+      desc: Standard BGP for general use with cost optimization.

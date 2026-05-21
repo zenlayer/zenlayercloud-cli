@@ -1,0 +1,40 @@
+name: ModifyInstanceTrafficPackage
+product: vm
+use: modify-instance-traffic-package
+short: 修改实例流量包大小
+long: |-
+  修改虚拟机实例流量包大小。
+  #### 准备工作
+  * 查询询流量包变更价格：调用[`DescribeInstanceTrafficPackage`](inquirypriceinstancetrafficpackage.md) 可以查询到购买指定流量包所需要的费用。
+
+
+  **注意事项**
+
+  * 当机器状态处于`RUNNING` or `STOPPED`状态，接口能被调用。
+  * 若机器的[`internetChargeType`](../../zec/datastructure.md#internetchargetype)为`ByTrafficPackage`：
+  * 机器的`instanceChargeType`为`PREPAID`：
+  * 升配（target > cur）会生成待支付的订单，需要扣除本次升配的费用，立即生效。
+  * 降配（target < cur）会生成下个周期的降配订单，下周期生效。
+  * 本接口调用是异步操作，你可以调用`DescribeInstanceInternetStatus`来查看变更的结果。
+examples:
+- cmd: zeno vm modify-instance-traffic-package --instance-id instanceIdxxx --traffic-package-size 100
+  desc: 升配实例流量包
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: ModifyInstanceTrafficPackage
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: 待操作的实例ID。
+- name: traffic-package-size
+  type: float
+  required: true
+  sdk-field: trafficPackageSize
+  description: 流量包大小，单位TB。
+response:
+- name: orderNumber
+  type: string
+  description: 订单编号。

@@ -1,0 +1,105 @@
+name: DescribeInstanceTraffic
+product: vm
+use: describe-instance-traffic
+short: Queries the data transfer in the specified date range
+long: |-
+  Query the data transfer in the specified date range.
+  **Note**
+
+  * The date range of 24 hours are supported.
+  * Only the data transfer within 30 days are supported to query.
+examples:
+- cmd: zeno vm describe-instance-traffic --instance-id 926368879272403391 --start-time 2023-07-11T08:00:011Z --end-time 2023-07-11T08:10:00Z
+  desc: Query the data transfer of the instance in one day.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: DescribeInstanceTraffic
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: Instance ID.
+- name: start-time
+  type: string
+  required: true
+  sdk-field: startTime
+  description: |-
+    Start time.
+    Use UTC time according to the ISO8601 standard. Format: YYYY-MM-DDThh:mm:ssZ.
+- name: end-time
+  type: string
+  required: true
+  sdk-field: endTime
+  description: |-
+    End time.
+    Use UTC time according to the ISO8601 standard. Format: YYYY-MM-DDThh:mm:ssZ.
+response:
+- name: dataList
+  type: object-array
+  description: List of bandwidth data.
+  array-style: json
+  item-schema:
+  - name: internetRX
+    type: integer
+    description: 'Inbound bandwidth. Unit: bps.'
+  - name: internetTX
+    type: integer
+    description: 'Outbound bandwidth. Unit: bps.'
+  - name: time
+    type: string
+    description: |-
+      Data time.
+      Format: YYYY-MM-DDThh:mm:ssZ.
+- name: in95
+  type: integer
+  description: Inbound burstable 95th bandwidth.
+- name: in95Time
+  type: string
+  description: |-
+    Time of inbound burstable 95th bandwidth.
+    Format: YYYY-MM-DDThh:mm:ssZ.
+- name: inAvg
+  type: integer
+  description: Average value of inbound bandwidth.
+- name: inMax
+  type: integer
+  description: Maximum value of inbound bandwidth.
+- name: inMin
+  type: integer
+  description: Minimum value of inbound bandwidth.
+- name: inTotal
+  type: integer
+  description: Total data transfer of inbound bandwidth.
+- name: out95
+  type: integer
+  description: Outbound burstable 95th bandwidth.
+- name: out95Time
+  type: string
+  description: |-
+    Time of outbound burstable 95th bandwidth.
+    Format: YYYY-MM-DDThh:mm:ssZ.
+- name: outAvg
+  type: integer
+  description: Average value of outbound bandwidth.
+- name: outMax
+  type: integer
+  description: Maximum value of outbound bandwidth.
+- name: outMin
+  type: integer
+  description: Minimum value of outbound bandwidth.
+- name: outTotal
+  type: integer
+  description: Total data transfer of outbound bandwidth.
+- name: maxBandwidth95ValueMbps
+  type: float
+  description: |-
+    Maximum value of burstable 95th bandwidth.
+    Unit: Mbps.
+- name: totalUnit
+  type: string
+  description: Unit of total data transfer. For example, B.
+- name: unit
+  type: string
+  description: Unit of bandwidth. For example, bps.

@@ -1,0 +1,37 @@
+name: ModifyAiGatewayExpireTime
+product: aigw
+use: modify-ai-gateway-expire-time
+short: 修改AI网关过期时间
+long: |-
+  修改AI网关过期时间
+  **注意事项**
+
+  * 本接口认证方式请参考[认证方式](../../../api-introduction/instruction/authorization/README.md)
+examples:
+- cmd: zeno aigw modify-ai-gateway-expire-time --gateway-uuid 1568676002379339603 --expire-type CUSTOM --expire-time 2026-07-08T16:00:00Z
+  desc: 修改 AI 网关过期时间。
+sdk:
+  service: aigw
+  version: '2026-04-14'
+  action: ModifyAiGatewayExpireTime
+parameters:
+- name: gateway-uuid
+  type: string
+  required: true
+  sdk-field: gatewayUuid
+  description: 网关UUID。
+- name: expire-type
+  type: enum
+  required: true
+  sdk-field: expireType
+  description: 过期类型。
+  enum-values:
+  - value: LONG_LIVED
+    desc: 长期
+  - value: CUSTOM
+    desc: 自定义过期时间
+- name: expire-time
+  type: string
+  required: false
+  sdk-field: expireTime
+  description: 过期时间。

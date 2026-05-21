@@ -1,0 +1,39 @@
+name: ModifyImagesAttributes
+product: vm
+use: modify-images-attributes
+short: Modifies the attributes of one or more images
+long: |-
+  The API is used to modify the attributes of one or more images.
+  **Note**
+
+  * Only the custom image name and description can be modified for now.
+  * All the specified disks will be modified the same attributes.
+examples:
+- cmd: zeno vm modify-images-attributes --image-ids img-xxxxx --image-description test-description --image-name test-imageName
+  desc: Modify the attributes of images.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: ModifyImagesAttributes
+parameters:
+- name: image-ids
+  type: string-array
+  required: true
+  sdk-field: imageIds
+  description: |-
+    ID list of images.
+    Call DescribeImages and find imageId in the response.
+- name: image-description
+  type: string
+  required: false
+  sdk-field: imageDescription
+  description: |-
+    Image description.
+    This parameter must contain up to 255 characters.
+- name: image-name
+  type: string
+  required: false
+  sdk-field: imageName
+  description: |-
+    Image name to be displayed.
+    This parameter must contain up to 24 characters. Only Chinese characters, letters, numbers, - and _ are supported.

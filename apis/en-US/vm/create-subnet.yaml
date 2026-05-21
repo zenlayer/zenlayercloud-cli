@@ -1,0 +1,49 @@
+name: CreateSubnet
+product: vm
+use: create-subnet
+short: Creates a subnet
+long: |-
+  Create a subnet.
+  #### Prerequisites
+  Before creating a subnet, you can call `DescribeSubnetAvailableResources` to check the available zones.
+  **Note**
+
+  * Subnet quota is limited. If you need more, please contact Zenlayer Support.
+  * This API is an async API. A subnet ID list is returned after the creation request is sent. However, it does not mean the creation has been completed. The status of the subnet will be `Creating` during the creation. You can call [`DescribeSubnets`](describesubnets.md) to query the status of the subnet. If the status changes from `Creating` to `Available`, it means that the subnet has been created successfully; `Failed` means the subnet has been created failed. Any operations on the subnets are not allowed while creating.
+examples:
+- cmd: zeno vm create-subnet --zone-id FRA-A --cidr-block 10.0.0.0/20 --subnet-name subnetXXX --subnet-description ""subnetXXX Description""
+  desc: Create a subnet in zone FRA-A.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: CreateSubnet
+parameters:
+- name: cidr-block
+  type: string
+  required: true
+  sdk-field: cidrBlock
+  description: |-
+    CIDR block of the subnet. The optional values are as follows:
+    10.0.0.0/24, 172.16.0.0/24, 192.168.0.0/24 and their subsets.
+    The subnet IP ranges cannot be overlapped.
+- name: subnet-name
+  type: string
+  required: true
+  sdk-field: subnetName
+  description: |-
+    Subnet name to be displayed.
+    This parameter must start and end with a number or a letter, containing 2 to 63 characters. Only letters, numbers, - and periods (.) are supported.
+- name: subnet-description
+  type: string
+  required: false
+  sdk-field: subnetDescription
+  description: Subnet description.
+- name: zone-id
+  type: string
+  required: true
+  sdk-field: zoneId
+  description: Zone ID of subnet.
+response:
+- name: subnetId
+  type: string
+  description: Subnet ID.

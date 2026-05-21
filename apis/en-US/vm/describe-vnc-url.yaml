@@ -1,0 +1,22 @@
+name: DescribeVncUrl
+product: vm
+use: describe-vnc-url
+short: Obtains the VNC address of the instance
+long: Obtain the VNC address of the instance.
+examples:
+- cmd: zeno vm describe-vnc-url --instance-id <instanceId>
+  desc: Get the VNC URL address.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: DescribeVncUrl
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: Instance ID.
+response:
+- name: url
+  type: string
+  description: VNC URL address.

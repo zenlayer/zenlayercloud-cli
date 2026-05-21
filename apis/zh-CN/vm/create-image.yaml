@@ -1,0 +1,43 @@
+name: CreateImage
+product: vm
+use: create-image
+short: 创建自定义镜像
+long: |-
+  创建自定义镜像。
+  **注意事项**
+
+  * 每个区域最多只支持创建**5**个自定义镜像，当该地区达到最大限额时，将无法继续创建自定义镜像，如有特殊需求可联系**Support**增加上限。
+  * 制作镜像会拷贝实例的系统盘，创建时请确保实例处于**关机**状态，不要对实例进行任何操作。
+  * 创建出的镜像大小与实例的系统盘大小相同。
+  * 目前**SIN-E**、**LAX-A**地区暂不支持该操作。
+examples:
+- cmd: zeno vm create-image --instance-id your-instance-id --image-name testimagename --image-description testimagedescription
+  desc: 创建一个镜像。
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: CreateImage
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: 需要制作镜像的实例ID。
+- name: image-name
+  type: string
+  required: true
+  sdk-field: imageName
+  description: |-
+    镜像名称。
+    长度不超过24位，支持中文、字母、数字或连接符号-_。
+- name: image-description
+  type: string
+  required: false
+  sdk-field: imageDescription
+  description: |-
+    镜像描述。
+    不超过255个字符。
+response:
+- name: imageId
+  type: string
+  description: 镜像ID。

@@ -1,0 +1,24 @@
+name: DeleteSecurityGroup
+product: vm
+use: delete-security-group
+short: Deletes a security group
+long: |-
+  Delete a security group.
+  **Note**
+
+  * Operations on security groups with instances in it are not supported. You can use [`DescribeSecurityGroups`](describesecuritygroups.md) to query the status of the security group.
+  * Only operations on security groups in the status of `AVAILABLE` or `FAIL` are supported.
+  * Deleting is not supported for default security group.
+examples:
+- cmd: zeno vm delete-security-group --security-group-id your-security-group-id
+  desc: Delete a security group.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: DeleteSecurityGroup
+parameters:
+- name: security-group-id
+  type: string
+  required: true
+  sdk-field: securityGroupId
+  description: Security group ID.

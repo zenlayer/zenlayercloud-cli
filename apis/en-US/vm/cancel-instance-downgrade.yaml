@@ -1,0 +1,23 @@
+name: CancelInstanceDowngrade
+product: vm
+use: cancel-instance-downgrade
+short: Cancels downgrade order of instance specification change
+long: |-
+  The API is used to cancel downgrade order of instance specification change.
+  **Note**
+
+  If a PREPAID virtual machine instance generates a downgrade order to take effect in the next billing cycle, you can call the API to cancel the following scheduling change:
+
+  A downgrade scheduling change in specifications.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: CancelInstanceDowngrade
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: |-
+    ID of the instance to be modified.
+    To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response.

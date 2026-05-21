@@ -1,0 +1,316 @@
+name: DescribeInstances
+product: vm
+use: describe-instances
+short: 查询实例列表
+long: 查询一台或多台虚拟机实例的信息。用户可以根据实例ID、实例名称或者实例计费模式等条件来查询实例的详细信息。
+examples:
+- cmd: zeno vm describe-instances --page-num 1 --page-size 1
+  desc: 分页查询虚拟机实例列表
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: DescribeInstances
+parameters:
+- name: instance-ids
+  type: string-array
+  required: false
+  sdk-field: instanceIds
+  description: |-
+    虚拟机实例ID。
+    最多支持100个ID查询。
+- name: zone-id
+  type: string
+  required: false
+  sdk-field: zoneId
+  description: 实例所属的可用区ID。
+- name: internet-charge-type
+  type: enum
+  required: false
+  sdk-field: internetChargeType
+  description: 网络计费类型。
+  enum-values:
+  - value: ByBandwidth
+    desc: 按固定带宽计费。
+  - value: ByTrafficPackage
+    desc: 购买流量包计费。
+  - value: ByClusterBandwidth95
+    desc: 单产品合并95计费城市带宽组。
+  - value: BandwidthCluster
+    desc: 共享带宽包计费。
+- name: image-id
+  type: string
+  required: false
+  sdk-field: imageId
+  description: 镜像ID。
+- name: instance-type
+  type: string
+  required: false
+  sdk-field: instanceType
+  description: |-
+    实例机型。
+    具体取值可通过调用接口DescribeZoneInstanceConfigInfos来获得最新的规格表。
+- name: key-id
+  type: string
+  required: false
+  sdk-field: keyId
+  description: 密钥ID。
+- name: public-ip-addresses
+  type: string-array
+  required: false
+  sdk-field: publicIpAddresses
+  description: 公网IPv4地址。
+- name: private-ip-addresses
+  type: string-array
+  required: false
+  sdk-field: privateIpAddresses
+  description: 子网内网的IPv4地址。
+- name: instance-status
+  type: enum
+  required: false
+  sdk-field: instanceStatus
+  description: 实例状态。
+  enum-values:
+  - value: PENDING
+    desc: 待创建
+  - value: DEPLOYING
+    desc: 部署中
+  - value: REBUILDING
+    desc: 重建中。
+  - value: REBOOT
+    desc: 重启中
+  - value: RUNNING
+    desc: 运行中。
+  - value: STOPPED
+    desc: 已关机。
+  - value: BOOTING
+    desc: 开机中。
+  - value: RELEASING
+    desc: 释放中。
+  - value: STOPPING
+    desc: 关机中。
+  - value: RECYCLE
+    desc: 回收中。
+  - value: RECYCLING
+    desc: 回收中。
+  - value: CREATE_FAILED
+    desc: 创建失败。
+  - value: IMAGING
+    desc: 制作镜像中。
+- name: instance-name
+  type: string
+  required: false
+  sdk-field: instanceName
+  description: |-
+    实例显示名称。
+    如果该值以*结尾，则对instanceName进行模糊匹配，否则将进行精确匹配。
+- name: subnet-id
+  type: string
+  required: false
+  sdk-field: subnetId
+  description: 虚拟子网ID。
+- name: security-group-id
+  type: string
+  required: false
+  sdk-field: securityGroupId
+  description: 安全组ID。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    返回的分页大小。
+    默认为20，最大为1000。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    返回的分页数。
+    默认为1。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    资源组的ID。
+    如果不传，则返回该用户可见的所有资源组内的实例。
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    根据标签键进行搜索。
+    最长不得超过20个标签键。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    根据标签进行搜索。
+    最长不得超过20个标签。
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。
+response:
+- name: totalCount
+  type: integer
+  description: 符合条件的数据总数。
+- name: dataSet
+  type: object-array
+  description: 实例结果集。
+  array-style: json
+  item-schema:
+  - name: instanceId
+    type: string
+    description: 实例唯一ID。
+  - name: zoneId
+    type: string
+    description: 实例所属的可用区ID。
+  - name: instanceName
+    type: string
+    description: 实例显示名称。
+  - name: instanceType
+    type: string
+    description: 实例机型ID。
+  - name: cpuCount
+    type: integer
+    description: CPU核数，单位：核。
+  - name: memory
+    type: integer
+    description: 实例内存容量，单位：GiB。
+  - name: imageId
+    type: string
+    description: 镜像ID。
+  - name: imageName
+    type: string
+    description: 镜像名称。
+  - name: instanceChargeType
+    type: enum
+    description: |-
+      实例计费类型。
+      PREPAID：预付费，即包年包月。
+      POSTPAID：后付费。
+    enum-values:
+    - value: PREPAID
+      desc: 预付费计费方式。
+    - value: POSTPAID
+      desc: 后付费计费方式。
+  - name: internetMaxBandwidthOut
+    type: integer
+    description: |-
+      公网出口带宽，单位：Mbps。
+      0代表无限制，但是不会超过机型的最大上限。
+  - name: internetChargeType
+    type: enum
+    description: 网络计费类型。
+    enum-values:
+    - value: ByBandwidth
+      desc: 按固定带宽计费。
+    - value: ByTrafficPackage
+      desc: 购买流量包计费。
+    - value: ByClusterBandwidth95
+      desc: 单产品合并95计费城市带宽组。
+    - value: BandwidthCluster
+      desc: 共享带宽包计费。
+  - name: period
+    type: integer
+    description: |-
+      购买实例的时长，单位：月。
+      后付费实例该字段为null。
+  - name: publicIpAddresses
+    type: string-array
+    description: |-
+      实例公网IPv4列表。
+      如果机器的主IP未加入到公网组网接口，那么主IP将无法使用，且该字段也不会返回该IP。
+  - name: publicIpv6Addresses
+    type: string-array
+    description: 实例公网IPv6列表。
+  - name: privateIpAddresses
+    type: string-array
+    description: 实例内网IP列表。
+  - name: subnetId
+    type: string
+    description: 实例所属的内网子网ID。
+  - name: createTime
+    type: string
+    description: |-
+      创建时间。
+      格式为：YYYY-MM-DDThh:mm:ssZ。
+  - name: expiredTime
+    type: string
+    description: |-
+      到期时间。
+      格式为：YYYY-MM-DDThh:mm:ssZ。
+  - name: resourceGroupId
+    type: string
+    description: 实例所属资源组的ID。
+  - name: resourceGroupName
+    type: string
+    description: 实例所属资源组的名称。
+  - name: instanceStatus
+    type: enum
+    description: 实例状态。
+    enum-values:
+    - value: PENDING
+      desc: 待创建
+    - value: DEPLOYING
+      desc: 部署中
+    - value: REBUILDING
+      desc: 重建中。
+    - value: REBOOT
+      desc: 重启中
+    - value: RUNNING
+      desc: 运行中。
+    - value: STOPPED
+      desc: 已关机。
+    - value: BOOTING
+      desc: 开机中。
+    - value: RELEASING
+      desc: 释放中。
+    - value: STOPPING
+      desc: 关机中。
+    - value: RECYCLE
+      desc: 回收中。
+    - value: RECYCLING
+      desc: 回收中。
+    - value: CREATE_FAILED
+      desc: 创建失败。
+    - value: IMAGING
+      desc: 制作镜像中。
+  - name: trafficPackageSize
+    type: float
+    description: 流量包订购大小，单位为TB。
+  - name: securityGroupIds
+    type: string-array
+    description: 实例加入的安全组列表。
+  - name: systemDisk
+    type: object
+    description: 实例系统盘信息。
+  - name: dataDisks
+    type: object-array
+    description: 实例数据盘信息。
+  - name: autoRenew
+    type: boolean
+    description: |-
+      是否自动续费。
+      对于预付费实例，取消订阅后，该字段值将返回false。
+  - name: keyId
+    type: string
+    description: |-
+      密钥ID。
+      注意：此字段可能返回null，表示取不到有效值。
+  - name: nic
+    type: object
+    description: 网卡配置。
+  - name: tags
+    type: object
+    description: 资源关联的标签信息。

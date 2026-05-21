@@ -1,0 +1,31 @@
+name: ModifyInstancesResourceGroup
+product: vm
+use: modify-instances-resource-group
+short: Modifies the resource group to which the instances belong
+long: |-
+  Modify the resource group to which the instances belong.
+  **Note**
+
+  * You can create several resource groups under one account to manage different resources. If calling [`DescribeInstances`](describeinstances.md) to query instances, you can filter the result by `resourceGroupId` in the response.
+  * Batch operations are supported. The maximum number of instances in each request is 100.
+  * Only the administrator in a team can perform this operation.
+examples:
+- cmd: zeno vm modify-instances-resource-group --instance-ids instanceId1 --instance-ids instanceId2 --resource-group-id resourceGroup1
+  desc: Move instances to the specified resource group.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: ModifyInstancesResourceGroup
+parameters:
+- name: instance-ids
+  type: string-array
+  required: true
+  sdk-field: instanceIds
+  description: |-
+    List of instance IDs.
+    The maximum number of instances in each request is 100.
+- name: resource-group-id
+  type: string
+  required: true
+  sdk-field: resourceGroupId
+  description: Resource group ID.

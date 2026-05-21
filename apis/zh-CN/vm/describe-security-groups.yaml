@@ -1,0 +1,74 @@
+name: DescribeSecurityGroups
+product: vm
+use: describe-security-groups
+short: 查询安全组列表
+long: 查询一个或多个指定安全组的信息。用户可以根据安全组ID、安全组名称等信息来搜索安全组信息。
+examples:
+- cmd: zeno vm describe-security-groups --page-size 5 --page-num 1
+  desc: 获取所有安全组。
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: DescribeSecurityGroups
+parameters:
+- name: security-group-ids
+  type: string-array
+  required: false
+  sdk-field: securityGroupIds
+  description: |-
+    安全组ID集合。
+    最多支持100个ID查询。
+- name: security-group-name
+  type: string
+  required: false
+  sdk-field: securityGroupName
+  description: 安全组名称。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    返回的分页大小。
+    默认为20，最大为1000。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    返回的分页数。
+    默认为1。
+response:
+- name: totalCount
+  type: integer
+  description: 符合条件的数据总数。
+- name: dataSet
+  type: object-array
+  description: 安全组结果集。
+  array-style: json
+  item-schema:
+  - name: securityGroupId
+    type: string
+    description: 安全组ID。
+  - name: securityGroupName
+    type: string
+    description: 安全组名称。
+  - name: securityGroupStatus
+    type: string
+    description: 安全组状态。
+  - name: createTime
+    type: string
+    description: |-
+      创建时间。
+      格式为：YYYY-MM-DDThh:mm:ssZ。
+  - name: description
+    type: string
+    description: 安全组描述。
+  - name: instanceIds
+    type: string-array
+    description: 已绑定实例ID集合。
+  - name: ruleInfos
+    type: object-array
+    description: 安全组规则。
+  - name: isDefault
+    type: boolean
+    description: 是否默认。

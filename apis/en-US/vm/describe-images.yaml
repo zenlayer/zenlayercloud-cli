@@ -1,0 +1,164 @@
+name: DescribeImages
+product: vm
+use: describe-images
+short: Queries the details of images
+long: Query the details of images.
+examples:
+- cmd: zeno vm describe-images --zone-id FRA-A --os-type linux --page-size 3
+  desc: Query all available images with no parameter.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: DescribeImages
+parameters:
+- name: image-ids
+  type: string-array
+  required: false
+  sdk-field: imageIds
+  description: |-
+    ID list of images.
+    Call DescribeImages and find imageId in the response.
+- name: image-name
+  type: string
+  required: false
+  sdk-field: imageName
+  description: Image name.
+- name: zone-id
+  type: string
+  required: true
+  sdk-field: zoneId
+  description: |-
+    Zone ID.
+    Call DescribeZones and find zoneId in the response.
+- name: category
+  type: enum
+  required: false
+  sdk-field: category
+  description: |-
+    Image category.
+    Available values:CentOSWindowsUbuntuDebian
+  enum-values:
+  - value: Windows
+    desc: Windows
+  - value: Ubuntu
+    desc: Ubuntu
+  - value: CentOS
+    desc: CentOS
+  - value: Debian
+    desc: Debian
+  - value: ARCH_LINUX
+    desc: Arch Linux
+  - value: COREOS
+    desc: CoreOS
+  - value: FEDORA
+    desc: Fedora
+  - value: FreeBSD
+    desc: FreeBSD
+  - value: KYLIN
+    desc: Kylin
+  - value: ORACLE_LINUX
+    desc: ‌Oracle Linux‌
+  - value: REDHAT
+    desc: Red Hat
+  - value: SUSE
+    desc: SUSE
+  - value: TencentOS
+    desc: TencentOS
+  - value: OTHERS
+    desc: Others
+- name: image-type
+  type: enum
+  required: false
+  sdk-field: imageType
+  description: 'Image type.PUBLIC_IMAGE: the default images.CUSTOM_IMAGE: the newly created images by yourself.'
+  enum-values:
+  - value: PUBLIC_IMAGE
+    desc: System image.
+  - value: CUSTOM_IMAGE
+    desc: Custom image.
+- name: os-type
+  type: enum
+  required: false
+  sdk-field: osType
+  description: |-
+    Operating system type.
+    Available values:WindowsLinux
+  enum-values:
+  - value: linux
+    desc: Linux
+  - value: windows
+    desc: Windows
+- name: image-status
+  type: enum
+  required: false
+  sdk-field: imageStatus
+  description: 'Image status.CREATING: creating.AVAILABLE: able to use.UNAVAILABLE: unable to use.'
+  enum-values:
+  - value: CREATING
+    desc: Creating.
+  - value: AVAILABLE
+    desc: Image creation succeeded.
+  - value: UNAVAILABLE
+    desc: Not available.
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    Number of pages returned.
+    Default value: 1.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    Number of items in the current page result.
+    Default value: 20;
+    Maximum value: 1000.
+response:
+- name: totalCount
+  type: integer
+  description: Number of images meeting the filtering conditions.
+- name: dataSet
+  type: object-array
+  description: Information on an image.
+  array-style: json
+  item-schema:
+  - name: imageId
+    type: string
+    description: Image ID.
+  - name: imageName
+    type: string
+    description: Image name.
+  - name: imageType
+    type: string
+    description: 'Image type.PUBLIC IMAGE: the default images.CUSTOM IMAGE: the newly created images by yourself.'
+  - name: imageSize
+    type: string
+    description: 'Image size.Unit: GB.'
+  - name: imageDescription
+    type: string
+    description: Image description.
+  - name: imageVersion
+    type: string
+    description: Image version.
+  - name: imageStatus
+    type: enum
+    description: 'Image status.CREATING: creating.AVAILABLE: able to use.UNAVAILABLE: unable to use.'
+    enum-values:
+    - value: CREATING
+      desc: Creating.
+    - value: AVAILABLE
+      desc: Image creation succeeded.
+    - value: UNAVAILABLE
+      desc: Not available.
+  - name: category
+    type: string
+    description: |-
+      Image category.
+      Available values:CentOSWindowsUbuntuDebian
+  - name: osType
+    type: string
+    description: |-
+      Operating system type.
+      Available values:WindowsLinux

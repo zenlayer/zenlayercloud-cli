@@ -1,0 +1,134 @@
+name: DescribeAiGateways
+product: aigw
+use: describe-ai-gateways
+short: Describe AI Gateways
+long: |-
+  Describe AI gateways
+  **Notes**
+
+  * For the authentication method of this API, refer to [Authentication](../../../api-introduction/instruction/authorization/README.md)
+examples:
+- cmd: zeno aigw describe-ai-gateways --page-size 200 --page-num 1
+  desc: Query the AI gateway list with pagination.
+sdk:
+  service: aigw
+  version: '2026-04-14'
+  action: DescribeAiGateways
+parameters:
+- name: gateway-uuids
+  type: string-array
+  required: false
+  sdk-field: gatewayUuids
+  description: List of AI gateway UUIDs.
+- name: gateway-name
+  type: string
+  required: false
+  sdk-field: gatewayName
+  description: AI gateway name.
+- name: status
+  type: enum
+  required: false
+  sdk-field: status
+  description: AI gateway status.
+  enum-values:
+  - value: CREATING
+    desc: Creating
+  - value: CONFIGURING
+    desc: Configuring
+  - value: SUCCEED
+    desc: Succeed
+  - value: FAILED
+    desc: Failed
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: Resource group ID.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: Number of items per page.
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: Page number.
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    Search by tag keys.
+    Maximum of 20 tag keys.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    Search by tags.
+    Maximum of 20 tags.
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      Tag key.
+      Length limit: 1 to 64 characters.
+  - name: value
+    type: string
+    description: |-
+      Tag value.
+      Length limit: 1 to 64 characters.
+response:
+- name: totalCount
+  type: integer
+  description: Total number of matching records.
+- name: dataSet
+  type: object-array
+  description: Data of AI gateway list.
+  array-style: json
+  item-schema:
+  - name: gatewayUuid
+    type: string
+    description: Unique ID of the AI gateway.
+  - name: gatewayName
+    type: string
+    description: Display name of the AI gateway.
+  - name: enabled
+    type: boolean
+    description: Whether enabled.
+  - name: createdAt
+    type: string
+    description: Creation time.
+  - name: updatedAt
+    type: string
+    description: Update time.
+  - name: resourceGroupId
+    type: string
+    description: Resource group ID to which the AI gateway belongs.
+  - name: accessLimit
+    type: integer
+    description: Access quota.
+  - name: expireType
+    type: enum
+    description: Expiration time type.
+    enum-values:
+    - value: LONG_LIVED
+      desc: Long Lived
+    - value: CUSTOM
+      desc: Custom Expiration Time
+  - name: expireTime
+    type: string
+    description: Expiration time.
+  - name: modelAccess
+    type: enum
+    description: Model access restriction.
+    enum-values:
+    - value: UNLIMITED
+      desc: There is no restriction on models; all currently listed models can be used
+    - value: LIMITED
+      desc: Due to restrictions, only associated models can be used
+  - name: tags
+    type: object
+    description: Tags associated with the AI gateway.

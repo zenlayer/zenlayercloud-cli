@@ -1,0 +1,33 @@
+name: ModifySubnetsAttribute
+product: vm
+use: modify-subnets-attribute
+short: Modifies the attributes of one or more subnets
+long: |-
+  The API is used to modify the attributes of one or more subnets. Only the subnet name to be displayed can be modified for now.
+  **Note**
+
+  * Batch operations are supported. Each request can modify up to 100 subnets.
+  * If any of the subnet IDs does not exist, the operation will fail immediately.
+examples:
+- cmd: zeno vm modify-subnets-attribute --subnet-ids your-subnet-id --subnet-name Test-Subnet
+  desc: Modify subnet name in batches.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: ModifySubnetsAttribute
+parameters:
+- name: subnet-ids
+  type: string-array
+  required: true
+  sdk-field: subnetIds
+  description: |-
+    Subnet ID(s).
+    To obtain the network IDs, you can call DescribeNetworks and look for subnetId in the response.
+    The maximum number of networks in each request is 100.
+- name: subnet-name
+  type: string
+  required: true
+  sdk-field: subnetName
+  description: |-
+    Subnet name.
+    This parameter can contain up to 64 characters. Only letters, numbers, - and periods (.) are supported.

@@ -1,0 +1,43 @@
+name: CreateImage
+product: vm
+use: create-image
+short: Creates a custom image
+long: |-
+  Create a custom image.
+  **Note**
+
+  * Up to 5 images can be created in each zone. If you need more, please contact Zenlayer Support.
+  * The system disk of an instance will be mirrored while creating an image. Please ensure the instance is shut down. Any operations on the instances are not allowed while creating.
+  * The image size is the same as that of instance system disk.
+  * Images are not supported in `SIN-E` and `LAX-A` for now.
+examples:
+- cmd: zeno vm create-image --instance-id your-instance-id --image-name testimagename --image-description testimagedescription
+  desc: Create an image.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: CreateImage
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: ID of instance to be mirrored.
+- name: image-name
+  type: string
+  required: true
+  sdk-field: imageName
+  description: |-
+    Image name to be displayed.
+    This parameter must contain up to 24 characters. Only Chinese characters, letters, numbers, - and _ are supported.
+- name: image-description
+  type: string
+  required: false
+  sdk-field: imageDescription
+  description: |-
+    Image description.
+    This parameter must contain up to 255 characters.
+response:
+- name: imageId
+  type: string
+  description: Image ID.

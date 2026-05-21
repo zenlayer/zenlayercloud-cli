@@ -1,0 +1,25 @@
+name: TerminateDisk
+product: vm
+use: terminate-disk
+short: Returns a disk
+long: |-
+  Return a disk.
+  **Note**
+
+  * When this API is called, the disk will be moved to the recycle bin and be released in 24 hours if there are no other operations. You can also call [`ReleaseDisk`](releasedisk.md) to release the disk.
+  * Use this API to return a disk that is no longer required. A pay-as-you-go disk will stop billing after it is returns.
+  * You cannot return a subscription disk using this API, which will be returned when subscription expires.
+  * Only operations on data disks are supported.
+examples:
+- cmd: zeno vm terminate-disk --disk-id your-disk-id
+  desc: Return a disk.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: TerminateDisk
+parameters:
+- name: disk-id
+  type: string
+  required: true
+  sdk-field: diskId
+  description: ID list of disks.

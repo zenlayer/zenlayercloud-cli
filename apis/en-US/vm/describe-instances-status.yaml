@@ -1,0 +1,77 @@
+name: DescribeInstancesStatus
+product: vm
+use: describe-instances-status
+short: Queries the status of one or more virtual machine instances
+long: Query the status of one or more virtual machine instances.
+examples:
+- cmd: zeno vm describe-instances-status
+  desc: Query status of instances.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: DescribeInstancesStatus
+parameters:
+- name: instance-ids
+  type: string-array
+  required: false
+  sdk-field: instanceIds
+  description: |-
+    Instance IDs.
+    You can query up to 100 instances in each request. If the value is empty, return status of instances in one page, that is 20 by default.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    Number of items in the current page result.
+    Default value: 20;
+    Maximum value: 1000.
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    Number of pages returned.
+    Default value: 1.
+response:
+- name: totalCount
+  type: integer
+  description: Quantity of eligible instances.
+- name: dataSet
+  type: object-array
+  description: Status list of instances.
+  array-style: json
+  item-schema:
+  - name: instanceId
+    type: string
+    description: Instance ID.
+  - name: instanceStatus
+    type: enum
+    description: Instance status.
+    enum-values:
+    - value: PENDING
+      desc: Pending
+    - value: DEPLOYING
+      desc: Deploying
+    - value: REBUILDING
+      desc: Rebuilding.
+    - value: REBOOT
+      desc: Rebooting.
+    - value: RUNNING
+      desc: Running.
+    - value: STOPPED
+      desc: Powered off.
+    - value: BOOTING
+      desc: Powered on.
+    - value: RELEASING
+      desc: Releasing.
+    - value: STOPPING
+      desc: Powering off.
+    - value: RECYCLE
+      desc: Recycled.
+    - value: RECYCLING
+      desc: Recycling.
+    - value: CREATE_FAILED
+      desc: Creating failed.
+    - value: IMAGING
+      desc: Image creating.

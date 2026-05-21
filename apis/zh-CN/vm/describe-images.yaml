@@ -1,0 +1,173 @@
+name: DescribeImages
+product: vm
+use: describe-images
+short: 查询镜像列表
+long: 查看镜像列表。
+examples:
+- cmd: zeno vm describe-images --zone-id FRA-A --os-type linux --page-size 3
+  desc: 获取所有可用镜像。
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: DescribeImages
+parameters:
+- name: image-ids
+  type: string-array
+  required: false
+  sdk-field: imageIds
+  description: 镜像ID集合。
+- name: image-name
+  type: string
+  required: false
+  sdk-field: imageName
+  description: 镜像名称。
+- name: zone-id
+  type: string
+  required: true
+  sdk-field: zoneId
+  description: |-
+    可用区ID。
+    可从DescribeZones的zoneId中获取。
+- name: category
+  type: enum
+  required: false
+  sdk-field: category
+  description: |-
+    镜像所属分类。
+    可能值：CentOS、Windows、Ubuntu、Debian。
+  enum-values:
+  - value: Windows
+    desc: Windows
+  - value: Ubuntu
+    desc: Ubuntu
+  - value: CentOS
+    desc: CentOS
+  - value: Debian
+    desc: Debian
+  - value: ARCH_LINUX
+    desc: Arch Linux
+  - value: COREOS
+    desc: CoreOS
+  - value: FEDORA
+    desc: Fedora
+  - value: FreeBSD
+    desc: FreeBSD
+  - value: KYLIN
+    desc: Kylin
+  - value: ORACLE_LINUX
+    desc: ‌Oracle Linux‌
+  - value: REDHAT
+    desc: Red Hat
+  - value: SUSE
+    desc: SUSE
+  - value: TencentOS
+    desc: TencentOS
+  - value: OTHERS
+    desc: 其他
+- name: image-type
+  type: enum
+  required: false
+  sdk-field: imageType
+  description: |-
+    镜像类型。
+    PUBLIC_IMAGE：公共镜像。
+    CUSTOM_IMAGE：自定义镜像。
+  enum-values:
+  - value: PUBLIC_IMAGE
+    desc: 公共镜像
+  - value: CUSTOM_IMAGE
+    desc: 自定义镜像。
+- name: os-type
+  type: enum
+  required: false
+  sdk-field: osType
+  description: |-
+    操作系统类型。
+    可能值：windows、linux。
+  enum-values:
+  - value: linux
+    desc: Linux
+  - value: windows
+    desc: Windows
+- name: image-status
+  type: enum
+  required: false
+  sdk-field: imageStatus
+  description: |-
+    镜像状态。
+    CREATING：创建中。
+    AVAILABLE：可用。
+    UNAVAILABLE：不可用。
+  enum-values:
+  - value: CREATING
+    desc: 创建中
+  - value: AVAILABLE
+    desc: 正常可用状态。
+  - value: UNAVAILABLE
+    desc: 不可用。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    返回的分页数。
+    默认为1。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    返回的分页大小。
+    默认为20，最大为1000。
+response:
+- name: totalCount
+  type: integer
+  description: 符合条件的数据总数。
+- name: dataSet
+  type: object-array
+  description: 镜像结果集。
+  array-style: json
+  item-schema:
+  - name: imageId
+    type: string
+    description: 镜像ID。
+  - name: imageName
+    type: string
+    description: 镜像名称。
+  - name: imageType
+    type: string
+    description: |-
+      镜像类型。
+      PUBLIC_IMAGE：公共镜像。
+      CUSTOM_IMAGE：自定义镜像。
+  - name: imageSize
+    type: string
+    description: 镜像大小，单位为GB。
+  - name: imageDescription
+    type: string
+    description: 镜像描述。
+  - name: imageVersion
+    type: string
+    description: 镜像版本。
+  - name: imageStatus
+    type: enum
+    description: |-
+      镜像状态。
+      CREATING：创建中。
+      AVAILABLE：可用。
+      UNAVAILABLE：不可用。
+    enum-values:
+    - value: CREATING
+      desc: 创建中
+    - value: AVAILABLE
+      desc: 正常可用状态。
+    - value: UNAVAILABLE
+      desc: 不可用。
+  - name: category
+    type: string
+    description: 镜像所属分类。
+  - name: osType
+    type: string
+    description: |-
+      操作系统类型。
+      可能值：windows、linux。

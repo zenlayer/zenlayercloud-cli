@@ -1,0 +1,34 @@
+name: DescribeAiGatewayExpireTime
+product: aigw
+use: describe-ai-gateway-expire-time
+short: 查询AI网关过期时间
+long: |-
+  查询AI网关过期时间
+  **注意事项**
+
+  * 本接口认证方式请参考[认证方式](../../../api-introduction/instruction/authorization/README.md)
+examples:
+- cmd: zeno aigw describe-ai-gateway-expire-time --gateway-uuid 1568676002379339603
+  desc: 查询 AI 网关过期时间。
+sdk:
+  service: aigw
+  version: '2026-04-14'
+  action: DescribeAiGatewayExpireTime
+parameters:
+- name: gateway-uuid
+  type: string
+  required: true
+  sdk-field: gatewayUuid
+  description: 网关UUID。
+response:
+- name: expireType
+  type: enum
+  description: 过期类型。
+  enum-values:
+  - value: LONG_LIVED
+    desc: 长期
+  - value: CUSTOM
+    desc: 自定义过期时间
+- name: expireTime
+  type: string
+  description: 过期时间。

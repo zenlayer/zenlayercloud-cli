@@ -1,0 +1,62 @@
+name: RevokeSecurityGroupRules
+product: vm
+use: revoke-security-group-rules
+short: 移除安全组规则
+long: |-
+  移除安全组的规则。
+  **注意事项**
+
+  * 安全组状态需是**Available**。
+  * 默认安全组不支持修改。
+  * 安全组规则ID可调用DescribeSecurityGroups接口查询。
+examples:
+- cmd: zeno vm revoke-security-group-rules --security-group-id your-security-group-id --rule-infos "{direction=egress, policy=accept, ipProtocol=tcp, portRange=22/22, cidrIp=0.0.0.0/0}"
+  desc: 移除安全组的规则。
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: RevokeSecurityGroupRules
+parameters:
+- name: security-group-id
+  type: string
+  required: true
+  sdk-field: securityGroupId
+  description: 安全组ID。
+- name: rule-infos
+  type: object-array
+  required: true
+  sdk-field: ruleInfos
+  description: 安全组规则。
+  array-style: json
+  item-schema:
+  - name: direction
+    type: string
+    description: |-
+      规则方向。
+      ingress：入方向。
+      egress：出方向。
+  - name: policy
+    type: string
+    description: |-
+      设置访问权限。
+      accept：接受访问。
+      目前只支持accept。
+  - name: priority
+    type: integer
+    description: 规则优先级。
+  - name: ipProtocol
+    type: string
+    description: |-
+      传输层协议。
+      取值范围：tcp、udp、icmp、all。
+  - name: portRange
+    type: string
+    description: 目的端安全组开放的传输层协议相关的端口范围。
+  - name: cidrIp
+    type: string
+    description: |-
+      源端IP地址范围。
+      支持CIDR格式和IPv4格式的IP地址范围。
+  - name: description
+    type: string
+    description: 规则描述。

@@ -1,0 +1,509 @@
+name: InquiryPriceCreateInstance
+product: vm
+use: inquiry-price-create-instance
+short: 创建虚拟机实例询价
+long: 创建一台虚拟机实例询价。
+examples:
+- cmd: zeno vm inquiry-price-create-instance --zone-id SAO-A --instance-type c.1c2g --image-id img-yKK4q6XybymPgfx7ynUUqC3N8 --instance-charge-type PREPAID --internet-charge-type ByBandwidth --internet-max-bandwidth-out 1
+  desc: 查询创建预付费实例的询价，带宽计费为固定带宽。
+- cmd: zeno vm inquiry-price-create-instance --zone-id SAO-A --instance-type c.1c2g --image-id img-yKK4q6XybymPgfx7ynUUqC3N8 --instance-charge-type PREPAID --internet-charge-type ByTrafficPackage --traffic-package-size 10 --internet-max-bandwidth-out 1
+  desc: 查询创建预付费实例的询价，带宽计费为流量包。
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: InquiryPriceCreateInstance
+parameters:
+- name: zone-id
+  type: string
+  required: true
+  sdk-field: zoneId
+  description: 实例所属的可用区ID。
+- name: image-id
+  type: string
+  required: false
+  sdk-field: imageId
+  description: 指定有效的镜像ID。
+- name: instance-type
+  type: string
+  required: true
+  sdk-field: instanceType
+  description: 实例机型。
+- name: instance-charge-type
+  type: enum
+  required: true
+  sdk-field: instanceChargeType
+  description: |-
+    实例计费类型。
+    PREPAID：预付费。
+    POSTPAID：后付费。
+  enum-values:
+  - value: PREPAID
+    desc: 预付费计费方式。
+  - value: POSTPAID
+    desc: 后付费计费方式。
+- name: instance-charge-prepaid
+  type: object
+  required: false
+  sdk-field: instanceChargePrepaid
+  description: |-
+    预付费模式，即包年包月相关参数设置。
+    若指定实例的付费模式为预付费则该参数必传。
+  object-schema:
+  - name: period
+    type: integer
+    description: |-
+      购买实例的时长。
+      单位：月。
+- name: instance-charge-postpaid
+  type: object
+  required: false
+  sdk-field: instanceChargePostpaid
+  description: 后付费模式相关参数设置。
+  object-schema:
+  - name: period
+    type: integer
+    description: |-
+      后付费时长。
+      单位：月。
+- name: internet-charge-type
+  type: enum
+  required: true
+  sdk-field: internetChargeType
+  description: 网络计费类型。
+  enum-values:
+  - value: ByBandwidth
+    desc: 按固定带宽计费。
+  - value: ByTrafficPackage
+    desc: 购买流量包计费。
+  - value: ByClusterBandwidth95
+    desc: 单产品合并95计费城市带宽组。
+  - value: BandwidthCluster
+    desc: 共享带宽包计费。
+- name: traffic-package-size
+  type: float
+  required: false
+  sdk-field: trafficPackageSize
+  description: 流量包订购大小，单位TB。
+- name: internet-max-bandwidth-out
+  type: integer
+  required: false
+  sdk-field: internetMaxBandwidthOut
+  description: 公网出带宽上限，单位Mbps。
+- name: instance-count
+  type: integer
+  required: true
+  sdk-field: instanceCount
+  description: 指定创建实例的数量。
+- name: system-disk
+  type: object
+  required: true
+  sdk-field: systemDisk
+  description: 系统盘配置。
+  object-schema:
+  - name: diskId
+    type: string
+    description: 磁盘ID。
+  - name: diskSize
+    type: integer
+    description: 系统盘大小，单位GB。
+  - name: diskCategory
+    type: string
+    description: |-
+      磁盘种类。
+      STANDARD：标准云盘。
+      SSD：固态硬盘。
+      默认为SSD。
+- name: data-disks
+  type: object-array
+  required: false
+  sdk-field: dataDisks
+  description: 数据盘配置。
+  array-style: json
+  item-schema:
+  - name: diskId
+    type: string
+    description: 磁盘ID。
+  - name: diskName
+    type: string
+    description: 磁盘名称。
+  - name: diskSize
+    type: integer
+    description: 数据盘大小，单位GB。
+  - name: diskAmount
+    type: integer
+    description: 数据盘数量。
+  - name: portable
+    type: boolean
+    description: 是否可拔插。
+  - name: diskCategory
+    type: string
+    description: |-
+      磁盘种类。
+      STANDARD：标准云盘。
+      SSD：固态硬盘。
+      默认为SSD。
+  - name: diskPrice
+    type: object
+    description: 数据盘价格。
+response:
+- name: instancePrice
+  type: object
+  description: 实例价格。
+  object-schema:
+  - name: discount
+    type: float
+    description: |-
+      折扣大小。
+      如80.0代表8折。
+  - name: discountPrice
+    type: float
+    description: |-
+      后付费的单元折后价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: originalPrice
+    type: float
+    description: |-
+      预付费的原价。
+      预付费模式使用，后付费该值为 null。
+  - name: unitPrice
+    type: float
+    description: |-
+      后付费的单元原始价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: discountUnitPrice
+    type: float
+    description: |-
+      后付费的单元折后价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: chargeUnit
+    type: string
+    description: |-
+      后付费计价单元。
+      后付费模式使用，可取值范围：<br/>HOUR: 表示计价单元是按每小时来计算。
+      DAY: 表示计价单元是按天来计算。
+      MONTH: 表示计价单元是按月来计算，95计费则是这种。
+  - name: stepPrices
+    type: object-array
+    description: |-
+      后付费阶梯价格。
+      后付费模式使用，如果非阶梯价格，该项为null。
+  - name: amountUnit
+    type: string
+    description: |-
+      用量单位。
+      比如Mbps, LCU等。
+      如果为null, 代表取不到值。
+  - name: excessUnitPrice
+    type: float
+    description: 超量原始价格。
+  - name: excessDiscountUnitPrice
+    type: float
+    description: 超量折扣后价格。
+  - name: excessAmountUnit
+    type: string
+    description: |-
+      超量用量单位。
+      如果为null, 代表取不到值。
+  - name: category
+    type: enum
+    description: 价格所属类别。
+    enum-values:
+    - value: STANDARD
+      desc: 标准价格。
+    - value: CUSTOMIZED
+      desc: 一口价格。
+- name: bandwidthPrice
+  type: object-array
+  description: 公网带宽价格。
+  array-style: json
+  item-schema:
+  - name: discount
+    type: float
+    description: |-
+      折扣大小。
+      如80.0代表8折。
+  - name: discountPrice
+    type: float
+    description: |-
+      后付费的单元折后价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: originalPrice
+    type: float
+    description: |-
+      预付费的原价。
+      预付费模式使用，后付费该值为 null。
+  - name: unitPrice
+    type: float
+    description: |-
+      后付费的单元原始价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: discountUnitPrice
+    type: float
+    description: |-
+      后付费的单元折后价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: chargeUnit
+    type: string
+    description: |-
+      后付费计价单元。
+      后付费模式使用，可取值范围：<br/>HOUR: 表示计价单元是按每小时来计算。
+      DAY: 表示计价单元是按天来计算。
+      MONTH: 表示计价单元是按月来计算，95计费则是这种。
+  - name: stepPrices
+    type: object-array
+    description: |-
+      后付费阶梯价格。
+      后付费模式使用，如果非阶梯价格，该项为null。
+  - name: amountUnit
+    type: string
+    description: |-
+      用量单位。
+      比如Mbps, LCU等。
+      如果为null, 代表取不到值。
+  - name: excessUnitPrice
+    type: float
+    description: 超量原始价格。
+  - name: excessDiscountUnitPrice
+    type: float
+    description: 超量折扣后价格。
+  - name: excessAmountUnit
+    type: string
+    description: |-
+      超量用量单位。
+      如果为null, 代表取不到值。
+  - name: category
+    type: enum
+    description: 价格所属类别。
+    enum-values:
+    - value: STANDARD
+      desc: 标准价格。
+    - value: CUSTOMIZED
+      desc: 一口价格。
+- name: eipPrice
+  type: object
+  description: 弹性IP价格。
+  object-schema:
+  - name: discount
+    type: float
+    description: |-
+      折扣大小。
+      如80.0代表8折。
+  - name: discountPrice
+    type: float
+    description: |-
+      后付费的单元折后价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: originalPrice
+    type: float
+    description: |-
+      预付费的原价。
+      预付费模式使用，后付费该值为 null。
+  - name: unitPrice
+    type: float
+    description: |-
+      后付费的单元原始价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: discountUnitPrice
+    type: float
+    description: |-
+      后付费的单元折后价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: chargeUnit
+    type: string
+    description: |-
+      后付费计价单元。
+      后付费模式使用，可取值范围：<br/>HOUR: 表示计价单元是按每小时来计算。
+      DAY: 表示计价单元是按天来计算。
+      MONTH: 表示计价单元是按月来计算，95计费则是这种。
+  - name: stepPrices
+    type: object-array
+    description: |-
+      后付费阶梯价格。
+      后付费模式使用，如果非阶梯价格，该项为null。
+  - name: amountUnit
+    type: string
+    description: |-
+      用量单位。
+      比如Mbps, LCU等。
+      如果为null, 代表取不到值。
+  - name: excessUnitPrice
+    type: float
+    description: 超量原始价格。
+  - name: excessDiscountUnitPrice
+    type: float
+    description: 超量折扣后价格。
+  - name: excessAmountUnit
+    type: string
+    description: |-
+      超量用量单位。
+      如果为null, 代表取不到值。
+  - name: category
+    type: enum
+    description: 价格所属类别。
+    enum-values:
+    - value: STANDARD
+      desc: 标准价格。
+    - value: CUSTOMIZED
+      desc: 一口价格。
+- name: systemDiskPrice
+  type: object
+  description: 系统盘价格。
+  object-schema:
+  - name: discount
+    type: float
+    description: |-
+      折扣大小。
+      如80.0代表8折。
+  - name: discountPrice
+    type: float
+    description: |-
+      后付费的单元折后价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: originalPrice
+    type: float
+    description: |-
+      预付费的原价。
+      预付费模式使用，后付费该值为 null。
+  - name: unitPrice
+    type: float
+    description: |-
+      后付费的单元原始价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: discountUnitPrice
+    type: float
+    description: |-
+      后付费的单元折后价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: chargeUnit
+    type: string
+    description: |-
+      后付费计价单元。
+      后付费模式使用，可取值范围：<br/>HOUR: 表示计价单元是按每小时来计算。
+      DAY: 表示计价单元是按天来计算。
+      MONTH: 表示计价单元是按月来计算，95计费则是这种。
+  - name: stepPrices
+    type: object-array
+    description: |-
+      后付费阶梯价格。
+      后付费模式使用，如果非阶梯价格，该项为null。
+  - name: amountUnit
+    type: string
+    description: |-
+      用量单位。
+      比如Mbps, LCU等。
+      如果为null, 代表取不到值。
+  - name: excessUnitPrice
+    type: float
+    description: 超量原始价格。
+  - name: excessDiscountUnitPrice
+    type: float
+    description: 超量折扣后价格。
+  - name: excessAmountUnit
+    type: string
+    description: |-
+      超量用量单位。
+      如果为null, 代表取不到值。
+  - name: category
+    type: enum
+    description: 价格所属类别。
+    enum-values:
+    - value: STANDARD
+      desc: 标准价格。
+    - value: CUSTOMIZED
+      desc: 一口价格。
+- name: dataDiskPrice
+  type: object
+  description: 数据盘价格。
+  object-schema:
+  - name: discount
+    type: float
+    description: |-
+      折扣大小。
+      如80.0代表8折。
+  - name: discountPrice
+    type: float
+    description: |-
+      后付费的单元折后价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: originalPrice
+    type: float
+    description: |-
+      预付费的原价。
+      预付费模式使用，后付费该值为 null。
+  - name: unitPrice
+    type: float
+    description: |-
+      后付费的单元原始价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: discountUnitPrice
+    type: float
+    description: |-
+      后付费的单元折后价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: chargeUnit
+    type: string
+    description: |-
+      后付费计价单元。
+      后付费模式使用，可取值范围：<br/>HOUR: 表示计价单元是按每小时来计算。
+      DAY: 表示计价单元是按天来计算。
+      MONTH: 表示计价单元是按月来计算，95计费则是这种。
+  - name: stepPrices
+    type: object-array
+    description: |-
+      后付费阶梯价格。
+      后付费模式使用，如果非阶梯价格，该项为null。
+  - name: amountUnit
+    type: string
+    description: |-
+      用量单位。
+      比如Mbps, LCU等。
+      如果为null, 代表取不到值。
+  - name: excessUnitPrice
+    type: float
+    description: 超量原始价格。
+  - name: excessDiscountUnitPrice
+    type: float
+    description: 超量折扣后价格。
+  - name: excessAmountUnit
+    type: string
+    description: |-
+      超量用量单位。
+      如果为null, 代表取不到值。
+  - name: category
+    type: enum
+    description: 价格所属类别。
+    enum-values:
+    - value: STANDARD
+      desc: 标准价格。
+    - value: CUSTOMIZED
+      desc: 一口价格。
+- name: dataDiskPrices
+  type: object-array
+  description: 每种规格数据盘的价格。
+  array-style: json
+  item-schema:
+  - name: diskId
+    type: string
+    description: 磁盘ID。
+  - name: diskName
+    type: string
+    description: 磁盘名称。
+  - name: diskSize
+    type: integer
+    description: 数据盘大小，单位GB。
+  - name: diskAmount
+    type: integer
+    description: 数据盘数量。
+  - name: portable
+    type: boolean
+    description: 是否可拔插。
+  - name: diskCategory
+    type: string
+    description: |-
+      磁盘种类。
+      STANDARD：标准云盘。
+      SSD：固态硬盘。
+      默认为SSD。
+  - name: diskPrice
+    type: object
+    description: 数据盘价格。

@@ -1,0 +1,49 @@
+name: DescribeInstanceCpuMonitor
+product: vm
+use: describe-instance-cpu-monitor
+short: 查询实例CPU使用率
+long: |-
+  查询实例指定时间段内的CPU使用率。
+  **注意事项**
+
+  * 开始时间和结束时间的跨度不能超过24小时。
+  * 只能查询近24小时内的Cpu使用率。
+examples:
+- cmd: zeno vm describe-instance-cpu-monitor --instance-id 932237369560662463 --start-time 2023-07-12T00:00:00Z --end-time 2023-07-12T01:00:00Z
+  desc: 查询实例一段时间内的Cpu使用率。
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: DescribeInstanceCpuMonitor
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: 实例ID。
+- name: start-time
+  type: string
+  required: true
+  sdk-field: startTime
+  description: |-
+    查询开始时间。
+    ISO8601标准，UTC时间。
+- name: end-time
+  type: string
+  required: true
+  sdk-field: endTime
+  description: |-
+    查询结束时间。
+    ISO8601标准，UTC时间。
+response:
+- name: dataList
+  type: object-array
+  description: CPU使用率列表。
+  array-style: json
+  item-schema:
+  - name: cpu
+    type: string
+    description: CPU使用率。
+  - name: time
+    type: string
+    description: 时间。

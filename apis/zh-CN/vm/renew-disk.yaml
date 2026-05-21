@@ -1,0 +1,27 @@
+name: RenewDisk
+product: vm
+use: renew-disk
+short: 续费云硬盘
+long: |-
+  续费云硬盘。
+  **注意事项**
+
+  * 本接口无法续费**系统盘**。
+  * 如果账户余额不足，则续费失败。
+examples:
+- cmd: zeno vm renew-disk --disk-id your-disk-id
+  desc: 用户续费云硬盘。
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: RenewDisk
+parameters:
+- name: disk-id
+  type: string
+  required: true
+  sdk-field: diskId
+  description: 云硬盘ID。
+response:
+- name: orderNumber
+  type: string
+  description: 订单编号。

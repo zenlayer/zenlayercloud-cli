@@ -1,0 +1,55 @@
+name: DescribeZones
+product: vm
+use: describe-zones
+short: 查询可用区域
+long: 查询可用地区。
+examples:
+- cmd: zeno vm describe-zones --zone-ids FRA-A --zone-ids SIN-E
+  desc: 查询可用地区。
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: DescribeZones
+parameters:
+- name: zone-ids
+  type: string-array
+  required: false
+  sdk-field: zoneIds
+  description: 可用区ID集合。
+response:
+- name: zoneSet
+  type: object-array
+  description: 区域信息集合。
+  array-style: json
+  item-schema:
+  - name: zoneId
+    type: string
+    description: 区域ID。
+  - name: zoneName
+    type: string
+    description: 区域名称。
+  - name: supportSecurityGroup
+    type: boolean
+    description: 是否支持安全组。
+  - name: supportNetworkType
+    type: string
+    description: |-
+      支持的网络类型。
+      CLASSICS：经典网络。
+      VPC：VPC网络。
+  - name: supportIpv6
+    type: boolean
+    description: 是否支持公网IPv6。
+  - name: supportCpuPassThrough
+    type: boolean
+    description: 是否支持CPU透传。
+  - name: networkLineType
+    type: enum
+    description: 网络线路信息。
+    enum-values:
+    - value: BGP
+      desc: 优质 BGP，高性能网络。
+    - value: CN2
+      desc: 回国优化线路。
+    - value: Cogent
+      desc: 标准 BGP，通用网络，成本优化。

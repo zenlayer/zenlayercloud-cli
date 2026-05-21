@@ -1,0 +1,27 @@
+name: ReleaseInstances
+product: vm
+use: release-instances
+short: Releases one or more virtual machine instances
+long: |-
+  Release one or more virtual machine instances.
+  **Note**
+
+  * This operation is irreversible. Once the operation is successful, the instance will be completely released. Please operate with caution.
+  * Only operations on instances in recycle bin are supported.
+  * Batch operations are supported. The maximum number of instances in each request is 100.
+examples:
+- cmd: zeno vm release-instances --instance-ids instanceId1 --instance-ids instanceId2
+  desc: Release two instances in batches.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: ReleaseInstances
+parameters:
+- name: instance-ids
+  type: string-array
+  required: true
+  sdk-field: instanceIds
+  description: |-
+    Instance ID(s).
+    To obtain the instance IDs, you can call DescribeInstances and look for instanceId in the response.
+    The maximum number of instances in each request is 100.

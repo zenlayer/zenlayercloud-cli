@@ -1,0 +1,34 @@
+name: ModifySubnetsAttribute
+product: vm
+use: modify-subnets-attribute
+short: 修改经典子网属性
+long: |-
+  修改子网的属性（目前只支持修改子网的名称）。
+  **注意事项**
+
+  * 支持批量操作。每次请求批量Subnet的上限为100。
+  * 如果其中有Subnet ID不存在，则本操作会立即失败。
+examples:
+- cmd: zeno vm modify-subnets-attribute --subnet-ids your-subnet-id --subnet-name Test-Subnet
+  desc: 批量修改Subnet的名称
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: ModifySubnetsAttribute
+parameters:
+- name: subnet-ids
+  type: string-array
+  required: true
+  sdk-field: subnetIds
+  description: |-
+    一个或多个待操作的Subnet ID。
+    可通过DescribeSubnets接口返回值中的SubnetId获取。
+    每次请求批量Subnet的上限为100。
+- name: subnet-name
+  type: string
+  required: true
+  sdk-field: subnetName
+  description: |-
+    Subnet名称。
+    范围1到64个字符。
+    仅支持输入字母、数字、-和英文句点(.)。

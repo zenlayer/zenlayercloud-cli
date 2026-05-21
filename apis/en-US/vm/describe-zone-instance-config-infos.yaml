@@ -1,0 +1,76 @@
+name: DescribeZoneInstanceConfigInfos
+product: vm
+use: describe-zone-instance-config-infos
+short: Queries available models in the zone
+long: Query available models in the zone.
+examples:
+- cmd: zeno vm describe-zone-instance-config-infos --instance-charge-type PREPAID
+  desc: Obtain available resources.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: DescribeZoneInstanceConfigInfos
+parameters:
+- name: instance-charge-type
+  type: enum
+  required: true
+  sdk-field: instanceChargeType
+  description: |-
+    Pricing model.
+    PREPAID: monthly subscription.
+    POSTPAID: pay-as-you-go.
+  enum-values:
+  - value: PREPAID
+    desc: Subscription.
+  - value: POSTPAID
+    desc: Pay-as-you-go.
+- name: zone-id
+  type: string
+  required: false
+  sdk-field: zoneId
+  description: Zone ID.
+- name: instance-type
+  type: string
+  required: false
+  sdk-field: instanceType
+  description: Instance model.
+response:
+- name: instanceTypeQuotaSet
+  type: object-array
+  required: true
+  description: Model list in the zone.
+  array-style: json
+  item-schema:
+  - name: zoneId
+    type: string
+    description: Zone ID.
+  - name: instanceType
+    type: string
+    description: Instance model.
+  - name: instanceTypeName
+    type: string
+    description: Instance model name.
+  - name: cpuCount
+    type: integer
+    description: |-
+      Quantity of CPU cores.
+      Unit: cores.
+  - name: memory
+    type: integer
+    description: |-
+      Memory size.
+      Unit: GiB.
+  - name: internetMaxBandwidthOutLimit
+    type: integer
+    description: |-
+      Outbound bandwidth cap.
+      Value -1 means speed limit is not supported.
+      Unit: Mbps.
+  - name: frequency
+    type: string
+    description: CPU frequency.
+  - name: internetChargeTypes
+    type: string-array
+    description: |-
+      Network billing model. See
+      InternetChargeType for more details.

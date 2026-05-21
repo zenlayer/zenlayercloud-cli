@@ -1,0 +1,20 @@
+name: CancelInstanceDowngrade
+product: vm
+use: cancel-instance-downgrade
+short: 取消实例降配订单
+long: |-
+  取消虚拟机实例降配订单。
+  **注意事项**
+
+  * 当虚拟机实例为预付费且产生了降配订单，该降配订单在下个续费周期生效，通过本接口可以取消降配计划，支持取消的降配计划类型
+  * 因机型降配产生的计划
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: CancelInstanceDowngrade
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: 待操作的实例ID。

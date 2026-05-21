@@ -1,0 +1,61 @@
+name: DescribeAiUsageData
+product: aigw
+use: describe-ai-usage-data
+short: Describe AI Usage Data
+long: |-
+  Describe AI usage data
+  **Notes**
+
+  * For the authentication method of this API, refer to [Authentication](../../../api-introduction/instruction/authorization/README.md)
+examples:
+- cmd: zeno aigw describe-ai-usage-data --instance-ids 1597494548165039443 --start 1772074800 --end 1772075400
+  desc: Query the AI gateway usage statistics within the specified time range.
+sdk:
+  service: aigw
+  version: '2026-04-14'
+  action: DescribeAiUsageData
+parameters:
+- name: instance-ids
+  type: string
+  required: false
+  sdk-field: instanceIds
+  description: Instance ID.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: Resource group ID.
+- name: start
+  type: integer
+  required: true
+  sdk-field: start
+  description: Start timestamp (10 digits), e.g., 1659427200.
+- name: end
+  type: integer
+  required: true
+  sdk-field: end
+  description: End timestamp (10 digits), e.g., 1659434400.
+response:
+- name: totalInputTokens
+  type: integer
+  description: Total number of input tokens.
+- name: totalOutputTokens
+  type: integer
+  description: Total number of output tokens.
+- name: instanceModelToken
+  type: object-array
+  description: Instance model usage data.
+  array-style: json
+  item-schema:
+  - name: modelUuid
+    type: string
+    description: Model UUID.
+  - name: modelName
+    type: string
+    description: Model name.
+  - name: totalTokens
+    type: integer
+    description: Total number of model tokens.
+  - name: totalRequests
+    type: integer
+    description: Total number of model requests.

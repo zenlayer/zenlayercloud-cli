@@ -1,0 +1,31 @@
+name: ChangeDisksAttach
+product: vm
+use: change-disks-attach
+short: 更换挂载云硬盘
+long: |-
+  将一个或多个已经挂载到一台实例的云硬盘挂载到另外一台实例上。
+  **注意事项**
+
+  * 此接口相当于先后进行[DetachDisks](detachdisks.md)与[AttachDisks](describediskcategory.md)操作。
+  * 云硬盘当前状态必须处于**IN\_USE**，且已经绑定其它实例。
+  * 多个云硬盘当前所挂载的实例必须相同。
+  * 更换挂载的云硬盘数量不能超过新的实例所能挂载的最大数量。
+  * 本接口为异步接口，当请求成功返回时，云硬盘并未立即更换挂载，可通过接口[DescribeDisks](describedisks.md)来查询对应云硬盘的实例，如果云硬盘的实例更新，则为更换挂载成功。
+examples:
+- cmd: zeno vm change-disks-attach --disk-ids your-disk-id --instance-id your-instance-id
+  desc: 换绑实例。
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: ChangeDisksAttach
+parameters:
+- name: disk-ids
+  type: string-array
+  required: true
+  sdk-field: diskIds
+  description: 云硬盘ID集合。
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: 需要挂载的新实例ID。

@@ -1,0 +1,39 @@
+name: ModifyInstanceBandwidth
+product: vm
+use: modify-instance-bandwidth
+short: Modifies the public bandwidth of a virtual machine instance
+long: |-
+  The API is used to modify the public bandwidth of a virtual machine instance.
+  **Note**
+
+  * You can only perform this operation on instances whose status is `RUNNING`.
+  * If the [`internetChargeType`](../datastructure.md#internetchargetype) of your instance is `ByBandwidth`
+    * For a `PREPAID` instance:
+      * Upgrade (target > current) operation will deduct the amount required for this instance purchase. If the balance is insufficient, the request will fail and take effect immediately.
+      * Downgrade (target < current) operation will generate an order for the next billing cycle and will take effect by then.
+    * For a `POSTPAID` instance, the change takes immediate effect.
+  * If the [`internetChargeType`](../datastructure.md#internetchargetype) of your instance is not `ByBandwidth`, the bandwidth change takes immediate effect.
+  * This API is an async API. Use `DescribeInstanceInternetStatus` to query bandwidth status of an instance.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: ModifyInstanceBandwidth
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: |-
+    Instance ID(s).
+    To obtain the instance IDs, you can call DescribeInstances and look for instanceId in the response.
+- name: internet-max-bandwidth-out
+  type: integer
+  required: true
+  sdk-field: internetMaxBandwidthOut
+  description: |-
+    Egress bandwidth size.
+    Valid value: ≥1.
+response:
+- name: orderNumber
+  type: string
+  description: Number of order.

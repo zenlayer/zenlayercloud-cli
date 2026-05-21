@@ -1,0 +1,42 @@
+name: ModifyAiGatewayIpAcl
+product: aigw
+use: modify-ai-gateway-ip-acl
+short: Modify AI Gateway IP ACL
+long: |-
+  Modify AI gateway IP ACL
+  **Notes**
+
+  * For the authentication method of this API, refer to [Authentication](../../../api-introduction/instruction/authorization/README.md)
+examples:
+- cmd: zeno aigw modify-ai-gateway-ip-acl --gateway-uuid 1681046263778257235 --ip-acl-type WHITE --ip-addresses 1.1.1.1 --enabled true
+  desc: Modify the AI gateway IP ACL.
+sdk:
+  service: aigw
+  version: '2026-04-14'
+  action: ModifyAiGatewayIpAcl
+parameters:
+- name: gateway-uuid
+  type: string
+  required: true
+  sdk-field: gatewayUuid
+  description: Gateway UUID.
+- name: ip-acl-type
+  type: enum
+  required: true
+  sdk-field: ipAclType
+  description: IP ACL type (whitelist/blacklist).
+  enum-values:
+  - value: WHITE
+    desc: IP Whitelist
+  - value: BLACK
+    desc: IP Blacklist
+- name: ip-addresses
+  type: string-array
+  required: false
+  sdk-field: ipAddresses
+  description: List of IP addresses.
+- name: enabled
+  type: boolean
+  required: false
+  sdk-field: enabled
+  description: Whether enabled.

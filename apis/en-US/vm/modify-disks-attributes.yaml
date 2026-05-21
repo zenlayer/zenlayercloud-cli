@@ -1,0 +1,30 @@
+name: ModifyDisksAttributes
+product: vm
+use: modify-disks-attributes
+short: Modifies the attributes of one or more disks
+long: |-
+  The API is used to modify the attributes of one or more disks.
+  **Note**
+
+  * Only the disk name to be displayed can be modified for now.
+  * All the specified disks will be modified the same attributes.
+examples:
+- cmd: zeno vm modify-disks-attributes --disk-ids your-disk-id --disk-name newDiskName
+  desc: Modify the attributes of one or more disks.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: ModifyDisksAttributes
+parameters:
+- name: disk-ids
+  type: string-array
+  required: true
+  sdk-field: diskIds
+  description: ID list of disks to be modified.
+- name: disk-name
+  type: string
+  required: true
+  sdk-field: diskName
+  description: |-
+    Disk name to be displayed.
+    This parameter must start with a number or a letter, containing up to 64 characters. Only letters, numbers, - and periods (.) are supported.

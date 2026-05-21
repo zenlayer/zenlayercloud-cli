@@ -1,0 +1,28 @@
+name: UnAssociateSecurityGroupInstance
+product: vm
+use: un-associate-security-group-instance
+short: Disassociates the security group from an instance
+long: |-
+  Disassociate the security group from an instance.
+  **Note**
+
+  * Status of security group should be `Available`.
+  * Status of instance should be `RUNNING` or `STOPPED`.
+examples:
+- cmd: zeno vm un-associate-security-group-instance --security-group-id your-security-group-id --instance-id your-instance-id
+  desc: Disassociate the security group from an instance.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: UnAssociateSecurityGroupInstance
+parameters:
+- name: security-group-id
+  type: string
+  required: true
+  sdk-field: securityGroupId
+  description: Security group ID.
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: Instance ID.

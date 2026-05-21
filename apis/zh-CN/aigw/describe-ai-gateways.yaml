@@ -1,0 +1,134 @@
+name: DescribeAiGateways
+product: aigw
+use: describe-ai-gateways
+short: 分页查询ai网关列表
+long: |-
+  分页查询ai网关列表
+  **注意事项**
+
+  * 本接口认证方式请参考[认证方式](../../../api-introduction/instruction/authorization/README.md)
+examples:
+- cmd: zeno aigw describe-ai-gateways --page-size 200 --page-num 1
+  desc: 分页查询 AI 网关列表。
+sdk:
+  service: aigw
+  version: '2026-04-14'
+  action: DescribeAiGateways
+parameters:
+- name: gateway-uuids
+  type: string-array
+  required: false
+  sdk-field: gatewayUuids
+  description: AI网关UUID列表。
+- name: gateway-name
+  type: string
+  required: false
+  sdk-field: gatewayName
+  description: AI网关名称。
+- name: status
+  type: enum
+  required: false
+  sdk-field: status
+  description: AI网关状态。
+  enum-values:
+  - value: CREATING
+    desc: 创建中
+  - value: CONFIGURING
+    desc: 配置中
+  - value: SUCCEED
+    desc: 配置成功
+  - value: FAILED
+    desc: 配置失败
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: 资源组ID。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: 分页每页数量。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: 分页页码。
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    根据标签键进行搜索。
+    最长不得超过20个标签键。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    根据标签进行搜索。
+    最长不得超过20个标签。
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。
+response:
+- name: totalCount
+  type: integer
+  description: 符合条件的数据总数。
+- name: dataSet
+  type: object-array
+  description: AI网关列表的数据。
+  array-style: json
+  item-schema:
+  - name: gatewayUuid
+    type: string
+    description: AI网关唯一ID。
+  - name: gatewayName
+    type: string
+    description: AI网关显示名称。
+  - name: enabled
+    type: boolean
+    description: 是否启用。
+  - name: createdAt
+    type: string
+    description: 创建时间。
+  - name: updatedAt
+    type: string
+    description: 更新时间。
+  - name: resourceGroupId
+    type: string
+    description: AI网关所属的资源组ID。
+  - name: accessLimit
+    type: integer
+    description: 配额。
+  - name: expireType
+    type: enum
+    description: 过期时间类型。
+    enum-values:
+    - value: LONG_LIVED
+      desc: 长期
+    - value: CUSTOM
+      desc: 自定义过期时间
+  - name: expireTime
+    type: string
+    description: 过期时间。
+  - name: modelAccess
+    type: enum
+    description: 模型访问限制。
+    enum-values:
+    - value: UNLIMITED
+      desc: 不限制模型，可使用当前上架的所有模型
+    - value: LIMITED
+      desc: 受限，只可使用关联的模型
+  - name: tags
+    type: object
+    description: AI网关关联的标签。

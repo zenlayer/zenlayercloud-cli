@@ -1,0 +1,47 @@
+name: DescribeAiModelDailyCacheHitRate
+product: aigw
+use: describe-ai-model-daily-cache-hit-rate
+short: Describe the hit rate of the AI gateway's daily model cache
+long: |-
+  Describe the hit rate of the AI gateway's daily model cache
+  **Notes**
+
+  * For the authentication method of this API, refer to [Authentication](../../../api-introduction/instruction/authorization/README.md)
+examples:
+- cmd: zeno aigw describe-ai-model-daily-cache-hit-rate --instance-ids 1652682429418183507 --month 2026-03
+  desc: Describe the statistics of the daily model cache hit rate of the AI gateway.
+sdk:
+  service: aigw
+  version: '2026-04-14'
+  action: DescribeAiModelDailyCacheHitRate
+parameters:
+- name: instance-ids
+  type: string
+  required: false
+  sdk-field: instanceIds
+  description: Instance Uuid.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: ResourceGroup Uuid.
+- name: month
+  type: string
+  required: true
+  sdk-field: month
+  description: 'Month, format: "2026-2" or "2026-02".'
+response:
+- name: dates
+  type: string-array
+  description: List of dates.
+- name: cacheHit
+  type: object-array
+  description: Daily model cache hit rate.
+  array-style: json
+  item-schema:
+  - name: modelName
+    type: string
+    description: Model Name.
+  - name: data
+    type: string-array
+    description: List of daily cache hit rates for the model, in the format of "90%".

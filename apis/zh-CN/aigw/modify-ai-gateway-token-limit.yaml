@@ -1,0 +1,27 @@
+name: ModifyAiGatewayTokenLimit
+product: aigw
+use: modify-ai-gateway-token-limit
+short: 修改AI网关Token限制
+long: |-
+  修改AI网关Token限制
+  **注意事项**
+
+  * 本接口认证方式请参考[认证方式](../../../api-introduction/instruction/authorization/README.md)
+examples:
+- cmd: zeno aigw modify-ai-gateway-token-limit --gateway-uuid 1568676002379339603 --token-limit 2000
+  desc: 修改 AI 网关 Token 限制。
+sdk:
+  service: aigw
+  version: '2026-04-14'
+  action: ModifyAiGatewayTokenLimit
+parameters:
+- name: gateway-uuid
+  type: string
+  required: true
+  sdk-field: gatewayUuid
+  description: 网关UUID。
+- name: token-limit
+  type: integer
+  required: true
+  sdk-field: tokenLimit
+  description: Token限制（访问限制）。

@@ -1,0 +1,67 @@
+name: DescribeZoneInstanceConfigInfos
+product: vm
+use: describe-zone-instance-config-infos
+short: 查询售卖可用区的机型信息
+long: 查询售卖可用区的机型信息。
+examples:
+- cmd: zeno vm describe-zone-instance-config-infos --instance-charge-type PREPAID
+  desc: 获取所有的可用资源。
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: DescribeZoneInstanceConfigInfos
+parameters:
+- name: instance-charge-type
+  type: enum
+  required: true
+  sdk-field: instanceChargeType
+  description: |-
+    实例计费类型。
+    PREPAID：预付费。
+    POSTPAID：后付费。
+  enum-values:
+  - value: PREPAID
+    desc: 预付费计费方式。
+  - value: POSTPAID
+    desc: 后付费计费方式。
+- name: zone-id
+  type: string
+  required: false
+  sdk-field: zoneId
+  description: 可用区ID。
+- name: instance-type
+  type: string
+  required: false
+  sdk-field: instanceType
+  description: 实例机型。
+response:
+- name: instanceTypeQuotaSet
+  type: object-array
+  required: true
+  description: 可用区机型配置列表。
+  array-style: json
+  item-schema:
+  - name: zoneId
+    type: string
+    description: 可用区ID。
+  - name: instanceType
+    type: string
+    description: 实例机型。
+  - name: instanceTypeName
+    type: string
+    description: 实例机型名称。
+  - name: cpuCount
+    type: integer
+    description: CPU核数。
+  - name: memory
+    type: integer
+    description: 内存大小，单位GiB。
+  - name: internetMaxBandwidthOutLimit
+    type: integer
+    description: 公网出口带宽上限。
+  - name: frequency
+    type: string
+    description: CPU主频。
+  - name: internetChargeTypes
+    type: string-array
+    description: 支持的网络计费类型列表。

@@ -1,0 +1,42 @@
+name: DescribeInstanceTypeStatus
+product: vm
+use: describe-instance-type-status
+short: Queries model status after instance specification change
+long: The API is used to query model status after instance specification change.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: DescribeInstanceTypeStatus
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: |-
+    ID of the instance to be modified.
+    To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response.
+response:
+- name: instanceId
+  type: string
+  description: Instance ID.
+- name: instanceName
+  type: string
+  description: Instance name.
+- name: instanceType
+  type: string
+  description: Current model of the instance.
+- name: modifiedInstanceType
+  type: string
+  description: |-
+    Target model of the instance.
+    If the value is empty, no scheduling specification change exists.
+- name: modifiedInstanceTypeStatus
+  type: enum
+  description: 'Model status of the instance.Processing: the model is changing.Enable: the model is available.WaitToEnable: the model is available in the next billing cycle.'
+  enum-values:
+  - value: Processing
+    desc: Processing.
+  - value: WaitToEnable
+    desc: Waiting for the plan changes to take effect.
+  - value: Disable
+    desc: Disabled.

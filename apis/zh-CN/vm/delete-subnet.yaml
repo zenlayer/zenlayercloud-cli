@@ -1,0 +1,23 @@
+name: DeleteSubnet
+product: vm
+use: delete-subnet
+short: 删除经典子网
+long: |-
+  删除一个子网。
+  **注意事项**
+
+  * 不能删除存在实例的子网，可通过[`DescribeSubnets`](describesubnets.md)接口查看。
+  * 该接口只能处于 **Available** 或 **Failed** 状态的子网调用。
+examples:
+- cmd: zeno vm delete-subnet --subnet-id your-subnet-id
+  desc: 删除Subnet。
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: DeleteSubnet
+parameters:
+- name: subnet-id
+  type: string
+  required: true
+  sdk-field: subnetId
+  description: 子网的ID。

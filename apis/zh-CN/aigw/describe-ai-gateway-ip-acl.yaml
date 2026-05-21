@@ -1,0 +1,37 @@
+name: DescribeAiGatewayIpAcl
+product: aigw
+use: describe-ai-gateway-ip-acl
+short: 查询AI网关IP访问控制
+long: |-
+  查询AI网关IP访问控制
+  **注意事项**
+
+  * 本接口认证方式请参考[认证方式](../../../api-introduction/instruction/authorization/README.md)
+examples:
+- cmd: zeno aigw describe-ai-gateway-ip-acl --gateway-uuid 1568676002379339603
+  desc: 查询 AI 网关 IP 访问控制。
+sdk:
+  service: aigw
+  version: '2026-04-14'
+  action: DescribeAiGatewayIpAcl
+parameters:
+- name: gateway-uuid
+  type: string
+  required: true
+  sdk-field: gatewayUuid
+  description: 网关UUID。
+response:
+- name: ipAclType
+  type: enum
+  description: IP访问控制类型（白名单/黑名单）。
+  enum-values:
+  - value: WHITE
+    desc: IP白名单
+  - value: BLACK
+    desc: IP黑名单
+- name: ipAddresses
+  type: string-array
+  description: IP地址列表。
+- name: enabled
+  type: boolean
+  description: 是否启用。

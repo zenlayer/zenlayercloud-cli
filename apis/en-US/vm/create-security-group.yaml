@@ -1,0 +1,78 @@
+name: CreateSecurityGroup
+product: vm
+use: create-security-group
+short: Create a security group
+long: |-
+  Create a security group.
+  **Note**
+
+  * Security group quota is limited. If you need more, please contact Zenlayer Support.
+  * The upper limit of quantity of security group rules is 40, including 20 inbound rules and 20 outbound rules.
+  * Rules cannot be duplicated in one rule direction.
+examples:
+- cmd: zeno vm create-security-group --security-group-name test123 --rule-infos "{direction=ingress, policy=accept, priority=2, ipProtocol=tcp, portRange=22/22, cidrIp=0.0.0.0/0}" --description 123456
+  desc: Create a security group.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: CreateSecurityGroup
+parameters:
+- name: security-group-name
+  type: string
+  required: true
+  sdk-field: securityGroupName
+  description: |-
+    Security group name to be displayed.
+    This parameter can contain up to 64 characters. Only letters, numbers, - and periods (.) are supported.
+- name: rule-infos
+  type: object-array
+  required: false
+  sdk-field: ruleInfos
+  description: Security group rules.
+  array-style: json
+  item-schema:
+  - name: direction
+    type: string
+    description: |-
+      Traffic directions.
+      ingress: inbound rules.
+      egress: outbound rules.
+  - name: policy
+    type: string
+    description: |-
+      Access strategy.
+      Available values:
+      accept: allows access by default.
+      Only accept strategy is supported for now.
+  - name: priority
+    type: integer
+    description: Rule priority.
+  - name: ipProtocol
+    type: string
+    description: |-
+      Transport protocol. The value is case sensitive.
+      Available value:tcp: TCP protocol.udp: UDP protocol.icmp: ICMP protocol.all: all protocols supported.
+  - name: portRange
+    type: string
+    description: |-
+      Destination port range.
+      Available values:For TCP and UDP protocols: The value ranges from 1 to 65535. Use a slash (/) to separate the start port number and the end port number. Examples: 1/200; incorrect example: 200/1.For ICMP protocol: -1/-1.For all protocols: -1/-1.
+  - name: cidrIp
+    type: string
+    description: |-
+      Source IP address range.
+      Default value: 0.0.XX.XX/0.
+  - name: description
+    type: string
+    description: Rule description.
+- name: description
+  type: string
+  required: false
+  sdk-field: description
+  description: |-
+    Security group description.
+    This parameter must contain 2 to 255 characters.
+response:
+- name: securityGroupId
+  type: string
+  description: Security group ID.

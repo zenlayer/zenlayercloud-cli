@@ -1,0 +1,67 @@
+name: AuthorizeSecurityGroupRule
+product: vm
+use: authorize-security-group-rule
+short: 新增安全组单条规则
+long: |-
+  新增安全组单条规则。
+  **注意事项**
+
+  * 安全组状态需是**Available**。
+  * 默认安全组不支持修改。
+  * 同一规则方向，规则不能重复。
+  * 安全组的规则数量最多40条，入方向最多20条、出方向最多20条。
+examples:
+- cmd: zeno vm authorize-security-group-rule --security-group-id your-security-group-id --direction egress --policy accept --ip-protocol tcp --port-range 22/22 --cidr-ip 0.0.0.0/0
+  desc: 新增一条安全组的规则。
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: AuthorizeSecurityGroupRule
+parameters:
+- name: security-group-id
+  type: string
+  required: true
+  sdk-field: securityGroupId
+  description: 安全组ID。
+- name: direction
+  type: string
+  required: true
+  sdk-field: direction
+  description: |-
+    规则方向。
+    ingress：入方向。
+    egress：出方向。
+- name: policy
+  type: string
+  required: false
+  sdk-field: policy
+  description: |-
+    设置访问权限。
+    accept（默认值）：接受访问。
+- name: priority
+  type: integer
+  required: false
+  sdk-field: priority
+  description: 规则优先级。
+- name: ip-protocol
+  type: string
+  required: true
+  sdk-field: ipProtocol
+  description: |-
+    传输层协议。
+    取值范围：tcp、udp、icmp、all。
+- name: port-range
+  type: string
+  required: true
+  sdk-field: portRange
+  description: 目的端安全组开放的传输层协议相关的端口范围。
+- name: cidr-ip
+  type: string
+  required: true
+  sdk-field: cidrIp
+  description: 源端IP地址范围。
+- name: description
+  type: string
+  required: false
+  sdk-field: description
+  description: 规则描述。

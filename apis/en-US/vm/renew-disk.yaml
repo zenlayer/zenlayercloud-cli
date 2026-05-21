@@ -1,0 +1,27 @@
+name: RenewDisk
+product: vm
+use: renew-disk
+short: Renews a disk
+long: |-
+  Renew a disk.
+  **Note**
+
+  * Only operations on data disks are supported.
+  * Please ensure that the account balance is sufficient when renewing.
+examples:
+- cmd: zeno vm renew-disk --disk-id your-disk-id
+  desc: Renew a disk.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: RenewDisk
+parameters:
+- name: disk-id
+  type: string
+  required: true
+  sdk-field: diskId
+  description: Disk ID
+response:
+- name: orderNumber
+  type: string
+  description: Number of order.

@@ -1,0 +1,42 @@
+name: DescribeInstanceTypeStatus
+product: vm
+use: describe-instance-type-status
+short: 查询实例变配机型状态
+long: 查询实例变配后的机型状态。
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: DescribeInstanceTypeStatus
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: 待操作的实例ID。
+response:
+- name: instanceId
+  type: string
+  description: 虚拟机实例ID。
+- name: instanceName
+  type: string
+  description: 实例的名称。
+- name: instanceType
+  type: string
+  description: 当前实例的机型。
+- name: modifiedInstanceType
+  type: string
+  description: 实例将要修改的机型。
+- name: modifiedInstanceTypeStatus
+  type: enum
+  description: |-
+    实例机型状态。
+    Processing：变更中。
+    Enable：可用。
+    WaitToEnable：下周期变更。
+  enum-values:
+  - value: Processing
+    desc: 处理中。
+  - value: WaitToEnable
+    desc: 等待计划变更生效。
+  - value: Disable
+    desc: 不支持计划变更。

@@ -1,0 +1,24 @@
+name: RebootInstances
+product: vm
+use: reboot-instances
+short: 重启虚拟机实例
+long: |-
+  重启一个或多个虚拟机实例。
+  **注意事项**
+
+  * 只有状态为 **`RUNNING`** 的实例可以进行此操作。
+  * 本接口为异步接口，重启实例请求发送成功后会立即返回，此时操作并未完成。实例操作结果可以通过调用[`DescribeInstancesStatus`](describeinstancesstatus.md)接口查询，如果实例状态(instanceStatus)由**`REBOOT`**(启动中)变为**`RUNNING`**(运行中)，则代表实例重启成功，重启过程中不可对实例进行任何操作。
+  * 支持批量操作。每次请求批量实例的上限为100。
+examples:
+- cmd: zeno vm reboot-instances --instance-ids instanceId1 --instance-ids instanceId2
+  desc: 批量重启实例
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: RebootInstances
+parameters:
+- name: instance-ids
+  type: string-array
+  required: true
+  sdk-field: instanceIds
+  description: 一个或多个待操作的实例ID。

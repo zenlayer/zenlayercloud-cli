@@ -1,0 +1,31 @@
+name: ResizeDisk
+product: vm
+use: resize-disk
+short: Expands a cloud volume to a specified size
+long: |-
+  Resize a disk to a specified size.
+  **Note**
+
+  * Only disk expansion is supported currently.
+  * This API is an async API. You can use [`DescribeDisks`](describedisks.md) to query the status of the disk. If disk has been queried with the `CHANGING` status, it means that the disk is being expanding.
+examples:
+- cmd: zeno vm resize-disk --disk-id your-disk-id --disk-size 100
+  desc: Resize the disk to `100` GB.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: ResizeDisk
+parameters:
+- name: disk-id
+  type: string
+  required: true
+  sdk-field: diskId
+  description: Disk ID.
+- name: disk-size
+  type: integer
+  required: true
+  sdk-field: diskSize
+  description: |-
+    Disk size after expansion.
+    Unit: GB.
+    The value must be larger than the current one, and the upper limit is 2000 GB.

@@ -1,0 +1,62 @@
+name: ResetInstance
+product: vm
+use: reset-instance
+short: 重装虚拟机实例操作系统
+long: |-
+  重装一台虚拟机实例上的操作系统。
+  #### 准备工作
+  * 查询镜像：调用[`DescribeImages`](../image/describeimages.md)可以查询到需要重装的操作系统镜像信息。
+  * 查询密钥对：调用 [`DescribeKeyPairs`](../../../security/key-service/key-pair/describekeypairs.md)可以查询到密钥对ID信息。
+
+
+  **注意事项**
+
+  * 如果指定了`imageId`参数，则使用指定的镜像重装；否则按照实例当前使用的镜像进行重装。
+  * 实例的系统盘大小必须大于或等于被重装镜像的大小。否则操作将被拒绝。
+  * 系统盘将会被格式化，并重置；请确保系统盘中无重要文件。
+  * 如果密码不指定将会通过邮箱下发随机密码。
+  * 重装系统必须在实例为关机状态才能进行。
+  * 重装实例后进入 **`REBUILDING`** (重置中)的状态。如果实例的最新状态变为`RUNNING`(运行中)，则代表操作成功；实例的状态可以通过调用 `DescribeInstancesStatus` 接口查询。
+examples:
+- cmd: zeno vm reset-instance --instance-id instanceId --image-id img-xxxxxxxxx --password Example+123
+  desc: 指定镜像和密码重装指定ID的实例
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: ResetInstance
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: 待操作的虚拟机实例ID。
+- name: password
+  type: string
+  required: false
+  sdk-field: password
+  description: 实例登录密码。
+- name: key-id
+  type: string
+  required: false
+  sdk-field: keyId
+  description: 密钥ID。
+- name: image-id
+  type: string
+  required: false
+  sdk-field: imageId
+  description: 指定有效的镜像ID。
+- name: instance-name
+  type: string
+  required: false
+  sdk-field: instanceName
+  description: 实例显示名称。
+- name: wan-name
+  type: string
+  required: false
+  sdk-field: wanName
+  description: 公网网卡名称。
+- name: lan-name
+  type: string
+  required: false
+  sdk-field: lanName
+  description: 内网网卡名称。

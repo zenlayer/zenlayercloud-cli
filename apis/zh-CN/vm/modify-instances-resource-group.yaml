@@ -1,0 +1,28 @@
+name: ModifyInstancesResourceGroup
+product: vm
+use: modify-instances-resource-group
+short: 修改实例所属资源组
+long: |-
+  修改虚拟机实例所属的资源组。
+  **注意事项**
+
+  * 支持批量操作。每次请求批量实例的上限为100。
+  * 该接口只有管理员角色的用户能够进行操作。
+examples:
+- cmd: zeno vm modify-instances-resource-group --instance-ids instanceId1 --instance-ids instanceId2 --resource-group-id resourceGroup1
+  desc: 将VM实例移动到指定资源组。
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: ModifyInstancesResourceGroup
+parameters:
+- name: instance-ids
+  type: string-array
+  required: true
+  sdk-field: instanceIds
+  description: 虚拟机实例ID列表。
+- name: resource-group-id
+  type: string
+  required: true
+  sdk-field: resourceGroupId
+  description: 资源组ID。

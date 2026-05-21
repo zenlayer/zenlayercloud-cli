@@ -1,0 +1,47 @@
+name: DescribeAiModelDailyCost
+product: aigw
+use: describe-ai-model-daily-cost
+short: 查询AI网关月模型日费用
+long: |-
+  查询AI网关月模型日费用
+  **注意事项**
+
+  * 本接口认证方式请参考[认证方式](../../../api-introduction/instruction/authorization/README.md)
+examples:
+- cmd: zeno aigw describe-ai-model-daily-cost --instance-ids 1652682429418183507 --month 2026-03
+  desc: 查询 AI 网关在指定月份内各模型的每日费用统计。
+sdk:
+  service: aigw
+  version: '2026-04-14'
+  action: DescribeAiModelDailyCost
+parameters:
+- name: instance-ids
+  type: string
+  required: false
+  sdk-field: instanceIds
+  description: 实例ID。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: 资源组ID。
+- name: month
+  type: string
+  required: true
+  sdk-field: month
+  description: 月份，格式："2026-2" 或 "2026-02"。
+response:
+- name: dates
+  type: string-array
+  description: 日期列表。
+- name: series
+  type: object-array
+  description: 日模型费用。
+  array-style: json
+  item-schema:
+  - name: modelName
+    type: string
+    description: 模型名称。
+  - name: data
+    type: float-array
+    description: 模型日费用列表。

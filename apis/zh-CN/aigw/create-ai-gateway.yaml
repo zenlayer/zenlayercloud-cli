@@ -1,0 +1,101 @@
+name: CreateAiGateway
+product: aigw
+use: create-ai-gateway
+short: 创建AI网关
+long: |-
+  创建AI网关
+  **注意事项**
+
+  * 本接口认证方式请参考[认证方式](../../../api-introduction/instruction/authorization/README.md)
+examples:
+- cmd: zeno aigw create-ai-gateway --gateway-name AI-Gateway-01 --token-limit 1000 --expire-type CUSTOM --expire-time 2025-12-31T23:59:59Z --resource-group-id 47e7f7e0-d7e9-4b28-b4b2-20da9439a294 --model-access UNLIMITED
+  desc: 创建 AI 网关。
+sdk:
+  service: aigw
+  version: '2026-04-14'
+  action: CreateAiGateway
+parameters:
+- name: model-uuids
+  type: string-array
+  required: false
+  sdk-field: modelUuids
+  description: |-
+    需要关联的模型uuid列表。
+    当modelAccess为LIMITED时必填。
+- name: gateway-name
+  type: string
+  required: true
+  sdk-field: gatewayName
+  description: |-
+    AI网关名称。
+    范围2到63个字符。
+    仅支持输入字母、数字、-和英文句点(.)。
+    且必须以数字或字母开头和结尾。
+- name: token-limit
+  type: integer
+  required: true
+  sdk-field: tokenLimit
+  description: token配额。
+- name: expire-type
+  type: enum
+  required: true
+  sdk-field: expireType
+  description: |-
+    token过期策略类型。
+    可选范围：LONG_LIVED、CUSTOM。
+  enum-values:
+  - value: LONG_LIVED
+    desc: 长期
+  - value: CUSTOM
+    desc: 自定义过期时间
+- name: expire-time
+  type: string
+  required: false
+  sdk-field: expireTime
+  description: |-
+    token过期时间。
+    当expireType为CUSTOM时必填。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: 创建后AI网关所在的资源组ID，如不指定则放入默认资源组。
+- name: model-access
+  type: enum
+  required: true
+  sdk-field: modelAccess
+  description: |-
+    模型访问权限。
+    可选范围：UNLIMITED、LIMITED。
+  enum-values:
+  - value: UNLIMITED
+    desc: 不限制模型，可使用当前上架的所有模型
+  - value: LIMITED
+    desc: 受限，只可使用关联的模型
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    创建AI网关时关联的标签。
+    注意：·关联标签键不能重复。--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。
+response:
+- name: gatewayUuid
+  type: string
+  description: AI网关uuid。
+- name: token
+  type: string
+  description: AI网关token。

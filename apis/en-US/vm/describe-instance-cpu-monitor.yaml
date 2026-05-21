@@ -1,0 +1,51 @@
+name: DescribeInstanceCpuMonitor
+product: vm
+use: describe-instance-cpu-monitor
+short: Queries CPU utilization in a specified date range
+long: |-
+  Query CPU utilization in a specified date range.
+  **Note**
+
+  * The date range of 24 hours are supported.
+  * Only the CPU utilization within 30 days are supported to query.
+examples:
+- cmd: zeno vm describe-instance-cpu-monitor --instance-id 932237369560662463 --start-time 2023-07-12T00:00:00Z --end-time 2023-07-12T01:00:00Z
+  desc: Query the CPU utilization of the instance in one day.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: DescribeInstanceCpuMonitor
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: Instance ID.
+- name: start-time
+  type: string
+  required: true
+  sdk-field: startTime
+  description: |-
+    Start time.
+    Use UTC time according to the ISO8601 standard. Format: YYYY-MM-DDThh:mm:ssZ.
+- name: end-time
+  type: string
+  required: true
+  sdk-field: endTime
+  description: |-
+    End time.
+    Use UTC time according to the ISO8601 standard. Format: YYYY-MM-DDThh:mm:ssZ.
+response:
+- name: dataList
+  type: object-array
+  description: List of CPU utilization information.
+  array-style: json
+  item-schema:
+  - name: cpu
+    type: string
+    description: |-
+      CPU utilization.
+      Unit: % .
+  - name: time
+    type: string
+    description: Data time

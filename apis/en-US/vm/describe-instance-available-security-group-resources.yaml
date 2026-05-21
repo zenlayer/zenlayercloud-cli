@@ -1,0 +1,33 @@
+name: DescribeInstanceAvailableSecurityGroupResources
+product: vm
+use: describe-instance-available-security-group-resources
+short: Queries available security groups
+long: The API is used to obtain security groups available to be applied to an instance.
+examples:
+- cmd: zeno vm describe-instance-available-security-group-resources --instance-id your-instance-id
+  desc: Obtain security groups available to be applied to an instance.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: DescribeInstanceAvailableSecurityGroupResources
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: Instance ID.
+response:
+- name: instanceAvailableSecurityGroups
+  type: object-array
+  description: All available security groups.
+  array-style: json
+  item-schema:
+  - name: securityGroupId
+    type: string
+    description: Security group ID.
+  - name: securityGroupName
+    type: string
+    description: Security group name.
+  - name: isDefault
+    type: boolean
+    description: Whether the security group is default or not.

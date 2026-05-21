@@ -1,0 +1,77 @@
+name: AuthorizeSecurityGroupRule
+product: vm
+use: authorize-security-group-rule
+short: Adds a security group rule
+long: |-
+  Add a security group rule.
+  **Note**
+
+  * Status of security group should be `Available`.
+  * Rules cannot be duplicated in one rule direction.
+  * The upper limit of quantity of security group rules is 40, including 20 inbound rules and 20 outbound rules.
+  * Editing is not supported for default security group.
+examples:
+- cmd: zeno vm authorize-security-group-rule --security-group-id your-security-group-id --direction egress --policy accept --priority 6 --ip-protocol tcp --port-range 22/22 --cidr-ip 0.0.0.0/0
+  desc: Add a security group rule.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: AuthorizeSecurityGroupRule
+parameters:
+- name: security-group-id
+  type: string
+  required: true
+  sdk-field: securityGroupId
+  description: Security group ID.
+- name: direction
+  type: string
+  required: true
+  sdk-field: direction
+  description: |-
+    Traffic directions.
+    ingress: inbound rules.
+    egress: outbound rules.
+- name: policy
+  type: string
+  required: false
+  sdk-field: policy
+  description: |-
+    Access strategy.
+    Available values:
+    accept: allows access by default.
+    Only accept strategy is supported for now.
+- name: priority
+  type: integer
+  required: false
+  sdk-field: priority
+  description: |-
+    Priority of rules.
+    Available values:
+    [1,100].
+    Default value: 1.
+- name: ip-protocol
+  type: string
+  required: true
+  sdk-field: ipProtocol
+  description: |-
+    Transport protocol. The value is case sensitive.
+    Available value:tcp: TCP protocol.udp: UDP protocol.icmp: ICMP protocol.all: all protocols supported.
+- name: port-range
+  type: string
+  required: true
+  sdk-field: portRange
+  description: |-
+    Destination port range.
+    Available values:For TCP and UDP protocols: The value ranges from 1 to 65535. Use a slash (/) to separate the start port number and the end port number. Examples: 1/200; incorrect example: 200/1.For ICMP protocol: -1/-1.For all protocols: -1/-1.
+- name: cidr-ip
+  type: string
+  required: true
+  sdk-field: cidrIp
+  description: |-
+    Source IP address range.
+    Default value: 0.0.XX.XX/0.
+- name: description
+  type: string
+  required: false
+  sdk-field: description
+  description: Rule description.

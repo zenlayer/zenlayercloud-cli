@@ -2,10 +2,10 @@ name: RegisterBackend
 product: bmc
 use: register-backend
 short: Creates a backend server and add it to a load balance listener
-long: Create a backend server and add it to a load balance listener.
+long: Create a backend server (vm or bmc instance) and add it to a load balance listener.
 examples:
 - cmd: zeno bmc register-backend --listener-id xxxx --backend-name xxxx --port-list 80 --client-token xxxx --weight 100 --instance-id xxxx
-  desc: Add a backend server to a load balance listener.
+  desc: Add a bare metal instance as a backend server to a load balance listener.
 sdk:
   service: bmc
   version: '2026-02-01'
@@ -27,7 +27,7 @@ parameters:
   type: string
   required: true
   sdk-field: instanceId
-  description: Bare metal instance ID.
+  description: Bare metal or Virtual machine instance ID.
 - name: instance-type
   type: enum
   required: false

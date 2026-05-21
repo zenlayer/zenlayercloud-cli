@@ -1,0 +1,48 @@
+name: DescribeInstanceInternetStatus
+product: vm
+use: describe-instance-internet-status
+short: 查询实例带宽和流量包状态
+long: 查询实例带宽、流量包状态。
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: DescribeInstanceInternetStatus
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: 待操作的实例ID。
+response:
+- name: instanceId
+  type: string
+  description: 虚拟机实例ID。
+- name: instanceName
+  type: string
+  description: 实例的名称。
+- name: internetMaxBandwidthOut
+  type: integer
+  description: 当前实例的公网出口带宽大小。
+- name: modifiedInternetMaxBandwidthOut
+  type: integer
+  description: 实例将要修改公网出口带宽大小。
+- name: modifiedBandwidthStatus
+  type: string
+  description: |-
+    实例带宽状态。
+    Processing：变更中。
+    Enable：可用。
+    WaitToEnable：下周期变更。
+- name: trafficPackageSize
+  type: float
+  description: 当前实例流量包大小，单位TB。
+- name: modifiedTrafficPackageSize
+  type: float
+  description: 实例要修改流量包大小，单位TB。
+- name: modifiedTrafficPackageStatus
+  type: string
+  description: |-
+    实例流量包状态。
+    Processing：变更中。
+    Enable：可用。
+    WaitToEnable：下周期变更。

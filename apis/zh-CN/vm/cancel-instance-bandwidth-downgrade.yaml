@@ -1,0 +1,19 @@
+name: CancelInstanceBandwidthDowngrade
+product: vm
+use: cancel-instance-bandwidth-downgrade
+short: 取消实例带宽降配
+long: |-
+  取消虚拟机实例带宽降配订单。
+  **注意事项**
+
+  * 当虚拟机实例为预付费且实例的[`internetChargeType`](../datastructure.md#internetchargetype)为`ByBandwidth`时，实例出口带宽下调时，将生成降配订单，该降配订单在下个续费周期生效，通过本接口可以取消下调带宽。
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: CancelInstanceBandwidthDowngrade
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: 待操作的实例ID。

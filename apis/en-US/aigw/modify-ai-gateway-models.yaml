@@ -1,0 +1,37 @@
+name: ModifyAiGatewayModels
+product: aigw
+use: modify-ai-gateway-models
+short: Modify AI Gateway Models
+long: |-
+  Modify AI gateway models
+  **Notes**
+
+  * For the authentication method of this API, refer to [Authentication](../../../api-introduction/instruction/authorization/README.md)
+examples:
+- cmd: zeno aigw modify-ai-gateway-models --gateway-uuid 1568676002379339603 --model-access LIMITED --model-uuids 8eapj83as8 --model-uuids 0yb8yk2dl0
+  desc: Modify the AI gateway models.
+sdk:
+  service: aigw
+  version: '2026-04-14'
+  action: ModifyAiGatewayModels
+parameters:
+- name: gateway-uuid
+  type: string
+  required: true
+  sdk-field: gatewayUuid
+  description: Gateway UUID.
+- name: model-access
+  type: enum
+  required: true
+  sdk-field: modelAccess
+  description: Model access permission.
+  enum-values:
+  - value: UNLIMITED
+    desc: There is no restriction on models; all currently listed models can be used
+  - value: LIMITED
+    desc: Due to restrictions, only associated models can be used
+- name: model-uuids
+  type: string-array
+  required: false
+  sdk-field: modelUuids
+  description: List of model UUIDs.

@@ -1,0 +1,134 @@
+name: CreateDisks
+product: vm
+use: create-disks
+short: 批量创建云硬盘
+long: |-
+  创建一个或多个云硬盘。
+  **注意事项**
+
+  * 预付费云硬盘的购买会预先扣除本次云硬盘购买所需金额，如果余额不足，请求将会失败。后付费云硬盘购买时需要确保账户账号状态正常。
+  * 本接口为异步接口，当创建云硬盘请求下发成功后会返回一个云硬盘`ID`列表，此时创建云硬盘操作并未立即完成。云硬盘创建结果可以通过 [DescribeDisks](describedisks.md) 查询。如果能够查询到对应云硬盘数据且状态为**AVAILABLE**则代表云硬盘创建成功，如果创建时指定了挂载到某个实例，则当状态为**IN\_USE**时则代表挂载成功。
+examples:
+- cmd: zeno vm create-disks --charge-type POSTPAID --disk-name Test-Disk --disk-size 30 --disk-amount 1 --zone-id HKG-A
+  desc: 创建一个或多个云硬盘。
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: CreateDisks
+parameters:
+- name: charge-type
+  type: enum
+  required: true
+  sdk-field: chargeType
+  description: |-
+    付费类型。
+    PREPAID：预付费，即包年包月。
+    POSTPAID：后付费。
+  enum-values:
+  - value: PREPAID
+    desc: 预付费计费方式。
+  - value: POSTPAID
+    desc: 后付费计费方式。
+- name: charge-prepaid
+  type: object
+  required: false
+  sdk-field: chargePrepaid
+  description: |-
+    预付费模式，即包年包月相关参数设置。
+    若指定云硬盘的付费模式为预付费则该参数必传。
+  object-schema:
+  - name: period
+    type: integer
+    description: |-
+      购买实例的时长。
+      单位：月。
+- name: disk-name
+  type: string
+  required: true
+  sdk-field: diskName
+  description: |-
+    云硬盘名称。
+    必须以数字或字母开头或结尾，长度1-64字符，仅支持字母、数字、-和英文句点(.)。
+- name: disk-size
+  type: integer
+  required: true
+  sdk-field: diskSize
+  description: 云硬盘大小，单位GB。
+- name: disk-amount
+  type: integer
+  required: false
+  sdk-field: diskAmount
+  description: |-
+    云硬盘创建数量。
+    最小值与默认值均为1，最大值50。
+- name: instance-id
+  type: string
+  required: false
+  sdk-field: instanceId
+  description: |-
+    创建后需要挂载的实例ID。
+    指定实例ID将会为实例所在的可用区创建数据盘并挂载到实例上。
+- name: zone-id
+  type: string
+  required: false
+  sdk-field: zoneId
+  description: |-
+    云硬盘所属的可用区ID。
+    如果指定了instanceId，则该字段无效。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: 云硬盘所在的资源组ID，如不指定则放入默认资源组。
+- name: disk-category
+  type: string
+  required: false
+  sdk-field: diskCategory
+  description: |-
+    云硬盘种类。
+    STANDARD：标准云盘。
+    SSD：固态硬盘。
+    默认为SSD。
+- name: marketing-options
+  type: object
+  required: false
+  sdk-field: marketingOptions
+  description: 市场营销活动相关信息。
+  object-schema:
+  - name: discountCode
+    type: string
+    description: |-
+      使用市场发放的折扣码。
+      如果折扣码不存在，最终折扣将不会生效。
+  - name: usePocVoucher
+    type: boolean
+    description: |-
+      是否使用POC代金券。
+      如果系统不存在POC代金券，相关创建流程会失败。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    创建云硬盘时关联的标签。
+    注意：关联标签键不能重复。--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。
+response:
+- name: diskIds
+  type: string-array
+  description: 云硬盘ID集合。
+- name: orderNumber
+  type: string
+  description: 订单编号。

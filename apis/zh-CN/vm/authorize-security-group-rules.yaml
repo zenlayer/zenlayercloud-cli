@@ -1,0 +1,70 @@
+name: AuthorizeSecurityGroupRules
+product: vm
+use: authorize-security-group-rules
+short: 批量新增安全组规则
+long: |-
+  新增安全组的规则。
+  **注意事项**
+
+  * 安全组状态需是**Available**。
+  * 默认安全组不支持修改。
+  * 同一规则方向，规则不能重复。
+  * 安全组的规则数量最多40条，入方向最多20条、出方向最多20条。
+  * 关于规则的设定，请注意以下内容:
+  * direction字段支持输入ingress或egress。表示规则入方向或出方向。
+  * policy字段非必填，默认accept。表示规则访问权限。
+  * ipProtocol字段支持输入tcp、udp、icmp、all。表示传输协议。
+  * portRange字段支持输入1-65535范围。使用斜线（/）隔开起始端口和终止端口。正确示范：1/200。仅当ipProtocol是tcp、udp协议才允许。
+  * 若是icmp或all协议，portRange字段值只允许-1/-1。
+  * cidrIp字段支持输入IPv4或CIDR格式的IP地址范围。
+examples:
+- cmd: zeno vm authorize-security-group-rules --security-group-id your-security-group-id --rule-infos "{direction=ingress, policy=accept, ipProtocol=tcp, portRange=22/22, cidrIp=0.0.0.0/0}"
+  desc: 新增安全组的规则。
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: AuthorizeSecurityGroupRules
+parameters:
+- name: security-group-id
+  type: string
+  required: true
+  sdk-field: securityGroupId
+  description: 安全组ID。
+- name: rule-infos
+  type: object-array
+  required: true
+  sdk-field: ruleInfos
+  description: 安全组规则。
+  array-style: json
+  item-schema:
+  - name: direction
+    type: string
+    description: |-
+      规则方向。
+      ingress：入方向。
+      egress：出方向。
+  - name: policy
+    type: string
+    description: |-
+      设置访问权限。
+      accept：接受访问。
+      目前只支持accept。
+  - name: priority
+    type: integer
+    description: 规则优先级。
+  - name: ipProtocol
+    type: string
+    description: |-
+      传输层协议。
+      取值范围：tcp、udp、icmp、all。
+  - name: portRange
+    type: string
+    description: 目的端安全组开放的传输层协议相关的端口范围。
+  - name: cidrIp
+    type: string
+    description: |-
+      源端IP地址范围。
+      支持CIDR格式和IPv4格式的IP地址范围。
+  - name: description
+    type: string
+    description: 规则描述。

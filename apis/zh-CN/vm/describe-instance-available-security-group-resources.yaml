@@ -1,0 +1,33 @@
+name: DescribeInstanceAvailableSecurityGroupResources
+product: vm
+use: describe-instance-available-security-group-resources
+short: 获取实例可绑定的安全组
+long: 获取实例可绑定的安全组。
+examples:
+- cmd: zeno vm describe-instance-available-security-group-resources --instance-id your-instance-id
+  desc: 获取实例可绑定的安全组集合。
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: DescribeInstanceAvailableSecurityGroupResources
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: 实例ID。
+response:
+- name: instanceAvailableSecurityGroups
+  type: object-array
+  description: 实例可绑定的安全组集合。
+  array-style: json
+  item-schema:
+  - name: securityGroupId
+    type: string
+    description: 安全组ID。
+  - name: securityGroupName
+    type: string
+    description: 安全组名称。
+  - name: isDefault
+    type: boolean
+    description: 安全组是否默认。

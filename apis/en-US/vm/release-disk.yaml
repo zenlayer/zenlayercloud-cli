@@ -1,0 +1,24 @@
+name: ReleaseDisk
+product: vm
+use: release-disk
+short: Releases a disk
+long: |-
+  Release a disk.
+  **Note**
+
+  * This operation is irreversible. Once the operation is successful, the disks will be completely released. Please operate with caution.
+  * Only operations on disks in recycle bin are supported.
+  * Only operations on data disks are supported.
+examples:
+- cmd: zeno vm release-disk --disk-id your-disk-id
+  desc: Release a disk.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: ReleaseDisk
+parameters:
+- name: disk-id
+  type: string
+  required: true
+  sdk-field: diskId
+  description: Disk ID.

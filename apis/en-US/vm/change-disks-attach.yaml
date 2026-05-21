@@ -1,0 +1,31 @@
+name: ChangeDisksAttach
+product: vm
+use: change-disks-attach
+short: Attaches one or more disks to another instance. These disks are already attached to one instance
+long: |-
+  Attach one or more disks to another instance. These disks are already attached to one instance.
+  **Note**
+
+  * Call this API to detach disks ([`DetachDisks`](detachdisks.md)) first and then attach disks ([`AttachDisks`](attachdisks.md)).
+  * Status of disks must be `IN_USE`, and disks are already attached to other instance.
+  * Disks are currently attached to the same instance.
+  * Quantity of disks cannot exceed available disk numbers of new instance.
+  * This API is an async API. A request ID is returned after the creation request is sent. However, it does not mean the operation has been completed. You can use [`DescribeDisks`](describedisks.md) to query the instance to which disks are attached. If the instance has changed to the new one, it means that the operation is successful.
+examples:
+- cmd: zeno vm change-disks-attach --disk-ids your-disk-id --instance-id your-instance-id
+  desc: Attach disks to another instance.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: ChangeDisksAttach
+parameters:
+- name: disk-ids
+  type: string-array
+  required: true
+  sdk-field: diskIds
+  description: ID list of disks.
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: New ID of instance to which the disks to be attached.

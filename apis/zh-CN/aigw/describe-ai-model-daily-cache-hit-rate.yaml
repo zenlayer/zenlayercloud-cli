@@ -1,0 +1,47 @@
+name: DescribeAiModelDailyCacheHitRate
+product: aigw
+use: describe-ai-model-daily-cache-hit-rate
+short: 查询AI网关日模型缓存命中率
+long: |-
+  查询AI网关日模型缓存命中率
+  **注意事项**
+
+  * 本接口认证方式请参考[认证方式](../../../api-introduction/instruction/authorization/README.md)
+examples:
+- cmd: zeno aigw describe-ai-model-daily-cache-hit-rate --instance-ids 1652682429418183507 --month 2026-03
+  desc: 查询AI网关日模型缓存命中率统计。
+sdk:
+  service: aigw
+  version: '2026-04-14'
+  action: DescribeAiModelDailyCacheHitRate
+parameters:
+- name: instance-ids
+  type: string
+  required: false
+  sdk-field: instanceIds
+  description: 实例ID。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: 资源组ID。
+- name: month
+  type: string
+  required: true
+  sdk-field: month
+  description: 月份，格式："2026-2" 或 "2026-02"。
+response:
+- name: dates
+  type: string-array
+  description: 日期列表。
+- name: cacheHit
+  type: object-array
+  description: 日模型缓存命中率。
+  array-style: json
+  item-schema:
+  - name: modelName
+    type: string
+    description: 模型名称。
+  - name: data
+    type: string-array
+    description: 模型日缓存命中率列表，格式如 "90%"。

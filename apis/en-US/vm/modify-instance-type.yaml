@@ -1,0 +1,42 @@
+name: ModifyInstanceType
+product: vm
+use: modify-instance-type
+short: Modifies the specifications of a virtual machine instance
+long: |-
+  Modify the specifications of a virtual machine instance.
+  **Note**
+
+  * You can only perform this operation on instances whose status is `RUNNING` or`STOPPED`.
+  * If the `internetChargeType` of your instance is `PREPAID:`
+    * Upgrade (target > current) operation will generate an order to be paid and deduct the amount required for this instance purchase. The request takes effect immediately.
+    * Downgrade (target < current) operation will generate an order for the next billing cycle and will take effect by then.
+  * If the `internetChargeType` of your instance is `POSTPAID`:
+    * The change takes immediate effect.
+  * This API is an async API. Use `DescribeInstanceTypeStatus` to query specifications of an instance.
+  * Rules of specification change:
+    * Changes between models with same series are allowed. For example, change the model of `c.1c2g` to `c.2c4g`.
+    * Some changes between models with different series are allowed. For example, changes between `c`, `g` and `m` series.
+    * Some changes between models with different series are not allowed. For example, changes between `s` and `h` series.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: ModifyInstanceType
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: |-
+    ID of the instance to be modified.
+    To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response.
+- name: instance-type-id
+  type: string
+  required: true
+  sdk-field: instanceTypeId
+  description: |-
+    ID of the target model to change.
+    To obtain the model ID, you can call DescribeZoneInstanceConfigInfos and look for instanceType in the response.
+response:
+- name: orderNumber
+  type: string
+  description: Number of order.

@@ -1,0 +1,49 @@
+name: CreateSubnet
+product: vm
+use: create-subnet
+short: 创建经典子网
+long: |-
+  创建子网。
+  **注意事项**
+
+  * 同一个可用区能创建的子网资源个数也是有限制的，详见子网使用限制，如果需要申请更多资源，请提交Support申请。
+  * 本接口为异步接口，当创建子网请求下发成功后会返回一个子网`ID`列表，此时创建子网操作并未立即完成。在此期间子网的状态将会处于`Creating`**，子网创建结果可以通过调用**[**`DescribeSubnets`**](describesubnets.md)**接口查询，如果子网状态由**`Creating`**(创建中)变为**`Available`**，则代表子网创建成功，**`Failed`代表子网创建失败。创建过程中不可对子网进行任何操作。
+examples:
+- cmd: zeno vm create-subnet --zone-id FRA-A --cidr-block 10.0.0.0/20 --subnet-name subnetXXX --subnet-description ""subnetXXX Description""
+  desc: 在FRA-A可用区创建Subnet。
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: CreateSubnet
+parameters:
+- name: cidr-block
+  type: string
+  required: true
+  sdk-field: cidrBlock
+  description: |-
+    子网的CIDR。
+    可选值10.0.0.0/16、172.16.0.0/16和192.168.0.0/16及它们包含的子网。
+    子网网段不能重叠。
+- name: subnet-name
+  type: string
+  required: true
+  sdk-field: subnetName
+  description: |-
+    子网的名称。
+    范围2到63个字符。
+    仅支持输入字母、数字、-和英文句点(.)。
+    且必须以数字或字母开头和结尾。
+- name: subnet-description
+  type: string
+  required: false
+  sdk-field: subnetDescription
+  description: 子网的描述信息。
+- name: zone-id
+  type: string
+  required: true
+  sdk-field: zoneId
+  description: 子网的节点ID。
+response:
+- name: subnetId
+  type: string
+  description: 子网的ID。

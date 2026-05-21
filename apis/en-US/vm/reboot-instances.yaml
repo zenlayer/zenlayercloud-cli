@@ -1,0 +1,27 @@
+name: RebootInstances
+product: vm
+use: reboot-instances
+short: Restarts one or more virtual machine instances
+long: |-
+  Restart one or more virtual machine instances.
+  **Note**
+
+  * You can only perform this operation on instances whose status is `RUNNING` and are not in the recycle bin.
+  * If the API is called successfully, the instance status will become `REBOOT`. After the instance is restarted, its status will become `RUNNING` again.
+  * This API is an async API. A response is returned after the request is sent. However, it does not mean the restart has been completed. You can use [`DescribeInstancesStatus`](describeinstancesstatus.md) to query the status of the instance. If the status changes from `REBOOT` to `RUNNING`, it means that the instance has been restarted successfully. Any operations on the instances are not allowed while creating.
+  * Batch operations are supported. The maximum number of instances in each request is 100.
+examples:
+- cmd: zeno vm reboot-instances --instance-ids instanceId1 --instance-ids instanceId2
+  desc: Restart two instances.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: RebootInstances
+parameters:
+- name: instance-ids
+  type: string-array
+  required: true
+  sdk-field: instanceIds
+  description: |-
+    Instance ID(s).
+    To obtain the instance IDs, you can call DescribeInstancesStatus and look for instanceId in the response. The maximum number of instances in each request is 100.

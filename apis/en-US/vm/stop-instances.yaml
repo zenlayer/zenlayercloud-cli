@@ -1,0 +1,34 @@
+name: StopInstances
+product: vm
+use: stop-instances
+short: Shuts down one or more virtual machine instances
+long: |-
+  Shut down one or more virtual machine instances.
+  **Note**
+
+  * You can only perform this operation on instances whose status is `STOPPED` and that are not in the recycle bin.
+  * The instance status will become `STOPPING` when the API is called successfully and `STOPPED` when the instance is successfully shut down.
+  * This API is an async API. A response is returned after the request is sent. However, it does not mean the shutdown has been completed. You can use [`DescribeInstancesStatus`](describeinstancesstatus.md) to query the status of the instance. If the status changes from `STOPPING` to`STOPPED`, it means that the instance has been shut down successfully. Any operations on the instances are not allowed while creating.
+  * Batch operations are supported. The maximum number of instances in each request is 100.
+examples:
+- cmd: zeno vm stop-instances --instance-ids instanceId1 --instance-ids instanceId2
+  desc: Shut down two instances with specified IDs.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: StopInstances
+parameters:
+- name: instance-ids
+  type: string-array
+  required: true
+  sdk-field: instanceIds
+  description: |-
+    Instance ID(s).
+    To obtain the instance IDs, you can call DescribeInstancesStatus and look for instanceId in the response. The maximum number of instances in each request is 100.
+- name: force-shutdown
+  type: boolean
+  required: false
+  sdk-field: forceShutdown
+  description: |-
+    Whether to force shutdown.
+    If you don't specify a default is Yes.

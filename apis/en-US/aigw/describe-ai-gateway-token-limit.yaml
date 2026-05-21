@@ -1,0 +1,26 @@
+name: DescribeAiGatewayTokenLimit
+product: aigw
+use: describe-ai-gateway-token-limit
+short: Describe AI Gateway Token Limit
+long: |-
+  Describe AI gateway token limit
+  **Notes**
+
+  * For the authentication method of this API, refer to [Authentication](../../../api-introduction/instruction/authorization/README.md)
+examples:
+- cmd: zeno aigw describe-ai-gateway-token-limit --gateway-uuid 1568676002379339603
+  desc: Query the AI gateway token limit.
+sdk:
+  service: aigw
+  version: '2026-04-14'
+  action: DescribeAiGatewayTokenLimit
+parameters:
+- name: gateway-uuid
+  type: string
+  required: true
+  sdk-field: gatewayUuid
+  description: Gateway UUID.
+response:
+- name: tokenLimit
+  type: integer
+  description: Token quota limit.

@@ -1,0 +1,34 @@
+name: ModifySecurityGroupsAttribute
+product: vm
+use: modify-security-groups-attribute
+short: 修改安全组属性
+long: 修改安全组的属性（目前只支持修改安全组的名称）。
+examples:
+- cmd: zeno vm modify-security-groups-attribute --security-group-ids 791721259766392536 --security-group-name abc12345 --description 123456
+  desc: 批量修改安全组的名称。
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: ModifySecurityGroupsAttribute
+parameters:
+- name: security-group-name
+  type: string
+  required: true
+  sdk-field: securityGroupName
+  description: |-
+    安全组名称。
+    范围1到64个字符，仅支持字母、数字、-和英文句点(.)。
+- name: description
+  type: string
+  required: false
+  sdk-field: description
+  description: |-
+    安全组描述。
+    范围2到256个字符。
+- name: security-group-ids
+  type: string-array
+  required: true
+  sdk-field: securityGroupIds
+  description: |-
+    一个或多个待操作的安全组ID。
+    每次请求批量上限为100。

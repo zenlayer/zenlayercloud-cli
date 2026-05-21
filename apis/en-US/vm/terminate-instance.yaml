@@ -1,0 +1,27 @@
+name: TerminateInstance
+product: vm
+use: terminate-instance
+short: Returns a virtual machine instance
+long: |-
+  Return a virtual machine instance.
+  **Note**
+
+  * Use this API to return an instance that is no longer required. A pay-as-you-go instance will stop billing after it is returns.
+  * After the instance is returned, the undetachable disks will also be returned, including system disk and additional data disk creating along with the instance. You can call [`DescribeDisks`](../disk/describedisks.md) and find `portable` in the response to see whether the disk is detachable.
+  * Instance in recycle bin will be shut down. Please operate with caution.
+  * Operations on instances in recycle bin or in stalling status are not supported.
+examples:
+- cmd: zeno vm terminate-instance --instance-id instanceId
+  desc: Return an instance with the ID of `instanceId`.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: TerminateInstance
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: |-
+    Instance ID(s).
+    To obtain the instance IDs, you can call DescribeInstances and look for instanceId in the response.

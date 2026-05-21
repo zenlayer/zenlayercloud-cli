@@ -1,0 +1,39 @@
+name: DescribeImageQuota
+product: vm
+use: describe-image-quota
+short: Queries the quota of images
+long: |-
+  Query the quota of images in the zone.
+  **Note**
+
+  Up to 5 images can be created in each zone. If you need more, please contact Zenlayer Support.
+examples:
+- cmd: zeno vm describe-image-quota --zone-ids FRA-A --zone-ids HKG-A
+  desc: Query the quotas of images in different zones.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: DescribeImageQuota
+parameters:
+- name: zone-ids
+  type: string-array
+  required: false
+  sdk-field: zoneIds
+  description: |-
+    Zone ID.
+    Call DescribeZones and find zoneId in the response.
+response:
+- name: images
+  type: object-array
+  description: Information on image quota.
+  array-style: json
+  item-schema:
+  - name: zoneId
+    type: string
+    description: Zone supported for images.
+  - name: count
+    type: integer
+    description: Quantity of current images.
+  - name: maxCount
+    type: integer
+    description: Maximum quantity of images in current zone.

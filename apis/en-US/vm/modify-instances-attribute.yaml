@@ -1,0 +1,33 @@
+name: ModifyInstancesAttribute
+product: vm
+use: modify-instances-attribute
+short: Modifies the attributes of one or more virtual machine instances
+long: |-
+  The API is used to modify the attributes of one or more virtual machine instances. Only the instance name to be displayed can be modified for now.
+  **Note**
+
+  * Batch operations are supported. Each request can modify up to 100 instances.
+  * If any of the instance IDs does not exist, the operation will fail immediately.
+examples:
+- cmd: zeno vm modify-instances-attribute --instance-ids instanceId1 --instance-ids instanceId2 --instance-name myInstanceName
+  desc: Modify names of two instances to `myInstanceName`.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: ModifyInstancesAttribute
+parameters:
+- name: instance-ids
+  type: string-array
+  required: true
+  sdk-field: instanceIds
+  description: |-
+    Instance ID(s).
+    To obtain the instance IDs, you can call DescribeInstances and look for instanceId in the response.
+    The maximum number of instances in each request is 100.
+- name: instance-name
+  type: string
+  required: true
+  sdk-field: instanceName
+  description: |-
+    Instance name to be displayed.
+    This parameter can contain up to 64 characters. Only letters, numbers, - and periods (.) are supported.

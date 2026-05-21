@@ -1,0 +1,21 @@
+name: CancelInstanceBandwidthDowngrade
+product: vm
+use: cancel-instance-bandwidth-downgrade
+short: Cancels virtual machine bandwidth downgrade order
+long: |-
+  The API is used to cancel virtual machine bandwidth downgrade order.
+  **Note**
+
+  When [`internetChargeType`](../datastructure.md#internetchargetype) of a subscription instance is `ByBandwidth`, Downgrade (target < current) operation will generate an order for the next billing cycle and will take effect by then. You can call this API to cancel the downgrade operation.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: CancelInstanceBandwidthDowngrade
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: |-
+    Instance ID(s).
+    To obtain the instance IDs, you can call DescribeInstances and look for instanceId in the response.

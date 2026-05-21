@@ -1,0 +1,29 @@
+name: AssociateSecurityGroupInstance
+product: vm
+use: associate-security-group-instance
+short: Applies a security group on an instance
+long: |-
+  Apply a security group on an instance.
+  **Note**
+
+  * Status of security group should be `Available`.
+  * Status of instance should be `RUNNING` or `STOPPED`.
+  * You can apply at most 2 security groups on an instance.
+examples:
+- cmd: zeno vm associate-security-group-instance --security-group-id your-security-group-id --instance-id your-instance-id
+  desc: Apply a security group on an instance.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: AssociateSecurityGroupInstance
+parameters:
+- name: security-group-id
+  type: string
+  required: true
+  sdk-field: securityGroupId
+  description: Security group ID.
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: Instance ID.

@@ -1,0 +1,22 @@
+name: DeleteImages
+product: vm
+use: delete-images
+short: Deletes one or more images
+long: |-
+  The API is used to delete one or more images.
+  **Note**
+
+  Up to 5 images can be created in each zone. Deleting the image can release the quota.
+examples:
+- cmd: zeno vm delete-images --image-ids img-zCcHQB9u
+  desc: Delete one or more images.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: DeleteImages
+parameters:
+- name: image-ids
+  type: string-array
+  required: true
+  sdk-field: imageIds
+  description: ID list of images to be deleted.

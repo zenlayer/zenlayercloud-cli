@@ -1,0 +1,22 @@
+name: StopAiGateway
+product: aigw
+use: stop-ai-gateway
+short: Stop AI Gateway
+long: |-
+  Stop AI gateway
+  **Notes**
+
+  * For the authentication method of this API, refer to [Authentication](../../../api-introduction/instruction/authorization/README.md)
+examples:
+- cmd: zeno aigw stop-ai-gateway --gateway-uuid 1568676002379339603
+  desc: Stop an AI gateway.
+sdk:
+  service: aigw
+  version: '2026-04-14'
+  action: StopAiGateway
+parameters:
+- name: gateway-uuid
+  type: string
+  required: true
+  sdk-field: gatewayUuid
+  description: Gateway UUID.

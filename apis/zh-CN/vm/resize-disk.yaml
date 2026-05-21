@@ -1,0 +1,28 @@
+name: ResizeDisk
+product: vm
+use: resize-disk
+short: 扩容云硬盘
+long: |-
+  将一个云硬盘扩容到指定大小。
+  **注意事项**
+
+  * 本接口只支持扩容云盘。
+  * 本接口为异步接口，调用接口成功后，可通过接口[`DescribeDisks`](https://docs.console.zenlayer.com/api-reference/cn/compute/zec/disk/describedisks)来查询对应云盘的状态，如果云盘的状态为`CHANGING`，表示正在扩容中。
+examples:
+- cmd: zeno vm resize-disk --disk-id your-disk-id --disk-size 100
+  desc: 扩容弹性云盘到100GB。
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: ResizeDisk
+parameters:
+- name: disk-id
+  type: string
+  required: true
+  sdk-field: diskId
+  description: 云硬盘ID。
+- name: disk-size
+  type: integer
+  required: true
+  sdk-field: diskSize
+  description: 扩容后的云硬盘大小，单位GB。

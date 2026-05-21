@@ -1,0 +1,56 @@
+name: DescribeInstanceInternetStatus
+product: vm
+use: describe-instance-internet-status
+short: Queries the bandwidth and traffic package status of a virtual machine instance
+long: Query the bandwidth and traffic package status of a virtual machine instance.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: DescribeInstanceInternetStatus
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: |-
+    Instance ID(s).
+    To obtain the instance IDs, you can call DescribeInstances and look for instanceId in the response.
+response:
+- name: instanceId
+  type: string
+  description: Instance ID.
+- name: instanceName
+  type: string
+  description: Instance name.
+- name: internetMaxBandwidthOut
+  type: integer
+  description: Current instance bandwidth.
+- name: modifiedInternetMaxBandwidthOut
+  type: integer
+  description: |-
+    Modified instance bandwidth.
+    The value may be empty, indicating that no valid value has been obtained.
+- name: modifiedBandwidthStatus
+  type: string
+  description: |-
+    Status of instance bandwidth.
+    Processing: modifying.
+    Enable: effective now.
+    WaitToEnable: effective in next billing cycle.
+- name: trafficPackageSize
+  type: float
+  description: |-
+    Current instance traffic package.
+    Unit: TB.
+- name: modifiedTrafficPackageSize
+  type: float
+  description: |-
+    Modified instance traffic package.
+    Unit: TB.
+- name: modifiedTrafficPackageStatus
+  type: string
+  description: |-
+    Status of instance traffic package.
+    Processing: modifying.
+    Enable: effective now.
+    WaitToEnable: effective in next billing cycle.

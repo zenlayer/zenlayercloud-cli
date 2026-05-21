@@ -1,0 +1,48 @@
+name: DescribeDiskCategory
+product: vm
+use: describe-disk-category
+short: Queries supported disk type
+long: Query supported disk type.
+examples:
+- cmd: zeno vm describe-disk-category --zone-id pocTest
+  desc: Query supported disk type in `pocTest`.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: DescribeDiskCategory
+parameters:
+- name: instance-charge-type
+  type: enum
+  required: true
+  sdk-field: instanceChargeType
+  description: |-
+    Disk pricing model.
+    PREPAID: subscription
+    POSTPAID: pay-as-you-go
+  enum-values:
+  - value: PREPAID
+    desc: Subscription.
+  - value: POSTPAID
+    desc: Pay-as-you-go.
+- name: zone-id
+  type: string
+  required: false
+  sdk-field: zoneId
+  description: Zone ID. Call DescribeZones to obtain zone ID.
+- name: disk-category
+  type: string
+  required: false
+  sdk-field: diskCategory
+  description: 'Disk type.Standard Disk: Hard Disk DriveSSD: Solid State DriveCall DescribeDiskCategory to obtain disk type.'
+response:
+- name: categoryZoneSet
+  type: object-array
+  description: Type information on a disk.
+  array-style: json
+  item-schema:
+  - name: zoneId
+    type: string
+    description: Zone ID.
+  - name: categorySet
+    type: string-array
+    description: Available disk type.

@@ -1,0 +1,27 @@
+name: DetachDisks
+product: vm
+use: detach-disks
+short: 卸载云硬盘
+long: |-
+  从云主机实例上卸载云硬盘。
+  **注意事项**
+
+  * 卸载挂载在**同一实例**上的多块云盘。如果多块云盘中存在不允许卸载的云盘，则操作不执行
+  * 只有当云硬盘状态为**IN\_USE**时才允许卸载。
+  * 只有当云硬盘可插拔为**true**才允许卸载。
+  * 云硬盘类型为**DATA**时才允许卸载。
+  * 单次最多可卸载**10**块云硬盘。
+  * 本接口为异步接口，当请求成功返回时，云硬盘并未立即从主机卸载，可通过接口[DescribeDisks](describedisks.md)来查询对应云硬盘的状态，如果云硬盘的状态由**IN\_USE**变为**AVAILABLE**，则为卸载成功。
+examples:
+- cmd: zeno vm detach-disks --disk-ids your-disk-id
+  desc: 从云主机实例上卸载单块或多块云硬盘。
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: DetachDisks
+parameters:
+- name: disk-ids
+  type: string-array
+  required: true
+  sdk-field: diskIds
+  description: 将要卸载的云硬盘ID集合。

@@ -1,0 +1,74 @@
+name: ResetInstance
+product: vm
+use: reset-instance
+short: Resets the operating system (OS) of an instance
+long: |-
+  Reset the operating system (OS) of an instance.
+  #### Prerequisites
+  * Query image: call [`DescribeImages`](../image/describeimages.md) to check information on image.
+  **Note**
+
+  * If `imageId` is specified, it will be used for OS reset, otherwise the current image will be used for OS reset.
+  * The system disk will be formatted and reset. Please ensure that there is no important files in the system disk.
+  * If no password is specified, you will receive a random code in mailbox.
+  * You can only perform this operation on instances whose status is `STOPPED` and are not in the recycle bin.
+  * If the API is called successfully, the instance status will become `REBUILDING`. After the instance is reset, its status will become `RUNNING` again. You can use [`DescribeInstancesStatus`](describeinstancesstatus.md) to query the status of the instance.
+examples:
+- cmd: zeno vm reset-instance --instance-id instanceId --image-id img-xxxxxxxxx --password Example+123
+  desc: Reset an instance with a specified image and a specified password.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: ResetInstance
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: |-
+    Instance ID(s).
+    To obtain the instance IDs, you can call DescribeInstances and look for instanceId in the response.
+- name: password
+  type: string
+  required: false
+  sdk-field: password
+  description: |-
+    Instance login password.
+    The parameter must be 8-16 characters, including:lowercase letters: [a-z]uppercase letters: [A-Z]digits: 0-9special characters: !@#$%^&#x26;*~()-+=You must and can only pass the value of either password or keyId.
+- name: key-id
+  type: string
+  required: false
+  sdk-field: keyId
+  description: |-
+    SSH key pair ID.
+    Your SSH key pair contains several public keys that can be placed on your server. You can access your instance with the private key. SSH key pairs and passwords cannot to set at the same time. SSH key pairs are not supported for Windows operating system.
+    For example: key-YWD2QFOl
+    You must and can only pass the value of either password or keyId.
+- name: image-id
+  type: string
+  required: false
+  sdk-field: imageId
+  description: |-
+    Valid image ID.
+    To obtain the image IDs, you can call DescribeImages and look for imageId in the response. If no image is specified, the current image will be used for OS reset.
+- name: instance-name
+  type: string
+  required: false
+  sdk-field: instanceName
+  description: Instance name to be displayed.
+- name: wan-name
+  type: string
+  required: false
+  sdk-field: wanName
+  description: |-
+    Public NIC name.
+    Only numbers and lowercase letters are allowed, starting with a letter with a length limit of 4 to 15 characters.
+    The default public NIC name is eth0.
+- name: lan-name
+  type: string
+  required: false
+  sdk-field: lanName
+  description: |-
+    Private NIC name.
+    Only numbers and lowercase letters are allowed, starting with a letter with a length limit of 4 to 15 characters.
+    The default private NIC name is eth1.

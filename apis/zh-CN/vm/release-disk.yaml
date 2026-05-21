@@ -1,0 +1,24 @@
+name: ReleaseDisk
+product: vm
+use: release-disk
+short: 释放云硬盘
+long: |-
+  释放云硬盘。
+  **注意事项**
+
+  * 通过此接口可以将回收站中的云硬盘彻底释放。
+  * 本接口无法释放**系统盘**。
+  * 此接口不可逆，请谨慎操作。
+examples:
+- cmd: zeno vm release-disk --disk-id your-disk-id
+  desc: 释放云硬盘。
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: ReleaseDisk
+parameters:
+- name: disk-id
+  type: string
+  required: true
+  sdk-field: diskId
+  description: 云硬盘ID。

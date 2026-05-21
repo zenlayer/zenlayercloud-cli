@@ -1,0 +1,42 @@
+name: ModifyImagesAttributes
+product: vm
+use: modify-images-attributes
+short: 修改镜像属性
+long: |-
+  修改镜像属性。
+  **注意事项**
+
+  * 目前支持修改自定义镜像的属性有：
+  * 镜像名称。
+  * 镜像描述。
+  * 如果传入多个镜像ID，仅支持所有镜像修改为同一属性。
+  * 只可修改自定义镜像的属性。
+examples:
+- cmd: zeno vm modify-images-attributes --image-ids img-xxxxx --image-description test-description --image-name test-imageName
+  desc: 修改镜像属性。
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: ModifyImagesAttributes
+parameters:
+- name: image-ids
+  type: string-array
+  required: true
+  sdk-field: imageIds
+  description: |-
+    镜像ID集合。
+    可从DescribeImages返回的imageId获取。
+- name: image-description
+  type: string
+  required: false
+  sdk-field: imageDescription
+  description: |-
+    新的镜像描述。
+    描述信息不得超过255个字符。
+- name: image-name
+  type: string
+  required: false
+  sdk-field: imageName
+  description: |-
+    新的镜像名称。
+    长度不超过24位，支持中文、字母、数字或连接符号-_。

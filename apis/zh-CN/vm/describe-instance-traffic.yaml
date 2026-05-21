@@ -1,0 +1,97 @@
+name: DescribeInstanceTraffic
+product: vm
+use: describe-instance-traffic
+short: 查询实例流量信息
+long: |-
+  查询实例指定时间段内的流量信息。
+  **注意事项**
+
+  * 开始时间和结束时间的跨度不能超过一天。
+  * 只能查询30天内的流量数据。
+examples:
+- cmd: zeno vm describe-instance-traffic --instance-id 926368879272403391 --start-time 2023-07-11T08:00:011Z --end-time 2023-07-11T08:10:00Z
+  desc: 查询实例一段时间内的流量数据。
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: DescribeInstanceTraffic
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: 实例ID。
+- name: start-time
+  type: string
+  required: true
+  sdk-field: startTime
+  description: |-
+    查询开始时间。
+    ISO8601标准，UTC时间。
+- name: end-time
+  type: string
+  required: true
+  sdk-field: endTime
+  description: |-
+    查询结束时间。
+    ISO8601标准，UTC时间。
+response:
+- name: dataList
+  type: object-array
+  description: 流量数据列表。
+  array-style: json
+  item-schema:
+  - name: internetRX
+    type: integer
+    description: 入口流量，单位bps。
+  - name: internetTX
+    type: integer
+    description: 出口流量，单位bps。
+  - name: time
+    type: string
+    description: 时间。
+- name: in95
+  type: integer
+  description: 入口带宽95值。
+- name: in95Time
+  type: string
+  description: 入口带宽95值时间。
+- name: inAvg
+  type: integer
+  description: 入口带宽平均值。
+- name: inMax
+  type: integer
+  description: 入口带宽最大值。
+- name: inMin
+  type: integer
+  description: 入口带宽最小值。
+- name: inTotal
+  type: integer
+  description: 入口带宽总流量。
+- name: out95
+  type: integer
+  description: 出口带宽95值。
+- name: out95Time
+  type: string
+  description: 出口带宽95值时间。
+- name: outAvg
+  type: integer
+  description: 出口带宽平均值。
+- name: outMax
+  type: integer
+  description: 出口带宽最大值。
+- name: outMin
+  type: integer
+  description: 出口带宽最小值。
+- name: outTotal
+  type: integer
+  description: 出口带宽总流量。
+- name: maxBandwidth95ValueMbps
+  type: float
+  description: 最大带宽95值，单位Mbps。
+- name: totalUnit
+  type: string
+  description: 总流量单位。
+- name: unit
+  type: string
+  description: 带宽值单位。

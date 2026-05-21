@@ -1,0 +1,32 @@
+name: AttachDisks
+product: vm
+use: attach-disks
+short: 挂载云硬盘
+long: |-
+  挂载云硬盘到云主机实例。
+  **注意事项**
+
+  * 单次最多可挂载**10**块云硬盘。
+  * 挂载云硬盘的数量不能超过实例可用的最大数量,一般为15块。
+  * 实例与云硬盘的所在区域必须一致。
+  * 实例必须处于可用状态（创建中、初始化中等状态均不属于可用状态）。
+  * 云硬盘必须支持可插拔。
+  * 本接口为异步接口，当请求成功返回时，云硬盘并未立即挂载，可通过接口[DescribeDisks](describedisks.md)来查询对应云硬盘的状态，如果云硬盘的状态由 **AVAILABLE** 变为 **IN\_USE** ，则为挂载成功。
+examples:
+- cmd: zeno vm attach-disks --disk-ids your-disk-id --instance-id your-instance-id
+  desc: 挂载云硬盘到云主机实例。
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: AttachDisks
+parameters:
+- name: disk-ids
+  type: string-array
+  required: true
+  sdk-field: diskIds
+  description: 云硬盘ID集合。
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: 需要挂载的实例ID。

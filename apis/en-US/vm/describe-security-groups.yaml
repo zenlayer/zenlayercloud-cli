@@ -1,0 +1,75 @@
+name: DescribeSecurityGroups
+product: vm
+use: describe-security-groups
+short: Queries the details of one or more security groups
+long: Query the details of security groups. You can filter the query results with the security group ID or name.
+examples:
+- cmd: zeno vm describe-security-groups --page-size 5 --page-num 1
+  desc: Query all available security groups with no parameter.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: DescribeSecurityGroups
+parameters:
+- name: security-group-ids
+  type: string-array
+  required: false
+  sdk-field: securityGroupIds
+  description: |-
+    Security group ID(s).
+    You can query up to 100 security groups in each request.
+- name: security-group-name
+  type: string
+  required: false
+  sdk-field: securityGroupName
+  description: Security group name.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    Number of items in the current page result.
+    Default value: 20;
+    Maximum value: 1000.
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    Number of pages returned.
+    Default value: 1.
+response:
+- name: totalCount
+  type: integer
+  description: Number of security groups meeting the filtering conditions.
+- name: dataSet
+  type: object-array
+  description: Information on a security group.
+  array-style: json
+  item-schema:
+  - name: securityGroupId
+    type: string
+    description: Security group ID.
+  - name: securityGroupName
+    type: string
+    description: Security group name.
+  - name: securityGroupStatus
+    type: string
+    description: '[Status of security group](datastructure.md#securitygroupstatus).'
+  - name: createTime
+    type: string
+    description: |-
+      Creation time.
+      Format: YYYY-MM-DDThh:mm:ssZ.
+  - name: description
+    type: string
+    description: Security group description.
+  - name: instanceIds
+    type: string-array
+    description: ID list of applied instances.
+  - name: ruleInfos
+    type: object-array
+    description: Security group rules.
+  - name: isDefault
+    type: boolean
+    description: Whether the security group is default or not.

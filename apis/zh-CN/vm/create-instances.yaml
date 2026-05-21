@@ -1,0 +1,321 @@
+name: CreateInstances
+product: vm
+use: create-instances
+short: 创建虚拟机实例
+long: |-
+  创建一个或多个指定配置的虚拟机实例。
+  #### 准备工作
+  * 查询机型规格：调用[`DescribeZoneInstanceConfigInfos`](describezoneinstanceconfiginfos.md) 可以查询到规格信息。
+  * 查询镜像：调用[`DescribeImages`](../image/describeimages.md)可以查询到镜像信息。
+  * 查询密钥对：调用 [`DescribeKeyPairs`](../../../security/key-service/key-pair/describekeypairs.md)可以查询到密钥对ID信息。
+
+
+  **注意事项**
+
+  * 实例创建成功后将自动开机启动，实例状态变为`RUNNING`(运行中)。
+  * 预付费实例的购买会预先扣除本次实例购买所需金额，如果余额不足，请求将会失败。后付费实例购买时需要确保账户账号状态正常。
+  * 调用本接口创建实例，支持代金券自动抵扣，详情请参考代金券选用规则。
+  * 本接口为异步接口，当创建实例请求下发成功后会返回一个实例`ID`列表，此时创建实例操作并未立即完成。在此期间实例的状态将会处于`PENDING`或`DEPLOYING`，实例创建结果可以通过调用`DescribeInstances` 接口查询，如果实例状态(instanceStatus)由`CREATING`(创建中)或`PENDING`(等待创建）变为`RUNNING`(运行中)，则代表实例创建成功，如果未查询到任何实例，则代表创建失败，创建过程中不可对实例进行任何操作。
+  * 单次最多能创建**100**台实例。
+examples:
+- cmd: zeno vm create-instances --zone-id SEL-A --instance-type c.1c2g --image-id img-yKK4q6XybymPgfx7ynUUqC3N8 --instance-charge-type POSTPAID --internet-charge-type ByBandwidth
+  desc: 用最简单的参数创建一台后付费的实例
+- cmd: zeno vm create-instances --zone-id SEL-A --instance-type c.1c2g --image-id img-yKK4q6XybymPgfx7ynUUqC3N8 --instance-charge-type POSTPAID --internet-charge-type ByBandwidth --data-disks "{diskSize=40, diskCategory=STANDARD}"
+  desc: 在1的基础上附带一块大小为40GB的标准数据盘
+- cmd: zeno vm create-instances --instance-charge-type PREPAID --instance-count 2 --instance-name SEL-1C2G-[1,2] --internet-max-bandwidth-out 10 --password Password-12345~ --instance-type c.1c2g --internet-charge-type ByBandwidth --zone-id SEL-A --image-id image-xxxxx
+  desc: 创建2台预付费的实例
+- cmd: zeno vm create-instances --instance-charge-type PREPAID --instance-count 2 --instance-name SEL-1C2G-[1,2] --internet-max-bandwidth-out 100 --password Password-12345~ --instance-type c.1c2g --internet-charge-type ByTrafficPackage --traffic-package-size 10 --zone-id SEL-A --image-id image-xxxxx
+  desc: 创建2台预付费的实例，其网络计费方式为流量包
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: CreateInstances
+parameters:
+- name: zone-id
+  type: string
+  required: true
+  sdk-field: zoneId
+  description: 实例所在节点ID。
+- name: image-id
+  type: string
+  required: true
+  sdk-field: imageId
+  description: 指定有效的镜像ID。
+- name: instance-type
+  type: string
+  required: true
+  sdk-field: instanceType
+  description: 实例机型。
+- name: instance-name
+  type: string
+  required: false
+  sdk-field: instanceName
+  description: 实例显示名称。
+- name: password
+  type: string
+  required: false
+  sdk-field: password
+  description: 实例的密码。
+- name: key-id
+  type: string
+  required: false
+  sdk-field: keyId
+  description: 密钥ID。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: 实例所在的资源组ID。
+- name: instance-charge-type
+  type: enum
+  required: true
+  sdk-field: instanceChargeType
+  description: |-
+    付费类型。
+    PREPAID：预付费，即包年包月。
+    POSTPAID：后付费。
+  enum-values:
+  - value: PREPAID
+    desc: 预付费计费方式。
+  - value: POSTPAID
+    desc: 后付费计费方式。
+- name: instance-charge-prepaid
+  type: object
+  required: false
+  sdk-field: instanceChargePrepaid
+  description: |-
+    预付费模式，即包年包月相关参数设置。
+    若指定实例的付费模式为预付费则该参数必传。
+  object-schema:
+  - name: period
+    type: integer
+    description: |-
+      购买实例的时长。
+      单位：月。
+- name: instance-charge-postpaid
+  type: object
+  required: false
+  sdk-field: instanceChargePostpaid
+  description: 后付费模式相关参数设置。
+  object-schema:
+  - name: period
+    type: integer
+    description: |-
+      后付费时长。
+      单位：月。
+- name: internet-charge-type
+  type: enum
+  required: true
+  sdk-field: internetChargeType
+  description: 网络计费类型。
+  enum-values:
+  - value: ByBandwidth
+    desc: 按固定带宽计费。
+  - value: ByTrafficPackage
+    desc: 购买流量包计费。
+  - value: ByClusterBandwidth95
+    desc: 单产品合并95计费城市带宽组。
+  - value: BandwidthCluster
+    desc: 共享带宽包计费。
+- name: traffic-package-size
+  type: float
+  required: false
+  sdk-field: trafficPackageSize
+  description: 流量包订购大小，单位TB。
+- name: internet-max-bandwidth-out
+  type: integer
+  required: false
+  sdk-field: internetMaxBandwidthOut
+  description: 公网出带宽上限，单位Mbps。
+- name: instance-count
+  type: integer
+  required: true
+  sdk-field: instanceCount
+  description: 指定创建实例的数量。
+- name: system-disk
+  type: object
+  required: false
+  sdk-field: systemDisk
+  description: 实例系统盘配置信息。
+  object-schema:
+  - name: diskId
+    type: string
+    description: 磁盘ID。
+  - name: diskSize
+    type: integer
+    description: 系统盘大小，单位GB。
+  - name: diskCategory
+    type: string
+    description: |-
+      磁盘种类。
+      STANDARD：标准云盘。
+      SSD：固态硬盘。
+      默认为SSD。
+- name: data-disks
+  type: object-array
+  required: false
+  sdk-field: dataDisks
+  description: 实例数据盘配置信息。
+  array-style: json
+  item-schema:
+  - name: diskId
+    type: string
+    description: 磁盘ID。
+  - name: diskName
+    type: string
+    description: 磁盘名称。
+  - name: diskSize
+    type: integer
+    description: 数据盘大小，单位GB。
+  - name: diskAmount
+    type: integer
+    description: 数据盘数量。
+  - name: portable
+    type: boolean
+    description: 是否可拔插。
+  - name: diskCategory
+    type: string
+    description: |-
+      磁盘种类。
+      STANDARD：标准云盘。
+      SSD：固态硬盘。
+      默认为SSD。
+  - name: diskPrice
+    type: object
+    description: 数据盘价格。
+- name: subnet-id
+  type: string
+  required: true
+  sdk-field: subnetId
+  description: 私有网络子网ID。
+- name: enable-ipv6
+  type: boolean
+  required: false
+  sdk-field: enableIpv6
+  description: 是否开启公网IPv6。
+- name: enable-ipv4
+  type: boolean
+  required: false
+  sdk-field: enableIpv4
+  description: 是否开启公网IPv4。
+- name: cpu-pass-through
+  type: boolean
+  required: false
+  sdk-field: cpuPassThrough
+  description: 是否开启CPU穿透。
+- name: init-script
+  type: string
+  required: false
+  sdk-field: initScript
+  description: 初始化脚本。
+- name: network-mode
+  type: enum
+  required: false
+  sdk-field: networkMode
+  description: |-
+    网卡模式。
+    Vf：物理直通模式。
+    Virtio：软件模拟模式。
+  enum-values:
+  - value: Virtio
+    desc: 软件模拟模式。
+  - value: Vf
+    desc: 物理直通模式。
+- name: disk-pre-allocated
+  type: boolean
+  required: false
+  sdk-field: diskPreAllocated
+  description: 硬盘数据预分配。
+- name: nic
+  type: object
+  required: false
+  sdk-field: nic
+  description: 网卡配置。
+  object-schema:
+  - name: wanName
+    type: string
+    description: 公网网卡名称。
+  - name: lanName
+    type: string
+    description: 内网网卡名称。
+- name: security-group-id
+  type: string
+  required: false
+  sdk-field: securityGroupId
+  description: 安全组ID。
+- name: cluster-id
+  type: string
+  required: false
+  sdk-field: clusterId
+  description: 带宽组ID。
+- name: cidr-block-id
+  type: string
+  required: false
+  sdk-field: cidrBlockId
+  description: CIDR 地址块ID。指定该字段将从CIDR 地址块里分配公网IP
+- name: start-cidr-ipv4
+  type: string
+  required: false
+  sdk-field: startCidrIpv4
+  description: |-
+    CIDR地址段内的起始IP地址。
+    该字段需要配额cidrBlockId一起使用，该字段代表将从该地址起始从地址段中给机器分配公网IP。
+- name: marketing-options
+  type: object
+  required: false
+  sdk-field: marketingOptions
+  description: 市场营销活动相关信息。
+  object-schema:
+  - name: discountCode
+    type: string
+    description: |-
+      使用市场发放的折扣码。
+      如果折扣码不存在，最终折扣将不会生效。
+  - name: usePocVoucher
+    type: boolean
+    description: |-
+      是否使用POC代金券。
+      如果系统不存在POC代金券，相关创建流程会失败。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    创建实例时关联的标签。
+    注意：关联标签键不能重复。--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。
+response:
+- name: orderNumber
+  type: string
+  description: 订单编号。
+- name: instanceIdSet
+  type: string-array
+  description: |-
+    虚拟机实例ID列表。
+    当通过本接口来创建实例时会返回该参数，表示一个或多个实例ID。
+    返回实例ID列表并不代表实例创建成功，可根据 DescribeInstances 接口查询返回的dataSet中对应实例的状态来判断创建是否完成：如果实例状态由DEPLOYING(部署中)或PENDING（待创建）变为RUNNING(运行中)，则为创建成功；如果实例找不到或状态变为CREATE_FAILED，表示创建失败。
+- name: instances
+  type: object-array
+  description: |-
+    随机器创建的数据盘ID集合。
+    如果请求中没有指定数据盘，返回空数组。
+  array-style: json
+  item-schema:
+  - name: instanceId
+    type: string
+    description: 实例ID。
+  - name: diskIdSet
+    type: string-array
+    description: 随机器创建的数据盘ID集合。

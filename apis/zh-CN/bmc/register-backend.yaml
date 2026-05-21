@@ -2,10 +2,10 @@ name: RegisterBackend
 product: bmc
 use: register-backend
 short: 创建将一台后端服务绑定到负载均衡的监听器
-long: 创建将一台后端服务绑定到负载均衡的监听器。
+long: 创建将一台后端服务器(vm或bmc实例)绑定到负载均衡的监听器。
 examples:
 - cmd: zeno bmc register-backend --listener-id xxxx --backend-name xxxx --port-list 80 --client-token xxxx --weight 100 --instance-id xxxx
-  desc: 将一台后端服务绑定到负载均衡的监听器
+  desc: 将一台裸金属实例作为后端服务器绑定到负载均衡的监听器
 sdk:
   service: bmc
   version: '2026-02-01'
@@ -27,7 +27,7 @@ parameters:
   type: string
   required: true
   sdk-field: instanceId
-  description: 裸金属实例ID。
+  description: 裸金属或虚拟机实例ID。
 - name: instance-type
   type: enum
   required: false

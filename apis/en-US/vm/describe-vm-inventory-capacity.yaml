@@ -1,0 +1,41 @@
+name: DescribeVmInventoryCapacity
+product: vm
+use: describe-vm-inventory-capacity
+short: Obtain the inventory of the available zones
+long: Obtain the inventory of the available zones.
+examples:
+- cmd: zeno vm describe-vm-inventory-capacity --zone-id <zoneId>
+  desc: Obtain the inventory of the available zones.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: DescribeVmInventoryCapacity
+parameters:
+- name: zone-id
+  type: string
+  required: false
+  sdk-field: zoneId
+  description: Availability Zone ID.
+response:
+- name: dataSet
+  type: object-array
+  description: Available zone inventory set.
+  array-style: json
+  item-schema:
+  - name: zoneId
+    type: string
+    description: Availability Zone ID
+  - name: capacity
+    type: enum
+    description: |-
+      Gearshift.
+      Inventory capacity is defined based on the total number of available units for all models.
+    enum-values:
+    - value: LIMITED
+      desc: Limited inventory, with available vCPU cores < 1000.
+    - value: STANDARD
+      desc: Normal inventory, with available vCPU cores from 1000 to 2000.
+    - value: SUFFICIENT
+      desc: Sufficient inventory, with available vCPU cores from 2000 to 5000.
+    - value: ABUNDANT
+      desc: Abundant inventory, with available vCPU cores ≥ 5000.

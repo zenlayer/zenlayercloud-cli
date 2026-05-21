@@ -1,0 +1,42 @@
+name: ModifyInstanceTrafficPackage
+product: vm
+use: modify-instance-traffic-package
+short: Modifies the data transfer package of a virtual machine instance
+long: |-
+  The API is used to modify the data transfer package of a virtual machine instance.
+  #### Prerequisites
+  * Query the price of modified data transfer package:call [`DescribeInstanceTrafficPackage`](inquirypriceinstancetrafficpackage.md) to query the price of specified data transfer package.
+  **Note**
+
+  * You can only perform this operation on instances whose status is `RUNNING` or `STOPPED`.
+  * If the [`internetChargeType`](../datastructure.md#internetchargetype) of your instance is `ByTrafficPackage`:
+    * For a `PREPAID` instance:
+      * Upgrade (target > current) operation will deduct the amount required for this instance purchase. If the balance is insufficient, the request will fail and take effect immediately.
+      * Downgrade (target < current) operation will generate an order for the next billing cycle and will take effect by then.
+  * This API is an async API. Use `DescribeInstanceInternetStatus` to query data transfer status of an instance.
+examples:
+- cmd: zeno vm modify-instance-traffic-package --instance-id instanceIdxxx --traffic-package-size 100
+  desc: Upgrade instance data transfer package.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: ModifyInstanceTrafficPackage
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: |-
+    Instance ID(s).
+    To obtain the instance IDs, you can call DescribeInstances and look for instanceId in the response.
+- name: traffic-package-size
+  type: float
+  required: true
+  sdk-field: trafficPackageSize
+  description: |-
+    Size of data transfer package.
+    Unit: TB.
+response:
+- name: orderNumber
+  type: string
+  description: Number of order.

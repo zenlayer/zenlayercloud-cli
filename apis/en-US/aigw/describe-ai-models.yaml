@@ -1,0 +1,34 @@
+name: DescribeAiModels
+product: aigw
+use: describe-ai-models
+short: Describe AI Models
+long: |-
+  Describe AI models
+  **Notes**
+
+  * For the authentication method of this API, refer to [Authentication](../../../api-introduction/instruction/authorization/README.md)
+examples:
+- cmd: zeno aigw describe-ai-models
+  desc: Query the AI model list.
+sdk:
+  service: aigw
+  version: '2026-04-14'
+  action: DescribeAiModels
+response:
+- name: modelSet
+  type: object-array
+  description: AI gateway models.
+  array-style: json
+  item-schema:
+  - name: modelUuid
+    type: string
+    description: Model UUID.
+  - name: modelName
+    type: string
+    description: Model name.
+  - name: modelType
+    type: string
+    description: Model type.
+  - name: providerName
+    type: string
+    description: Provider name.

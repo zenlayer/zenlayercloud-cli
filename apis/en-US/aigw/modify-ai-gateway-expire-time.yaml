@@ -1,0 +1,37 @@
+name: ModifyAiGatewayExpireTime
+product: aigw
+use: modify-ai-gateway-expire-time
+short: Modify AI Gateway Expire Time
+long: |-
+  Modify AI gateway expire time
+  **Notes**
+
+  * For the authentication method of this API, refer to [Authentication](../../../api-introduction/instruction/authorization/README.md)
+examples:
+- cmd: zeno aigw modify-ai-gateway-expire-time --gateway-uuid 1568676002379339603 --expire-type CUSTOM --expire-time 2026-07-08T16:00:00Z
+  desc: Modify the AI gateway expire time.
+sdk:
+  service: aigw
+  version: '2026-04-14'
+  action: ModifyAiGatewayExpireTime
+parameters:
+- name: gateway-uuid
+  type: string
+  required: true
+  sdk-field: gatewayUuid
+  description: Gateway UUID.
+- name: expire-type
+  type: enum
+  required: true
+  sdk-field: expireType
+  description: Expiration type.
+  enum-values:
+  - value: LONG_LIVED
+    desc: Long Lived
+  - value: CUSTOM
+    desc: Custom Expiration Time
+- name: expire-time
+  type: string
+  required: false
+  sdk-field: expireTime
+  description: Expiration time.

@@ -1,0 +1,104 @@
+name: DescribeSubnets
+product: vm
+use: describe-subnets
+short: Queries the details of subnets
+long: Query the details of subnets. You can filter the query results with the subnet ID or name, network ID, or zone ID.
+examples:
+- cmd: zeno vm describe-subnets --cidr-block 10.0.0.0/24 --page-size 10 --page-num 1
+  desc: Query all the available subnets with a CIDR block of `10.0.0.0/24`.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: DescribeSubnets
+parameters:
+- name: zone-id
+  type: string
+  required: false
+  sdk-field: zoneId
+  description: Zone ID to which the subnet belongs.
+- name: subnet-ids
+  type: string-array
+  required: false
+  sdk-field: subnetIds
+  description: |-
+    Subnet ID.
+    You can query up to 100 networks in each request.
+- name: cidr-block
+  type: string
+  required: false
+  sdk-field: cidrBlock
+  description: |-
+    CIDR block of the subnet.
+    Fuzzy query is supported.
+- name: subnet-status
+  type: string
+  required: false
+  sdk-field: subnetStatus
+  description: '[Subnet status](../datastructure.md#subnetstatus).'
+- name: subnet-name
+  type: string
+  required: false
+  sdk-field: subnetName
+  description: |-
+    Subnet name.
+    Fuzzy query is supported.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    Number of items in the current page result.
+    Default value: 20;
+    Maximum value: 1000.
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    Number of pages returned.
+    Default value: 1.
+response:
+- name: totalCount
+  type: integer
+  description: Number of subnets meeting the filtering conditions.
+- name: dataSet
+  type: object-array
+  description: Information on a subnet.
+  array-style: json
+  item-schema:
+  - name: subnetId
+    type: string
+    description: Subnet ID.
+  - name: zoneId
+    type: string
+    description: Zone ID of subnet.
+  - name: subnetName
+    type: string
+    description: Subnet name.
+  - name: subnetStatus
+    type: string
+    description: Subnet status.See SubnetStatus for more details.
+  - name: cidrBlockList
+    type: string-array
+    description: ID list of subnet CIDR block.
+  - name: usageIpCount
+    type: integer
+    description: Quantity of used IP addresses in subnet.
+  - name: totalIpCount
+    type: integer
+    description: Quantity of total IP addresses in subnet.
+  - name: createTime
+    type: string
+    description: Creation time.
+  - name: instanceIdList
+    type: string-array
+    description: ID list of instances under a subnet.
+  - name: subnetDescription
+    type: string
+    description: Subnet description.
+  - name: cidrBlock
+    type: string
+    description: Subnet CIDR block.
+  - name: isDefault
+    type: boolean
+    description: Whether the subnet is default or not.

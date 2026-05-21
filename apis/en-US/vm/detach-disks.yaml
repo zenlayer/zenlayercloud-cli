@@ -1,0 +1,27 @@
+name: DetachDisks
+product: vm
+use: detach-disks
+short: Detaches one or more disks from an instance
+long: |-
+  Detach one or more disks from an instance.
+  **Note**
+
+  * Disks to be detached should be attached to the same instance. If any of the disks is undetachable, the operation will not be performed.
+  * Only operations on disks with the status of `IN_USE` are supported.
+  * Only operations on disks that are detachable (`portable` = `true`) are supported.
+  * Only operations on data disks are supported.
+  * A maximum of 10 disks can be detached from an instance in one request.
+  * This API is an async API. A request ID is returned after the creation request is sent. However, it does not mean the operation has been completed. You can use [`DescribeDisks`](describedisks.md) to query the status of the disk. If the status changes from `IN_USE` to `AVAILABLE`, it means that the disk is detached successfully.
+examples:
+- cmd: zeno vm detach-disks --disk-ids your-disk-id
+  desc: Detach one or more disks from an instance.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: DetachDisks
+parameters:
+- name: disk-ids
+  type: string-array
+  required: true
+  sdk-field: diskIds
+  description: ID list of disks to be detached.

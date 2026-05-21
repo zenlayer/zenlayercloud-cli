@@ -8,3 +8,5 @@ zlb: "Manage load balancer resources: instances, listeners, backends, and securi
 zos: "Manage remote command resources: commands and invocations on instances"
 zrm: "Manage tag resources: create, bind, unbind, and query across all resources"
 ccs: "Manage key pair resources: SSH keys for instance authentication"
+aigw: "Manage AI gateway resources: AI gateway instances, models, and usage statistics"
+vm: "Manage virtual machine resources: instances, disks, security groups, images, and subnets (legacy)"

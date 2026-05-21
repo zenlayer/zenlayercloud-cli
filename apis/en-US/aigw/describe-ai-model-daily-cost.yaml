@@ -1,0 +1,47 @@
+name: DescribeAiModelDailyCost
+product: aigw
+use: describe-ai-model-daily-cost
+short: Describe AI Model Daily Cost
+long: |-
+  Describe AI model daily cost
+  **Notes**
+
+  * For the authentication method of this API, refer to [Authentication](../../../api-introduction/instruction/authorization/README.md)
+examples:
+- cmd: zeno aigw describe-ai-model-daily-cost --instance-ids 1652682429418183507 --month 2026-03
+  desc: Query the daily cost statistics of each model within the specified month for the AI gateway.
+sdk:
+  service: aigw
+  version: '2026-04-14'
+  action: DescribeAiModelDailyCost
+parameters:
+- name: instance-ids
+  type: string
+  required: false
+  sdk-field: instanceIds
+  description: Instance ID.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: Resource group ID.
+- name: month
+  type: string
+  required: true
+  sdk-field: month
+  description: 'Month, format: "2026-2" or "2026-02".'
+response:
+- name: dates
+  type: string-array
+  description: List of dates.
+- name: series
+  type: object-array
+  description: Daily model cost.
+  array-style: json
+  item-schema:
+  - name: modelName
+    type: string
+    description: Model name.
+  - name: data
+    type: float-array
+    description: List of daily model costs.

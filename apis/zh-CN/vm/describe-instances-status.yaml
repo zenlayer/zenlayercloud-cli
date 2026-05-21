@@ -1,0 +1,70 @@
+name: DescribeInstancesStatus
+product: vm
+use: describe-instances-status
+short: 查询实例状态
+long: 查询一台或多台虚拟机实例的状态。
+examples:
+- cmd: zeno vm describe-instances-status
+  desc: 分页查询实例列表
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: DescribeInstancesStatus
+parameters:
+- name: instance-ids
+  type: string-array
+  required: false
+  sdk-field: instanceIds
+  description: 实例ID集合。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: 返回的分页大小。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: 返回的分页数。
+response:
+- name: totalCount
+  type: integer
+  description: 符合条件的数据总数。
+- name: dataSet
+  type: object-array
+  description: 实例状态列表。
+  array-style: json
+  item-schema:
+  - name: instanceId
+    type: string
+    description: 实例ID。
+  - name: instanceStatus
+    type: enum
+    description: 实例状态。
+    enum-values:
+    - value: PENDING
+      desc: 待创建
+    - value: DEPLOYING
+      desc: 部署中
+    - value: REBUILDING
+      desc: 重建中。
+    - value: REBOOT
+      desc: 重启中
+    - value: RUNNING
+      desc: 运行中。
+    - value: STOPPED
+      desc: 已关机。
+    - value: BOOTING
+      desc: 开机中。
+    - value: RELEASING
+      desc: 释放中。
+    - value: STOPPING
+      desc: 关机中。
+    - value: RECYCLE
+      desc: 回收中。
+    - value: RECYCLING
+      desc: 回收中。
+    - value: CREATE_FAILED
+      desc: 创建失败。
+    - value: IMAGING
+      desc: 制作镜像中。

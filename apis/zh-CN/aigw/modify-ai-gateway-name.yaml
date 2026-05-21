@@ -1,0 +1,27 @@
+name: ModifyAiGatewayName
+product: aigw
+use: modify-ai-gateway-name
+short: 修改AI网关名称
+long: |-
+  修改AI网关名称
+  **注意事项**
+
+  * 本接口认证方式请参考[认证方式](../../../api-introduction/instruction/authorization/README.md)
+examples:
+- cmd: zeno aigw modify-ai-gateway-name --gateway-uuid 1568676002379339603 --gateway-name AI-Gateway-Updated
+  desc: 修改 AI 网关名称。
+sdk:
+  service: aigw
+  version: '2026-04-14'
+  action: ModifyAiGatewayName
+parameters:
+- name: gateway-uuid
+  type: string
+  required: true
+  sdk-field: gatewayUuid
+  description: 网关UUID。
+- name: gateway-name
+  type: string
+  required: true
+  sdk-field: gatewayName
+  description: 网关名称。

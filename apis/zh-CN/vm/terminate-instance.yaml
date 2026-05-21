@@ -1,0 +1,25 @@
+name: TerminateInstance
+product: vm
+use: terminate-instance
+short: 退还虚拟机实例
+long: |-
+  退还一个虚拟机实例。
+  **注意事项**
+
+  * 本接口只支持后付费的实例，不再使用的实例，可通过本接口主动退还，退还的实例将停止计费。
+  * 退还实例后，不可卸载的硬盘（包括系统盘和随机器创建的硬盘）将随实例一起退还，可以通过DescribeDisks中返回字段为`portable = false` 代表不可拆卸。
+  * 进入回收站的实例将被会关闭实例，请谨慎操作。
+  * 已经在回收站中或者正在创建中的实例调用该接口无效。
+examples:
+- cmd: zeno vm terminate-instance --instance-id instanceId
+  desc: 退还指定ID的实例
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: TerminateInstance
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: 待操作的实例ID。

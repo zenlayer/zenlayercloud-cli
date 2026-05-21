@@ -1,0 +1,39 @@
+name: DescribeImageQuota
+product: vm
+use: describe-image-quota
+short: 查询镜像配额
+long: |-
+  查询可创建镜像的配额。
+  **注意事项**
+
+  * 每个区域最多只支持创建**5**个自定义镜像，如有特殊需求可联系Support增加上限。
+examples:
+- cmd: zeno vm describe-image-quota --zone-ids FRA-A --zone-ids HKG-A
+  desc: 查询用户帐号各区域的镜像配额
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: DescribeImageQuota
+parameters:
+- name: zone-ids
+  type: string-array
+  required: false
+  sdk-field: zoneIds
+  description: |-
+    可用区ID列表。
+    可从DescribeZones的zoneId中获取。
+response:
+- name: images
+  type: object-array
+  description: 镜像配额结果集。
+  array-style: json
+  item-schema:
+  - name: zoneId
+    type: string
+    description: 支持创建镜像的区域。
+  - name: count
+    type: integer
+    description: 当前已配置镜像数。
+  - name: maxCount
+    type: integer
+    description: 本区域可配置的最大镜像数。

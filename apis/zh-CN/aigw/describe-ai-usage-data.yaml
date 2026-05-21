@@ -1,0 +1,61 @@
+name: DescribeAiUsageData
+product: aigw
+use: describe-ai-usage-data
+short: 查询AI网关用量统计数据
+long: |-
+  查询AI网关用量统计数据
+  **注意事项**
+
+  * 本接口认证方式请参考[认证方式](../../../api-introduction/instruction/authorization/README.md)
+examples:
+- cmd: zeno aigw describe-ai-usage-data --instance-ids 1597494548165039443 --start 1772074800 --end 1772075400
+  desc: 查询 AI 网关在指定时间范围内的用量统计。
+sdk:
+  service: aigw
+  version: '2026-04-14'
+  action: DescribeAiUsageData
+parameters:
+- name: instance-ids
+  type: string
+  required: false
+  sdk-field: instanceIds
+  description: 实例ID。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: 资源组ID。
+- name: start
+  type: integer
+  required: true
+  sdk-field: start
+  description: 开始时间戳10位，示例：1659427200。
+- name: end
+  type: integer
+  required: true
+  sdk-field: end
+  description: 结束时间戳10位，示例：1659434400。
+response:
+- name: totalInputTokens
+  type: integer
+  description: 总输入token数。
+- name: totalOutputTokens
+  type: integer
+  description: 总输出token数。
+- name: instanceModelToken
+  type: object-array
+  description: 实例模型用量数据。
+  array-style: json
+  item-schema:
+  - name: modelUuid
+    type: string
+    description: 模型uuid。
+  - name: modelName
+    type: string
+    description: 模型名称。
+  - name: totalTokens
+    type: integer
+    description: 模型总token数。
+  - name: totalRequests
+    type: integer
+    description: 模型总request数。

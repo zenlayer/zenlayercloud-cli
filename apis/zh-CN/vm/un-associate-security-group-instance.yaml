@@ -1,0 +1,29 @@
+name: UnAssociateSecurityGroupInstance
+product: vm
+use: un-associate-security-group-instance
+short: 安全组解绑实例
+long: |-
+  为安全组解绑实例。
+  **注意事项**
+
+  * 安全组状态需是**Available**。
+  * 实例状态需是**RUNNING**或**STOPPED**。
+  * 实例至少存在一个安全组。
+examples:
+- cmd: zeno vm un-associate-security-group-instance --security-group-id your-security-group-id --instance-id your-instance-id
+  desc: 安全组解绑实例。
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: UnAssociateSecurityGroupInstance
+parameters:
+- name: security-group-id
+  type: string
+  required: true
+  sdk-field: securityGroupId
+  description: 安全组ID。
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: 实例ID。

@@ -1,0 +1,82 @@
+name: DescribeAiUsageDetailData
+product: aigw
+use: describe-ai-usage-detail-data
+short: Describe AI Usage Detail Data
+long: |-
+  Describe AI usage detail data
+  **Notes**
+
+  * For the authentication method of this API, refer to [Authentication](../../../api-introduction/instruction/authorization/README.md)
+examples:
+- cmd: zeno aigw describe-ai-usage-detail-data --instance-ids 1597494548165039443 --start 1776927600 --end 1776931200
+  desc: Query the AI gateway usage details within the specified time range.
+sdk:
+  service: aigw
+  version: '2026-04-14'
+  action: DescribeAiUsageDetailData
+parameters:
+- name: instance-ids
+  type: string
+  required: false
+  sdk-field: instanceIds
+  description: Instance ID.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: Resource group ID.
+- name: start
+  type: integer
+  required: true
+  sdk-field: start
+  description: Start timestamp (10 digits), e.g., 1659427200.
+- name: end
+  type: integer
+  required: true
+  sdk-field: end
+  description: End timestamp (10 digits), e.g., 1659434400.
+response:
+- name: request
+  type: object-array
+  description: Request count detail data.
+  array-style: json
+  item-schema:
+  - name: time
+    type: integer
+    description: Timestamp (milliseconds).
+  - name: data
+    type: object-array
+    description: List of usage values for each model.
+- name: token
+  type: object-array
+  description: Total token detail data.
+  array-style: json
+  item-schema:
+  - name: time
+    type: integer
+    description: Timestamp (milliseconds).
+  - name: data
+    type: object-array
+    description: List of usage values for each model.
+- name: inputToken
+  type: object-array
+  description: Input token detail data.
+  array-style: json
+  item-schema:
+  - name: time
+    type: integer
+    description: Timestamp (milliseconds).
+  - name: data
+    type: object-array
+    description: List of usage values for each model.
+- name: outToken
+  type: object-array
+  description: Output token detail data.
+  array-style: json
+  item-schema:
+  - name: time
+    type: integer
+    description: Timestamp (milliseconds).
+  - name: data
+    type: object-array
+    description: List of usage values for each model.

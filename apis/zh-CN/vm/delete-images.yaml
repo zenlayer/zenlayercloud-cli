@@ -1,0 +1,22 @@
+name: DeleteImages
+product: vm
+use: delete-images
+short: 删除镜像
+long: |-
+  删除一个或多个镜像。
+  **注意事项**
+
+  * 每个地域最多只支持创建**5**个自定义镜像，删除自定义镜像可以释放账户的配额。
+examples:
+- cmd: zeno vm delete-images --image-ids img-zCcHQB9u
+  desc: 删除一个或多个镜像。
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: DeleteImages
+parameters:
+- name: image-ids
+  type: string-array
+  required: true
+  sdk-field: imageIds
+  description: 将要被删除的镜像ID集合。

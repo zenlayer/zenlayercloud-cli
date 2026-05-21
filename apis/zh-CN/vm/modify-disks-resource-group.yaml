@@ -1,0 +1,30 @@
+name: ModifyDisksResourceGroup
+product: vm
+use: modify-disks-resource-group
+short: 修改云硬盘所属资源组
+long: |-
+  修改云硬盘所属的资源组。
+  **注意事项**
+
+  * 支持批量操作。每次请求批量实例的上限为100。
+  * 该接口只有管理员角色的用户能够进行操作。
+examples:
+- cmd: zeno vm modify-disks-resource-group --disk-ids diskId1 --disk-ids diskId2 --resource-group-id resourceGroup1
+  desc: 将云盘移动到指定资源组。
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: ModifyDisksResourceGroup
+parameters:
+- name: disk-ids
+  type: string-array
+  required: true
+  sdk-field: diskIds
+  description: |-
+    云硬盘ID列表。
+    每次请求允许操作的云硬盘数量上限是100。
+- name: resource-group-id
+  type: string
+  required: true
+  sdk-field: resourceGroupId
+  description: 资源组ID。

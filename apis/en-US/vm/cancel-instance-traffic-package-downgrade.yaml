@@ -1,0 +1,24 @@
+name: CancelInstanceTrafficPackageDowngrade
+product: vm
+use: cancel-instance-traffic-package-downgrade
+short: Cancels virtual machine data transfer downgrade order
+long: |-
+  The API is used to cancel virtual machine data transfer downgrade order.
+  **Note**
+
+  When [`internetChargeType`](../datastructure.md#internetchargetype) of a subscription instance is `ByTrafficPackage`, Downgrade (target < current) operation will generate an order for the next billing cycle and will take effect by then. You can call this API to cancel the downgrade operation.
+examples:
+- cmd: zeno vm cancel-instance-traffic-package-downgrade --instance-id instanceId
+  desc: Cancel data transfer downgrade order.
+sdk:
+  service: vm
+  version: '2026-04-01'
+  action: CancelInstanceTrafficPackageDowngrade
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: |-
+    Instance ID(s).
+    To obtain the instance IDs, you can call DescribeInstances and look for instanceId in the response.
