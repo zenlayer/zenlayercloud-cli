@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.12](https://github.com/zenlayer/zenlayercloud-cli/releases/tag/v1.0.12) - 2026-05-21
+
+### Documentation
+
+- update CHANGELOG.md for v1.0.11
+
+### Features
+
+- add HA VIP api
 ## [1.0.11](https://github.com/zenlayer/zenlayercloud-cli/releases/tag/v1.0.11) - 2026-05-21
 
 ### Documentation
