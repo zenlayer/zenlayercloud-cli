@@ -40,6 +40,14 @@ parameters:
   required: true
   sdk-field: endTime
   description: End time.
+- name: step
+  type: integer
+  required: false
+  sdk-field: step
+  description: |-
+    Time duration.
+    Default value: 5 minutes;
+    Supported values: 1 or 5 minutes.
 response:
 - name: inMaxValue
   type: float

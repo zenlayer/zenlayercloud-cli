@@ -1,0 +1,31 @@
+name: AssociateHaVip
+product: zec
+use: associate-ha-vip
+short: 绑定高可用虚拟IP到实例
+long: |-
+  将高可用虚拟IP绑定到一台ZEC实例。
+  **绑定条件**
+
+  * 实例必须有至少一块网卡位于 HaVip 所在子网内（包括主卡和副卡）。
+  * 单个实例最多可绑定 5 个 HaVip。
+  * 同一对 HaVip 与实例不可重复绑定。
+examples:
+- cmd: zeno zec associate-ha-vip --ha-vip-id havip-xxxxxxxx --instance-id vm-xxxxxxxx
+  desc: 将HaVip绑定到主实例。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: AssociateHaVip
+parameters:
+- name: ha-vip-id
+  type: string
+  required: true
+  sdk-field: haVipId
+  description: 高可用虚拟IP的ID。
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: |-
+    要绑定的实例ID。
+    实例网卡必须与HaVip处于同一子网。

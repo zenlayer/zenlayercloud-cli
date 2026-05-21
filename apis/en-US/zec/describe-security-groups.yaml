@@ -78,3 +78,6 @@ response:
   - name: loadBalancerIdList
     type: string-array
     description: ID list of associated load balancers.
+  - name: haVipIdList
+    type: string-array
+    description: List of HaVip IDs associated with the security group.

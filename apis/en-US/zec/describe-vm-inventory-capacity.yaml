@@ -21,6 +21,9 @@ parameters:
     List of region IDs in the format of asia-north-1.
     If not specified, all regions are returned.
 response:
+- name: remark
+  type: string
+  description: Description of inventory capacity tiers, indicating the available vCPU core range for each tier.
 - name: dataSet
   type: object-array
   description: Inventory capacity list for each region.

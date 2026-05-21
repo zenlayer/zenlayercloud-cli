@@ -71,3 +71,6 @@ response:
   - name: loadBalancerIdList
     type: string-array
     description: 关联安全组的负载均衡ID列表。
+  - name: haVipIdList
+    type: string-array
+    description: 关联安全组的高可用虚拟IP ID列表。

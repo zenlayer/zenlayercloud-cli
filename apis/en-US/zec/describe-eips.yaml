@@ -272,6 +272,8 @@ response:
       desc: NAT gateway.
     - value: LB
       desc: Load balancer.
+    - value: HAVIP
+      desc: High availability virtual IP.
   - name: instanceId
     type: string
     description: |-

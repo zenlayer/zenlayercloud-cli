@@ -49,3 +49,6 @@ response:
   - name: countryName
     type: string
     description: Name of the country where the availability zone is located.
+  - name: supportHaVip
+    type: boolean
+    description: Whether the availability zone supports HaVip.

@@ -1,0 +1,23 @@
+name: UnassociateHaVip
+product: zec
+use: unassociate-ha-vip
+short: Disassociate HaVip from Instance
+long: Disassociate a HaVip from a ZEC instance.
+examples:
+- cmd: zeno zec unassociate-ha-vip --ha-vip-id havip-xxxxxxxx --instance-id vm-xxxxxxxx
+  desc: Disassociate a HaVip from an instance.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: UnassociateHaVip
+parameters:
+- name: ha-vip-id
+  type: string
+  required: true
+  sdk-field: haVipId
+  description: The ID of the high availability virtual IP.
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: The ID of the instance to disassociate.

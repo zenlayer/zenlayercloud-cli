@@ -140,6 +140,44 @@ parameters:
     desc: |-
       虚拟机VF网卡的每秒发送比特数。
       单位bits。
+  - value: CPU_PSI_SOME_AVG60
+    desc: |-
+      CPU PSI（Some / 60s Avg）。
+      过去 60 秒内，至少有一个任务因等待 CPU 而暂停的时间占比。
+      数值越高，表示任务等待 CPU 的情况越明显。
+      无需开启 QGA 采集。
+      windows、BSD镜像暂不支持。
+      单位百分比。
+  - value: MEM_PSI_SOME_AVG60
+    desc: |-
+      Memory PSI（Some / 60s Avg）。
+      过去 60 秒内，至少有一个任务因等待内存回收、分页或 swap 而暂停的时间占比。
+      无需开启 QGA 采集。
+      windows、BSD镜像暂不支持。
+      单位百分比。
+  - value: MEM_PSI_FULL_AVG60
+    desc: |-
+      Memory PSI（Full / 60s Avg）。
+      过去 60 秒内，所有任务同时因等待内存而暂停的时间占比。
+      持续非 0 通常表示内存压力较高。
+      无需开启 QGA 采集。
+      windows、BSD镜像暂不支持。
+      单位百分比。
+  - value: IO_PSI_SOME_AVG60
+    desc: |-
+      IO PSI（Some / 60s Avg）。
+      过去 60 秒内，至少有一个任务因等待磁盘或存储 IO 而暂停的时间占比。
+      无需开启 QGA 采集。
+      windows、BSD镜像暂不支持。
+      单位百分比。
+  - value: IO_PSI_FULL_AVG60
+    desc: |-
+      IO PSI（Full / 60s Avg）。
+      过去 60 秒内，所有任务同时因等待磁盘或存储 IO 而暂停的时间占比。
+      持续非 0 表示 IO 等待较严重。
+      无需开启 QGA 采集。
+      windows、BSD镜像暂不支持。
+      单位百分比。
   - value: UPTIME
     desc: |-
       实例运行时长。
@@ -182,6 +220,14 @@ parameters:
   description: |-
     查询结束时间。
     时间格式：yyyy-MM-ddTHH:mm:ssZ。
+- name: step
+  type: integer
+  required: false
+  sdk-field: step
+  description: |-
+    查询数据点间隔。
+    单位为分钟。
+    支持参数：1,5。
 response:
 - name: maxValue
   type: float

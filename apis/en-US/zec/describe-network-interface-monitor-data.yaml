@@ -68,6 +68,14 @@ parameters:
   description: |-
     The query end time.
     Time format: yyyy-MM-ddTHH:mm:ssZ.
+- name: step
+  type: integer
+  required: false
+  sdk-field: step
+  description: |-
+    Time duration.
+    Default value: 5 minutes;
+    Supported values: 1 or 5 minutes.
 response:
 - name: maxValue
   type: float

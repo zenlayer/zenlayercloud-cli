@@ -144,6 +144,44 @@ parameters:
     desc: |-
       Number of bits sent per second by the VM VF NIC.
       Unit: bits.
+  - value: CPU_PSI_SOME_AVG60
+    desc: |-
+      CPU PSI (Some / 60s Avg).
+      The percentage of time in the past 60 seconds during which at least one task was stalled waiting for CPU resources.
+      A higher value indicates more pronounced CPU wait.
+      QGA collection is not required.
+      Not supported on Windows and BSD images.
+      Unit: percentage.
+  - value: MEM_PSI_SOME_AVG60
+    desc: |-
+      Memory PSI (Some / 60s Avg).
+      The percentage of time in the past 60 seconds during which at least one task was stalled waiting for memory reclamation, paging, or swap.
+      QGA collection is not required.
+      Not supported on Windows and BSD images.
+      Unit: percentage.
+  - value: MEM_PSI_FULL_AVG60
+    desc: |-
+      Memory PSI (Full / 60s Avg).
+      The percentage of time in the past 60 seconds during which all tasks were simultaneously stalled waiting for memory.
+      A sustained non-zero value typically indicates high memory pressure.
+      QGA collection is not required.
+      Not supported on Windows and BSD images.
+      Unit: percentage.
+  - value: IO_PSI_SOME_AVG60
+    desc: |-
+      IO PSI (Some / 60s Avg).
+      The percentage of time in the past 60 seconds during which at least one task was stalled waiting for disk or storage IO.
+      QGA collection is not required.
+      Not supported on Windows and BSD images.
+      Unit: percentage.
+  - value: IO_PSI_FULL_AVG60
+    desc: |-
+      IO PSI (Full / 60s Avg).
+      The percentage of time in the past 60 seconds during which all tasks were simultaneously stalled waiting for disk or storage IO.
+      A sustained non-zero value indicates severe IO wait.
+      QGA collection is not required.
+      Not supported on Windows and BSD images.
+      Unit: percentage.
   - value: UPTIME
     desc: |-
       Instance uptime duration.
@@ -182,6 +220,14 @@ parameters:
   required: true
   sdk-field: endTime
   description: End time.
+- name: step
+  type: integer
+  required: false
+  sdk-field: step
+  description: |-
+    Time duration.
+    Default value: 5 minutes;
+    Supported values: 1 or 5 minutes.
 response:
 - name: maxValue
   type: float

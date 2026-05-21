@@ -1,0 +1,127 @@
+name: DescribeHaVips
+product: zec
+use: describe-ha-vips
+short: Describe HaVips
+long: Query the details of one or more HaVips.
+examples:
+- cmd: zeno zec describe-ha-vips --page-num 1 --page-size 20
+  desc: List all HaVips.
+- cmd: zeno zec describe-ha-vips --subnet-ids subnet-xxxxxxxx
+  desc: Filter by subnet ID.
+- cmd: zeno zec describe-ha-vips --instance-ids vm-xxxxxxxx
+  desc: Filter by instance ID to find HaVips bound to a specific instance.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeHaVips
+parameters:
+- name: ha-vip-ids
+  type: string-array
+  required: false
+  sdk-field: haVipIds
+  description: List of HaVip IDs. Up to 100 IDs are supported.
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: HaVip name. Supports fuzzy search.
+- name: region-id
+  type: string
+  required: false
+  sdk-field: regionId
+  description: Region ID.
+- name: vpc-ids
+  type: string-array
+  required: false
+  sdk-field: vpcIds
+  description: List of VPC IDs.
+- name: subnet-ids
+  type: string-array
+  required: false
+  sdk-field: subnetIds
+  description: List of subnet IDs.
+- name: ip-addresses
+  type: string-array
+  required: false
+  sdk-field: ipAddresses
+  description: List of private IP addresses.
+- name: instance-ids
+  type: string-array
+  required: false
+  sdk-field: instanceIds
+  description: List of instance IDs. Returns HaVips bound to the specified instances.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: Page size. Maximum value is 1000.
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: Page number.
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: Search by tag keys. Up to 20 tag keys are supported.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: Search by tags. Up to 20 tags are supported.
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'
+response:
+- name: totalCount
+  type: integer
+  description: Total number of records meeting the filter conditions.
+- name: dataSet
+  type: object-array
+  description: List of HaVip records.
+  array-style: json
+  item-schema:
+  - name: haVipId
+    type: string
+    description: The ID of the high availability virtual IP.
+  - name: name
+    type: string
+    description: HaVip name.
+  - name: regionId
+    type: string
+    description: Region ID.
+  - name: vpcId
+    type: string
+    description: The ID of the VPC the HaVip belongs to.
+  - name: subnetId
+    type: string
+    description: The ID of the subnet the HaVip belongs to.
+  - name: securityGroupId
+    type: string
+    description: Security group ID.
+  - name: ipAddress
+    type: string
+    description: The private IPv4 address of the HaVip.
+  - name: associatedInstances
+    type: string-array
+    description: List of associated instance IDs.
+  - name: masterInstanceId
+    type: string
+    description: The ID of the current primary instance. Null if no instance is associated.
+  - name: associatedEips
+    type: object-array
+    description: |-
+      The list of associated elastic public IP addresses.
+      this list is empty when not bound.
+  - name: createTime
+    type: string
+    description: Creation time.
+  - name: tags
+    type: object
+    description: Tag list.

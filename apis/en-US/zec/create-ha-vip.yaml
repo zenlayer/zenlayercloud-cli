@@ -1,0 +1,60 @@
+name: CreateHaVip
+product: zec
+use: create-ha-vip
+short: Create HaVip
+long: |-
+  Create a high availability virtual IP (HaVip).
+  **Notes**
+
+  * If `ipAddress` is not specified, the system automatically assigns a private IP from the subnet CIDR range.
+  * If `ipAddress` is specified, it must be within the subnet CIDR range and must not be a gateway address or an address already in use.
+  * If `securityGroupId` is not specified, the default security group of the VPC is used.
+  * Each team can create up to 10 HaVips (default quota). If you need to create more, please contact Support to increase the quota.
+examples:
+- cmd: zeno zec create-ha-vip --subnet-id subnet-xxxxxxxx --name my-havip
+  desc: Create a HaVip (auto-assign IP).
+- cmd: zeno zec create-ha-vip --subnet-id subnet-xxxxxxxx --name my-havip-fixed --ip-address 10.0.1.100 --security-group-id sg-xxxxxxxx
+  desc: Create a HaVip (specify IP and security group).
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CreateHaVip
+parameters:
+- name: subnet-id
+  type: string
+  required: true
+  sdk-field: subnetId
+  description: The ID of the subnet to which the HaVip belongs.
+- name: name
+  type: string
+  required: true
+  sdk-field: name
+  description: 'HaVip name. Length: 1 to 64 characters.'
+- name: ip-address
+  type: string
+  required: false
+  sdk-field: ipAddress
+  description: Private IP address for the HaVip. If not specified, the system automatically assigns one.
+- name: security-group-id
+  type: string
+  required: false
+  sdk-field: securityGroupId
+  description: Security group ID. If not specified, the default security group of the VPC is used.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: Tags to associate with the HaVip at creation.--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'
+response:
+- name: haVipId
+  type: string
+  description: The ID of the high availability virtual IP.

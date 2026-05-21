@@ -51,3 +51,6 @@ response:
   - name: countryName
     type: string
     description: 可用区所在的国家名称。
+  - name: supportHaVip
+    type: boolean
+    description: 可用区是否支持高可用虚拟IP（HaVip）。

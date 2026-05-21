@@ -9,12 +9,21 @@ long: |-
   * You can call [DescribeLoadBalancers](../../../networking/zlb/load-balancer-instance/describeloadbalancers.md) to query supported load balancers.
   * You can call [DescribeNetworkInterfaces](../vnic/describenetworkinterfaces.md) to query supported vNIC.
   * You can call [DescribeNatGateways](../nat-gateway/describenatgateways.md) to query supported NAT gateway.
-  * You must specify exactly one of the following parameters: `loadBalancerId`, `nicId`, or `natId`, in order of priority: `loadBalancerId` > `nicId` > `natId`.
+  * You can call [DescribeHaVips](../havip/describehavips.md) to query supported high availability virtual IPs.
+  * You must specify exactly one of the following parameters: `loadBalancerId`, `nicId`, `natId`, or `haVipId`, in order of priority: `loadBalancerId` > `nicId` > `natId` > `haVipId`.
   * If the upper limit is exceeded, please contact us to request a quota increase.
   * The API returns the elastic IP IDs that failed to operate. An empty list indicates all operations succeeded.
 examples:
 - cmd: zeno zec associate-eip-address --nic-id <nicId> --lan-ip 10.0.0.2 --eip-ids <eipId1> --eip-ids <eipId2> --bind-type Passthrough
   desc: Associate elastic IPs to a specified vNIC with the Cut-through Mode.
+- cmd: zeno zec associate-eip-address --load-balancer-id <loadBalancerId> --eip-ids <eipId1> --eip-ids <eipId2>
+  desc: Associate elastic IPs to a specified load balancer instance.
+- cmd: zeno zec associate-eip-address --nat-id <natId> --eip-ids <eipId1> --eip-ids <eipId2>
+  desc: Associate elastic IPs to a specified NAT gateway.
+- cmd: zeno zec associate-eip-address --ha-vip-id <haVipId> --eip-ids <eipId1>
+  desc: Associate an elastic IP to a high availability virtual IP (HaVip).
+- cmd: zeno zec associate-eip-address --ha-vip-id <haVipId> --eip-ids <eipId1> --eip-ids <eipId2>
+  desc: Associate multiple elastic IPs to a high availability virtual IP (HaVip) at the same time.
 sdk:
   service: zec
   version: '2025-09-01'
@@ -47,6 +56,11 @@ parameters:
   required: true
   sdk-field: eipIds
   description: ID list of elastic IPs.
+- name: ha-vip-id
+  type: string
+  required: false
+  sdk-field: haVipId
+  description: The ID of the high availability virtual IP.
 - name: bind-type
   type: enum
   required: false

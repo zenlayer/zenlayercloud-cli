@@ -1,0 +1,135 @@
+name: DescribeHaVips
+product: zec
+use: describe-ha-vips
+short: 查询高可用虚拟IP列表
+long: 查询一个或多个高可用虚拟IP的详细信息。
+examples:
+- cmd: zeno zec describe-ha-vips --page-num 1 --page-size 20
+  desc: 查询所有HaVip。
+- cmd: zeno zec describe-ha-vips --subnet-ids subnet-xxxxxxxx
+  desc: 按子网ID过滤查询。
+- cmd: zeno zec describe-ha-vips --instance-ids vm-xxxxxxxx
+  desc: 按实例ID过滤，查询绑定了指定实例的HaVip。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeHaVips
+parameters:
+- name: ha-vip-ids
+  type: string-array
+  required: false
+  sdk-field: haVipIds
+  description: |-
+    HaVip ID列表。
+    最多支持100个ID查询。
+- name: name
+  type: string
+  required: false
+  sdk-field: name
+  description: HaVip名称，支持模糊查询。
+- name: region-id
+  type: string
+  required: false
+  sdk-field: regionId
+  description: 所在地域ID。
+- name: vpc-ids
+  type: string-array
+  required: false
+  sdk-field: vpcIds
+  description: 所属VPC ID列表。
+- name: subnet-ids
+  type: string-array
+  required: false
+  sdk-field: subnetIds
+  description: 所属子网ID列表。
+- name: ip-addresses
+  type: string-array
+  required: false
+  sdk-field: ipAddresses
+  description: 私网IP地址列表。
+- name: instance-ids
+  type: string-array
+  required: false
+  sdk-field: instanceIds
+  description: 实例ID列表，返回绑定了指定实例的高可用虚拟IP。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: 分页大小，最大为1000。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: 分页页码。
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    根据标签键进行搜索。
+    最多支持20个标签键。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    根据标签进行搜索。
+    最多支持20个标签。
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。
+response:
+- name: totalCount
+  type: integer
+  description: 符合条件的数据总数。
+- name: dataSet
+  type: object-array
+  description: HaVip结果集。
+  array-style: json
+  item-schema:
+  - name: haVipId
+    type: string
+    description: 高可用虚拟IP的ID。
+  - name: name
+    type: string
+    description: 高可用虚拟IP名称。
+  - name: regionId
+    type: string
+    description: 地域ID。
+  - name: vpcId
+    type: string
+    description: 所属VPC的ID。
+  - name: subnetId
+    type: string
+    description: 所属子网ID。
+  - name: securityGroupId
+    type: string
+    description: 安全组ID。
+  - name: ipAddress
+    type: string
+    description: 高可用虚拟IP的私网IPv4地址。
+  - name: associatedInstances
+    type: string-array
+    description: 关联的实例ID列表。
+  - name: masterInstanceId
+    type: string
+    description: 当前主实例ID，未绑定实例时为null。
+  - name: associatedEips
+    type: object-array
+    description: 关联的弹性公网IP信息列表，未绑定时为空列表。
+  - name: createTime
+    type: string
+    description: 创建时间。
+  - name: tags
+    type: object
+    description: 标签列表。

@@ -44,6 +44,14 @@ parameters:
   description: |-
     查询结束时间。
     时间格式：yyyy-MM-ddTHH:mm:ssZ。
+- name: step
+  type: integer
+  required: false
+  sdk-field: step
+  description: |-
+    查询数据点间隔。
+    单位为分钟。
+    支持参数：1,5。
 response:
 - name: inMaxValue
   type: float

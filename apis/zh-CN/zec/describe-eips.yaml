@@ -274,6 +274,8 @@ response:
       desc: NAT网关类型。
     - value: LB
       desc: 负载均衡类型。
+    - value: HAVIP
+      desc: 高可用虚拟IP类型。
   - name: instanceId
     type: string
     description: |-

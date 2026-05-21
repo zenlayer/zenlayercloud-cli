@@ -1,0 +1,22 @@
+name: DeleteHaVip
+product: zec
+use: delete-ha-vip
+short: Delete HaVip
+long: |-
+  Delete a high availability virtual IP.
+  **Prerequisites for Deletion**
+
+  * The HaVip must not be associated with any instances (i.e., `associatedInstances` must be an empty list).
+examples:
+- cmd: zeno zec delete-ha-vip --ha-vip-id havip-xxxxxxxx
+  desc: Delete a HaVip.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DeleteHaVip
+parameters:
+- name: ha-vip-id
+  type: string
+  required: true
+  sdk-field: haVipId
+  description: The ID of the high availability virtual IP.

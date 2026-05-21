@@ -1,0 +1,29 @@
+name: AssociateHaVip
+product: zec
+use: associate-ha-vip
+short: Associate HaVip with Instance
+long: |-
+  Associate a HaVip with a ZEC instance.
+  **Association Requirements**
+
+  * The instance must have at least one NIC in the same subnet as the HaVip (including primary and secondary NICs).
+  * A single instance can be associated with up to 5 HaVips.
+  * The same HaVip and instance pair cannot be associated more than once.
+examples:
+- cmd: zeno zec associate-ha-vip --ha-vip-id havip-xxxxxxxx --instance-id vm-xxxxxxxx
+  desc: Associate a HaVip with the primary instance.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: AssociateHaVip
+parameters:
+- name: ha-vip-id
+  type: string
+  required: true
+  sdk-field: haVipId
+  description: The ID of the high availability virtual IP.
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: The ID of the instance to associate. The instance's NIC must be in the same subnet as the HaVip.

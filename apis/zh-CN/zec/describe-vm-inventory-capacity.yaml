@@ -21,6 +21,9 @@ parameters:
     节点 ID 列表，格式如 asia-north-1。
     不传则返回全部节点。
 response:
+- name: remark
+  type: string
+  description: 库存容量档位说明，描述各档位对应的可售核数范围。
 - name: dataSet
   type: object-array
   description: 各节点库存容量列表。

@@ -1,0 +1,25 @@
+name: ModifyHaVipAttribute
+product: zec
+use: modify-ha-vip-attribute
+short: 修改高可用虚拟IP属性
+long: 修改高可用虚拟IP的名称。
+examples:
+- cmd: zeno zec modify-ha-vip-attribute --ha-vip-id havip-xxxxxxxx --name my-havip-renamed
+  desc: 修改HaVip名称。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyHaVipAttribute
+parameters:
+- name: ha-vip-id
+  type: string
+  required: true
+  sdk-field: haVipId
+  description: 高可用虚拟IP的ID。
+- name: name
+  type: string
+  required: true
+  sdk-field: name
+  description: |-
+    HaVip名称。
+    长度1到64个字符。
