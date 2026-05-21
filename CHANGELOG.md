@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.11](https://github.com/zenlayer/zenlayercloud-cli/releases/tag/v1.0.11) - 2026-05-21
+
+### Documentation
+
+- update CHANGELOG.md for v1.0.10
+
+### Features
+
+- add vm & aigw api
 ## [1.0.10](https://github.com/zenlayer/zenlayercloud-cli/releases/tag/v1.0.10) - 2026-05-19
 
 ### Documentation
