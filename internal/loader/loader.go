@@ -209,6 +209,39 @@ func listYAMLFiles(root string) ([]string, error) {
 	return paths, err
 }
 
+// buildFieldOrder constructs a field-order map from an API response schema.
+// The empty-string key covers top-level fields; each named key covers the
+// item-schema (or object-schema) of that parent field.
+func buildFieldOrder(response []SchemaField) map[string][]string {
+	if len(response) == 0 {
+		return nil
+	}
+	order := make(map[string][]string)
+	names := make([]string, 0, len(response))
+	for _, f := range response {
+		names = append(names, f.Name)
+		collectNestedOrder(order, f)
+	}
+	order[""] = names
+	return order
+}
+
+func collectNestedOrder(order map[string][]string, f SchemaField) {
+	schema := f.ItemSchema
+	if len(schema) == 0 {
+		schema = f.ObjectSchema
+	}
+	if len(schema) == 0 {
+		return
+	}
+	names := make([]string, 0, len(schema))
+	for _, sf := range schema {
+		names = append(names, sf.Name)
+		collectNestedOrder(order, sf)
+	}
+	order[f.Name] = names
+}
+
 // makeAPICommand builds a cobra.Command for a single API definition.
 func makeAPICommand(def *APIDefinition, getAccessKeyID, getAccessKeySecret func() string, getOutput, getQuery, getDebug, getEndpoint, getDryRun func() interface{}) *cobra.Command {
 	// Build examples string for backward compatibility.
@@ -234,6 +267,9 @@ func makeAPICommand(def *APIDefinition, getAccessKeyID, getAccessKeySecret func(
 	})
 
 	store := bindFlags(cmd, def)
+
+	// Pre-compute field order once at command registration time.
+	fieldOrder := buildFieldOrder(def.Response)
 
 	// Add --page-all only for commands that support pagination.
 	var pageAll bool
@@ -318,7 +354,7 @@ func makeAPICommand(def *APIDefinition, getAccessKeyID, getAccessKeySecret func(
 			toFormat = filtered
 		}
 
-		return output.FormatTo(os.Stdout, outFmt, toFormat)
+		return output.FormatToOrdered(os.Stdout, outFmt, toFormat, fieldOrder)
 	}
 
 	return cmd

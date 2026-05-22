@@ -20,13 +20,21 @@ func Format(format string, data interface{}) error {
 
 // FormatTo formats data and writes to the specified writer.
 func FormatTo(w io.Writer, format string, data interface{}) error {
+	return FormatToOrdered(w, format, data, nil)
+}
+
+// FormatToOrdered is like FormatTo but accepts a field order hint for table
+// output. fieldOrder maps a parent key (empty string = top-level) to the
+// preferred sequence of child field names; unrecognised fields follow
+// alphabetically. Passing nil falls back to plain alphabetical ordering.
+func FormatToOrdered(w io.Writer, format string, data interface{}, fieldOrder map[string][]string) error {
 	var formatter Formatter
 
 	switch format {
 	case "json":
 		formatter = &JSONFormatter{Indent: true}
 	case "table":
-		formatter = &TableFormatter{}
+		formatter = &TableFormatter{FieldOrder: fieldOrder}
 	default:
 		return fmt.Errorf("unsupported output format: %s", format)
 	}

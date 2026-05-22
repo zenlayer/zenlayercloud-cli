@@ -223,6 +223,55 @@ func TestTableFormatter_VerticalKeyValue(t *testing.T) {
 	}
 }
 
+// TestTableFormatter_FieldOrder verifies that columns follow the order specified
+// in FieldOrder, with unrecognised keys appended alphabetically at the end.
+func TestTableFormatter_FieldOrder(t *testing.T) {
+	fieldOrder := map[string][]string{
+		"": {"totalCount", "dataSet"},
+		"dataSet": {"instanceId", "status", "name"},
+	}
+	f := &TableFormatter{FieldOrder: fieldOrder}
+	var buf bytes.Buffer
+	// 5 fields per item forces non-inline (nested table) rendering.
+	data := map[string]interface{}{
+		"requestId":  "req-abc",
+		"totalCount": 1,
+		"dataSet": []interface{}{
+			map[string]interface{}{
+				"name":       "alice",
+				"status":     "RUNNING",
+				"instanceId": "ins-1",
+				"zone":       "ap-southeast-1a",
+				"region":     "ap-southeast-1",
+			},
+		},
+	}
+	if err := f.Format(&buf, data); err != nil {
+		t.Fatalf("Format() error = %v", err)
+	}
+	got := buf.String()
+
+	// totalCount must appear before requestId (unknown field → appended last).
+	idxTotal := strings.Index(got, "totalCount")
+	idxRequest := strings.Index(got, "requestId")
+	if idxTotal < 0 || idxRequest < 0 {
+		t.Fatalf("expected both totalCount and requestId in output, got:\n%s", got)
+	}
+	if idxTotal > idxRequest {
+		t.Errorf("totalCount (schema field) should appear before requestId (unknown field)")
+	}
+
+	// instanceId must appear before name in the dataSet section.
+	idxID := strings.Index(got, "instanceId")
+	idxName := strings.Index(got, "name")
+	if idxID < 0 || idxName < 0 {
+		t.Fatalf("expected both instanceId and name in output, got:\n%s", got)
+	}
+	if idxID > idxName {
+		t.Errorf("instanceId (first in schema) should appear before name")
+	}
+}
+
 // TestTableFormatter_ConsistentLineWidth verifies every non-empty line has the
 // same rune-width (the global max width), ensuring a clean rectangular table.
 func TestTableFormatter_ConsistentLineWidth(t *testing.T) {

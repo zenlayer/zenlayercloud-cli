@@ -34,7 +34,13 @@ const longTextThreshold = 60
 // Nested objects are rendered as indented sub-sections wrapped with || pipes.
 // When the table is wider than the terminal, single-row sections are
 // automatically converted to vertical key|value layout (tccli auto-reformat).
-type TableFormatter struct{}
+//
+// FieldOrder controls column ordering: keys in the slice appear first in the
+// given order; unrecognised keys follow alphabetically. Map key "" covers
+// top-level fields; any other key covers the item-schema of that parent field.
+type TableFormatter struct {
+	FieldOrder map[string][]string
+}
 
 // Format implements Formatter for table output.
 func (f *TableFormatter) Format(w io.Writer, data interface{}) error {
@@ -61,9 +67,9 @@ func (f *TableFormatter) Format(w io.Writer, data interface{}) error {
 		return nil
 	}
 
-	mt := &multiTable{}
+	mt := &multiTable{fieldOrder: f.FieldOrder}
 	mt.newSection("", 0)
-	mt.buildFromDict(m, 0)
+	mt.buildFromDict(m, 0, "")
 	mt.renderAll(w)
 	return nil
 }
@@ -165,9 +171,10 @@ type footnote struct {
 }
 
 type multiTable struct {
-	sections  []*tableSection
-	current   *tableSection
-	footnotes []footnote
+	sections   []*tableSection
+	current    *tableSection
+	footnotes  []footnote
+	fieldOrder map[string][]string
 }
 
 func (mt *multiTable) newSection(title string, indent int) {
@@ -192,8 +199,9 @@ func (mt *multiTable) addRow(row []string) {
 // recursively creates sub-sections for complex (non-inline) values.
 // At indent 0, scalar values exceeding longTextThreshold are collected as
 // footnotes and printed after the table rather than in a cell.
-func (mt *multiTable) buildFromDict(m map[string]interface{}, indent int) {
-	inlines, complex := groupKeys(m)
+// parentKey is the key name of the enclosing object (empty string for top-level).
+func (mt *multiTable) buildFromDict(m map[string]interface{}, indent int, parentKey string) {
+	inlines, complex := groupKeys(m, parentKey, mt.fieldOrder)
 
 	var short, long []string
 	for _, k := range inlines {
@@ -233,7 +241,7 @@ func (mt *multiTable) buildValue(title string, v interface{}, indent int) {
 	switch val := v.(type) {
 	case map[string]interface{}:
 		mt.newSection(title, indent)
-		mt.buildFromDict(val, indent)
+		mt.buildFromDict(val, indent, title)
 	case []interface{}:
 		if len(val) == 0 {
 			return
@@ -255,7 +263,7 @@ func (mt *multiTable) buildValue(title string, v interface{}, indent int) {
 // buildFromList creates a titled section with column headers derived from the
 // union of scalar keys across all items in the list.
 func (mt *multiTable) buildFromList(title string, items []interface{}, indent int) {
-	scalarCols, complexCols := groupKeysFromList(items)
+	scalarCols, complexCols := groupKeysFromList(items, title, mt.fieldOrder)
 
 	mt.newSection(title, indent)
 	if len(scalarCols) > 0 {
@@ -521,7 +529,7 @@ func terminalWidth() int {
 
 // ─── helpers ──────────────────────────────────────────────────────────────────
 
-func groupKeys(m map[string]interface{}) (inlines, complex []string) {
+func groupKeys(m map[string]interface{}, parentKey string, fieldOrder map[string][]string) (inlines, complex []string) {
 	for k, v := range m {
 		if isInlineValue(v) {
 			inlines = append(inlines, k)
@@ -529,12 +537,17 @@ func groupKeys(m map[string]interface{}) (inlines, complex []string) {
 			complex = append(complex, k)
 		}
 	}
-	sort.Strings(inlines)
-	sort.Strings(complex)
+	if order := lookupOrder(fieldOrder, parentKey); order != nil {
+		inlines = applyOrder(inlines, order)
+		complex = applyOrder(complex, order)
+	} else {
+		sort.Strings(inlines)
+		sort.Strings(complex)
+	}
 	return
 }
 
-func groupKeysFromList(items []interface{}) (inlines, complex []string) {
+func groupKeysFromList(items []interface{}, parentKey string, fieldOrder map[string][]string) (inlines, complex []string) {
 	inlineSet := make(map[string]struct{})
 	complexSet := make(map[string]struct{})
 	for _, item := range items {
@@ -560,9 +573,50 @@ func groupKeysFromList(items []interface{}) (inlines, complex []string) {
 	for k := range complexSet {
 		complex = append(complex, k)
 	}
-	sort.Strings(inlines)
-	sort.Strings(complex)
+	if order := lookupOrder(fieldOrder, parentKey); order != nil {
+		inlines = applyOrder(inlines, order)
+		complex = applyOrder(complex, order)
+	} else {
+		sort.Strings(inlines)
+		sort.Strings(complex)
+	}
 	return
+}
+
+// lookupOrder returns the ordered field list for parentKey, or nil if not found.
+func lookupOrder(fieldOrder map[string][]string, parentKey string) []string {
+	if fieldOrder == nil {
+		return nil
+	}
+	order, ok := fieldOrder[parentKey]
+	if !ok || len(order) == 0 {
+		return nil
+	}
+	return order
+}
+
+// applyOrder sorts keys so that those present in order appear first (in order),
+// followed by unrecognised keys sorted alphabetically.
+func applyOrder(keys []string, order []string) []string {
+	if len(keys) == 0 {
+		return keys
+	}
+	pos := make(map[string]int, len(order))
+	for i, k := range order {
+		pos[k] = i
+	}
+	known := make([]string, 0, len(keys))
+	unknown := make([]string, 0, len(keys))
+	for _, k := range keys {
+		if _, ok := pos[k]; ok {
+			known = append(known, k)
+		} else {
+			unknown = append(unknown, k)
+		}
+	}
+	sort.Slice(known, func(i, j int) bool { return pos[known[i]] < pos[known[j]] })
+	sort.Strings(unknown)
+	return append(known, unknown...)
 }
 
 // isScalar returns true when v is a primitive value (not a collection).
