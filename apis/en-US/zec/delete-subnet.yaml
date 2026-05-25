@@ -6,7 +6,7 @@ long: |-
   Delete a subnet under a global VPC.
   **Note**
 
-  * Operations on subnets associated with vNICs are not supported.
+  * Before deleting the subnet, clear all its resources, including vNICs, instances, NAT gateways, HaVips, and others.
   * Operations on default subnets are not supported.
 sdk:
   service: zec

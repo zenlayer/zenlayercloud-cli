@@ -19,17 +19,12 @@ parameters:
   type: string
   required: true
   sdk-field: cidrBlock
-  description: |-
-    CIDR block of the global VPC.
-    The IPv4 CIDR block should be a valid subnet within these ranges:
-    10.0.0.0/9 10.128.0.0/9 172.16.0.0/12 192.168.0.0/16
+  description: 'The CIDR block of the VPC. Must belong to one of the following four private address ranges: 10.0.0.0/9, 10.128.0.0/9, 172.16.0.0/12, or 192.168.0.0/16.'
 - name: mtu
   type: integer
   required: true
   sdk-field: mtu
-  description: |-
-    Maximum Transmission Unit (MTU).
-    The optional values are as follows: 1300 , 1500 , 9000
+  description: 'The MTU (Maximum Transmission Unit) of the VPC. Supported values: 1300, 1500, 9000.'
 - name: enable-pri-ipv6
   type: boolean
   required: false
@@ -50,9 +45,7 @@ parameters:
   required: false
   sdk-field: tags
   sdk-wrapper: tags
-  description: |-
-    Bound tags when creating the VPC.
-    Tag keys must be unique.--tags 'key=env,value=prod'
+  description: Tags to associate when creating the VPC. Tag keys within the same resource cannot be duplicated.--tags 'key=env,value=prod'
   array-style: kv
   item-schema:
   - name: key

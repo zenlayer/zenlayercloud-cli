@@ -29,7 +29,9 @@ parameters:
   type: string
   required: false
   sdk-field: imageName
-  description: Image name.
+  description: |-
+    Filter by image name.
+    This field supports fuzzy search.
 - name: category
   type: string
   required: false

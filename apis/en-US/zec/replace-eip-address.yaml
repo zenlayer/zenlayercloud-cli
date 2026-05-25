@@ -25,10 +25,14 @@ parameters:
     description: Elastic IP ID.
   - name: ownIp
     type: string
-    description: Source IP.
+    description: |-
+      Source IP.
+      Required when the IP line type is `ThreeLine` (three-line IP).
   - name: targetIp
     type: string
-    description: Target IP.
+    description: |-
+      Target IP to replace.
+      If not specified, the system will assign one randomly.
 response:
 - name: failedEipIds
   type: string-array

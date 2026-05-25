@@ -17,7 +17,7 @@ parameters:
   type: string
   required: false
   sdk-field: regionId
-  description: Region ID.
+  description: Filter by the region ID of the public IP pool.
 - name: name
   type: string
   required: false

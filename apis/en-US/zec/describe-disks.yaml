@@ -20,7 +20,7 @@ parameters:
   type: string
   required: false
   sdk-field: diskName
-  description: Disk name.
+  description: Filter by disk name. This field supports fuzzy search.
 - name: disk-status
   type: enum
   required: false

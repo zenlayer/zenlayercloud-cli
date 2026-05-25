@@ -15,7 +15,9 @@ parameters:
   type: string-array
   required: false
   sdk-field: routeIds
-  description: Route ID(s).
+  description: |-
+    Filter by route ID(s).
+    Up to 100 IDs can be specified per request.
 - name: vpc-id
   type: string
   required: false

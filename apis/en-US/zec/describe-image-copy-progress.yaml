@@ -1,0 +1,54 @@
+name: DescribeImageCopyProgress
+product: zec
+use: describe-image-copy-progress
+short: Describe Image Copy Progress
+long: |-
+  Query the copy progress of a custom image in each target region.
+  **Notes**
+
+  * This API returns progress data only when the image status is `SYNCING`. For other statuses, an empty list is returned.
+  * Target regions where the copy has been completed will not appear in the returned list.
+examples:
+- cmd: zeno zec describe-image-copy-progress --image-id "<custom image id>"
+  desc: Query the image copy progress.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeImageCopyProgress
+parameters:
+- name: image-id
+  type: string
+  required: true
+  sdk-field: imageId
+  description: Custom image ID.
+response:
+- name: dataSet
+  type: object-array
+  description: |-
+    List of image copy progress, including only target regions where the copy is in progress.
+    Returns an empty list when the image status is not SYNCING.
+  array-style: json
+  item-schema:
+  - name: destRegionId
+    type: string
+    description: Target region ID.
+  - name: destRegionName
+    type: string
+    description: Target region name.
+  - name: syncStage
+    type: enum
+    description: Copy stage.
+    enum-values:
+    - value: PREPARING
+      desc: Preparing. When transferring the image for the first time, the system must first complete the backup preparation.
+    - value: TRANSFERRING
+      desc: Transferring.
+  - name: queued
+    type: boolean
+    description: Whether the task is queued, waiting for the system to schedule and execute the transfer.
+  - name: syncPercent
+    type: float
+    description: Copy progress percentage, retained to two decimal places (e.g., 74.23).
+  - name: errorInfo
+    type: string
+    description: Error information returned when the copy to the target region encounters an exception or fails.

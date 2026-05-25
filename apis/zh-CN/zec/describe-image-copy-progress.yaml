@@ -1,0 +1,54 @@
+name: DescribeImageCopyProgress
+product: zec
+use: describe-image-copy-progress
+short: 查询镜像复制进度
+long: |-
+  查询自定义镜像在各个目标区域的复制进度。
+  **注意事项**
+
+  * 本接口仅在镜像状态为 `SYNCING` 时返回进度数据，其他状态返回空列表。
+  * 已完成复制的目标区域不会出现在返回列表中。
+examples:
+- cmd: zeno zec describe-image-copy-progress --image-id "<custom image id>"
+  desc: 查询镜像复制进度
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeImageCopyProgress
+parameters:
+- name: image-id
+  type: string
+  required: true
+  sdk-field: imageId
+  description: 自定义镜像 ID。
+response:
+- name: dataSet
+  type: object-array
+  description: |-
+    镜像复制进度列表，仅包含进行中的目标区域。
+    镜像状态非SYNCING时返回空列表。
+  array-style: json
+  item-schema:
+  - name: destRegionId
+    type: string
+    description: 目标区域 ID。
+  - name: destRegionName
+    type: string
+    description: 目标区域名称。
+  - name: syncStage
+    type: enum
+    description: 复制阶段。
+    enum-values:
+    - value: PREPARING
+      desc: 准备中，首次传输该镜像时，系统需先完成备份准备。
+    - value: TRANSFERRING
+      desc: 传输中。
+  - name: queued
+    type: boolean
+    description: 是否处于排队等待中，传输任务正在等待系统调度执行。
+  - name: syncPercent
+    type: float
+    description: 复制进度百分比，保留2位小数（如74.23）。
+  - name: errorInfo
+    type: string
+    description: 该目标区域复制异常或失败时返回的错误信息。

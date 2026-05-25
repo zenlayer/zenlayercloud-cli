@@ -6,6 +6,7 @@ long: |-
   Associate a HaVip with a ZEC instance.
   **Association Requirements**
 
+  * The instance must be in a successfully created and non-deleted state (e.g., running or stopped). Instances in deploying, failed, recycling, or releasing states cannot be associated.
   * The instance must have at least one NIC in the same subnet as the HaVip (including primary and secondary NICs).
   * A single instance can be associated with up to 5 HaVips.
   * The same HaVip and instance pair cannot be associated more than once.

@@ -83,17 +83,25 @@ parameters:
   type: integer
   required: false
   sdk-field: bandwidth
-  description: Bandwidth
+  description: |-
+    Bandwidth limit for the elastic public IP.
+    Unit: Mbps.
 - name: flow-package
   type: float
   required: false
   sdk-field: flowPackage
-  description: Data transfer package.
+  description: |-
+    Data transfer package size for public IPv6.
+    Unit: TB.
+    Value must be 0 or a multiple of 0.1.
+    Required when the subnet stack type includes IPv6 with public internet access and the billing type is ByTrafficPackage.
 - name: cidr-id
   type: string
   required: false
   sdk-field: cidrId
-  description: CIDR ID.
+  description: |-
+    CIDR ID. Specifies the CIDR block from which an elastic IP is allocated.
+    This field and eipV4Type cannot be specified at the same time.
 - name: cluster-id
   type: string
   required: false
@@ -109,7 +117,9 @@ parameters:
 response:
 - name: eipPrice
   type: object
-  description: Price of elastic IP.
+  description: |-
+    Reservation price of the elastic public IP.
+    If the elastic IP is created from a CIDR block, the reservation price is null.
   object-schema:
   - name: discount
     type: float

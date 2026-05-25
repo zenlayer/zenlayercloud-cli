@@ -6,7 +6,9 @@ long: |-
   Disassociate elastic IPs from resources in the same region.
   **Note**
 
-  The API returns the elastic IP IDs that failed to operate. An empty list indicates all operations succeeded.
+  * The API returns the elastic IP IDs that failed to disassociate. An empty list indicates all operations succeeded.
+  * If an elastic public IP has already been disassociated, repeating the operation will not return an error.
+  * The default elastic public IP cannot be disassociated.
 sdk:
   service: zec
   version: '2025-09-01'

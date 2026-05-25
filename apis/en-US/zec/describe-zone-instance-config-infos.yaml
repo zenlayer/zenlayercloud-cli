@@ -20,7 +20,9 @@ parameters:
   type: string
   required: false
   sdk-field: instanceType
-  description: Instance size.
+  description: |-
+    Instance type to query.
+    For example: z2a.cpu.1.
 response:
 - name: instanceTypeQuotaSet
   type: object-array

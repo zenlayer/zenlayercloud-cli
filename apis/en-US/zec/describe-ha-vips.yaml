@@ -29,7 +29,7 @@ parameters:
   type: string
   required: false
   sdk-field: regionId
-  description: Region ID.
+  description: The ID of the node where the HaVip is located.
 - name: vpc-ids
   type: string-array
   required: false
@@ -44,7 +44,7 @@ parameters:
   type: string-array
   required: false
   sdk-field: ipAddresses
-  description: List of private IP addresses.
+  description: List of private IP addresses. Supports up to 100 addresses per query.
 - name: instance-ids
   type: string-array
   required: false
@@ -54,7 +54,7 @@ parameters:
   type: integer
   required: false
   sdk-field: pageSize
-  description: Page size. Maximum value is 1000.
+  description: Page size.
 - name: page-num
   type: integer
   required: false
@@ -95,7 +95,7 @@ response:
     description: HaVip name.
   - name: regionId
     type: string
-    description: Region ID.
+    description: The ID of the node where the HaVip is located.
   - name: vpcId
     type: string
     description: The ID of the VPC the HaVip belongs to.
@@ -113,12 +113,10 @@ response:
     description: List of associated instance IDs.
   - name: masterInstanceId
     type: string
-    description: The ID of the current primary instance. Null if no instance is associated.
+    description: The ID of the primary instance currently holding the VIP traffic. Returns null if no instance is bound or there is no primary instance.
   - name: associatedEips
     type: object-array
-    description: |-
-      The list of associated elastic public IP addresses.
-      this list is empty when not bound.
+    description: List of bound Elastic IPs. Returns an empty list if none are bound.
   - name: createTime
     type: string
     description: Creation time.

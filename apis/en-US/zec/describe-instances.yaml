@@ -74,7 +74,9 @@ parameters:
   type: string
   required: false
   sdk-field: name
-  description: Instance name.
+  description: |-
+    Filter by instance display name.
+    This field supports fuzzy search.
 - name: page-size
   type: integer
   required: false

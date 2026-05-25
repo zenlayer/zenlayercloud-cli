@@ -30,12 +30,12 @@ parameters:
   type: string
   required: true
   sdk-field: regionId
-  description: Region ID.
+  description: The ID of the node where the subnet resides. Must be one of the nodes where the VPC is located.
 - name: stack-type
   type: enum
   required: true
   sdk-field: stackType
-  description: Subnet IP stack type.
+  description: 'The IP stack type of the subnet. Valid values: IPv4 (IPv4 only), IPv4_IPv6 (dual-stack IPv4 and IPv6), IPv6 (IPv6 only).'
   enum-values:
   - value: IPv4
     desc: IPv4 stack type only.

@@ -35,12 +35,12 @@ parameters:
   type: string
   required: true
   sdk-field: regionId
-  description: 子网所在的节点ID。
+  description: 子网所在节点的ID。必须是VPC所在节点之一。
 - name: stack-type
   type: enum
   required: true
   sdk-field: stackType
-  description: 子网的IP堆栈类型。
+  description: 子网的IP堆栈类型。可选值：IPv4（仅IPv4）、IPv4_IPv6（IPv4和IPv6双栈）、IPv6（仅IPv6）。
   enum-values:
   - value: IPv4
     desc: 仅IPv4。

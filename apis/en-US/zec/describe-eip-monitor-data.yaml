@@ -34,12 +34,16 @@ parameters:
   type: string
   required: true
   sdk-field: startTime
-  description: Start time.
+  description: |-
+    Start time of the query.
+    Time format: yyyy-MM-ddTHH:mm:ssZ.
 - name: end-time
   type: string
   required: true
   sdk-field: endTime
-  description: End time.
+  description: |-
+    End time of the query.
+    Time format: yyyy-MM-ddTHH:mm:ssZ.
 - name: step
   type: integer
   required: false

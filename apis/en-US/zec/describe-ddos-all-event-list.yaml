@@ -32,12 +32,16 @@ parameters:
   type: string
   required: false
   sdk-field: startTime
-  description: Attack start time.
+  description: |-
+    Attack start time.
+    Time format: yyyy-MM-ddTHH:mm:ssZ.
 - name: end-time
   type: string
   required: false
   sdk-field: endTime
-  description: Attack end time.
+  description: |-
+    Attack end time.
+    Time format: yyyy-MM-ddTHH:mm:ssZ.
 - name: page-size
   type: integer
   required: false

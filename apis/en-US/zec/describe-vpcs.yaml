@@ -15,7 +15,9 @@ parameters:
   type: string-array
   required: false
   sdk-field: vpcIds
-  description: Global VPC IDs.
+  description: |-
+    List of global VPC IDs.
+    Up to 100 IDs can be specified per request.
 - name: name
   type: string
   required: false
@@ -95,7 +97,7 @@ response:
     description: IPv6 CIDR block of global VPC.
   - name: mtu
     type: integer
-    description: MTU of global VPC.
+    description: The MTU (Maximum Transmission Unit) of the VPC, in bytes.
   - name: isDefault
     type: boolean
     description: Whether is default global VPC or not.
@@ -104,10 +106,10 @@ response:
     description: Creation time of global VPC.
   - name: usageIpv4Count
     type: integer
-    description: Used IPv4 quantity of the global VPC.
+    description: The number of IPv4 addresses allocated within the VPC.
   - name: usageIpv6Count
     type: integer
-    description: Used IPv6 quantity of the global VPC.
+    description: The number of IPv6 addresses allocated within the VPC.
   - name: securityGroupId
     type: string
     description: Associated security group ID of global VPC.

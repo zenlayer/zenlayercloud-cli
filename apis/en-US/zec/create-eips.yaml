@@ -133,12 +133,14 @@ parameters:
   type: string
   required: false
   sdk-field: publicIp
-  description: The starting public IP.
+  description: |-
+    The starting public IP address from which elastic IPs are allocated within the CIDR block.
+    This field only takes effect when cidrId is specified.
 - name: resource-group-id
   type: string
   required: false
   sdk-field: resourceGroupId
-  description: Resource group.
+  description: Resource group ID for the elastic public IP. If not specified, the IP will be placed in the default resource group.
 - name: flow-package
   type: float
   required: false

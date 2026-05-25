@@ -50,7 +50,7 @@ parameters:
   type: string-array
   required: false
   sdk-field: vpcIds
-  description: ID list of global VPCs.
+  description: Filter by VPC ID. Supports up to 100 VPC IDs.
 - name: dhcp-options-set-id
   type: string
   required: false
@@ -76,13 +76,13 @@ response:
     description: Subnet name.
   - name: cidrBlock
     type: string
-    description: CIDR block of subnet.
+    description: The IPv4 CIDR block of the subnet.
   - name: gatewayIpAddress
     type: string
     description: Gateway ip address.
   - name: ipv6CidrBlock
     type: string
-    description: IPv6 CIDR block of subnet.
+    description: The IPv6 CIDR block of the subnet. Returns null if the IP stack type does not include IPv6.
   - name: ipv6GatewayIpAddress
     type: string
     description: IPv6 gateway ip address.
@@ -94,10 +94,7 @@ response:
       IPv4 , IPv4_IPv6 , IPv6
   - name: ipv6Type
     type: string
-    description: |-
-      Subnet IPv6 type.
-      The optional values are as follows:
-      Public , Private
+    description: 'The IPv6 type of the subnet. Valid values: Private (internal network), Public (public network). Returns null if the IP stack type does not include IPv6.'
   - name: vpcId
     type: string
     description: Global VPC ID to which the subnet belong.
@@ -115,12 +112,10 @@ response:
     description: Creation time of subnet.
   - name: isDefault
     type: boolean
-    description: Whether is default subnet or not.
+    description: Whether this is the default subnet.
   - name: dhcpOptionsSetId
     type: string
     description: DHCP options set ID.
   - name: ipv6MaskLength
     type: integer
-    description: |-
-      IPv6 mask length assigned to the vNIC.
-      This field is empty if the subnet's IP stack type does not include V6.
+    description: The IPv6 prefix length allocated to virtual machines. Returns null if the IP stack type does not include IPv6.

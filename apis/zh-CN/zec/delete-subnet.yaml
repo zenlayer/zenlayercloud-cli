@@ -6,7 +6,8 @@ long: |-
   删除一个子网。
   **注意事项**
 
-  * 删除子网前，请清理该子网下所有资源，包括网卡、实例、NAT网关等。
+  * 删除子网前，请清理该子网下所有资源，包括网卡、实例、NAT网关、高可用虚拟IP等。
+  * 不能删除默认子网。
 examples:
 - cmd: zeno zec delete-subnet --subnet-id <subnetId>
   desc: 删除子网。

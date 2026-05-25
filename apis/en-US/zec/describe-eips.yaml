@@ -20,7 +20,7 @@ parameters:
   type: string
   required: false
   sdk-field: regionId
-  description: Region ID
+  description: Filter by the region ID that the EIP belongs to.
 - name: name
   type: string
   required: false
@@ -289,10 +289,15 @@ response:
       desc: Bypass mode.
   - name: flowPackage
     type: float
-    description: Data transfer package.
+    description: |-
+      Data transfer package size of the EIP.
+      This field is only available when the billing type is traffic-based.
+      This field may be null.
   - name: bandwidth
     type: integer
-    description: Bandwidth
+    description: |-
+      Bandwidth limit of the EIP.
+      Unit: Mbps.
   - name: rateLimitMode
     type: enum
     description: Rate limit mode.
@@ -312,7 +317,9 @@ response:
     description: Creation time.
   - name: expiredTime
     type: string
-    description: Expiration time.
+    description: |-
+      Expiration time of the EIP.
+      This field may be null.
   - name: resourceGroupId
     type: string
     description: Resource group ID.

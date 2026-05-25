@@ -22,4 +22,6 @@ parameters:
   type: string
   required: true
   sdk-field: ipAddress
-  description: Private IPv4.
+  description: |-
+    Private IPv4 address to be bound.
+    The address must fall within the subnet's CIDR range and must not already be in use.

@@ -6,7 +6,8 @@ long: |-
   Modify the IP stack type of the specified subnet (IPv4, IPv4_IPv6, or IPv6). When switching to dual-stack or IPv6-only, you must provide the IPv6 type and the corresponding CIDR block configuration.
   **Note**
 
-  You can only change the IP stack type of subnet from `IPv4` to `IPv4_IPv6`.
+  * You can only change the IP stack type of a subnet from `IPv4` to `IPv4_IPv6`. After the change, an IPv6 address range will be assigned.
+  * This operation is irreversible once completed.
 sdk:
   service: zec
   version: '2025-09-01'

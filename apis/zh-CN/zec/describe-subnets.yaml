@@ -47,7 +47,7 @@ parameters:
   type: string-array
   required: false
   sdk-field: vpcIds
-  description: VPC的ID集合。
+  description: 根据所属VPC的ID进行筛选。最多支持100个VPC ID。
 - name: dhcp-options-set-id
   type: string
   required: false
@@ -73,15 +73,13 @@ response:
     description: 子网的名称。
   - name: cidrBlock
     type: string
-    description: 子网的CIDR地址。
+    description: 子网的IPv4 CIDR地址段。
   - name: gatewayIpAddress
     type: string
     description: 网关地址。
   - name: ipv6CidrBlock
     type: string
-    description: |-
-      子网的IPv6 CIDR地址段。
-      如果子网的IP堆栈类型不包括V6,该字段取不到值。
+    description: 子网的IPv6 CIDR地址段。当IP堆栈类型不包含IPv6时为null。
   - name: ipv6GatewayIpAddress
     type: string
     description: IPv6的网关地址。
@@ -90,9 +88,7 @@ response:
     description: 子网的IP堆栈类型。
   - name: ipv6Type
     type: string
-    description: |-
-      子网上IPv6类型。
-      如果子网的IP堆栈类型不包括V6,该字段取不到值。
+    description: 子网的IPv6类型。可选值：Private（内网）、Public（公网）。当IP堆栈类型不包含IPv6时为null。
   - name: vpcId
     type: string
     description: 子网所属VPC的ID。
@@ -110,12 +106,10 @@ response:
     description: 子网的创建时间。
   - name: isDefault
     type: boolean
-    description: 子网是否为默认。
+    description: 是否为默认子网。
   - name: dhcpOptionsSetId
     type: string
     description: DHCP选项集ID。
   - name: ipv6MaskLength
     type: integer
-    description: |-
-      分配给网卡的IPv6掩码长度。
-      如果子网的IP堆栈类型不包括V6,该字段取不到值。
+    description: 分配给虚拟机的IPv6前缀长度。当IP堆栈类型不包含IPv6时为null。

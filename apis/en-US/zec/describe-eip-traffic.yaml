@@ -57,7 +57,10 @@ response:
     description: 'Outbound bandwidth. Unit: bps.'
   - name: time
     type: string
-    description: 'Time. Format: YYYY-MM-ddTHH:mm:ssZ .'
+    description: |-
+      Data time.
+      Expressed in ISO 8601 format using UTC time.
+      Format: YYYY-MM-ddTHH:mm:ssZ.
 - name: in95
   type: integer
   description: Inbound burstable 95th bandwidth.
