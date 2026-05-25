@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.16](https://github.com/zenlayer/zenlayercloud-cli/releases/tag/v1.0.16) - 2026-05-25
+
+### Documentation
+
+- add describe-image-copy-progress api & update api yaml
+- update CHANGELOG.md for v1.0.15
 ## [1.0.15](https://github.com/zenlayer/zenlayercloud-cli/releases/tag/v1.0.15) - 2026-05-25
 
 ### Documentation
