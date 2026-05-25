@@ -16,7 +16,7 @@ type CommonClient struct {
 	common.Client
 }
 
-// NewCommonClient creates a CommonClient with the given credentials and config.
+// NewCommonClient creates a CommonClient authenticated via HMAC-SHA256 access key signing.
 // If cfg is nil, SDK defaults are used.
 func NewCommonClient(keyID, secret string, cfg *common.Config) (*CommonClient, error) {
 	if keyID == "" || secret == "" {
@@ -25,6 +25,26 @@ func NewCommonClient(keyID, secret string, cfg *common.Config) (*CommonClient, e
 	c := &CommonClient{}
 	if err := c.InitWithCredential(common.NewCredential(keyID, secret)); err != nil {
 		return nil, fmt.Errorf("failed to initialize credentials: %w", err)
+	}
+	if cfg == nil {
+		cfg = common.NewConfig()
+	}
+	if err := c.WithConfig(cfg); err != nil {
+		return nil, fmt.Errorf("failed to apply config: %w", err)
+	}
+	c.WithRequestClient("zeno")
+	return c, nil
+}
+
+// NewCommonClientWithToken creates a CommonClient authenticated via a Bearer token.
+// If cfg is nil, SDK defaults are used.
+func NewCommonClientWithToken(token string, cfg *common.Config) (*CommonClient, error) {
+	if token == "" {
+		return nil, fmt.Errorf("token is required")
+	}
+	c := &CommonClient{}
+	if err := c.InitWithTokenCredential(common.NewTokenCredential(token)); err != nil {
+		return nil, fmt.Errorf("failed to initialize token credential: %w", err)
 	}
 	if cfg == nil {
 		cfg = common.NewConfig()

@@ -1,9 +1,11 @@
 package config
 
 // CredentialProfile holds credentials for a single profile.
+// Only one authentication method should be set: either (AccessKeyID + AccessKeySecret) or Token.
 type CredentialProfile struct {
-	AccessKeyID     string `json:"access_key_id"`
-	AccessKeySecret string `json:"access_key_secret"`
+	AccessKeyID     string `json:"access_key_id,omitempty"`
+	AccessKeySecret string `json:"access_key_secret,omitempty"`
+	Token           string `json:"token,omitempty"`
 }
 
 // Credentials holds all credential profiles.
@@ -51,7 +53,27 @@ func GetAccessKeySecret() string {
 	return ""
 }
 
-// SetAccessKeyID sets the access key ID for a profile.
+// GetToken returns the token for the current profile.
+func GetToken() string {
+	configMu.RLock()
+	defer configMu.RUnlock()
+
+	if globalCredentials == nil {
+		return ""
+	}
+
+	profile := currentProfile
+	if profile == "" {
+		profile = "default"
+	}
+
+	if cred, ok := globalCredentials.Profiles[profile]; ok {
+		return cred.Token
+	}
+	return ""
+}
+
+// SetAccessKeyID sets the access key ID for a profile and clears any token.
 func SetAccessKeyID(profile, keyID string) {
 	configMu.Lock()
 	defer configMu.Unlock()
@@ -64,10 +86,11 @@ func SetAccessKeyID(profile, keyID string) {
 
 	cred := globalCredentials.Profiles[profile]
 	cred.AccessKeyID = keyID
+	cred.Token = ""
 	globalCredentials.Profiles[profile] = cred
 }
 
-// SetAccessKeySecret sets the access key secret for a profile.
+// SetAccessKeySecret sets the access key secret for a profile and clears any token.
 func SetAccessKeySecret(profile, secret string) {
 	configMu.Lock()
 	defer configMu.Unlock()
@@ -80,10 +103,25 @@ func SetAccessKeySecret(profile, secret string) {
 
 	cred := globalCredentials.Profiles[profile]
 	cred.AccessKeySecret = secret
+	cred.Token = ""
 	globalCredentials.Profiles[profile] = cred
 }
 
-// SetCredentials sets both access key ID and secret for a profile.
+// SetToken sets the token for a profile and clears any access key credentials.
+func SetToken(profile, token string) {
+	configMu.Lock()
+	defer configMu.Unlock()
+
+	if globalCredentials == nil {
+		globalCredentials = &Credentials{
+			Profiles: make(map[string]CredentialProfile),
+		}
+	}
+
+	globalCredentials.Profiles[profile] = CredentialProfile{Token: token}
+}
+
+// SetCredentials sets both access key ID and secret for a profile and clears any token.
 func SetCredentials(profile, keyID, secret string) {
 	configMu.Lock()
 	defer configMu.Unlock()

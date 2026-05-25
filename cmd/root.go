@@ -17,6 +17,7 @@ var (
 	cfgQuery        string
 	cfgAccessKeyID  string
 	cfgAccessSecret string
+	cfgToken        string
 	cfgEndpoint     string
 	cfgDebug        bool
 	cfgDryRun       bool
@@ -83,6 +84,7 @@ func init() {
 	rootCmd.PersistentFlags().StringVarP(&cfgQuery, "query", "q", "", "JMESPath query to filter response (e.g. dataSet[*].instanceId)")
 	rootCmd.PersistentFlags().StringVar(&cfgAccessKeyID, "access-key-id", "", "access key ID (overrides config)")
 	rootCmd.PersistentFlags().StringVar(&cfgAccessSecret, "access-key-secret", "", "access key secret (overrides config)")
+	rootCmd.PersistentFlags().StringVar(&cfgToken, "token", "", "bearer token for authentication (overrides access key)")
 	rootCmd.PersistentFlags().StringVar(&cfgEndpoint, "endpoint", "", "API domain/endpoint (overrides default)")
 	rootCmd.PersistentFlags().BoolVar(&cfgDebug, "debug", false, "enable debug mode")
 	rootCmd.PersistentFlags().BoolVar(&cfgDryRun, "cli-dry-run", false, "preview the API request without sending it")
@@ -160,6 +162,7 @@ func registerProductCommands() {
 		apisFS,
 		GetAccessKeyID,
 		GetAccessKeySecret,
+		GetToken,
 		func() interface{} { return GetOutput() },
 		func() interface{} { return GetQuery() },
 		func() interface{} { return GetDebug() },
@@ -196,4 +199,15 @@ func GetAccessKeySecret() string {
 		return envSecret
 	}
 	return config.GetAccessKeySecret()
+}
+
+// GetToken returns the bearer token, applying priority: CLI flag > env > config.
+func GetToken() string {
+	if cfgToken != "" {
+		return cfgToken
+	}
+	if envToken := os.Getenv("ZENLAYER_TOKEN"); envToken != "" {
+		return envToken
+	}
+	return config.GetToken()
 }

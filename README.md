@@ -159,6 +159,7 @@ Settings are applied in the following priority (highest to lowest):
 | `ZENLAYER_PROFILE` | Profile name to use |
 | `ZENLAYER_ACCESS_KEY_ID` | Access Key ID |
 | `ZENLAYER_ACCESS_KEY_SECRET` | Access Key Secret |
+| `ZENLAYER_TOKEN` | Bearer token for authentication |
 | `ZENLAYER_OUTPUT` | Output format (`json`/`table`) |
 | `ZENLAYER_DEBUG` | Enable debug mode (`true`/`false`) |
 
@@ -307,6 +308,7 @@ Removes completion from standard installation paths. Restart your shell after un
 | `--page-all` | | Fetch all pages and merge results (list commands only) |
 | `--access-key-id` | | Access Key ID (overrides config) |
 | `--access-key-secret` | | Access Key Secret (overrides config) |
+| `--token` | | Bearer token for authentication |
 | `--cli-dry-run` | | Preview the API request without sending it |
 | `--debug` | | Enable debug mode |
 | `--help` | `-h` | Help for command |

@@ -476,6 +476,7 @@ func TestGet(t *testing.T) {
 		{"access_key_id", "keyid"},
 		{"access-key-secret", "keysecret"},
 		{"access_key_secret", "keysecret"},
+		{"token", ""},  // credentials are access-key based; SetCredentials clears token
 		{"unknown-key", ""},
 	}
 
@@ -564,4 +565,98 @@ func TestSet(t *testing.T) {
 			t.Error("Set() expected error for unknown key, got nil")
 		}
 	})
+
+	t.Run("set token", func(t *testing.T) {
+		tmpDir := t.TempDir()
+		t.Setenv("HOME", tmpDir)
+		resetState()
+		t.Cleanup(resetState)
+
+		SetCurrentProfile("default")
+		if err := Set("token", "my-token"); err != nil {
+			t.Fatalf("Set('token', ...) error = %v", err)
+		}
+		if got := GetToken(); got != "my-token" {
+			t.Errorf("GetToken() = %q after Set, want %q", got, "my-token")
+		}
+	})
+}
+
+func TestGet_Token(t *testing.T) {
+	resetState()
+	t.Cleanup(resetState)
+
+	SetCurrentProfile("default")
+	SetToken("default", "tok-123")
+
+	if got := Get("token"); got != "tok-123" {
+		t.Errorf("Get('token') = %q, want %q", got, "tok-123")
+	}
+}
+
+func TestLoad_WithCredentialsFile_Token(t *testing.T) {
+	tmpDir := t.TempDir()
+	t.Setenv("HOME", tmpDir)
+
+	configDir := filepath.Join(tmpDir, ConfigDirName)
+	if err := os.MkdirAll(configDir, 0700); err != nil {
+		t.Fatal(err)
+	}
+
+	cfg := Config{CurrentProfile: "default", Profiles: map[string]ProfileConfig{}}
+	data, _ := json.Marshal(cfg)
+	if err := os.WriteFile(filepath.Join(configDir, ConfigFileName), data, 0644); err != nil {
+		t.Fatal(err)
+	}
+
+	creds := map[string]CredentialProfile{
+		"default": {Token: "loaded-token"},
+	}
+	credData, _ := json.Marshal(creds)
+	if err := os.WriteFile(filepath.Join(configDir, CredentialsFileName), credData, 0600); err != nil {
+		t.Fatal(err)
+	}
+
+	if err := Load(); err != nil {
+		t.Fatalf("Load() error = %v", err)
+	}
+	if got := GetToken(); got != "loaded-token" {
+		t.Errorf("GetToken() = %q after Load, want %q", got, "loaded-token")
+	}
+	if got := GetAccessKeyID(); got != "" {
+		t.Errorf("GetAccessKeyID() = %q after Load token profile, want empty", got)
+	}
+}
+
+func TestSaveCredentials_TokenProfile(t *testing.T) {
+	tmpDir := t.TempDir()
+	t.Setenv("HOME", tmpDir)
+	resetState()
+
+	SetToken("default", "save-token")
+
+	if err := SaveCredentials(); err != nil {
+		t.Fatalf("SaveCredentials() error = %v", err)
+	}
+
+	credPath := filepath.Join(tmpDir, ConfigDirName, CredentialsFileName)
+	data, err := os.ReadFile(credPath)
+	if err != nil {
+		t.Fatalf("Credentials file not created: %v", err)
+	}
+
+	var raw map[string]map[string]interface{}
+	if err := json.Unmarshal(data, &raw); err != nil {
+		t.Fatalf("Written credentials is not valid JSON: %v", err)
+	}
+	profile := raw["default"]
+	if profile["token"] != "save-token" {
+		t.Errorf("Saved token = %v, want %q", profile["token"], "save-token")
+	}
+	if _, ok := profile["access_key_id"]; ok {
+		t.Error("Saved credentials should not contain access_key_id for token profile")
+	}
+	if _, ok := profile["access_key_secret"]; ok {
+		t.Error("Saved credentials should not contain access_key_secret for token profile")
+	}
 }

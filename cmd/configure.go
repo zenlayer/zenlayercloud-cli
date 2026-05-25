@@ -20,8 +20,7 @@ var configureCmd = &cobra.Command{
 
 This command will prompt you for:
   - Profile name
-  - Access Key ID
-  - Access Key Secret
+  - Authentication method: access key (ID + secret) or bearer token
   - Language preference
   - Output format preference
 
@@ -47,7 +46,8 @@ Available keys:
   - language: language setting (en/zh)
   - output: output format (json/table)
   - access-key-id: access key ID
-  - access-key-secret: access key secret`,
+  - access-key-secret: access key secret
+  - token: bearer token for authentication`,
 	Args:              cobra.ExactArgs(1),
 	RunE:              runConfigureGet,
 	ValidArgsFunction: completeConfigKeys,
@@ -63,7 +63,8 @@ Available keys:
   - language: language setting (en/zh)
   - output: output format (json/table)
   - access-key-id: access key ID
-  - access-key-secret: access key secret`,
+  - access-key-secret: access key secret
+  - token: bearer token for authentication`,
 	Args:              cobra.ExactArgs(2),
 	RunE:              runConfigureSet,
 	ValidArgsFunction: completeConfigSet,
@@ -91,20 +92,43 @@ func runConfigureInteractive(cmd *cobra.Command, args []string) error {
 	config.EnsureProfile(profile)
 	config.SetCurrentProfile(profile)
 
-	// Access Key ID
+	// Authentication method
+	currentToken := config.GetToken()
 	currentKeyID := config.GetAccessKeyID()
-	keyID := promptWithDefault(reader, "Access Key ID", currentKeyID)
-
-	// Access Key Secret (hidden input)
-	fmt.Print("Access Key Secret []: ")
-	secretBytes, err := term.ReadPassword(int(syscall.Stdin))
-	fmt.Println()
-	if err != nil {
-		return fmt.Errorf("failed to read secret: %w", err)
+	authMethod := "access-key"
+	if currentToken != "" {
+		authMethod = "token"
 	}
-	secret := strings.TrimSpace(string(secretBytes))
-	if secret == "" {
-		secret = config.GetAccessKeySecret()
+	authMethod = promptWithDefault(reader, "Auth Method (access-key/token)", authMethod)
+
+	var keyID, secret, token string
+	if authMethod == "token" {
+		// Token (hidden input)
+		fmt.Print("Token []: ")
+		tokenBytes, err := term.ReadPassword(int(syscall.Stdin))
+		fmt.Println()
+		if err != nil {
+			return fmt.Errorf("failed to read token: %w", err)
+		}
+		token = strings.TrimSpace(string(tokenBytes))
+		if token == "" {
+			token = currentToken
+		}
+	} else {
+		// Access Key ID
+		keyID = promptWithDefault(reader, "Access Key ID", currentKeyID)
+
+		// Access Key Secret (hidden input)
+		fmt.Print("Access Key Secret []: ")
+		secretBytes, err := term.ReadPassword(int(syscall.Stdin))
+		fmt.Println()
+		if err != nil {
+			return fmt.Errorf("failed to read secret: %w", err)
+		}
+		secret = strings.TrimSpace(string(secretBytes))
+		if secret == "" {
+			secret = config.GetAccessKeySecret()
+		}
 	}
 
 	// Language
@@ -128,7 +152,11 @@ func runConfigureInteractive(cmd *cobra.Command, args []string) error {
 	}
 
 	// Save credentials
-	config.SetCredentials(profile, keyID, secret)
+	if authMethod == "token" {
+		config.SetToken(profile, token)
+	} else {
+		config.SetCredentials(profile, keyID, secret)
+	}
 	if err := config.SaveCredentials(); err != nil {
 		return fmt.Errorf("failed to save credentials: %w", err)
 	}
@@ -192,6 +220,7 @@ var configKeys = []string{
 	"output\toutput format (json/table)",
 	"access-key-id\taccess key ID",
 	"access-key-secret\taccess key secret",
+	"token\tbearer token for authentication",
 }
 
 func completeConfigKeys(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {

@@ -78,3 +78,31 @@ func TestCommonRequest_InitWithApiInfo(t *testing.T) {
 		t.Errorf("GetServiceName() = %q, want 'bmc'", req.GetServiceName())
 	}
 }
+
+func TestNewCommonClientWithToken_MissingToken(t *testing.T) {
+	_, err := NewCommonClientWithToken("", nil)
+	if err == nil {
+		t.Error("NewCommonClientWithToken() with empty token should return error")
+	}
+}
+
+func TestNewCommonClientWithToken_ValidToken(t *testing.T) {
+	client, err := NewCommonClientWithToken("my-bearer-token", nil)
+	if err != nil {
+		t.Fatalf("NewCommonClientWithToken() error = %v", err)
+	}
+	if client == nil {
+		t.Error("NewCommonClientWithToken() returned nil client")
+	}
+}
+
+func TestNewCommonClientWithToken_WithConfig(t *testing.T) {
+	cfg := common.NewConfig()
+	client, err := NewCommonClientWithToken("my-bearer-token", cfg)
+	if err != nil {
+		t.Fatalf("NewCommonClientWithToken() with config error = %v", err)
+	}
+	if client == nil {
+		t.Error("NewCommonClientWithToken() with config returned nil client")
+	}
+}

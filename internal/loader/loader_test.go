@@ -159,6 +159,7 @@ func TestMakeAPICommand_Basic(t *testing.T) {
 	cmd := makeAPICommand(def,
 		func() string { return "" },
 		func() string { return "" },
+		func() string { return "" },  // getToken
 		func() interface{} { return "" },
 		func() interface{} { return "" },    // getQuery
 		func() interface{} { return false },
@@ -199,6 +200,7 @@ func TestMakeAPICommand_WithExamples(t *testing.T) {
 	cmd := makeAPICommand(def,
 		func() string { return "" },
 		func() string { return "" },
+		func() string { return "" },  // getToken
 		func() interface{} { return "" },
 		func() interface{} { return "" },    // getQuery
 		func() interface{} { return false },
@@ -228,6 +230,7 @@ func TestMakeAPICommand_NoExamples(t *testing.T) {
 	cmd := makeAPICommand(def,
 		func() string { return "" },
 		func() string { return "" },
+		func() string { return "" },  // getToken
 		func() interface{} { return "" },
 		func() interface{} { return "" },    // getQuery
 		func() interface{} { return false },
@@ -253,6 +256,7 @@ func TestMakeAPICommand_DryRun(t *testing.T) {
 	cmd := makeAPICommand(def,
 		func() string { return "" },
 		func() string { return "" },
+		func() string { return "" },         // getToken
 		func() interface{} { return "json" },
 		func() interface{} { return "" },    // getQuery
 		func() interface{} { return false },

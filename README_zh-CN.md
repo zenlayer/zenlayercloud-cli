@@ -159,6 +159,7 @@ export ZENLAYER_PROFILE=prod
 | `ZENLAYER_PROFILE` | 使用的配置文件名称 |
 | `ZENLAYER_ACCESS_KEY_ID` | Access Key ID |
 | `ZENLAYER_ACCESS_KEY_SECRET` | Access Key Secret |
+| `ZENLAYER_TOKEN` | Bearer token 鉴权 |
 | `ZENLAYER_OUTPUT` | 输出格式（`json`/`table`） |
 | `ZENLAYER_DEBUG` | 启用调试模式（`true`/`false`） |
 
@@ -307,6 +308,7 @@ zeno completion --uninstall [bash|zsh|fish|powershell]  # 卸载特定 shell
 | `--page-all` | | 自动获取所有分页数据并合并（仅列表命令） |
 | `--access-key-id` | | Access Key ID（覆盖配置） |
 | `--access-key-secret` | | Access Key Secret（覆盖配置） |
+| `--token` | | Bearer token 鉴权 |
 | `--cli-dry-run` | | 预览 API 请求，不实际发送 |
 | `--debug` | | 启用调试模式 |
 | `--help` | `-h` | 命令帮助 |

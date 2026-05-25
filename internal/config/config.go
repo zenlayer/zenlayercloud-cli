@@ -305,6 +305,8 @@ func Get(key string) string {
 		return GetAccessKeyID()
 	case "access-key-secret", "access_key_secret":
 		return GetAccessKeySecret()
+	case "token":
+		return GetToken()
 	default:
 		return ""
 	}
@@ -334,6 +336,9 @@ func Set(key, value string) error {
 		return SaveCredentials()
 	case "access-key-secret", "access_key_secret":
 		SetAccessKeySecret(profile, value)
+		return SaveCredentials()
+	case "token":
+		SetToken(profile, value)
 		return SaveCredentials()
 	default:
 		return fmt.Errorf("unknown configuration key: %s", key)

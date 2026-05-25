@@ -104,7 +104,12 @@ go build -ldflags "-X github.com/zenlayer/zenlayercloud-cli/internal/version.Ver
 
 ## Configure access credentials
 
-Zenlayer uses an **Access Key ID + Access Key Secret** pair. Create one in the console at the user/API key section, then:
+Zenlayer supports two authentication methods — pick one per profile:
+
+| Method | When to use |
+|--------|-------------|
+| **Access Key ID + Secret** | Long-lived service accounts, most common |
+| **Bearer Token** | Short-lived tokens, CI pipelines, SSO-issued credentials |
 
 ```bash
 zeno configure
@@ -112,15 +117,18 @@ zeno configure
 
 Interactive prompts will ask for:
 
-- **Profile name** (default: `default`) — logical name for this key pair
-- **Access Key ID** — shown in the console
-- **Access Key Secret** — shown once at creation; store securely
+- **Profile name** (default: `default`) — logical name for this credential set
+- **Auth Method** — `access-key` (default) or `token`
+  - If `access-key`: **Access Key ID** and **Access Key Secret** (create in the console)
+  - If `token`: **Token** — the bearer token string
 - **Language preference** — `en` or `zh`
 - **Output format** — `json` (recommended for scripting) or `table`
 
+The two methods are mutually exclusive per profile — switching method clears the other credential.
+
 Files written:
 
-- `~/.zenlayer/credentials.json` — access keys, mode `0600`
+- `~/.zenlayer/credentials.json` — credentials, mode `0600`
 - `~/.zenlayer/config.json` — non-secret settings
 
 **Never commit either file to git.** Add `~/.zenlayer/` to your global gitignore if you work in repos under your home directory:
@@ -136,7 +144,7 @@ echo '.zenlayer/' >> ~/.gitignore_global
 zeno configure list
 ```
 
-This prints only `language`, `output`, `profile` — it does **not** print the access key or secret. Safe to share.
+This prints only `language`, `output`, `profile` — it does **not** print the access key, secret, or token. Safe to share.
 
 ### Change a single setting
 
@@ -144,6 +152,13 @@ This prints only `language`, `output`, `profile` — it does **not** print the a
 zeno configure set output json
 zeno configure set language en
 zeno configure get output
+
+# Switch to token auth (clears any stored access key)
+zeno configure set token YOUR_BEARER_TOKEN
+
+# Switch back to access key auth (clears any stored token)
+zeno configure set access-key-id YOUR_KEY_ID
+zeno configure set access-key-secret YOUR_KEY_SECRET
 ```
 
 ## Multiple profiles
@@ -176,9 +191,11 @@ zeno zec describe-zones -o json
 
 Settings resolve highest-to-lowest:
 
-1. Command-line flags (`--profile`, `--access-key-id`, `--output`, ...)
+1. Command-line flags (`--profile`, `--token`, `--access-key-id`, `--output`, ...)
 2. Environment variables (see below)
 3. `~/.zenlayer/config.json` + `credentials.json`
+
+Token takes precedence over access key at every level — if `--token` or `ZENLAYER_TOKEN` is set, access key credentials are ignored.
 
 ## Environment variables
 
@@ -187,10 +204,11 @@ Settings resolve highest-to-lowest:
 | `ZENLAYER_PROFILE`            | Profile name to use                            |
 | `ZENLAYER_ACCESS_KEY_ID`      | Access Key ID (overrides profile)              |
 | `ZENLAYER_ACCESS_KEY_SECRET`  | Access Key Secret (overrides profile)          |
+| `ZENLAYER_TOKEN`              | Bearer token (overrides profile; takes precedence over access key) |
 | `ZENLAYER_OUTPUT`             | `json` or `table`                              |
 | `ZENLAYER_DEBUG`              | `true` / `false` — enables request logging     |
 
-Example — CI or ephemeral shells without a credentials file:
+Example — CI with access key:
 
 ```bash
 export ZENLAYER_ACCESS_KEY_ID="AKID_EXAMPLE_PLACEHOLDER"
@@ -199,15 +217,24 @@ export ZENLAYER_OUTPUT=json
 zeno zec describe-zones
 ```
 
-Unset after use (`unset ZENLAYER_ACCESS_KEY_SECRET`) so keys don't linger in the environment.
+Example — CI with bearer token:
+
+```bash
+export ZENLAYER_TOKEN="TOKEN_EXAMPLE_PLACEHOLDER"
+export ZENLAYER_OUTPUT=json
+zeno zec describe-zones
+```
+
+Unset after use (`unset ZENLAYER_TOKEN` / `unset ZENLAYER_ACCESS_KEY_SECRET`) so credentials don't linger in the environment.
 
 ## Credential hygiene checklist
 
 - [ ] `~/.zenlayer/credentials.json` is mode `0600` (owner read/write only)
 - [ ] `.zenlayer/` appears in your global gitignore
-- [ ] No access key or secret appears in shell history, commit messages, code comments, or logs
-- [ ] Rotate keys in the console if one has ever been shared, pasted into chat, or committed
+- [ ] No access key, secret, or token appears in shell history, commit messages, code comments, or logs
+- [ ] Rotate keys / revoke tokens in the console if one has ever been shared, pasted into chat, or committed
 - [ ] CI uses environment variables injected from a secret manager — never a checked-in credentials file
+- [ ] Prefer short-lived bearer tokens over long-lived access keys for CI/CD pipelines
 
 ## Smoke test after configuring
 

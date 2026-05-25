@@ -91,7 +91,7 @@ func productShort(product string, descs map[string]string) string {
 //
 // fsys must contain an "apis/en-US/" subtree (and optionally "apis/zh-CN/").
 // Pass the embed.FS declared in the root main package.
-func RegisterAll(root *cobra.Command, fsys embed.FS, getAccessKeyID, getAccessKeySecret func() string, getOutput, getQuery, getDebug, getEndpoint, getDryRun func() interface{}) error {
+func RegisterAll(root *cobra.Command, fsys embed.FS, getAccessKeyID, getAccessKeySecret, getToken func() string, getOutput, getQuery, getDebug, getEndpoint, getDryRun func() interface{}) error {
 	apisFS = fsys
 	lang := langDir(config.GetLanguage())
 	productDescs := loadProductDescriptions(lang)
@@ -155,7 +155,7 @@ func RegisterAll(root *cobra.Command, fsys embed.FS, getAccessKeyID, getAccessKe
 			root.AddCommand(prodCmd)
 		}
 
-		apiCmd := makeAPICommand(def, getAccessKeyID, getAccessKeySecret, getOutput, getQuery, getDebug, getEndpoint, getDryRun)
+		apiCmd := makeAPICommand(def, getAccessKeyID, getAccessKeySecret, getToken, getOutput, getQuery, getDebug, getEndpoint, getDryRun)
 		prodCmd.AddCommand(apiCmd)
 	}
 
@@ -243,7 +243,7 @@ func collectNestedOrder(order map[string][]string, f SchemaField) {
 }
 
 // makeAPICommand builds a cobra.Command for a single API definition.
-func makeAPICommand(def *APIDefinition, getAccessKeyID, getAccessKeySecret func() string, getOutput, getQuery, getDebug, getEndpoint, getDryRun func() interface{}) *cobra.Command {
+func makeAPICommand(def *APIDefinition, getAccessKeyID, getAccessKeySecret, getToken func() string, getOutput, getQuery, getDebug, getEndpoint, getDryRun func() interface{}) *cobra.Command {
 	// Build examples string for backward compatibility.
 	var exampleLines []string
 	for _, ex := range def.Examples {
@@ -313,9 +313,6 @@ func makeAPICommand(def *APIDefinition, getAccessKeyID, getAccessKeySecret func(
 			return output.FormatTo(os.Stdout, "json", preview)
 		}
 
-		keyID := getAccessKeyID()
-		secret := getAccessKeySecret()
-
 		cfg := common.NewConfig()
 		if debug, ok := getDebug().(bool); ok && debug {
 			t := true
@@ -325,7 +322,12 @@ func makeAPICommand(def *APIDefinition, getAccessKeyID, getAccessKeySecret func(
 			cfg.Domain = ep
 		}
 
-		client, err := apiclient.NewCommonClient(keyID, secret, cfg)
+		var client *apiclient.CommonClient
+		if token := getToken(); token != "" {
+			client, err = apiclient.NewCommonClientWithToken(token, cfg)
+		} else {
+			client, err = apiclient.NewCommonClient(getAccessKeyID(), getAccessKeySecret(), cfg)
+		}
 		if err != nil {
 			return fmt.Errorf("failed to create client: %w", err)
 		}
