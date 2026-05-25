@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.15](https://github.com/zenlayer/zenlayercloud-cli/releases/tag/v1.0.15) - 2026-05-25
+
+### Documentation
+
+- update CHANGELOG.md for v1.0.14
+
+### Features
+
+- add token authentication
 ## [1.0.14](https://github.com/zenlayer/zenlayercloud-cli/releases/tag/v1.0.14) - 2026-05-22
 
 ### Documentation
