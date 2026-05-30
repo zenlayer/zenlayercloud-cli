@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.17](https://github.com/zenlayer/zenlayercloud-cli/releases/tag/v1.0.17) - 2026-05-30
+
+### Documentation
+
+- update CHANGELOG.md for v1.0.16
+
+### Features
+
+- hide requestId from table output
 ## [1.0.16](https://github.com/zenlayer/zenlayercloud-cli/releases/tag/v1.0.16) - 2026-05-25
 
 ### Documentation
