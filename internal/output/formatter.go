@@ -34,7 +34,7 @@ func FormatToOrdered(w io.Writer, format string, data interface{}, fieldOrder ma
 	case "json":
 		formatter = &JSONFormatter{Indent: true}
 	case "table":
-		formatter = &TableFormatter{FieldOrder: fieldOrder}
+		formatter = &TableFormatter{FieldOrder: fieldOrder, HiddenFields: []string{"requestId"}}
 	default:
 		return fmt.Errorf("unsupported output format: %s", format)
 	}

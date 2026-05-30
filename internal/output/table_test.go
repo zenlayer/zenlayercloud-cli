@@ -272,6 +272,88 @@ func TestTableFormatter_FieldOrder(t *testing.T) {
 	}
 }
 
+// TestTableFormatter_HiddenFields verifies that fields listed in HiddenFields
+// are excluded from table output at the top level, while nested fields are
+// unaffected and all other top-level fields still appear.
+func TestTableFormatter_HiddenFields(t *testing.T) {
+	t.Run("hidden field absent from output", func(t *testing.T) {
+		f := &TableFormatter{HiddenFields: []string{"requestId"}}
+		var buf bytes.Buffer
+		data := map[string]interface{}{
+			"requestId":  "req-abc",
+			"totalCount": 2,
+		}
+		if err := f.Format(&buf, data); err != nil {
+			t.Fatalf("Format() error = %v", err)
+		}
+		got := buf.String()
+		if strings.Contains(got, "requestId") {
+			t.Errorf("expected requestId to be hidden, but found it in:\n%s", got)
+		}
+		if !strings.Contains(got, "totalCount") {
+			t.Errorf("expected totalCount to be visible, but not found in:\n%s", got)
+		}
+	})
+
+	t.Run("nested field with same name is not hidden", func(t *testing.T) {
+		f := &TableFormatter{HiddenFields: []string{"requestId"}}
+		var buf bytes.Buffer
+		data := map[string]interface{}{
+			"requestId": "req-abc",
+			"items": []interface{}{
+				map[string]interface{}{"requestId": "nested-req", "name": "alice"},
+			},
+		}
+		if err := f.Format(&buf, data); err != nil {
+			t.Fatalf("Format() error = %v", err)
+		}
+		got := buf.String()
+		// Top-level requestId hidden; nested requestId in items should still appear.
+		if !strings.Contains(got, "nested-req") {
+			t.Errorf("expected nested requestId value 'nested-req' to appear, got:\n%s", got)
+		}
+	})
+
+	t.Run("multiple hidden fields", func(t *testing.T) {
+		f := &TableFormatter{HiddenFields: []string{"requestId", "totalCount"}}
+		var buf bytes.Buffer
+		data := map[string]interface{}{
+			"requestId":  "req-abc",
+			"totalCount": 2,
+			"name":       "alice",
+		}
+		if err := f.Format(&buf, data); err != nil {
+			t.Fatalf("Format() error = %v", err)
+		}
+		got := buf.String()
+		if strings.Contains(got, "requestId") {
+			t.Errorf("expected requestId to be hidden, got:\n%s", got)
+		}
+		if strings.Contains(got, "totalCount") {
+			t.Errorf("expected totalCount to be hidden, got:\n%s", got)
+		}
+		if !strings.Contains(got, "alice") {
+			t.Errorf("expected name value 'alice' to appear, got:\n%s", got)
+		}
+	})
+
+	t.Run("no HiddenFields shows all fields", func(t *testing.T) {
+		f := &TableFormatter{}
+		var buf bytes.Buffer
+		data := map[string]interface{}{
+			"requestId":  "req-abc",
+			"totalCount": 2,
+		}
+		if err := f.Format(&buf, data); err != nil {
+			t.Fatalf("Format() error = %v", err)
+		}
+		got := buf.String()
+		if !strings.Contains(got, "requestId") {
+			t.Errorf("expected requestId to appear when HiddenFields is empty, got:\n%s", got)
+		}
+	})
+}
+
 // TestTableFormatter_ConsistentLineWidth verifies every non-empty line has the
 // same rune-width (the global max width), ensuring a clean rectangular table.
 func TestTableFormatter_ConsistentLineWidth(t *testing.T) {

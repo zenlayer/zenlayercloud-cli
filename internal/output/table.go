@@ -38,8 +38,11 @@ const longTextThreshold = 60
 // FieldOrder controls column ordering: keys in the slice appear first in the
 // given order; unrecognised keys follow alphabetically. Map key "" covers
 // top-level fields; any other key covers the item-schema of that parent field.
+//
+// HiddenFields lists top-level field names that are excluded from the table.
 type TableFormatter struct {
-	FieldOrder map[string][]string
+	FieldOrder   map[string][]string
+	HiddenFields []string
 }
 
 // Format implements Formatter for table output.
@@ -67,7 +70,11 @@ func (f *TableFormatter) Format(w io.Writer, data interface{}) error {
 		return nil
 	}
 
-	mt := &multiTable{fieldOrder: f.FieldOrder}
+	hidden := make(map[string]struct{}, len(f.HiddenFields))
+	for _, k := range f.HiddenFields {
+		hidden[k] = struct{}{}
+	}
+	mt := &multiTable{fieldOrder: f.FieldOrder, hiddenFields: hidden}
 	mt.newSection("", 0)
 	mt.buildFromDict(m, 0, "")
 	mt.renderAll(w)
@@ -171,10 +178,20 @@ type footnote struct {
 }
 
 type multiTable struct {
-	sections   []*tableSection
-	current    *tableSection
-	footnotes  []footnote
-	fieldOrder map[string][]string
+	sections     []*tableSection
+	current      *tableSection
+	footnotes    []footnote
+	fieldOrder   map[string][]string
+	hiddenFields map[string]struct{}
+}
+
+// hiddenTopLevel returns the hidden-fields set when at top-level (indent==0),
+// or nil for nested structures so only top-level fields are filtered.
+func (mt *multiTable) hiddenTopLevel(indent int) map[string]struct{} {
+	if indent == 0 {
+		return mt.hiddenFields
+	}
+	return nil
 }
 
 func (mt *multiTable) newSection(title string, indent int) {
@@ -201,7 +218,7 @@ func (mt *multiTable) addRow(row []string) {
 // footnotes and printed after the table rather than in a cell.
 // parentKey is the key name of the enclosing object (empty string for top-level).
 func (mt *multiTable) buildFromDict(m map[string]interface{}, indent int, parentKey string) {
-	inlines, complex := groupKeys(m, parentKey, mt.fieldOrder)
+	inlines, complex := groupKeys(m, parentKey, mt.fieldOrder, mt.hiddenTopLevel(indent))
 
 	var short, long []string
 	for _, k := range inlines {
@@ -529,8 +546,11 @@ func terminalWidth() int {
 
 // ─── helpers ──────────────────────────────────────────────────────────────────
 
-func groupKeys(m map[string]interface{}, parentKey string, fieldOrder map[string][]string) (inlines, complex []string) {
+func groupKeys(m map[string]interface{}, parentKey string, fieldOrder map[string][]string, hidden map[string]struct{}) (inlines, complex []string) {
 	for k, v := range m {
+		if _, skip := hidden[k]; skip {
+			continue
+		}
 		if isInlineValue(v) {
 			inlines = append(inlines, k)
 		} else {

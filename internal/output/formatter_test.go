@@ -124,3 +124,37 @@ func TestPrint(t *testing.T) {
 		t.Errorf("Print() error = %v", err)
 	}
 }
+
+// TestFormatToOrdered_TableHidesRequestId verifies that FormatToOrdered hides
+// the requestId field in table mode but still shows it in json mode.
+func TestFormatToOrdered_TableHidesRequestId(t *testing.T) {
+	data := map[string]interface{}{
+		"requestId":  "req-abc",
+		"totalCount": 3,
+	}
+
+	t.Run("table hides requestId", func(t *testing.T) {
+		var buf bytes.Buffer
+		if err := FormatToOrdered(&buf, "table", data, nil); err != nil {
+			t.Fatalf("FormatToOrdered() error = %v", err)
+		}
+		got := buf.String()
+		if strings.Contains(got, "requestId") {
+			t.Errorf("table output should hide requestId, got:\n%s", got)
+		}
+		if !strings.Contains(got, "totalCount") {
+			t.Errorf("table output should show totalCount, got:\n%s", got)
+		}
+	})
+
+	t.Run("json still shows requestId", func(t *testing.T) {
+		var buf bytes.Buffer
+		if err := FormatToOrdered(&buf, "json", data, nil); err != nil {
+			t.Fatalf("FormatToOrdered() error = %v", err)
+		}
+		got := buf.String()
+		if !strings.Contains(got, "requestId") {
+			t.Errorf("json output should include requestId, got:\n%s", got)
+		}
+	})
+}
