@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.18](https://github.com/zenlayer/zenlayercloud-cli/releases/tag/v1.0.18) - 2026-06-03
+
+### Documentation
+
+- update zec API & add mcpgw API
+- update CHANGELOG.md for v1.0.17
 ## [1.0.17](https://github.com/zenlayer/zenlayercloud-cli/releases/tag/v1.0.17) - 2026-05-30
 
 ### Documentation
