@@ -213,8 +213,8 @@ response:
       desc: 中国电信线路。
     - value: Cogent
       desc: Cogent。
-    - value: ThreeLine
-      desc: 三线IP。
+    - value: PathBasedBandwidthIP
+      desc: 多路径带宽 IP。
   - name: networkLineType
     type: enum
     description: |-
@@ -227,6 +227,8 @@ response:
         高性能网络。
     - value: CN2
       desc: 回国优化线路。
+    - value: PathBasedBandwidthIP
+      desc: 多路径带宽 IP。
     - value: LocalLine
       desc: 本地IP。
     - value: StandardBGP
@@ -293,6 +295,12 @@ response:
     type: float
     description: |-
       EIP 流量包大小。
+      仅当网络计费方式为流量计费时可取到值。
+      该字段可能为null。
+  - name: flowPackages
+    type: object-array
+    description: |-
+      EIP 多方向流量包列表。
       仅当网络计费方式为流量计费时可取到值。
       该字段可能为null。
   - name: bandwidth

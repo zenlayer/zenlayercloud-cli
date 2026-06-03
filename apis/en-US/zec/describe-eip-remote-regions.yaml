@@ -36,8 +36,8 @@ parameters:
     desc: China Telecom network type.
   - value: Cogent
     desc: Cogent Communications network type.
-  - value: ThreeLine
-    desc: 3-in-1 IP pool network type.
+  - value: PathBasedBandwidthIP
+    desc: Multi-path bandwidth IP.
 - name: network-line-type
   type: enum
   required: false
@@ -50,6 +50,8 @@ parameters:
       High-performance network.
   - value: CN2
     desc: China Telecom CN2 network.
+  - value: PathBasedBandwidthIP
+    desc: Multi-path bandwidth IP.
   - value: LocalLine
     desc: Provided by a local ISP.
   - value: StandardBGP

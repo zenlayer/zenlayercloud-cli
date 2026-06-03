@@ -213,8 +213,8 @@ response:
       desc: China Telecom network type.
     - value: Cogent
       desc: Cogent Communications network type.
-    - value: ThreeLine
-      desc: 3-in-1 IP pool network type.
+    - value: PathBasedBandwidthIP
+      desc: Multi-path bandwidth IP.
   - name: networkLineType
     type: enum
     description: ​Network type of elastic IP​.
@@ -225,6 +225,8 @@ response:
         High-performance network.
     - value: CN2
       desc: China Telecom CN2 network.
+    - value: PathBasedBandwidthIP
+      desc: Multi-path bandwidth IP.
     - value: LocalLine
       desc: Provided by a local ISP.
     - value: StandardBGP
@@ -293,6 +295,9 @@ response:
       Data transfer package size of the EIP.
       This field is only available when the billing type is traffic-based.
       This field may be null.
+  - name: flowPackages
+    type: object-array
+    description: List of multi-direction traffic packages for the EIP.
   - name: bandwidth
     type: integer
     description: |-

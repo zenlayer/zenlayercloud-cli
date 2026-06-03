@@ -4,8 +4,12 @@ use: inquiry-price-create-instance
 short: 创建虚拟机实例询价
 long: 创建虚拟机实例询价。
 examples:
-- cmd: zeno zec inquiry-price-create-instance --zone-id SAO-A --instance-type c.1c2g --network-line-type PremiumBGP --internet-charge-type ByBandwidth --bandwidth 1 --instance-count 1
-  desc: 查询实例的询价，带宽计费为固定带宽。
+- cmd: zeno zec inquiry-price-create-instance --zone-id asia-east-1a --instance-type z2a.cpu.1 --instance-count 1
+  desc: 查询实例的询价（无公网IP）。
+- cmd: zeno zec inquiry-price-create-instance --zone-id asia-east-1a --instance-type z2a.cpu.1 --network-line-type PremiumBGP --internet-charge-type ByBandwidth --bandwidth 1 --instance-count 1
+  desc: 查询实例的询价（PremiumBGP 线路，按带宽计费）。
+- cmd: zeno zec inquiry-price-create-instance --zone-id SEA-A --instance-type c.1c2g --network-line-type PathBasedBandwidthIP --internet-charge-type ByBandwidth --bandwidth 1 --instance-count 1
+  desc: 查询实例的询价（PathBasedBandwidthIP 线路，按带宽计费）。ipv4BandwidthPrice 为 null，带宽明细见 ipv4BandwidthPrices。
 sdk:
   service: zec
   version: '2025-09-01'
@@ -47,15 +51,13 @@ parameters:
     desc: 中国电信线路。
   - value: Cogent
     desc: Cogent。
-  - value: ThreeLine
-    desc: 三线IP。
+  - value: PathBasedBandwidthIP
+    desc: 多路径带宽 IP。
 - name: network-line-type
   type: enum
   required: false
   sdk-field: networkLineType
-  description: |-
-    公网IPv4的线路类型。
-    目前不支持三线IP(ThreeLine)。
+  description: 公网IPv4的线路类型。当internetChargeType有值时必填。
   enum-values:
   - value: PremiumBGP
     desc: |-
@@ -63,6 +65,8 @@ parameters:
       高性能网络。
   - value: CN2
     desc: 回国优化线路。
+  - value: PathBasedBandwidthIP
+    desc: 多路径带宽 IP。
   - value: LocalLine
     desc: 本地IP。
   - value: StandardBGP
@@ -77,9 +81,9 @@ parameters:
     desc: 中国电信。
 - name: internet-charge-type
   type: enum
-  required: true
+  required: false
   sdk-field: internetChargeType
-  description: 公网IP的网络计费类型。
+  description: 公网IP的网络计费类型。如果不指定，则不会询价公网IP。
   enum-values:
   - value: ByBandwidth
     desc: 固定带宽计费方式。
@@ -311,7 +315,7 @@ response:
       desc: 一口价格。
 - name: ipv4Price
   type: object
-  description: 公网IPv4的保留价格。
+  description: 公网IPv4的保留价格。仅当internetChargeType有值时返回。
   object-schema:
   - name: discount
     type: float
@@ -377,7 +381,7 @@ response:
       desc: 一口价格。
 - name: ipv4BandwidthPrice
   type: object
-  description: 公网IPv4的带宽价格。
+  description: 公网IPv4的带宽价格。仅当internetChargeType有值时返回。
   object-schema:
   - name: discount
     type: float
@@ -441,9 +445,22 @@ response:
       desc: 标准价格。
     - value: CUSTOMIZED
       desc: 一口价格。
+- name: ipv4BandwidthPrices
+  type: object-array
+  description: 各流量方向的IPv4带宽价格明细。仅当internetChargeType有值时返回。PathBasedBandwidthIP 线路返回多项（ipv4BandwidthPrice 为 null）；其他线路返回单项（trafficType=ALL）。
+  array-style: json
+  item-schema:
+  - name: trafficType
+    type: string
+    description: |-
+      流量方向类型。
+      LOCAL：境内；INTERNATIONAL：境外；ALL：全部方向。
+  - name: price
+    type: object
+    description: 该方向的带宽价格。
 - name: ipv6Price
   type: object
-  description: IPv6的价格。
+  description: 公网IPv6的价格。仅当internetChargeType有值时返回。
   object-schema:
   - name: discount
     type: float
@@ -509,7 +526,7 @@ response:
       desc: 一口价格。
 - name: ipv6BandwidthPrice
   type: object
-  description: IPv6的带宽价格。
+  description: 公网IPv6的带宽价格。仅当internetChargeType有值时返回。
   object-schema:
   - name: discount
     type: float

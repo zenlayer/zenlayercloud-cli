@@ -156,6 +156,8 @@ response:
       desc: 市场镜像。
     - value: CUSTOM
       desc: 自定义镜像。
+    - value: APP
+      desc: 应用镜像。
   - name: imageSize
     type: string
     description: 镜像的大小。

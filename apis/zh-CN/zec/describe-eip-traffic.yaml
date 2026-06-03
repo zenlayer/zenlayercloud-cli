@@ -44,7 +44,19 @@ parameters:
   type: string
   required: false
   sdk-field: wanIp
-  description: 指定IP查询，该字段用于三线IP,可以指定IP地址查询流量。
+  description: 指定IP查询，可以指定IP地址查询流量。
+- name: direction
+  type: enum
+  required: false
+  sdk-field: direction
+  description: |-
+    流量方向。
+    仅 PathBasedBandwidthIP 类型有效；不传则返回全部方向数据。
+  enum-values:
+  - value: LOCAL
+    desc: 境内方向。
+  - value: INTERNATIONAL
+    desc: 境外方向。
 response:
 - name: dataList
   type: object-array

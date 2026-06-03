@@ -4,8 +4,12 @@ use: inquiry-price-create-instance
 short: Queries the price of creating an elastic compute instance
 long: Query the price of creating an elastic compute instance.
 examples:
-- cmd: zeno zec inquiry-price-create-instance --zone-id SAO-A --instance-type c.1c2g --eip-v4-type xxx --internet-charge-type ByBandwidth --bandwidth 1 --instance-count 1
-  desc: Query the price of a pay-as-you-go instance with the public network billing method of flat rate.
+- cmd: zeno zec inquiry-price-create-instance --zone-id asia-east-1a --instance-type z2a.cpu.1 --instance-count 1
+  desc: Query the price of creating an instance (without public IP).
+- cmd: zeno zec inquiry-price-create-instance --zone-id asia-east-1a --instance-type z2a.cpu.1 --network-line-type PremiumBGP --internet-charge-type ByBandwidth --bandwidth 1 --instance-count 1
+  desc: Query the price of creating an instance (PremiumBGP network, billed by bandwidth).
+- cmd: zeno zec inquiry-price-create-instance --zone-id SEA-A --instance-type c.1c2g --network-line-type PathBasedBandwidthIP --internet-charge-type ByBandwidth --bandwidth 1 --instance-count 1
+  desc: Query the price of creating an instance (PathBasedBandwidthIP network, billed by bandwidth). ipv4BandwidthPrice is null; refer to ipv4BandwidthPrices for bandwidth details.
 sdk:
   service: zec
   version: '2025-09-01'
@@ -47,15 +51,13 @@ parameters:
     desc: China Telecom network type.
   - value: Cogent
     desc: Cogent Communications network type.
-  - value: ThreeLine
-    desc: 3-in-1 IP pool network type.
+  - value: PathBasedBandwidthIP
+    desc: Multi-path bandwidth IP.
 - name: network-line-type
   type: enum
   required: false
   sdk-field: networkLineType
-  description: |-
-    The network type of the public IPv4. Ensure that the stack type of the selected subnet supports IPv4.
-    ThreeLine are not currently supported.
+  description: Network line type of the public IPv4. Required when internetChargeType is specified.
   enum-values:
   - value: PremiumBGP
     desc: |-
@@ -63,6 +65,8 @@ parameters:
       High-performance network.
   - value: CN2
     desc: China Telecom CN2 network.
+  - value: PathBasedBandwidthIP
+    desc: Multi-path bandwidth IP.
   - value: LocalLine
     desc: Provided by a local ISP.
   - value: StandardBGP
@@ -77,9 +81,9 @@ parameters:
     desc: 1-Line IP China Telecom.
 - name: internet-charge-type
   type: enum
-  required: true
+  required: false
   sdk-field: internetChargeType
-  description: Network billing method.
+  description: Network billing method of the public IP. If not specified, the public IP price will not be queried.
   enum-values:
   - value: ByBandwidth
     desc: Billed by the flat rate bandwidth.
@@ -317,7 +321,7 @@ response:
       desc: Fixed price.
 - name: ipv4Price
   type: object
-  description: IPv4 price.
+  description: The reserved price for public IPv4. Only returned when internetChargeType is specified.
   object-schema:
   - name: discount
     type: float
@@ -385,7 +389,7 @@ response:
       desc: Fixed price.
 - name: ipv4BandwidthPrice
   type: object
-  description: Public network IPv4 bandwidth price.
+  description: The bandwidth price for public IPv4. Only returned when internetChargeType is specified.
   object-schema:
   - name: discount
     type: float
@@ -451,9 +455,20 @@ response:
       desc: Standard price.
     - value: CUSTOMIZED
       desc: Fixed price.
+- name: ipv4BandwidthPrices
+  type: object-array
+  description: Detailed pricing for IPv4 bandwidth by traffic direction. Only returned when internetChargeType is specified. PathBasedBandwidthIP returns multiple entries (ipv4BandwidthPrice is null); other network types return a single entry (trafficType=ALL).
+  array-style: json
+  item-schema:
+  - name: trafficType
+    type: string
+    description: Traffic direction type.
+  - name: price
+    type: object
+    description: Bandwidth price for this traffic direction.
 - name: ipv6Price
   type: object
-  description: IPv6 price.
+  description: The price for public IPv6. Only returned when internetChargeType is specified.
   object-schema:
   - name: discount
     type: float
@@ -521,7 +536,7 @@ response:
       desc: Fixed price.
 - name: ipv6BandwidthPrice
   type: object
-  description: Public network IPv6 bandwidth price.
+  description: The bandwidth price for public IPv6. Only returned when internetChargeType is specified.
   object-schema:
   - name: discount
     type: float

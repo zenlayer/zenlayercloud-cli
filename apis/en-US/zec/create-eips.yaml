@@ -74,8 +74,8 @@ parameters:
     desc: China Telecom network type.
   - value: Cogent
     desc: Cogent Communications network type.
-  - value: ThreeLine
-    desc: 3-in-1 IP pool network type.
+  - value: PathBasedBandwidthIP
+    desc: Multi-path bandwidth IP.
 - name: network-line-type
   type: enum
   required: false
@@ -88,6 +88,8 @@ parameters:
       High-performance network.
   - value: CN2
     desc: China Telecom CN2 network.
+  - value: PathBasedBandwidthIP
+    desc: Multi-path bandwidth IP.
   - value: LocalLine
     desc: Provided by a local ISP.
   - value: StandardBGP
@@ -107,13 +109,24 @@ parameters:
   description: |-
     If the eipV4Type field is set to ThreeLine , this field is required and must include:
     CHINA_TELECOM CHINA_UNICOM CHINA_MOBILE
+  deprecated: true
   enum-values:
+  - value: BGP
+    desc: Premium BGP.
+  - value: CN2
+    desc: China dedicated line.
+  - value: PathBasedBandwidth
+    desc: Multi-path bandwidth IP.
+  - value: LOCAL
+    desc: Local IP.
   - value: CHINA_MOBILE
     desc: China Mobile.
   - value: CHINA_UNICOM
     desc: China Unicom.
   - value: CHINA_TELECOM
     desc: China Telecom.
+  - value: COGENT
+    desc: Standard BGP.
 - name: bandwidth
   type: integer
   required: false

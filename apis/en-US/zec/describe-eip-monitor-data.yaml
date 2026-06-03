@@ -52,6 +52,16 @@ parameters:
     Time duration.
     Default value: 5 minutes;
     Supported values: 1 or 5 minutes.
+- name: direction
+  type: enum
+  required: false
+  sdk-field: direction
+  description: Traffic direction.
+  enum-values:
+  - value: LOCAL
+    desc: Domestic direction.
+  - value: INTERNATIONAL
+    desc: International direction.
 response:
 - name: inMaxValue
   type: float

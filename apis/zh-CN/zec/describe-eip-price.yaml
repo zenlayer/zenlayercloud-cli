@@ -56,8 +56,8 @@ parameters:
     desc: 中国电信线路。
   - value: Cogent
     desc: Cogent。
-  - value: ThreeLine
-    desc: 三线IP。
+  - value: PathBasedBandwidthIP
+    desc: 多路径带宽 IP。
 - name: network-line-type
   type: enum
   required: false
@@ -70,6 +70,8 @@ parameters:
       高性能网络。
   - value: CN2
     desc: 回国优化线路。
+  - value: PathBasedBandwidthIP
+    desc: 多路径带宽 IP。
   - value: LocalLine
     desc: 本地IP。
   - value: StandardBGP
@@ -252,6 +254,21 @@ response:
       desc: 标准价格。
     - value: CUSTOMIZED
       desc: 一口价格。
+- name: bandwidthPrices
+  type: object-array
+  description: |-
+    各流量方向的带宽价格明细。
+    PathBasedBandwidthIP 线路返回多项（bandwidthPrice 为 null）；其他线路返回单项（trafficType=ALL）。
+  array-style: json
+  item-schema:
+  - name: trafficType
+    type: string
+    description: |-
+      流量方向类型。
+      LOCAL：境内；INTERNATIONAL：境外；ALL：全部方向。
+  - name: price
+    type: object
+    description: 该方向的带宽价格。
 - name: remoteBandwidthPrice
   type: object
   description: Remote IPT的带宽价格。

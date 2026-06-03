@@ -32,6 +32,8 @@ response:
         高性能网络。
     - value: CN2
       desc: 回国优化线路。
+    - value: PathBasedBandwidthIP
+      desc: 多路径带宽 IP。
     - value: LocalLine
       desc: 本地IP。
     - value: StandardBGP

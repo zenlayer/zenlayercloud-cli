@@ -6,11 +6,13 @@ long: |-
   修改指定子网的 IP 地址堆栈类型（IPv4 / IPv4_IPv6 / IPv6）。变更为双栈或纯 IPv6 时须配置 IPv6 类型及对应的 CIDR 地址块。
   **注意事项**
 
-  * 当前子网的堆栈类型只能从`IPv4`切换为`IPv4_IPv6`。切换后，将得到一个IPv6地址段。
-  * 注意切换后，操作不可逆。
+  * 支持`IPv4`切换为`IPv4_IPv6`（开启IPv6）：必须指定`ipv6Type`（公网`Public`/内网`Private`）；切换后，将得到一个IPv6地址段。
+  * 支持`IPv4_IPv6`切换为`IPv4`（关闭IPv6）：公网和内网IPv6类型的子网均支持；关闭前须确保子网内所有网卡已通过`UnassignNetworkInterfaceIpv6`删除其IPv6地址。
 examples:
-- cmd: zeno zec modify-subnet-stack-type --subnet-id XXX --stack-type IPv4_IPv6 --ipv6-type Private
-  desc: 修改子网的堆栈类型。并指定公网IPv6是内网。
+- cmd: zeno zec modify-subnet-stack-type --subnet-id <subnetId> --stack-type IPv4_IPv6 --ipv6-type Private
+  desc: 修改子网的堆栈类型：IPv4 → IPv4_IPv6，指定内网 IPv6。
+- cmd: zeno zec modify-subnet-stack-type --subnet-id <subnetId> --stack-type IPv4
+  desc: 关闭子网 IPv6：IPv4_IPv6 → IPv4。
 sdk:
   service: zec
   version: '2025-09-01'
@@ -23,11 +25,12 @@ parameters:
   description: 要操作的子网的ID。
 - name: stack-type
   type: enum
-  required: false
+  required: true
   sdk-field: stackType
   description: |-
     子网堆栈类型。
-    目前只支持IPv4_IPv6。
+    IPv4_IPv6：开启 IPv6，公网或内网由ipv6Type指定。
+    IPv4：关闭 IPv6，公网和内网 IPv6 类型的子网均支持；关闭前须确保子网内所有网卡已通过 UnassignNetworkInterfaceIpv6 删除其 IPv6 地址。
   enum-values:
   - value: IPv4
     desc: 仅IPv4。
@@ -37,9 +40,11 @@ parameters:
     desc: 仅IPv6。
 - name: ipv6-type
   type: enum
-  required: true
+  required: false
   sdk-field: ipv6Type
-  description: IPv6的类型。
+  description: |-
+    IPv6 的类型，当stackType为IPv4_IPv6时必填。
+    Public：公网 IPv6；Private：内网 IPv6。
   enum-values:
   - value: Private
     desc: 内网类型。

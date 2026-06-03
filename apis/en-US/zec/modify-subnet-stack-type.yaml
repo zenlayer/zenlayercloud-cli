@@ -6,8 +6,13 @@ long: |-
   Modify the IP stack type of the specified subnet (IPv4, IPv4_IPv6, or IPv6). When switching to dual-stack or IPv6-only, you must provide the IPv6 type and the corresponding CIDR block configuration.
   **Note**
 
-  * You can only change the IP stack type of a subnet from `IPv4` to `IPv4_IPv6`. After the change, an IPv6 address range will be assigned.
-  * This operation is irreversible once completed.
+  * Switching `IPv4` to `IPv4_IPv6` (enabling IPv6): you must specify `ipv6Type` (public `Public` / private `Private`); after the change, an IPv6 address block is assigned to the subnet.
+  * Switching `IPv4_IPv6` to `IPv4` (disabling IPv6): supported for both public and private IPv6 subnets; before proceeding, all NICs in the subnet must have their IPv6 addresses removed via `UnassignNetworkInterfaceIpv6`.
+examples:
+- cmd: zeno zec modify-subnet-stack-type --subnet-id <subnetId> --stack-type IPv4_IPv6 --ipv6-type Private
+  desc: Switch the subnet stack type from IPv4 to IPv4_IPv6 with private IPv6.
+- cmd: zeno zec modify-subnet-stack-type --subnet-id <subnetId> --stack-type IPv4
+  desc: 'Disable subnet IPv6: IPv4_IPv6 → IPv4.'
 sdk:
   service: zec
   version: '2025-09-01'
@@ -20,11 +25,12 @@ parameters:
   description: Subnet ID.
 - name: stack-type
   type: enum
-  required: false
+  required: true
   sdk-field: stackType
   description: |-
-    IP stack type of subnet.
-    The optional values are as follows: IPv4_IPv6
+    IP stack type of the subnet.
+    IPv4_IPv6: enable IPv6 — public or private is determined by ipv6Type.
+    IPv4: disable IPv6 — supported for both public and private IPv6 subnets; before proceeding, all NICs in the subnet must have their IPv6 addresses removed via UnassignNetworkInterfaceIpv6.
   enum-values:
   - value: IPv4
     desc: IPv4 stack type only.
@@ -34,11 +40,11 @@ parameters:
     desc: IPv6 stack type only.
 - name: ipv6-type
   type: enum
-  required: true
+  required: false
   sdk-field: ipv6Type
   description: |-
-    Subnet IPv6 type.
-    The optional values are as follows: Public , Private
+    IPv6 type. Required when stackType is IPv4_IPv6.
+    Public: public IPv6; Private: private IPv6.
   enum-values:
   - value: Private
     desc: Private network.

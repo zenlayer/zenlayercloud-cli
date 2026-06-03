@@ -52,6 +52,18 @@ parameters:
     查询数据点间隔。
     单位为分钟。
     支持参数：1,5。
+- name: direction
+  type: enum
+  required: false
+  sdk-field: direction
+  description: |-
+    流量方向。
+    仅 PathBasedBandwidthIP 类型有效；不传则返回全部方向数据。
+  enum-values:
+  - value: LOCAL
+    desc: 境内方向。
+  - value: INTERNATIONAL
+    desc: 境外方向。
 response:
 - name: inMaxValue
   type: float

@@ -5,7 +5,9 @@ short: Queries the information of one or more specified vNICs
 long: Query the information of one or more specified vNICs. Users can search for vNIC information based on vNIC ID, vNIC name, etc.
 examples:
 - cmd: zeno zec describe-network-interfaces --nic-type Secondary --page-size 1 --page-num 1
-  desc: Query the list of secondary vNICs.
+  desc: Query the list of secondary network interfaces.
+- cmd: zeno zec describe-network-interfaces --subnet-id <subnetId> --nic-subnet-type IPv4_IPv6 --page-size 20 --page-num 1
+  desc: Query NICs in a subnet that still hold an IPv6 address (use before disabling subnet IPv6).
 sdk:
   service: zec
   version: '2025-09-01'
@@ -119,6 +121,18 @@ parameters:
   - name: value
     type: string
     description: 'Tag value. Length limit: 1 to 64 characters.'
+- name: nic-subnet-type
+  type: enum
+  required: false
+  sdk-field: nicSubnetType
+  description: 'Filter by NIC stack type. Valid values: IPv4, IPv4_IPv6, IPv6. Use together with subnetId to list all NICs in the subnet that still hold an IPv6 address.'
+  enum-values:
+  - value: IPv4
+    desc: IPv4 stack type only.
+  - value: IPv4_IPv6
+    desc: IPv4 and IPv6 stack type.
+  - value: IPv6
+    desc: IPv6 stack type only.
 response:
 - name: totalCount
   type: integer

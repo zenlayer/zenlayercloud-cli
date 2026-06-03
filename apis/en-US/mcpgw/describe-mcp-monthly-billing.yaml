@@ -1,0 +1,46 @@
+name: DescribeMcpMonthlyBilling
+product: mcpgw
+use: describe-mcp-monthly-billing
+short: Describe MCP Gateway Monthly Billing Details
+long: |-
+  Describe MCP Gateway monthly billing details
+  **Notes**
+
+  * For the authentication method of this API, please refer to [Authentication](../../../api-introduction/instruction/authorization/README.md)
+examples:
+- cmd: zeno mcpgw describe-mcp-monthly-billing --month 2026-05
+  desc: Query MCP Gateway monthly billing details.
+sdk:
+  service: mcpgw
+  version: '2026-06-02'
+  action: DescribeMcpMonthlyBilling
+parameters:
+- name: month
+  type: string
+  required: true
+  sdk-field: month
+  description: 'month, format: 2026-05.'
+response:
+- name: items
+  type: object-array
+  description: Billing details by token and date dimension.
+  array-style: json
+  item-schema:
+  - name: gatewayUuid
+    type: string
+    description: mcp gateway uuid.
+  - name: gatewayName
+    type: string
+    description: MCP Gateway name.
+  - name: date
+    type: string
+    description: 'usage date, format: yyyy-MM-dd.'
+  - name: unit
+    type: string
+    description: unit.
+  - name: usage
+    type: string
+    description: Usage (string, precision preserved).
+- name: totalUsage
+  type: string
+  description: total usage for the current month.

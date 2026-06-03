@@ -152,6 +152,8 @@ response:
       desc: Marketplace image.
     - value: CUSTOM
       desc: Custom image.
+    - value: APP
+      desc: Application image.
   - name: imageSize
     type: string
     description: Size of the image.

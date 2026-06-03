@@ -32,6 +32,8 @@ response:
         High-performance network.
     - value: CN2
       desc: China Telecom CN2 network.
+    - value: PathBasedBandwidthIP
+      desc: Multi-path bandwidth IP.
     - value: LocalLine
       desc: Provided by a local ISP.
     - value: StandardBGP

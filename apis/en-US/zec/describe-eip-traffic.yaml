@@ -42,7 +42,17 @@ parameters:
   type: string
   required: false
   sdk-field: wanIp
-  description: If the IP is a 3-in-1 elastic IP, the value is required.
+  description: Query traffic by a specified IP address.
+- name: direction
+  type: enum
+  required: false
+  sdk-field: direction
+  description: Traffic direction.
+  enum-values:
+  - value: LOCAL
+    desc: Domestic direction.
+  - value: INTERNATIONAL
+    desc: International direction.
 response:
 - name: dataList
   type: object-array
