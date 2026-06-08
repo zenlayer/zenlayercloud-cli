@@ -71,8 +71,8 @@ parameters:
     desc: 中国联通线路。
   - value: Cogent
     desc: Cogent。
-  - value: ThreeLine
-    desc: 三线IP。
+  - value: PathBasedBandwidthIP
+    desc: 多路径带宽 IP。
 - name: network-line-type
   type: enum
   required: false
@@ -85,6 +85,8 @@ parameters:
       高性能网络。
   - value: CN2
     desc: 回国优化线路。
+  - value: PathBasedBandwidthIP
+    desc: 多路径带宽 IP。
   - value: LocalLine
     desc: 本地IP。
   - value: StandardBGP
@@ -97,16 +99,11 @@ parameters:
     desc: 中国联通。
   - value: CTG
     desc: 中国电信。
-  - value: ThreeLine
-    desc: 三线IP。
 - name: bandwidth-mbps
   type: integer
   required: false
   sdk-field: bandwidthMbps
-  description: |-
-    EIP的最大出带宽。
-    单位为Mbps。
-    最大限制通常为10000，如果有额外要求， 请联系Support。
+  description: EIP的最大出带宽。单位为Mbps。最大限制通常为10000，如果有额外要求，请联系Support。当internetChargeType为ByBandwidth时，此参数必填。
 - name: traffic-package-size
   type: float
   required: false

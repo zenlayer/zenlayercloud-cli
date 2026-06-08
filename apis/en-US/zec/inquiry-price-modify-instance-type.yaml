@@ -1,0 +1,160 @@
+name: InquiryPriceModifyInstanceType
+product: zec
+use: inquiry-price-modify-instance-type
+short: Inquires the price for changing the VM instance type
+long: Inquire the new instance type price after changing the VM instance type
+examples:
+- cmd: zeno zec inquiry-price-modify-instance-type --instance-id instanceId-xxx --instance-type z2a.cpu.1
+  desc: Inquires the price after changing the instance type.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: InquiryPriceModifyInstanceType
+parameters:
+- name: instance-id
+  type: string
+  required: true
+  sdk-field: instanceId
+  description: ID of the instance whose instance type is to be changed.
+- name: instance-type
+  type: string
+  required: true
+  sdk-field: instanceType
+  description: Target instance type to change to.
+response:
+- name: specPrice
+  type: object
+  description: Price of the instance type after the change.
+  object-schema:
+  - name: discount
+    type: float
+    description: |-
+      Discount.
+      For example, 80.0 means 20% off.
+  - name: discountPrice
+    type: float
+    description: |-
+      Discount price of postpaid resources.
+      Only used in pay-as-you-go model. For tiered billing, the value is empty.
+  - name: originalPrice
+    type: float
+    description: |-
+      Original price of prepaid resources.
+      Only used in subscription model. For pay-as-you-go model, the value is empty.
+  - name: unitPrice
+    type: float
+    description: |-
+      Original unit price of postpaid resources.
+      Only used in pay-as-you-go model. For tiered billing, the value is empty.
+  - name: discountUnitPrice
+    type: float
+    description: |-
+      Discount unit price of postpaid resources.
+      Only used in pay-as-you-go model. For tiered billing, the value is empty.
+  - name: chargeUnit
+    type: string
+    description: |-
+      Unit of postpaid billing.
+      Only used in pay-as-you-go model.
+      Value range:
+      HOUR : you will be billed by hour.
+      DAY : you will be billed by day.
+      MONTH : you will be billed by month. For example, the burstable 95th pricing model.
+  - name: stepPrices
+    type: object-array
+    description: |-
+      Tiered price of postpaid billing.
+      Only used in pay-as-you-go model. If it is not tiered price, the value is empty.
+  - name: amountUnit
+    type: string
+    description: |-
+      Unit of usage,
+      such as Mbps , LCU , and etc.
+      If the value is empty, it means there is no unit.
+  - name: excessUnitPrice
+    type: float
+    description: Original unit price of overages.
+  - name: excessDiscountUnitPrice
+    type: float
+    description: Discount unit price of overages.
+  - name: excessAmountUnit
+    type: string
+    description: |-
+      Unit of overage usage.
+      If the value is empty, it means there is no unit.
+  - name: category
+    type: enum
+    description: The category to which the price belongs.
+    enum-values:
+    - value: STANDARD
+      desc: Standard price.
+    - value: CUSTOMIZED
+      desc: Fixed price.
+- name: systemDiskPrice
+  type: object
+  description: Price of the system disk.
+  object-schema:
+  - name: discount
+    type: float
+    description: |-
+      Discount.
+      For example, 80.0 means 20% off.
+  - name: discountPrice
+    type: float
+    description: |-
+      Discount price of postpaid resources.
+      Only used in pay-as-you-go model. For tiered billing, the value is empty.
+  - name: originalPrice
+    type: float
+    description: |-
+      Original price of prepaid resources.
+      Only used in subscription model. For pay-as-you-go model, the value is empty.
+  - name: unitPrice
+    type: float
+    description: |-
+      Original unit price of postpaid resources.
+      Only used in pay-as-you-go model. For tiered billing, the value is empty.
+  - name: discountUnitPrice
+    type: float
+    description: |-
+      Discount unit price of postpaid resources.
+      Only used in pay-as-you-go model. For tiered billing, the value is empty.
+  - name: chargeUnit
+    type: string
+    description: |-
+      Unit of postpaid billing.
+      Only used in pay-as-you-go model.
+      Value range:
+      HOUR : you will be billed by hour.
+      DAY : you will be billed by day.
+      MONTH : you will be billed by month. For example, the burstable 95th pricing model.
+  - name: stepPrices
+    type: object-array
+    description: |-
+      Tiered price of postpaid billing.
+      Only used in pay-as-you-go model. If it is not tiered price, the value is empty.
+  - name: amountUnit
+    type: string
+    description: |-
+      Unit of usage,
+      such as Mbps , LCU , and etc.
+      If the value is empty, it means there is no unit.
+  - name: excessUnitPrice
+    type: float
+    description: Original unit price of overages.
+  - name: excessDiscountUnitPrice
+    type: float
+    description: Discount unit price of overages.
+  - name: excessAmountUnit
+    type: string
+    description: |-
+      Unit of overage usage.
+      If the value is empty, it means there is no unit.
+  - name: category
+    type: enum
+    description: The category to which the price belongs.
+    enum-values:
+    - value: STANDARD
+      desc: Standard price.
+    - value: CUSTOMIZED
+      desc: Fixed price.

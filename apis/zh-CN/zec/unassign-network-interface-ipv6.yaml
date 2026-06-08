@@ -1,0 +1,24 @@
+name: UnassignNetworkInterfaceIpv6
+product: zec
+use: unassign-network-interface-ipv6
+short: 删除网卡IPv6。
+long: |-
+  删除网卡IPv6。
+  **注意事项**
+
+  * 支持删除公网IPv6和内网IPv6。
+  * 删除公网IPv6后，网卡堆栈类型将从`IPv4_IPv6`降级为`IPv4`，公网计费随即停止。
+  * 删除内网IPv6后，网卡堆栈类型将从`IPv4_IPv6`降级为`IPv4`。
+examples:
+- cmd: zeno zec unassign-network-interface-ipv6 --nic-id <nicId>
+  desc: 删除指定网卡的IPv6。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: UnassignNetworkInterfaceIpv6
+parameters:
+- name: nic-id
+  type: string
+  required: true
+  sdk-field: nicId
+  description: 要删除IPv6的网卡ID。

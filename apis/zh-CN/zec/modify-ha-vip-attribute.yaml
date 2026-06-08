@@ -2,10 +2,14 @@ name: ModifyHaVipAttribute
 product: zec
 use: modify-ha-vip-attribute
 short: 修改高可用虚拟IP属性
-long: 修改高可用虚拟IP的名称。
+long: 修改高可用虚拟IP的名称或绑定的安全组。
 examples:
 - cmd: zeno zec modify-ha-vip-attribute --ha-vip-id havip-xxxxxxxx --name my-havip-renamed
   desc: 修改HaVip名称。
+- cmd: zeno zec modify-ha-vip-attribute --ha-vip-id havip-xxxxxxxx --security-group-id sg-xxxxxxxx
+  desc: 修改HaVip绑定的安全组。
+- cmd: zeno zec modify-ha-vip-attribute --ha-vip-id havip-xxxxxxxx --name my-havip-new --security-group-id sg-xxxxxxxx
+  desc: 同时修改名称和安全组。
 sdk:
   service: zec
   version: '2025-09-01'
@@ -18,8 +22,11 @@ parameters:
   description: 高可用虚拟IP的ID。
 - name: name
   type: string
-  required: true
+  required: false
   sdk-field: name
-  description: |-
-    HaVip名称。
-    长度1到64个字符。
+  description: HaVip名称。长度1到64个字符。name 与 securityGroupId 至少提供一个。
+- name: security-group-id
+  type: string
+  required: false
+  sdk-field: securityGroupId
+  description: 安全组ID。若设置，则将HaVip绑定的安全组修改为指定安全组。name 与 securityGroupId 至少提供一个。

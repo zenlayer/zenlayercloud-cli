@@ -53,6 +53,11 @@ parameters:
   description: |-
     End time.
     Format: yyyy-MM-ddTHH:mm:ssZ.
+- name: step
+  type: integer
+  required: false
+  sdk-field: step
+  description: Time interval between data points.
 response:
 - name: maxValue
   type: float

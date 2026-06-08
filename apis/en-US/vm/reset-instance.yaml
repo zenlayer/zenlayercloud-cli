@@ -72,3 +72,8 @@ parameters:
     Private NIC name.
     Only numbers and lowercase letters are allowed, starting with a letter with a length limit of 4 to 15 characters.
     The default private NIC name is eth1.
+- name: init-script
+  type: string
+  required: false
+  sdk-field: initScript
+  description: Initialization script.

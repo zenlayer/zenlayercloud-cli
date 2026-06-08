@@ -1,175 +1,69 @@
-name: InquiryPriceCreateLoadBalancer
-product: zlb
-use: inquiry-price-create-load-balancer
-short: Queries the price for creating a load balancer
-long: Query the price for creating a load balancer.
+name: InquiryPriceChangeEipInternetChargeType
+product: zec
+use: inquiry-price-change-eip-internet-charge-type
+short: Inquires the price after changing the EIP billing mode
+long: |-
+  Inquire the price after changing the EIP billing mode
+  **Notes**
+
+  * Only EIPs not billed by unlimited traffic support billing mode changes.
+  * When changing to bandwidth billing (`ByBandwidth`), `bandwidth` is required.
+  * When changing to traffic package billing (`ByTrafficPackage`), `flowPackage` is required (in TB, a multiple of 0.1 or 0).
+  * When changing to shared bandwidth package billing (`BandwidthCluster`), `clusterId` is required.
 examples:
-- cmd: zeno zlb inquiry-price-create-load-balancer --region-id asia-east-1 --vpc-id <vpcId> --internet-charge-type ByBandwidth --ip-network-type BGPLine --bandwidth-mbps 2 --number 1
-  desc: Query the price for creating a public network load balance instance.
+- cmd: zeno zec inquiry-price-change-eip-internet-charge-type --eip-id eip-xxx --internet-charge-type ByBandwidth --bandwidth 20
+  desc: Inquires the price after changing the EIP billing mode to bandwidth billing (20 Mbps bandwidth).
 sdk:
-  service: zlb
-  version: '2025-04-01'
-  action: InquiryPriceCreateLoadBalancer
+  service: zec
+  version: '2025-09-01'
+  action: InquiryPriceChangeEipInternetChargeType
 parameters:
-- name: region-id
+- name: eip-id
   type: string
   required: true
-  sdk-field: regionId
-  description: Region ID.
+  sdk-field: eipId
+  description: The elastic IP to operate on.
 - name: internet-charge-type
   type: enum
-  required: false
+  required: true
   sdk-field: internetChargeType
-  description: IP network billing model.
+  description: Target billing mode to change to.
   enum-values:
   - value: ByBandwidth
-    desc: Flat rate billing method.
+    desc: Billed by the flat rate bandwidth.
   - value: ByTrafficPackage
-    desc: Data transfer package billing method.
+    desc: Billed by the traffic package size purchased.
   - value: BandwidthCluster
-    desc: Bandwidth cluster billing method.
-- name: ip-network-type
-  type: enum
-  required: false
-  sdk-field: ipNetworkType
-  description: |-
-    IP network type.
-    Deprecated. Please use networkLineType instead.
-  deprecated: true
-  enum-values:
-  - value: BGPLine
-    desc: BGP network.
-  - value: CN2Line
-    desc: China Telecom Next Carrier Network.
-  - value: LocalLine
-    desc: Local IP provided by a local ISP.
-  - value: ChinaMobile
-    desc: China Mobile network.
-  - value: ChinaUnicom
-    desc: China Unicom network.
-  - value: ChinaTelecom
-    desc: China Telecom network.
-  - value: Cogent
-    desc: Cogent IP network offered by Cogent Communications.
-  - value: PathBasedBandwidthIP
-    desc: Multi-path bandwidth IP.
-- name: network-line-type
-  type: enum
-  required: false
-  sdk-field: networkLineType
-  description: IP network type.
-  enum-values:
-  - value: PremiumBGP
-    desc: |-
-      Premium BGP network.
-      High-performance network.
-  - value: CN2
-    desc: China Telecom CN2 network.
-  - value: PathBasedBandwidthIP
-    desc: Multi-path bandwidth IP.
-  - value: LocalLine
-    desc: Provided by a local ISP.
-  - value: StandardBGP
-    desc: |-
-      Standard BGP network.
-      General-purpose network with cost optimization.
-  - value: CMI
-    desc: 1-Line IP China Mobile.
-  - value: CUG
-    desc: 1-Line IP China Unicom.
-  - value: CTG
-    desc: 1-Line IP China Telecom.
-- name: bandwidth-mbps
+    desc: Billed by the burstable 95th bandwidth of all compute resources in a city-based or regional bandwidth cluster with a shared commitment.
+- name: bandwidth
   type: integer
   required: false
-  sdk-field: bandwidthMbps
-  description: 'Maximum outbound bandwidth of the elastic IP. Unit: Mbps. The maximum limit is usually 10000 Mbps. If you have additional requirements, please contact Support. This parameter is required when internetChargeType is ByBandwidth.'
-- name: traffic-package-size
+  sdk-field: bandwidth
+  description: |-
+    Bandwidth limit.
+    Unit: Mbps.
+    Required when the billing mode is bandwidth billing (ByBandwidth).
+- name: flow-package
   type: float
   required: false
-  sdk-field: trafficPackageSize
+  sdk-field: flowPackage
   description: |-
-    Data transfer package size.
-    The parameter is only required when internetChargeType is ByTrafficPackage.
-    Available range: [0.0, 999999.0].
-- name: bandwidth-cluster-id
+    Traffic package size.
+    Unit: TB.
+    Required when the billing mode is traffic package billing (ByTrafficPackage).
+- name: cluster-id
   type: string
   required: false
-  sdk-field: bandwidthClusterId
+  sdk-field: clusterId
   description: |-
-    ID of bandwidth cluster.
-    The parameter is only required when internetChargeType is BandwidthCluster.
+    Shared bandwidth package ID.
+    Required when the billing mode is shared bandwidth package billing (BandwidthCluster).
 response:
-- name: loadBalancerInstancePrice
-  type: object
-  description: The price of the load balancer instance.
-  object-schema:
-  - name: discount
-    type: float
-    description: |-
-      Discount.
-      For example, 80.0 means 20% off.
-  - name: discountPrice
-    type: float
-    description: |-
-      Discount price of postpaid resources.
-      Only used in pay-as-you-go model. For tiered billing, the value is empty.
-  - name: originalPrice
-    type: float
-    description: |-
-      Original price of prepaid resources.
-      Only used in subscription model. For pay-as-you-go model, the value is empty.
-  - name: unitPrice
-    type: float
-    description: |-
-      Original unit price of postpaid resources.
-      Only used in pay-as-you-go model. For tiered billing, the value is empty.
-  - name: discountUnitPrice
-    type: float
-    description: |-
-      Discount unit price of postpaid resources.
-      Only used in pay-as-you-go model. For tiered billing, the value is empty.
-  - name: chargeUnit
-    type: string
-    description: |-
-      Unit of postpaid billing.
-      Only used in pay-as-you-go model.
-      Value range:
-      HOUR: you will be billed by hour.
-      DAY: you will be billed by day.
-      MONTH: you will be billed by month. For example, the burstable 95th pricing model.
-  - name: stepPrices
-    type: object-array
-    description: |-
-      Tiered price of postpaid billing.
-      Only used in pay-as-you-go model. If it is not tiered price, the value is empty.
-  - name: amountUnit
-    type: string
-    description: |-
-      Unit of usage, such as Mbps, LCU, and etc.
-      If the value is empty, it means there is no unit.
-  - name: excessUnitPrice
-    type: float
-    description: Original unit price of overages.
-  - name: excessDiscountUnitPrice
-    type: float
-    description: Discount unit price of overages.
-  - name: excessAmountUnit
-    type: string
-    description: |-
-      Unit of overage usage.
-      If the value is empty, it means there is no unit.
-  - name: category
-    type: enum
-    description: The category to which the price belongs.
-    enum-values:
-    - value: STANDARD
-      desc: Standard price.
-    - value: CUSTOMIZED
-      desc: Fixed price.
 - name: eipPrice
   type: object
-  description: The price of the elastic IP.
+  description: |-
+    Retention price of the elastic IP.
+    Null for IPs created via CIDR.
   object-schema:
   - name: discount
     type: float
@@ -202,9 +96,9 @@ response:
       Unit of postpaid billing.
       Only used in pay-as-you-go model.
       Value range:
-      HOUR: you will be billed by hour.
-      DAY: you will be billed by day.
-      MONTH: you will be billed by month. For example, the burstable 95th pricing model.
+      HOUR : you will be billed by hour.
+      DAY : you will be billed by day.
+      MONTH : you will be billed by month. For example, the burstable 95th pricing model.
   - name: stepPrices
     type: object-array
     description: |-
@@ -213,7 +107,8 @@ response:
   - name: amountUnit
     type: string
     description: |-
-      Unit of usage, such as Mbps, LCU, and etc.
+      Unit of usage,
+      such as Mbps , LCU , and etc.
       If the value is empty, it means there is no unit.
   - name: excessUnitPrice
     type: float
@@ -234,9 +129,11 @@ response:
       desc: Standard price.
     - value: CUSTOMIZED
       desc: Fixed price.
-- name: eipNetworkPrice
+- name: bandwidthPrice
   type: object
-  description: The price of network billing for the elastic IP.
+  description: |-
+    Bandwidth price for the elastic IP.
+    Null for the PathBasedBandwidthIP line type; see bandwidthPrices for details.
   object-schema:
   - name: discount
     type: float
@@ -269,9 +166,9 @@ response:
       Unit of postpaid billing.
       Only used in pay-as-you-go model.
       Value range:
-      HOUR: you will be billed by hour.
-      DAY: you will be billed by day.
-      MONTH: you will be billed by month. For example, the burstable 95th pricing model.
+      HOUR : you will be billed by hour.
+      DAY : you will be billed by day.
+      MONTH : you will be billed by month. For example, the burstable 95th pricing model.
   - name: stepPrices
     type: object-array
     description: |-
@@ -280,7 +177,8 @@ response:
   - name: amountUnit
     type: string
     description: |-
-      Unit of usage, such as Mbps, LCU, and etc.
+      Unit of usage,
+      such as Mbps , LCU , and etc.
       If the value is empty, it means there is no unit.
   - name: excessUnitPrice
     type: float
@@ -301,9 +199,11 @@ response:
       desc: Standard price.
     - value: CUSTOMIZED
       desc: Fixed price.
-- name: eipNetworkPrices
+- name: bandwidthPrices
   type: object-array
-  description: Bandwidth price details for each traffic direction.
+  description: |-
+    Bandwidth price details for each traffic direction.
+    Multiple items are returned for the PathBasedBandwidthIP line type; a single item (trafficType=ALL) is returned for other line types.
   array-style: json
   item-schema:
   - name: trafficType
@@ -312,9 +212,11 @@ response:
   - name: price
     type: object
     description: Bandwidth price for this traffic direction.
-- name: lcuPrice
+- name: remoteBandwidthPrice
   type: object
-  description: The price of LCU for the load balance instance.
+  description: |-
+    Bandwidth price for Remote IPT.
+    Null when Remote IPT is not enabled for the EIP.
   object-schema:
   - name: discount
     type: float
@@ -347,9 +249,9 @@ response:
       Unit of postpaid billing.
       Only used in pay-as-you-go model.
       Value range:
-      HOUR: you will be billed by hour.
-      DAY: you will be billed by day.
-      MONTH: you will be billed by month. For example, the burstable 95th pricing model.
+      HOUR : you will be billed by hour.
+      DAY : you will be billed by day.
+      MONTH : you will be billed by month. For example, the burstable 95th pricing model.
   - name: stepPrices
     type: object-array
     description: |-
@@ -358,7 +260,8 @@ response:
   - name: amountUnit
     type: string
     description: |-
-      Unit of usage, such as Mbps, LCU, and etc.
+      Unit of usage,
+      such as Mbps , LCU , and etc.
       If the value is empty, it means there is no unit.
   - name: excessUnitPrice
     type: float

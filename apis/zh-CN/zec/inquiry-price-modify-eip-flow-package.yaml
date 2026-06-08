@@ -1,173 +1,39 @@
-name: InquiryPriceCreateLoadBalancer
-product: zlb
-use: inquiry-price-create-load-balancer
-short: 创建负载均衡器实例询价
-long: 查询创建负载均衡的价格。
+name: InquiryPriceModifyEipFlowPackage
+product: zec
+use: inquiry-price-modify-eip-flow-package
+short: 查询调整EIP流量包后的价格。
+long: |-
+  查询调整EIP流量包后的价格。
+  **注意事项**
+
+  * 只有可用状态（`BINDED`、`UNBIND`）且网络计费方式为流量包计费（`ByTrafficPackage`）的EIP才支持该操作。
+  * 国际线路（`PathBasedBandwidthIP`）不支持该操作。
 examples:
-- cmd: zeno zlb inquiry-price-create-load-balancer --region-id asia-east-1 --vpc-id <vpcId> --internet-charge-type ByBandwidth --network-line-type PremiumBGP --bandwidth-mbps 2 --number 1
-  desc: 查询创建一个公网负载均衡实例价格。
+- cmd: zeno zec inquiry-price-modify-eip-flow-package --eip-id eip-xxx --flow-package 10
+  desc: 查询将EIP流量包调整为10TB后的价格。
 sdk:
-  service: zlb
-  version: '2025-04-01'
-  action: InquiryPriceCreateLoadBalancer
+  service: zec
+  version: '2025-09-01'
+  action: InquiryPriceModifyEipFlowPackage
 parameters:
-- name: region-id
+- name: eip-id
   type: string
   required: true
-  sdk-field: regionId
-  description: 区域节点ID。
-- name: internet-charge-type
-  type: enum
-  required: false
-  sdk-field: internetChargeType
-  description: IP网络计费模式。
-  enum-values:
-  - value: ByBandwidth
-    desc: 固定带宽计费方式。
-  - value: ByTrafficPackage
-    desc: 流量包计费方式。
-  - value: BandwidthCluster
-    desc: 共享带宽包计费方式。
-- name: ip-network-type
-  type: enum
-  required: false
-  sdk-field: ipNetworkType
-  description: |-
-    IP 的网络类型。
-    已废弃，请使用networkLineType。
-  deprecated: true
-  enum-values:
-  - value: BGPLine
-    desc: BGP 线路。
-  - value: CN2Line
-    desc: CN2 回国优化线路。
-  - value: LocalLine
-    desc: 本地IP。
-  - value: ChinaMobile
-    desc: 中国移动线路。
-  - value: ChinaUnicom
-    desc: 中国联通线路。
-  - value: ChinaTelecom
-    desc: 中国联通线路。
-  - value: Cogent
-    desc: Cogent。
-  - value: PathBasedBandwidthIP
-    desc: 多路径带宽 IP。
-- name: network-line-type
-  type: enum
-  required: false
-  sdk-field: networkLineType
-  description: IP 的网络类型。
-  enum-values:
-  - value: PremiumBGP
-    desc: |-
-      优质 BGP。
-      高性能网络。
-  - value: CN2
-    desc: 回国优化线路。
-  - value: PathBasedBandwidthIP
-    desc: 多路径带宽 IP。
-  - value: LocalLine
-    desc: 本地IP。
-  - value: StandardBGP
-    desc: |-
-      标准 BGP。
-      通用网络，成本优化。
-  - value: CMI
-    desc: 中国移动。
-  - value: CUG
-    desc: 中国联通。
-  - value: CTG
-    desc: 中国电信。
-- name: bandwidth-mbps
-  type: integer
-  required: false
-  sdk-field: bandwidthMbps
-  description: EIP的最大出带宽。单位为Mbps。最大限制通常为10000，如果有额外要求，请联系Support。当internetChargeType为ByBandwidth时，此参数必填。
-- name: traffic-package-size
+  sdk-field: eipId
+  description: 要操作的公网弹性IP。
+- name: flow-package
   type: float
-  required: false
-  sdk-field: trafficPackageSize
+  required: true
+  sdk-field: flowPackage
   description: |-
-    流量包大小。
-    指定此参数时，IP网络计费模式(internetChargeType) 需为ByTrafficPackage, 否则该参数不生效。
-- name: bandwidth-cluster-id
-  type: string
-  required: false
-  sdk-field: bandwidthClusterId
-  description: |-
-    共享带宽包ID。
-    指定此参数时，IP网络计费模式(internetChargeType) 需为BandwidthCluster, 否则该参数不生效。
+    调整后的流量包大小。
+    单位：TB，为0或0.1的倍数。
 response:
-- name: loadBalancerInstancePrice
-  type: object
-  description: 负载均衡实例的价格。
-  object-schema:
-  - name: discount
-    type: float
-    description: |-
-      折扣大小。
-      如80.0代表8折。
-  - name: discountPrice
-    type: float
-    description: |-
-      后付费的单元折后价格。
-      后付费模式使用，如果价格为阶梯价格，该项为null。
-  - name: originalPrice
-    type: float
-    description: |-
-      预付费的原价。
-      预付费模式使用，后付费该值为 null。
-  - name: unitPrice
-    type: float
-    description: |-
-      后付费的单元原始价格。
-      后付费模式使用，如果价格为阶梯价格，该项为null。
-  - name: discountUnitPrice
-    type: float
-    description: |-
-      后付费的单元折后价格。
-      后付费模式使用，如果价格为阶梯价格，该项为null。
-  - name: chargeUnit
-    type: string
-    description: |-
-      后付费计价单元。
-      后付费模式使用，可取值范围：<br/>HOUR: 表示计价单元是按每小时来计算。
-      DAY: 表示计价单元是按天来计算。
-      MONTH: 表示计价单元是按月来计算，95计费则是这种。
-  - name: stepPrices
-    type: object-array
-    description: |-
-      后付费阶梯价格。
-      后付费模式使用，如果非阶梯价格，该项为null。
-  - name: amountUnit
-    type: string
-    description: |-
-      用量单位。
-      比如Mbps, LCU等。
-      如果为null, 代表取不到值。
-  - name: excessUnitPrice
-    type: float
-    description: 超量原始价格。
-  - name: excessDiscountUnitPrice
-    type: float
-    description: 超量折扣后价格。
-  - name: excessAmountUnit
-    type: string
-    description: |-
-      超量用量单位。
-      如果为null, 代表取不到值。
-  - name: category
-    type: enum
-    description: 价格所属类别。
-    enum-values:
-    - value: STANDARD
-      desc: 标准价格。
-    - value: CUSTOMIZED
-      desc: 一口价格。
 - name: eipPrice
   type: object
-  description: 弹性IP的价格。
+  description: |-
+    公网弹性IP的保留价格。
+    通过CIDR创建的IP保留价格为null。
   object-schema:
   - name: discount
     type: float
@@ -231,9 +97,11 @@ response:
       desc: 标准价格。
     - value: CUSTOMIZED
       desc: 一口价格。
-- name: eipNetworkPrice
+- name: bandwidthPrice
   type: object
-  description: 弹性IP的网络计费的价格。
+  description: |-
+    公网弹性IP的带宽价格。
+    PathBasedBandwidthIP线路时为null，详见bandwidthPrices。
   object-schema:
   - name: discount
     type: float
@@ -297,11 +165,11 @@ response:
       desc: 标准价格。
     - value: CUSTOMIZED
       desc: 一口价格。
-- name: eipNetworkPrices
+- name: bandwidthPrices
   type: object-array
   description: |-
     各流量方向的带宽价格明细。
-    PathBasedBandwidthIP 线路返回多项（eipNetworkPrice 为 null）；其他线路返回单项（trafficType=ALL）。
+    PathBasedBandwidthIP线路返回多项；其他线路返回单项（trafficType=ALL）。
   array-style: json
   item-schema:
   - name: trafficType
@@ -312,9 +180,11 @@ response:
   - name: price
     type: object
     description: 该方向的带宽价格。
-- name: lcuPrice
+- name: remoteBandwidthPrice
   type: object
-  description: 负载均衡实例LCU的价格。
+  description: |-
+    Remote IPT的带宽价格。
+    EIP未开启Remote IPT时为null。
   object-schema:
   - name: discount
     type: float

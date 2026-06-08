@@ -41,6 +41,15 @@ response:
   - name: usage
     type: string
     description: Usage (string, precision preserved).
+  - name: modelName
+    type: string
+    description: Model name
+  - name: unitPrice
+    type: string
+    description: Unit price (string, precision preserved).
+  - name: originalPrice
+    type: string
+    description: Original price (string, precision preserved).
 - name: totalUsage
   type: string
   description: total usage for the current month.

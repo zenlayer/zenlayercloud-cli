@@ -1,0 +1,253 @@
+name: InquiryPriceModifyEipBandwidth
+product: zec
+use: inquiry-price-modify-eip-bandwidth
+short: Inquires the price after adjusting the EIP bandwidth
+long: |-
+  Inquire the price after adjusting the EIP bandwidth
+  **Notes**
+
+  * Only EIPs in an available state (`BINDED` or `UNBIND`) billed by bandwidth (`ByBandwidth`) support this operation.
+examples:
+- cmd: zeno zec inquiry-price-modify-eip-bandwidth --eip-id eip-xxx --bandwidth 20
+  desc: Inquires the price after adjusting the EIP bandwidth to 20 Mbps.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: InquiryPriceModifyEipBandwidth
+parameters:
+- name: eip-id
+  type: string
+  required: true
+  sdk-field: eipId
+  description: The elastic IP to operate on.
+- name: bandwidth
+  type: integer
+  required: true
+  sdk-field: bandwidth
+  description: |-
+    Bandwidth limit after adjustment.
+    Unit: Mbps.
+response:
+- name: eipPrice
+  type: object
+  description: |-
+    Retention price of the elastic IP.
+    Null for IPs created via CIDR.
+  object-schema:
+  - name: discount
+    type: float
+    description: |-
+      Discount.
+      For example, 80.0 means 20% off.
+  - name: discountPrice
+    type: float
+    description: |-
+      Discount price of postpaid resources.
+      Only used in pay-as-you-go model. For tiered billing, the value is empty.
+  - name: originalPrice
+    type: float
+    description: |-
+      Original price of prepaid resources.
+      Only used in subscription model. For pay-as-you-go model, the value is empty.
+  - name: unitPrice
+    type: float
+    description: |-
+      Original unit price of postpaid resources.
+      Only used in pay-as-you-go model. For tiered billing, the value is empty.
+  - name: discountUnitPrice
+    type: float
+    description: |-
+      Discount unit price of postpaid resources.
+      Only used in pay-as-you-go model. For tiered billing, the value is empty.
+  - name: chargeUnit
+    type: string
+    description: |-
+      Unit of postpaid billing.
+      Only used in pay-as-you-go model.
+      Value range:
+      HOUR : you will be billed by hour.
+      DAY : you will be billed by day.
+      MONTH : you will be billed by month. For example, the burstable 95th pricing model.
+  - name: stepPrices
+    type: object-array
+    description: |-
+      Tiered price of postpaid billing.
+      Only used in pay-as-you-go model. If it is not tiered price, the value is empty.
+  - name: amountUnit
+    type: string
+    description: |-
+      Unit of usage,
+      such as Mbps , LCU , and etc.
+      If the value is empty, it means there is no unit.
+  - name: excessUnitPrice
+    type: float
+    description: Original unit price of overages.
+  - name: excessDiscountUnitPrice
+    type: float
+    description: Discount unit price of overages.
+  - name: excessAmountUnit
+    type: string
+    description: |-
+      Unit of overage usage.
+      If the value is empty, it means there is no unit.
+  - name: category
+    type: enum
+    description: The category to which the price belongs.
+    enum-values:
+    - value: STANDARD
+      desc: Standard price.
+    - value: CUSTOMIZED
+      desc: Fixed price.
+- name: bandwidthPrice
+  type: object
+  description: |-
+    Bandwidth price for the elastic IP.
+    Null for the PathBasedBandwidthIP line type; see bandwidthPrices for details.
+  object-schema:
+  - name: discount
+    type: float
+    description: |-
+      Discount.
+      For example, 80.0 means 20% off.
+  - name: discountPrice
+    type: float
+    description: |-
+      Discount price of postpaid resources.
+      Only used in pay-as-you-go model. For tiered billing, the value is empty.
+  - name: originalPrice
+    type: float
+    description: |-
+      Original price of prepaid resources.
+      Only used in subscription model. For pay-as-you-go model, the value is empty.
+  - name: unitPrice
+    type: float
+    description: |-
+      Original unit price of postpaid resources.
+      Only used in pay-as-you-go model. For tiered billing, the value is empty.
+  - name: discountUnitPrice
+    type: float
+    description: |-
+      Discount unit price of postpaid resources.
+      Only used in pay-as-you-go model. For tiered billing, the value is empty.
+  - name: chargeUnit
+    type: string
+    description: |-
+      Unit of postpaid billing.
+      Only used in pay-as-you-go model.
+      Value range:
+      HOUR : you will be billed by hour.
+      DAY : you will be billed by day.
+      MONTH : you will be billed by month. For example, the burstable 95th pricing model.
+  - name: stepPrices
+    type: object-array
+    description: |-
+      Tiered price of postpaid billing.
+      Only used in pay-as-you-go model. If it is not tiered price, the value is empty.
+  - name: amountUnit
+    type: string
+    description: |-
+      Unit of usage,
+      such as Mbps , LCU , and etc.
+      If the value is empty, it means there is no unit.
+  - name: excessUnitPrice
+    type: float
+    description: Original unit price of overages.
+  - name: excessDiscountUnitPrice
+    type: float
+    description: Discount unit price of overages.
+  - name: excessAmountUnit
+    type: string
+    description: |-
+      Unit of overage usage.
+      If the value is empty, it means there is no unit.
+  - name: category
+    type: enum
+    description: The category to which the price belongs.
+    enum-values:
+    - value: STANDARD
+      desc: Standard price.
+    - value: CUSTOMIZED
+      desc: Fixed price.
+- name: bandwidthPrices
+  type: object-array
+  description: |-
+    Bandwidth price details for each traffic direction.
+    Multiple items are returned for the PathBasedBandwidthIP line type; a single item (trafficType=ALL) is returned for other line types.
+  array-style: json
+  item-schema:
+  - name: trafficType
+    type: string
+    description: Traffic direction type.
+  - name: price
+    type: object
+    description: Bandwidth price for this traffic direction.
+- name: remoteBandwidthPrice
+  type: object
+  description: |-
+    Bandwidth price for Remote IPT.
+    Null when Remote IPT is not enabled for the EIP.
+  object-schema:
+  - name: discount
+    type: float
+    description: |-
+      Discount.
+      For example, 80.0 means 20% off.
+  - name: discountPrice
+    type: float
+    description: |-
+      Discount price of postpaid resources.
+      Only used in pay-as-you-go model. For tiered billing, the value is empty.
+  - name: originalPrice
+    type: float
+    description: |-
+      Original price of prepaid resources.
+      Only used in subscription model. For pay-as-you-go model, the value is empty.
+  - name: unitPrice
+    type: float
+    description: |-
+      Original unit price of postpaid resources.
+      Only used in pay-as-you-go model. For tiered billing, the value is empty.
+  - name: discountUnitPrice
+    type: float
+    description: |-
+      Discount unit price of postpaid resources.
+      Only used in pay-as-you-go model. For tiered billing, the value is empty.
+  - name: chargeUnit
+    type: string
+    description: |-
+      Unit of postpaid billing.
+      Only used in pay-as-you-go model.
+      Value range:
+      HOUR : you will be billed by hour.
+      DAY : you will be billed by day.
+      MONTH : you will be billed by month. For example, the burstable 95th pricing model.
+  - name: stepPrices
+    type: object-array
+    description: |-
+      Tiered price of postpaid billing.
+      Only used in pay-as-you-go model. If it is not tiered price, the value is empty.
+  - name: amountUnit
+    type: string
+    description: |-
+      Unit of usage,
+      such as Mbps , LCU , and etc.
+      If the value is empty, it means there is no unit.
+  - name: excessUnitPrice
+    type: float
+    description: Original unit price of overages.
+  - name: excessDiscountUnitPrice
+    type: float
+    description: Discount unit price of overages.
+  - name: excessAmountUnit
+    type: string
+    description: |-
+      Unit of overage usage.
+      If the value is empty, it means there is no unit.
+  - name: category
+    type: enum
+    description: The category to which the price belongs.
+    enum-values:
+    - value: STANDARD
+      desc: Standard price.
+    - value: CUSTOMIZED
+      desc: Fixed price.

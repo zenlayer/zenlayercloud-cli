@@ -4,10 +4,10 @@ use: change-eip-bind-type
 short: Changes elastic IP mode
 long: |-
   Change elastic IP mode.
-  **Note**
+  **Notes**
 
-  * Only operations on elastic IPs bound to vNICs are supported.
-  * If you need to change to Bypass mode, please contact us.
+  * Only elastic IPs bound to a vNIC or HaVip support this operation.
+  * To change the elastic mode, backend configuration is required. Please contact Console Support.
 examples:
 - cmd: zeno zec change-eip-bind-type --eip-id <eipId1> --bind-type FullNat
   desc: Change elastic IP mode.
@@ -26,8 +26,8 @@ parameters:
   required: true
   sdk-field: bindType
   description: |-
-    Elastic mode.
-    Only effective when the elastic IP is bound to a vNIC.
+    Bind type.
+    Only effective when the elastic IP is bound to a vNIC or HaVip.
     Default value: NAT mode.
   enum-values:
   - value: FullNat

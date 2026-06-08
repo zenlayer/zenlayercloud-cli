@@ -6,7 +6,7 @@ long: |-
   弹性公网IP（EIP）更换绑定模式。
   **注意事项**
 
-  * 只有绑定了网卡的EIP才支持该操作。
+  * 只有绑定了网卡或 HaVip 的EIP才支持该操作。
   * 若要变更高速模式，需要后台针对用户配置。请联系Console Support。
 examples:
 - cmd: zeno zec change-eip-bind-type --eip-id <eipId1> --bind-type FullNat
@@ -27,7 +27,7 @@ parameters:
   sdk-field: bindType
   description: |-
     绑定类型。
-    当绑定的是网卡时生效。
+    当绑定的是网卡或 HaVip 时生效。
     默认为普通NAT模式。
   enum-values:
   - value: FullNat

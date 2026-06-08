@@ -72,8 +72,8 @@ parameters:
     desc: China Telecom network.
   - value: Cogent
     desc: Cogent IP network offered by Cogent Communications.
-  - value: ThreeLine
-    desc: 3-in-1 IP Pool.
+  - value: PathBasedBandwidthIP
+    desc: Multi-path bandwidth IP.
 - name: network-line-type
   type: enum
   required: false
@@ -86,6 +86,8 @@ parameters:
       High-performance network.
   - value: CN2
     desc: China Telecom CN2 network.
+  - value: PathBasedBandwidthIP
+    desc: Multi-path bandwidth IP.
   - value: LocalLine
     desc: Provided by a local ISP.
   - value: StandardBGP
@@ -98,17 +100,11 @@ parameters:
     desc: 1-Line IP China Unicom.
   - value: CTG
     desc: 1-Line IP China Telecom.
-  - value: ThreeLine
-    desc: 3-in-1 IP Pool.
 - name: bandwidth-mbps
   type: integer
   required: false
   sdk-field: bandwidthMbps
-  description: |-
-    Maximum outbound bandwidth of the elastic IP.
-    Unit: Mbps.
-    The maximum limit is usually 10000 Mbps. If you have additional requirements, please contact Support.
-    Available range: [1, +).
+  description: 'Maximum outbound bandwidth of the elastic IP. Unit: Mbps. The maximum limit is usually 10000 Mbps. If you have additional requirements, please contact Support. This parameter is required when internetChargeType is ByBandwidth.'
 - name: traffic-package-size
   type: float
   required: false

@@ -41,6 +41,15 @@ response:
   - name: usage
     type: string
     description: 用量（字符串，保留精度）。
+  - name: modelName
+    type: string
+    description: 模型名称。
+  - name: unitPrice
+    type: string
+    description: 单价（字符串，保留精度）。
+  - name: originalPrice
+    type: string
+    description: 原价（字符串，保留精度）。
 - name: totalUsage
   type: string
   description: 当月用量合计（字符串，保留精度）。

@@ -60,3 +60,8 @@ parameters:
   required: false
   sdk-field: lanName
   description: 内网网卡名称。
+- name: init-script
+  type: string
+  required: false
+  sdk-field: initScript
+  description: 初始化脚本。

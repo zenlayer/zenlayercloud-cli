@@ -1,0 +1,24 @@
+name: UnassignNetworkInterfaceIpv6
+product: zec
+use: unassign-network-interface-ipv6
+short: Remove IPv6 from Network Interface
+long: |-
+  Remove an IPv6 address (public or private) from a network interface; the NIC stack type is downgraded from IPv4_IPv6 to IPv4, and for public IPv6 billing stops immediately.
+  **Note**
+
+  * Supports removing both public and private IPv6 addresses from a network interface.
+  * After removing a public IPv6, the NIC stack type is downgraded from `IPv4_IPv6` to `IPv4` and public billing stops immediately.
+  * After removing a private IPv6, the NIC stack type is downgraded from `IPv4_IPv6` to `IPv4`.
+examples:
+- cmd: zeno zec unassign-network-interface-ipv6 --nic-id <nicId>
+  desc: Remove the IPv6 address from the specified network interface.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: UnassignNetworkInterfaceIpv6
+parameters:
+- name: nic-id
+  type: string
+  required: true
+  sdk-field: nicId
+  description: The ID of the network interface from which the IPv6 address is to be removed.
