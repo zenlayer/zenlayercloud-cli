@@ -31,6 +31,14 @@ parameters:
     Unit: Mbps.
     Available value range: [0, 100000].
     Default value: 0.
+- name: international-commit-bandwidth-mbps
+  type: integer
+  required: false
+  sdk-field: internationalCommitBandwidthMbps
+  description: |-
+    Bandwidth commitment for the international line.
+    Unit: Mbps.
+    Only applicable to PathBasedBandwidth bandwidth clusters.
 - name: network-line-type
   type: enum
   required: false
@@ -45,6 +53,8 @@ parameters:
     desc: Standard BGP for general use with cost optimization.
   - value: CN2
     desc: China Telecom Next Carrier Network.
+  - value: PathBasedBandwidth
+    desc: Multi-path bandwidth.
   - value: CMI
     desc: China Mobile.
   - value: CUG
@@ -66,6 +76,8 @@ parameters:
     desc: Cogent network.
   - value: CN2
     desc: China Telecom Next Carrier Network.
+  - value: PathBasedBandwidth
+    desc: Multi-path bandwidth.
   - value: CMI
     desc: China Mobile network.
   - value: CUG

@@ -9,6 +9,7 @@ long: |-
   * When changing to bandwidth billing (`ByBandwidth`), `bandwidth` is required.
   * When changing to traffic package billing (`ByTrafficPackage`), `flowPackage` is required (in TB, a multiple of 0.1 or 0).
   * When changing to shared bandwidth package billing (`BandwidthCluster`), `bandwidthPrice` returns null (no charge).
+  * The size of the guaranteed traffic package is only valid for billing periods of one month.
 examples:
 - cmd: zeno zec inquiry-price-change-unmanaged-egress-ip-internet-charge-type --unmanaged-egress-ip-id uneip-xxx --internet-charge-type ByBandwidth --bandwidth 20
   desc: Inquires the price after changing the unmanaged egress IP billing mode to bandwidth billing (20 Mbps bandwidth).

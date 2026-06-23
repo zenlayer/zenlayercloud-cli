@@ -57,6 +57,11 @@ parameters:
     desc: 不宣告。
   - value: PART
     desc: 部分宣告。
+- name: advertised-subnet-ids
+  type: string-array
+  required: false
+  sdk-field: advertisedSubnetIds
+  description: 子网ID集合。
 - name: advertised-cidrs
   type: string-array
   required: false

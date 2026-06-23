@@ -11,6 +11,7 @@ long: |-
   * Currently only creating load balance instances for Elastic Compute is supported.
   * Only pay-as-you-go load balance instance creation is supported.
   * Please ensure that the global VPC contains an **IPv4 subnet**, and that the subnet has **at least two available IP addresses** for allocation.
+  * The size of the guaranteed traffic package is only valid for billing periods of one month.
 examples:
 - cmd: zeno zlb create-load-balancer --region-id asia-east-1 --vpc-id <vpcId> --security-group-id <securityGroupId> --load-balancer-name sample --internet-charge-type ByBandwidth --ip-network-type BGPLine --bandwidth-mbps 2 --bandwidth-cluster-id --number 1
   desc: Create a public network load balancer. IP billing method is flat rate.

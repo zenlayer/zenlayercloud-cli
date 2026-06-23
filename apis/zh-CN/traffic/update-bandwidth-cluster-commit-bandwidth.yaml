@@ -26,3 +26,10 @@ parameters:
   required: true
   sdk-field: commitBandwidthMbps
   description: 保底带宽。
+- name: international-commit-bandwidth-mbps
+  type: integer
+  required: false
+  sdk-field: internationalCommitBandwidthMbps
+  description: |-
+    国际线路保底带宽。
+    仅 PathBasedBandwidth 线路使用。

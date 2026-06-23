@@ -102,6 +102,9 @@ response:
       desc: Do not advertise.
     - value: PART
       desc: Advertise partial.
+  - name: advertisedSubnetIds
+    type: string-array
+    description: Subnet IDs.
   - name: advertisedCidrs
     type: string-array
     description: Custom IPv4 CIDR block list.

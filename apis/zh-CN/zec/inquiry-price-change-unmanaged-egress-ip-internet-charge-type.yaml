@@ -9,6 +9,7 @@ long: |-
   * 变更为按带宽计费（`ByBandwidth`）时，需传入 `bandwidth`。
   * 变更为流量包计费（`ByTrafficPackage`）时，需传入 `flowPackage`（单位TB，为0或0.1的倍数）。
   * 变更为共享带宽包计费（`BandwidthCluster`）时，`bandwidthPrice` 返回null（不收费）。
+  * 保底流量包大小仅对计费周期为月有效。
 examples:
 - cmd: zeno zec inquiry-price-change-unmanaged-egress-ip-internet-charge-type --unmanaged-egress-ip-id uneip-xxx --internet-charge-type ByBandwidth --bandwidth 20
   desc: 查询将非托管出口IP变更为按带宽计费（带宽20Mbps）后的价格。

@@ -9,6 +9,7 @@ long: |-
   * When changing to bandwidth billing (`ByBandwidth`), `bandwidth` is required.
   * When changing to traffic package billing (`ByTrafficPackage`), `flowPackage` is required (in TB, a multiple of 0.1 or 0).
   * When changing to shared bandwidth package billing (`BandwidthCluster`), `clusterId` is required.
+  * The size of the guaranteed traffic package is only valid for billing periods of one month.
 examples:
 - cmd: zeno zec inquiry-price-change-ipv6-internet-charge-type --ipv6-id ipv6-xxx --internet-charge-type ByBandwidth --bandwidth 20
   desc: Inquires the price after changing the IPv6 billing mode to bandwidth billing (20 Mbps bandwidth).

@@ -99,6 +99,8 @@ response:
       desc: Cogent network.
     - value: CN2
       desc: China Telecom Next Carrier Network.
+    - value: PathBasedBandwidth
+      desc: Multi-path bandwidth.
     - value: CMI
       desc: China Mobile network.
     - value: CUG
@@ -115,6 +117,8 @@ response:
       desc: Standard BGP for general use with cost optimization.
     - value: CN2
       desc: China Telecom Next Carrier Network.
+    - value: PathBasedBandwidth
+      desc: Multi-path bandwidth.
     - value: CMI
       desc: China Mobile.
     - value: CUG
@@ -153,6 +157,12 @@ response:
     description: |-
       Bandwidth commitment.
       Unit: Mbps.
+  - name: internationalCommitBandwidthMbps
+    type: integer
+    description: |-
+      International bandwidth commitment.
+      Unit: Mbps.
+      Only returned for PathBasedBandwidth bandwidth clusters.
   - name: location
     type: string
     description: Location of bandwidth cluster.

@@ -2,7 +2,11 @@ name: DescribeEipPrice
 product: zec
 use: describe-eip-price
 short: Queries the price of elastic IPs
-long: Query the price of elastic IPs.
+long: |-
+  Query the price of elastic IPs.
+  **Notes**
+
+  * The size of the guaranteed traffic package is only valid for billing periods of one month.
 sdk:
   service: zec
   version: '2025-09-01'

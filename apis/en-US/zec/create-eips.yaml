@@ -17,6 +17,7 @@ long: |-
   * `eipV4Type` and `cidrId` cannot be passed together or left empty.
   * Passing `cidrId` means the public IP is generated from a CIDR block.
   * If assigning to an instance, ensure that the primary private IP on the instance’s primary vNIC can still be assigned an elastic IP.
+  * The size of the guaranteed traffic package is only valid for billing periods of one month.
 sdk:
   service: zec
   version: '2025-09-01'

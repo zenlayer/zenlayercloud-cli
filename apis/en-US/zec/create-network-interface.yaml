@@ -7,6 +7,7 @@ long: |-
   **Note**
 
   * This API is an async API. A response is returned after the request is sent. However, it does not mean the operation has been completed. If the status changes from `PENDING` to `Available`, it means that the vNIC has been created successfully. If the status changes to `CREATE_FAILED`, the creation is failed.
+  * The size of the guaranteed traffic package is only valid for billing periods of one month.
 sdk:
   service: zec
   version: '2025-09-01'
@@ -93,6 +94,23 @@ parameters:
   description: |-
     Bandwidth cluster ID.
     If the value of internetChargeType is BandwidthCluster , the parameter is required.
+- name: eip-bind-type
+  type: enum
+  required: false
+  sdk-field: eipBindType
+  description: |-
+    The binding mode of public network IP.
+    It needs to be specified when allocating public network IP.
+  enum-values:
+  - value: FullNat
+    desc: NAT mode.
+  - value: Passthrough
+    desc: Bypass mode.
+- name: eip-ids
+  type: string-array
+  required: false
+  sdk-field: eipIds
+  description: "Assign the existing EIPs to the network cards. \nThe number of IPs must be the same as the number of created network cards. \nMake sure that the ipStackType of the created network cards includes IPv4."
 - name: marketing-options
   type: object
   required: false

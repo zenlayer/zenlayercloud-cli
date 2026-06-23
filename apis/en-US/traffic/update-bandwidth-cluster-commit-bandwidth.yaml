@@ -28,3 +28,10 @@ parameters:
   description: |-
     Bandwidth commitment.
     Available range: [0, 100000].
+- name: international-commit-bandwidth-mbps
+  type: integer
+  required: false
+  sdk-field: internationalCommitBandwidthMbps
+  description: |-
+    Bandwidth commitment for the international line.
+    Only applicable to PathBasedBandwidth bandwidth clusters.

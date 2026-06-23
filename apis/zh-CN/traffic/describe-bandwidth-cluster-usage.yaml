@@ -48,6 +48,11 @@ response:
     description: |-
       带宽值。
       单位：Mbps。
+  - name: typeValues
+    type: object-array
+    description: |-
+      分类型带宽值列表。
+      仅 PathBasedBandwidth 类型填充。
   - name: details
     type: object-array
     description: 带宽详情列表。

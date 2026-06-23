@@ -8,6 +8,7 @@ long: |-
 
   * Only EIPs in an available state (`BINDED` or `UNBIND`) billed by traffic package (`ByTrafficPackage`) support this operation.
   * PathBasedBandwidthIP line type does not support this operation.
+  * The size of the guaranteed traffic package is only valid for billing periods of one month.
 examples:
 - cmd: zeno zec inquiry-price-modify-eip-flow-package --eip-id eip-xxx --flow-package 10
   desc: Inquires the price after adjusting the EIP traffic package to 10 TB.

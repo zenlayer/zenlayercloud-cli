@@ -77,6 +77,8 @@ parameters:
     type: enum
     description: 匹配后的动作。
     enum-values:
+    - value: Allow
+      desc: 通过：放行流量。
     - value: Drop
       desc: 丢弃：丢弃流量。
 - name: block-protocol
@@ -142,6 +144,8 @@ parameters:
     type: enum
     description: 设置指纹匹配后的动作。
     enum-values:
+    - value: Allow
+      desc: 通过：放行流量。
     - value: Drop
       desc: 丢弃：丢弃流量。
 - name: reflect-udp-port

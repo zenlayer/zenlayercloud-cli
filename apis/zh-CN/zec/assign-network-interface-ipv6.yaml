@@ -8,6 +8,7 @@ long: |-
 
   * 网卡堆栈类型需为`IPv4`且所属的Subnet堆栈类型为`IPv4_IPv6`支持操作
   * 如果子网的IPv6是公网，则需要指定公网的计费相关参数。
+  * 保底流量包大小仅对计费周期为月有效。
 examples:
 - cmd: zeno zec assign-network-interface-ipv6 --nic-id <nicId>
   desc: 网卡添加的是内网IPv6地址。

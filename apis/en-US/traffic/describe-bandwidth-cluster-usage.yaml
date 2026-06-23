@@ -41,6 +41,11 @@ response:
   - name: value
     type: float
     description: "Bandwidth value. \nUnit: Mbps."
+  - name: typeValues
+    type: object-array
+    description: |-
+      List of bandwidth values by traffic type.
+      Only populated for PathBasedBandwidth bandwidth clusters.
   - name: details
     type: object-array
     description: List of bandwidth usage details.

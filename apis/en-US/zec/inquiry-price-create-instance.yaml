@@ -2,7 +2,11 @@ name: InquiryPriceCreateInstance
 product: zec
 use: inquiry-price-create-instance
 short: Queries the price of creating an elastic compute instance
-long: Query the price of creating an elastic compute instance.
+long: |-
+  Query the price of creating an elastic compute instance.
+  * When querying the price for a GPU instance, pass the `instanceType` field returned by [`DescribeZoneGpuInstanceConfigInfos`](describezoneGpuinstanceconfiginfos.md) to `instanceType`. In this case, `gpuPrice` in the response is the GPU instance type fee, and `specPrice` is null.
+  * When querying the price for a standard instance, pass the `instanceType` field returned by [`DescribeZoneInstanceConfigInfos`](describezoneinstanceconfiginfos.md) to `instanceType`. In this case, `specPrice` in the response is the instance type fee, and `gpuPrice` is null.
+  * The size of the guaranteed traffic package is only valid for billing periods of one month.
 examples:
 - cmd: zeno zec inquiry-price-create-instance --zone-id asia-east-1a --instance-type z2a.cpu.1 --instance-count 1
   desc: Query the price of creating an instance (without public IP).
@@ -24,9 +28,7 @@ parameters:
   type: string
   required: true
   sdk-field: instanceType
-  description: |-
-    Instance type.
-    Specific values can be obtained by calling the interface DescribeZoneInstanceConfigInfos .
+  description: Instance type. For VM instances, the value can be obtained through [DescribeZoneInstanceConfigInfos](describezoneinstanceconfiginfos.md). For GPU instances, the value can be obtained through [DescribeZoneGpuInstanceConfigInfos](describezoneGpuinstanceconfiginfos.md).
 - name: eip-v4-type
   type: enum
   required: false

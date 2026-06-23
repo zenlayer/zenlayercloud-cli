@@ -5,9 +5,10 @@ short: 创建虚拟机实例
 long: |-
   创建一台或多台虚拟机实例。
   #### 准备工作
-  * 查询机型规格：调用[`DescribeZoneInstanceConfigInfos`](describezoneinstanceconfiginfos.md) 可以查询到规格信息。
+  * 查询普通机型规格：调用[`DescribeZoneInstanceConfigInfos`](describezoneinstanceconfiginfos.md) 可以查询到规格信息。
+  * 查询 GPU 机型规格：调用[`DescribeZoneGpuInstanceConfigInfos`](describezoneGpuinstanceconfiginfos.md) 可以查询到 GPU 规格信息。
   * 查询镜像：调用[`DescribeImages`](../image/describeimages.md)可以查询到镜像信息。
-  * 查询密钥对：调用 [`DescribeKeyPairs`](../../../security/ccs/key-pair/describekeypairs.md)可以查询到密钥对ID信息。
+  * 查询密钥对：调用 [`DescribeKeyPairs`](../../../security/key-service/key-pair/describekeypairs.md)可以查询到密钥对ID信息。
 
 
   **注意事项**
@@ -17,6 +18,7 @@ long: |-
   * 调用本接口创建实例，支持代金券自动抵扣，详情请参考代金券选用规则。
   * 本接口为异步接口，当创建实例请求下发成功后会返回一个实例`ID`列表，此时创建实例操作并未立即完成。在此期间实例的状态将会处于`DEPLOYING`，实例创建结果可以通过调用[`DescribeInstances`](describeinstances.md) 接口查询，如果实例状态由`DEPLOYING`变为`RUNNING`则代表创建成功，如果变为`CREATE_FAILED`则代表创建失败，创建过程中不可对实例进行任何操作。
   * 单次最多能创建**100**台实例。
+  * 保底流量包大小仅对计费周期为月有效。
 examples:
 - cmd: zeno zec create-zec-instances --zone-id asia-east-1a --instance-type z2a.cpu.1 --image-id ubuntu2404_20240712 --instance-name Test-InstanceName --key-id key-rcfljdP5 --subnet-id 1272168087751233112 --nic-network-type Auto
   desc: 使用最简单的参数创建实例。不分配公网IP地址。
@@ -43,14 +45,14 @@ parameters:
   type: string
   required: false
   sdk-field: timeZone
-  description: 设置操作系统的时区。
+  description: |-
+    设置操作系统的时区。
+    如果未指定，将使用区域所在的时区。
 - name: instance-type
   type: string
   required: true
   sdk-field: instanceType
-  description: |-
-    实例机型。
-    具体取值可通过调用接口[DescribeZoneInstanceConfigInfos](describezoneinstanceconfiginfos.md)来获得最新的规格表。
+  description: 实例机型。普通实例取值可通过[DescribeZoneInstanceConfigInfos](describezoneinstanceconfiginfos.md)获得；GPU 实例取值可通过[DescribeZoneGpuInstanceConfigInfos](describezoneGpuinstanceconfiginfos.md)获得。
 - name: instance-name
   type: string
   required: false
@@ -253,6 +255,11 @@ parameters:
     desc: 普通NAT模式。
   - value: Passthrough
     desc: 高速模式。
+- name: eip-ids
+  type: string-array
+  required: false
+  sdk-field: eipIds
+  description: "分配已有的EIP到实例上。\nIP数量必须和创建的实例数量一致。\n如果指定该字段，则不会新建EIP, 相关字段将无效（networkLineType)。 \n请确保创建的网卡ipStackType 包含IPv4。"
 - name: eip-v4-type
   type: enum
   required: false
@@ -261,7 +268,6 @@ parameters:
     公网IPv4的线路类型。
     当分配公网IP时需要指定。
     请确保所选子网的堆栈类型支持IPv4。
-    目前不支持三线IP随实例一起创建。
     已废弃，请使用networkLineType。
   deprecated: true
   enum-values:
@@ -303,7 +309,6 @@ parameters:
     公网IPv4的线路类型。
     当分配公网IP时需要指定。
     请确保所选子网的堆栈类型支持IPv4。
-    目前不支持三线IP随实例一起创建。
   enum-values:
   - value: PremiumBGP
     desc: |-
@@ -330,7 +335,7 @@ parameters:
   required: false
   sdk-field: clusterId
   description: |-
-    共享带宽包ID。
+    公网IPv4/IPv6加入的共享带宽包ID。
     当网络计费方式是共享带宽包计费(BandwidthCluster)时需要指定。
 - name: ipv6-cluster-id
   type: string

@@ -9,9 +9,12 @@ long: |-
   * This is an asynchronous API. The request returns immediately after submission, but the operation is not yet complete. You can query the instance status by calling [`DescribeInstances`](describeinstances.md). When the instance no longer appears in the query results, it has been fully destroyed. No operations can be performed on the instance during the release process.
   * In most cases, instance resources are reclaimed immediately after release and cannot be recovered. For some accounts, released instances may first enter the `RECYCLED` (recycle bin) state and be retained for a period of time, during which you can call this API again to permanently delete them. Please proceed with caution.
   * Batch operations are supported. The maximum number of instances per batch request is 100.
+  * When `dependResource` is set to `true` (the default), the elastic public IP (non-default IP), unmountable cloud disks, and non-primary network cards associated with the instance will be synchronizedly released; when `dependResource` is set to `false`, only the instance itself will be released, while the associated resources will be retained and continue to be charged.
 examples:
 - cmd: zeno zec release-instances --instance-ids instanceId1 --instance-ids instanceId2
   desc: Release instances in batches.
+- cmd: zeno zec release-instances --instance-ids instanceId1 --depend-resource false
+  desc: Only the instance itself is released, while the associated resources (EIP, cloud disk, network card) remain intact.
 sdk:
   service: zec
   version: '2025-09-01'
@@ -24,6 +27,13 @@ parameters:
   description: |-
     Instance ID(s).
     To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response. The maximum number of instances in each request is 100.
+- name: depend-resource
+  type: boolean
+  required: false
+  sdk-field: dependResource
+  description: |-
+    Whether to release associated resources synchronously when releasing an instance.
+    true: Synchronous release (default); false: Release only the instance itself, while retaining the associated resources.
 response:
 - name: instanceIds
   type: string-array

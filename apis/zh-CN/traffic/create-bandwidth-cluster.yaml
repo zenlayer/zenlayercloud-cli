@@ -29,6 +29,14 @@ parameters:
   description: |-
     保底带宽值。
     单位: Mbps。
+- name: international-commit-bandwidth-mbps
+  type: integer
+  required: false
+  sdk-field: internationalCommitBandwidthMbps
+  description: |-
+    国际线路保底带宽值。
+    单位: Mbps。
+    仅 PathBasedBandwidth 线路使用。
 - name: network-line-type
   type: enum
   required: false
@@ -47,6 +55,8 @@ parameters:
       通用网络，成本优化。
   - value: CN2
     desc: 回国优化线路。
+  - value: PathBasedBandwidth
+    desc: 多路径带宽。
   - value: CMI
     desc: 中国移动。
   - value: CUG
@@ -68,6 +78,8 @@ parameters:
     desc: Cogent。
   - value: CN2
     desc: 回国优化线路。
+  - value: PathBasedBandwidth
+    desc: 多路径带宽。
   - value: CMI
     desc: 中国移动。
   - value: CUG

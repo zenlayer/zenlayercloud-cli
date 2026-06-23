@@ -17,6 +17,8 @@ github.com/spf13/pflag v1.0.9/go.mod h1:McXfInJRrz4CZXVZOBLb0bTZqETkiAhM9Iw0y3An
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/zenlayer/zenlayercloud-sdk-go v0.2.37 h1:pZca1+z5Mf38+NQoxcu34BUG0PoB0egjkiW/tE6i1Do=
 github.com/zenlayer/zenlayercloud-sdk-go v0.2.37/go.mod h1:iOR3Pzb2t3Z0+UvXhdUqi7nhwZM5Ux2oH4ixKH+qe88=
+github.com/zenlayer/zenlayercloud-sdk-go v0.2.44 h1:kPYshTa2M2O2k8iwzeuPlGWCwXgj9xbhTKQXpwW0M50=
+github.com/zenlayer/zenlayercloud-sdk-go v0.2.44/go.mod h1:iOR3Pzb2t3Z0+UvXhdUqi7nhwZM5Ux2oH4ixKH+qe88=
 go.yaml.in/yaml/v3 v3.0.4/go.mod h1:DhzuOOF2ATzADvBadXxruRBLzYTpT36CKvDb3+aBEFg=
 golang.org/x/sys v0.41.0 h1:Ivj+2Cp/ylzLiEU89QhWblYnOE9zerudt9Ftecq2C6k=
 golang.org/x/sys v0.41.0/go.mod h1:OgkHotnGiDImocRcuBABYBEXf8A9a87e/uXjp9XT3ks=

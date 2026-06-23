@@ -7,6 +7,7 @@ long: |-
   **注意事项**
 
   * 此操作为异步接口，调用成功后，辅助网卡并未立刻创建成功， 需要等待网卡的状态从`PENDING`到`Available`则为创建成功，如果状态变为`CREATE_FAILED`则创建失败。
+  * 保底流量包大小仅对计费周期为月有效。
 examples:
 - cmd: zeno zec create-network-interface --name Test-NIC --subnet-id <subnetId>
   desc: 在IPv4堆栈类型的子网下创建一张辅助网卡。
@@ -97,6 +98,26 @@ parameters:
   description: |-
     公网IPv6所指定的共享带宽包ID。
     当子网的堆栈类型包括V6且为公网时，且网络计费方式是共享带宽包计费(BandwidthCluster)需要指定。
+- name: eip-bind-type
+  type: enum
+  required: false
+  sdk-field: eipBindType
+  description: |-
+    公网IP的绑定模式。
+    当分配公网IP时需要指定。
+  enum-values:
+  - value: FullNat
+    desc: 普通NAT模式。
+  - value: Passthrough
+    desc: 高速模式。
+- name: eip-ids
+  type: string-array
+  required: false
+  sdk-field: eipIds
+  description: |-
+    分配已有的EIP到网卡上。
+    IP数量必须和创建的网卡数量一致。
+    请确保创建的网卡ipStackType 包含IPv4。
 - name: marketing-options
   type: object
   required: false

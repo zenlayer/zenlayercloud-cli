@@ -8,6 +8,7 @@ long: |-
 
   * 只有可用状态（`BINDED`、`UNBIND`）且网络计费方式为流量包计费（`ByTrafficPackage`）的EIP才支持该操作。
   * 国际线路（`PathBasedBandwidthIP`）不支持该操作。
+  * 保底流量包大小仅对计费周期为月有效。
 examples:
 - cmd: zeno zec inquiry-price-modify-eip-flow-package --eip-id eip-xxx --flow-package 10
   desc: 查询将EIP流量包调整为10TB后的价格。

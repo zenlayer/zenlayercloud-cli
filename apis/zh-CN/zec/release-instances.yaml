@@ -9,9 +9,12 @@ long: |-
   * 本接口为异步接口，释放实例请求发送成功后会立即返回，此时操作并未完成。实例状态可以通过调用[`DescribeInstances`](describeinstances.md)接口查询，当实例不再出现在查询结果中时则代表已完全销毁。释放过程中不可对实例进行任何操作。
   * 一般情况下实例释放后资源直接回收，不可恢复。部分账号实例释放后会先进入`RECYCLED`（回收站）状态保留一段时间，期间可再次调用本接口对其彻底删除，请谨慎操作。
   * 支持批量操作。每次请求批量实例的上限为100。
+  * `dependResource` 为 `true`（默认）时，将同步释放实例关联的弹性公网 IP（非默认 IP）、可卸载云盘及非主网卡；为 `false` 时仅释放实例本身，关联资源保留并继续计费。
 examples:
 - cmd: zeno zec release-instances --instance-ids instanceId1 --instance-ids instanceId2
   desc: 批量释放实例。
+- cmd: zeno zec release-instances --instance-ids instanceId1 --depend-resource false
+  desc: 仅释放实例本身，关联资源（EIP、云盘、网卡）保留。
 sdk:
   service: zec
   version: '2025-09-01'
@@ -22,6 +25,13 @@ parameters:
   required: true
   sdk-field: instanceIds
   description: 要释放的实例ID列表。
+- name: depend-resource
+  type: boolean
+  required: false
+  sdk-field: dependResource
+  description: |-
+    释放实例时是否同步释放关联资源。
+    true：同步释放（默认）；false：仅释放实例本身，关联资源保留。
 response:
 - name: instanceIds
   type: string-array

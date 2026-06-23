@@ -7,6 +7,7 @@ long: |-
   **Notes**
 
   * Only EIPs in an available state (`BINDED` or `UNBIND`) billed by bandwidth (`ByBandwidth`) support this operation.
+  * The international route (PathBasedBandwidthIP) does not support this operation.
 examples:
 - cmd: zeno zec inquiry-price-modify-eip-bandwidth --eip-id eip-xxx --bandwidth 20
   desc: Inquires the price after adjusting the EIP bandwidth to 20 Mbps.

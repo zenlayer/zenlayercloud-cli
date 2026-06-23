@@ -2,7 +2,11 @@ name: InquiryPriceCreateLoadBalancer
 product: zlb
 use: inquiry-price-create-load-balancer
 short: 创建负载均衡器实例询价
-long: 查询创建负载均衡的价格。
+long: |-
+  查询创建负载均衡的价格。
+  **注意事项**
+
+  * 保底流量包大小仅对计费周期为月有效。
 examples:
 - cmd: zeno zlb inquiry-price-create-load-balancer --region-id asia-east-1 --vpc-id <vpcId> --internet-charge-type ByBandwidth --network-line-type PremiumBGP --bandwidth-mbps 2 --number 1
   desc: 查询创建一个公网负载均衡实例价格。

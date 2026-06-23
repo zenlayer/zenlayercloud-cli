@@ -7,6 +7,7 @@ long: |-
   **注意事项**
 
   * 只有可用状态（`BINDED`、`UNBIND`）且网络计费方式为按带宽计费（`ByBandwidth`）的EIP才支持该操作。
+  * 国际线路（`PathBasedBandwidthIP`）不支持该操作。
 examples:
 - cmd: zeno zec inquiry-price-modify-eip-bandwidth --eip-id eip-xxx --bandwidth 20
   desc: 查询将EIP带宽调整为20Mbps后的价格。

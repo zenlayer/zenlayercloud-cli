@@ -5,19 +5,20 @@ short: Creates one or more instances with specified configurations
 long: |-
   Create one or more elastic compute instances with specified configurations.
   #### Prerequisites
+  * Query VM instance types: call [`DescribeZoneInstanceConfigInfos`](describezoneinstanceconfiginfos.md) to query instance type information.
+  * Query GPU instance types: call [`DescribeZoneGpuInstanceConfigInfos`](describezoneGpuinstanceconfiginfos.md) to query GPU instance type information.
+  * Query images: call [`DescribeImages`](../image/describeimages.md) to query image information.
+  * Query key pairs: call [`DescribeKeyPairs`](../../../security/key-service/key-pair/describekeypairs.md) to query key pair ID information.
 
-  * Query instance models: call [`DescribeZoneInstanceConfigInfos`](describezoneinstanceconfiginfos.md) to check specifications.
-  * Query images: call [`DescribeImages`](../image/describeimages.md) to check information on image.
-  * Query key pairs: call [`DescribeKeyPairs`](../../../security/ccs/key-pair/describekeypairs.md) to check information on key pair ID.
 
+  **Notes**
 
-  **Note**
-
-  * After an instance is created successfully, it will start up automatically, and the instance status will become "`RUNNING`".
-  * Please ensure your account balance is sufficient before calling this API.
-  * Vouchers can be used for fee deduction in instance creation. See [Vouchers](https://docs.console.zenlayer.com/welcome/platform/billing-center/vouchers) for more details.
-  * This API is an async API. An instance ID list is returned after the creation request is sent. However, it does not mean the creation has been completed. The status of the instance will be `DEPLOYING` during the creation. You can use [`DescribeInstances`](describeinstances.md) to query the status of the instance. If the status changes from `DEPLOYING` to `Running`, it means that the instance has been created successfully; `CREATE_FAILED` means creation failed. Any operations on the instances are not allowed while creating.
-  * A maximum of 100 instances can be created in one request.
+  * The instance will start automatically upon successful creation, and the instance status will change to `RUNNING`. If creation fails, the status will change to `CREATE_FAILED`.
+  * Ensure the account is in normal status before purchasing.
+  * Creating instances via this API supports automatic voucher deduction. For details, refer to the voucher selection rules.
+  * This is an asynchronous API. A list of instance IDs will be returned immediately after the request is successfully submitted, but the operation is not yet complete. During this period, the instance status will be `DEPLOYING`. You can query the creation result by calling [`DescribeInstances`](describeinstances.md). If the instance status changes from `DEPLOYING` to `RUNNING`, the creation was successful; if it changes to `CREATE_FAILED`, the creation failed. No operations can be performed on the instance during the creation process.
+  * A maximum of **100** instances can be created at a time.
+  * The size of the guaranteed traffic package is only valid for billing periods of one month.
 examples:
 - cmd: zeno zec create-zec-instances --zone-id asia-east-1a --instance-type z2a.cpu.1 --image-id ubuntu2404_20240712 --instance-name Test-InstanceName --key-id key-rcfljdP5 --subnet-id 1272168087751233112 --nic-network-type Auto
   desc: Create an instance with the simplest parameters with no public IPv4 assigned.
@@ -51,9 +52,7 @@ parameters:
   type: string
   required: true
   sdk-field: instanceType
-  description: |-
-    Instance size.
-    To view specific values, you can call DescribeZoneInstanceConfigInfos .
+  description: Instance type. For VM instances, the value can be obtained through [DescribeZoneInstanceConfigInfos](describezoneinstanceconfiginfos.md). For GPU instances, the value can be obtained through [DescribeZoneGpuInstanceConfigInfos](describezoneGpuinstanceconfiginfos.md).
 - name: instance-name
   type: string
   required: false
@@ -255,6 +254,11 @@ parameters:
     desc: NAT mode.
   - value: Passthrough
     desc: Bypass mode.
+- name: eip-ids
+  type: string-array
+  required: false
+  sdk-field: eipIds
+  description: "Assign the existing EIPs to the instances. \nThe number of IPs must be the same as the number of created instances. \nIf this field is specified, no new EIPs will be created and the related fields will be invalid (networkLineType). \nEnsure that the created network card ipStackType includes IPv4."
 - name: eip-v4-type
   type: enum
   required: false

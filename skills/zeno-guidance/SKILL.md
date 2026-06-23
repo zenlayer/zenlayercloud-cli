@@ -133,7 +133,7 @@ done
 
 - `AUTHFAILURE_SIGNATURE_FAILURE` → credentials are wrong, clock is skewed, or something mutated the request after signing. Re-check the profile (`zeno configure list`), system time, and that no proxy is rewriting the request.
 - `InvalidParameter` / `ResourceNotFound` → re-read the relevant `--help`; the flag name or value enum is almost always the issue. Do not retry with a guess.
-- Rate-limit or transient errors → back off, don't hammer.
+- Rate-limit or transient errors → back off, don't hammer. See [API Rate Limits](https://docs.console.zenlayer.com/api-reference/api-introduction/instruction/ratelimits) for thresholds and retry guidance.
 - For anything else, re-run with `--debug` once (it logs the request/response) and read the actual message before proposing a fix.
 
 ## Test examples
@@ -170,3 +170,4 @@ If `describe-zones` returns a `zoneSet`, credentials and signing are working end
 - `references/installation-guide.md` — install, credential setup, profiles, environment variables
 - `references/command-types.md` — how to read `--help`, parameter types, shorthand vs JSON, JMESPath queries
 - Official reference: https://docs.console.zenlayer.com/zenlayer-cli
+- API Rate Limits: https://docs.console.zenlayer.com/api-reference/api-introduction/instruction/ratelimits

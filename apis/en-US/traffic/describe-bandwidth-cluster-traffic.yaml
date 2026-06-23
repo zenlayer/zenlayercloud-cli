@@ -44,6 +44,19 @@ parameters:
     This value can be the name of the city or the city code.
     By specifying this value, only the bandwidth traffic data for that city will be returned.
     The city code and city name of the current bandwidth cluster can be viewed in the cities field of DescribeBandwidthClusters.
+- name: traffic-type
+  type: enum
+  required: false
+  sdk-field: trafficType
+  description: |-
+    Filter by traffic type.
+    Available values: LOCAL (domestic), INTERNATIONAL (international).
+    Only supported for PathBasedBandwidth bandwidth clusters.
+  enum-values:
+  - value: LOCAL
+    desc: Domestic traffic.
+  - value: INTERNATIONAL
+    desc: International traffic.
 response:
 - name: dataList
   type: object-array

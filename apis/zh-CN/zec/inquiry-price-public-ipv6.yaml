@@ -2,7 +2,11 @@ name: InquiryPricePublicIpv6
 product: zec
 use: inquiry-price-public-ipv6
 short: 公网Ipv6流量包或固定带宽询价
-long: 公网Ipv6流量包或固定带宽询价。
+long: |-
+  公网Ipv6流量包或固定带宽询价。
+  **注意事项**
+
+  * 保底流量包大小仅对计费周期为月有效。
 examples:
 - cmd: zeno zec inquiry-price-public-ipv6 --region-id asia-east-1 --package-size 10
   desc: 在asia-east-1节点，公网Ipv6流量计费10TB的询价。

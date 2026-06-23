@@ -87,6 +87,8 @@ parameters:
     type: enum
     description: Action to perform after the port blocking is matched.
     enum-values:
+    - value: Allow
+      desc: 'Allow: Release the traffic.'
     - value: Drop
       desc: Drop traffic based on packet fingerprint rules.
 - name: block-protocol
@@ -165,6 +167,8 @@ parameters:
     type: enum
     description: Action to perform after the fingerprint is matched.
     enum-values:
+    - value: Allow
+      desc: 'Allow: Release the traffic.'
     - value: Drop
       desc: Drop traffic based on packet fingerprint rules.
 - name: reflect-udp-port

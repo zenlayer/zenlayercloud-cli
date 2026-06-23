@@ -49,6 +49,11 @@ parameters:
     desc: Do not advertise.
   - value: PART
     desc: Advertise partial.
+- name: advertised-subnet-ids
+  type: string-array
+  required: false
+  sdk-field: advertisedSubnetIds
+  description: Subnet IDs.
 - name: advertised-cidrs
   type: string-array
   required: false

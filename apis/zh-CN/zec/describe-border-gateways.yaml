@@ -97,6 +97,9 @@ response:
       desc: 不宣告。
     - value: PART
       desc: 部分宣告。
+  - name: advertisedSubnetIds
+    type: string-array
+    description: 子网ID集合。
   - name: advertisedCidrs
     type: string-array
     description: IPv4 Cidr集合。

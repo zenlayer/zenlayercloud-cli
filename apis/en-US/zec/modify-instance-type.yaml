@@ -8,7 +8,12 @@ long: |-
 
   * This is an asynchronous API. The request returns immediately after submission, but the operation is not yet complete. You can query the instance operation result by calling [`DescribeInstancesStatus`](describeinstancesstatus.md). If the instance status (`instanceStatus`) changes from `RESIZING` to `STOPPED`, the instance type change was successful. No operations can be performed on the instance during the change process.
   * Only instances in `STOPPED` state can perform this operation.
-  * GPU instances are not allowed to perform this operation.
+  * For VM instances, `instanceType` is the instance type ID, such as `z2a.cpu.4`. For GPU instances, `instanceType` is the GPU instance type ID, such as `z3a.g.C49.c8m32.1`.
+examples:
+- cmd: zeno zec modify-instance-type --instance-id instanceId --instance-type z2a.cpu.4
+  desc: Modify the type of a VM instance.
+- cmd: zeno zec modify-instance-type --instance-id instanceId --instance-type z3a.g.C49.c8m32.1
+  desc: Modify the type of a GPU instance.
 sdk:
   service: zec
   version: '2025-09-01'
@@ -25,6 +30,4 @@ parameters:
   type: string
   required: true
   sdk-field: instanceType
-  description: |-
-    The instance type ID to replace.
-    To obtain the instance ID, you can call DescribeZoneInstanceConfigInfos and look for instanceType in the response.
+  description: Target instance type to change to. For VM instances, the value can be obtained through [DescribeZoneInstanceConfigInfos](describezoneinstanceconfiginfos.md). For GPU instances, the value can be obtained through [DescribeZoneGpuInstanceConfigInfos](describezoneGpuinstanceconfiginfos.md).
