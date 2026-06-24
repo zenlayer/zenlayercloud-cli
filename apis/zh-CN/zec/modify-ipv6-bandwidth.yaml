@@ -1,0 +1,29 @@
+name: ModifyIpv6Bandwidth
+product: zec
+use: modify-ipv6-bandwidth
+short: 调整公网IPv6带宽
+long: |-
+  调整公网IPv6的带宽限速。
+  **注意事项**
+
+  * 只有可用状态`RUNNING`的IPv6才支持该操作。
+examples:
+- cmd: zeno zec modify-ipv6-bandwidth --ipv6-id "< ipv6Id >" --bandwidth 10
+  desc: 调整IPv6带宽限速到10Mbps
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyIpv6Bandwidth
+parameters:
+- name: ipv6-id
+  type: string
+  required: true
+  sdk-field: ipv6Id
+  description: IPv6唯一标识ID。
+- name: bandwidth
+  type: integer
+  required: true
+  sdk-field: bandwidth
+  description: |-
+    调整带宽限速的目标值。
+    单位Mbps。

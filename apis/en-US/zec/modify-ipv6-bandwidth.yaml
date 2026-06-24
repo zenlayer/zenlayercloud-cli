@@ -1,0 +1,27 @@
+name: ModifyIpv6Bandwidth
+product: zec
+use: modify-ipv6-bandwidth
+short: Adjust the IPv6 bandwidth of the public network
+long: |-
+  Adjust the bandwidth limit for the public IPv6 network.
+  **Notes**
+
+  * Only IPv6 in the "RUNNING" available state supports this operation.
+examples:
+- cmd: zeno zec modify-ipv6-bandwidth --ipv6-id "< ipv6Id >" --bandwidth 10
+  desc: Adjust the IPv6 bandwidth limit to 10 Mbps
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyIpv6Bandwidth
+parameters:
+- name: ipv6-id
+  type: string
+  required: true
+  sdk-field: ipv6Id
+  description: IPv6 unique identification ID.
+- name: bandwidth
+  type: integer
+  required: true
+  sdk-field: bandwidth
+  description: "Adjust the target value for bandwidth limitation. \nUnit: Mbps."

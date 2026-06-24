@@ -1,0 +1,44 @@
+name: DescribeAiModelDailyUsage
+product: aigw
+use: describe-ai-model-daily-usage
+short: 查询AI网关日用量数据
+long: |-
+  查询AI网关日用量数据
+  **注意事项**
+
+  * 本接口认证方式请参考[认证方式](../../../api-introduction/instruction/authorization/README.md)
+examples:
+- cmd: zeno aigw describe-ai-model-daily-usage --instance-ids 1652682429418183507 --month 2026-06
+  desc: 查询AI网关日用量数据。
+sdk:
+  service: aigw
+  version: '2026-04-14'
+  action: DescribeAiModelDailyUsage
+parameters:
+- name: instance-ids
+  type: string
+  required: false
+  sdk-field: instanceIds
+  description: 实例ID。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: 资源组ID。
+- name: month
+  type: string
+  required: true
+  sdk-field: month
+  description: 月份，格式："2026-2" 或 "2026-02"。
+response:
+- name: metric
+  type: object-array
+  description: 日用量数据列表。
+  array-style: json
+  item-schema:
+  - name: date
+    type: string
+    description: 日期，格式：yyyy-MM-dd。
+  - name: model_usage
+    type: object-array
+    description: 各模型用量列表。

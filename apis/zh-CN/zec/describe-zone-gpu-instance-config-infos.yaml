@@ -1,0 +1,90 @@
+name: DescribeZoneGpuInstanceConfigInfos
+product: zec
+use: describe-zone-gpu-instance-config-infos
+short: 查询可用区售卖的 GPU 规格信息
+long: |-
+  查询可用区售卖的 GPU 规格信息
+  **注意事项**
+
+  * `instanceType` 字段为 GPU 规格 ID，如 `z3a.g.C49.c8m32.1`。变更 GPU 实例规格时，将此值传入 [`ModifyInstanceType`](modifyinstancetype.md) 的 `instanceType` 参数。
+  * `inventoryCapacity` 表示该 GPU 系列在对应可用区所在区域的库存档位：`LIMITED`（< 1000）、`NORMAL`（1000–2000）、`SUFFICIENT`（2000–5000）、`ABUNDANT`（≥ 5000）。GPU 实例数量远低于上述阈值，实际可用时通常为 `LIMITED`。
+examples:
+- cmd: zeno zec describe-zone-gpu-instance-config-infos
+  desc: 查询所有可用区的 GPU 规格信息。
+- cmd: zeno zec describe-zone-gpu-instance-config-infos --zone-id na-us-la-2a
+  desc: 查询指定可用区的 GPU 规格信息。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeZoneGpuInstanceConfigInfos
+parameters:
+- name: zone-id
+  type: string
+  required: false
+  sdk-field: zoneId
+  description: |-
+    要查询的可用区 ID。
+    例如：na-us-la-2a。
+    不传时返回所有可用区的 GPU 规格。
+- name: instance-type
+  type: string
+  required: false
+  sdk-field: instanceType
+  description: |-
+    要查询的 GPU 规格 ID。
+    例如：z3a.g.C49.c8m32.1。
+    不传时返回所有规格。
+response:
+- name: instanceTypeQuotaSet
+  type: object-array
+  required: true
+  description: GPU 规格售卖信息列表。
+  array-style: json
+  item-schema:
+  - name: zoneId
+    type: string
+    description: 可用区 ID。
+  - name: instanceType
+    type: string
+    description: |-
+      GPU 规格 ID。
+      例如：z3a.g.C49.c8m32.1。
+      变更规格时将此值传入 ModifyInstanceType 的 instanceType 参数。
+  - name: cpuCount
+    type: integer
+    description: |-
+      CPU 核数。
+      单位：核。
+  - name: memory
+    type: integer
+    description: |-
+      内存容量。
+      单位：GiB。
+  - name: gpuAmount
+    type: integer
+    description: GPU 卡数。
+  - name: instanceTypeName
+    type: string
+    description: GPU 规格描述。
+  - name: bps
+    type: integer
+    description: |-
+      单张网卡的带宽上限。
+      单位：比特/秒。
+  - name: pps
+    type: integer
+    description: |-
+      单张网卡的收发包上限。
+      单位：个/秒。
+  - name: inventoryCapacity
+    type: enum
+    description: GPU 系列库存档位。
+    enum-values:
+    - value: LIMITED
+      desc: 库存有限，可售核数 < 1000。
+    - value: NORMAL
+      desc: 库存一般，可售核数 1000–2000。
+    - value: SUFFICIENT
+      desc: 库存充足，可售核数 2000–5000。
+    - value: ABUNDANT
+      desc: 库存富余，可售核数 ≥ 5000。

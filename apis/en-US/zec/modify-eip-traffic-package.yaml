@@ -1,0 +1,23 @@
+name: ModifyEipTrafficPackage
+product: zec
+use: modify-eip-traffic-package
+short: Adjust the traffic package of the elastic public IP
+long: "Adjust the traffic package of the elastic public IP.\n**Notes**\n\n* Only EIPs in the \"Bound\" or \"Unbound\" state are supported for this operation. \n* The international route (PathBasedBandwidthIP) does not support this operation.\n* The size of the guaranteed traffic package is only valid for billing periods of one month."
+examples:
+- cmd: zeno zec modify-eip-traffic-package --eip-id "< EipId >" --traffic-package-size 10
+  desc: Adjust the EIP traffic package to 10TB.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyEipTrafficPackage
+parameters:
+- name: eip-id
+  type: string
+  required: true
+  sdk-field: eipId
+  description: The unique identification ID of EIP.
+- name: traffic-package-size
+  type: float
+  required: true
+  sdk-field: trafficPackageSize
+  description: Traffic package size, measured in TB.

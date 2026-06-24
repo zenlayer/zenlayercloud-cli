@@ -1,0 +1,90 @@
+name: DescribeZoneGpuInstanceConfigInfos
+product: zec
+use: describe-zone-gpu-instance-config-infos
+short: Describes GPU instance types available for sale in a zone
+long: |-
+  Describe GPU instance types available for sale in a zone.
+  **Notes**
+
+  * The `instanceType` field is a GPU instance type ID, such as `z3a.g.C49.c8m32.1`. When modifying a GPU instance type, pass this value to the `instanceType` parameter of [`ModifyInstanceType`](modifyinstancetype.md).
+  * `inventoryCapacity` indicates the inventory capacity level of the GPU series in the region where the zone is located: `LIMITED` (< 1000), `NORMAL` (1000–2000), `SUFFICIENT` (2000–5000), `ABUNDANT` (≥ 5000). GPU instance counts are far below these thresholds, so the value is typically `LIMITED`.
+examples:
+- cmd: zeno zec describe-zone-gpu-instance-config-infos
+  desc: Query GPU instance types available for sale in all zones.
+- cmd: zeno zec describe-zone-gpu-instance-config-infos --zone-id na-us-la-2a
+  desc: Query GPU instance types available for sale in a specific zone.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeZoneGpuInstanceConfigInfos
+parameters:
+- name: zone-id
+  type: string
+  required: false
+  sdk-field: zoneId
+  description: |-
+    The zone ID to query.
+    For example: na-us-la-2a.
+    If not specified, GPU instance types in all zones are returned.
+- name: instance-type
+  type: string
+  required: false
+  sdk-field: instanceType
+  description: |-
+    The GPU instance type ID to query.
+    For example: z3a.g.C49.c8m32.1.
+    If not specified, all GPU instance types are returned.
+response:
+- name: instanceTypeQuotaSet
+  type: object-array
+  required: true
+  description: List of GPU instance type availability information.
+  array-style: json
+  item-schema:
+  - name: zoneId
+    type: string
+    description: Zone ID.
+  - name: instanceType
+    type: string
+    description: |-
+      GPU instance type ID.
+      For example: z3a.g.C49.c8m32.1.
+      When modifying an instance type, pass this value to the `instanceType` parameter of ModifyInstanceType.
+  - name: cpuCount
+    type: integer
+    description: |-
+      Number of CPU cores.
+      Unit: core.
+  - name: memory
+    type: integer
+    description: |-
+      Memory size.
+      Unit: GiB.
+  - name: gpuAmount
+    type: integer
+    description: Number of GPUs.
+  - name: instanceTypeName
+    type: string
+    description: GPU instance type name.
+  - name: bps
+    type: integer
+    description: |-
+      Maximum bandwidth per network interface.
+      Unit: bit/s.
+  - name: pps
+    type: integer
+    description: |-
+      Maximum number of packets sent and received per network interface.
+      Unit: packets/second.
+  - name: inventoryCapacity
+    type: enum
+    description: Inventory capacity level of the GPU series.
+    enum-values:
+    - value: LIMITED
+      desc: Limited inventory, with available vCPU cores < 1000.
+    - value: NORMAL
+      desc: Normal inventory, with available vCPU cores from 1000 to 2000.
+    - value: SUFFICIENT
+      desc: Sufficient inventory, with available vCPU cores from 2000 to 5000.
+    - value: ABUNDANT
+      desc: Abundant inventory, with available vCPU cores ≥ 5000.
