@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.21](https://github.com/zenlayer/zenlayercloud-cli/releases/tag/v1.0.21) - 2026-06-24
+
+### Documentation
+
+- update CHANGELOG.md for v1.0.20
+
+### Features
+
+- update APIs
 ## [1.0.20](https://github.com/zenlayer/zenlayercloud-cli/releases/tag/v1.0.20) - 2026-06-23
 
 ### Documentation
