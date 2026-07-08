@@ -46,6 +46,23 @@ response:
     description: |-
       后端服务健康检查对应端口的健康检查状态。
       当`healthStatus`为`Close` 或 `Unknown`时，无详情信息。
+    array-style: json
+    item-schema:
+    - name: port
+      type: integer
+      description: 后端服务器的端口。
+    - name: healthStatus
+      type: enum
+      description: 健康检查的状态。
+      enum-values:
+      - value: Alive
+        desc: 健康正常状态。
+      - value: Dead
+        desc: 异常状态。
+      - value: Unknown
+        desc: 未探测状态。
+      - value: Close
+        desc: 健康检查关闭。
   - name: instanceId
     type: string
     description: |-

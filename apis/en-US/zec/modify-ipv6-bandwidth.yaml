@@ -7,6 +7,7 @@ long: |-
   **Notes**
 
   * Only IPv6 in the "RUNNING" available state supports this operation.
+  * This operation is executed asynchronously. Once the call is successful, the bandwidth change will be processed in the background. The current operation status can be obtained by querying the `operationInfo` field of the IPv6 details interface.
 examples:
 - cmd: zeno zec modify-ipv6-bandwidth --ipv6-id "< ipv6Id >" --bandwidth 10
   desc: Adjust the IPv6 bandwidth limit to 10 Mbps

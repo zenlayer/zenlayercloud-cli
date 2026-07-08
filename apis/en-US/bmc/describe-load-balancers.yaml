@@ -94,6 +94,22 @@ response:
   - name: vipList
     type: object-array
     description: Virtual IP list of a load balancer.
+    array-style: json
+    item-schema:
+    - name: vipId
+      type: string
+      description: VIP ID.
+    - name: ipAddress
+      type: string
+      description: VIP address.
+    - name: type
+      type: string
+      description: |-
+        VIP type.
+        Available values: DEFAULT , EXTRA
+    - name: status
+      type: string
+      description: VIP state.
   - name: chargeType
     type: string
     description: Pricing model.
@@ -135,9 +151,152 @@ response:
   - name: listenerList
     type: object-array
     description: Listener set.
+    array-style: json
+    item-schema:
+    - name: loadBalancerId
+      type: string
+      description: Load balance instance ID.
+    - name: listenerId
+      type: string
+      description: Listener ID.
+    - name: listenerName
+      type: string
+      description: Listener name.
+    - name: status
+      type: string
+      description: State of a listener.
+    - name: port
+      type: string
+      description: Listening port.
+    - name: protocol
+      type: string
+      description: Listening protocol.
+    - name: backendProtocol
+      type: string
+      description: Backend forwarding protocol.
+    - name: scheduler
+      type: string
+      description: Scheduling algorithm.
+    - name: kind
+      type: enum
+      description: Forwarding mode.
+      enum-values:
+      - value: DR
+        desc: Direct Routing.
+      - value: FNAT
+        desc: Global Network Address Translation.
+    - name: healthCheck
+      type: object
+      description: Heath check information of a listener.
+      object-schema:
+      - name: checkEnabled
+        type: boolean
+        description: Whether to enable health check.
+      - name: checkType
+        type: string
+        description: Health check protocols.
+      - name: checkConnectTimeout
+        type: integer
+        description: Health check timeout period.
+      - name: checkRetry
+        type: integer
+        description: Health check retry count.
+      - name: checkDelayBeforeRetry
+        type: integer
+        description: Interval between health check retries.
+      - name: checkIntervalTime
+        type: integer
+        description: Health check interval.
+      - name: checkPort
+        type: integer
+        description: Health check port.
+      - name: httpVersion
+        type: string
+        description: Health check HTTP protocol version.
+      - name: httpCheckPath
+        type: string
+        description: Health check HTTP request path.
+      - name: httpCheckDigest
+        type: integer
+        description: Health check HTTP digest
+      - name: httpCode
+        type: integer
+        description: Health check HTTP status code
+      - name: miscCheckPath
+        type: string
+        description: Health check MISC request path.
+      - name: miscTimeout
+        type: integer
+        description: Health check MISC timeout.
+    - name: notify
+      type: object
+      description: Alarm.
+      object-schema:
+      - name: enable
+        type: boolean
+        description: Whether to enable health check alarm.
+      - name: apiAddress
+        type: string
+        description: Alarm address.
+    - name: createTime
+      type: string
+      description: |-
+        Creation time.
+        Use UTC time according to the ISO8601 standard. Format: YYYY-MM-ddTHH:mm:ssZ .
   - name: backendList
     type: object-array
     description: Backend server set.
+    array-style: json
+    item-schema:
+    - name: listenerId
+      type: string
+      description: Listener ID.
+    - name: backendId
+      type: string
+      description: Backend server ID.
+    - name: backendName
+      type: string
+      description: Backend server name.
+    - name: status
+      type: string
+      description: Backend server state.
+    - name: port
+      type: string
+      description: Backend port.
+    - name: weight
+      type: integer
+      description: Backend server weight.
+    - name: instanceId
+      type: string
+      description: Instance ID.
+    - name: instanceType
+      type: enum
+      description: Instance type.
+      enum-values:
+      - value: BM
+        desc: Bare Metal
+      - value: VM
+        desc: Virtual machine.
+    - name: instanceName
+      type: string
+      description: Instance name.
+    - name: createTime
+      type: string
+      description: |-
+        Creation time.
+        Use UTC time according to the ISO8601 standard. Format: YYYY-MM-ddTHH:mm:ssZ .
   - name: tags
     type: object
     description: Bound tags.
+    object-schema:
+    - name: tags
+      type: object-array
+      description: List of tags.
+      array-style: json
+      item-schema:
+      - name: key
+        type: string
+        description: 'Tag key. Length limit: 1 to 128 characters.'
+      - name: value
+        type: string
+        description: 'Tag value. Length limit: 1 to 128 characters.'

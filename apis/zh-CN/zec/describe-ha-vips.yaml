@@ -127,9 +127,33 @@ response:
   - name: associatedEips
     type: object-array
     description: 绑定的弹性公网IP列表。未绑定时返回空列表。
+    array-style: json
+    item-schema:
+    - name: eipId
+      type: string
+      description: 弹性公网IP的ID。
+    - name: eipAddress
+      type: string
+      description: 弹性公网IP地址。
   - name: createTime
     type: string
     description: 创建时间。
   - name: tags
     type: object
     description: 标签列表。
+    object-schema:
+    - name: tags
+      type: object-array
+      description: 标签对列表。
+      array-style: json
+      item-schema:
+      - name: key
+        type: string
+        description: |-
+          标签键。
+          长度限制：1～64个字符。
+      - name: value
+        type: string
+        description: |-
+          标签值。
+          长度限制：1～64个字符。

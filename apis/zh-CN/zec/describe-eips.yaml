@@ -40,8 +40,6 @@ parameters:
     desc: 绑定过程中。
   - value: BINDED
     desc: 已绑定资源状态。
-  - value: RECYCLING
-    desc: 回收状态中。
   - value: RECYCLED
     desc: 处于回收站中。
   - value: UNBIND
@@ -178,8 +176,6 @@ response:
       desc: 绑定过程中。
     - value: BINDED
       desc: 已绑定资源状态。
-    - value: RECYCLING
-      desc: 回收状态中。
     - value: RECYCLED
       desc: 处于回收站中。
     - value: UNBIND
@@ -303,6 +299,16 @@ response:
       EIP 多方向流量包列表。
       仅当网络计费方式为流量计费时可取到值。
       该字段可能为null。
+    array-style: json
+    item-schema:
+    - name: trafficType
+      type: string
+      description: |-
+        流量方向类型。
+        LOCAL：境内；INTERNATIONAL：境外；ALL：全部方向。
+    - name: flowPackage
+      type: float
+      description: 该方向的流量包大小，单位 TB。
   - name: bandwidth
     type: integer
     description: |-
@@ -319,9 +325,52 @@ response:
   - name: eipGeoRefs
     type: object-array
     description: EIP 的地理位置信息。
+    array-style: json
+    item-schema:
+    - name: maxMind
+      type: string
+      description: 从MaxMind查询的地理信息。
+    - name: ipInfo
+      type: string
+      description: 从IPinfo(ipinfo.io)查询的地理信息。
+    - name: dbIp
+      type: string
+      description: 从DB-IP(db-ip.com)查询的地理信息。
+    - name: ipData
+      type: string
+      description: 从ipData(ipdata.co)查询的地理信息。
+    - name: ipGeoLocation
+      type: string
+      description: 从IpGeoLocation查询的地理信息。
+    - name: standard
+      type: string
+      description: 需要查询EIP的所在的地理信息。
+    - name: isConsistent
+      type: boolean
+      description: 查询地理信息是否和所在的地理信息一致。
   - name: blockInfoList
     type: object-array
     description: EIP的封堵阈值。
+    array-style: json
+    item-schema:
+    - name: ip
+      type: string
+      description: ip。
+    - name: bps
+      type: integer
+      description: 单位bps。
+    - name: pps
+      type: integer
+      description: 单位pps。
+    - name: inCps
+      type: integer
+      description: 单位个。
+    - name: outCps
+      type: integer
+      description: 单位个。
+    - name: enable
+      type: boolean
+      description: 是否启用特定阈值。
   - name: createTime
     type: string
     description: EIP 的创建时间。
@@ -339,6 +388,39 @@ response:
   - name: bandwidthCluster
     type: object
     description: EIP 关联的带宽组ID。
+    object-schema:
+    - name: bandwidthClusterId
+      type: string
+      description: 共享带宽包ID。
+    - name: bandwidthClusterName
+      type: string
+      description: 共享带宽包名称。
   - name: tags
     type: object
     description: EIP关联的标签。
+    object-schema:
+    - name: tags
+      type: object-array
+      description: 标签对列表。
+      array-style: json
+      item-schema:
+      - name: key
+        type: string
+        description: |-
+          标签键。
+          长度限制：1～64个字符。
+      - name: value
+        type: string
+        description: |-
+          标签值。
+          长度限制：1～64个字符。
+  - name: operationInfo
+    type: object
+    description: EIP的带宽、流量包操作状态。
+    object-schema:
+    - name: operation
+      type: string
+      description: 操作动作。取值范围：`ModifyBandwidth`（调整带宽）、`ModifyFlowPackage`（调整流量包）。
+    - name: status
+      type: string
+      description: 操作状态。取值范围：`OPERATING`（操作中）、`FAILED`（操作失败）。

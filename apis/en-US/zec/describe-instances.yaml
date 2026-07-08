@@ -201,9 +201,69 @@ response:
   - name: systemDisk
     type: object
     description: Boot disk information.
+    object-schema:
+    - name: diskId
+      type: string
+      description: |-
+        Boot disk ID.
+        This parameter is currently only used as a response parameter in query operations such as `DescribeInstances`, and cannot be used as an input parameter in write operations like `CreateInstances`.
+    - name: diskSize
+      type: integer
+      description: |-
+        Boot disk size.
+        Unit: GiB.
+    - name: diskCategory
+      type: string
+      description: |-
+        Disk type.
+        Basic NVMe SSD: Economical NVMe SSD.
+        Standard NVMe SSD: Standard NVMe SSD.
+        Default is Standard NVMe SSD.
+    - name: burstingEnabled
+      type: boolean
+      description: Whether to enable burstable performance.
   - name: dataDisks
     type: object-array
     description: Disk information.
+    array-style: json
+    item-schema:
+    - name: diskId
+      type: string
+      description: |-
+        Disk ID.
+        This parameter is currently only used as a response parameter in query operations such as `DescribeInstances`, and cannot be used as an input parameter for write operations such as `CreateInstances`.
+    - name: diskName
+      type: string
+      description: |-
+        Disk name.
+        This parameter is currently only used as a response parameter for query operations such as DescribeInstances.
+    - name: diskSize
+      type: integer
+      description: |-
+        Disk size.
+        Unit: GiB.
+    - name: diskAmount
+      type: integer
+      description: |-
+        Number of disks.
+        This parameter is only used as an input parameter for APIs such as `CreateInstances` and `InquiryPriceCreateInstance`.
+    - name: portable
+      type: boolean
+      description: |-
+        Whether the disk is detachable.
+        This parameter is used  as a response parameter in query operations, not as an input parameter.
+        true means the disk will not be deleted when the instance is deleted.
+        false means the disk will be deleted when the instance is deleted.
+    - name: burstingEnabled
+      type: boolean
+      description: Whether to enable burstable performance.
+    - name: diskCategory
+      type: string
+      description: |-
+        Disk type.
+        Basic NVMe SSD: the Basic NVMe SSD.
+        Standard NVMe SSD: the Standard NVMe SSD.
+        Default value: Standard NVMe SSD.
   - name: publicIpAddresses
     type: string-array
     description: List of public IPs.
@@ -249,9 +309,136 @@ response:
   - name: nics
     type: object-array
     description: Information of the vNIC attached to an instance.
+    array-style: json
+    item-schema:
+    - name: nicId
+      type: string
+      description: vNIC ID.
+    - name: name
+      type: string
+      description: vNIC name.
+    - name: status
+      type: enum
+      description: vNIC status.
+      enum-values:
+      - value: PENDING
+        desc: Creating.
+      - value: AVAILABLE
+        desc: Available. Not bound to any instance.
+      - value: ATTACHING
+        desc: Binding.
+      - value: DETACHING
+        desc: Unbinding.
+      - value: DELETING
+        desc: Deleting.
+      - value: CREATE_FAILED
+        desc: Creating failed.
+      - value: USED
+        desc: Bound.
+    - name: nicType
+      type: enum
+      description: vNIC type.
+      enum-values:
+      - value: Primary
+        desc: Primary network interface.
+      - value: Secondary
+        desc: Secondary network interface.
+    - name: regionId
+      type: string
+      description: Region ID.
+    - name: nicSubnetType
+      type: enum
+      description: IP stack type of the vNIC.
+      enum-values:
+      - value: IPv4
+        desc: IPv4 stack type only.
+      - value: IPv4_IPv6
+        desc: IPv4 and IPv6 stack type.
+      - value: IPv6
+        desc: IPv6 stack type only.
+    - name: publicIpList
+      type: string-array
+      description: Public IP addresses.
+    - name: privateIpList
+      type: string-array
+      description: Private IP addresses.
+    - name: primaryIpv4
+      type: string
+      description: Primary private IPv4 address.
+    - name: primaryIpv6
+      type: string
+      description: |-
+        Primary private IPv6 address.
+        If the IP stack type is IPv4, this value is null.
+    - name: ipv6Cidr
+      type: string
+      description: |-
+        IPv6 CIDR block.
+        If the IP stack type is IPv4, this value is null.
+    - name: secondaryIpv4s
+      type: string-array
+      description: Secondary private IPv4 addresses.
+    - name: macAddress
+      type: string
+      description: MAC address.
+    - name: instanceId
+      type: string
+      description: Instance ID.
+    - name: vpcId
+      type: string
+      description: VPC ID.
+    - name: subnetId
+      type: string
+      description: Subnet ID.
+    - name: createTime
+      type: string
+      description: Creation time.
+    - name: updateTime
+      type: string
+      description: Updating time.
+    - name: resourceGroup
+      type: object
+      description: Resource group information.
+      object-schema:
+      - name: resourceGroupId
+        type: string
+        description: Resource group ID.
+      - name: resourceGroupName
+        type: string
+        description: Resource group name.
+    - name: securityGroupId
+      type: string
+      description: Associated security group ID of the vNIC.
+    - name: tags
+      type: object
+      description: Tags bound to resources.
+      object-schema:
+      - name: tags
+        type: object-array
+        description: List of tags.
+        array-style: json
+        item-schema:
+        - name: key
+          type: string
+          description: 'Tag key. Length limit: 1 to 64 characters.'
+        - name: value
+          type: string
+          description: 'Tag value. Length limit: 1 to 64 characters.'
   - name: tags
     type: object
     description: Tags bound to resources.
+    object-schema:
+    - name: tags
+      type: object-array
+      description: List of tags.
+      array-style: json
+      item-schema:
+      - name: key
+        type: string
+        description: 'Tag key. Length limit: 1 to 64 characters.'
+      - name: value
+        type: string
+        description: 'Tag value. Length limit: 1 to 64 characters.'
   - name: loadBalancerIds
     type: string-array
     description: Attached load balancer IDs.
@@ -261,3 +448,9 @@ response:
   - name: instanceOptions
     type: object
     description: Instance options configuration.
+    object-schema:
+    - name: nestedVirtualization
+      type: boolean
+      description: |-
+        Whether to the instance for nested virtualization.
+        To enable nested virtualization, you must contact Support to activate it; otherwise, the setting will be ineffective.

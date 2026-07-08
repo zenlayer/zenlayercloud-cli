@@ -182,6 +182,93 @@ response:
   - name: instanceType
     type: object
     description: 实例机型配置信息。
+    object-schema:
+    - name: imageIds
+      type: string-array
+      description: |-
+        机型支持的镜像ID。
+        仅在DescribeInstanceType可取值
+    - name: instanceTypeId
+      type: string
+      description: 实例机型ID。
+    - name: description
+      type: string
+      description: |-
+        机型描述。
+        一般包括内存大小，硬盘。
+    - name: cpuCoreCount
+      type: integer
+      description: CPU数量。
+    - name: cpuDetail
+      type: string
+      description: CPU详情。
+    - name: cpuCores
+      type: integer
+      description: CPU核心数。
+    - name: cpuThreads
+      type: integer
+      description: CPU线程。
+    - name: baseFrequency
+      type: string
+      description: CPU基础频率。
+    - name: memorySize
+      type: integer
+      description: |-
+        内存大小。
+        单位：GB。
+    - name: maximumBandwidth
+      type: integer
+      description: |-
+        机型支持的最大出口带宽。
+        单位：Mbps。
+    - name: supportRaids
+      type: integer-array
+      description: 机型支持的raid。
+    - name: supportSubnet
+      type: boolean
+      description: 是否支持内网组网。
+    - name: isHA
+      type: boolean
+      description: 是否是高可用机型。
+    - name: diskInfo
+      type: object
+      description: |-
+        硬盘配置。
+        单位：GB。
+      object-schema:
+      - name: totalDiskSize
+        type: integer
+        description: |-
+          机型的硬盘总大小。
+          单位：GB。
+          totalDiskSize的大小一般小于描述的信息，系统为了分区能够成功预留了一小部分。如果采用自定义分区，最后的一个分区将会获得剩余的所有磁盘大小。
+      - name: diskDescription
+        type: string
+        description: 机型硬盘的描述信息。
+      - name: disks
+        type: object-array
+        description: |-
+          可用于raid和分区的磁盘信息。
+          按顺序标号。比如880 x 2、 220 x2，其磁盘序号1,2,3,4 分别对应的磁盘大小为880，880，220，220。
+        array-style: json
+        item-schema:
+        - name: diskSize
+          type: integer
+          description: |-
+            硬盘的大小。
+            单位：GB。
+        - name: diskCount
+          type: integer
+          description: 该硬盘大小的硬盘的数量。
+    - name: vpuVendor
+      type: string
+      description: VPU 供应商
+    - name: vpuCard
+      type: string
+      description: VPU 型号。示例：T1U
+    - name: vpuCount
+      type: integer
+      description: VPU 数量
   - name: imageId
     type: string
     description: 镜像ID。
@@ -299,12 +386,73 @@ response:
   - name: raidConfig
     type: object
     description: 磁盘阵列配置。
+    object-schema:
+    - name: raidType
+      type: integer
+      description: |-
+        Raid类型。
+        该配置进行快捷raid配置，支持0, 1, 5, 10。
+        raidType和customRaids只能指定其中一个参数。
+    - name: customRaids
+      type: object-array
+      description: |-
+        自定义Raid配置。
+        自定义磁盘进行raid的配置。
+        raidType和customRaids只能指定其中一个参数。
+      array-style: json
+      item-schema:
+      - name: raidType
+        type: integer
+        description: |-
+          Raid类型。
+          支持0, 1, 5, 10。
+      - name: diskSequence
+        type: integer-array
+        description: |-
+          磁盘序号。
+          根据机型里的磁盘从1开始顺序编号。如果是多个磁盘序号，则必须连续。
   - name: partitions
     type: object-array
     description: 分区配置。
+    array-style: json
+    item-schema:
+    - name: fsPath
+      type: string
+      description: |-
+        分区盘符。
+        linux系统：必须为/开头，且第一个为系统分区必须为/。
+        windows系统：支持C~H，第一个系统分区必须指定为C。
+    - name: fsType
+      type: string
+      description: |-
+        分区的文件类型。
+        linux系统：支持的值ext2,ext3, ext4, ext类型必须要有。
+        windows系统: 只能为NTFS。
+    - name: size
+      type: integer
+      description: |-
+        分区大小。
+        单位为GB。
   - name: nic
     type: object
     description: 网卡配置。
+    object-schema:
+    - name: wanName
+      type: string
+      description: |-
+        公网网卡名称。
+        只能是数字和大小写字母，且必须以字母开头，长度限制为4-10。
+        非高可用机型，默认的公网网卡名称为wan0。且不能为lan开头。
+        高可用机型，默认的公网网卡名称为bond0。
+        公网名称和内网名称不能相同。
+    - name: lanName
+      type: string
+      description: |-
+        内网网卡名称。
+        只能是数字和大小写字母，且必须以字母开头，长度限制为4-10。
+        非高可用机型，默认的内网网卡名称为lan0。且不能为wan开头。
+        高可用机型，默认的内网网卡名称为bond1。
+        公网名称和内网名称不能相同。
   - name: autoRenew
     type: boolean
     description: |-
@@ -316,6 +464,22 @@ response:
   - name: tags
     type: object
     description: 资源关联的标签信息。
+    object-schema:
+    - name: tags
+      type: object-array
+      description: 标签对列表。
+      array-style: json
+      item-schema:
+      - name: key
+        type: string
+        description: |-
+          标签键。
+          长度限制：1～128字符。
+      - name: value
+        type: string
+        description: |-
+          标签值。
+          长度限制：1～128字符。
   - name: enableGatewayMode
     type: boolean
     description: 网关模式是否开启。

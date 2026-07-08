@@ -27,6 +27,51 @@ response:
   - name: dataCenter
     type: object
     description: 数据中心信息。
+    object-schema:
+    - name: dcId
+      type: string
+      description: 数据中心ID。
+    - name: dcName
+      type: string
+      description: 数据中心名称。
+    - name: dcAddress
+      type: string
+      description: 数据中心地址。
+    - name: cityName
+      type: string
+      description: 城市名称。
+    - name: countryName
+      type: string
+      description: 国家名称。
+    - name: areaName
+      type: string
+      description: 地区名称。
+    - name: latitude
+      type: float
+      description: 数据中心所在地理位置的维度。
+    - name: longitude
+      type: float
+      description: 数据中心所在地理位置的经度。
   - name: availableRoutingTypes
     type: object-array
     description: 支持的路由类型配置。
+    array-style: json
+    item-schema:
+    - name: routingType
+      type: enum
+      description: 路由类型。
+      enum-values:
+      - value: BGP
+        desc: BGP。（目前api暂不支持该方式）
+      - value: Static
+        desc: 静态路由。
+      - value: Gateway
+        desc: 网关模式。
+    - name: deliveryType
+      type: enum
+      description: 交付模式。
+      enum-values:
+      - value: Auto
+        desc: 自动化交付（一般在分钟内完成）。
+      - value: Manual
+        desc: 手动交付（一般在3天内交付完成）。

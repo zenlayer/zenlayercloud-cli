@@ -6,12 +6,14 @@ long: |-
   重启虚拟机实例。
   **注意事项**
 
-  * 只有状态为运行状态（`RUNNING`）才能进行此操作。
+  * 只有状态为运行状态（`RUNNING`）才能进行此操作。在一些场景可能会导致普通重启失败，可以设置 `forceReboot` = true 来强制重启，此时状态为运行中(`RUNNING`)、启动中(`STARTING`)或重启中(`REBOOT`)的实例均可进行此操作。
   * 本接口为异步接口，重启实例请求发送成功后会立即返回，此时操作并未完成。实例操作结果可以通过调用[DescribeInstanceStatus](describeinstancesstatus.md)接口查询，如果实例状态(`instanceStatus`)`由REBOOT`(重启中)`变为RUNNING`(运行中)，则代表实例重启成功，重启过程中不可对实例进行任何操作。
   * 支持批量操作。每次请求批量实例的上限为100。
 examples:
 - cmd: zeno zec reboot-instances --instance-ids instanceId1 --instance-ids instanceId2
   desc: 批量重启实例。
+- cmd: zeno zec reboot-instances --instance-ids instanceId1 --force-reboot true
+  desc: 强制重启1台实例。
 sdk:
   service: zec
   version: '2025-09-01'
@@ -22,6 +24,11 @@ parameters:
   required: true
   sdk-field: instanceIds
   description: 待重启虚拟机实例ID列表。
+- name: force-reboot
+  type: boolean
+  required: false
+  sdk-field: forceReboot
+  description: 是否强制重启。
 response:
 - name: instanceIds
   type: string-array

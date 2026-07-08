@@ -70,6 +70,42 @@ response:
   - name: ruleInfos
     type: object-array
     description: Security group rules.
+    array-style: json
+    item-schema:
+    - name: direction
+      type: string
+      description: |-
+        Traffic directions.
+        ingress: inbound rules.
+        egress: outbound rules.
+    - name: policy
+      type: string
+      description: |-
+        Access strategy.
+        Available values:
+        accept: allows access by default.
+        Only accept strategy is supported for now.
+    - name: priority
+      type: integer
+      description: Rule priority.
+    - name: ipProtocol
+      type: string
+      description: |-
+        Transport protocol. The value is case sensitive.
+        Available value:tcp: TCP protocol.udp: UDP protocol.icmp: ICMP protocol.all: all protocols supported.
+    - name: portRange
+      type: string
+      description: |-
+        Destination port range.
+        Available values:For TCP and UDP protocols: The value ranges from 1 to 65535. Use a slash (/) to separate the start port number and the end port number. Examples: 1/200; incorrect example: 200/1.For ICMP protocol: -1/-1.For all protocols: -1/-1.
+    - name: cidrIp
+      type: string
+      description: |-
+        Source IP address range.
+        Default value: 0.0.XX.XX/0.
+    - name: description
+      type: string
+      description: Rule description.
   - name: isDefault
     type: boolean
     description: Whether the security group is default or not.

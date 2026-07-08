@@ -109,6 +109,24 @@ response:
     description: |-
       后付费阶梯价格。
       后付费模式使用，如果非阶梯价格，该项为null。
+    array-style: json
+    item-schema:
+    - name: stepStart
+      type: float
+      description: 阶梯用量的开始。
+    - name: stepEnd
+      type: float
+      description: 阶梯用量的结束。
+    - name: unitPrice
+      type: float
+      description: |-
+        当前阶梯的单元原始价格。
+        后付费模式使用。
+    - name: discountUnitPrice
+      type: float
+      description: |-
+        当前阶梯的单元折后价格。
+        后付费模式使用。
   - name: amountUnit
     type: string
     description: |-

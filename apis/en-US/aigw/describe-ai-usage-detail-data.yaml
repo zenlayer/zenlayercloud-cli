@@ -47,6 +47,14 @@ response:
   - name: data
     type: object-array
     description: List of usage values for each model.
+    array-style: json
+    item-schema:
+    - name: model
+      type: string
+      description: Model name.
+    - name: value
+      type: integer
+      description: Usage value.
 - name: token
   type: object-array
   description: Total token detail data.
@@ -58,6 +66,14 @@ response:
   - name: data
     type: object-array
     description: List of usage values for each model.
+    array-style: json
+    item-schema:
+    - name: model
+      type: string
+      description: Model name.
+    - name: value
+      type: integer
+      description: Usage value.
 - name: inputToken
   type: object-array
   description: Input token detail data.
@@ -69,6 +85,14 @@ response:
   - name: data
     type: object-array
     description: List of usage values for each model.
+    array-style: json
+    item-schema:
+    - name: model
+      type: string
+      description: Model name.
+    - name: value
+      type: integer
+      description: Usage value.
 - name: outToken
   type: object-array
   description: Output token detail data.
@@ -80,3 +104,11 @@ response:
   - name: data
     type: object-array
     description: List of usage values for each model.
+    array-style: json
+    item-schema:
+    - name: model
+      type: string
+      description: Model name.
+    - name: value
+      type: integer
+      description: Usage value.

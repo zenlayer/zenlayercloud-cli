@@ -132,3 +132,19 @@ response:
   - name: tags
     type: object
     description: Tags associated with the AI gateway.
+    object-schema:
+    - name: tags
+      type: object-array
+      description: List of tag pairs.
+      array-style: json
+      item-schema:
+      - name: key
+        type: string
+        description: |-
+          Tag key.
+          Length limit: 1 to 64 characters.
+      - name: value
+        type: string
+        description: |-
+          Tag value.
+          Length limit: 1 to 64 characters.

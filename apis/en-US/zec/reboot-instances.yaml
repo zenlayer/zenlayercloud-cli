@@ -7,12 +7,15 @@ long: |-
   **Note**
 
   * You can only perform this operation on instances whose status is `RUNNING` and that are not in the recycle bin.
+  * In some cases, a normal restart may fail. You can set `forceReboot` = true to force the restart. When enabled, instances whose status is `RUNNING`, `STARTING`, or `REBOOT` can all be restarted.
   * If the API is called successfully, the instance status will become `REBOOT`. After the instance is restarted, its status will become `RUNNING`.
   * This API is an async API. A response is returned after the request is sent. However, it does not mean the restart has been completed. You can use `DescribeInstanceStatus` to query the status of the instance. If the status (instanceStatus) changes from `REBOOT` to `RUNNING`, it means that the instance has been restarted successfully. Any operations on the instances are not allowed while restarting.
   * Batch operations are supported. The maximum number of instances in each request is 100.
 examples:
 - cmd: zeno zec reboot-instances --instance-ids instanceId1 --instance-ids instanceId2
   desc: Batch restart instances
+- cmd: zeno zec reboot-instances --instance-ids instanceId1 --force-reboot true
+  desc: Force restart an instance
 sdk:
   service: zec
   version: '2025-09-01'
@@ -25,6 +28,11 @@ parameters:
   description: |-
     Instance ID(s).
     To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response. The maximum number of instances in each request is 100.
+- name: force-reboot
+  type: boolean
+  required: false
+  sdk-field: forceReboot
+  description: Whether to force restart.
 response:
 - name: instanceIds
   type: string-array

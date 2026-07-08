@@ -102,6 +102,68 @@ response:
   - name: invocationInstances
     type: object-array
     description: 命令执行实例列表。
+    array-style: json
+    item-schema:
+    - name: instanceId
+      type: string
+      description: 执行ID。
+    - name: instanceName
+      type: string
+      description: 实例的名称。
+    - name: instanceExist
+      type: boolean
+      description: 实例是否存在。
+    - name: taskStatus
+      type: enum
+      description: 实例执行任务的状态。
+      enum-values:
+      - value: Pending
+        desc: 等待执行命令。
+      - value: Running
+        desc: 正在执行命令。
+      - value: Timeout
+        desc: 执行命令超时。
+      - value: Failed
+        desc: 执行命令完，退出码为非0。
+      - value: Success
+        desc: 执行命令完，退出码为0。
+      - value: Error
+        desc: |-
+          命令无法执行。
+          由于系统错误或实例未运行等。
+    - name: exitCode
+      type: integer
+      description: 命令进程的退出代码。
+    - name: errorCode
+      type: enum
+      description: 命令执行失败原因的代号。
+      enum-values:
+      - value: InstanceNotExists
+        desc: 实例不存在。
+      - value: InstanceInstanceState
+        desc: 实例状态非运行。
+      - value: SystemError
+        desc: |-
+          系统错误。
+          命令未执行。
+      - value: CommandPlatformInvalid
+        desc: 命令类型无法在实例上执行。
+      - value: ExecutionTimeout
+        desc: 脚本执行超时。
+      - value: ExecutionExitNoneZero
+        desc: 脚本执行，退出码为非0。
+    - name: output
+      type: string
+      description: 命令执行的标准输出(stdout)。
+    - name: outputError
+      type: string
+      description: 命令执行的标准错误输出(stderr)。
+    - name: execStartTime
+      type: string
+      description: 命令执行的开始时间。
+    - name: execEndTime
+      type: string
+      description: 命令执行的结束时间。
 - name: totalCount
   type: integer
   description: 匹配条件的命令执行记录总数。

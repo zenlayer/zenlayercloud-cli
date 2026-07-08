@@ -102,6 +102,31 @@ response:
   - name: dataCenter
     type: object
     description: Data center of the IP Transit.
+    object-schema:
+    - name: dcId
+      type: string
+      description: Data center ID.
+    - name: dcName
+      type: string
+      description: Data center name.
+    - name: dcAddress
+      type: string
+      description: Data center location.
+    - name: cityName
+      type: string
+      description: City name.
+    - name: countryName
+      type: string
+      description: Country name.
+    - name: areaName
+      type: string
+      description: Region name.
+    - name: latitude
+      type: float
+      description: Latitude of the data center.
+    - name: longitude
+      type: float
+      description: Longitude of the data center.
   - name: peerPortId
     type: string
     description: Connected port ID.
@@ -111,6 +136,31 @@ response:
   - name: peerDataCenter
     type: object
     description: Data center of the port side.
+    object-schema:
+    - name: dcId
+      type: string
+      description: Data center ID.
+    - name: dcName
+      type: string
+      description: Data center name.
+    - name: dcAddress
+      type: string
+      description: Data center location.
+    - name: cityName
+      type: string
+      description: City name.
+    - name: countryName
+      type: string
+      description: Country name.
+    - name: areaName
+      type: string
+      description: Region name.
+    - name: latitude
+      type: float
+      description: Latitude of the data center.
+    - name: longitude
+      type: float
+      description: Longitude of the data center.
   - name: deliveryType
     type: enum
     description: Delivery type.
@@ -161,12 +211,60 @@ response:
   - name: bfd
     type: object
     description: BFD configuration.
+    object-schema:
+    - name: bfdTxInterval
+      type: integer
+      description: |-
+        Transmit interval.
+        Unit: ms.
+        Value range: 100-60000.
+    - name: bfdRxInterval
+      type: integer
+      description: |-
+        Receive interval.
+        Unit: ms.
+        Value range: 100-60000.
+    - name: bfdMultiplier
+      type: integer
+      description: |-
+        Detection multiplier.
+        Value range: 3-20.
   - name: bgp
     type: object
     description: BGP configurations.
+    object-schema:
+    - name: routeType
+      type: enum
+      description: Inbound route type.
+      enum-values:
+      - value: ALL_ROUTES
+        desc: Full routes.
+      - value: ALL_ROUTES_WITH_DEFAULT_ROUTES
+        desc: All routes with default routes.
+      - value: DEFAULT_ROUTES
+        desc: Default routes.
+    - name: asn
+      type: integer
+      description: ASN for announcing outbound routes.
+    - name: password
+      type: string
+      description: Authentication key.
+    - name: asnList
+      type: integer-array
+      description: ASN list for announcing outbound routes.
+    - name: asSetList
+      type: string-array
+      description: AS-SET list for announcing outbound routes.
   - name: interconnect
     type: object
     description: Interconnect IP address information.
+    object-schema:
+    - name: vendorIpv4Address
+      type: string
+      description: Vendor-side IPv4 address.
+    - name: customerIpv4Address
+      type: string
+      description: Customer-side IPv4 address.
   - name: privateConnectId
     type: string
     description: Private connect ID associated with the IP Transit.
@@ -176,6 +274,17 @@ response:
   - name: publicIpv4Addresses
     type: object-array
     description: Public IP information.
+    array-style: json
+    item-schema:
+    - name: ipAddress
+      type: string
+      description: IP address.
+    - name: netmask
+      type: integer
+      description: Netmask.
+    - name: gatewayIpAddress
+      type: string
+      description: Gateway IP address.
   - name: iptStatus
     type: enum
     description: IP Transit state.
@@ -209,3 +318,19 @@ response:
   - name: tags
     type: object
     description: Tags bound to the IP Transit.
+    object-schema:
+    - name: tags
+      type: object-array
+      description: List of tags.
+      array-style: json
+      item-schema:
+      - name: key
+        type: string
+        description: |-
+          Tag key.
+          Length limit: 1-128 characters.
+      - name: value
+        type: string
+        description: |-
+          Tag value.
+          Length limit: 1-128 characters.

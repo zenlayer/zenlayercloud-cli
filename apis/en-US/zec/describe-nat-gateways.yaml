@@ -157,3 +157,15 @@ response:
   - name: tags
     type: object
     description: Tags bound to resources.
+    object-schema:
+    - name: tags
+      type: object-array
+      description: List of tags.
+      array-style: json
+      item-schema:
+      - name: key
+        type: string
+        description: 'Tag key. Length limit: 1 to 64 characters.'
+      - name: value
+        type: string
+        description: 'Tag value. Length limit: 1 to 64 characters.'

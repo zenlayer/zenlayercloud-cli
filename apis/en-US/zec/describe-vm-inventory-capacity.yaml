@@ -49,3 +49,27 @@ response:
   - name: instanceTypes
     type: object-array
     description: Inventory capacity details for each instance type, excluding entries with zero inventory.
+    array-style: json
+    item-schema:
+    - name: instanceType
+      type: string
+      description: CPU instance type, such as z2a, z2i, or z4a.
+    - name: gpuSpec
+      type: string
+      description: |-
+        GPU model, such as z4a.g.C49.
+        This field is only returned for GPU instances.
+    - name: capacity
+      type: enum
+      description: |-
+        The inventory capacity level for this instance type.
+        Inventory capacity is defined based on available vCPU cores across all instance types, excluding memory, storage, or other resource factors.
+      enum-values:
+      - value: LIMITED
+        desc: Limited inventory, with available vCPU cores < 1000.
+      - value: NORMAL
+        desc: Normal inventory, with available vCPU cores from 1000 to 2000.
+      - value: SUFFICIENT
+        desc: Sufficient inventory, with available vCPU cores from 2000 to 5000.
+      - value: ABUNDANT
+        desc: Abundant inventory, with available vCPU cores ≥ 5000.

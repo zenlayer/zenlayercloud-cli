@@ -182,9 +182,40 @@ response:
   - name: cities
     type: object-array
     description: 城市信息。
+    array-style: json
+    item-schema:
+    - name: cityName
+      type: string
+      description: 城市名称。
+    - name: cityCode
+      type: string
+      description: 城市三字码代号。
   - name: tags
     type: object
     description: 共享带宽包关联的标签。
+    object-schema:
+    - name: tags
+      type: object-array
+      description: 标签对列表。
+      array-style: json
+      item-schema:
+      - name: key
+        type: string
+        description: |-
+          标签键。
+          长度限制：1～64个字符。
+      - name: value
+        type: string
+        description: |-
+          标签值。
+          长度限制：1～64个字符。
   - name: resourceGroup
     type: object
     description: 共享带宽包所属的资源组。
+    object-schema:
+    - name: resourceGroupId
+      type: string
+      description: 资源组ID。
+    - name: resourceGroupName
+      type: string
+      description: 资源组名称。

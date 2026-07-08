@@ -313,9 +313,142 @@ response:
   - name: systemDisk
     type: object
     description: Information of system disk.
+    object-schema:
+    - name: diskId
+      type: string
+      description: |-
+        System disk ID.This is an output parameter returned in the data query APIs like DescribeInstances. Can't be used as an input parameter in data writer interfaces like
+        CreateInstances.
+    - name: diskSize
+      type: integer
+      description: 'Size of system disk.Unit: GiB.'
+    - name: diskCategory
+      type: string
+      description: 'Disk type.STANDARD: Standard DiskSSD: Solid State DriveThe default value is Standard Disk.'
   - name: dataDisks
     type: object-array
     description: Information of data disk.
+    array-style: json
+    item-schema:
+    - name: diskId
+      type: string
+      description: |-
+        Data disk ID.
+        This is an output parameter returned in the data query APIs like DescribeInstances. Can't be used as an input parameter in data writer interfaces like
+        CreateInstances.
+    - name: diskName
+      type: string
+      description: |-
+        Data disk name.
+        This is an output parameter returned in the data query APIs like DescribeInstances.
+    - name: diskSize
+      type: integer
+      description: |-
+        Size of data disk.
+        Unit: GiB.
+    - name: diskAmount
+      type: integer
+      description: |-
+        Quantity of data disks.
+        This parameter is used only as the input parameter in interfaces such as CreateInstances and InquiryPriceCreateInstance.
+    - name: portable
+      type: boolean
+      description: |-
+        Whether the data disk is detachable or not.
+        This parameter is only used to query the output parameter, while not the input parameter.
+        true: the data disk is detachable, and thus will not be deleted while deleting its attached instance.
+        false: the data disk is undetachable, and thus will be deleted at the same time while deleting its attached instance.
+    - name: diskCategory
+      type: string
+      description: 'Disk type.STANDARD: Standard DiskSSD: Solid State DriveThe default value is STANDARD.'
+    - name: diskPrice
+      type: object
+      description: |-
+        Price of data disks.
+        This parameter is used only as the output parameter in interfaces such as
+        InquiryPriceCreateInstance.
+      object-schema:
+      - name: discount
+        type: float
+        description: |-
+          Discount.
+          For example, 80.0 means 20% off.
+      - name: discountPrice
+        type: float
+        description: |-
+          Discount price of postpaid resources.
+          Only used in pay-as-you-go model. For tiered billing, the value is empty.
+      - name: originalPrice
+        type: float
+        description: |-
+          Original price of prepaid resources.
+          Only used in subscription model. For pay-as-you-go model, the value is empty.
+      - name: unitPrice
+        type: float
+        description: |-
+          Original unit price of postpaid resources.
+          Only used in pay-as-you-go model. For tiered billing, the value is empty.
+      - name: discountUnitPrice
+        type: float
+        description: |-
+          Discount unit price of postpaid resources.
+          Only used in pay-as-you-go model. For tiered billing, the value is empty.
+      - name: chargeUnit
+        type: string
+        description: |-
+          Unit of postpaid billing.
+          Only used in pay-as-you-go model.
+          Value range:
+          HOUR : you will be billed by hour.
+          DAY : you will be billed by day.
+          MONTH : you will be billed by month. For example, the burstable 95th pricing model.
+      - name: stepPrices
+        type: object-array
+        description: |-
+          Tiered price of postpaid billing.
+          Only used in pay-as-you-go model. If it is not tiered price, the value is empty.
+        array-style: json
+        item-schema:
+        - name: stepStart
+          type: float
+          description: First price range of a tiered price.
+        - name: stepEnd
+          type: float
+          description: Last price range of a tiered price.
+        - name: unitPrice
+          type: float
+          description: |-
+            Original unit price of current price range.
+            Only used in pay-as-you-go model.
+        - name: discountUnitPrice
+          type: float
+          description: |-
+            Discount unit price of current price range.
+            Only used in pay-as-you-go model.
+      - name: amountUnit
+        type: string
+        description: |-
+          Unit of overage usage.
+          If the value is empty, it means there is no unit.
+      - name: excessUnitPrice
+        type: float
+        description: Original unit price of overages.
+      - name: excessDiscountUnitPrice
+        type: float
+        description: Discount unit price of overages.
+      - name: excessAmountUnit
+        type: string
+        description: |-
+          Unit of overage usage.
+          If the value is empty, it means there is no unit.
+      - name: category
+        type: enum
+        description: Information on the price.
+        enum-values:
+        - value: STANDARD
+          desc: Standard price.
+        - value: CUSTOMIZED
+          desc: Fixed price.
   - name: autoRenew
     type: boolean
     description: |-
@@ -329,6 +462,33 @@ response:
   - name: nic
     type: object
     description: NIC configuration.
+    object-schema:
+    - name: wanName
+      type: string
+      description: |-
+        Public NIC name.
+        Only numbers and lowercase letters are allowed, starting with a letter with a length limit of 4 to 15 characters.
+        The default public NIC name is eth0.
+    - name: lanName
+      type: string
+      description: |-
+        Private NIC name.
+        Only numbers and lowercase letters are allowed, starting with a letter with a length limit of 4 to 15 characters.
+        The default private NIC name is eth1.
   - name: tags
     type: object
     description: Tags bound to resources.
+    object-schema:
+    - name: tags
+      type: object-array
+      description: List of tags.
+      array-style: json
+      item-schema:
+      - name: key
+        type: string
+        description: |-
+          Tag key.
+          Length limit: 1 to 64 characters.
+      - name: value
+        type: string
+        description: "Tag value. \nLength limit: 1 to 64 characters."

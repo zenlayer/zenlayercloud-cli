@@ -208,8 +208,6 @@ response:
       desc: Available to be used.
     - value: CHANGING
       desc: Changing.
-    - value: RECYCLING
-      desc: Recycling.
     - value: RECYCLED
       desc: Recycled.
     - value: DELETING
@@ -224,3 +222,66 @@ response:
   - name: tags
     type: object
     description: Tags bound to resources.
+    object-schema:
+    - name: tags
+      type: object-array
+      description: List of tags.
+      array-style: json
+      item-schema:
+      - name: key
+        type: string
+        description: 'Tag key. Length limit: 1 to 64 characters.'
+      - name: value
+        type: string
+        description: 'Tag value. Length limit: 1 to 64 characters.'
+  - name: asnObservation
+    type: object
+    description: ASN observation result.
+    object-schema:
+    - name: verificationStatus
+      type: enum
+      description: ASN verification status.
+      enum-values:
+      - value: agreed
+        desc: Observation results from all data sources are consistent.
+      - value: disagreed
+        desc: Observation results from data sources are inconsistent.
+      - value: unavailable
+        desc: The primary data source query failed or returned no match.
+      - value: querying
+        desc: Querying.
+    - name: observedPrefix
+      type: string
+      description: Observed prefix.
+    - name: primarySource
+      type: string
+      description: Name of the primary data source, e.g., RIPE.
+    - name: primaryStatus
+      type: enum
+      description: Query status of the primary data source.
+      enum-values:
+      - value: QUERYING
+        desc: Querying.
+      - value: FINISHED
+        desc: Query completed.
+      - value: FAILURE
+        desc: Query failed.
+    - name: primaryAsns
+      type: integer-array
+      description: List of ASNs observed by the primary data source.
+    - name: secondarySource
+      type: string
+      description: Name of the secondary data source, e.g., BGP Tool.
+    - name: secondaryStatus
+      type: enum
+      description: Query status of the secondary data source.
+      enum-values:
+      - value: QUERYING
+        desc: Querying.
+      - value: FINISHED
+        desc: Query completed.
+      - value: FAILURE
+        desc: Query failed.
+    - name: secondaryAsns
+      type: integer-array
+      description: List of ASNs observed by the secondary data source.

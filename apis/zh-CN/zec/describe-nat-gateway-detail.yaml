@@ -47,6 +47,14 @@ response:
   - name: snatSubnets
     type: object-array
     description: SNAT规则添加的subnet ID集合。
+    array-style: json
+    item-schema:
+    - name: subnetId
+      type: string
+      description: 子网的ID。
+    - name: cidr
+      type: string
+      description: 子网的CIDR。
 - name: dnats
   type: object-array
   description: DNAT网关规则集合。

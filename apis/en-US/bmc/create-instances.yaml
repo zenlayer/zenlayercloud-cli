@@ -185,6 +185,18 @@ parameters:
     description: |-
       RAID levels for custom RAID settings.
       Only one of raidType and customRaids can be specified.
+    array-style: json
+    item-schema:
+    - name: raidType
+      type: integer
+      description: |-
+        RAID levels.
+        Value possible: 0, 1, 5, 10.
+    - name: diskSequence
+      type: integer-array
+      description: |-
+        Serial number of the disk
+        Numbered sequentially starting from 1. Multiple disk serial numbers should be consecutive.
 - name: partitions
   type: object-array
   required: false

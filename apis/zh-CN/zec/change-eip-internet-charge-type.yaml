@@ -2,11 +2,7 @@ name: ChangeEipInternetChargeType
 product: zec
 use: change-eip-internet-charge-type
 short: 变更弹性公网IP更网络计费模式
-long: |-
-  变更弹性公网IP更网络计费模式。
-  **注意事项**
-
-  * 目前只支持将弹性公网IP的网络计费模式从流量包转换为共享带宽包。
+long: 变更弹性公网IP更网络计费模式。
 examples:
 - cmd: zeno zec change-eip-internet-charge-type --eip-id <eipId> --internet-charge-type BandwidthCluster --cluster-id <clusterId>
   desc: 变更带宽网络类型为共享带宽包。
@@ -32,6 +28,27 @@ parameters:
     desc: 流量包计费方式。
   - value: BandwidthCluster
     desc: 共享带宽包计费方式。
+- name: flow-package
+  type: float
+  required: false
+  sdk-field: flowPackage
+  description: |-
+    流量包大小。
+    单位：TB。
+    网络计费方式为流量包计费（ByTrafficPackage）时需指定。
+- name: bandwidth
+  type: integer
+  required: false
+  sdk-field: bandwidth
+  description: |-
+    带宽限速。
+    单位：Mbps。
+    网络计费方式为按带宽计费（ByBandwidth）时需指定。
+- name: bandwidth-cap
+  type: integer
+  required: false
+  sdk-field: bandwidthCap
+  description: 带宽峰值上限（Mbps）。
 - name: cluster-id
   type: string
   required: false

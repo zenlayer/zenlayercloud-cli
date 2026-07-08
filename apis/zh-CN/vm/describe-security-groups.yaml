@@ -69,6 +69,39 @@ response:
   - name: ruleInfos
     type: object-array
     description: 安全组规则。
+    array-style: json
+    item-schema:
+    - name: direction
+      type: string
+      description: |-
+        规则方向。
+        ingress：入方向。
+        egress：出方向。
+    - name: policy
+      type: string
+      description: |-
+        设置访问权限。
+        accept：接受访问。
+        目前只支持accept。
+    - name: priority
+      type: integer
+      description: 规则优先级。
+    - name: ipProtocol
+      type: string
+      description: |-
+        传输层协议。
+        取值范围：tcp、udp、icmp、all。
+    - name: portRange
+      type: string
+      description: 目的端安全组开放的传输层协议相关的端口范围。
+    - name: cidrIp
+      type: string
+      description: |-
+        源端IP地址范围。
+        支持CIDR格式和IPv4格式的IP地址范围。
+    - name: description
+      type: string
+      description: 规则描述。
   - name: isDefault
     type: boolean
     description: 是否默认。

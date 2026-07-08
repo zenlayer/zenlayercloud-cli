@@ -7,6 +7,8 @@ long: |-
   **Note**
 
   Operation is only supported for the elastic IP in status of `BINDED` or `UNBIND`.
+
+  * This operation is executed asynchronously. Once the call is successful, the bandwidth change will be processed in the background. The current operation status can be obtained by querying the `operationInfo` field of the EIP list interface.
 examples:
 - cmd: zeno zec modify-eip-bandwidth --eip-id "< EipId >" --bandwidth 10
   desc: Change bandwidth of the elastic IP to `10` Mbps.

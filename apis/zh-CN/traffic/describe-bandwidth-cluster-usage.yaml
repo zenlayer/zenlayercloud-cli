@@ -53,6 +53,74 @@ response:
     description: |-
       分类型带宽值列表。
       仅 PathBasedBandwidth 类型填充。
+    array-style: json
+    item-schema:
+    - name: trafficType
+      type: enum
+      description: |-
+        流量类型。
+        LOCAL：本地；INTERNATIONAL：国际。
+      enum-values:
+      - value: LOCAL
+        desc: 本地流量。
+      - value: INTERNATIONAL
+        desc: 国际流量。
+    - name: value
+      type: float
+      description: |-
+        带宽值。
+        单位：Mbps。
   - name: details
     type: object-array
     description: 带宽详情列表。
+    array-style: json
+    item-schema:
+    - name: cityName
+      type: string
+      description: 城市名称。
+    - name: cityCode
+      type: string
+      description: 城市代码。
+    - name: product
+      type: enum
+      description: 产品来源。
+      enum-values:
+      - value: AllProduct
+        desc: |-
+          全算力产品范围。
+          该范围可能会在未来移除。
+      - value: BMC
+        desc: 裸金属产品范围。
+      - value: ZEC
+        desc: 弹性算力产品凡范围。
+      - value: VM
+        desc: 虚拟机产品范围。
+      - value: OFFLINE
+        desc: 线下产品范围。
+    - name: value
+      type: float
+      description: |-
+        带宽值。
+        单位：Mbps。
+    - name: typeValues
+      type: object-array
+      description: |-
+        分类型带宽值列表。
+        仅 PathBasedBandwidth 类型填充。
+      array-style: json
+      item-schema:
+      - name: trafficType
+        type: enum
+        description: |-
+          流量类型。
+          LOCAL：本地；INTERNATIONAL：国际。
+        enum-values:
+        - value: LOCAL
+          desc: 本地流量。
+        - value: INTERNATIONAL
+          desc: 国际流量。
+      - name: value
+        type: float
+        description: |-
+          带宽值。
+          单位：Mbps。

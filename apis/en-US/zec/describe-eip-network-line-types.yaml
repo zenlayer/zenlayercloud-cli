@@ -1,0 +1,34 @@
+name: DescribeEipNetworkLineTypes
+product: zec
+use: describe-eip-network-line-types
+short: Query the types of IP lines supported by EIP.
+long: To view the list of IP line types supported by EIP, you can filter by node.
+examples:
+- cmd: zeno zec describe-eip-network-line-types
+  desc: Query the types of IP lines supported by all node EIPs.
+- cmd: zeno zec describe-eip-network-line-types --region-id asia-east-1
+  desc: Query the types of IP lines supported by the EIP under the specified node asia-east-1.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeEipNetworkLineTypes
+parameters:
+- name: region-id
+  type: string
+  required: false
+  sdk-field: regionId
+  description: |-
+    Region ID.
+    If not provided, it will return all the line types supported by the nodes.
+response:
+- name: regionNetworkLineTypes
+  type: object-array
+  description: List of IP line types supported by each node.
+  array-style: json
+  item-schema:
+  - name: regionId
+    type: string
+    description: Region ID.
+  - name: networkLineTypes
+    type: string-array
+    description: The list of IP line types supported by this node.

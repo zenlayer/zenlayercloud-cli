@@ -46,6 +46,72 @@ response:
     description: |-
       List of bandwidth values by traffic type.
       Only populated for PathBasedBandwidth bandwidth clusters.
+    array-style: json
+    item-schema:
+    - name: trafficType
+      type: enum
+      description: |-
+        Traffic type.
+        LOCAL: domestic; INTERNATIONAL: international.
+      enum-values:
+      - value: LOCAL
+        desc: Domestic traffic.
+      - value: INTERNATIONAL
+        desc: International traffic.
+    - name: value
+      type: float
+      description: |-
+        Bandwidth value.
+        Unit: Mbps.
   - name: details
     type: object-array
     description: List of bandwidth usage details.
+    array-style: json
+    item-schema:
+    - name: cityName
+      type: string
+      description: City name.
+    - name: cityCode
+      type: string
+      description: City code.
+    - name: product
+      type: enum
+      description: Product source.
+      enum-values:
+      - value: AllProduct
+        desc: |-
+          All compute services.
+          This service type maybe unavailable in the future.
+      - value: BMC
+        desc: Bare metal service.
+      - value: ZEC
+        desc: Elastic compute service.
+      - value: VM
+        desc: Virtual machine service.
+      - value: OFFLINE
+        desc: Offline serveice.
+    - name: value
+      type: float
+      description: "Bandwidth value. \nUnit: Mbps."
+    - name: typeValues
+      type: object-array
+      description: |-
+        List of bandwidth values by traffic type.
+        Only populated for PathBasedBandwidth bandwidth clusters.
+      array-style: json
+      item-schema:
+      - name: trafficType
+        type: enum
+        description: |-
+          Traffic type.
+          LOCAL: domestic; INTERNATIONAL: international.
+        enum-values:
+        - value: LOCAL
+          desc: Domestic traffic.
+        - value: INTERNATIONAL
+          desc: International traffic.
+      - name: value
+        type: float
+        description: |-
+          Bandwidth value.
+          Unit: Mbps.

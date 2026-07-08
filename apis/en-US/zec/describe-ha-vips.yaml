@@ -117,9 +117,29 @@ response:
   - name: associatedEips
     type: object-array
     description: List of bound Elastic IPs. Returns an empty list if none are bound.
+    array-style: json
+    item-schema:
+    - name: eipId
+      type: string
+      description: The ID of the elastic IP.
+    - name: eipAddress
+      type: string
+      description: The elastic IP address.
   - name: createTime
     type: string
     description: Creation time.
   - name: tags
     type: object
     description: Tag list.
+    object-schema:
+    - name: tags
+      type: object-array
+      description: List of tags.
+      array-style: json
+      item-schema:
+      - name: key
+        type: string
+        description: 'Tag key. Length limit: 1 to 64 characters.'
+      - name: value
+        type: string
+        description: 'Tag value. Length limit: 1 to 64 characters.'

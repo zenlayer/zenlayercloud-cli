@@ -63,3 +63,20 @@ response:
   - name: bandwidthCluster
     type: object
     description: 关联的带宽组信息。
+    object-schema:
+    - name: bandwidthClusterId
+      type: string
+      description: 共享带宽包ID。
+    - name: bandwidthClusterName
+      type: string
+      description: 共享带宽包名称。
+  - name: operationInfo
+    type: object
+    description: IPv6的带宽、流量包操作状态。
+    object-schema:
+    - name: operation
+      type: string
+      description: 操作动作。取值范围：`ModifyBandwidth`（调整带宽）、`ModifyFlowPackage`（调整流量包）。
+    - name: status
+      type: string
+      description: 操作状态。取值范围：`OPERATING`（操作中）、`FAILED`（操作失败）。

@@ -119,3 +119,14 @@ response:
   - name: subnetInstanceSet
     type: object-array
     description: Subnet下实例集合。
+    array-style: json
+    item-schema:
+    - name: instanceId
+      type: string
+      description: 实例ID。
+    - name: privateIpAddress
+      type: string
+      description: 私网IP。
+    - name: privateIpStatus
+      type: string
+      description: 私网IP与实例的绑定状态。

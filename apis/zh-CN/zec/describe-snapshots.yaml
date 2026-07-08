@@ -141,3 +141,10 @@ response:
   - name: resourceGroup
     type: object
     description: 所属的资源组信息。
+    object-schema:
+    - name: resourceGroupId
+      type: string
+      description: 资源组ID。
+    - name: resourceGroupName
+      type: string
+      description: 资源组名称。

@@ -161,6 +161,9 @@ response:
   - name: imageSize
     type: string
     description: 镜像的大小。
+  - name: minDiskSize
+    type: integer
+    description: 创建实例系统盘所需最小容量，单位GiB。
   - name: imageDescription
     type: string
     description: 镜像描述信息。
@@ -208,3 +211,19 @@ response:
   - name: tags
     type: object
     description: 实例关联的标签。
+    object-schema:
+    - name: tags
+      type: object-array
+      description: 标签对列表。
+      array-style: json
+      item-schema:
+      - name: key
+        type: string
+        description: |-
+          标签键。
+          长度限制：1～64个字符。
+      - name: value
+        type: string
+        description: |-
+          标签值。
+          长度限制：1～64个字符。

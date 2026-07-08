@@ -177,3 +177,19 @@ response:
   - name: tags
     type: object
     description: 资源关联的标签信息。
+    object-schema:
+    - name: tags
+      type: object-array
+      description: 标签对列表。
+      array-style: json
+      item-schema:
+      - name: key
+        type: string
+        description: |-
+          标签键。
+          长度限制：1～128字符。
+      - name: value
+        type: string
+        description: |-
+          标签值。
+          长度限制：1～128字符。

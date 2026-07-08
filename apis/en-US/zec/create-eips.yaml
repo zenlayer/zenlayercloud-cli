@@ -147,9 +147,7 @@ parameters:
   type: string
   required: false
   sdk-field: publicIp
-  description: |-
-    The starting public IP address from which elastic IPs are allocated within the CIDR block.
-    This field only takes effect when cidrId is specified.
+  description: The starting public IP address from which elastic IPs.
 - name: resource-group-id
   type: string
   required: false

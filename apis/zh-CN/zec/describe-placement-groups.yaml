@@ -95,6 +95,29 @@ response:
   - name: resourceGroup
     type: object
     description: 置放组所属的资源组信息。
+    object-schema:
+    - name: resourceGroupId
+      type: string
+      description: 资源组ID。
+    - name: resourceGroupName
+      type: string
+      description: 资源组名称。
   - name: tags
     type: object
     description: 置放组的标签。
+    object-schema:
+    - name: tags
+      type: object-array
+      description: 标签对列表。
+      array-style: json
+      item-schema:
+      - name: key
+        type: string
+        description: |-
+          标签键。
+          长度限制：1～64个字符。
+      - name: value
+        type: string
+        description: |-
+          标签值。
+          长度限制：1～64个字符。

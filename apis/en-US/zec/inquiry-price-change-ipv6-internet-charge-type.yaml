@@ -95,6 +95,22 @@ response:
     description: |-
       Tiered price of postpaid billing.
       Only used in pay-as-you-go model. If it is not tiered price, the value is empty.
+    array-style: json
+    item-schema:
+    - name: stepStart
+      type: float
+      description: First price range of a tiered price.
+    - name: stepEnd
+      type: float
+      description: |-
+        Last price range of a tiered price.
+        If the value is empty, it means the last tier.
+    - name: unitPrice
+      type: float
+      description: Original unit price of current price range.
+    - name: discountUnitPrice
+      type: float
+      description: Discount unit price of current price range.
   - name: amountUnit
     type: string
     description: |-
@@ -163,6 +179,22 @@ response:
     description: |-
       Tiered price of postpaid billing.
       Only used in pay-as-you-go model. If it is not tiered price, the value is empty.
+    array-style: json
+    item-schema:
+    - name: stepStart
+      type: float
+      description: First price range of a tiered price.
+    - name: stepEnd
+      type: float
+      description: |-
+        Last price range of a tiered price.
+        If the value is empty, it means the last tier.
+    - name: unitPrice
+      type: float
+      description: Original unit price of current price range.
+    - name: discountUnitPrice
+      type: float
+      description: Discount unit price of current price range.
   - name: amountUnit
     type: string
     description: |-

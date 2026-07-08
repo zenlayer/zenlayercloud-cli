@@ -27,6 +27,51 @@ response:
   - name: dataCenter
     type: object
     description: Data center information.
+    object-schema:
+    - name: dcId
+      type: string
+      description: Data center ID.
+    - name: dcName
+      type: string
+      description: Data center name.
+    - name: dcAddress
+      type: string
+      description: Data center location.
+    - name: cityName
+      type: string
+      description: City name.
+    - name: countryName
+      type: string
+      description: Country name.
+    - name: areaName
+      type: string
+      description: Region name.
+    - name: latitude
+      type: float
+      description: Latitude of the data center.
+    - name: longitude
+      type: float
+      description: Longitude of the data center.
   - name: availableRoutingTypes
     type: object-array
     description: Supported routing type configurations.
+    array-style: json
+    item-schema:
+    - name: routingType
+      type: enum
+      description: Routing type.
+      enum-values:
+      - value: BGP
+        desc: BGP. (Currently not supported via API)
+      - value: Static
+        desc: Static routing.
+      - value: Gateway
+        desc: Gateway mode.
+    - name: deliveryType
+      type: enum
+      description: Delivery type.
+      enum-values:
+      - value: Auto
+        desc: Automated delivery (Usually completed within minutes).
+      - value: Manual
+        desc: Manual delivery. (Usually completed within 3 days).

@@ -108,6 +108,64 @@ response:
   - name: invocationInstances
     type: object-array
     description: Target instance list for command execution.
+    array-style: json
+    item-schema:
+    - name: instanceId
+      type: string
+      description: Execution ID.
+    - name: instanceName
+      type: string
+      description: Instance name.
+    - name: instanceExist
+      type: boolean
+      description: Whether the specified instance exists.
+    - name: taskStatus
+      type: enum
+      description: Instance status of command execution.
+      enum-values:
+      - value: Pending
+        desc: Waiting for command execution.
+      - value: Running
+        desc: Command execution in progress.
+      - value: Timeout
+        desc: Command execution timed out.
+      - value: Failed
+        desc: Command execution failed with non-zero exit code.
+      - value: Success
+        desc: Command completed with exit code 0.
+      - value: Error
+        desc: Command execution failed due to system error or instance not running.
+    - name: exitCode
+      type: integer
+      description: Exit code of command execution.
+    - name: errorCode
+      type: enum
+      description: Error code of command execution.
+      enum-values:
+      - value: InstanceNotExists
+        desc: Instance does not exist.
+      - value: InstanceInstanceState
+        desc: Instance is not running.
+      - value: SystemError
+        desc: System error. Execution pending.
+      - value: CommandPlatformInvalid
+        desc: Command type cannot be executed on this instance.
+      - value: ExecutionTimeout
+        desc: Script execution timed out.
+      - value: ExecutionExitNoneZero
+        desc: Script execution failed with non-zero exit code.
+    - name: output
+      type: string
+      description: Standard output (stdout) of command execution.
+    - name: outputError
+      type: string
+      description: Standard input (stderr) of command execution.
+    - name: execStartTime
+      type: string
+      description: Start time of command execution.
+    - name: execEndTime
+      type: string
+      description: End time of command execution.
 - name: totalCount
   type: integer
   description: Number of executions meeting the filtering conditions.

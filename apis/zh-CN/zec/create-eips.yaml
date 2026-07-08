@@ -149,9 +149,7 @@ parameters:
   type: string
   required: false
   sdk-field: publicIp
-  description: |-
-    从CIDR里指定公网起始IP地址开始创建弹性IP。
-    该字段仅在指定cidrId时生效。
+  description: 指定公网起始IP地址开始创建弹性IP。
 - name: resource-group-id
   type: string
   required: false

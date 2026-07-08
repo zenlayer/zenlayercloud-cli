@@ -88,9 +88,56 @@ response:
   - name: healthCheck
     type: object
     description: 健康检查。
+    object-schema:
+    - name: checkEnabled
+      type: boolean
+      description: 检查开关。
+    - name: checkType
+      type: string
+      description: 检查类型。
+    - name: checkConnectTimeout
+      type: integer
+      description: 连接时间。
+    - name: checkRetry
+      type: integer
+      description: 重试次数。
+    - name: checkDelayBeforeRetry
+      type: integer
+      description: 超时时间。
+    - name: checkIntervalTime
+      type: integer
+      description: 重试间隔。
+    - name: checkPort
+      type: integer
+      description: 检查端口。
+    - name: httpVersion
+      type: string
+      description: Http版本。
+    - name: httpCheckPath
+      type: string
+      description: Http地址。
+    - name: httpCheckDigest
+      type: integer
+      description: Http摘要认证。
+    - name: httpCode
+      type: integer
+      description: 状态码。
+    - name: miscCheckPath
+      type: string
+      description: Misc地址。
+    - name: miscTimeout
+      type: integer
+      description: Misc超时时间。
   - name: notify
     type: object
     description: 通知地址。
+    object-schema:
+    - name: enable
+      type: boolean
+      description: 通知开关。
+    - name: apiAddress
+      type: string
+      description: 地址。
   - name: createTime
     type: string
     description: 创建时间。按照`ISO8601`标准表示，并且使用`UTC`时间。格式为：`YYYY-MM-ddTHH:mm:ssZ`。

@@ -11,6 +11,7 @@ long: |-
   * You can call [DescribeNatGateways](../nat-gateway/describenatgateways.md) to query supported NAT gateway.
   * You can call [DescribeHaVips](../havip/describehavips.md) to query supported high availability virtual IPs.
   * You must specify exactly one of the following parameters: `loadBalancerId`, `nicId`, `natId`, or `haVipId`, in order of priority: `loadBalancerId` > `nicId` > `natId` > `haVipId`.
+  * When associating via `haVipId`, `bindType` must be `FullNat`. Any other value will cause all elastic IPs in this request to fail to associate.
   * If the upper limit is exceeded, please contact us to request a quota increase.
   * The API returns the elastic IP IDs that failed to operate. An empty list indicates all operations succeeded.
 examples:
@@ -69,6 +70,7 @@ parameters:
     Elastic IP mode.
     Default value: FullNat .
     Effective when the elastic IP is assigned to a vNIC.
+    When associated to a high availability virtual IP (haVip), only FullNat is supported. Any other value will cause all elastic IPs in this request to fail to associate.
   enum-values:
   - value: FullNat
     desc: NAT mode.

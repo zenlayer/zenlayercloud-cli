@@ -152,6 +152,31 @@ response:
     description: |-
       硬盘配置。
       单位：GB。
+    object-schema:
+    - name: totalDiskSize
+      type: integer
+      description: |-
+        机型的硬盘总大小。
+        单位：GB。
+        totalDiskSize的大小一般小于描述的信息，系统为了分区能够成功预留了一小部分。如果采用自定义分区，最后的一个分区将会获得剩余的所有磁盘大小。
+    - name: diskDescription
+      type: string
+      description: 机型硬盘的描述信息。
+    - name: disks
+      type: object-array
+      description: |-
+        可用于raid和分区的磁盘信息。
+        按顺序标号。比如880 x 2、 220 x2，其磁盘序号1,2,3,4 分别对应的磁盘大小为880，880，220，220。
+      array-style: json
+      item-schema:
+      - name: diskSize
+        type: integer
+        description: |-
+          硬盘的大小。
+          单位：GB。
+      - name: diskCount
+        type: integer
+        description: 该硬盘大小的硬盘的数量。
   - name: vpuVendor
     type: string
     description: VPU 供应商

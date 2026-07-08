@@ -42,3 +42,23 @@ response:
   - name: model_usage
     type: object-array
     description: List of usage for each model.
+    array-style: json
+    item-schema:
+    - name: modelName
+      type: string
+      description: Model Name.
+    - name: promptMissedTokens
+      type: integer
+      description: The number of input tokens that did not hit the cache.
+    - name: completionTokens
+      type: integer
+      description: The number of output tokens.
+    - name: cachedTokens
+      type: integer
+      description: The number of tokens that hit the cache.
+    - name: cacheCreationInputTokens
+      type: integer
+      description: The number of tokens created by the cache (Anthropic model).
+    - name: reasoningTokens
+      type: integer
+      description: The number of Inference token.

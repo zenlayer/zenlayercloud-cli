@@ -295,9 +295,129 @@ response:
   - name: systemDisk
     type: object
     description: 实例系统盘信息。
+    object-schema:
+    - name: diskId
+      type: string
+      description: 磁盘ID。
+    - name: diskSize
+      type: integer
+      description: 系统盘大小，单位GB。
+    - name: diskCategory
+      type: string
+      description: |-
+        磁盘种类。
+        STANDARD：标准云盘。
+        SSD：固态硬盘。
+        默认为SSD。
   - name: dataDisks
     type: object-array
     description: 实例数据盘信息。
+    array-style: json
+    item-schema:
+    - name: diskId
+      type: string
+      description: 磁盘ID。
+    - name: diskName
+      type: string
+      description: 磁盘名称。
+    - name: diskSize
+      type: integer
+      description: 数据盘大小，单位GB。
+    - name: diskAmount
+      type: integer
+      description: 数据盘数量。
+    - name: portable
+      type: boolean
+      description: 是否可拔插。
+    - name: diskCategory
+      type: string
+      description: |-
+        磁盘种类。
+        STANDARD：标准云盘。
+        SSD：固态硬盘。
+        默认为SSD。
+    - name: diskPrice
+      type: object
+      description: 数据盘价格。
+      object-schema:
+      - name: discount
+        type: float
+        description: |-
+          折扣大小。
+          如80.0代表8折。
+      - name: discountPrice
+        type: float
+        description: |-
+          后付费的单元折后价格。
+          后付费模式使用，如果价格为阶梯价格，该项为null。
+      - name: originalPrice
+        type: float
+        description: |-
+          预付费的原价。
+          预付费模式使用，后付费该值为 null。
+      - name: unitPrice
+        type: float
+        description: |-
+          后付费的单元原始价格。
+          后付费模式使用，如果价格为阶梯价格，该项为null。
+      - name: discountUnitPrice
+        type: float
+        description: |-
+          后付费的单元折后价格。
+          后付费模式使用，如果价格为阶梯价格，该项为null。
+      - name: chargeUnit
+        type: string
+        description: |-
+          后付费计价单元。
+          后付费模式使用，可取值范围：<br/>HOUR: 表示计价单元是按每小时来计算。
+          DAY: 表示计价单元是按天来计算。
+          MONTH: 表示计价单元是按月来计算，95计费则是这种。
+      - name: stepPrices
+        type: object-array
+        description: |-
+          后付费阶梯价格。
+          后付费模式使用，如果非阶梯价格，该项为null。
+        array-style: json
+        item-schema:
+        - name: stepStart
+          type: float
+          description: 阶梯的起始值。
+        - name: stepEnd
+          type: float
+          description: |-
+            阶梯的到达值。
+            为null代表最后一级阶梯。
+        - name: unitPrice
+          type: float
+          description: 阶梯单价。
+        - name: discountUnitPrice
+          type: float
+          description: 阶梯折后价。
+      - name: amountUnit
+        type: string
+        description: |-
+          用量单位。
+          比如Mbps, LCU等。
+          如果为null, 代表取不到值。
+      - name: excessUnitPrice
+        type: float
+        description: 超量原始价格。
+      - name: excessDiscountUnitPrice
+        type: float
+        description: 超量折扣后价格。
+      - name: excessAmountUnit
+        type: string
+        description: |-
+          超量用量单位。
+          如果为null, 代表取不到值。
+      - name: category
+        type: enum
+        description: 价格所属类别。
+        enum-values:
+        - value: STANDARD
+          desc: 标准价格。
+        - value: CUSTOMIZED
+          desc: 一口价格。
   - name: autoRenew
     type: boolean
     description: |-
@@ -311,6 +431,29 @@ response:
   - name: nic
     type: object
     description: 网卡配置。
+    object-schema:
+    - name: wanName
+      type: string
+      description: 公网网卡名称。
+    - name: lanName
+      type: string
+      description: 内网网卡名称。
   - name: tags
     type: object
     description: 资源关联的标签信息。
+    object-schema:
+    - name: tags
+      type: object-array
+      description: 标签对列表。
+      array-style: json
+      item-schema:
+      - name: key
+        type: string
+        description: |-
+          标签键。
+          长度限制：1～64个字符。
+      - name: value
+        type: string
+        description: |-
+          标签值。
+          长度限制：1～64个字符。

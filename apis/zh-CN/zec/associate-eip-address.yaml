@@ -11,6 +11,7 @@ long: |-
   * 你可以通过 DescribeNatGateways 接口来查看支持绑定的NAT网关。
   * 你可以通过 DescribeHaVips 接口来查看支持绑定的高可用虚拟IP。
   * 参数`loadBalancerId`、`nicId`、`natId`、`haVipId`必须传1个。如果多个字段同时传入，则按`loadBalancerId`、`nicId`、`natId`、`haVipId`顺序优先使用。
+  * 通过`haVipId`绑定高可用虚拟IP时，`bindType`只能为`FullNat`（普通NAT模式），传其他值本次请求的EIP将全部绑定失败。
   * 如果遇到绑定数量超过了限制，可以联系Support来提高配额。
   * 接口会返回绑定失败的eip id集合，如果是空的则说明全部成功。
 examples:
@@ -69,8 +70,8 @@ parameters:
   sdk-field: bindType
   description: |-
     绑定类型。
-    当绑定的是网卡时生效。
-    默认为普通NAT模式。
+    绑定网卡时生效，默认为普通NAT模式。
+    绑定高可用虚拟IP(haVip)时仅支持FullNat（普通NAT）模式，传其他值本次请求的EIP将全部绑定失败。
   enum-values:
   - value: FullNat
     desc: 普通NAT模式。

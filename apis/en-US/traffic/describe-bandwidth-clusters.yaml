@@ -177,9 +177,40 @@ response:
   - name: cities
     type: object-array
     description: City information of the bandwidth cluster.
+    array-style: json
+    item-schema:
+    - name: cityName
+      type: string
+      description: Name of city.
+    - name: cityCode
+      type: string
+      description: Code of city.
   - name: tags
     type: object
     description: The tags associated with the shared bandwidth package.
+    object-schema:
+    - name: tags
+      type: object-array
+      description: List of tags.
+      array-style: json
+      item-schema:
+      - name: key
+        type: string
+        description: |-
+          The tag key.
+          Length limit: 1 to 64 characters.
+      - name: value
+        type: string
+        description: |-
+          The tag value.
+          Length limit: 1 to 64 characters.
   - name: resourceGroup
     type: object
     description: The resource group to which the shared bandwidth package belongs.
+    object-schema:
+    - name: resourceGroupId
+      type: string
+      description: The resource group ID.
+    - name: resourceGroupName
+      type: string
+      description: The resource group name.

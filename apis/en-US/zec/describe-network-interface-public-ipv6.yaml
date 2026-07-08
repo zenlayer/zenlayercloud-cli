@@ -63,3 +63,20 @@ response:
   - name: bandwidthCluster
     type: object
     description: The associated bandwidth cluster information.
+    object-schema:
+    - name: bandwidthClusterId
+      type: string
+      description: Bandwidth Cluster ID.
+    - name: bandwidthClusterName
+      type: string
+      description: Bandwidth Cluster name.
+  - name: operationInfo
+    type: object
+    description: The bandwidth and traffic packet operation status of IPv6.
+    object-schema:
+    - name: operation
+      type: string
+      description: 'Operation action. Value range: `ModifyBandwidth` (adjust bandwidth), `ModifyFlowPackage` (adjust flow package).'
+    - name: status
+      type: string
+      description: 'Operation status. Value range: `OPERATING` (in operation), `FAILED` (operation failed).'

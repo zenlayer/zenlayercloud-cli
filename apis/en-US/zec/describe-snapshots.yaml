@@ -141,3 +141,10 @@ response:
   - name: resourceGroup
     type: object
     description: Resource group information.
+    object-schema:
+    - name: resourceGroupId
+      type: string
+      description: Resource group ID.
+    - name: resourceGroupName
+      type: string
+      description: Resource group name.

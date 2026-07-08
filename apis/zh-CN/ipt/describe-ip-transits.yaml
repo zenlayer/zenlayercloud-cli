@@ -102,6 +102,31 @@ response:
   - name: dataCenter
     type: object
     description: IP Transit 对应的数据中心。
+    object-schema:
+    - name: dcId
+      type: string
+      description: 数据中心ID。
+    - name: dcName
+      type: string
+      description: 数据中心名称。
+    - name: dcAddress
+      type: string
+      description: 数据中心地址。
+    - name: cityName
+      type: string
+      description: 城市名称。
+    - name: countryName
+      type: string
+      description: 国家名称。
+    - name: areaName
+      type: string
+      description: 地区名称。
+    - name: latitude
+      type: float
+      description: 数据中心所在地理位置的维度。
+    - name: longitude
+      type: float
+      description: 数据中心所在地理位置的经度。
   - name: peerPortId
     type: string
     description: 连接的端口ID。
@@ -111,6 +136,31 @@ response:
   - name: peerDataCenter
     type: object
     description: 端口侧所属数据中心。
+    object-schema:
+    - name: dcId
+      type: string
+      description: 数据中心ID。
+    - name: dcName
+      type: string
+      description: 数据中心名称。
+    - name: dcAddress
+      type: string
+      description: 数据中心地址。
+    - name: cityName
+      type: string
+      description: 城市名称。
+    - name: countryName
+      type: string
+      description: 国家名称。
+    - name: areaName
+      type: string
+      description: 地区名称。
+    - name: latitude
+      type: float
+      description: 数据中心所在地理位置的维度。
+    - name: longitude
+      type: float
+      description: 数据中心所在地理位置的经度。
   - name: deliveryType
     type: enum
     description: 交付类型。
@@ -161,12 +211,60 @@ response:
   - name: bfd
     type: object
     description: BFD 配置。
+    object-schema:
+    - name: bfdTxInterval
+      type: integer
+      description: |-
+        发送间隔。
+        单位：ms。
+        取值范围：100～60000。
+    - name: bfdRxInterval
+      type: integer
+      description: |-
+        接收间隔。
+        单位：ms
+        取值范围：100～60000。
+    - name: bfdMultiplier
+      type: integer
+      description: |-
+        本地检测倍数。
+        取值范围：3～20。
   - name: bgp
     type: object
     description: BGP相关配置。
+    object-schema:
+    - name: routeType
+      type: enum
+      description: 入站路由类型。
+      enum-values:
+      - value: ALL_ROUTES
+        desc: 全路由。
+      - value: ALL_ROUTES_WITH_DEFAULT_ROUTES
+        desc: 全路由+默认路由。
+      - value: DEFAULT_ROUTES
+        desc: 默认路由。
+    - name: asn
+      type: integer
+      description: 宣告出站路由的ASN号。
+    - name: password
+      type: string
+      description: 加密认证秘钥。
+    - name: asnList
+      type: integer-array
+      description: 宣告出站路由的ASN号列表。
+    - name: asSetList
+      type: string-array
+      description: 宣告出站路由的AS-SET列表。
   - name: interconnect
     type: object
     description: 互联IP地址信息。
+    object-schema:
+    - name: vendorIpv4Address
+      type: string
+      description: 运营商侧的IPv4地址。
+    - name: customerIpv4Address
+      type: string
+      description: 用户侧的IPv4地址。
   - name: privateConnectId
     type: string
     description: IP Transit 互联的专线ID。
@@ -176,6 +274,17 @@ response:
   - name: publicIpv4Addresses
     type: object-array
     description: 公网IP信息。
+    array-style: json
+    item-schema:
+    - name: ipAddress
+      type: string
+      description: IP地址。
+    - name: netmask
+      type: integer
+      description: 掩码。
+    - name: gatewayIpAddress
+      type: string
+      description: 网关IP地址。
   - name: iptStatus
     type: enum
     description: IP Transit 的业务状态。
@@ -209,3 +318,19 @@ response:
   - name: tags
     type: object
     description: 该IP Transit关联的标签。
+    object-schema:
+    - name: tags
+      type: object-array
+      description: 标签对列表。
+      array-style: json
+      item-schema:
+      - name: key
+        type: string
+        description: |-
+          标签键。
+          长度限制：1～128个字符。
+      - name: value
+        type: string
+        description: |-
+          标签值。
+          长度限制：1～128个字符。

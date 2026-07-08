@@ -148,6 +148,31 @@ response:
     description: |-
       Disk size.
       Unit: GB.
+    object-schema:
+    - name: totalDiskSize
+      type: integer
+      description: |-
+        Total disk size.
+        Unit: GiB.
+        The available storage space is relatively less than the total disk size to create partitions successfully. What remains actually will be added to the last partition.
+    - name: diskDescription
+      type: string
+      description: Description of the disks.
+    - name: disks
+      type: object-array
+      description: |-
+        Disk information available for RAID and partition.
+        Numbered sequentially. For example, for 880 x 2 and 220 x 2, the disk serial numbers 1, 2, 3, and 4 respectively correspond to disk sizes of 880 GB, 880 GB, 220 GB, and 220 GB.
+      array-style: json
+      item-schema:
+      - name: diskSize
+        type: integer
+        description: |-
+          Disk size.
+          Unit: GB.
+      - name: diskCount
+        type: integer
+        description: Quantity of disks of the size.
   - name: vpuVendor
     type: string
     description: VPU vendor

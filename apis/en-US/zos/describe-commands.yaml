@@ -105,9 +105,28 @@ response:
   - name: tags
     type: object
     description: Tag of command
+    object-schema:
+    - name: tags
+      type: object-array
+      description: List of tags.
+      array-style: json
+      item-schema:
+      - name: key
+        type: string
+        description: 'Tag key. Length limit: 1 to 64 characters.'
+      - name: value
+        type: string
+        description: 'Tag value. Length limit: 1 to 64 characters.'
   - name: resourceGroup
     type: object
     description: Resource group of command.
+    object-schema:
+    - name: resourceGroupId
+      type: string
+      description: Resource group ID.
+    - name: resourceGroupName
+      type: string
+      description: Resource group name.
 - name: totalCount
   type: integer
   description: Number of commands meeting the filtering conditions.

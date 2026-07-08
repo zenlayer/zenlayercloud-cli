@@ -166,6 +166,18 @@ parameters:
       自定义Raid配置。
       自定义磁盘进行raid的配置。
       raidType和customRaids只能指定其中一个参数。
+    array-style: json
+    item-schema:
+    - name: raidType
+      type: integer
+      description: |-
+        Raid类型。
+        支持0, 1, 5, 10。
+    - name: diskSequence
+      type: integer-array
+      description: |-
+        磁盘序号。
+        根据机型里的磁盘从1开始顺序编号。如果是多个磁盘序号，则必须连续。
 - name: partitions
   type: object-array
   required: false

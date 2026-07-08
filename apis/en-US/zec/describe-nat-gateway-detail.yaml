@@ -47,6 +47,14 @@ response:
   - name: snatSubnets
     type: object-array
     description: The subnet ID list configured in the SNAT rule.
+    array-style: json
+    item-schema:
+    - name: subnetId
+      type: string
+      description: Subnet ID.
+    - name: cidr
+      type: string
+      description: CIDR block of the subnet.
 - name: dnats
   type: object-array
   description: DNAT rule list.

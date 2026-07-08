@@ -1,0 +1,34 @@
+name: DescribeEipNetworkLineTypes
+product: zec
+use: describe-eip-network-line-types
+short: 查询EIP支持的IP线路类型。
+long: 查询EIP支持的IP线路类型列表，可按节点过滤。
+examples:
+- cmd: zeno zec describe-eip-network-line-types
+  desc: 查询所有节点EIP支持的IP线路类型。
+- cmd: zeno zec describe-eip-network-line-types --region-id asia-east-1
+  desc: 查询指定节点asia-east-1下EIP支持的IP线路类型。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeEipNetworkLineTypes
+parameters:
+- name: region-id
+  type: string
+  required: false
+  sdk-field: regionId
+  description: |-
+    节点ID。
+    不传则返回所有节点支持的线路类型。
+response:
+- name: regionNetworkLineTypes
+  type: object-array
+  description: 各节点支持的IP线路类型列表。
+  array-style: json
+  item-schema:
+  - name: regionId
+    type: string
+    description: 节点ID。
+  - name: networkLineTypes
+    type: string-array
+    description: 该节点支持的IP线路类型列表。

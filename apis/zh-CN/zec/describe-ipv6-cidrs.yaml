@@ -161,6 +161,13 @@ response:
   - name: resourceGroup
     type: object
     description: 该CIDR所属的资源组。
+    object-schema:
+    - name: resourceGroupId
+      type: string
+      description: 资源组ID。
+    - name: resourceGroupName
+      type: string
+      description: 资源组名称。
   - name: status
     type: enum
     description: CIDR的状态。
@@ -171,8 +178,6 @@ response:
       desc: 正常可用。
     - value: CHANGING
       desc: 变更中。
-    - value: RECYCLING
-      desc: 回收中。
     - value: RECYCLED
       desc: 处于回收站。
     - value: DELETING
@@ -187,3 +192,70 @@ response:
   - name: tags
     type: object
     description: 该CIDR地址段关联的标签。
+    object-schema:
+    - name: tags
+      type: object-array
+      description: 标签对列表。
+      array-style: json
+      item-schema:
+      - name: key
+        type: string
+        description: |-
+          标签键。
+          长度限制：1～64个字符。
+      - name: value
+        type: string
+        description: |-
+          标签值。
+          长度限制：1～64个字符。
+  - name: asnObservation
+    type: object
+    description: ASN 观测结果。
+    object-schema:
+    - name: verificationStatus
+      type: enum
+      description: ASN 验证状态。
+      enum-values:
+      - value: agreed
+        desc: 各数据源观测结果一致。
+      - value: disagreed
+        desc: 各数据源观测结果不一致。
+      - value: unavailable
+        desc: 主数据源查询失败或未命中。
+      - value: querying
+        desc: 查询中。
+    - name: observedPrefix
+      type: string
+      description: 观测网段。
+    - name: primarySource
+      type: string
+      description: 主数据源名称，如 RIPE。
+    - name: primaryStatus
+      type: enum
+      description: 主数据源查询状态。
+      enum-values:
+      - value: QUERYING
+        desc: 查询中。
+      - value: FINISHED
+        desc: 查询已完成。
+      - value: FAILURE
+        desc: 查询失败。
+    - name: primaryAsns
+      type: integer-array
+      description: 主数据源观测到的 ASN 列表。
+    - name: secondarySource
+      type: string
+      description: 二级数据源名称，如 BGP Tool。
+    - name: secondaryStatus
+      type: enum
+      description: 二级数据源查询状态。
+      enum-values:
+      - value: QUERYING
+        desc: 查询中。
+      - value: FINISHED
+        desc: 查询已完成。
+      - value: FAILURE
+        desc: 查询失败。
+    - name: secondaryAsns
+      type: integer-array
+      description: 二级数据源观测到的 ASN 列表。

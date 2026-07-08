@@ -46,6 +46,23 @@ response:
     description: |-
       Health check status of the backend port.
       When healthStatus is Close or Unknown, no detailed information is available.
+    array-style: json
+    item-schema:
+    - name: port
+      type: integer
+      description: Backend server port.
+    - name: healthStatus
+      type: enum
+      description: Health check state of backend server.
+      enum-values:
+      - value: Alive
+        desc: Healthy.
+      - value: Dead
+        desc: Unhealthy.
+      - value: Unknown
+        desc: Not detected.
+      - value: Close
+        desc: Health check disabled.
   - name: instanceId
     type: string
     description: |-

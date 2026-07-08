@@ -205,9 +205,69 @@ response:
   - name: systemDisk
     type: object
     description: 系统盘信息。
+    object-schema:
+    - name: diskId
+      type: string
+      description: |-
+        系统盘ID。
+        该参数目前仅用于`DescribeInstances`等查询类接口的返回参数，不可用于`CreateInstances`等写接口的入参。
+    - name: diskSize
+      type: integer
+      description: |-
+        系统盘大小。
+        单位：GiB。
+    - name: diskCategory
+      type: string
+      description: |-
+        云硬盘种类。
+        Basic NVMe SSD: 经济型 NVMe SSD。
+        Standard NVMe SSD: 标准型 NVMe SSD。
+        默认为Standard NVMe SSD。
+    - name: burstingEnabled
+      type: boolean
+      description: 是否开启性能突发。
   - name: dataDisks
     type: object-array
     description: 实例上挂载的数据盘信息。
+    array-style: json
+    item-schema:
+    - name: diskId
+      type: string
+      description: |-
+        数据盘ID。
+        该参数目前仅用于`DescribeInstances`等查询类接口的返回参数，不可用于`CreateInstances`等写接口的入参。
+    - name: diskName
+      type: string
+      description: |-
+        云盘的名称。
+        该参数目前仅用于DescribeInstances等查询类接口的返回参数。
+    - name: diskSize
+      type: integer
+      description: |-
+        数据盘大小。
+        单位：GiB。
+    - name: diskAmount
+      type: integer
+      description: |-
+        数据盘数量。
+        该参数仅用于`CreateInstances`,`InquiryPriceCreateInstance`等接口的入参使用。
+    - name: portable
+      type: boolean
+      description: |-
+        是否可拆卸。
+        该参数仅用于查询的回参，不用于入参。
+        true代表不会随着实例删除而删除。
+        false代表会随着实例删除而删除。
+    - name: burstingEnabled
+      type: boolean
+      description: 是否开启性能突发。
+    - name: diskCategory
+      type: string
+      description: |-
+        云硬盘种类。
+        Basic NVMe SSD: 经济型 NVMe SSD。
+        Standard NVMe SSD: 标准型 NVMe SSD。
+        默认为Standard NVMe SSD。
   - name: publicIpAddresses
     type: string-array
     description: 实例上公网IPv4列表。
@@ -247,9 +307,144 @@ response:
   - name: nics
     type: object-array
     description: 实例上绑定的网卡信息。
+    array-style: json
+    item-schema:
+    - name: nicId
+      type: string
+      description: 网卡的ID。
+    - name: name
+      type: string
+      description: 网卡的名称。
+    - name: status
+      type: enum
+      description: 网卡状态。
+      enum-values:
+      - value: PENDING
+        desc: 网卡创建中。
+      - value: AVAILABLE
+        desc: 可用未绑定实例的。
+      - value: ATTACHING
+        desc: 绑定实例过程中。
+      - value: DETACHING
+        desc: 解绑实例过程中。
+      - value: DELETING
+        desc: 删除中。
+      - value: CREATE_FAILED
+        desc: 创建失败的。
+      - value: USED
+        desc: 已经绑定实例的。
+    - name: nicType
+      type: enum
+      description: 网卡类型。
+      enum-values:
+      - value: Primary
+        desc: 主网卡类型。
+      - value: Secondary
+        desc: 辅助网卡类型。
+    - name: regionId
+      type: string
+      description: 所属节点ID。
+    - name: nicSubnetType
+      type: enum
+      description: 网卡的IP堆栈类型。
+      enum-values:
+      - value: IPv4
+        desc: 仅IPv4。
+      - value: IPv4_IPv6
+        desc: IPv4和IPv6。
+      - value: IPv6
+        desc: 仅IPv6。
+    - name: publicIpList
+      type: string-array
+      description: 关联的公网IP。
+    - name: privateIpList
+      type: string-array
+      description: 关联的内网IP。
+    - name: primaryIpv4
+      type: string
+      description: 主的内网IPv4地址。
+    - name: primaryIpv6
+      type: string
+      description: |-
+        网卡上的主IPv6地址。
+        如果堆栈类型是V4,该值取值为空。
+    - name: ipv6Cidr
+      type: string
+      description: |-
+        网卡上的IPv6地址。
+        如果堆栈类型是V4,该值取值为空。
+    - name: secondaryIpv4s
+      type: string-array
+      description: 网卡上的辅助 IPv4 地址。
+    - name: macAddress
+      type: string
+      description: 网卡的MAC地址。
+    - name: instanceId
+      type: string
+      description: 所绑定的实例ID。
+    - name: vpcId
+      type: string
+      description: 所关联VPC ID。
+    - name: subnetId
+      type: string
+      description: 所关联的子网ID。
+    - name: createTime
+      type: string
+      description: 网卡的创建时间。
+    - name: updateTime
+      type: string
+      description: 网卡的更新时间。
+    - name: resourceGroup
+      type: object
+      description: 网卡所属的资源组信息。
+      object-schema:
+      - name: resourceGroupId
+        type: string
+        description: 资源组ID。
+      - name: resourceGroupName
+        type: string
+        description: 资源组名称。
+    - name: securityGroupId
+      type: string
+      description: 网卡关联的安全组ID。
+    - name: tags
+      type: object
+      description: 该网卡关联的标签。
+      object-schema:
+      - name: tags
+        type: object-array
+        description: 标签对列表。
+        array-style: json
+        item-schema:
+        - name: key
+          type: string
+          description: |-
+            标签键。
+            长度限制：1～64个字符。
+        - name: value
+          type: string
+          description: |-
+            标签值。
+            长度限制：1～64个字符。
   - name: tags
     type: object
     description: 实例关联的标签。
+    object-schema:
+    - name: tags
+      type: object-array
+      description: 标签对列表。
+      array-style: json
+      item-schema:
+      - name: key
+        type: string
+        description: |-
+          标签键。
+          长度限制：1～64个字符。
+      - name: value
+        type: string
+        description: |-
+          标签值。
+          长度限制：1～64个字符。
   - name: loadBalancerIds
     type: string-array
     description: 实例上绑定的负载均衡ID列表。
@@ -259,3 +454,9 @@ response:
   - name: instanceOptions
     type: object
     description: 实例选项配置。
+    object-schema:
+    - name: nestedVirtualization
+      type: boolean
+      description: |-
+        是否启用嵌套虚拟化。
+        如果要开启嵌套虚拟化，需要联系Support开通,否则设置无效。

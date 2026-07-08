@@ -175,6 +175,89 @@ response:
   - name: instanceType
     type: object
     description: Instance model configuration info.
+    object-schema:
+    - name: imageIds
+      type: string-array
+      description: 'Image ID supported. Hint: only accessible in DescribeInstanceType .'
+    - name: instanceTypeId
+      type: string
+      description: Instance model ID.
+    - name: description
+      type: string
+      description: Model description, including memory size, disk, etc.
+    - name: cpuCoreCount
+      type: integer
+      description: Quantity of CPUs.
+    - name: cpuDetail
+      type: string
+      description: Details of CPU.
+    - name: cpuCores
+      type: integer
+      description: Quantity of CPU cores.
+    - name: cpuThreads
+      type: integer
+      description: CPU threads.
+    - name: baseFrequency
+      type: string
+      description: CPU base frequency.
+    - name: memorySize
+      type: integer
+      description: |-
+        Memory size.
+        Unit: GB.
+    - name: maximumBandwidth
+      type: integer
+      description: |-
+        Outbound bandwidth cap.
+        Unit: Mbps.
+    - name: supportRaids
+      type: integer-array
+      description: RAID level supported.
+    - name: supportSubnet
+      type: boolean
+      description: Subnet supported or not.
+    - name: isHA
+      type: boolean
+      description: High availability supported or not.
+    - name: diskInfo
+      type: object
+      description: |-
+        Disk size.
+        Unit: GB.
+      object-schema:
+      - name: totalDiskSize
+        type: integer
+        description: |-
+          Total disk size.
+          Unit: GiB.
+          The available storage space is relatively less than the total disk size to create partitions successfully. What remains actually will be added to the last partition.
+      - name: diskDescription
+        type: string
+        description: Description of the disks.
+      - name: disks
+        type: object-array
+        description: |-
+          Disk information available for RAID and partition.
+          Numbered sequentially. For example, for 880 x 2 and 220 x 2, the disk serial numbers 1, 2, 3, and 4 respectively correspond to disk sizes of 880 GB, 880 GB, 220 GB, and 220 GB.
+        array-style: json
+        item-schema:
+        - name: diskSize
+          type: integer
+          description: |-
+            Disk size.
+            Unit: GB.
+        - name: diskCount
+          type: integer
+          description: Quantity of disks of the size.
+    - name: vpuVendor
+      type: string
+      description: VPU vendor
+    - name: vpuCard
+      type: string
+      description: 'VPU Model. Example: T1U'
+    - name: vpuCount
+      type: integer
+      description: VPU count.
   - name: imageId
     type: string
     description: Image ID.
@@ -291,12 +374,72 @@ response:
   - name: raidConfig
     type: object
     description: Disk array configuration.
+    object-schema:
+    - name: raidType
+      type: integer
+      description: |-
+        RAID levels for rapid RAID settings.
+        Value possible: 0, 1, 5, 10.
+        Only one of raidType and customRaids can be specified.
+    - name: customRaids
+      type: object-array
+      description: |-
+        RAID levels for custom RAID settings.
+        Only one of raidType and customRaids can be specified.
+      array-style: json
+      item-schema:
+      - name: raidType
+        type: integer
+        description: |-
+          RAID levels.
+          Value possible: 0, 1, 5, 10.
+      - name: diskSequence
+        type: integer-array
+        description: |-
+          Serial number of the disk
+          Numbered sequentially starting from 1. Multiple disk serial numbers should be consecutive.
   - name: partitions
     type: object-array
     description: Partition configuration.
+    array-style: json
+    item-schema:
+    - name: fsPath
+      type: string
+      description: |-
+        Partition letter.
+        Linux: must start with "/", and the first system partition must be "/".
+        Windows: support C~H, the first system partition must be designated as "C".
+    - name: fsType
+      type: string
+      description: |-
+        File type of partition.
+        Linux: ext2 , ext3 , ext4 , ext type is needed.
+        Windows: NTFS .
+    - name: size
+      type: integer
+      description: |-
+        Partition size.
+        Unit: GiB.
   - name: nic
     type: object
     description: NIC configuration.
+    object-schema:
+    - name: wanName
+      type: string
+      description: |-
+        Public NIC name.
+        Only numbers, uppercase and lowercase letters are allowed, starting with a letter with a length limit of 4 to 10 characters.
+        For non-high-availability models, the default public NIC name is wan0 . It cannot start with lan .
+        For high-availability models, the default public NIC name is bond0 .
+        Public and private NIC names cannot be the same.
+    - name: lanName
+      type: string
+      description: |-
+        Private NIC name.
+        Only numbers, uppercase and lowercase letters are allowed, starting with a letter with a length limit of 4 to 10 characters.
+        For non-high-availability models, the default private NIC name is lan0 . It cannot start with wan .
+        For high-availability models, the default private NIC name is bond1 .
+        Public and private NIC names cannot be the same.
   - name: autoRenew
     type: boolean
     description: Whether to enable auto-renewal.
@@ -308,6 +451,18 @@ response:
   - name: tags
     type: object
     description: Bound tags.
+    object-schema:
+    - name: tags
+      type: object-array
+      description: List of tags.
+      array-style: json
+      item-schema:
+      - name: key
+        type: string
+        description: 'Tag key. Length limit: 1 to 128 characters.'
+      - name: value
+        type: string
+        description: 'Tag value. Length limit: 1 to 128 characters.'
   - name: enableGatewayMode
     type: boolean
     description: Whether to enable Gateway Mode.

@@ -47,6 +47,14 @@ response:
   - name: data
     type: object-array
     description: 各模型的用量值列表。
+    array-style: json
+    item-schema:
+    - name: model
+      type: string
+      description: 模型名称。
+    - name: value
+      type: integer
+      description: 用量值。
 - name: token
   type: object-array
   description: 总Token明细数据。
@@ -58,6 +66,14 @@ response:
   - name: data
     type: object-array
     description: 各模型的用量值列表。
+    array-style: json
+    item-schema:
+    - name: model
+      type: string
+      description: 模型名称。
+    - name: value
+      type: integer
+      description: 用量值。
 - name: inputToken
   type: object-array
   description: 输入Token明细数据。
@@ -69,6 +85,14 @@ response:
   - name: data
     type: object-array
     description: 各模型的用量值列表。
+    array-style: json
+    item-schema:
+    - name: model
+      type: string
+      description: 模型名称。
+    - name: value
+      type: integer
+      description: 用量值。
 - name: outToken
   type: object-array
   description: 输出Token明细数据。
@@ -80,3 +104,11 @@ response:
   - name: data
     type: object-array
     description: 各模型的用量值列表。
+    array-style: json
+    item-schema:
+    - name: model
+      type: string
+      description: 模型名称。
+    - name: value
+      type: integer
+      description: 用量值。

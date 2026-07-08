@@ -110,12 +110,35 @@ response:
   - name: resourceGroup
     type: object
     description: 资源组信息。
+    object-schema:
+    - name: resourceGroupId
+      type: string
+      description: 资源组ID。
+    - name: resourceGroupName
+      type: string
+      description: 资源组名称。
   - name: diskIdSet
     type: string-array
     description: 关联的云盘ID。
   - name: tags
     type: object
     description: 自动快照策略关联的标签。
+    object-schema:
+    - name: tags
+      type: object-array
+      description: 标签对列表。
+      array-style: json
+      item-schema:
+      - name: key
+        type: string
+        description: |-
+          标签键。
+          长度限制：1～64个字符。
+      - name: value
+        type: string
+        description: |-
+          标签值。
+          长度限制：1～64个字符。
 - name: totalCount
   type: integer
   description: 符合匹配的总数量。

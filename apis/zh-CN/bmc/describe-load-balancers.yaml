@@ -91,6 +91,22 @@ response:
   - name: vipList
     type: object-array
     description: LoadBalancer的VIP集合。
+    array-style: json
+    item-schema:
+    - name: vipId
+      type: string
+      description: VIP的ID。
+    - name: ipAddress
+      type: string
+      description: IP地址。
+    - name: type
+      type: string
+      description: |-
+        IP类型
+        DEFAULT、EXTRA
+    - name: status
+      type: string
+      description: 状态。
   - name: chargeType
     type: string
     description: 计费方式。
@@ -130,9 +146,152 @@ response:
   - name: listenerList
     type: object-array
     description: 监听器集合。
+    array-style: json
+    item-schema:
+    - name: loadBalancerId
+      type: string
+      description: LoadBalancerId唯一ID。
+    - name: listenerId
+      type: string
+      description: Listener的ID。
+    - name: listenerName
+      type: string
+      description: Listener的名称。
+    - name: status
+      type: string
+      description: 状态。
+    - name: port
+      type: string
+      description: 监听端口。
+    - name: protocol
+      type: string
+      description: 监听协议。
+    - name: backendProtocol
+      type: string
+      description: 后段服务器协议。
+    - name: scheduler
+      type: string
+      description: 调度算法。
+    - name: kind
+      type: enum
+      description: 流量转发模式。
+      enum-values:
+      - value: DR
+        desc: 直接路由（Direct Routing)。
+      - value: FNAT
+        desc: 全局网络地址转换(Full NAT)。
+    - name: healthCheck
+      type: object
+      description: 健康检查。
+      object-schema:
+      - name: checkEnabled
+        type: boolean
+        description: 检查开关。
+      - name: checkType
+        type: string
+        description: 检查类型。
+      - name: checkConnectTimeout
+        type: integer
+        description: 连接时间。
+      - name: checkRetry
+        type: integer
+        description: 重试次数。
+      - name: checkDelayBeforeRetry
+        type: integer
+        description: 超时时间。
+      - name: checkIntervalTime
+        type: integer
+        description: 重试间隔。
+      - name: checkPort
+        type: integer
+        description: 检查端口。
+      - name: httpVersion
+        type: string
+        description: Http版本。
+      - name: httpCheckPath
+        type: string
+        description: Http地址。
+      - name: httpCheckDigest
+        type: integer
+        description: Http摘要认证。
+      - name: httpCode
+        type: integer
+        description: 状态码。
+      - name: miscCheckPath
+        type: string
+        description: Misc地址。
+      - name: miscTimeout
+        type: integer
+        description: Misc超时时间。
+    - name: notify
+      type: object
+      description: 通知地址。
+      object-schema:
+      - name: enable
+        type: boolean
+        description: 通知开关。
+      - name: apiAddress
+        type: string
+        description: 地址。
+    - name: createTime
+      type: string
+      description: 创建时间。按照`ISO8601`标准表示，并且使用`UTC`时间。格式为：`YYYY-MM-ddTHH:mm:ssZ`。
   - name: backendList
     type: object-array
     description: 后端服务器集合。
+    array-style: json
+    item-schema:
+    - name: listenerId
+      type: string
+      description: Listener的ID。
+    - name: backendId
+      type: string
+      description: Backend的ID。
+    - name: backendName
+      type: string
+      description: Backend的名称。
+    - name: status
+      type: string
+      description: 状态。
+    - name: port
+      type: string
+      description: 端口。
+    - name: weight
+      type: integer
+      description: 权重。
+    - name: instanceId
+      type: string
+      description: 实例ID。
+    - name: instanceType
+      type: enum
+      description: 实例类型。
+      enum-values:
+      - value: BM
+        desc: 裸金属
+      - value: VM
+        desc: VM
+    - name: instanceName
+      type: string
+      description: 实例名称。
+    - name: createTime
+      type: string
+      description: 创建时间。按照`ISO8601`标准表示，并且使用`UTC`时间。格式为：`YYYY-MM-ddTHH:mm:ssZ`。
   - name: tags
     type: object
     description: 资源关联的标签信息。
+    object-schema:
+    - name: tags
+      type: object-array
+      description: 标签对列表。
+      array-style: json
+      item-schema:
+      - name: key
+        type: string
+        description: |-
+          标签键。
+          长度限制：1～128字符。
+      - name: value
+        type: string
+        description: |-
+          标签值。
+          长度限制：1～128字符。

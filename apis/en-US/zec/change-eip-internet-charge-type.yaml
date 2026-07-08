@@ -2,11 +2,7 @@ name: ChangeEipInternetChargeType
 product: zec
 use: change-eip-internet-charge-type
 short: Changes the network billing method of an elastic IP
-long: |-
-  Change the network billing method of an elastic IP.
-  **Note**
-
-  Changing from Data Transfer to Regional Aggregated Burstable 95th is supported currently.
+long: Change the network billing method of an elastic IP.
 sdk:
   service: zec
   version: '2025-09-01'
@@ -29,6 +25,27 @@ parameters:
     desc: Billed by the traffic package size purchased.
   - value: BandwidthCluster
     desc: Billed by the burstable 95th bandwidth of all compute resources in a city-based or regional bandwidth cluster with a shared commitment.
+- name: flow-package
+  type: float
+  required: false
+  sdk-field: flowPackage
+  description: |-
+    Traffic package size.
+    Unit: TB.
+    The network charging method is traffic package-based (ByTrafficPackage), and it needs to be specified when using this method.
+- name: bandwidth
+  type: integer
+  required: false
+  sdk-field: bandwidth
+  description: |-
+    Bandwidth limit.
+    Unit: Mbps.
+    When the network billing method is set to "By Bandwidth" (based on bandwidth), a specification is required.
+- name: bandwidth-cap
+  type: integer
+  required: false
+  sdk-field: bandwidthCap
+  description: Bandwidth peak limit (Mbps).
 - name: cluster-id
   type: string
   required: false

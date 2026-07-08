@@ -122,3 +122,14 @@ response:
   - name: subnetInstanceSet
     type: object-array
     description: Information about instances in the subnet.
+    array-style: json
+    item-schema:
+    - name: instanceId
+      type: string
+      description: Instance ID.
+    - name: privateIpAddress
+      type: string
+      description: Private IP address.
+    - name: privateIpStatus
+      type: string
+      description: Status of private IP address.

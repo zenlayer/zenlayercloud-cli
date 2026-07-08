@@ -42,3 +42,23 @@ response:
   - name: model_usage
     type: object-array
     description: 各模型用量列表。
+    array-style: json
+    item-schema:
+    - name: modelName
+      type: string
+      description: 模型名称。
+    - name: promptMissedTokens
+      type: integer
+      description: 未命中缓存的输入Token数。
+    - name: completionTokens
+      type: integer
+      description: 输出Token数。
+    - name: cachedTokens
+      type: integer
+      description: 命中缓存的Token数。
+    - name: cacheCreationInputTokens
+      type: integer
+      description: 缓存创建Token数（Anthropic模型）。
+    - name: reasoningTokens
+      type: integer
+      description: 推理Token数。
