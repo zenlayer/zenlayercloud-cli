@@ -1,7 +1,7 @@
 name: DescribePolicys
 product: zec
 use: describe-policys
-short: Queries a list of DDoS protection policies
+short: Queries the list of protection policies
 long: Query DDoS protection policy information in the account. You can filter results by policy ID or name. Supports tag-based filtering and pagination.
 examples:
 - cmd: zeno zec describe-policys --policy-ids policyId1 --policy-ids policyId2 --name xxxx --page-size 10 --page-num 1

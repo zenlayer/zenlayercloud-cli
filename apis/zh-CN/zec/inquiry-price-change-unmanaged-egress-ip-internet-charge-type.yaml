@@ -1,7 +1,7 @@
 name: InquiryPriceChangeUnmanagedEgressIpInternetChargeType
 product: zec
 use: inquiry-price-change-unmanaged-egress-ip-internet-charge-type
-short: 查询变更非托管出口IP网络计费模式后的价格。
+short: 查询变更非托管出口IP网络计费模式后的价格
 long: |-
   查询变更非托管出口IP网络计费模式后的价格。
   **注意事项**

@@ -5,25 +5,30 @@ short: Creates one or more instances with specified configurations
 long: |-
   Create one or more elastic compute instances with specified configurations.
   #### Prerequisites
-  * Query VM instance types: call [`DescribeZoneInstanceConfigInfos`](describezoneinstanceconfiginfos.md) to query instance type information.
-  * Query GPU instance types: call [`DescribeZoneGpuInstanceConfigInfos`](describezoneGpuinstanceconfiginfos.md) to query GPU instance type information.
-  * Query images: call [`DescribeImages`](../image/describeimages.md) to query image information.
-  * Query key pairs: call [`DescribeKeyPairs`](../../../security/key-service/key-pair/describekeypairs.md) to query key pair ID information.
+  * Query standard instance types: call ~~DescribeZoneInstanceConfigInfos~~ to query instance type information.
+  * Query GPU instance types: call ~~DescribeZoneGpuInstanceConfigInfos~~ to query GPU instance type information.
+  * Query images: call ~~DescribeImages~~ to query image information.
+  * Query key pairs: call ~~ccs:DescribeKeyPairs~~ to query key pair ID information.
 
 
   **Notes**
 
-  * The instance will start automatically upon successful creation, and the instance status will change to `RUNNING`. If creation fails, the status will change to `CREATE_FAILED`.
-  * Ensure the account is in normal status before purchasing.
-  * Creating instances via this API supports automatic voucher deduction. For details, refer to the voucher selection rules.
-  * This is an asynchronous API. A list of instance IDs will be returned immediately after the request is successfully submitted, but the operation is not yet complete. During this period, the instance status will be `DEPLOYING`. You can query the creation result by calling [`DescribeInstances`](describeinstances.md). If the instance status changes from `DEPLOYING` to `RUNNING`, the creation was successful; if it changes to `CREATE_FAILED`, the creation failed. No operations can be performed on the instance during the creation process.
-  * A maximum of **100** instances can be created at a time.
-  * The size of the guaranteed traffic package is only valid for billing periods of one month.
+  * Once an instance is created successfully, it will automatically power on and its status will change to `RUNNING`. If creation fails, the status will change to `CREATE_FAILED`.
+  * Ensure your account is in normal status before purchasing.
+  * Creating instances via this API supports automatic voucher deduction — for details, refer to the voucher selection rules.
+  * This is an async API. Once the create-instance request is successfully submitted, a list of instance `ID`s is returned, but the creation is not yet complete at that point. During this period the instance status will be `DEPLOYING`. You can query the creation result by calling ~~DescribeInstances~~. If the instance status changes from `DEPLOYING` to `RUNNING`, the creation succeeded; if it changes to `CREATE_FAILED`, the creation failed. No operations can be performed on the instance while creation is in progress.
+  * A maximum of **100** instances can be created in a single request.
+  * The guaranteed traffic package size is only valid for monthly billing periods.
+  * When `eipIds` is bound to a block-type (CIDR) EIP, `eipBindType` can only use `Passthrough` and must be explicitly specified (it cannot be omitted — omitting it is equivalent to `FullNat` and will be rejected).
 examples:
-- cmd: zeno zec create-zec-instances --zone-id asia-east-1a --instance-type z2a.cpu.1 --image-id ubuntu2404_20240712 --instance-name Test-InstanceName --key-id key-rcfljdP5 --subnet-id 1272168087751233112 --nic-network-type Auto
-  desc: Create an instance with the simplest parameters with no public IPv4 assigned.
-- cmd: zeno zec create-zec-instances --zone-id asia-east-1a --instance-type z2a.cpu.1 --image-id ubuntu2404_20240712 --instance-name Test-InstanceName --key-id key-rcfljdP5 --subnet-id 1272168087751233112 --internet-charge-type BandwidthCluster --bandwidth 10 --cluster-id <clusterId> --eip-v4-type BGPLine
-  desc: Create 2 instances with public IPs, using BGP lines and bandwidth cluster billing, limited to `10` Mbps.
+- cmd: zeno zec create-zec-instances --zone-id asia-east-1a --instance-type z2a.cpu.1 --image-id ubuntu2404_20240712 --instance-name Test-InstanceName --key-id key-rcfljdP5 --subnet-id 1272168087751233112 --nic-network-type Auto --eip-ids <eipId1>
+  desc: Create an instance with the simplest parameters. No public IP address is assigned.
+- cmd: zeno zec create-zec-instances --zone-id asia-east-1a --instance-type z2a.cpu.1 --image-id ubuntu2404_20240712 --instance-name Test-InstanceName --key-id key-rcfljdP5 --subnet-id 1272168087751233112 --internet-charge-type BandwidthCluster --bandwidth 10 --cluster-id <clusterId> --network-line-type PremiumBGP
+  desc: Create 1 instance and assign a public IP. The line type is BGP, and network billing uses a shared bandwidth package. The bandwidth limit is 10Mbps.
+- cmd: zeno zec create-zec-instances --zone-id asia-east-1a --instance-type z2a.cpu.1 --image-id ubuntu2404_20240712 --instance-name Test-InstanceName --key-id key-rcfljdP5 --subnet-id 1272168087751233112 --internet-charge-type BandwidthCluster --bandwidth 10 --ip-stack-type IPv4_IPv6 --cluster-id <clusterId> --ipv6-cluster-id <ipv6ClusterId> --network-line-type PremiumBGP
+  desc: Create 1 instance and assign both a public IPv4 and public IPv6 address. The IPv4 line type is BGP, and network billing uses a shared bandwidth package. The bandwidth limit is 10Mbps.
+- cmd: zeno zec create-zec-instances --zone-id asia-east-1a --instance-type z2a.cpu.1 --image-id ubuntu2404_20240712 --instance-name Test-InstanceName --key-id key-rcfljdP5 --subnet-id 1272168087751233112 --nic-network-type Auto --data-disks "{diskSize=100, diskCategory=Standard NVMe SSD}" --data-disks "{diskSize=200, diskCategory=Standard NVMe SSD}"
+  desc: Create 1 instance configured with multiple data disks.
 sdk:
   service: zec
   version: '2025-09-01'
@@ -52,7 +57,7 @@ parameters:
   type: string
   required: true
   sdk-field: instanceType
-  description: Instance type. For VM instances, the value can be obtained through [DescribeZoneInstanceConfigInfos](describezoneinstanceconfiginfos.md). For GPU instances, the value can be obtained through [DescribeZoneGpuInstanceConfigInfos](describezoneGpuinstanceconfiginfos.md).
+  description: Instance type. For VM instances, the value can be obtained through [DescribeZoneInstanceConfigInfos](describezoneinstanceconfiginfos.md). For GPU instances, the value can be obtained through [DescribeZoneGpuInstanceConfigInfos](describezonegpuinstanceconfiginfos.md).
 - name: instance-name
   type: string
   required: false
@@ -140,10 +145,7 @@ parameters:
   type: object-array
   required: false
   sdk-field: dataDisks
-  description: |-
-    Disk configuration.
-    If the value is empty, no disk is attached by default.
-    Only 1 disk can be attached along with the instance for now.
+  description: Data disk configuration for the instance. If not specified, no data disk is purchased by default. Each item in the list corresponds to one independent data disk. The total number of data disks is subject to the team quota.
   array-style: json
   item-schema:
   - name: diskId
@@ -247,8 +249,9 @@ parameters:
   required: false
   sdk-field: eipBindType
   description: |-
-    Elastic IP mode. If not specified, the default is Full NAT mode.
-    Default value: FullNat .
+    Binding mode of the public IP.
+    Must be specified when a public IP is assigned.
+    When binding a block-type (CIDR) EIP, only Passthrough can be used, and it must be explicitly specified (it cannot be omitted — omitting it is equivalent to FullNat and will be rejected).
   enum-values:
   - value: FullNat
     desc: NAT mode.
@@ -258,7 +261,11 @@ parameters:
   type: string-array
   required: false
   sdk-field: eipIds
-  description: "Assign the existing EIPs to the instances. \nThe number of IPs must be the same as the number of created instances. \nIf this field is specified, no new EIPs will be created and the related fields will be invalid (networkLineType). \nEnsure that the created network card ipStackType includes IPv4."
+  description: |-
+    Assigns existing EIPs to the instances.
+    The number of IPs must match the number of instances being created.
+    If this field is specified, no new EIPs are created and the related fields become invalid (networkLineType).
+    Ensure that the created network interface's ipStackType includes IPv4.
 - name: eip-v4-type
   type: enum
   required: false

@@ -1,0 +1,78 @@
+name: ModifyCloudRouterEdgePoint
+product: sdn
+use: modify-cloud-router-edge-point
+short: 修改连接点配置
+long: |-
+  修改连接点配置
+  **注意事项**
+
+  * 仅当三层网络专线状态为**RUNNING**时，才能进行配置的变更操作。
+  * 本接口为异步接口，此时带宽修改操作并未立即完成。在此期间实例的状态将会处于**UPDATING**，结果可以通过调用[DescribeCloudRouters](describe-cloud-routers.md)接口查询，如果状态(cloudRouterStatus)由 **UPDATING**(修改中)变为**RUNNING**(可用)，则代表配置更新成功。
+  * 在变更带宽期间，不得对该三层网络专线进行其他任何操作。
+examples:
+- cmd: zeno sdn modify-cloud-router-edge-point --cloud-router-id your-cloud-router-id --edge-point-id one-of-egdgePoint-id --bandwidth-mbps 100
+  desc: 修改三层网络连接点的带宽为100Mbps并设置BGP 配置.
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: ModifyCloudRouterEdgePoint
+parameters:
+- name: cloud-router-id
+  type: string
+  required: true
+  sdk-field: cloudRouterId
+  description: 连接点关联的三层网络 ID。
+- name: edge-point-id
+  type: string
+  required: true
+  sdk-field: edgePointId
+  description: 三层网络连接点的 ID。
+- name: bandwidth-mbps
+  type: integer
+  required: false
+  sdk-field: bandwidthMbps
+  description: |-
+    需要修改的带宽限速。
+    单位 Mbps，取值范围 1-500。
+- name: ip-address
+  type: string
+  required: false
+  sdk-field: ipAddress
+  description: 连接点的互联 IP 地址。
+- name: bgp-connection
+  type: object
+  required: false
+  sdk-field: bgpConnection
+  description: |-
+    BGP 连接配置。
+    与静态路由二选一。
+  object-schema:
+  - name: peerIpAddress
+    type: string
+    description: 对端互联 IP 地址及掩码。
+  - name: peerAsn
+    type: integer
+    description: 对端 BGP ASN。
+  - name: password
+    type: string
+    description: |-
+      BGP 会话的 MD5 密码。
+      长度不超过 32 字符。
+  - name: localAsn
+    type: integer
+    description: 本端 BGP ASN。
+- name: static-routes
+  type: object-array
+  required: false
+  sdk-field: staticRoutes
+  description: |-
+    静态路由配置。
+    与 BGP 连接二选一。
+  array-style: json
+  item-schema:
+  - name: prefix
+    type: string
+    description: 静态路由的目的网段（CIDR）。
+  - name: nextHop
+    type: string
+    description: 静态路由的下一跳 IP 地址。

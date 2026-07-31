@@ -1,7 +1,7 @@
 name: InquiryPriceModifyEipFlowPackage
 product: zec
 use: inquiry-price-modify-eip-flow-package
-short: 查询调整EIP流量包后的价格。
+short: 查询调整EIP流量包后的价格
 long: |-
   查询调整EIP流量包后的价格。
   **注意事项**

@@ -1,0 +1,140 @@
+name: QueryPrivateConnectBandwidthPrice
+product: sdn
+use: query-private-connect-bandwidth-price
+short: Inquiry Private Connect Bandwidth Price
+long: Inquiry Private Connect Bandwidth Price
+examples:
+- cmd: zeno sdn query-private-connect-bandwidth-price --source-dc-id SIN1 --destination-dc-id LAX1 --internet-type ByBandwidth --bandwidth-mbps 10 --service-level SINGLE_PROTECTED
+  desc: Inquire the price for a Private Connect backbone bandwidth of 10 Mbps.
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: QueryPrivateConnectBandwidthPrice
+parameters:
+- name: source-dc-id
+  type: string
+  required: true
+  sdk-field: sourceDcId
+  description: Data center ID of one access point of the Private Connect.
+- name: destination-dc-id
+  type: string
+  required: true
+  sdk-field: destinationDcId
+  description: Data center ID of the access point at the other end of the Private Connect.
+- name: internet-type
+  type: enum
+  required: true
+  sdk-field: internetType
+  description: |-
+    Internet billing type.
+    Default: ByBandwidth.
+  enum-values:
+  - value: ByBandwidth
+    desc: Fixed bandwidth billing.
+  - value: ByInstanceBandwidth95
+    desc: 95th percentile billing.
+- name: bandwidth-mbps
+  type: integer
+  required: true
+  sdk-field: bandwidthMbps
+  description: |-
+    Maximum bandwidth limit for the Private Connect.
+    Default: 10, unit: Mbps.
+- name: service-level
+  type: enum
+  required: false
+  sdk-field: serviceLevel
+  description: |-
+    Private Connect service level.
+    Default: SINGLE_PROTECTED.
+  enum-values:
+  - value: SINGLE_PROTECTED
+    desc: Single-path protected -- provides line protection/redundancy.
+  - value: SINGLE_UNPROTECTED
+    desc: Single-path unprotected -- no line protection.
+response:
+- name: price
+  type: object
+  description: Price information.
+  object-schema:
+  - name: discount
+    type: float
+    description: |-
+      Discount rate.
+      E.g. 80.0 means 20% off.
+  - name: discountPrice
+    type: float
+    description: |-
+      Discounted postpaid unit price.
+      Used in postpaid mode; null if the price is a tiered price.
+  - name: originalPrice
+    type: float
+    description: |-
+      Original prepaid price.
+      Used in prepaid mode; null for postpaid.
+  - name: unitPrice
+    type: float
+    description: |-
+      Original postpaid unit price.
+      Used in postpaid mode; null if the price is a tiered price.
+  - name: discountUnitPrice
+    type: float
+    description: |-
+      Discounted postpaid unit price.
+      Used in postpaid mode; null if the price is a tiered price.
+  - name: chargeUnit
+    type: string
+    description: |-
+      Postpaid billing unit.
+      Used in postpaid mode. Possible values:<br/>HOUR: billed per hour.
+      DAY: billed per day.
+      MONTH: billed per month, used for 95th-percentile billing.
+  - name: stepPrices
+    type: object-array
+    description: |-
+      Postpaid tiered pricing.
+      Used in postpaid mode; null if not a tiered price.
+    array-style: json
+    item-schema:
+    - name: stepStart
+      type: float
+      description: Lower bound of the tier.
+    - name: stepEnd
+      type: float
+      description: |-
+        Upper bound of the tier.
+        Null represents the last tier.
+    - name: unitPrice
+      type: float
+      description: Tier unit price.
+    - name: discountUnitPrice
+      type: float
+      description: Discounted tier unit price.
+  - name: amountUnit
+    type: string
+    description: |-
+      Usage unit.
+      E.g. Mbps, LCU, etc.
+      If null, the value is unavailable.
+  - name: excessUnitPrice
+    type: float
+    description: Original excess price.
+  - name: excessDiscountUnitPrice
+    type: float
+    description: Discounted excess price.
+  - name: excessAmountUnit
+    type: string
+    description: |-
+      Excess usage unit.
+      If null, the value is unavailable.
+  - name: category
+    type: enum
+    description: Price category.
+    enum-values:
+    - value: STANDARD
+      desc: Standard price.
+    - value: CUSTOMIZED
+      desc: Fixed price.
+- name: stock
+  type: integer
+  description: Available stock quantity.

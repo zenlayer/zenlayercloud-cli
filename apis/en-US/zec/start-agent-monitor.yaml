@@ -1,12 +1,12 @@
 name: StartAgentMonitor
 product: zec
 use: start-agent-monitor
-short: Enables QEMU Guest Agent (QGA) data collection for an instance
+short: Enables Agent monitoring data collection
 long: |-
   Enables QEMU Guest Agent (QGA) data collection for the specified elastic compute instance. Once enabled, internal performance metrics can be retrieved through the monitoring API.
-  **Note**
+  **Notes**
 
-  * To enable performance data collection, ensure that QGA (QEMU Guest Agent) is installed.
+  * To enable Agent monitoring data collection, ensure that QGA (QEMU Guest Agent) is installed.
 examples:
 - cmd: zeno zec start-agent-monitor --instance-id instanceId1
   desc: Enable QEMU Guest Agent (QGA) data collection.

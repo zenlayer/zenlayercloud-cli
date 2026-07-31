@@ -1,0 +1,27 @@
+name: DeletePrivateConnect
+product: sdn
+use: delete-private-connect
+short: Delete Private Connect
+long: |-
+  Delete Private Connect
+  **Notes**
+
+  * Deleting a Private Connect suspends the related business (i.e. the network becomes unreachable) -- proceed with caution.
+  * After a Private Connect is deleted, the system retains the resource for a period of time -- see [Private Connect Billing Information](https://docs.console.zenlayer.com/welcome/pricing/cloud-networking-pricing#deletion-2) for the retention period.
+    During this retention period, the resource status will be **RECYCLED**. You can call [RenewPrivateConnect](renewprivateconnect.md) to restore it during this period.
+  * This is an asynchronous API. After the delete request is successfully submitted, the delete operation is not completed immediately. During this period the Private Connect status will be **DELETEING**; once deleted successfully, the status will change to **RECYCLED**.
+  * No further changes can be made to a Private Connect after it is deleted.
+  * After deletion, you can restore the deleted Private Connect via [RenewPrivateConnect](renewprivateconnect.md), or permanently destroy it via [DestroyPrivateConnect](destroyprivateconnect.md).
+examples:
+- cmd: zeno sdn delete-private-connect --private-connect-id your-private-connect-id
+  desc: Delete.
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: DeletePrivateConnect
+parameters:
+- name: private-connect-id
+  type: string
+  required: true
+  sdk-field: privateConnectId
+  description: Private Connect ID.

@@ -4,10 +4,11 @@ use: create-network-interface
 short: Creates an elastic vNIC
 long: |-
   Create an elastic vNIC.
-  **Note**
+  **Notes**
 
-  * This API is an async API. A response is returned after the request is sent. However, it does not mean the operation has been completed. If the status changes from `PENDING` to `Available`, it means that the vNIC has been created successfully. If the status changes to `CREATE_FAILED`, the creation is failed.
-  * The size of the guaranteed traffic package is only valid for billing periods of one month.
+  * This is an async API. After a successful call, the secondary network interface is not created immediately — wait for the status to change from `PENDING` to `Available`, which indicates success; if the status changes to `CREATE_FAILED`, the creation has failed.
+  * The guaranteed traffic package size is only valid for monthly billing periods.
+  * When `eipIds` is bound to a block-type (CIDR) EIP, `eipBindType` can only use `Passthrough` and must be explicitly specified (it cannot be omitted — omitting it is equivalent to `FullNat` and will be rejected).
 sdk:
   service: zec
   version: '2025-09-01'
@@ -99,8 +100,9 @@ parameters:
   required: false
   sdk-field: eipBindType
   description: |-
-    The binding mode of public network IP.
-    It needs to be specified when allocating public network IP.
+    Binding mode of the public IP.
+    Must be specified when a public IP is assigned.
+    When binding a block-type (CIDR) EIP, only Passthrough can be used, and it must be explicitly specified (it cannot be omitted — omitting it is equivalent to FullNat and will be rejected).
   enum-values:
   - value: FullNat
     desc: NAT mode.

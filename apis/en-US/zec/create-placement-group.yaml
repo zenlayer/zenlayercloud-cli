@@ -38,7 +38,8 @@ parameters:
   sdk-field: partitionNum
   description: |-
     Number of partitions in the placement group.
-    Partitions determines the maximum number of instances that can be associated with a placement group.
+    The minimum value is 2, and the default is 3.
+    Determines the maximum number of instances that can be associated with the placement group.
 - name: affinity
   type: integer
   required: false

@@ -1,0 +1,27 @@
+name: ModifyPrivateConnectsAttribute
+product: sdn
+use: modify-private-connects-attribute
+short: Modify Private Connect Attribute
+long: |-
+  Modify Private Connect Attribute
+  **Notes**
+
+  * If any of the specified Private Connects does not exist, this operation fails immediately and no other Private Connect information is changed.
+examples:
+- cmd: zeno sdn modify-private-connects-attribute --private-connect-ids your-private-connect-id --private-connect-name Seoul-Singapore-Connect
+  desc: Modify the Private Connect name.
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: ModifyPrivateConnectsAttribute
+parameters:
+- name: private-connect-ids
+  type: string-array
+  required: true
+  sdk-field: privateConnectIds
+  description: List of Private Connect IDs, up to 100.
+- name: private-connect-name
+  type: string
+  required: true
+  sdk-field: privateConnectName
+  description: Private Connect name, up to 255 characters.

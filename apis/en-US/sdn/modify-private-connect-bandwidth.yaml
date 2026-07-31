@@ -1,0 +1,30 @@
+name: ModifyPrivateConnectBandwidth
+product: sdn
+use: modify-private-connect-bandwidth
+short: Modify Private Connect Bandwidth
+long: |-
+  Modify Private Connect Bandwidth
+  **Notes**
+
+  * Bandwidth limit changes can only be made when the Private Connect status is **AVAILABLE**.
+  * This is an asynchronous API, so the bandwidth change is not completed immediately. During this period the instance status will be **UPDATING**. The result can be checked by calling the [`DescribePrivateConnects`](describeprivateconnects.md) API -- if the status (privateConnectStatus) changes from **UPDATING** (modifying) to **AVAILABLE**, the bandwidth was updated successfully.
+  * Do not perform any other operation on the Private Connect while the bandwidth change is in progress.
+  * If the Private Connect's access point is a Cloud Connect, and the Cloud Connect has not had a custom bandwidth limit set, this operation automatically sets the Cloud Connect's bandwidth limit to the bandwidth tier closest to the Private Connect's backbone bandwidth limit. You can customize the Cloud Connect's bandwidth limit via [`ModifyCloudBandwidth`](../cloud/modifycloudbandwidth.md).
+examples:
+- cmd: zeno sdn modify-private-connect-bandwidth --private-connect-id your-private-connect-id --bandwidth-mbps 100
+  desc: Modify the Private Connect bandwidth to 100 Mbps.
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: ModifyPrivateConnectBandwidth
+parameters:
+- name: private-connect-id
+  type: string
+  required: true
+  sdk-field: privateConnectId
+  description: Private Connect ID.
+- name: bandwidth-mbps
+  type: integer
+  required: true
+  sdk-field: bandwidthMbps
+  description: The bandwidth limit to set, in Mbps.

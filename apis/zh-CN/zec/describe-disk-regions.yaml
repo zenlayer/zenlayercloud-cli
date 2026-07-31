@@ -2,7 +2,7 @@ name: DescribeDiskRegions
 product: zec
 use: describe-disk-regions
 short: 查询支持售卖云硬盘的节点信息
-long: 查询当前账户下支持创建和售卖云硬盘的所有节点（地域/可用区）信息。
+long: 查询支持售卖云硬盘的节点信息。
 examples:
 - cmd: zeno zec describe-disk-regions
   desc: 查询支持售卖云盘的节点。

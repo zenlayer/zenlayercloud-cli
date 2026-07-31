@@ -1,0 +1,24 @@
+name: DestroyPort
+product: sdn
+use: destroy-port
+short: Destroy Port
+long: |-
+  Destroy Port
+  **Notes**
+
+  * This operation is irreversible. Once successful, the port will be permanently released -- proceed with caution.
+  * Only ports in the recycle bin support this operation.
+  * This is an asynchronous API. After the destroy-port request is successfully submitted and a request ID is returned, the destroy operation is not completed immediately. During this period the port status will be `DESTROYING`. You can check the result by calling [DescribePorts](describeports.md#describeports) -- if the port status changes from `DESTROYING` to `DESTROYED`, the port was destroyed successfully and will no longer be returned in the list. Do not perform any operation on the port while it is being destroyed.
+examples:
+- cmd: zeno sdn destroy-port --port-id your-port-id
+  desc: ''
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: DestroyPort
+parameters:
+- name: port-id
+  type: string
+  required: true
+  sdk-field: portId
+  description: Port ID.

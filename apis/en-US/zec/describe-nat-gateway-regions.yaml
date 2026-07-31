@@ -5,7 +5,7 @@ short: Queries the available regions of NAT gateways
 long: Query the available regions of NAT gateways.
 examples:
 - cmd: zeno zec describe-nat-gateway-regions
-  desc: Query the available regions of NAT gateway.
+  desc: Get information on regions that support the sale of NAT gateways
 sdk:
   service: zec
   version: '2025-09-01'

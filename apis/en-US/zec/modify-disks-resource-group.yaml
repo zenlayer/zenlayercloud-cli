@@ -4,11 +4,10 @@ use: modify-disks-resource-group
 short: Changes the resource group of disks
 long: |-
   Change the resource group of disks.
-  **Note**
+  **Notes**
 
-  * You can create several resource groups under one account to manage different resources. If calling [`DescribeDisks`](describedisks.md) to query disks, you can filter the result by `resourceGroupId` in the response.
-  * Batch operations are supported. The maximum number of disks in each request is 100.
-  * Only the administrator in a team can perform this operation.
+  * A resource group is a virtual concept — you can create multiple resource groups under one account to manage different resources; by assigning different instances to different resource groups, you can later filter the results by `resourceGroupId` when calling ~~DescribeDisks~~ to query disks.
+  * Only users with the administrator role can perform this operation.
 examples:
 - cmd: zeno zec modify-disks-resource-group --disk-ids diskId1 --disk-ids diskId2 --resource-group-id resourceGroup1
   desc: Move the disk to the specified resource group.

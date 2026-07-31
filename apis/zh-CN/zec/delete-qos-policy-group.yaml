@@ -4,7 +4,7 @@ use: delete-qos-policy-group
 short: 删除QoS策略组
 long: 删除一个QoS策略组。删除前需确保策略组内无成员。
 examples:
-- cmd: zeno zec delete-qos-policy-group --qos-policy-group-id qos-xxxxxxxx
+- cmd: zeno zec delete-qos-policy-group --qos-policy-group-id qpg-xxxxxxxx
   desc: 删除一个QoS策略组。
 sdk:
   service: zec

@@ -1,0 +1,413 @@
+name: DescribePrivateConnects
+product: sdn
+use: describe-private-connects
+short: 获取二层网络专线列表
+long: 获取二层网络专线列表
+examples:
+- cmd: zeno sdn describe-private-connects
+  desc: 获取二层网络专线列表
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: DescribePrivateConnects
+parameters:
+- name: private-connect-ids
+  type: string-array
+  required: false
+  sdk-field: privateConnectIds
+  description: |-
+    二层网络专线 ID 列表。
+    最多支持 100 个 ID 查询。
+- name: private-connect-name
+  type: string
+  required: false
+  sdk-field: privateConnectName
+  description: |-
+    二层网络专线名称。
+    模糊匹配。
+- name: connectivity-status
+  type: enum
+  required: false
+  sdk-field: connectivityStatus
+  description: 连通性状态过滤。
+  enum-values:
+  - value: ACTIVE
+    desc: 链路正常连通。
+  - value: DOWN
+    desc: 链路断开。
+  - value: ABNORMAL
+    desc: 链路部分异常。
+- name: private-connect-status
+  type: enum
+  required: false
+  sdk-field: privateConnectStatus
+  description: 二层网络专线业务状态过滤。
+  enum-values:
+  - value: CREATING
+    desc: 创建中。
+  - value: UPDATING
+    desc: 变更中。
+  - value: DELETING
+    desc: 删除中。
+  - value: DESTROYING
+    desc: 销毁中。
+  - value: RECOVERING
+    desc: 恢复中。
+  - value: RUNNING
+    desc: 正常。
+  - value: NOT_ACCEPT
+    desc: 未接收。
+  - value: RECYCLED
+    desc: 已回收。
+  - value: DESTROYED
+    desc: 已销毁。
+  - value: CREATING_FAILED
+    desc: 创建失败。
+  - value: UPDATING_FAILED
+    desc: 变更失败。
+  - value: DELETING_FAILED
+    desc: 删除失败。
+  - value: DESTROYING_FAILED
+    desc: 销毁失败。
+  - value: RECOVERING_FAILED
+    desc: 恢复失败。
+- name: endpoint-types
+  type: string-array
+  required: false
+  sdk-field: endpointTypes
+  description: 连接点类型过滤。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    资源组 ID。
+    不传则返回该用户可见的所有资源组内的二层网络专线。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    返回的分页大小。
+    默认为 20，最大为 1000。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    返回的分页数。
+    默认为 1。
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    根据标签键进行搜索。
+    最长不得超过20个标签键。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    根据标签进行搜索。
+    最长不得超过20个标签。
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。
+response:
+- name: totalCount
+  type: integer
+  description: 符合条件的二层网络专线总数量。
+- name: dataSet
+  type: object-array
+  description: 二层网络专线列表。
+  array-style: json
+  item-schema:
+  - name: privateConnectId
+    type: string
+    description: 二层网络专线 ID。
+  - name: privateConnectName
+    type: string
+    description: 二层网络专线名称。
+  - name: connectivityStatus
+    type: enum
+    description: 连通性状态。
+    enum-values:
+    - value: ACTIVE
+      desc: 链路正常连通。
+    - value: DOWN
+      desc: 链路断开。
+    - value: ABNORMAL
+      desc: 链路部分异常。
+  - name: privateConnectStatus
+    type: enum
+    description: 二层网络专线业务状态。
+    enum-values:
+    - value: CREATING
+      desc: 创建中。
+    - value: UPDATING
+      desc: 变更中。
+    - value: DELETING
+      desc: 删除中。
+    - value: DESTROYING
+      desc: 销毁中。
+    - value: RECOVERING
+      desc: 恢复中。
+    - value: RUNNING
+      desc: 正常。
+    - value: NOT_ACCEPT
+      desc: 未接收。
+    - value: RECYCLED
+      desc: 已回收。
+    - value: DESTROYED
+      desc: 已销毁。
+    - value: CREATING_FAILED
+      desc: 创建失败。
+    - value: UPDATING_FAILED
+      desc: 变更失败。
+    - value: DELETING_FAILED
+      desc: 删除失败。
+    - value: DESTROYING_FAILED
+      desc: 销毁失败。
+    - value: RECOVERING_FAILED
+      desc: 恢复失败。
+  - name: bandwidthMbps
+    type: integer
+    description: |-
+      最大带宽限制。
+      单位：Mbps。
+  - name: resourceGroupId
+    type: string
+    description: 资源组 ID。
+  - name: resourceGroupName
+    type: string
+    description: 资源组名称。
+  - name: createTime
+    type: string
+    description: 创建时间。
+  - name: expiredTime
+    type: string
+    description: 到期时间。
+  - name: recycledTime
+    type: string
+    description: 回收时间。
+  - name: endpointA
+    type: object
+    description: 二层网络专线一端的连接点（A）。
+    object-schema:
+    - name: endpointId
+      type: string
+      description: 连接点 ID。
+    - name: endpointName
+      type: string
+      description: 连接点名称。
+    - name: endpointType
+      type: enum
+      description: 连接点类型。
+      enum-values:
+      - value: GOOGLE
+        desc: 谷歌云连接点。
+      - value: TENCENT
+        desc: 腾讯云连接点。
+      - value: AZURE
+        desc: Azure 连接点。
+      - value: ALI_CLOUD
+        desc: 阿里云连接点。
+      - value: AWS
+        desc: AWS 连接点。
+      - value: HUAWEI_CLOUD
+        desc: 华为云连接点。
+      - value: ORACLE
+        desc: Oracle 连接点。
+      - value: BYTE_PLUS
+        desc: 火山引擎连接点。
+      - value: PORT
+        desc: 数据中心端口连接点。
+      - value: Ript
+        desc: IP Transit连接点。
+      - value: OTHER_PORT
+        desc: 第三方数据中心端口连接点。
+    - name: connectivityStatus
+      type: enum
+      description: 连通性状态。
+      enum-values:
+      - value: ACTIVE
+        desc: 链路正常连通。
+      - value: DOWN
+        desc: 链路断开。
+      - value: ABNORMAL
+        desc: 链路部分异常。
+    - name: vlanId
+      type: integer
+      description: VLAN ID。
+    - name: dataCenter
+      type: object
+      description: 数据中心信息。
+      object-schema:
+      - name: dcId
+        type: string
+        description: 数据中心ID。
+      - name: dcName
+        type: string
+        description: 数据中心名称。
+      - name: dcAddress
+        type: string
+        description: 数据中心地址。
+      - name: cityName
+        type: string
+        description: 数据中心所在城市名称。
+      - name: countryName
+        type: string
+        description: 数据中心所在国家名称。
+      - name: areaName
+        type: string
+        description: 数据中心所在区域名称。
+      - name: latitude
+        type: float
+        description: 数据中心所在地纬度。
+      - name: longitude
+        type: float
+        description: 数据中心所在地经度。
+    - name: cloudRegionId
+      type: string
+      description: |-
+        云地域 ID。
+        连接点为云连接时返回。
+    - name: cloudAccountId
+      type: string
+      description: |-
+        云账号 ID。
+        连接点为云连接时返回。
+    - name: sharedChannelId
+      type: string
+      description: |-
+        共享通道ID。
+        公有云接入点对应的云侧连接标识，仅公有云类型接入点时有值。
+  - name: endpointZ
+    type: object
+    description: 二层网络专线另一端的连接点（Z）。
+    object-schema:
+    - name: endpointId
+      type: string
+      description: 连接点 ID。
+    - name: endpointName
+      type: string
+      description: 连接点名称。
+    - name: endpointType
+      type: enum
+      description: 连接点类型。
+      enum-values:
+      - value: GOOGLE
+        desc: 谷歌云连接点。
+      - value: TENCENT
+        desc: 腾讯云连接点。
+      - value: AZURE
+        desc: Azure 连接点。
+      - value: ALI_CLOUD
+        desc: 阿里云连接点。
+      - value: AWS
+        desc: AWS 连接点。
+      - value: HUAWEI_CLOUD
+        desc: 华为云连接点。
+      - value: ORACLE
+        desc: Oracle 连接点。
+      - value: BYTE_PLUS
+        desc: 火山引擎连接点。
+      - value: PORT
+        desc: 数据中心端口连接点。
+      - value: Ript
+        desc: IP Transit连接点。
+      - value: OTHER_PORT
+        desc: 第三方数据中心端口连接点。
+    - name: connectivityStatus
+      type: enum
+      description: 连通性状态。
+      enum-values:
+      - value: ACTIVE
+        desc: 链路正常连通。
+      - value: DOWN
+        desc: 链路断开。
+      - value: ABNORMAL
+        desc: 链路部分异常。
+    - name: vlanId
+      type: integer
+      description: VLAN ID。
+    - name: dataCenter
+      type: object
+      description: 数据中心信息。
+      object-schema:
+      - name: dcId
+        type: string
+        description: 数据中心ID。
+      - name: dcName
+        type: string
+        description: 数据中心名称。
+      - name: dcAddress
+        type: string
+        description: 数据中心地址。
+      - name: cityName
+        type: string
+        description: 数据中心所在城市名称。
+      - name: countryName
+        type: string
+        description: 数据中心所在国家名称。
+      - name: areaName
+        type: string
+        description: 数据中心所在区域名称。
+      - name: latitude
+        type: float
+        description: 数据中心所在地纬度。
+      - name: longitude
+        type: float
+        description: 数据中心所在地经度。
+    - name: cloudRegionId
+      type: string
+      description: |-
+        云地域 ID。
+        连接点为云连接时返回。
+    - name: cloudAccountId
+      type: string
+      description: |-
+        云账号 ID。
+        连接点为云连接时返回。
+    - name: sharedChannelId
+      type: string
+      description: |-
+        共享通道ID。
+        公有云接入点对应的云侧连接标识，仅公有云类型接入点时有值。
+  - name: source
+    type: enum
+    description: 业务来源。
+    enum-values:
+    - value: CONSOLE
+      desc: Console 控制台创建。
+    - value: OSS
+      desc: 线下工单流程创建。
+  - name: tags
+    type: object
+    description: 关联的标签。
+    object-schema:
+    - name: tags
+      type: object-array
+      description: 标签对列表。
+      array-style: json
+      item-schema:
+      - name: key
+        type: string
+        description: |-
+          标签键。
+          长度限制：1～64个字符。
+      - name: value
+        type: string
+        description: |-
+          标签值。
+          长度限制：1～64个字符。

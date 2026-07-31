@@ -1,7 +1,7 @@
 name: UnassignBorderGateway
 product: zec
 use: unassign-border-gateway
-short: 解绑边界网关与 NAT 网关
+short: 解绑边界网关与NAT
 long: |-
   解除指定边界网关（ZBG）与 NAT 网关的绑定关系，解绑后边界网关将不再为该 NAT 网关广播路由。
   **注意事项**

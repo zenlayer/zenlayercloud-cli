@@ -2,9 +2,14 @@ name: DescribeCidrs
 product: zec
 use: describe-cidrs
 short: 查询IPv4 CIDR地址块列表
-long: 查询IPv4 CIDR地址块列表。
+long: |-
+  查询IPv4 CIDR地址块列表。
+  **注意事项**
+
+  * `usedCount` 已废弃（恒为空），请使用 `availableCount` 判断该CIDR当前还能用多少个IP地址。
+  * `availableCount` = `totalCount` − 实际已占用的地址数（网段(Block)型EIP按其掩码长度占用的全部地址计算，不排除`.0`/`.255`）。
 examples:
-- cmd: zeno zec describe-cidrs --cidr-ids xxx --region-id asia-east-1 --cidr-block 128.0.0.0/24 --page-size 10 --page-num 1
+- cmd: zeno zec describe-cidrs --region-id asia-east-1 --cidr-block 128.0.0.0/24 --page-size 10 --page-num 1
   desc: 查询CidrBlock为`128.0.0.0/24`的Cidr列表。
 sdk:
   service: zec
@@ -115,7 +120,9 @@ response:
     description: CIDR中IP地址的总数量。
   - name: usedCount
     type: integer
-    description: CIDR中已被使用的IP地址数量。
+    description: |-
+      CIDR中已被使用的IP地址数量。
+      已废弃，请参考`availableCount`。
   - name: source
     type: enum
     description: |-
@@ -241,16 +248,16 @@ response:
           长度限制：1～64个字符。
   - name: asnObservation
     type: object
-    description: ASN 观测结果。
+    description: ASN 观测结果。仅当CIDR来源为BYOIP时存在。
     object-schema:
     - name: verificationStatus
       type: enum
       description: ASN 验证状态。
       enum-values:
       - value: agreed
-        desc: 各数据源观测结果一致。
+        desc: RIPE 观测 ASN 与申报 ASN 一致。
       - value: disagreed
-        desc: 各数据源观测结果不一致。
+        desc: RIPE 观测 ASN 与申报 ASN 不一致。
       - value: unavailable
         desc: 主数据源查询失败或未命中。
       - value: querying
@@ -276,10 +283,10 @@ response:
       description: 主数据源观测到的 ASN 列表。
     - name: secondarySource
       type: string
-      description: 二级数据源名称，如 BGP Tool。
+      description: 该字段已下线，恒为 null。
     - name: secondaryStatus
       type: enum
-      description: 二级数据源查询状态。
+      description: 该字段已下线，恒为 null。
       enum-values:
       - value: QUERYING
         desc: 查询中。
@@ -289,4 +296,21 @@ response:
         desc: 查询失败。
     - name: secondaryAsns
       type: integer-array
-      description: 二级数据源观测到的 ASN 列表。
+      description: 该字段已下线，恒为 null。
+  - name: availableCidr
+    type: object-array
+    description: |-
+      该 CIDR 当前可创建的网段清单，按掩码长度分组统计数量。
+      用于创建网段 EIP 前确认某个掩码长度是否还有可用网段。
+      无可用网段时为空列表。
+    array-style: json
+    item-schema:
+    - name: prefixLength
+      type: integer
+      description: 掩码长度。
+    - name: count
+      type: integer
+      description: 该掩码长度下当前可创建的网段数量。
+  - name: availableCount
+    type: integer
+    description: CIDR中当前可用的IP地址数量（= totalCount − 实际已占用地址数，网段(Block)型EIP按其掩码长度占用的全部地址计算）。

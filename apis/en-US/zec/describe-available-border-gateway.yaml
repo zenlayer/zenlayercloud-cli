@@ -5,7 +5,7 @@ short: Queries available border gateways that can be bound to a public NAT gatew
 long: Query available border gateways that can be bound to a public NAT gateway.
 examples:
 - cmd: zeno zec describe-available-border-gateway --nat-gateway-id <natGatewayId>
-  desc: Query available border gateways that can be bound to a public NAT gateway.
+  desc: Get the border gateways that can be bound to a NAT gateway
 sdk:
   service: zec
   version: '2025-09-01'

@@ -5,7 +5,7 @@ short: Configures public network probe of an elastic IP
 long: Configure public network probe of an elastic IP.
 examples:
 - cmd: zeno zec config-eip-probe --eip-id eipId1 --disable-icmp true --tcp-port 20
-  desc: Configure public network probe of an elastic IP.
+  desc: EIP probe configuration
 sdk:
   service: zec
   version: '2025-09-01'

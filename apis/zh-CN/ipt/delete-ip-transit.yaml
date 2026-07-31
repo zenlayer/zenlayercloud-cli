@@ -1,9 +1,9 @@
 name: DeleteIPTransit
 product: ipt
 use: delete-ip-transit
-short: 删除一条IP Transit
+short: 删除IP Transit
 long: |-
-  删除一条IP Transit。
+  删除IP Transit
   **注意事项**
 
   * 只允许状态为 **RUNNING** 和 **CREATING\_FAILED** 的 IP Transit 允许此操作

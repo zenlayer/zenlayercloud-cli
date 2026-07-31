@@ -6,7 +6,7 @@ long: |-
   Create a snapshot of the specified disk.
   **Notes**
 
-  * This is an asynchronous API. The request returns immediately after submission, but the operation is not yet complete. You can query the snapshot creation result by calling [`DescribeSnapshots`](../snapshot/describesnapshots.md). If the snapshot status changes from `CREATING` to `AVAILABLE`, the creation was successful. The snapshot cannot be deleted during the creation process.
+  * This is an asynchronous API. The request returns immediately after submission, but the operation is not yet complete. You can query the snapshot creation result by calling [`DescribeSnapshots`](describesnapshots.md). If the snapshot status changes from `CREATING` to `AVAILABLE`, the creation was successful. The snapshot cannot be deleted during the creation process.
   * Whether the disk supports creating snapshots can be determined by the `SnapshotAbility` field, which can be queried via the [`DescribeDisks`](../disk/describedisks.md) API.
   * The disk must be in **In Use** or **Available** state.
   * See the product usage limits for the maximum number of snapshots that can be created.

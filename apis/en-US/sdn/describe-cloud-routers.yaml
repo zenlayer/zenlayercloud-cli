@@ -1,0 +1,373 @@
+name: DescribeCloudRouters
+product: sdn
+use: describe-cloud-routers
+short: Query Cloud Routers
+long: Query Cloud Routers
+examples:
+- cmd: zeno sdn describe-cloud-routers
+  desc: Get the list of Cloud Routers.
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: DescribeCloudRouters
+parameters:
+- name: cloud-router-ids
+  type: string-array
+  required: false
+  sdk-field: cloudRouterIds
+  description: List of Cloud Router IDs, up to 100.
+- name: cloud-router-name
+  type: string
+  required: false
+  sdk-field: cloudRouterName
+  description: Cloud Router name. Supports fuzzy matching.
+- name: cloud-router-status
+  type: enum
+  required: false
+  sdk-field: cloudRouterStatus
+  description: Cloud Router status.
+  enum-values:
+  - value: CREATING
+    desc: Creating.
+  - value: UPDATING
+    desc: Updating.
+  - value: DELETING
+    desc: Deleting.
+  - value: DESTROYING
+    desc: Destroying.
+  - value: RECOVERING
+    desc: Restoring.
+  - value: RUNNING
+    desc: Normal.
+  - value: NOT_ACCEPT
+    desc: Not accepted.
+  - value: RECYCLED
+    desc: Recycled.
+  - value: DESTROYED
+    desc: Destroyed.
+  - value: CREATING_FAILED
+    desc: Creation failed.
+  - value: UPDATING_FAILED
+    desc: Update failed.
+  - value: DELETING_FAILED
+    desc: Deletion failed.
+  - value: DESTROYING_FAILED
+    desc: Destruction failed.
+  - value: RECOVERING_FAILED
+    desc: Restore failed.
+- name: edge-point-id
+  type: string
+  required: false
+  sdk-field: edgePointId
+  description: Edge point ID.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: Resource group ID. If not specified, Cloud Routers in all visible resource groups are returned.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: 'Page size to return. Default: 20, maximum: 1000.'
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: 'Page number to return. Default: 1.'
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    Search by tag keys.
+    Up to 20 tag keys.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    Search by tags.
+    Up to 20 tags.
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      Tag key.
+      Length: 1-64 characters.
+  - name: value
+    type: string
+    description: |-
+      Tag value.
+      Length: 1-64 characters.
+response:
+- name: totalCount
+  type: integer
+  description: Total number of Cloud Routers matching the criteria.
+- name: dataSet
+  type: object-array
+  description: List of Cloud Routers.
+  array-style: json
+  item-schema:
+  - name: cloudRouterId
+    type: string
+    description: Cloud Router ID.
+  - name: cloudRouterName
+    type: string
+    description: Name of the Cloud Router.
+  - name: cloudRouterDescription
+    type: string
+    description: Description of the Cloud Router.
+  - name: createTime
+    type: string
+    description: Creation time of the Cloud Router.
+  - name: expiredTime
+    type: string
+    description: Expiration time of the Cloud Router.
+  - name: recycledTime
+    type: string
+    description: Recycle time of the Cloud Router.
+  - name: edgePoints
+    type: object-array
+    description: List of edge points of the Cloud Router.
+    array-style: json
+    item-schema:
+    - name: edgePointId
+      type: string
+      description: Edge point ID.
+    - name: edgePointName
+      type: string
+      description: Edge point name.
+    - name: connectivityStatus
+      type: enum
+      description: Connectivity status of the edge point.
+      enum-values:
+      - value: ACTIVE
+        desc: The link is connected normally.
+      - value: DOWN
+        desc: The link is down.
+      - value: ABNORMAL
+        desc: The link is partially abnormal.
+    - name: dataCenter
+      type: object
+      description: Data center information of the edge point.
+      object-schema:
+      - name: dcId
+        type: string
+        description: Data center four-letter code.
+      - name: dcName
+        type: string
+        description: Data center name.
+      - name: dcAddress
+        type: string
+        description: Data center address.
+      - name: cityName
+        type: string
+        description: Name of the city where the data center is located.
+      - name: countryName
+        type: string
+        description: Name of the country where the data center is located.
+      - name: areaName
+        type: string
+        description: Name of the region where the data center is located.
+      - name: latitude
+        type: float
+        description: Latitude of the data center.
+      - name: longitude
+        type: float
+        description: Longitude of the data center.
+    - name: edgePointType
+      type: enum
+      description: Edge point type.
+      enum-values:
+      - value: VPC
+        desc: VPC access point
+      - value: ZBG
+        desc: Border gateway access point
+      - value: IptZBG
+        desc: Remote IP tunnel border gateway access point
+      - value: PORT
+        desc: Data center physical port access point
+      - value: OTHER_PORT
+        desc: Third-party port access point
+      - value: KEY_PORT
+        desc: Key Port access point
+      - value: GOOGLE
+        desc: Google Cloud access point
+      - value: TENCENT
+        desc: Tencent Cloud access point
+      - value: ALICLOUD
+        desc: Alibaba Cloud access point
+      - value: AZURE
+        desc: Azure access point
+      - value: AWS
+        desc: AWS access point
+      - value: VIRTUAL_EDGE
+        desc: Virtual Edge access point
+      - value: ORACLE
+        desc: Oracle access point
+      - value: HUAWEI
+        desc: Huawei Cloud access point
+      - value: BYTEPLUS
+        desc: BytePlus access point
+    - name: cloudType
+      type: enum
+      description: Cloud vendor type of the Cloud Connect edge point.
+      enum-values:
+      - value: AWS
+        desc: Amazon Web Services
+      - value: TENCENT
+        desc: Tencent Cloud
+      - value: GOOGLE
+        desc: Google Cloud
+      - value: AZURE
+        desc: Microsoft Azure
+      - value: ALI_CLOUD
+        desc: Alibaba Cloud
+      - value: HUAWEI_CLOUD
+        desc: Huawei Cloud
+      - value: BYTE_PLUS
+        desc: BytePlus
+      - value: ORACLE
+        desc: Oracle Cloud
+    - name: cloudAccountId
+      type: string
+      description: Cloud account ID of the Cloud Connect edge point.
+    - name: cloudRegionId
+      type: string
+      description: Cloud region ID of the Cloud Connect edge point.
+    - name: vpcId
+      type: string
+      description: VPC ID of a VPC edge point.
+    - name: zbgId
+      type: string
+      description: ZBG ID of a ZBG edge point.
+    - name: zbgRegionId
+      type: string
+      description: Region the ZBG edge point belongs to.
+    - name: portId
+      type: string
+      description: Port ID of a physical port edge point.
+    - name: sharedChannelId
+      type: string
+      description: |-
+        Shared channel ID.
+        The cloud-side connection identifier corresponding to a public cloud access point; only populated for public cloud type access points.
+    - name: vlanId
+      type: integer
+      description: 'VLAN ID of the edge point. Value range: 2-4000.'
+    - name: bandwidthMbps
+      type: integer
+      description: Backbone bandwidth limit of the edge point, in Mbps.
+    - name: bgpConnection
+      type: object
+      description: BGP connection configuration of the edge point.
+      object-schema:
+      - name: peerIpAddress
+        type: string
+        description: Peer interconnect IP address and netmask.
+      - name: peerAsn
+        type: integer
+        description: Peer BGP ASN.
+      - name: password
+        type: string
+        description: MD5 password for the BGP session, up to 32 characters.
+      - name: localAsn
+        type: integer
+        description: Local BGP ASN.
+    - name: staticRoutes
+      type: object-array
+      description: Static route configuration of the edge point.
+      array-style: json
+      item-schema:
+      - name: prefix
+        type: string
+        description: Destination CIDR of the static route.
+      - name: nextHop
+        type: string
+        description: Next-hop IP address of the static route.
+    - name: createTime
+      type: string
+      description: Creation time of the edge point.
+    - name: ipAddress
+      type: string
+      description: Interconnect IP address of the edge point.
+  - name: cloudRouterStatus
+    type: enum
+    description: Business status of the Cloud Router.
+    enum-values:
+    - value: CREATING
+      desc: Creating.
+    - value: UPDATING
+      desc: Updating.
+    - value: DELETING
+      desc: Deleting.
+    - value: DESTROYING
+      desc: Destroying.
+    - value: RECOVERING
+      desc: Restoring.
+    - value: RUNNING
+      desc: Normal.
+    - value: NOT_ACCEPT
+      desc: Not accepted.
+    - value: RECYCLED
+      desc: Recycled.
+    - value: DESTROYED
+      desc: Destroyed.
+    - value: CREATING_FAILED
+      desc: Creation failed.
+    - value: UPDATING_FAILED
+      desc: Update failed.
+    - value: DELETING_FAILED
+      desc: Deletion failed.
+    - value: DESTROYING_FAILED
+      desc: Destruction failed.
+    - value: RECOVERING_FAILED
+      desc: Restore failed.
+  - name: connectivityStatus
+    type: enum
+    description: Connectivity status of the Cloud Router.
+    enum-values:
+    - value: ACTIVE
+      desc: The link is connected normally.
+    - value: DOWN
+      desc: The link is down.
+    - value: ABNORMAL
+      desc: The link is partially abnormal.
+  - name: resourceGroupId
+    type: string
+    description: ID of the resource group the Cloud Router belongs to.
+  - name: resourceGroupName
+    type: string
+    description: Name of the resource group the Cloud Router belongs to.
+  - name: period
+    type: integer
+    description: Purchase duration of the Cloud Router (months).
+  - name: source
+    type: enum
+    description: Business source of the Cloud Router.
+    enum-values:
+    - value: CONSOLE
+      desc: Created via the Console.
+    - value: OSS
+      desc: Created via the VIP process.
+  - name: tags
+    type: object
+    description: Tags associated with the Cloud Router.
+    object-schema:
+    - name: tags
+      type: object-array
+      description: List of tag pairs.
+      array-style: json
+      item-schema:
+      - name: key
+        type: string
+        description: |-
+          Tag key.
+          Length: 1-64 characters.
+      - name: value
+        type: string
+        description: |-
+          Tag value.
+          Length: 1-64 characters.

@@ -1,0 +1,23 @@
+name: RenewCloudRouter
+product: sdn
+use: renew-cloud-router
+short: 恢复三层网络
+long: |-
+  恢复三层网络
+  **注意事项**
+
+  * 仅三层网络状态为**RECYCLED**的可以调用此接口进行恢复。
+  * 本接口为异步接口，当请求下发成功后，恢复三层网络操作并未立即完成。在此期间三层网络的状态将会处于**RECOVERING**，当恢复成功，三层网络的状态将变为**RUNNING**。
+examples:
+- cmd: zeno sdn renew-cloud-router --cloud-router-id your-cloud-router-id
+  desc: 恢复一条三层网络
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: RenewCloudRouter
+parameters:
+- name: cloud-router-id
+  type: string
+  required: true
+  sdk-field: cloudRouterId
+  description: 三层网络的 ID。

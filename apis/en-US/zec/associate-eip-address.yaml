@@ -67,10 +67,9 @@ parameters:
   required: false
   sdk-field: bindType
   description: |-
-    Elastic IP mode.
-    Default value: FullNat .
-    Effective when the elastic IP is assigned to a vNIC.
-    When associated to a high availability virtual IP (haVip), only FullNat is supported. Any other value will cause all elastic IPs in this request to fail to associate.
+    Binding type.
+    Effective when binding to a network interface.
+    Defaults to standard NAT mode.
   enum-values:
   - value: FullNat
     desc: NAT mode.

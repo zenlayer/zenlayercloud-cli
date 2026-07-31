@@ -1,0 +1,23 @@
+name: DestroyPrivateConnect
+product: sdn
+use: destroy-private-connect
+short: 销毁二层网络专线
+long: |-
+  销毁二层网络专线
+  **注意事项**
+
+  * 本操作不可逆，一旦操作成功，二层网络专线将被彻底释放，请谨慎操作。
+  * 本接口为异步接口，当销毁二层网络的请求下发成功后，销毁二层网络操作并未立即完成。在此期间二层网络的状态将会处于\*\*`DESTROYING`\*\*，当销毁成功，将无法再查询到该二层网络的相关信息。
+examples:
+- cmd: zeno sdn destroy-private-connect --private-connect-id your-private-connect-id
+  desc: 删除
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: DestroyPrivateConnect
+parameters:
+- name: private-connect-id
+  type: string
+  required: true
+  sdk-field: privateConnectId
+  description: 二层网络专线 ID。

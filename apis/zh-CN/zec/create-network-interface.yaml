@@ -8,6 +8,7 @@ long: |-
 
   * 此操作为异步接口，调用成功后，辅助网卡并未立刻创建成功， 需要等待网卡的状态从`PENDING`到`Available`则为创建成功，如果状态变为`CREATE_FAILED`则创建失败。
   * 保底流量包大小仅对计费周期为月有效。
+  * `eipIds` 绑定的是网段(Block)型EIP时，`eipBindType` 只能使用`Passthrough`，必须显式指定（不能省略，省略等价于`FullNat`会被拒绝）。
 examples:
 - cmd: zeno zec create-network-interface --name Test-NIC --subnet-id <subnetId>
   desc: 在IPv4堆栈类型的子网下创建一张辅助网卡。
@@ -105,6 +106,7 @@ parameters:
   description: |-
     公网IP的绑定模式。
     当分配公网IP时需要指定。
+    绑定网段(Block)型EIP时只能使用Passthrough，必须显式指定（不能省略，省略等价于FullNat会被拒绝）。
   enum-values:
   - value: FullNat
     desc: 普通NAT模式。

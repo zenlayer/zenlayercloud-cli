@@ -2,9 +2,14 @@ name: DescribeInstanceAvailableEipResources
 product: bmc
 use: describe-instance-available-eip-resources
 short: Queries list of elastic IPs that can be assigned to instances
-long: Query list of elastic IPs that can be bound to an instance.
+long: |-
+  Query list of elastic IPs that can be bound to an instance.
+  **Note**
+
+  * Only elastic IPs that can actually be assigned to the instance under the business rules are returned. The following are filtered out: elastic IPs of the same type already bound to the instance have reached the quota limit; the instance is in gateway mode and the elastic IP is an IPv4 address with netmask greater than 29; when querying the IPv6 type, the instance has no primary IPv6 address.
+  * If `ipType` is not specified, available IPv4 elastic IPs are queried by default.
 examples:
-- cmd: zeno bmc describe-instance-available-eip-resources --instance-id instanceId1
+- cmd: zeno bmc describe-instance-available-eip-resources --instance-id instanceId1 --ip-type IPv4
   desc: Query list of elastic IPs that can be bound to an instance
 sdk:
   service: bmc
@@ -18,6 +23,16 @@ parameters:
   description: |-
     Instance ID.
     To obtain the instance ID, you can call DescribeInstances and look for instanceId in the response.
+- name: ip-type
+  type: enum
+  required: false
+  sdk-field: ipType
+  description: 'Type of the elastic IP. Valid values: IPv4, IPv6. If not specified, IPv4 is used by default.'
+  enum-values:
+  - value: IPv4
+    desc: IPv4.
+  - value: IPv6
+    desc: IPv6.
 response:
 - name: instanceEipResources
   type: object-array

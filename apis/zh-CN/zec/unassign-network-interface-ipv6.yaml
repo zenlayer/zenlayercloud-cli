@@ -1,7 +1,7 @@
 name: UnassignNetworkInterfaceIpv6
 product: zec
 use: unassign-network-interface-ipv6
-short: 删除网卡IPv6。
+short: 删除网卡IPv6
 long: |-
   删除网卡IPv6。
   **注意事项**

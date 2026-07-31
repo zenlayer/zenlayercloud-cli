@@ -3,7 +3,7 @@ product: zec
 use: describe-zone-gpu-instance-config-infos
 short: 查询可用区售卖的 GPU 规格信息
 long: |-
-  查询可用区售卖的 GPU 规格信息
+  查询可用区售卖的 GPU 规格信息。
   **注意事项**
 
   * `instanceType` 字段为 GPU 规格 ID，如 `z3a.g.C49.c8m32.1`。变更 GPU 实例规格时，将此值传入 [`ModifyInstanceType`](modifyinstancetype.md) 的 `instanceType` 参数。

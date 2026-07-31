@@ -12,7 +12,7 @@ long: |-
   * `dependResource` 为 `true`（默认）时，将同步释放实例关联的弹性公网 IP（非默认 IP）、可卸载云盘及非主网卡；为 `false` 时仅释放实例本身，关联资源保留并继续计费。
 examples:
 - cmd: zeno zec release-instances --instance-ids instanceId1 --instance-ids instanceId2
-  desc: 批量释放实例。
+  desc: 批量释放实例（同步释放关联资源，默认行为）。
 - cmd: zeno zec release-instances --instance-ids instanceId1 --depend-resource false
   desc: 仅释放实例本身，关联资源（EIP、云盘、网卡）保留。
 sdk:

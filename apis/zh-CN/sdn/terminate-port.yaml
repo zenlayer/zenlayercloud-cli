@@ -1,0 +1,25 @@
+name: TerminatePort
+product: sdn
+use: terminate-port
+short: 终止端口
+long: |-
+  终止端口
+  **注意事项**
+
+  * 不再使用的数据中心端口，可通过本接口主动退还。如果是后付费，退还的数据中心端口将停止计费。
+  * 本接口无法主动退还预付费订阅模式的数据中心端口，**订阅模式**的数据中心端口将会在订阅到期后自动退还。
+  * 退还后的数据中心端口将进入回收站，进入回收站后如无其他操作数据中心端口将在48小时后自动释放，也可以调用[DestroyPort](destroyport.md#DestroyPort)接口主动进行释放。
+  * 已经在回收站中或者正在创建中的数据中心端口调用该接口无效。
+examples:
+- cmd: zeno sdn terminate-port --port-id your-port-id
+  desc: ''
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: TerminatePort
+parameters:
+- name: port-id
+  type: string
+  required: true
+  sdk-field: portId
+  description: 数据中心端口 ID。

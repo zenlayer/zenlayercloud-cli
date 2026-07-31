@@ -35,7 +35,6 @@ parameters:
   required: false
   sdk-field: commitBandwidth
   description: |-
-    Bandwidth commitment.
-    This parameter is configured for the backbone network. The value is only required when the IP type is Remote IP, and the network billing method is Bandwidth Cluster.
-    Unit: Mbps .
-    Available value range: [1, +) .
+    Deprecated, this parameter no longer takes effect and any passed value will be ignored.
+    EIPs with a configured burst bandwidth keep their original value unchanged; if the new bandwidth exceeds the original burst bandwidth, the burst bandwidth will be automatically raised to match bandwidth.
+  deprecated: true

@@ -265,6 +265,12 @@ response:
     - name: customerIpv4Address
       type: string
       description: Customer-side IPv4 address.
+    - name: vendorIpv6Address
+      type: string
+      description: Zenlayer-side IPv6 interconnect address.
+    - name: customerIpv6Address
+      type: string
+      description: Customer-side IPv6 interconnect address.
   - name: privateConnectId
     type: string
     description: Private connect ID associated with the IP Transit.
@@ -315,6 +321,16 @@ response:
       desc: Releasing failed.
     - value: RECOVERING_FAILED
       desc: Restoring failed.
+  - name: connectivityStatus
+    type: enum
+    description: Link connectivity status.
+    enum-values:
+    - value: ACTIVE
+      desc: The link is connected normally.
+    - value: DOWN
+      desc: The link is down.
+    - value: ABNORMAL
+      desc: The link is partially abnormal.
   - name: tags
     type: object
     description: Tags bound to the IP Transit.
@@ -334,3 +350,176 @@ response:
         description: |-
           Tag value.
           Length limit: 1-128 characters.
+  - name: publicIpAddresses
+    type: object-array
+    description: List of public IP addresses.
+    array-style: json
+    item-schema:
+    - name: ipUuid
+      type: string
+      description: |-
+        IP block UUID.
+        Passed as ipUuid when modifying (expanding/shrinking/deleting).
+    - name: ipAddress
+      type: string
+      description: IP address (in CIDR notation, e.g., 192.0.2.0/30).
+    - name: netmask
+      type: integer
+      description: Netmask length.
+    - name: gatewayIpAddress
+      type: string
+      description: Gateway IP.
+    - name: ipType
+      type: enum
+      description: IP type (IPV4 / IPV6).
+      enum-values:
+      - value: IPV4
+        desc: IPv4.
+      - value: IPV6
+        desc: IPv6.
+    - name: ipNetworkType
+      type: enum
+      description: IP network type (BGP_IP / LOCAL_IP).
+      enum-values:
+      - value: BGP_IP
+        desc: Regular IP.
+      - value: LOCAL_IP
+        desc: Native IP.
+  - name: haMode
+    type: enum
+    description: HA mode.
+    enum-values:
+    - value: ACTIVE_STANDBY
+      desc: |-
+        Active/standby mode.
+        Only the primary link forwards traffic.
+    - value: ACTIVE_ACTIVE
+      desc: |-
+        Active/active mode.
+        Both sub-links forward traffic simultaneously.
+  - name: zbgRegionId
+    type: string
+    description: |-
+      ZBG region ID.
+      Returned for IP Transits in ZBG scenarios.
+  - name: peerPortType
+    type: enum
+    description: Peer port type.
+    enum-values:
+    - value: PORT
+      desc: Data center physical port.
+    - value: KEY_PORT
+      desc: Key Port.
+    - value: ZBG
+      desc: Border gateway (ZBG).
+  - name: haLinks
+    type: object-array
+    description: |-
+      List of HA sub-links.
+      Null for non-HA mode. Contains two sub-link objects for HA mode.
+    array-style: json
+    item-schema:
+    - name: isPrimary
+      type: boolean
+      description: |-
+        Whether this is currently the primary link.
+        In ACTIVE_STANDBY mode, this dynamically reflects the primary/secondary switchover state. In ACTIVE_ACTIVE mode, the value is null.
+    - name: iptStatus
+      type: enum
+      description: State of the sub-link.
+      enum-values:
+      - value: CREATING
+        desc: Creating.
+      - value: UPDATING
+        desc: Updating.
+      - value: DELETING
+        desc: Deleting.
+      - value: DESTROYING
+        desc: Releasing.
+      - value: RECOVERING
+        desc: Restoring.
+      - value: RUNNING
+        desc: Running.
+      - value: RECYCLED
+        desc: Recycled.
+      - value: DESTROYED
+        desc: Released.
+      - value: CREATING_FAILED
+        desc: Creating failed.
+      - value: UPDATING_FAILED
+        desc: Updating failed.
+      - value: DELETING_FAILED
+        desc: Deleting failed.
+      - value: DESTROYING_FAILED
+        desc: Releasing failed.
+      - value: RECOVERING_FAILED
+        desc: Restoring failed.
+    - name: connectivityStatus
+      type: enum
+      description: Connectivity status of the sub-link.
+      enum-values:
+      - value: ACTIVE
+        desc: The link is connected normally.
+      - value: DOWN
+        desc: The link is down.
+      - value: ABNORMAL
+        desc: The link is partially abnormal.
+    - name: privateConnectId
+      type: string
+      description: ID of the associated VLL.
+    - name: privateConnectName
+      type: string
+      description: Name of the associated VLL.
+    - name: peerPortId
+      type: string
+      description: Peer port ID.
+    - name: peerPortName
+      type: string
+      description: Peer port name.
+    - name: peerDataCenter
+      type: object
+      description: Data center of the port.
+      object-schema:
+      - name: dcId
+        type: string
+        description: Data center ID.
+      - name: dcName
+        type: string
+        description: Data center name.
+      - name: dcAddress
+        type: string
+        description: Data center location.
+      - name: cityName
+        type: string
+        description: City name.
+      - name: countryName
+        type: string
+        description: Country name.
+      - name: areaName
+        type: string
+        description: Region name.
+      - name: latitude
+        type: float
+        description: Latitude of the data center.
+      - name: longitude
+        type: float
+        description: Longitude of the data center.
+    - name: peerPortVlan
+      type: integer
+      description: VLAN ID.
+    - name: interconnect
+      type: object
+      description: Interconnect IP configuration.
+      object-schema:
+      - name: vendorIpv4Address
+        type: string
+        description: Vendor-side IPv4 address.
+      - name: customerIpv4Address
+        type: string
+        description: Customer-side IPv4 address.
+      - name: vendorIpv6Address
+        type: string
+        description: Zenlayer-side IPv6 interconnect address.
+      - name: customerIpv6Address
+        type: string
+        description: Customer-side IPv6 interconnect address.

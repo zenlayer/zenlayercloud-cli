@@ -1,0 +1,41 @@
+name: DescribePortUsableVlan
+product: sdn
+use: describe-port-usable-vlan
+short: Query Port Available VLAN
+long: |-
+  Query Port Available VLAN
+  **Notes**
+
+  * Either the port or the data center must be provided.
+examples:
+- cmd: zeno sdn describe-port-usable-vlan --port-id your-port-id
+  desc: ''
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: DescribePortUsableVlan
+parameters:
+- name: port-id
+  type: string
+  required: false
+  sdk-field: portId
+  description: |-
+    Port ID.
+    Either the port or the data center must be provided.
+- name: dc-id
+  type: string
+  required: false
+  sdk-field: dcId
+  description: |-
+    Data center four-letter code. Obtainable via the ~~DescribeDataCenters~~ API.
+    Either the port or the data center must be provided.
+response:
+- name: start
+  type: integer
+  description: Start value of the VLAN range.
+- name: end
+  type: integer
+  description: End value of the VLAN range.
+- name: inuseVlanList
+  type: integer-array
+  description: List of VLANs currently in use.

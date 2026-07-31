@@ -1,0 +1,82 @@
+name: DescribePrivateConnectTraffic
+product: sdn
+use: describe-private-connect-traffic
+short: Query Private Connect Traffic
+long: |-
+  Query Private Connect Traffic
+  **Notes**
+
+  * The span between the start time and end time cannot exceed one day.
+  * Only traffic data within the last 30 days can be queried.
+examples:
+- cmd: zeno sdn describe-private-connect-traffic --private-connect-id your-private-connect-id --start-time 2023-01-01T00:00:00Z --end-time 2023-01-01T23:59:59Z
+  desc: Query the instance's traffic data over one day.
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: DescribePrivateConnectTraffic
+parameters:
+- name: private-connect-id
+  type: string
+  required: true
+  sdk-field: privateConnectId
+  description: Private Connect ID.
+- name: start-time
+  type: string
+  required: true
+  sdk-field: startTime
+  description: 'Query start time, in ISO 8601 UTC format: YYYY-MM-DDThh:mm:ssZ.'
+- name: end-time
+  type: string
+  required: false
+  sdk-field: endTime
+  description: 'Query end time, in ISO 8601 UTC format: YYYY-MM-DDThh:mm:ssZ. Defaults to the current time.'
+response:
+- name: dataList
+  type: object-array
+  description: List of traffic data points.
+  array-style: json
+  item-schema:
+  - name: internetRX
+    type: integer
+    description: |-
+      Inbound bandwidth value.
+      Unit: bps.
+  - name: internetTX
+    type: integer
+    description: |-
+      Outbound bandwidth value.
+      Unit: bps.
+  - name: time
+    type: string
+    description: |-
+      Data timestamp.
+      In ISO 8601 format, UTC timezone.
+      Format: YYYY-MM-ddTHH:mm:ssZ.
+- name: in95
+  type: integer
+  description: Inbound 95th percentile peak traffic.
+- name: inAvg
+  type: integer
+  description: Average inbound traffic.
+- name: inMax
+  type: integer
+  description: Maximum inbound traffic.
+- name: inMin
+  type: integer
+  description: Minimum inbound traffic.
+- name: out95
+  type: integer
+  description: Outbound 95th percentile peak traffic.
+- name: outAvg
+  type: integer
+  description: Average outbound traffic.
+- name: outMax
+  type: integer
+  description: Maximum outbound traffic.
+- name: outMin
+  type: integer
+  description: Minimum outbound traffic.
+- name: unit
+  type: string
+  description: Traffic unit, e.g. bps.

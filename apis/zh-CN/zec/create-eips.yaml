@@ -11,9 +11,11 @@ long: |-
   * 如果需要创建`Remote EIP`,可以先查询[`DescribeEipRemoteRegions`](describeeipremoteregions.md)来查询支持远端节点。
   * 如果需要通过`CIDR`进行分配，可以先查询[`DescribeCidrs`](../cidr-block/describecidrs.md)来查询账号下的`CIDR`。
   * 如果同时绑定实例，需要保证所选实例的`主网卡`上的`主内网IP`还能再分配EIP。
+  * 指定`prefixLength`小于32时创建EIP Block资源，同时绑定实例时`bindType`只能为`Passthrough`。
+  * 指定`publicIp`时，`prefixLength`为32表示指定纯IPv4起始地址，小于32时表示指定带掩码的起始网段（掩码须与`prefixLength`一致，如`88.0.5.64/26`）。指定`cidrId`时，该起始地址/网段必须是所选`CIDR`当前可分配的候选之一；不指定`cidrId`时（仅支持`prefixLength`为32），从公网IP池按此地址开始顺序分配。
   * 保底流量包大小仅对计费周期为月有效。
 examples:
-- cmd: zeno zec create-eips --region-id asia-east-1 --amount 1 --name Test-EIP --internet-charge-type ByTrafficPackage --network-line-type PremiumBGP --bandwidth 50 --flow-package 10
+- cmd: zeno zec create-eips --region-id asia-east-1 --amount 1 --name Test-EIP --internet-charge-type ByTrafficPackage --network-line-type PremiumBGP --bandwidth 50 --flow-package 10 --rate-limit-mode LOOSE
   desc: 创建一个BGP线路的公网弹性IP, 使用流量包计费。流量包大小为10TB。带宽限速为50Mbps。
 - cmd: zeno zec create-eips --region-id asia-east-1 --amount 2 --name Test-EIP --internet-charge-type ByBandwidth --cidr-id <cidrId> --bandwidth 50
   desc: 从CIDR里分配2个公网弹性IP, 使用固定带宽计费。带宽限速为50Mbps。
@@ -55,6 +57,13 @@ parameters:
   required: false
   sdk-field: amount
   description: 需要创建EIP的数量。
+- name: prefix-length
+  type: integer
+  required: false
+  sdk-field: prefixLength
+  description: |-
+    掩码长度，取值范围24–32，默认32。
+    指定小于32时，创建EIP Block资源，必须同时指定cidrId，且不能小于所选CIDR自身的掩码长度。
 - name: eip-v4-type
   type: enum
   required: false
@@ -110,9 +119,7 @@ parameters:
   type: enum
   required: false
   sdk-field: primaryIsp
-  description: |-
-    主公网IP的运营商。
-    该字段仅作用于三线IP(ThreeLine)。
+  description: 主公网IP的运营商。
   deprecated: true
   enum-values:
   - value: BGP
@@ -149,7 +156,10 @@ parameters:
   type: string
   required: false
   sdk-field: publicIp
-  description: 指定公网起始IP地址开始创建弹性IP。
+  description: |-
+    指定公网起始地址开始创建弹性IP。
+    不指定cidrId时，从公网IP池按此地址开始顺序分配（仅支持prefixLength为32）；指定cidrId时，从该CIDR内按此地址开始分配。
+    prefixLength为32时填纯IPv4地址；prefixLength小于32时必须同时指定cidrId，填带掩码的起始网段（掩码须与prefixLength一致，如88.0.5.64/26）。
 - name: resource-group-id
   type: string
   required: false
@@ -160,17 +170,17 @@ parameters:
   required: false
   sdk-field: flowPackage
   description: |-
-    公网IPv6的流量包大小。
+    弹性公网IP的流量包大小。
     单位为TB。
     值要求为0或0.1的倍数。
-    当子网的堆栈类型包括V6且为公网时，且网络计费方式是流量计费(ByTrafficPackage)需要指定。
+    当网络计费方式为流量计费(ByTrafficPackage)时需要指定。
 - name: cluster-id
   type: string
   required: false
   sdk-field: clusterId
   description: |-
-    公网IPv6所指定的共享带宽包ID。
-    当子网的堆栈类型包括V6且为公网时，且网络计费方式是共享带宽包计费(BandwidthCluster)需要指定。
+    共享带宽包ID。
+    当网络计费方式为共享带宽包计费(BandwidthCluster)时需要指定。
 - name: peer-region-id
   type: string
   required: false
@@ -225,7 +235,7 @@ parameters:
   sdk-field: bindType
   description: |-
     绑定类型。
-    当指定定instanceIds时生效。
+    当指定instanceIds时生效。
     默认为普通NAT模式。
   enum-values:
   - value: FullNat
@@ -236,7 +246,9 @@ parameters:
   type: enum
   required: false
   sdk-field: rateLimitMode
-  description: 限速模式。
+  description: |-
+    限速模式。
+    STRICT严格模式必须同时指定bandwidth。
   enum-values:
   - value: LOOSE
     desc: 宽松模式：允许短时间突发超出限制。

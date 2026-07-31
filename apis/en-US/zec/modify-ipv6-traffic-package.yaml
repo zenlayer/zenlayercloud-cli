@@ -1,0 +1,29 @@
+name: ModifyIpv6TrafficPackage
+product: zec
+use: modify-ipv6-traffic-package
+short: Adjust the IPv6 traffic packets of the public network
+long: |-
+  Adjust the IPv6 traffic packets of the public network.
+  **Notes**
+
+  * Only IPv6 in the "RUNNING" state supports this operation.
+  * The minimum traffic package size is only valid for monthly billing periods.
+  * This operation is executed asynchronously. Once the call is successful, the change of the traffic package will be processed in the background. The current operation status can be obtained by querying the `operationInfo` field of the IPv6 details interface.
+examples:
+- cmd: zeno zec modify-ipv6-traffic-package --ipv6-id "< Ipv6Id >" --traffic-package-size 10
+  desc: Adjust the IPv6 traffic packets to 10TB
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyIpv6TrafficPackage
+parameters:
+- name: ipv6-id
+  type: string
+  required: true
+  sdk-field: ipv6Id
+  description: IPv6 unique identification ID.
+- name: traffic-package-size
+  type: float
+  required: true
+  sdk-field: trafficPackageSize
+  description: Traffic package size, measured in TB.

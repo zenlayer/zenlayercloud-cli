@@ -5,7 +5,7 @@ short: Queries information on instance size in the zone
 long: Query information on instance size in the zone.
 examples:
 - cmd: zeno zec describe-zone-instance-config-infos --instance-type z2a.cpu.4
-  desc: ''
+  desc: Get the available configuration for the instance type z2a.cpu.4.
 sdk:
   service: zec
   version: '2025-09-01'

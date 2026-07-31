@@ -4,8 +4,8 @@ use: create-policy
 short: Creates a protection strategy
 long: Create a protection strategy.
 examples:
-- cmd: zeno zec create-policy --policy-name policyName --black-ip-list 10.0.0.1 --black-ip-list 10.0.0.2 --white-ip-list 10.0.0.1 --white-ip-list 10.0.0.2 --ip-black-timeout 100 --ports "{protocol=TCP, srcPortStart=1, srcPortEnd=100, dstPortStart=1, dstPortEnd=100, action=Accept}"
-  desc: Create a protection strategy.
+- cmd: zeno zec create-policy --policy-name policyName --black-ip-list 10.0.0.1 --black-ip-list 10.0.0.2 --white-ip-list 10.0.0.1 --white-ip-list 10.0.0.2 --ip-black-timeout 100 --ports "{protocol=TCP, srcPortStart=1, srcPortEnd=100, dstPortStart=1, dstPortEnd=100, action=Allow}"
+  desc: Create a protection policy
 sdk:
   service: zec
   version: '2025-09-01'

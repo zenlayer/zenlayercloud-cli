@@ -1,0 +1,478 @@
+name: InquiryModifyIPTransitPrice
+product: ipt
+use: inquiry-modify-ip-transit-price
+short: Query the price of an IP Transit configuration change
+long: |-
+  Queries the price of an IP Transit configuration change.
+  **Notes**
+
+  * BFD and BGP related operations (`BFD`, `BGP_ROUTE_TYPE`, `BGP_ASN_AS_SET`, `BGP_PASSWORD`) and HA switchover operations (`HA_SWITCH_PRIMARY`, `HA_SWITCH_MODE`) do not involve pricing changes. Calling this API with these types returns the `INVALID_RIPT_CONFIG_TYPE_NO_PRICE_CHANGE` error; you can call `ModifyIPTransitConfig` directly without a price inquiry.
+  * When `type=BANDWIDTH`, `bandwidth` is required. Returns `privateConnectPrice` (private connect price) and `iptPrice` (bandwidth price).
+  * When `type=ADD_CIDR_BLOCK` or `EXPAND_CIDR_BLOCK`, `publicIPv4BlockSize` is required. Returns `iptIpPrices` (public IP block prices).
+  * When `type=DEL_CIDR_BLOCK` or `SHRINK_CIDR_BLOCK`, `ipUuid` is required, indicating the target IP block to unsubscribe from or shrink.
+examples:
+- cmd: zeno ipt inquiry-modify-ip-transit-price --ipt-id your-ipt-id --type BANDWIDTH --bandwidth 200
+  desc: Query the cost of upgrading the bandwidth to 200 Mbps.
+- cmd: zeno ipt inquiry-modify-ip-transit-price --ipt-id your-ipt-id --type ADD_CIDR_BLOCK --public-ipv4-block-size 28
+  desc: Query the cost of adding a /28 public IPv4 CIDR block.
+sdk:
+  service: ipt
+  version: '2024-09-01'
+  action: InquiryModifyIPTransitPrice
+parameters:
+- name: ipt-id
+  type: string
+  required: true
+  sdk-field: iptId
+  description: IP Transit instance ID.
+- name: type
+  type: enum
+  required: true
+  sdk-field: type
+  description: |-
+    Configuration change type.
+    Supports BANDWIDTH, ADD_CIDR_BLOCK, DEL_CIDR_BLOCK, EXPAND_CIDR_BLOCK, and SHRINK_CIDR_BLOCK. BFD/BGP/HA operations incur no charge and are not allowed here.
+  enum-values:
+  - value: BANDWIDTH
+    desc: Bandwidth.
+  - value: BFD
+    desc: BFD switch.
+  - value: BGP_ROUTE_TYPE
+    desc: BGP route type.
+  - value: BGP_ASN_AS_SET
+    desc: BGP ASN/AS-SET.
+  - value: BGP_PASSWORD
+    desc: BGP password.
+  - value: ADD_CIDR_BLOCK
+    desc: Add a public IP address block.
+  - value: DEL_CIDR_BLOCK
+    desc: Delete a public IP address block.
+  - value: EXPAND_CIDR_BLOCK
+    desc: Expand a public IP address block.
+  - value: SHRINK_CIDR_BLOCK
+    desc: Shrink a public IP address block.
+  - value: HA_SWITCH_PRIMARY
+    desc: HA primary/secondary switchover.
+  - value: HA_SWITCH_MODE
+    desc: HA mode switch.
+- name: bandwidth
+  type: integer
+  required: false
+  sdk-field: bandwidth
+  description: |-
+    Target bandwidth (Mbps).
+    Required when type is BANDWIDTH.
+- name: commit-bandwidth
+  type: integer
+  required: false
+  sdk-field: commitBandwidth
+  description: |-
+    Committed bandwidth (Mbps).
+    Effective when type is BANDWIDTH. If not specified, defaults to the same value as bandwidth.
+- name: public-ipv4-block-size
+  type: integer
+  required: false
+  sdk-field: publicIPv4BlockSize
+  description: |-
+    IPv4 CIDR netmask length (24-32).
+    Required when type is ADD_CIDR_BLOCK, EXPAND_CIDR_BLOCK, or SHRINK_CIDR_BLOCK.
+- name: ip-uuid
+  type: string
+  required: false
+  sdk-field: ipUuid
+  description: |-
+    UUID of the target IP block.
+    Required when type is DEL_CIDR_BLOCK, EXPAND_CIDR_BLOCK, or SHRINK_CIDR_BLOCK.
+- name: ip-network-type
+  type: enum
+  required: false
+  sdk-field: ipNetworkType
+  description: |-
+    IP network type.
+    Effective when type is ADD_CIDR_BLOCK. Default: BGP_IP.
+  enum-values:
+  - value: BGP_IP
+    desc: Regular IP.
+  - value: LOCAL_IP
+    desc: Native IP.
+response:
+- name: privateConnectPrice
+  type: object
+  description: |-
+    Private connect (VLL) price.
+    May have a value for the BANDWIDTH type; empty for Router RIPT.
+  object-schema:
+  - name: discount
+    type: float
+    description: |-
+      Discount.
+      For example, 80.0 means 20% off.
+  - name: discountPrice
+    type: float
+    description: |-
+      Discount unit price of pay-as-you-go resources.
+      Only used in pay-as-you-go model. For tiered billing, the value is empty.
+  - name: originalPrice
+    type: float
+    description: |-
+      Original price of subscription resources.
+      Only used in subscription model. For pay-as-you-go model, the value is empty.
+  - name: unitPrice
+    type: float
+    description: |-
+      Original unit price of pay-as-you-go resources.
+      Only used in pay-as-you-go model. For tiered billing, the value is empty.
+  - name: discountUnitPrice
+    type: float
+    description: |-
+      Discount unit price of pay-as-you-go resources.
+      Only used in pay-as-you-go model. For tiered billing, the value is empty.
+  - name: chargeUnit
+    type: string
+    description: |-
+      Unit of pay-as-you-go billing.
+      Only used in pay-as-you-go model. Value range:<br/>HOUR: you will be billed by hour.
+      DAY: you will be billed by day.
+      MONTH: you will be billed by month. For example, the burstable 95th pricing model.
+  - name: stepPrices
+    type: object-array
+    description: |-
+      Tiered price of pay-as-you-go billing.
+      Only used in pay-as-you-go model. If it is not tiered price, the value is empty.
+    array-style: json
+    item-schema:
+    - name: stepStart
+      type: float
+      description: First price range of a tiered price.
+    - name: stepEnd
+      type: float
+      description: Last price range of a tiered price.
+    - name: unitPrice
+      type: float
+      description: |-
+        Original unit price of current price range.
+        Only used in pay-as-you-go model.
+    - name: discountUnitPrice
+      type: float
+      description: |-
+        Discount unit price of current price range.
+        Only used in pay-as-you-go model.
+  - name: amountUnit
+    type: string
+    description: |-
+      Usage unit, such as Mbps, LCU, etc.
+      If null, the value is not available.
+  - name: excessUnitPrice
+    type: float
+    description: Original excess unit price.
+  - name: excessDiscountUnitPrice
+    type: float
+    description: Discounted excess unit price.
+  - name: excessAmountUnit
+    type: string
+    description: |-
+      Excess usage unit.
+      If null, the value is not available.
+  - name: category
+    type: enum
+    description: Price category.
+    enum-values:
+    - value: STANDARD
+      desc: Standard price.
+    - value: CUSTOMIZED
+      desc: Customized price.
+- name: privateConnectBandwidth
+  type: integer
+  description: |-
+    Private connect bandwidth (Mbps).
+    Has a value for the BANDWIDTH type.
+- name: iptPrice
+  type: object
+  description: IP Transit bandwidth price.
+  object-schema:
+  - name: discount
+    type: float
+    description: |-
+      Discount.
+      For example, 80.0 means 20% off.
+  - name: discountPrice
+    type: float
+    description: |-
+      Discount unit price of pay-as-you-go resources.
+      Only used in pay-as-you-go model. For tiered billing, the value is empty.
+  - name: originalPrice
+    type: float
+    description: |-
+      Original price of subscription resources.
+      Only used in subscription model. For pay-as-you-go model, the value is empty.
+  - name: unitPrice
+    type: float
+    description: |-
+      Original unit price of pay-as-you-go resources.
+      Only used in pay-as-you-go model. For tiered billing, the value is empty.
+  - name: discountUnitPrice
+    type: float
+    description: |-
+      Discount unit price of pay-as-you-go resources.
+      Only used in pay-as-you-go model. For tiered billing, the value is empty.
+  - name: chargeUnit
+    type: string
+    description: |-
+      Unit of pay-as-you-go billing.
+      Only used in pay-as-you-go model. Value range:<br/>HOUR: you will be billed by hour.
+      DAY: you will be billed by day.
+      MONTH: you will be billed by month. For example, the burstable 95th pricing model.
+  - name: stepPrices
+    type: object-array
+    description: |-
+      Tiered price of pay-as-you-go billing.
+      Only used in pay-as-you-go model. If it is not tiered price, the value is empty.
+    array-style: json
+    item-schema:
+    - name: stepStart
+      type: float
+      description: First price range of a tiered price.
+    - name: stepEnd
+      type: float
+      description: Last price range of a tiered price.
+    - name: unitPrice
+      type: float
+      description: |-
+        Original unit price of current price range.
+        Only used in pay-as-you-go model.
+    - name: discountUnitPrice
+      type: float
+      description: |-
+        Discount unit price of current price range.
+        Only used in pay-as-you-go model.
+  - name: amountUnit
+    type: string
+    description: |-
+      Usage unit, such as Mbps, LCU, etc.
+      If null, the value is not available.
+  - name: excessUnitPrice
+    type: float
+    description: Original excess unit price.
+  - name: excessDiscountUnitPrice
+    type: float
+    description: Discounted excess unit price.
+  - name: excessAmountUnit
+    type: string
+    description: |-
+      Excess usage unit.
+      If null, the value is not available.
+  - name: category
+    type: enum
+    description: Price category.
+    enum-values:
+    - value: STANDARD
+      desc: Standard price.
+    - value: CUSTOMIZED
+      desc: Customized price.
+- name: iptIpPrices
+  type: object-array
+  description: |-
+    List of public CIDR block prices.
+    Has a value for ADD_CIDR_BLOCK and EXPAND_CIDR_BLOCK types.
+  array-style: json
+  item-schema:
+  - name: price
+    type: object
+    description: Price information.
+    object-schema:
+    - name: discount
+      type: float
+      description: |-
+        Discount.
+        For example, 80.0 means 20% off.
+    - name: discountPrice
+      type: float
+      description: |-
+        Discount unit price of pay-as-you-go resources.
+        Only used in pay-as-you-go model. For tiered billing, the value is empty.
+    - name: originalPrice
+      type: float
+      description: |-
+        Original price of subscription resources.
+        Only used in subscription model. For pay-as-you-go model, the value is empty.
+    - name: unitPrice
+      type: float
+      description: |-
+        Original unit price of pay-as-you-go resources.
+        Only used in pay-as-you-go model. For tiered billing, the value is empty.
+    - name: discountUnitPrice
+      type: float
+      description: |-
+        Discount unit price of pay-as-you-go resources.
+        Only used in pay-as-you-go model. For tiered billing, the value is empty.
+    - name: chargeUnit
+      type: string
+      description: |-
+        Unit of pay-as-you-go billing.
+        Only used in pay-as-you-go model. Value range:<br/>HOUR: you will be billed by hour.
+        DAY: you will be billed by day.
+        MONTH: you will be billed by month. For example, the burstable 95th pricing model.
+    - name: stepPrices
+      type: object-array
+      description: |-
+        Tiered price of pay-as-you-go billing.
+        Only used in pay-as-you-go model. If it is not tiered price, the value is empty.
+      array-style: json
+      item-schema:
+      - name: stepStart
+        type: float
+        description: First price range of a tiered price.
+      - name: stepEnd
+        type: float
+        description: Last price range of a tiered price.
+      - name: unitPrice
+        type: float
+        description: |-
+          Original unit price of current price range.
+          Only used in pay-as-you-go model.
+      - name: discountUnitPrice
+        type: float
+        description: |-
+          Discount unit price of current price range.
+          Only used in pay-as-you-go model.
+    - name: amountUnit
+      type: string
+      description: |-
+        Usage unit, such as Mbps, LCU, etc.
+        If null, the value is not available.
+    - name: excessUnitPrice
+      type: float
+      description: Original excess unit price.
+    - name: excessDiscountUnitPrice
+      type: float
+      description: Discounted excess unit price.
+    - name: excessAmountUnit
+      type: string
+      description: |-
+        Excess usage unit.
+        If null, the value is not available.
+    - name: category
+      type: enum
+      description: Price category.
+      enum-values:
+      - value: STANDARD
+        desc: Standard price.
+      - value: CUSTOMIZED
+        desc: Customized price.
+  - name: netmask
+    type: integer
+    description: CIDR netmask length.
+  - name: amount
+    type: integer
+    description: Quantity.
+  - name: ipNetworkType
+    type: enum
+    description: IP network type (BGP_IP / LOCAL_IP).
+    enum-values:
+    - value: BGP_IP
+      desc: Regular IP.
+    - value: LOCAL_IP
+      desc: Native IP.
+- name: publicInterconnectIpPrice
+  type: object
+  description: |-
+    Public interconnect block price.
+    Populated when public interconnect is enabled; otherwise empty.
+  object-schema:
+  - name: price
+    type: object
+    description: Price information.
+    object-schema:
+    - name: discount
+      type: float
+      description: |-
+        Discount.
+        For example, 80.0 means 20% off.
+    - name: discountPrice
+      type: float
+      description: |-
+        Discount unit price of pay-as-you-go resources.
+        Only used in pay-as-you-go model. For tiered billing, the value is empty.
+    - name: originalPrice
+      type: float
+      description: |-
+        Original price of subscription resources.
+        Only used in subscription model. For pay-as-you-go model, the value is empty.
+    - name: unitPrice
+      type: float
+      description: |-
+        Original unit price of pay-as-you-go resources.
+        Only used in pay-as-you-go model. For tiered billing, the value is empty.
+    - name: discountUnitPrice
+      type: float
+      description: |-
+        Discount unit price of pay-as-you-go resources.
+        Only used in pay-as-you-go model. For tiered billing, the value is empty.
+    - name: chargeUnit
+      type: string
+      description: |-
+        Unit of pay-as-you-go billing.
+        Only used in pay-as-you-go model. Value range:<br/>HOUR: you will be billed by hour.
+        DAY: you will be billed by day.
+        MONTH: you will be billed by month. For example, the burstable 95th pricing model.
+    - name: stepPrices
+      type: object-array
+      description: |-
+        Tiered price of pay-as-you-go billing.
+        Only used in pay-as-you-go model. If it is not tiered price, the value is empty.
+      array-style: json
+      item-schema:
+      - name: stepStart
+        type: float
+        description: First price range of a tiered price.
+      - name: stepEnd
+        type: float
+        description: Last price range of a tiered price.
+      - name: unitPrice
+        type: float
+        description: |-
+          Original unit price of current price range.
+          Only used in pay-as-you-go model.
+      - name: discountUnitPrice
+        type: float
+        description: |-
+          Discount unit price of current price range.
+          Only used in pay-as-you-go model.
+    - name: amountUnit
+      type: string
+      description: |-
+        Usage unit, such as Mbps, LCU, etc.
+        If null, the value is not available.
+    - name: excessUnitPrice
+      type: float
+      description: Original excess unit price.
+    - name: excessDiscountUnitPrice
+      type: float
+      description: Discounted excess unit price.
+    - name: excessAmountUnit
+      type: string
+      description: |-
+        Excess usage unit.
+        If null, the value is not available.
+    - name: category
+      type: enum
+      description: Price category.
+      enum-values:
+      - value: STANDARD
+        desc: Standard price.
+      - value: CUSTOMIZED
+        desc: Customized price.
+  - name: netmask
+    type: integer
+    description: CIDR netmask length.
+  - name: amount
+    type: integer
+    description: Quantity.
+  - name: ipNetworkType
+    type: enum
+    description: IP network type (BGP_IP / LOCAL_IP).
+    enum-values:
+    - value: BGP_IP
+      desc: Regular IP.
+    - value: LOCAL_IP
+      desc: Native IP.

@@ -4,8 +4,8 @@ use: describe-eips
 short: Queries the information of one or more specified elastic IPs
 long: Query the information of one or more specified elastic IPs. You can search for elastic IP information based on elastic IP ID, elastic IP name, etc.
 examples:
-- cmd: zeno zec describe-eips --ip-address 128.0.0.1
-  desc: Query the list of IPs based on public IP.
+- cmd: zeno zec describe-eips --ip-address 128.0.0.1 --prefix-length 32
+  desc: Query the list of IPs matching a public IP.
 sdk:
   service: zec
   version: '2025-09-01'
@@ -77,7 +77,7 @@ parameters:
   type: string
   required: false
   sdk-field: ipAddress
-  description: Filter by elastic IP address.
+  description: Filters by the EIP's public IP address.
 - name: ip-addresses
   type: string-array
   required: false
@@ -139,6 +139,13 @@ parameters:
     desc: Billed by the traffic package size purchased.
   - value: BandwidthCluster
     desc: Billed by the burstable 95th bandwidth of all compute resources in a city-based or regional bandwidth cluster with a shared commitment.
+- name: prefix-length
+  type: integer
+  required: false
+  sdk-field: prefixLength
+  description: |-
+    Filters by the prefix length of the EIP.
+    32 indicates a single IP address; 24–31 indicates a CIDR block.
 response:
 - name: totalCount
   type: integer
@@ -413,3 +420,8 @@ response:
     - name: status
       type: string
       description: 'Operation status. Value range: `OPERATING` (in operation), `FAILED` (operation failed).'
+  - name: prefixLength
+    type: integer
+    description: |-
+      Prefix length.
+      32 indicates a single IP address; 25–31 indicates an IP block.

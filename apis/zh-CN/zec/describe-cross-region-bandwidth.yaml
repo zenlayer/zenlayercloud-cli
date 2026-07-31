@@ -48,8 +48,6 @@ parameters:
     desc: 正常可用。
   - value: CHANGING
     desc: 变更中。
-  - value: RECYCLING
-    desc: 回收中。
   - value: RECYCLED
     desc: 处于回收站。
   - value: DELETING
@@ -98,8 +96,6 @@ response:
       desc: 正常可用。
     - value: CHANGING
       desc: 变更中。
-    - value: RECYCLING
-      desc: 回收中。
     - value: RECYCLED
       desc: 处于回收站。
     - value: DELETING

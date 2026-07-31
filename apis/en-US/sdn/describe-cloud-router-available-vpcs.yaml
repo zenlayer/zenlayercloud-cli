@@ -1,0 +1,74 @@
+name: DescribeCloudRouterAvailableVpcs
+product: sdn
+use: describe-cloud-router-available-vpcs
+short: Query Available VPCs
+long: Query Available VPCs
+examples:
+- cmd: zeno sdn describe-cloud-router-available-vpcs --vpc-id your-vpc-id --page-size 20 --page-num 1
+  desc: Get the list of VPCs that can join a Cloud Router.
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: DescribeCloudRouterAvailableVpcs
+parameters:
+- name: vpc-id
+  type: string
+  required: false
+  sdk-field: vpcId
+  description: VPC ID.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: 'Page size to return. Default: 20, maximum: 100.'
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: 'Page number to return. Default: 1.'
+response:
+- name: totalCount
+  type: integer
+  description: Total number of VPCs matching the criteria.
+- name: dataSet
+  type: object-array
+  description: List of VPCs that can be added to the Cloud Router.
+  array-style: json
+  item-schema:
+  - name: vpcId
+    type: string
+    description: VPC ID.
+  - name: vpcName
+    type: string
+    description: VPC name.
+  - name: dataCenter
+    type: object
+    description: Data center information of the VPC.
+    object-schema:
+    - name: dcId
+      type: string
+      description: Data center four-letter code.
+    - name: dcName
+      type: string
+      description: Data center name.
+    - name: dcAddress
+      type: string
+      description: Data center address.
+    - name: cityName
+      type: string
+      description: Name of the city where the data center is located.
+    - name: countryName
+      type: string
+      description: Name of the country where the data center is located.
+    - name: areaName
+      type: string
+      description: Name of the region where the data center is located.
+    - name: latitude
+      type: float
+      description: Latitude of the data center.
+    - name: longitude
+      type: float
+      description: Longitude of the data center.
+  - name: cidrBlock
+    type: string
+    description: CIDR block of the VPC.

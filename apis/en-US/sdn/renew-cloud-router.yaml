@@ -1,0 +1,23 @@
+name: RenewCloudRouter
+product: sdn
+use: renew-cloud-router
+short: Renew Cloud Router
+long: |-
+  Renew Cloud Router
+  **Notes**
+
+  * Only Cloud Routers with status **RECYCLED** can be restored via this API.
+  * This is an asynchronous API. Once the request is successfully submitted, the restore operation is not completed immediately. During this period the Cloud Router status will be **RECOVERING**; once restored successfully, the status will change to **RUNNING**.
+examples:
+- cmd: zeno sdn renew-cloud-router --cloud-router-id your-cloud-router-id
+  desc: Restore a Cloud Router.
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: RenewCloudRouter
+parameters:
+- name: cloud-router-id
+  type: string
+  required: true
+  sdk-field: cloudRouterId
+  description: Cloud Router ID.

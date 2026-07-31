@@ -30,4 +30,4 @@ parameters:
   type: string
   required: true
   sdk-field: instanceType
-  description: Target instance type to change to. For VM instances, the value can be obtained through [DescribeZoneInstanceConfigInfos](describezoneinstanceconfiginfos.md). For GPU instances, the value can be obtained through [DescribeZoneGpuInstanceConfigInfos](describezoneGpuinstanceconfiginfos.md).
+  description: Target instance type to change to. For VM instances, the value can be obtained through [DescribeZoneInstanceConfigInfos](describezoneinstanceconfiginfos.md). For GPU instances, the value can be obtained through [DescribeZoneGpuInstanceConfigInfos](describezonegpuinstanceconfiginfos.md).

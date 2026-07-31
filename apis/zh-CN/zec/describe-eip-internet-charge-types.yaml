@@ -1,8 +1,8 @@
 name: DescribeEipInternetChargeTypes
 product: zec
 use: describe-eip-internet-charge-types
-short: 查询EIP支持的网络计费模式
-long: 查询指定地域下按指定线路类型可选的弹性公网 IP 网络计费模式列表，用于创建 EIP 前的参数确认。
+short: 查询 EIP 支持的网络计费模式
+long: 查询 EIP 支持的网络计费模式。
 examples:
 - cmd: zeno zec describe-eip-internet-charge-types --region-id asia-east-1 --network-line-type PremiumBGP
   desc: 查询asia-east-1区域EIP支持的网络计费模式。

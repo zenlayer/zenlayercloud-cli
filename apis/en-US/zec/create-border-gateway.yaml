@@ -3,6 +3,9 @@ product: zec
 use: create-border-gateway
 short: Creates a border gateway
 long: Create a border gateway.
+examples:
+- cmd: zeno zec create-border-gateway --region-id asia-east-1 --vpc-id <vpcId> --label xxx --asn 65000 --advertised-subnet PART --advertised-subnet-ids <subnetId1> --advertised-subnet-ids <subnetId2>
+  desc: Create a border gateway with region-level routing.
 sdk:
   service: zec
   version: '2025-09-01'
@@ -60,7 +63,9 @@ parameters:
   type: string-array
   required: false
   sdk-field: advertisedSubnetIds
-  description: Subnet IDs.
+  description: |-
+    Set of subnet IDs.
+    For this field to take effect, advertisedSubnet must be set to PART.
 - name: advertised-cidrs
   type: string-array
   required: false

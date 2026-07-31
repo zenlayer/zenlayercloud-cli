@@ -1,0 +1,476 @@
+name: InquiryModifyIPTransitPrice
+product: ipt
+use: inquiry-modify-ip-transit-price
+short: IP Transit变配询价
+long: |-
+  IP Transit变配询价
+  **注意事项**
+
+  * BFD、BGP 相关操作（`BFD`、`BGP_ROUTE_TYPE`、`BGP_ASN_AS_SET`、`BGP_PASSWORD`）以及 HA 切换操作（`HA_SWITCH_PRIMARY`、`HA_SWITCH_MODE`）不涉及计价变化，传入此接口会返回 `INVALID_RIPT_CONFIG_TYPE_NO_PRICE_CHANGE` 错误，无需询价可直接调用 `ModifyIPTransitConfig`。
+  * `type=BANDWIDTH` 时须传 `bandwidth`，返回 `privateConnectPrice`（专线价格）和 `iptPrice`（带宽价格）。
+  * 95 计费（`internetType=ByInstanceBandwidth95`）的 IP Transit，价格只由 `commitBandwidth` 决定：`type=BANDWIDTH` 时必须显式传入 `commitBandwidth`，不能用 `bandwidth` 代替；若 `commitBandwidth` 相比当前值未变化，价格不变，会返回 `INVALID_RIPT_CONFIG_TYPE_NO_PRICE_CHANGE` 错误，无需询价可直接调用 `ModifyIPTransitConfig`。`bandwidth` 必须大于等于 `commitBandwidth`，否则返回 `INVALID_RIPT_BANDWIDTH_LESS_THAN_COMMIT` 错误。
+  * `type=ADD_CIDR_BLOCK` 或 `EXPAND_CIDR_BLOCK` 时须传 `publicIPv4BlockSize`，返回 `iptIpPrices`（公网 IP 块价格）。
+  * `type=DEL_CIDR_BLOCK` 或 `SHRINK_CIDR_BLOCK` 时须传 `ipUuid`，表示退订或缩减的目标 IP 块。
+examples:
+- cmd: zeno ipt inquiry-modify-ip-transit-price --ipt-id your-ipt-id --type BANDWIDTH --bandwidth 200
+  desc: 查询将带宽升级至 200Mbps 的费用。
+- cmd: zeno ipt inquiry-modify-ip-transit-price --ipt-id your-ipt-id --type ADD_CIDR_BLOCK --public-ipv4-block-size 28
+  desc: 查询新增一个 /28 公网 IPv4 CIDR 块的费用。
+sdk:
+  service: ipt
+  version: '2024-09-01'
+  action: InquiryModifyIPTransitPrice
+parameters:
+- name: ipt-id
+  type: string
+  required: true
+  sdk-field: iptId
+  description: IP Transit 实例 ID。
+- name: type
+  type: enum
+  required: true
+  sdk-field: type
+  description: |-
+    变配类型。
+    支持 BANDWIDTH、ADD_CIDR_BLOCK、DEL_CIDR_BLOCK、EXPAND_CIDR_BLOCK、SHRINK_CIDR_BLOCK，BFD/BGP/HA 操作无费用，不允许传入。
+  enum-values:
+  - value: BANDWIDTH
+    desc: 带宽。
+  - value: BFD
+    desc: BFD 开关。
+  - value: BGP_ROUTE_TYPE
+    desc: BGP 路由类型。
+  - value: BGP_ASN_AS_SET
+    desc: BGP ASN/AS-SET。
+  - value: BGP_PASSWORD
+    desc: BGP 密码。
+  - value: ADD_CIDR_BLOCK
+    desc: 新增公网 IP 地址段。
+  - value: DEL_CIDR_BLOCK
+    desc: 删除公网 IP 地址段。
+  - value: EXPAND_CIDR_BLOCK
+    desc: 扩容公网 IP 地址段。
+  - value: SHRINK_CIDR_BLOCK
+    desc: 缩容公网 IP 地址段。
+  - value: HA_SWITCH_PRIMARY
+    desc: HA 主备切换。
+  - value: HA_SWITCH_MODE
+    desc: HA 模式切换。
+- name: bandwidth
+  type: integer
+  required: false
+  sdk-field: bandwidth
+  description: |-
+    目标带宽（Mbps）。
+    type=BANDWIDTH 时必填。
+    95 计费下必须大于等于 commitBandwidth。
+- name: commit-bandwidth
+  type: integer
+  required: false
+  sdk-field: commitBandwidth
+  description: |-
+    保底带宽（Mbps）。
+    type=BANDWIDTH 时有效，不填则与 bandwidth 相同；95 计费（internetType=ByInstanceBandwidth95）下必填，不能用 bandwidth 代替。
+- name: public-ipv4-block-size
+  type: integer
+  required: false
+  sdk-field: publicIPv4BlockSize
+  description: |-
+    IPv4 CIDR 掩码长度（24–32）。
+    type=ADD_CIDR_BLOCK、EXPAND_CIDR_BLOCK、SHRINK_CIDR_BLOCK 时必填。
+- name: ip-uuid
+  type: string
+  required: false
+  sdk-field: ipUuid
+  description: |-
+    目标 IP 块 UUID。
+    type=DEL_CIDR_BLOCK、EXPAND_CIDR_BLOCK、SHRINK_CIDR_BLOCK 时必填。
+- name: ip-network-type
+  type: enum
+  required: false
+  sdk-field: ipNetworkType
+  description: |-
+    IP 网络类型。
+    type=ADD_CIDR_BLOCK 时有效，默认 BGP_IP。
+  enum-values:
+  - value: BGP_IP
+    desc: 普通 IP。
+  - value: LOCAL_IP
+    desc: 原生 IP。
+response:
+- name: privateConnectPrice
+  type: object
+  description: |-
+    专线（VLL）价格。
+    BANDWIDTH 类型时可能有值，Router RIPT 为空。
+  object-schema:
+  - name: discount
+    type: float
+    description: |-
+      折扣大小。
+      如80.0代表8折。
+  - name: discountPrice
+    type: float
+    description: |-
+      后付费的单元折后价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: originalPrice
+    type: float
+    description: |-
+      预付费的原价。
+      预付费模式使用，后付费该值为 null。
+  - name: unitPrice
+    type: float
+    description: |-
+      后付费的单元原始价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: discountUnitPrice
+    type: float
+    description: |-
+      后付费的单元折后价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: chargeUnit
+    type: string
+    description: |-
+      后付费计价单元。
+      后付费模式使用，可取值范围：<br/>HOUR: 表示计价单元是按每小时来计算。
+      DAY: 表示计价单元是按天来计算。
+      MONTH: 表示计价单元是按月来计算，95计费则是这种。
+  - name: stepPrices
+    type: object-array
+    description: |-
+      后付费阶梯价格。
+      后付费模式使用，如果非阶梯价格，该项为null。
+    array-style: json
+    item-schema:
+    - name: stepStart
+      type: float
+      description: 阶梯的起始值。
+    - name: stepEnd
+      type: float
+      description: |-
+        阶梯的到达值。
+        为null代表最后一级阶梯。
+    - name: unitPrice
+      type: float
+      description: 阶梯单价。
+    - name: discountUnitPrice
+      type: float
+      description: 阶梯折后价。
+  - name: amountUnit
+    type: string
+    description: |-
+      用量单位。
+      比如Mbps, LCU等。
+      如果为null, 代表取不到值。
+  - name: excessUnitPrice
+    type: float
+    description: 超量原始价格。
+  - name: excessDiscountUnitPrice
+    type: float
+    description: 超量折扣后价格。
+  - name: excessAmountUnit
+    type: string
+    description: |-
+      超量用量单位。
+      如果为null, 代表取不到值。
+  - name: category
+    type: enum
+    description: 价格所属类别。
+    enum-values:
+    - value: STANDARD
+      desc: 标准价格。
+    - value: CUSTOMIZED
+      desc: 一口价格。
+- name: privateConnectBandwidth
+  type: integer
+  description: |-
+    专线带宽（Mbps）。
+    BANDWIDTH 类型时有值。
+- name: iptPrice
+  type: object
+  description: RIPT 带宽价格。
+  object-schema:
+  - name: discount
+    type: float
+    description: |-
+      折扣大小。
+      如80.0代表8折。
+  - name: discountPrice
+    type: float
+    description: |-
+      后付费的单元折后价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: originalPrice
+    type: float
+    description: |-
+      预付费的原价。
+      预付费模式使用，后付费该值为 null。
+  - name: unitPrice
+    type: float
+    description: |-
+      后付费的单元原始价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: discountUnitPrice
+    type: float
+    description: |-
+      后付费的单元折后价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: chargeUnit
+    type: string
+    description: |-
+      后付费计价单元。
+      后付费模式使用，可取值范围：<br/>HOUR: 表示计价单元是按每小时来计算。
+      DAY: 表示计价单元是按天来计算。
+      MONTH: 表示计价单元是按月来计算，95计费则是这种。
+  - name: stepPrices
+    type: object-array
+    description: |-
+      后付费阶梯价格。
+      后付费模式使用，如果非阶梯价格，该项为null。
+    array-style: json
+    item-schema:
+    - name: stepStart
+      type: float
+      description: 阶梯的起始值。
+    - name: stepEnd
+      type: float
+      description: |-
+        阶梯的到达值。
+        为null代表最后一级阶梯。
+    - name: unitPrice
+      type: float
+      description: 阶梯单价。
+    - name: discountUnitPrice
+      type: float
+      description: 阶梯折后价。
+  - name: amountUnit
+    type: string
+    description: |-
+      用量单位。
+      比如Mbps, LCU等。
+      如果为null, 代表取不到值。
+  - name: excessUnitPrice
+    type: float
+    description: 超量原始价格。
+  - name: excessDiscountUnitPrice
+    type: float
+    description: 超量折扣后价格。
+  - name: excessAmountUnit
+    type: string
+    description: |-
+      超量用量单位。
+      如果为null, 代表取不到值。
+  - name: category
+    type: enum
+    description: 价格所属类别。
+    enum-values:
+    - value: STANDARD
+      desc: 标准价格。
+    - value: CUSTOMIZED
+      desc: 一口价格。
+- name: iptIpPrices
+  type: object-array
+  description: |-
+    公网 CIDR 块价格列表。
+    ADD_CIDR_BLOCK、EXPAND_CIDR_BLOCK 类型时有值。
+  array-style: json
+  item-schema:
+  - name: price
+    type: object
+    description: 价格信息。
+    object-schema:
+    - name: discount
+      type: float
+      description: |-
+        折扣大小。
+        如80.0代表8折。
+    - name: discountPrice
+      type: float
+      description: |-
+        后付费的单元折后价格。
+        后付费模式使用，如果价格为阶梯价格，该项为null。
+    - name: originalPrice
+      type: float
+      description: |-
+        预付费的原价。
+        预付费模式使用，后付费该值为 null。
+    - name: unitPrice
+      type: float
+      description: |-
+        后付费的单元原始价格。
+        后付费模式使用，如果价格为阶梯价格，该项为null。
+    - name: discountUnitPrice
+      type: float
+      description: |-
+        后付费的单元折后价格。
+        后付费模式使用，如果价格为阶梯价格，该项为null。
+    - name: chargeUnit
+      type: string
+      description: |-
+        后付费计价单元。
+        后付费模式使用，可取值范围：<br/>HOUR: 表示计价单元是按每小时来计算。
+        DAY: 表示计价单元是按天来计算。
+        MONTH: 表示计价单元是按月来计算，95计费则是这种。
+    - name: stepPrices
+      type: object-array
+      description: |-
+        后付费阶梯价格。
+        后付费模式使用，如果非阶梯价格，该项为null。
+      array-style: json
+      item-schema:
+      - name: stepStart
+        type: float
+        description: 阶梯的起始值。
+      - name: stepEnd
+        type: float
+        description: |-
+          阶梯的到达值。
+          为null代表最后一级阶梯。
+      - name: unitPrice
+        type: float
+        description: 阶梯单价。
+      - name: discountUnitPrice
+        type: float
+        description: 阶梯折后价。
+    - name: amountUnit
+      type: string
+      description: |-
+        用量单位。
+        比如Mbps, LCU等。
+        如果为null, 代表取不到值。
+    - name: excessUnitPrice
+      type: float
+      description: 超量原始价格。
+    - name: excessDiscountUnitPrice
+      type: float
+      description: 超量折扣后价格。
+    - name: excessAmountUnit
+      type: string
+      description: |-
+        超量用量单位。
+        如果为null, 代表取不到值。
+    - name: category
+      type: enum
+      description: 价格所属类别。
+      enum-values:
+      - value: STANDARD
+        desc: 标准价格。
+      - value: CUSTOMIZED
+        desc: 一口价格。
+  - name: netmask
+    type: integer
+    description: CIDR 掩码长度。
+  - name: amount
+    type: integer
+    description: 数量。
+  - name: ipNetworkType
+    type: enum
+    description: IP 网络类型（BGP_IP / LOCAL_IP）。
+    enum-values:
+    - value: BGP_IP
+      desc: 普通 IP。
+    - value: LOCAL_IP
+      desc: 原生 IP。
+- name: publicInterconnectIpPrice
+  type: object
+  description: |-
+    公网互联块价格。
+    启用公网互联时填充，否则为空。
+  object-schema:
+  - name: price
+    type: object
+    description: 价格信息。
+    object-schema:
+    - name: discount
+      type: float
+      description: |-
+        折扣大小。
+        如80.0代表8折。
+    - name: discountPrice
+      type: float
+      description: |-
+        后付费的单元折后价格。
+        后付费模式使用，如果价格为阶梯价格，该项为null。
+    - name: originalPrice
+      type: float
+      description: |-
+        预付费的原价。
+        预付费模式使用，后付费该值为 null。
+    - name: unitPrice
+      type: float
+      description: |-
+        后付费的单元原始价格。
+        后付费模式使用，如果价格为阶梯价格，该项为null。
+    - name: discountUnitPrice
+      type: float
+      description: |-
+        后付费的单元折后价格。
+        后付费模式使用，如果价格为阶梯价格，该项为null。
+    - name: chargeUnit
+      type: string
+      description: |-
+        后付费计价单元。
+        后付费模式使用，可取值范围：<br/>HOUR: 表示计价单元是按每小时来计算。
+        DAY: 表示计价单元是按天来计算。
+        MONTH: 表示计价单元是按月来计算，95计费则是这种。
+    - name: stepPrices
+      type: object-array
+      description: |-
+        后付费阶梯价格。
+        后付费模式使用，如果非阶梯价格，该项为null。
+      array-style: json
+      item-schema:
+      - name: stepStart
+        type: float
+        description: 阶梯的起始值。
+      - name: stepEnd
+        type: float
+        description: |-
+          阶梯的到达值。
+          为null代表最后一级阶梯。
+      - name: unitPrice
+        type: float
+        description: 阶梯单价。
+      - name: discountUnitPrice
+        type: float
+        description: 阶梯折后价。
+    - name: amountUnit
+      type: string
+      description: |-
+        用量单位。
+        比如Mbps, LCU等。
+        如果为null, 代表取不到值。
+    - name: excessUnitPrice
+      type: float
+      description: 超量原始价格。
+    - name: excessDiscountUnitPrice
+      type: float
+      description: 超量折扣后价格。
+    - name: excessAmountUnit
+      type: string
+      description: |-
+        超量用量单位。
+        如果为null, 代表取不到值。
+    - name: category
+      type: enum
+      description: 价格所属类别。
+      enum-values:
+      - value: STANDARD
+        desc: 标准价格。
+      - value: CUSTOMIZED
+        desc: 一口价格。
+  - name: netmask
+    type: integer
+    description: CIDR 掩码长度。
+  - name: amount
+    type: integer
+    description: 数量。
+  - name: ipNetworkType
+    type: enum
+    description: IP 网络类型（BGP_IP / LOCAL_IP）。
+    enum-values:
+    - value: BGP_IP
+      desc: 普通 IP。
+    - value: LOCAL_IP
+      desc: 原生 IP。

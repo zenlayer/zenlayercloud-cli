@@ -5,7 +5,7 @@ short: Queries the time zone information
 long: Query the time zone information.
 examples:
 - cmd: zeno zec describe-time-zones
-  desc: Obtain the time zone information.
+  desc: Query time zones.
 sdk:
   service: zec
   version: '2025-09-01'

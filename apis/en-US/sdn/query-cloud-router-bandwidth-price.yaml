@@ -1,0 +1,111 @@
+name: QueryCloudRouterBandwidthPrice
+product: sdn
+use: query-cloud-router-bandwidth-price
+short: Inquiry Cloud Router Backbone Bandwidth Price
+long: Inquiry Cloud Router Backbone Bandwidth Price
+examples:
+- cmd: zeno sdn query-cloud-router-bandwidth-price --dc-id SIN1 --bandwidth-mbps 10
+  desc: Inquire the price for a Cloud Router backbone bandwidth of 10 Mbps.
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: QueryCloudRouterBandwidthPrice
+parameters:
+- name: dc-id
+  type: string
+  required: true
+  sdk-field: dcId
+  description: Data center ID of the Cloud Router backbone.
+- name: bandwidth-mbps
+  type: integer
+  required: true
+  sdk-field: bandwidthMbps
+  description: |-
+    Maximum bandwidth limit for the Cloud Router.
+    Default: 10, unit: Mbps.
+response:
+- name: price
+  type: object
+  description: Price information.
+  object-schema:
+  - name: discount
+    type: float
+    description: |-
+      Discount rate.
+      E.g. 80.0 means 20% off.
+  - name: discountPrice
+    type: float
+    description: |-
+      Discounted postpaid unit price.
+      Used in postpaid mode; null if the price is a tiered price.
+  - name: originalPrice
+    type: float
+    description: |-
+      Original prepaid price.
+      Used in prepaid mode; null for postpaid.
+  - name: unitPrice
+    type: float
+    description: |-
+      Original postpaid unit price.
+      Used in postpaid mode; null if the price is a tiered price.
+  - name: discountUnitPrice
+    type: float
+    description: |-
+      Discounted postpaid unit price.
+      Used in postpaid mode; null if the price is a tiered price.
+  - name: chargeUnit
+    type: string
+    description: |-
+      Postpaid billing unit.
+      Used in postpaid mode. Possible values:<br/>HOUR: billed per hour.
+      DAY: billed per day.
+      MONTH: billed per month, used for 95th-percentile billing.
+  - name: stepPrices
+    type: object-array
+    description: |-
+      Postpaid tiered pricing.
+      Used in postpaid mode; null if not a tiered price.
+    array-style: json
+    item-schema:
+    - name: stepStart
+      type: float
+      description: Lower bound of the tier.
+    - name: stepEnd
+      type: float
+      description: |-
+        Upper bound of the tier.
+        Null represents the last tier.
+    - name: unitPrice
+      type: float
+      description: Tier unit price.
+    - name: discountUnitPrice
+      type: float
+      description: Discounted tier unit price.
+  - name: amountUnit
+    type: string
+    description: |-
+      Usage unit.
+      E.g. Mbps, LCU, etc.
+      If null, the value is unavailable.
+  - name: excessUnitPrice
+    type: float
+    description: Original excess price.
+  - name: excessDiscountUnitPrice
+    type: float
+    description: Discounted excess price.
+  - name: excessAmountUnit
+    type: string
+    description: |-
+      Excess usage unit.
+      If null, the value is unavailable.
+  - name: category
+    type: enum
+    description: Price category.
+    enum-values:
+    - value: STANDARD
+      desc: Standard price.
+    - value: CUSTOMIZED
+      desc: Fixed price.
+- name: stock
+  type: integer
+  description: Available stock quantity.

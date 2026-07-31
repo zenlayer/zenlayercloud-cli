@@ -1,0 +1,29 @@
+name: ModifyIpv6TrafficPackage
+product: zec
+use: modify-ipv6-traffic-package
+short: 调整公网IPv6流量包
+long: |-
+  调整公网IPv6流量包。
+  **注意事项**
+
+  * 只有可用状态`RUNNING`的IPv6才支持该操作。
+  * 保底流量包大小仅对计费周期为月有效。
+  * 该操作为异步执行，调用成功后流量包变更将在后台处理。可通过查询IPv6详情接口的 `operationInfo` 字段获取当前操作状态。
+examples:
+- cmd: zeno zec modify-ipv6-traffic-package --ipv6-id "< Ipv6Id >" --traffic-package-size 10
+  desc: 调整IPV6流量包到10TB
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyIpv6TrafficPackage
+parameters:
+- name: ipv6-id
+  type: string
+  required: true
+  sdk-field: ipv6Id
+  description: IPv6唯一标识ID。
+- name: traffic-package-size
+  type: float
+  required: true
+  sdk-field: trafficPackageSize
+  description: 流量包大小，单位TB。

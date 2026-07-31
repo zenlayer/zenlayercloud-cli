@@ -1,0 +1,25 @@
+name: DeleteCloudRouter
+product: sdn
+use: delete-cloud-router
+short: 删除三层网络
+long: |-
+  删除三层网络
+  **注意事项**
+
+  * 删除三层网络将会暂停相关业务（即网络无法连通），请谨慎操作。
+  * 处于创建中或者更新中的三层网络不可进行删除操作。
+  * 删除三层网络后，系统会对资源保留一段时间，保留时长详见[三层专线计费相关信息](https://docs.console.zenlayer.com/welcome/pricing/cloud-networking-pricing#deletion-2)。\
+    保留的这段期间，资源的状态将变为**RECYCLED**。在此期间， 可以调用RenewCloudRouter进行恢复。
+examples:
+- cmd: zeno sdn delete-cloud-router --cloud-router-id your-cloud-router-id
+  desc: 删除
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: DeleteCloudRouter
+parameters:
+- name: cloud-router-id
+  type: string
+  required: true
+  sdk-field: cloudRouterId
+  description: 三层网络的 ID。

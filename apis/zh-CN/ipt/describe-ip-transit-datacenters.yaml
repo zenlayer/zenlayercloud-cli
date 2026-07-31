@@ -1,8 +1,8 @@
 name: DescribeIPTransitDatacenters
 product: ipt
 use: describe-ip-transit-datacenters
-short: 本接口用于连接IP Transit 服务支持的数据中心
-long: 本接口用于连接IP Transit 服务支持的数据中心。
+short: 查询IP Transit可连接数据中心
+long: 查询IP Transit可连接数据中心
 sdk:
   service: ipt
   version: '2024-09-01'
@@ -12,16 +12,25 @@ parameters:
   type: string
   required: false
   sdk-field: peerPortId
-  description: 指定端口ID。
+  description: |-
+    对端数据中心端口 ID。
+    传入时查询以该数据中心端口为接入侧的可连接数据中心列表。
 - name: peer-dc-id
   type: string
   required: false
   sdk-field: peerDcId
-  description: 指定数据中心ID。
+  description: 对端数据中心 ID。
+- name: zbg-region-id
+  type: string
+  required: false
+  sdk-field: zbgRegionId
+  description: |-
+    ZBG 接入节点 ID。
+    非空时查询以该 ZBG 节点为接入侧的 Router RIPT 可连接 DC 列表。
 response:
 - name: supportSet
   type: object-array
-  description: 结果集。
+  description: 可连接数据中心结果集。
   array-style: json
   item-schema:
   - name: dataCenter
@@ -39,39 +48,49 @@ response:
       description: 数据中心地址。
     - name: cityName
       type: string
-      description: 城市名称。
+      description: 数据中心所在城市名称。
     - name: countryName
       type: string
-      description: 国家名称。
+      description: 数据中心所在国家名称。
     - name: areaName
       type: string
-      description: 地区名称。
+      description: 数据中心所在区域名称。
     - name: latitude
       type: float
-      description: 数据中心所在地理位置的维度。
+      description: 数据中心所在地纬度。
     - name: longitude
       type: float
-      description: 数据中心所在地理位置的经度。
+      description: 数据中心所在地经度。
   - name: availableRoutingTypes
     type: object-array
-    description: 支持的路由类型配置。
+    description: 该数据中心可用的路由模式列表。
     array-style: json
     item-schema:
     - name: routingType
       type: enum
-      description: 路由类型。
+      description: 路由模式。
       enum-values:
       - value: BGP
-        desc: BGP。（目前api暂不支持该方式）
+        desc: BGP 路由模式。
       - value: Static
-        desc: 静态路由。
+        desc: 静态路由模式。
       - value: Gateway
-        desc: 网关模式。
+        desc: 网关路由模式。
+    - name: availableBgpRouteTypes
+      type: string-array
+      description: |-
+        可选的 BGP 路由通告类型列表。
+        仅 `routingType` 为 BGP 时有值。
     - name: deliveryType
       type: enum
-      description: 交付模式。
+      description: 开通方式。
       enum-values:
       - value: Auto
-        desc: 自动化交付（一般在分钟内完成）。
+        desc: 自动开通。
       - value: Manual
-        desc: 手动交付（一般在3天内交付完成）。
+        desc: 人工开通。
+    - name: publicInterconnectNetmasks
+      type: integer-array
+      description: |-
+        IPv4 公网互联可选掩码列表。
+        目前仅 30 / 31。

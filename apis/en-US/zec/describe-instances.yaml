@@ -2,7 +2,12 @@ name: DescribeInstances
 product: zec
 use: describe-instances
 short: Queries the details of instances
-long: Query the details of instances. You can filter the query results with the instance ID, name, or billing method.
+long: |-
+  Query the details of instances. You can filter the query results with the instance ID, name, or billing method.
+  **Note**
+
+  * In `publicIpAddresses`, a block-type (Block) EIP is shown as a full CIDR with its prefix length (e.g. `80.122.125.0/31`), while a single-address EIP is still shown as a plain IP address (e.g. `128.0.0.2`).
+  * If `ipv4Address` is specified in CIDR notation, the prefix length must be between 20 and 31.
 examples:
 - cmd: zeno zec describe-instances --instance-ids xxx --page-size 10 --page-num 1
   desc: Query list of elastic compute instances.
@@ -32,7 +37,9 @@ parameters:
   type: string
   required: false
   sdk-field: ipv4Address
-  description: IPv4 addresses.
+  description: |-
+    Filters by the IPv4 address associated with the instance.
+    If specified in CIDR notation, the mask length must be between 20 and 31.
 - name: ipv6-address
   type: string
   required: false
@@ -62,8 +69,6 @@ parameters:
     desc: Powering off.
   - value: RECYCLE
     desc: Recycled.
-  - value: RECYCLING
-    desc: Recycling.
   - value: CREATE_FAILED
     desc: Creating failed.
   - value: IMAGING
@@ -136,7 +141,7 @@ response:
     description: Availability zone ID to which the instances belong.
   - name: instanceType
     type: string
-    description: Type of instance. eg. z2a.cpu.1
+    description: Unique ID of the instance type.
   - name: cpu
     type: integer
     description: |-
@@ -190,8 +195,6 @@ response:
       desc: Powering off.
     - value: RECYCLE
       desc: Recycled.
-    - value: RECYCLING
-      desc: Recycling.
     - value: CREATE_FAILED
       desc: Creating failed.
     - value: IMAGING

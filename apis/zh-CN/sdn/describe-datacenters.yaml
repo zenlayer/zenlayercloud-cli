@@ -1,0 +1,59 @@
+name: DescribeDatacenters
+product: sdn
+use: describe-datacenters
+short: 查询数据中心列表
+long: 查询数据中心列表
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: DescribeDatacenters
+parameters:
+- name: dc-ids
+  type: string-array
+  required: false
+  sdk-field: dcIds
+  description: 数据中心ID列表。
+- name: is-port-available
+  type: boolean
+  required: false
+  sdk-field: isPortAvailable
+  description: 筛选是否支持新建数据中心端口的 DC（true：支持，false：不支持）。
+response:
+- name: dcSet
+  type: object-array
+  description: 结果集。
+  array-style: json
+  item-schema:
+  - name: dcId
+    type: string
+    description: 数据中心 ID。
+  - name: dcName
+    type: string
+    description: 数据中心名称。
+  - name: dcAddress
+    type: string
+    description: 数据中心地址。
+  - name: cityName
+    type: string
+    description: 所在城市名称。
+  - name: countryName
+    type: string
+    description: 所在国家名称。
+  - name: areaName
+    type: string
+    description: 所在大区名称。
+  - name: latitude
+    type: float
+    description: 纬度。
+  - name: longitude
+    type: float
+    description: 经度。
+  - name: isPortAvailable
+    type: boolean
+    description: 是否支持新建数据中心端口。
+  - name: availableBandwidth
+    type: integer
+    description: 可用带宽（Mbps）。
+  - name: regionId
+    type: string
+    description: 节点 ID。

@@ -1,8 +1,11 @@
 name: DescribeCidrPrice
 product: zec
 use: describe-cidr-price
-short: Queries the price of the CIDR block
-long: Query the price of the CIDR block.
+short: Queries the sale price of an IPv4 CIDR block
+long: Queries the sale price of an IPv4 CIDR block.
+examples:
+- cmd: zeno zec describe-cidr-price --region-id asia-east-1 --network-line-type PremiumBGP
+  desc: Query the total price of 2 `/28` BGP-line CIDR blocks.
 sdk:
   service: zec
   version: '2025-09-01'

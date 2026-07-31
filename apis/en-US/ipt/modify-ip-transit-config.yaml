@@ -1,0 +1,170 @@
+name: ModifyIPTransitConfig
+product: ipt
+use: modify-ip-transit-config
+short: Modify IP Transit configuration
+long: |-
+  Modifies IP Transit configuration.
+  **Notes**
+
+  * Configuration changes can only be made when the IP Transit state is **AVAILABLE**.
+  * This is an asynchronous API. After the request succeeds, the IP Transit state changes to **UPDATING**. You can poll the state via [DescribeIPTransits](describe-iptransits.md); when it changes back to **AVAILABLE**, the change has succeeded.
+  * No other operations are allowed on this IP Transit during the change.
+  * **About type:**
+    * `BANDWIDTH`: Modifies the bandwidth cap. Requires `bandwidth`. You can pass `commitBandwidth` to set the committed bandwidth; otherwise, it defaults to the same value as the bandwidth cap.
+    * `BFD`: Modifies the BFD configuration. Requires `bfd`. Pass `null` to disable BFD.
+    * `BGP_ROUTE_TYPE`: Modifies the BGP inbound route type. Requires `bgp.routeType`.
+    * `BGP_ASN_AS_SET`: Modifies the allowed ASN/AS-SET list for BGP. Requires exactly one of `asn`, `asnList`, or `asSetList` in `bgp`.
+    * `BGP_PASSWORD`: Modifies the BGP MD5 password. Requires `bgp.password`.
+    * `ADD_CIDR_BLOCK`: Adds a public IPv4 CIDR block. Requires `publicIPv4BlockSize`. You can optionally pass `ipNetworkType`, which defaults to `BGP_IP`.
+    * `DEL_CIDR_BLOCK`: Deletes a public IPv4 CIDR block. Requires `ipUuid`.
+    * `EXPAND_CIDR_BLOCK`: Expands an existing CIDR block (smaller netmask). Requires `ipUuid` and `publicIPv4BlockSize`.
+    * `SHRINK_CIDR_BLOCK`: Shrinks an existing CIDR block (larger netmask). Requires `ipUuid` and `publicIPv4BlockSize`.
+    * `HA_SWITCH_PRIMARY`: HA primary/secondary switchover. Available only for HA-mode IP Transits.
+    * `HA_SWITCH_MODE`: Switches the HA mode (active/standby ↔ active/active). Available only for HA-mode IP Transits.
+examples:
+- cmd: zeno ipt modify-ip-transit-config --ipt-id your-ipt-id --type BANDWIDTH --bandwidth 200 --commit-bandwidth 100
+  desc: Modify the bandwidth of an IP Transit to 200 Mbps, with a committed bandwidth of 100 Mbps.
+- cmd: zeno ipt modify-ip-transit-config --ipt-id your-ipt-id --type BGP_ROUTE_TYPE
+  desc: Modify the BGP inbound route type to receive only default routes.
+- cmd: zeno ipt modify-ip-transit-config --ipt-id your-ipt-id --type ADD_CIDR_BLOCK --public-ipv4-block-size 28
+  desc: Add a /28 public IPv4 CIDR block.
+- cmd: zeno ipt modify-ip-transit-config --ipt-id your-ipt-id --type BFD
+  desc: Disable BFD detection.
+sdk:
+  service: ipt
+  version: '2024-09-01'
+  action: ModifyIPTransitConfig
+parameters:
+- name: ipt-id
+  type: string
+  required: true
+  sdk-field: iptId
+  description: IP Transit instance ID.
+- name: type
+  type: enum
+  required: true
+  sdk-field: type
+  description: Configuration change operation type.
+  enum-values:
+  - value: BANDWIDTH
+    desc: Bandwidth.
+  - value: BFD
+    desc: BFD switch.
+  - value: BGP_ROUTE_TYPE
+    desc: BGP route type.
+  - value: BGP_ASN_AS_SET
+    desc: BGP ASN/AS-SET.
+  - value: BGP_PASSWORD
+    desc: BGP password.
+  - value: ADD_CIDR_BLOCK
+    desc: Add a public IP address block.
+  - value: DEL_CIDR_BLOCK
+    desc: Delete a public IP address block.
+  - value: EXPAND_CIDR_BLOCK
+    desc: Expand a public IP address block.
+  - value: SHRINK_CIDR_BLOCK
+    desc: Shrink a public IP address block.
+  - value: HA_SWITCH_PRIMARY
+    desc: HA primary/secondary switchover.
+  - value: HA_SWITCH_MODE
+    desc: HA mode switch.
+- name: bandwidth
+  type: integer
+  required: false
+  sdk-field: bandwidth
+  description: |-
+    Target bandwidth (Mbps).
+    Required when type is BANDWIDTH.
+- name: commit-bandwidth
+  type: integer
+  required: false
+  sdk-field: commitBandwidth
+  description: |-
+    Committed bandwidth (Mbps).
+    Effective when type is BANDWIDTH. If not specified, defaults to the same value as bandwidth.
+- name: bfd
+  type: object
+  required: false
+  sdk-field: bfd
+  description: |-
+    BFD configuration.
+    Required when type is BFD. Pass null to disable BFD.
+  object-schema:
+  - name: bfdTxInterval
+    type: integer
+    description: |-
+      Transmit interval.
+      Unit: ms.
+      Value range: 100-60000.
+  - name: bfdRxInterval
+    type: integer
+    description: |-
+      Receive interval.
+      Unit: ms.
+      Value range: 100-60000.
+  - name: bfdMultiplier
+    type: integer
+    description: |-
+      Detection multiplier.
+      Value range: 3-20.
+- name: bgp
+  type: object
+  required: false
+  sdk-field: bgp
+  description: |-
+    BGP configuration parameters.
+    Fill in the corresponding sub-fields when type is BGP_ROUTE_TYPE, BGP_ASN_AS_SET, or BGP_PASSWORD.
+  object-schema:
+  - name: routeType
+    type: enum
+    description: |-
+      BGP inbound route type.
+      Required when type is BGP_ROUTE_TYPE.
+    enum-values:
+    - value: ALL_ROUTES
+      desc: Full routes.
+    - value: ALL_ROUTES_WITH_DEFAULT_ROUTES
+      desc: All routes with default routes.
+    - value: DEFAULT_ROUTES
+      desc: Default routes.
+  - name: asnList
+    type: integer-array
+    description: |-
+      List of ASNs.
+      Effective when type is BGP_ASN_AS_SET.
+  - name: asSetList
+    type: string-array
+    description: |-
+      List of AS-SETs.
+      Effective when type is BGP_ASN_AS_SET.
+  - name: password
+    type: string
+    description: |-
+      BGP MD5 password (8-64 characters).
+      Required when type is BGP_PASSWORD.
+- name: public-ipv4-block-size
+  type: integer
+  required: false
+  sdk-field: publicIPv4BlockSize
+  description: |-
+    IPv4 CIDR netmask length (24-32).
+    Required when type is ADD_CIDR_BLOCK, EXPAND_CIDR_BLOCK, or SHRINK_CIDR_BLOCK.
+- name: ip-uuid
+  type: string
+  required: false
+  sdk-field: ipUuid
+  description: |-
+    UUID of the target IP block.
+    Required when type is DEL_CIDR_BLOCK, EXPAND_CIDR_BLOCK, or SHRINK_CIDR_BLOCK.
+- name: ip-network-type
+  type: enum
+  required: false
+  sdk-field: ipNetworkType
+  description: |-
+    IP network type.
+    Effective when type is ADD_CIDR_BLOCK. Default: BGP_IP.
+  enum-values:
+  - value: BGP_IP
+    desc: Regular IP.
+  - value: LOCAL_IP
+    desc: Native IP.

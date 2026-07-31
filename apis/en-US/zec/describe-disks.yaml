@@ -43,8 +43,6 @@ parameters:
     desc: Disk is in deletion.
   - value: RECYCLED
     desc: Disk is recycled.
-  - value: RECYCLING
-    desc: Disk is being recycled.
   - value: FAILED
     desc: Creating a disk failed.
   - value: SNAPSHOT_CREATING
@@ -196,8 +194,6 @@ response:
       desc: Disk is in deletion.
     - value: RECYCLED
       desc: Disk is recycled.
-    - value: RECYCLING
-      desc: Disk is being recycled.
     - value: FAILED
       desc: Creating a disk failed.
     - value: SNAPSHOT_CREATING

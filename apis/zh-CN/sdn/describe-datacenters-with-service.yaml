@@ -1,0 +1,80 @@
+name: DescribeDatacentersWithService
+product: sdn
+use: describe-datacenters-with-service
+short: 查询含服务的数据中心列表
+long: 查询含服务的数据中心列表
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: DescribeDatacentersWithService
+parameters:
+- name: cloud-region-id
+  type: string
+  required: false
+  sdk-field: cloudRegionId
+  description: 公有云区域 ID。
+- name: dc-id
+  type: string
+  required: false
+  sdk-field: dcId
+  description: 数据中心 ID。
+- name: service-type
+  type: enum
+  required: false
+  sdk-field: serviceType
+  description: 服务类型。
+  enum-values:
+  - value: AWS
+    desc: 亚马逊云。
+  - value: TENCENT
+    desc: 腾讯云。
+  - value: GOOGLE
+    desc: 谷歌云。
+  - value: AZURE
+    desc: 微软 Azure。
+  - value: ALI_CLOUD
+    desc: 阿里云。
+  - value: HUAWEI_CLOUD
+    desc: 华为云。
+  - value: DATACENTER_PORT
+    desc: 数据中心端口（非云服务）。
+  - value: BYTE_PLUS
+    desc: 火山引擎（BytePlus）。
+  - value: ORACLE
+    desc: 甲骨文云（Oracle）。
+response:
+- name: dcSet
+  type: object-array
+  description: 结果集。
+  array-style: json
+  item-schema:
+  - name: dcId
+    type: string
+    description: 数据中心 ID。
+  - name: dcName
+    type: string
+    description: 数据中心名称。
+  - name: dcAddress
+    type: string
+    description: 数据中心地址。
+  - name: cityName
+    type: string
+    description: 所在城市名称。
+  - name: countryName
+    type: string
+    description: 所在国家名称。
+  - name: areaName
+    type: string
+    description: 所在大区名称。
+  - name: latitude
+    type: float
+    description: 纬度。
+  - name: longitude
+    type: float
+    description: 经度。
+  - name: cloudRegionId
+    type: string
+    description: 公有云区域 ID。
+  - name: serviceTypes
+    type: string-array
+    description: 支持的服务类型集合。

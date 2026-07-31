@@ -1,0 +1,38 @@
+name: ModifyCloudBandwidth
+product: sdn
+use: modify-cloud-bandwidth
+short: 修改云连接带宽
+long: |-
+  修改云连接带宽
+  **注意事项**
+
+  * 可以通过调用[`DescribeCloudAvailableBandwidthTiers`](describecloudavailablebandwidthtiers.md) 接口查询到云连接可用的带宽阶梯。
+  * AWS云、Oracle云不支持修改带宽限速，Azure云只支持带宽扩容。
+  * 如果是二层网络专线的云连接，可以通过调用[`DescribePrivateConnects`](../private-connect/describeprivateconnects.md) 接口查询到**endpointId**即为云连接ID。
+  * 如果是三层网络的云连接，可以通过调用[`DescribeCloudRouters`](../router/describe-cloud-routers.md) 接口查询到接入点的**portId**即为云连接ID。
+  * 本接口为异步接口，此时带宽修改操作并未立即完成，在此期间云连接的所属的二层网络专线或者三层网络状态将会处于**UPDATING**
+    。如果是二层网络专线，结果可以通过调用[`DescribePrivateConnects`](../private-connect/describeprivateconnects.md) 接口查询，如果状态(privateConnectStatus)由 **UPDATING**(修改中)变为**AVAILABLE**(可用)，则代表带宽更新成功。如果是三层网络，结果可以通过调用[`DescribeCloudRouters`](../router/describe-cloud-routers.md) 接口查询，如果状态(
+    cloudRouterStatus)由 **UPDATING**(修改中)变为**RUNNING**(可用)，则代表带宽更新成功。
+  * 在修改带宽期间，不得对该云连接以及所属的二层网络专线或者三层网络进行其他任何操作。
+  * 请注意，调用本接口对云连接进行带宽限速的修改之后，后续再通过[`ModifyPrivateConnectBandwidth`](../private-connect/modifyprivateconnectbandwidth.md)
+    和[`ModifyCloudRouterEdgePointBandwidth`](../router/modifycloudrouteredgepointbandwidth.md) 接口进行带宽的修改时将只能修改骨干带宽，而不再自动修改云连接的带宽。
+examples:
+- cmd: zeno sdn modify-cloud-bandwidth --cloud-port-id your-cloud-port-id --bandwidth-mbps 100
+  desc: 修改云连接的带宽为100Mbps.
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: ModifyCloudBandwidth
+parameters:
+- name: cloud-port-id
+  type: string
+  required: true
+  sdk-field: cloudPortId
+  description: 需要修改的云连接 ID。
+- name: bandwidth-mbps
+  type: integer
+  required: true
+  sdk-field: bandwidthMbps
+  description: |-
+    需要修改的带宽限速。
+    单位 Mbps，需匹配可用带宽阶梯。

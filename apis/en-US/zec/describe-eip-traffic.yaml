@@ -5,7 +5,7 @@ short: Queries traffic monitoring data of an elastic IP
 long: Query the traffic monitoring data of the specified elastic IP within a given time range. Supports data aggregation by statistical granularity (step) and filtering by outbound public IP.
 examples:
 - cmd: zeno zec describe-eip-traffic --eip-id 926368879272403391 --start-time 2023-07-11T08:00:011Z --end-time 2023-07-11T08:10:00Z
-  desc: Query the traffic of an elastic IP in a specified time range.
+  desc: Query the traffic data of an EIP over a specified time range.
 sdk:
   service: zec
   version: '2025-09-01'

@@ -1,0 +1,42 @@
+name: DescribePortUsableVlan
+product: sdn
+use: describe-port-usable-vlan
+short: 查询端口可用vlan
+long: |-
+  查询端口可用vlan
+  **注意事项**
+
+  * 数据中心端口或数据中心必传一个。
+examples:
+- cmd: zeno sdn describe-port-usable-vlan --port-id your-port-id
+  desc: ''
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: DescribePortUsableVlan
+parameters:
+- name: port-id
+  type: string
+  required: false
+  sdk-field: portId
+  description: |-
+    数据中心端口 ID。
+    数据中心端口或数据中心至少传一个。
+- name: dc-id
+  type: string
+  required: false
+  sdk-field: dcId
+  description: |-
+    数据中心ID。
+    可通过 ~~DescribeDataCenters~~ 接口获取。
+    数据中心端口或数据中心至少传一个。
+response:
+- name: start
+  type: integer
+  description: VLAN 范围起始值。
+- name: end
+  type: integer
+  description: VLAN 范围结束值。
+- name: inuseVlanList
+  type: integer-array
+  description: 占用中的 VLAN 列表。

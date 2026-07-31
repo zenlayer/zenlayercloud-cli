@@ -1,7 +1,7 @@
 name: DescribeEipNetworkLineTypes
 product: zec
 use: describe-eip-network-line-types
-short: 查询EIP支持的IP线路类型。
+short: 查询EIP支持的IP线路类型
 long: 查询EIP支持的IP线路类型列表，可按节点过滤。
 examples:
 - cmd: zeno zec describe-eip-network-line-types

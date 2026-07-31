@@ -1,23 +1,21 @@
 name: CreateIPTransit
 product: ipt
 use: create-ip-transit
-short: 创建一条IP Transit
+short: 创建IP Transit
 long: |-
-  创建一条IP Transit。
-  #### 准备工作
-
-  * **物理端口**：你需要预先准备至少一个物理端口。
-  * **查询支持IP Transit 的地区：**
-    * 可以通过 [DescribeIPTransitDatacenters](describe-iptransit-datacenters.md) 查询支持IP Transit 的数据的数据中心。
-
-
+  创建IP Transit
   **注意事项**
 
   * 因设备原因部分区域只支持手动交付，交付周期会在1～3d完成。可以通过 [DescribeIPTransitDatacenters](describe-iptransit-datacenters.md) 的 **deliveryType**`字段来判断是否是极速交付。`
   * 本接口为异步接口，当创建请求下发成功后会返回一个IP Transit的`ID`，此时创建操作并未立即完成。在此期间实例的状态将会处于 **`DEPLOYING`**，创建结果可以通过调用DescribeIpTransit接口查询，如果状态(`iptStatus`)由 **`DEPLOYING`** (创建中)变为 **`AVAILABLE`** (可用)，则代表创建成功，如果状态变为 **`FAILED`** (失败)，则代表创建失败，创建过程中不可对二层网络专线进行任何操作。
+  * `internetType=ByInstanceBandwidth95`（95 计费）时须传 `commitBandwidth`；若同时传了 `bandwidth`，必须大于等于 `commitBandwidth`，否则返回 `INVALID_RIPT_BANDWIDTH_LESS_THAN_COMMIT` 错误。
+  * 传 `haConfig` 创建高可用 IP Transit 时必须同时传 `iptDcId` 和 `bfd`；缺少 `iptDcId` 返回 `MISSING_PARAMETER` 错误，缺少或不完整的 `bfd` 返回 `INVALID_RIPT_HA_BFD_REQUIRED` 错误；高可用 IP Transit 创建后不允许关闭 BFD。
+  * `routingType=BGP` 时须传 `bgp`，且 `bgp.asn` 必传；`bgp.asnList`、`bgp.asSetList` 二选一（至少传一个）。缺少 `bgp`/`bgp.asn` 返回 `MISSING_PARAMETER` 错误，`asnList`/`asSetList` 都未传返回 `INVALID_RIPT_BGP_ASN_LIST_MISSING` 错误，ASN 不在您名下返回 `INVALID_RIPT_BGP_ASN` 错误。
 examples:
 - cmd: zeno ipt create-ip-transit --ipt-name test_IPT --ipt-description test_ipt_desc --peer-port-id 1170556726903057557 --peer-port-vlan 1042 --internet-type ByBandwidth --bandwidth 50 --ipt-dc-id AMS1 --routing-type Static --public-ipv4-block-size 28
   desc: 创建一条IP Transit，路由设置成静态路由，公网地址使用/28的CIDR。并且配置BFD。
+- cmd: zeno ipt create-ip-transit --ipt-name test_IPT_v4v6 --peer-port-id 1170556726903057557 --peer-port-vlan 1042 --internet-type ByBandwidth --bandwidth 100 --ipt-dc-id AMS1 --routing-type BGP --public-ip-list "{netmask=28, ipType=IPV4, ipNetworkType=BGP_IP, amount=2}" --public-ip-list "{netmask=64, ipType=IPV6, ipNetworkType=BGP_IP}"
+  desc: 创建一条 IP Transit，使用 publicIpList 同时分配一个 /28 IPv4 块和一个 /64 IPv6 块。
 sdk:
   service: ipt
   version: '2024-09-01'
@@ -27,93 +25,80 @@ parameters:
   type: string
   required: false
   sdk-field: iptName
-  description: |-
-    IP Transit的名称。
-    长度不能超过255。
+  description: IP Transit名称。
 - name: ipt-description
   type: string
   required: false
   sdk-field: iptDescription
-  description: |-
-    IP Transit的描述信息。
-    长度不能超过255。
+  description: IP Transit描述。
 - name: peer-port-id
   type: string
   required: true
   sdk-field: peerPortId
-  description: |-
-    端口的ID。
-    端口的连通性状态必须是ACTIVE。
+  description: 对端数据中心端口 ID。
 - name: peer-port-vlan
   type: integer
   required: true
   sdk-field: peerPortVlan
-  description: |-
-    VLAN ID。
-    范围为1000～4000。
-    必须为未分配的vlan, 可以通过DescribePortUsableVlan来查询一个可以使用的vlan。
+  description: 对端数据中心端口 VLAN。
 - name: ipt-dc-id
   type: string
   required: false
   sdk-field: iptDcId
   description: |-
-    IP Transit 目的地数据中心ID。
-    如果不指定，则代表和端口位于同一个数据中心。
+    本端数据中心 ID。
+    为空代表本地连接（Local IPT）。
+    传 haConfig 创建高可用 IP Transit 时必传。
 - name: internet-type
   type: enum
   required: false
   sdk-field: internetType
-  description: IP Transit的带宽计费方式。
+  description: 网络计费方式。
   enum-values:
   - value: ByBandwidth
-    desc: 按固定带宽计费。
+    desc: 固定带宽计费。
   - value: ByInstanceBandwidth95
-    desc: 实例95计费。
+    desc: 95带宽计费。
 - name: commit-bandwidth
   type: integer
   required: false
   sdk-field: commitBandwidth
   description: |-
-    保底带宽。
-    单位Mbps。
-    有且仅当internetType=ByInstanceBandwidth95时该字段必传。
+    保底带宽（Mbps）。
+    95 计费（internetType=ByInstanceBandwidth95）下必传。
 - name: bandwidth
   type: integer
   required: false
   sdk-field: bandwidth
   description: |-
-    带宽限速。
-    单位Mbps。
-    最小值不能低于10Mbps。
+    带宽（Mbps）。
+    95 计费（internetType=ByInstanceBandwidth95）下必须大于等于 commitBandwidth。
 - name: routing-type
   type: enum
   required: true
   sdk-field: routingType
-  description: 路由类型。
+  description: 路由模式。
   enum-values:
   - value: BGP
-    desc: BGP。（目前api暂不支持该方式）
+    desc: BGP 路由模式。
   - value: Static
-    desc: 静态路由。
+    desc: 静态路由模式。
   - value: Gateway
-    desc: 网关模式。
+    desc: 网关路由模式。
 - name: public-ipv4-block-size
   type: integer-array
   required: false
   sdk-field: publicIPv4BlockSize
   description: |-
-    公网IPv4地址。
-    网段范围：24～30。
-    有且仅当路由类型是Static 或 Gateway时必须指定。
-    目前只允许指定一个公网CIDR。
+    公网 IPv4 地址段大小列表。
+    与 publicIpList 互斥，优先级更低。
 - name: bfd
   type: object
   required: false
   sdk-field: bfd
   description: |-
-    启用 BFD配置。
-    如果不传该字段，则默认不启用BFD。
-    网关模式不支持配置BFD。
+    BFD 配置。
+    传 haConfig 创建高可用 IP Transit 时必传，且后续不允许关闭。
   object-schema:
   - name: bfdTxInterval
     type: integer
@@ -137,8 +122,8 @@ parameters:
   required: false
   sdk-field: resourceGroupId
   description: |-
-    资源组的ID。
-    如果不传，则会放到默认资源组。
+    资源组 ID。
+    不传则放入默认资源组。
 - name: bgp
   type: object
   required: false
@@ -173,7 +158,7 @@ parameters:
   sdk-field: tags
   sdk-wrapper: tags
   description: |-
-    创建IP Transit时关联的标签。
+    创建CIDR时关联的标签。
     注意：关联标签键不能重复。--tags 'key=env,value=prod'
   array-style: kv
   item-schema:
@@ -181,16 +166,99 @@ parameters:
     type: string
     description: |-
       标签键。
-      长度限制：1～128个字符。
+      长度限制：1～64个字符。
   - name: value
     type: string
     description: |-
       标签值。
-      长度限制：1～128个字符。
+      长度限制：1～64个字符。
+- name: public-ip-list
+  type: object-array
+  required: false
+  sdk-field: publicIpList
+  description: |-
+    公网 IP 分配列表。
+    与 publicIPv4BlockSize 互斥，优先级更高。
+    传此字段时 publicIPv4BlockSize 被忽略。
+  array-style: json
+  item-schema:
+  - name: netmask
+    type: integer
+    description: |-
+      CIDR 掩码长度。
+      IPv4 有效范围 24–30，IPv6 有效范围 48–64。
+  - name: ipType
+    type: enum
+    description: IP 类型（IPV4 / IPV6）。
+    enum-values:
+    - value: IPV4
+      desc: IPv4。
+    - value: IPV6
+      desc: IPv6。
+  - name: ipNetworkType
+    type: enum
+    description: |-
+      IP 类型。
+      默认 BGP_IP（从 IP 池分配）。
+      LOCAL_IP 表示原生 IP。
+    enum-values:
+    - value: BGP_IP
+      desc: 普通 IP。
+    - value: LOCAL_IP
+      desc: 原生 IP。
+  - name: amount
+    type: integer
+    description: |-
+      购买数量。
+      指定相同掩码长度的 IP 块数量，默认为 1。
+- name: zbg-region-id
+  type: string
+  required: false
+  sdk-field: zbgRegionId
+  description: |-
+    ZBG 接入节点 ID。
+    非空时走 Router RIPT 流程，与 haConfig 互斥。
+    调用 ~~zec:DescribeInterconnectBorderGatewayRegions~~ 以获取可用的节点信息。
+- name: ha-config
+  type: object
+  required: false
+  sdk-field: haConfig
+  description: |-
+    HA 高可用配置。
+    非空时走 HA 创建流程，与 zbgRegionId 互斥，且此时 iptDcId 和 bfd 均必传。
+  object-schema:
+  - name: haMode
+    type: enum
+    description: HA 运行模式。
+    enum-values:
+    - value: ACTIVE_STANDBY
+      desc: |-
+        主备模式。
+        仅主链路转发流量。
+    - value: ACTIVE_ACTIVE
+      desc: |-
+        负载均衡模式。
+        两条子链路同时转发流量。
+  - name: secondaryPortId
+    type: string
+    description: |-
+      备链路接入数据中心端口 ID。
+      与顶层 peerPortId 必须同城不同 DC。
+  - name: secondaryPortVlanId
+    type: integer
+    description: 备链路数据中心端口 VLAN ID。
+- name: public-interconnect-netmask
+  type: integer
+  required: false
+  sdk-field: publicInterconnectNetmask
+  description: |-
+    公网互联块掩码。
+    非空启用公网地址互联，仅 BGP / Static 路由支持。
+    合法值见 ~~DescribeIPTransitDatacenters~~ 响应中 availableRoutingTypes[].publicInterconnectNetmasks。
 response:
 - name: orderNumber
   type: string
-  description: 创建时产生的订单编号。
+  description: 订单号。
 - name: iptId
   type: string
-  description: IP Transit 的 ID。
+  description: IP Transit ID。

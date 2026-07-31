@@ -1,0 +1,94 @@
+name: DescribeIPTransitAvailableCidrBlocks
+product: ipt
+use: describe-ip-transit-available-cidr-blocks
+short: Query available public address blocks of an IP Transit
+long: |-
+  Queries available public address blocks of an IP Transit.
+  **Notes**
+
+  * `routingType` affects the returned netmask range: Static and BGP routing support IPv4 netmasks from /24 to /32; Gateway routing supports only /24 to /30. If not specified, all netmasks are returned.
+  * In the **creation scenario**, `iptDcId` is required; `routingType` is optional.
+  * In the **expansion/reduction scenario**, only `ipUuid` is required; `iptDcId` and `routingType` can be omitted, as the API automatically infers them from the RIPT to which the IP block belongs. Only options with the same protocol stack type and network type as the current IP block, and a netmask different from the current block, are returned.
+  * In the ZBG scenario, `zbgRegionId` must also be passed. IPv6 CIDR blocks are not returned in the ZBG scenario.
+examples:
+- cmd: zeno ipt describe-ip-transit-available-cidr-blocks --ipt-dc-id AMS1 --routing-type BGP
+  desc: Query the list of available public CIDR netmasks under BGP routing in the AMS1 data center.
+- cmd: zeno ipt describe-ip-transit-available-cidr-blocks --ip-uuid your-ip-uuid
+  desc: 'Expansion/reduction scenario: pass only `ipUuid`; the data center and routing type are inferred automatically. Returns options with the same network type as the current IP block and a netmask different from the current block.'
+sdk:
+  service: ipt
+  version: '2024-09-01'
+  action: DescribeIPTransitAvailableCidrBlocks
+parameters:
+- name: ipt-dc-id
+  type: string
+  required: false
+  sdk-field: iptDcId
+  description: |-
+    Target data center ID.
+    Required in the creation scenario. Can be omitted in the expansion/reduction scenario (when ipUuid is passed), as it will be inferred from the data center of the IP block.
+- name: routing-type
+  type: enum
+  required: false
+  sdk-field: routingType
+  description: |-
+    Routing type.
+    The available netmask range differs by routing type. If not specified, all netmasks are returned.
+  enum-values:
+  - value: BGP
+    desc: BGP. (Currently not supported via API)
+  - value: Static
+    desc: Static routing.
+  - value: Gateway
+    desc: Gateway mode.
+- name: zbg-region-id
+  type: string
+  required: false
+  sdk-field: zbgRegionId
+  description: |-
+    ZBG region ID.
+    Required in ZBG scenarios.
+- name: ip-uuid
+  type: string
+  required: false
+  sdk-field: ipUuid
+  description: |-
+    IP address UUID.
+    Passed in the expansion scenario. Only options with a netmask length no smaller than the current IP block are returned.
+response:
+- name: ipv4CidrBlocks
+  type: object-array
+  description: List of available IPv4 CIDR blocks.
+  array-style: json
+  item-schema:
+  - name: netmask
+    type: integer
+    description: |-
+      Netmask length.
+      IPv4 range: 24-32. IPv6 range: 48-64.
+  - name: ipNetworkType
+    type: enum
+    description: IP network type.
+    enum-values:
+    - value: BGP_IP
+      desc: Regular IP.
+    - value: LOCAL_IP
+      desc: Native IP.
+- name: ipv6CidrBlocks
+  type: object-array
+  description: List of available IPv6 CIDR blocks.
+  array-style: json
+  item-schema:
+  - name: netmask
+    type: integer
+    description: |-
+      Netmask length.
+      IPv4 range: 24-32. IPv6 range: 48-64.
+  - name: ipNetworkType
+    type: enum
+    description: IP network type.
+    enum-values:
+    - value: BGP_IP
+      desc: Regular IP.
+    - value: LOCAL_IP
+      desc: Native IP.

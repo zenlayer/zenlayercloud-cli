@@ -2,7 +2,12 @@ name: DescribeInstances
 product: zec
 use: describe-instances
 short: 获取ZEC实例列表
-long: 查询一台或多台虚拟机实例的信息。用户可以根据实例ID、实例名称等条件来查询实例的详细信息。
+long: |-
+  查询一台或多台虚拟机实例的信息。用户可以根据实例ID、实例名称等条件来查询实例的详细信息。
+  **注意事项**
+
+  * `publicIpAddresses` 中，网段(Block)型 EIP 会展示为带掩码的完整 CIDR（如 `80.122.125.0/31`），单个地址型 EIP 仍展示为普通IP（如 `128.0.0.2`）。
+  * `ipv4Address` 若指定为网段(CIDR)形式，掩码长度必须在 20–31 之间。
 examples:
 - cmd: zeno zec describe-instances --instance-ids xxx --page-size 10 --page-num 1
   desc: 查询虚拟机实例列表
@@ -32,7 +37,9 @@ parameters:
   type: string
   required: false
   sdk-field: ipv4Address
-  description: 根据实例关联的IPv4过滤。
+  description: |-
+    根据实例关联的IPv4过滤。
+    若指定为网段(CIDR)形式，掩码长度必须在20–31之间。
 - name: ipv6-address
   type: string
   required: false
@@ -62,8 +69,6 @@ parameters:
     desc: 系统关机中。
   - value: RECYCLE
     desc: 实例处于回收站。
-  - value: RECYCLING
-    desc: 实例回收中。
   - value: CREATE_FAILED
     desc: 创建失败。
   - value: IMAGING
@@ -138,9 +143,7 @@ response:
     description: 实例所属的可用区ID。
   - name: instanceType
     type: string
-    description: |-
-      CPU 规格。
-      如果是GPU实例，该字段取值为null。
+    description: 规格唯一ID。
   - name: cpu
     type: integer
     description: |-
@@ -194,8 +197,6 @@ response:
       desc: 系统关机中。
     - value: RECYCLE
       desc: 实例处于回收站。
-    - value: RECYCLING
-      desc: 实例回收中。
     - value: CREATE_FAILED
       desc: 创建失败。
     - value: IMAGING

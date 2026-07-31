@@ -4,7 +4,7 @@ use: describe-qos-policy-group-traffic
 short: Describe QoS Policy Group Traffic
 long: Query aggregated traffic monitoring data for a QoS policy group.
 examples:
-- cmd: zeno zec describe-qos-policy-group-traffic --qos-policy-group-id qos-xxxxxxxx --start-time 2026-04-24T00:00:00Z --end-time 2026-04-25T00:00:00Z --period 300
+- cmd: zeno zec describe-qos-policy-group-traffic --qos-policy-group-id qpg-xxxxxxxx --start-time 2026-04-24T00:00:00Z --end-time 2026-04-25T00:00:00Z --period 300
   desc: Query traffic monitoring data for a QoS policy group.
 sdk:
   service: zec

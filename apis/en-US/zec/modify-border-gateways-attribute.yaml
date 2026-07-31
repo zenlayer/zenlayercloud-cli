@@ -4,8 +4,8 @@ use: modify-border-gateways-attribute
 short: Modifies the attributes of one or more border gateways
 long: The API is used to modify the attributes of one or more border gateways. Only the border gateway name to be displayed can be modified for now.
 examples:
-- cmd: zeno zec modify-border-gateways-attribute --zbg-ids xxx --name xxx
-  desc: Modify border gateway name in batches.
+- cmd: zeno zec modify-border-gateways-attribute --zbg-ids xxx --name xxx --advertised-subnet-ids <subnetId1> --advertised-subnet-ids <subnetId2>
+  desc: Modify the name of gateways in batches.
 sdk:
   service: zec
   version: '2025-09-01'
@@ -53,7 +53,9 @@ parameters:
   type: string-array
   required: false
   sdk-field: advertisedSubnetIds
-  description: Subnet IDs.
+  description: |-
+    Set of subnet IDs.
+    For this field to take effect, advertisedSubnet must be set to PART.
 - name: advertised-cidrs
   type: string-array
   required: false

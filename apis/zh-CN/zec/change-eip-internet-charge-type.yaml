@@ -4,8 +4,12 @@ use: change-eip-internet-charge-type
 short: 变更弹性公网IP更网络计费模式
 long: 变更弹性公网IP更网络计费模式。
 examples:
+- cmd: zeno zec change-eip-internet-charge-type --eip-id <eipId> --internet-charge-type ByBandwidth --bandwidth 10
+  desc: 变更为固定带宽计费。
+- cmd: zeno zec change-eip-internet-charge-type --eip-id <eipId> --internet-charge-type ByTrafficPackage --flow-package 100
+  desc: 变更为流量包计费。
 - cmd: zeno zec change-eip-internet-charge-type --eip-id <eipId> --internet-charge-type BandwidthCluster --cluster-id <clusterId>
-  desc: 变更带宽网络类型为共享带宽包。
+  desc: 变更为共享带宽包计费。
 sdk:
   service: zec
   version: '2025-09-01'
@@ -48,14 +52,15 @@ parameters:
   type: integer
   required: false
   sdk-field: bandwidthCap
-  description: 带宽峰值上限（Mbps）。
+  description: 已废弃，该参数不再生效。
+  deprecated: true
 - name: cluster-id
   type: string
   required: false
   sdk-field: clusterId
   description: |-
     共享带宽包ID。
-    如果要变更为共享带宽包计费，则需要指定。
+    变更为共享带宽包计费时需指定。
 response:
 - name: orderNumber
   type: string

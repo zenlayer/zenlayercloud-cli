@@ -1,0 +1,24 @@
+name: DestroyCloudRouter
+product: sdn
+use: destroy-cloud-router
+short: 销毁三层网络
+long: |-
+  销毁三层网络
+  **注意事项**
+
+  * 本操作不可逆，一旦操作成功，三层网络将被彻底释放，请谨慎操作。
+  * 仅当处于**RECYCLED**的三层网络（即调用 [DeleteCloudRouter](delete-cloud-router.md) 删除后）才可以调用该接口彻底进行销毁。
+  * 本接口为异步接口，当销毁三层网络的请求下发成功后，销毁三层网络操作并未立即完成。在此期间三层网络的状态将会处于\*\*`DESTROYING`\*\*，当销毁成功，将无法再查询到该三层网络的相关信息。
+examples:
+- cmd: zeno sdn destroy-cloud-router --cloud-router-id your-cloud-router-id
+  desc: 销毁三层网络
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: DestroyCloudRouter
+parameters:
+- name: cloud-router-id
+  type: string
+  required: true
+  sdk-field: cloudRouterId
+  description: 三层网络的 ID。

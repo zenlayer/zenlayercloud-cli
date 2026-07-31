@@ -1,0 +1,33 @@
+name: DescribeBytePlusVlanUsage
+product: sdn
+use: describe-byte-plus-vlan-usage
+short: Query BytePlus Access Point VLAN Usage
+long: Query BytePlus Access Point VLAN Usage
+examples:
+- cmd: zeno sdn describe-byte-plus-vlan-usage --dc-id 11aff7e7-94b8-4aa1-ba93-85c1f5b96f29
+  desc: Query the VLAN usage for the corresponding node accessing BytePlus.
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: DescribeBytePlusVlanUsage
+parameters:
+- name: dc-id
+  type: string
+  required: true
+  sdk-field: dcId
+  description: Data center ID of the access point.
+- name: pairing-key
+  type: string
+  required: false
+  sdk-field: pairingKey
+  description: Cloud platform pairing key, used to query the VLAN usage of the corresponding access point by key.
+response:
+- name: start
+  type: integer
+  description: Start value of the available VLAN range.
+- name: end
+  type: integer
+  description: End value of the available VLAN range.
+- name: usedVlans
+  type: integer-array
+  description: List of VLANs already in use.

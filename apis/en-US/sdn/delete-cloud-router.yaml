@@ -1,0 +1,25 @@
+name: DeleteCloudRouter
+product: sdn
+use: delete-cloud-router
+short: Delete Cloud Router
+long: |-
+  Delete Cloud Router
+  **Notes**
+
+  * Deleting a Cloud Router suspends the related business (i.e. the network becomes unreachable) -- proceed with caution.
+  * A Cloud Router that is being created or updated cannot be deleted.
+  * After a Cloud Router is deleted, the system retains the resource for a period of time -- see [Cloud Router Billing Information](https://docs.console.zenlayer.com/welcome/pricing/cloud-networking-pricing#deletion-2) for the retention period.
+    During this retention period, the resource status will be **RECYCLED**. You can call RenewCloudRouter to restore it during this period.
+examples:
+- cmd: zeno sdn delete-cloud-router --cloud-router-id your-cloud-router-id
+  desc: Delete.
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: DeleteCloudRouter
+parameters:
+- name: cloud-router-id
+  type: string
+  required: true
+  sdk-field: cloudRouterId
+  description: Cloud Router ID.

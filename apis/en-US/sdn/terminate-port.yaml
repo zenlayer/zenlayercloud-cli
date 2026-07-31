@@ -1,0 +1,25 @@
+name: TerminatePort
+product: sdn
+use: terminate-port
+short: Terminate Port
+long: |-
+  Terminate Port
+  **Notes**
+
+  * Ports that are no longer needed can be actively terminated via this API. For postpaid ports, billing stops once terminated.
+  * This API cannot actively terminate a port under the prepaid **subscription** billing mode -- subscription-mode ports are automatically terminated when the subscription expires.
+  * A terminated port enters the recycle bin. If no further action is taken, it is automatically released after 48 hours; you can also actively release it by calling [DestroyPort](destroyport.md#DestroyPort).
+  * Calling this API on a port that is already in the recycle bin or still being created has no effect.
+examples:
+- cmd: zeno sdn terminate-port --port-id your-port-id
+  desc: ''
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: TerminatePort
+parameters:
+- name: port-id
+  type: string
+  required: true
+  sdk-field: portId
+  description: Port ID.

@@ -1,0 +1,22 @@
+name: RenewPrivateConnect
+product: sdn
+use: renew-private-connect
+short: Renew Private Connect
+long: |-
+  Renew Private Connect
+  **Notes**
+
+  * Only Private Connects with status **RECYCLED** can be restored via this API.
+examples:
+- cmd: zeno sdn renew-private-connect --private-connect-id your-private-connect-id
+  desc: Delete.
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: RenewPrivateConnect
+parameters:
+- name: private-connect-id
+  type: string
+  required: true
+  sdk-field: privateConnectId
+  description: Private Connect ID.

@@ -1,0 +1,39 @@
+name: ModifyPortAttribute
+product: sdn
+use: modify-port-attribute
+short: Modify Port Attribute
+long: |-
+  Modify Port Attribute
+  **Notes**
+
+  * `businessEntityName` can only be modified before the port's LOA has been uploaded. Once uploaded, it can no longer be modified.
+examples:
+- cmd: zeno sdn modify-port-attribute --port-id your-port-id --port-name your-port-name --port-remarks your-port-remarks --business-entity-name your-business-entity-name
+  desc: ''
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: ModifyPortAttribute
+parameters:
+- name: port-id
+  type: string
+  required: true
+  sdk-field: portId
+  description: Port ID.
+- name: port-name
+  type: string
+  required: false
+  sdk-field: portName
+  description: Port name, up to 255 characters. It is recommended to use the data center four-letter code plus the port spec.
+- name: port-remarks
+  type: string
+  required: false
+  sdk-field: portRemarks
+  description: Port remarks, up to 255 characters.
+- name: business-entity-name
+  type: string
+  required: false
+  sdk-field: businessEntityName
+  description: |-
+    Business entity name, used as the LOA letterhead.
+    Can only be modified before the port's LOA is uploaded; not modifiable after upload.

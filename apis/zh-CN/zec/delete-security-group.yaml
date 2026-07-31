@@ -7,6 +7,7 @@ long: |-
   **注意事项**
 
   * 默认安全组不支持删除。
+  * 删除安全组前，请确保安全组未被任何虚拟网卡、NAT网关、负载均衡或高可用虚拟IP（HaVip）引用。
 examples:
 - cmd: zeno zec delete-security-group --security-group-id your-security-group-id
   desc: 删除一个安全组。

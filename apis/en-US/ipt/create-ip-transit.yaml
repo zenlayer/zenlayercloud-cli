@@ -84,7 +84,8 @@ parameters:
   description: |-
     Bandwidth cap.
     Unit: Mbps.
-    Minimum value: 10 Mbps.
+    Minimum value: 5 Mbps.
+    Default value: 5 Mbps.
 - name: routing-type
   type: enum
   required: true
@@ -187,6 +188,88 @@ parameters:
     description: |-
       Tag value.
       Length limit: 1-128 characters.
+- name: public-ip-list
+  type: object-array
+  required: false
+  sdk-field: publicIpList
+  description: |-
+    List of public IP allocations.
+    Mutually exclusive with publicIPv4BlockSize and takes precedence.
+    If this field is specified, publicIPv4BlockSize is ignored.
+  array-style: json
+  item-schema:
+  - name: netmask
+    type: integer
+    description: |-
+      CIDR netmask length.
+      Valid IPv4 range: 24-30. Valid IPv6 range: 48-64.
+  - name: ipType
+    type: enum
+    description: IP type (IPV4 / IPV6).
+    enum-values:
+    - value: IPV4
+      desc: IPv4.
+    - value: IPV6
+      desc: IPv6.
+  - name: ipNetworkType
+    type: enum
+    description: |-
+      IP network type.
+      Default: BGP_IP (allocated from the IP pool).
+      LOCAL_IP indicates a native IP.
+    enum-values:
+    - value: BGP_IP
+      desc: Regular IP.
+    - value: LOCAL_IP
+      desc: Native IP.
+  - name: amount
+    type: integer
+    description: |-
+      Purchase quantity.
+      Specifies the number of IP blocks with the same netmask length. Default: 1.
+- name: zbg-region-id
+  type: string
+  required: false
+  sdk-field: zbgRegionId
+  description: |-
+    ZBG access node ID.
+    If specified, the Router RIPT process is used. Mutually exclusive with haConfig.
+- name: ha-config
+  type: object
+  required: false
+  sdk-field: haConfig
+  description: |-
+    HA configuration.
+    If specified, the HA creation process is used. Mutually exclusive with zbgRegionId.
+  object-schema:
+  - name: haMode
+    type: enum
+    description: HA operating mode.
+    enum-values:
+    - value: ACTIVE_STANDBY
+      desc: |-
+        Active/standby mode.
+        Only the primary link forwards traffic.
+    - value: ACTIVE_ACTIVE
+      desc: |-
+        Active/active mode.
+        Both sub-links forward traffic simultaneously.
+  - name: secondaryPortId
+    type: string
+    description: |-
+      Access port ID of the secondary link.
+      Must be in the same city as but a different data center from the top-level peerPortId.
+  - name: secondaryPortVlanId
+    type: integer
+    description: VLAN ID of the secondary link port.
+- name: public-interconnect-netmask
+  type: integer
+  required: false
+  sdk-field: publicInterconnectNetmask
+  description: |-
+    Public interconnect block netmask.
+    If specified, public address interconnect is enabled. Only supported for BGP / Static routing.
+    For valid values, see availableRoutingTypes[].publicInterconnectNetmasks in the DescribeIPTransitDatacenters response.
 response:
 - name: orderNumber
   type: string

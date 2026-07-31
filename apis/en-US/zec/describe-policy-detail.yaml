@@ -5,7 +5,7 @@ short: Queries the details of a DDoS protection policy
 long: Query the detailed configuration of the specified DDoS protection policy, including IP allowlists/blocklists, protocol blocking, geo-blocking, traffic fingerprinting, and traffic control rules.
 examples:
 - cmd: zeno zec describe-policy-detail --policy-id <policyId>
-  desc: Get protection strategy details.
+  desc: Get protection policy details
 sdk:
   service: zec
   version: '2025-09-01'

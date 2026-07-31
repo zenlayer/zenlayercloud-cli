@@ -1,0 +1,29 @@
+name: DeleteCloudRouterEdgePoint
+product: sdn
+use: delete-cloud-router-edge-point
+short: Delete Edge Point
+long: |-
+  Delete Edge Point
+  **Notes**
+
+  * A Cloud Router must have at least 2 edge points; when there are exactly 2 edge points, none can be removed.
+  * This is an asynchronous API. Once the request is successfully submitted, the operation is not completed immediately. During this period the Cloud Router status will be **UPDATING**; once removed successfully, information about the removed edge point can no longer be queried.
+  * No other operations can be performed on the Cloud Router while it is being updated.
+examples:
+- cmd: zeno sdn delete-cloud-router-edge-point --cloud-router-id your-cloud-router-id --edge-point-id your-cloud-router-point-id
+  desc: Delete an edge point in a Cloud Router.
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: DeleteCloudRouterEdgePoint
+parameters:
+- name: cloud-router-id
+  type: string
+  required: true
+  sdk-field: cloudRouterId
+  description: ID of the Cloud Router that the edge point belongs to.
+- name: edge-point-id
+  type: string
+  required: true
+  sdk-field: edgePointId
+  description: ID of the edge point to remove.

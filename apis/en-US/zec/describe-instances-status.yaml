@@ -70,8 +70,6 @@ response:
       desc: Powering off.
     - value: RECYCLE
       desc: Recycled.
-    - value: RECYCLING
-      desc: Recycling.
     - value: CREATE_FAILED
       desc: Creating failed.
     - value: IMAGING

@@ -77,8 +77,6 @@ parameters:
     desc: 按固定带宽计费
   - value: ByTrafficPackage
     desc: 购买流量包计费
-  - value: ByInstanceBandwidth95
-    desc: 单实例95计费方式。
   - value: ByClusterBandwidth95
     desc: 单产品合并95计费城市带宽组
   - value: ByBandwidthCluster

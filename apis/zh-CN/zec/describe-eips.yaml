@@ -4,7 +4,7 @@ use: describe-eips
 short: 查询弹性IP列表
 long: 指定条件查询已创建的弹性IPv4的信息。用户可以根据ID、名称等信息来搜索。
 examples:
-- cmd: zeno zec describe-eips --ip-address 128.0.0.1
+- cmd: zeno zec describe-eips --ip-address 128.0.0.1 --prefix-length 32
   desc: 1. 根据公网IP查询匹配的IP列表。
 sdk:
   service: zec
@@ -72,7 +72,7 @@ parameters:
   type: string
   required: false
   sdk-field: ipAddress
-  description: 按照 IP地址过滤。
+  description: 按照 EIP 的 IP 过滤。
 - name: ip-addresses
   type: string-array
   required: false
@@ -138,6 +138,13 @@ parameters:
     desc: 流量包计费方式。
   - value: BandwidthCluster
     desc: 共享带宽包计费方式。
+- name: prefix-length
+  type: integer
+  required: false
+  sdk-field: prefixLength
+  description: |-
+    按照 EIP 的掩码长度过滤。
+    32 表示单 IP，24–31 表示网段。
 response:
 - name: totalCount
   type: integer
@@ -424,3 +431,8 @@ response:
     - name: status
       type: string
       description: 操作状态。取值范围：`OPERATING`（操作中）、`FAILED`（操作失败）。
+  - name: prefixLength
+    type: integer
+    description: |-
+      掩码长度。
+      32 表示单 IP，25–31 表示 IP 块。

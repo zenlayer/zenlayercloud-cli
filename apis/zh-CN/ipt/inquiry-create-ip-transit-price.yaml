@@ -1,11 +1,17 @@
 name: InquiryCreateIPTransitPrice
 product: ipt
 use: inquiry-create-ip-transit-price
-short: 创建一条IP Transit 的询价
-long: 创建一条IP Transit 的询价。
+short: IP Transit创建询价
+long: |-
+  IP Transit创建询价
+  **注意事项**
+
+  * `internetType=ByInstanceBandwidth95`（95 计费）时须传 `commitBandwidth`；若同时传了 `bandwidth`，必须大于等于 `commitBandwidth`，否则返回 `INVALID_RIPT_BANDWIDTH_LESS_THAN_COMMIT` 错误。
 examples:
-- cmd: zeno ipt inquiry-create-ip-transit-price --ipt-description test_ipt_desc --peer-port-id your-port-id --internet-type ByBandwidth --bandwidth 50 --ipt-dc-id AMS1 --routing-type Static --public-ipv4-block-size 25
+- cmd: zeno ipt inquiry-create-ip-transit-price --peer-port-id your-port-id --internet-type ByBandwidth --bandwidth 50 --ipt-dc-id AMS1 --routing-type Static --public-ipv4-block-size 25
   desc: 查询创建一条IP Transit，公网地址使用/25的CIDR。带宽限速为50Mbps, 计费方式为固定带宽。
+- cmd: zeno ipt inquiry-create-ip-transit-price --peer-port-id your-port-id --internet-type ByBandwidth --bandwidth 100 --ipt-dc-id AMS1 --routing-type BGP --public-ip-list "{netmask=28, ipType=IPV4, ipNetworkType=BGP_IP, amount=2}"
+  desc: 使用 publicIpList 询价，指定购买 2 个 /28 IPv4 块。
 sdk:
   service: ipt
   version: '2024-09-01'
@@ -15,24 +21,24 @@ parameters:
   type: string
   required: true
   sdk-field: peerPortId
-  description: 端口的ID。
+  description: 对端数据中心端口 ID。
 - name: ipt-dc-id
   type: string
   required: false
   sdk-field: iptDcId
   description: |-
-    IP Transit 目的地数据中心ID。
-    如果不指定，则代表和端口位于同一个数据中心。
+    本端数据中心 ID。
+    为空代表本地连接（Local IPT）。
 - name: internet-type
   type: enum
   required: false
   sdk-field: internetType
-  description: IP Transit的带宽计费方式。
+  description: 网络计费方式。
   enum-values:
   - value: ByBandwidth
-    desc: 按固定带宽计费。
+    desc: 固定带宽计费。
   - value: ByInstanceBandwidth95
-    desc: 实例95计费。
+    desc: 95带宽计费。
 - name: commit-bandwidth
   type: integer
   required: false
@@ -48,28 +54,28 @@ parameters:
   description: |-
     带宽限速。
     单位Mbps。
-    最小值不能低于10Mbps。
+    最小值不能低于5Mbps。
+    默认值为5Mbps。
+    95 计费下必须大于等于 commitBandwidth。
 - name: routing-type
   type: enum
   required: true
   sdk-field: routingType
-  description: 路由类型。
+  description: 路由模式。
   enum-values:
   - value: BGP
-    desc: BGP。（目前api暂不支持该方式）
+    desc: BGP 路由模式。
   - value: Static
-    desc: 静态路由。
+    desc: 静态路由模式。
   - value: Gateway
-    desc: 网关模式。
+    desc: 网关路由模式。
 - name: public-ipv4-block-size
   type: integer-array
   required: false
   sdk-field: publicIPv4BlockSize
   description: |-
-    公网IPv4地址。
-    网段范围：24～30
-    有且仅当路由类型是Static 或 Gateway时必须指定。
-    目前只允许指定一个公网CIDR。
+    公网 IPv4 地址段大小列表。
+    与 publicIpList 互斥，优先级更低。
 - name: bgp-route-type
   type: enum
   required: false
@@ -82,12 +88,105 @@ parameters:
     desc: 全路由+默认路由。
   - value: DEFAULT_ROUTES
     desc: 默认路由。
+- name: ip-type
+  type: enum
+  required: false
+  sdk-field: ipType
+  description: |-
+    IP 类型（IPV4 / IPV6）。
+    默认 IPV4。
+  enum-values:
+  - value: IPV4
+    desc: IPv4。
+  - value: IPV6
+    desc: IPv6。
+- name: public-ip-list
+  type: object-array
+  required: false
+  sdk-field: publicIpList
+  description: |-
+    公网 IP 分配列表。
+    与 publicIPv4BlockSize 互斥，优先级更高。
+    传此字段时 publicIPv4BlockSize 被忽略。
+  array-style: json
+  item-schema:
+  - name: netmask
+    type: integer
+    description: |-
+      CIDR 掩码长度。
+      IPv4 有效范围 24–30，IPv6 有效范围 48–64。
+  - name: ipType
+    type: enum
+    description: IP 类型（IPV4 / IPV6）。
+    enum-values:
+    - value: IPV4
+      desc: IPv4。
+    - value: IPV6
+      desc: IPv6。
+  - name: ipNetworkType
+    type: enum
+    description: |-
+      IP 类型。
+      默认 BGP_IP（从 IP 池分配）。
+      LOCAL_IP 表示原生 IP。
+    enum-values:
+    - value: BGP_IP
+      desc: 普通 IP。
+    - value: LOCAL_IP
+      desc: 原生 IP。
+  - name: amount
+    type: integer
+    description: |-
+      购买数量。
+      指定相同掩码长度的 IP 块数量，默认为 1。
+- name: zbg-region-id
+  type: string
+  required: false
+  sdk-field: zbgRegionId
+  description: |-
+    ZBG 接入节点 ID。
+    非空时走 Router RIPT 询价流程。
+- name: ha-config
+  type: object
+  required: false
+  sdk-field: haConfig
+  description: |-
+    HA 高可用配置。
+    非空时询价包含 2 条 VLL 价格。
+  object-schema:
+  - name: haMode
+    type: enum
+    description: HA 运行模式。
+    enum-values:
+    - value: ACTIVE_STANDBY
+      desc: |-
+        主备模式。
+        仅主链路转发流量。
+    - value: ACTIVE_ACTIVE
+      desc: |-
+        负载均衡模式。
+        两条子链路同时转发流量。
+  - name: secondaryPortId
+    type: string
+    description: |-
+      备链路接入数据中心端口 ID。
+      与顶层 peerPortId 必须同城不同 DC。
+  - name: secondaryPortVlanId
+    type: integer
+    description: 备链路数据中心端口 VLAN ID。
+- name: public-interconnect-netmask
+  type: integer
+  required: false
+  sdk-field: publicInterconnectNetmask
+  description: |-
+    公网互联块掩码。
+    非空时响应包含公网互联 IP 块价格。
 response:
 - name: privateConnectPrice
   type: object
   description: |-
-    IP Transit 的 专线价格。
-    如果IP Transit 和端口位于同一个数据中心，则取值为null。
+    二层网络专线价格。
+    可能为空。
   object-schema:
   - name: discount
     type: float
@@ -130,20 +229,18 @@ response:
     item-schema:
     - name: stepStart
       type: float
-      description: 阶梯用量的开始。
+      description: 阶梯的起始值。
     - name: stepEnd
       type: float
-      description: 阶梯用量的结束。
+      description: |-
+        阶梯的到达值。
+        为null代表最后一级阶梯。
     - name: unitPrice
       type: float
-      description: |-
-        当前阶梯的单元原始价格。
-        后付费模式使用。
+      description: 阶梯单价。
     - name: discountUnitPrice
       type: float
-      description: |-
-        当前阶梯的单元折后价格。
-        后付费模式使用。
+      description: 阶梯折后价。
   - name: amountUnit
     type: string
     description: |-
@@ -171,7 +268,7 @@ response:
       desc: 一口价格。
 - name: iptBandwidthPrice
   type: object
-  description: IP Transit 的公网带宽价格。
+  description: IP Transit带宽价格。
   object-schema:
   - name: discount
     type: float
@@ -214,20 +311,18 @@ response:
     item-schema:
     - name: stepStart
       type: float
-      description: 阶梯用量的开始。
+      description: 阶梯的起始值。
     - name: stepEnd
       type: float
-      description: 阶梯用量的结束。
+      description: |-
+        阶梯的到达值。
+        为null代表最后一级阶梯。
     - name: unitPrice
       type: float
-      description: |-
-        当前阶梯的单元原始价格。
-        后付费模式使用。
+      description: 阶梯单价。
     - name: discountUnitPrice
       type: float
-      description: |-
-        当前阶梯的单元折后价格。
-        后付费模式使用。
+      description: 阶梯折后价。
   - name: amountUnit
     type: string
     description: |-
@@ -255,12 +350,12 @@ response:
       desc: 一口价格。
 - name: publicIpPrices
   type: object-array
-  description: IP Transit 的公网IP价格。
+  description: 公网 IP 价格列表。
   array-style: json
   item-schema:
   - name: price
     type: object
-    description: IP CIDR 的价格信息。
+    description: 价格详情。
     object-schema:
     - name: discount
       type: float
@@ -303,20 +398,18 @@ response:
       item-schema:
       - name: stepStart
         type: float
-        description: 阶梯用量的开始。
+        description: 阶梯的起始值。
       - name: stepEnd
         type: float
-        description: 阶梯用量的结束。
+        description: |-
+          阶梯的到达值。
+          为null代表最后一级阶梯。
       - name: unitPrice
         type: float
-        description: |-
-          当前阶梯的单元原始价格。
-          后付费模式使用。
+        description: 阶梯单价。
       - name: discountUnitPrice
         type: float
-        description: |-
-          当前阶梯的单元折后价格。
-          后付费模式使用。
+        description: 阶梯折后价。
     - name: amountUnit
       type: string
       description: |-
@@ -344,7 +437,117 @@ response:
         desc: 一口价格。
   - name: netmask
     type: integer
-    description: IP CIDR 的网段。
+    description: 掩码长度。
   - name: qty
     type: integer
-    description: IP CIDR 的数量。
+    description: 数量。
+  - name: ipNetworkType
+    type: enum
+    description: IP 网络类型。
+    enum-values:
+    - value: BGP_IP
+      desc: 普通 IP。
+    - value: LOCAL_IP
+      desc: 原生 IP。
+- name: publicInterconnectIpPrice
+  type: object
+  description: |-
+    公网互联 IP 价格。
+    仅 publicInterconnectNetmask 非空时返回。
+  object-schema:
+  - name: price
+    type: object
+    description: 价格详情。
+    object-schema:
+    - name: discount
+      type: float
+      description: |-
+        折扣大小。
+        如80.0代表8折。
+    - name: discountPrice
+      type: float
+      description: |-
+        后付费的单元折后价格。
+        后付费模式使用，如果价格为阶梯价格，该项为null。
+    - name: originalPrice
+      type: float
+      description: |-
+        预付费的原价。
+        预付费模式使用，后付费该值为 null。
+    - name: unitPrice
+      type: float
+      description: |-
+        后付费的单元原始价格。
+        后付费模式使用，如果价格为阶梯价格，该项为null。
+    - name: discountUnitPrice
+      type: float
+      description: |-
+        后付费的单元折后价格。
+        后付费模式使用，如果价格为阶梯价格，该项为null。
+    - name: chargeUnit
+      type: string
+      description: |-
+        后付费计价单元。
+        后付费模式使用，可取值范围：<br/>HOUR: 表示计价单元是按每小时来计算。
+        DAY: 表示计价单元是按天来计算。
+        MONTH: 表示计价单元是按月来计算，95计费则是这种。
+    - name: stepPrices
+      type: object-array
+      description: |-
+        后付费阶梯价格。
+        后付费模式使用，如果非阶梯价格，该项为null。
+      array-style: json
+      item-schema:
+      - name: stepStart
+        type: float
+        description: 阶梯的起始值。
+      - name: stepEnd
+        type: float
+        description: |-
+          阶梯的到达值。
+          为null代表最后一级阶梯。
+      - name: unitPrice
+        type: float
+        description: 阶梯单价。
+      - name: discountUnitPrice
+        type: float
+        description: 阶梯折后价。
+    - name: amountUnit
+      type: string
+      description: |-
+        用量单位。
+        比如Mbps, LCU等。
+        如果为null, 代表取不到值。
+    - name: excessUnitPrice
+      type: float
+      description: 超量原始价格。
+    - name: excessDiscountUnitPrice
+      type: float
+      description: 超量折扣后价格。
+    - name: excessAmountUnit
+      type: string
+      description: |-
+        超量用量单位。
+        如果为null, 代表取不到值。
+    - name: category
+      type: enum
+      description: 价格所属类别。
+      enum-values:
+      - value: STANDARD
+        desc: 标准价格。
+      - value: CUSTOMIZED
+        desc: 一口价格。
+  - name: netmask
+    type: integer
+    description: 掩码长度。
+  - name: qty
+    type: integer
+    description: 数量。
+  - name: ipNetworkType
+    type: enum
+    description: IP 网络类型。
+    enum-values:
+    - value: BGP_IP
+      desc: 普通 IP。
+    - value: LOCAL_IP
+      desc: 原生 IP。

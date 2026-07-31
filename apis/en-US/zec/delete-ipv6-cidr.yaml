@@ -10,7 +10,7 @@ long: |-
   * For regular accounts, once a CIDR block is deleted, the resource will be immediately reclaimed. This operation is irreversible.
 examples:
 - cmd: zeno zec delete-ipv6-cidr --cidr-id <cidrId>
-  desc: Delete a CIDR block.
+  desc: Delete a specified CIDR block.
 sdk:
   service: zec
   version: '2025-09-01'

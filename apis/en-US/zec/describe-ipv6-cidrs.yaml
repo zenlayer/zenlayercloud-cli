@@ -1,7 +1,7 @@
 name: DescribeIpv6Cidrs
 product: zec
 use: describe-ipv6-cidrs
-short: Queries the details of one or more IPv6 CIDR blocks
+short: Queries the list of IPv6 CIDR blocks
 long: Query IPv6 CIDR block information in the account. You can filter by CIDR ID, region, name, or address block. Supports tag-based filtering and pagination.
 examples:
 - cmd: zeno zec describe-ipv6-cidrs --cidr-ids xxx --region-id asia-east-1 --cidr-block 2400:8a00::/28 --page-size 10 --page-num 1
@@ -209,9 +209,9 @@ response:
       description: ASN verification status.
       enum-values:
       - value: agreed
-        desc: Observation results from all data sources are consistent.
+        desc: The RIPE-observed ASN matches the declared ASN.
       - value: disagreed
-        desc: Observation results from data sources are inconsistent.
+        desc: The RIPE-observed ASN does not match the declared ASN.
       - value: unavailable
         desc: The primary data source query failed or returned no match.
       - value: querying
@@ -237,10 +237,10 @@ response:
       description: List of ASNs observed by the primary data source.
     - name: secondarySource
       type: string
-      description: Name of the secondary data source, e.g., BGP Tool.
+      description: This field has been deprecated and always returns null.
     - name: secondaryStatus
       type: enum
-      description: Query status of the secondary data source.
+      description: This field has been deprecated and always returns null.
       enum-values:
       - value: QUERYING
         desc: Querying.
@@ -250,4 +250,4 @@ response:
         desc: Query failed.
     - name: secondaryAsns
       type: integer-array
-      description: List of ASNs observed by the secondary data source.
+      description: This field has been deprecated and always returns null.

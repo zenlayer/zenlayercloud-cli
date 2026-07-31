@@ -1,0 +1,83 @@
+name: DescribeCloudAvailableBandwidthTiers
+product: sdn
+use: describe-cloud-available-bandwidth-tiers
+short: Query Cloud Connect Available Bandwidth Tiers
+long: |-
+  Query Cloud Connect Available Bandwidth Tiers
+  **Notes**
+
+  * When modifying the Cloud Connect bandwidth limit, use the cloudPortId parameter to query the available bandwidth tiers for the target Cloud Connect.
+  * An empty result means there is currently no available bandwidth for the Cloud Connect.
+examples:
+- cmd: zeno sdn describe-cloud-available-bandwidth-tiers --cloud-type AWS --cloud-region-id us-east-1 --dc-id 0cd74ed4-e0cf-43c8-9c9b-567a1287227a --vlan-id 1024
+  desc: Query available bandwidth tiers when creating.
+- cmd: zeno sdn describe-cloud-available-bandwidth-tiers --cloud-port-id your-cloud-port-id
+  desc: Query available bandwidth tiers when modifying the Cloud Connect bandwidth limit.
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: DescribeCloudAvailableBandwidthTiers
+parameters:
+- name: cloud-type
+  type: enum
+  required: false
+  sdk-field: cloudType
+  description: Cloud Connect type (AWS, TENCENT, GOOGLE, AZURE, ALI_CLOUD, HUAWEI_CLOUD, BYTE_PLUS, ORACLE).
+  enum-values:
+  - value: AWS
+    desc: Amazon Web Services
+  - value: TENCENT
+    desc: Tencent Cloud
+  - value: GOOGLE
+    desc: Google Cloud
+  - value: AZURE
+    desc: Microsoft Azure
+  - value: ALI_CLOUD
+    desc: Alibaba Cloud
+  - value: HUAWEI_CLOUD
+    desc: Huawei Cloud
+  - value: BYTE_PLUS
+    desc: BytePlus
+  - value: ORACLE
+    desc: Oracle Cloud
+- name: cloud-region-id
+  type: string
+  required: false
+  sdk-field: cloudRegionId
+  description: Public cloud region ID (not required for Google Cloud).
+- name: dc-id
+  type: string
+  required: false
+  sdk-field: dcId
+  description: Data center ID of the cloud access point.
+- name: vlan-id
+  type: integer
+  required: false
+  sdk-field: vlanId
+  description: VLAN ID.
+- name: cloud-port-id
+  type: string
+  required: false
+  sdk-field: cloudPortId
+  description: |-
+    Cloud Connect ID.
+    Used when modifying the Cloud Connect bandwidth limit; other parameters are ignored if this is provided.
+- name: cloud-account-id
+  type: string
+  required: false
+  sdk-field: cloudAccountId
+  description: Cloud platform account (Pairing Key for Google, Service Key for Azure).
+- name: zone-color
+  type: enum
+  required: false
+  sdk-field: zoneColor
+  description: Availability zone identifier.
+  enum-values:
+  - value: RED
+    desc: Red zone, used as the counterpart of the blue zone in HA deployments.
+  - value: BLUE
+    desc: Blue zone, used as the counterpart of the red zone in HA deployments.
+response:
+- name: availableBandwidthTiers
+  type: integer-array
+  description: List of available bandwidth tiers for the Cloud Connect.

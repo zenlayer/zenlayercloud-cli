@@ -18,6 +18,13 @@ parameters:
   required: false
   sdk-field: peerDcId
   description: Specified data center ID.
+- name: zbg-region-id
+  type: string
+  required: false
+  sdk-field: zbgRegionId
+  description: |-
+    ZBG access node ID.
+    If specified, queries the list of data centers connectable via Router RIPT with this ZBG node as the access side.
 response:
 - name: supportSet
   type: object-array
@@ -67,6 +74,11 @@ response:
         desc: Static routing.
       - value: Gateway
         desc: Gateway mode.
+    - name: availableBgpRouteTypes
+      type: string-array
+      description: |-
+        List of available BGP route types.
+        Returned only when `routingType` is BGP.
     - name: deliveryType
       type: enum
       description: Delivery type.
@@ -75,3 +87,6 @@ response:
         desc: Automated delivery (Usually completed within minutes).
       - value: Manual
         desc: Manual delivery. (Usually completed within 3 days).
+    - name: publicInterconnectNetmasks
+      type: integer-array
+      description: List of available IPv4 public interconnect netmasks. Currently only 30 / 31 are supported.

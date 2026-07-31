@@ -1,0 +1,23 @@
+name: DestroyPrivateConnect
+product: sdn
+use: destroy-private-connect
+short: Destroy Private Connect
+long: |-
+  Destroy Private Connect
+  **Notes**
+
+  * This operation is irreversible. Once successful, the Private Connect will be permanently released -- proceed with caution.
+  * This is an asynchronous API. After the destroy request is successfully submitted, the destroy operation is not completed immediately. During this period the Private Connect status will be **`DESTROYING`**. Once destroyed successfully, information about the Private Connect can no longer be queried.
+examples:
+- cmd: zeno sdn destroy-private-connect --private-connect-id your-private-connect-id
+  desc: Delete.
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: DestroyPrivateConnect
+parameters:
+- name: private-connect-id
+  type: string
+  required: true
+  sdk-field: privateConnectId
+  description: Private Connect ID.

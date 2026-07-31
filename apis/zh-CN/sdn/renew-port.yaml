@@ -1,0 +1,24 @@
+name: RenewPort
+product: sdn
+use: renew-port
+short: 恢复端口
+long: |-
+  恢复端口
+  **注意事项**
+
+  * 仅数据中心端口状态为**RECYCLED**的可以调用此接口进行恢复。
+examples:
+- cmd: zeno sdn renew-port --port-id your-port-id
+  desc: 删除
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: RenewPort
+parameters:
+- name: port-id
+  type: string
+  required: true
+  sdk-field: portId
+  description: |-
+    数据中心端口 ID。
+    仅数据中心端口状态为 RECYCLED 时可恢复。

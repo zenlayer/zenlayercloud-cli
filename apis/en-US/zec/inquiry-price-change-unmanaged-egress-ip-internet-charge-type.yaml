@@ -1,7 +1,7 @@
 name: InquiryPriceChangeUnmanagedEgressIpInternetChargeType
 product: zec
 use: inquiry-price-change-unmanaged-egress-ip-internet-charge-type
-short: Inquires the price after changing the unmanaged egress IP billing mode
+short: Inquires the price after changing the unmanaged egress IP network billing method
 long: |-
   Inquire the price after changing the unmanaged egress IP billing mode
   **Notes**

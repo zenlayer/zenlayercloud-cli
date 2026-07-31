@@ -1,0 +1,63 @@
+name: DescribeInterconnectBorderGatewayRegions
+product: zec
+use: describe-interconnect-border-gateway-regions
+short: Queries the list of interconnect regions for border gateways
+long: Query the interconnect regions and data centers that border gateways under the current account can connect to. A border gateway can be bound to a CloudRouter to enable L3 interconnection for VPCs; this API returns the list of regions that support this capability, and results can be filtered by region ID or data center.
+examples:
+- cmd: zeno zec describe-interconnect-border-gateway-regions
+  desc: Query all interconnect regions for border gateways.
+- cmd: zeno zec describe-interconnect-border-gateway-regions --region-id SEA-Tokyo-A
+  desc: Filter by region ID.
+- cmd: zeno zec describe-interconnect-border-gateway-regions --dc-code TYO1
+  desc: Filter by data center code.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeInterconnectBorderGatewayRegions
+parameters:
+- name: region-id
+  type: string
+  required: false
+  sdk-field: regionId
+  description: Region ID, used to filter by a specific region.
+- name: dc-id
+  type: string
+  required: false
+  sdk-field: dcId
+  description: Data center UUID, used to filter by a specific data center.
+- name: dc-code
+  type: string
+  required: false
+  sdk-field: dcCode
+  description: Data center code, used to filter by a specific data center.
+response:
+- name: regionSet
+  type: object-array
+  description: List of interconnect regions.
+  array-style: json
+  item-schema:
+  - name: regionId
+    type: string
+    description: Region ID.
+  - name: name
+    type: string
+    description: Region name.
+  - name: dataCenter
+    type: object
+    description: Information on the associated data center.
+    object-schema:
+    - name: dcId
+      type: string
+      description: Data center ID.
+    - name: dcCode
+      type: string
+      description: Data center code.
+    - name: name
+      type: string
+      description: Data center name in English.
+    - name: cityName
+      type: string
+      description: City name in English.
+    - name: countryName
+      type: string
+      description: Country name in English.

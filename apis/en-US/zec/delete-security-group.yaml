@@ -4,9 +4,10 @@ use: delete-security-group
 short: Deletes a security group
 long: |-
   Delete a security group.
-  **Note**
+  **Notes**
 
-  Not supported for the default security group.
+  * The default security group cannot be deleted.
+  * Before deleting a security group, ensure it is not referenced by any network interface, NAT gateway, load balancer, or high-availability virtual IP (HaVip).
 examples:
 - cmd: zeno zec delete-security-group --security-group-id your-security-group-id
   desc: Delete a security group.

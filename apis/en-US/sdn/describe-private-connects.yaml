@@ -1,0 +1,403 @@
+name: DescribePrivateConnects
+product: sdn
+use: describe-private-connects
+short: Get Private Connects
+long: Get Private Connects
+examples:
+- cmd: zeno sdn describe-private-connects
+  desc: Get the list of Private Connects.
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: DescribePrivateConnects
+parameters:
+- name: private-connect-ids
+  type: string-array
+  required: false
+  sdk-field: privateConnectIds
+  description: List of Private Connect IDs. Up to 100 IDs supported per query.
+- name: private-connect-name
+  type: string
+  required: false
+  sdk-field: privateConnectName
+  description: Private Connect name. Supports fuzzy matching.
+- name: connectivity-status
+  type: enum
+  required: false
+  sdk-field: connectivityStatus
+  description: Filter by connectivity status.
+  enum-values:
+  - value: ACTIVE
+    desc: The link is connected normally.
+  - value: DOWN
+    desc: The link is down.
+  - value: ABNORMAL
+    desc: The link is partially abnormal.
+- name: private-connect-status
+  type: enum
+  required: false
+  sdk-field: privateConnectStatus
+  description: Filter by Private Connect business status.
+  enum-values:
+  - value: CREATING
+    desc: Creating.
+  - value: UPDATING
+    desc: Updating.
+  - value: DELETING
+    desc: Deleting.
+  - value: DESTROYING
+    desc: Destroying.
+  - value: RECOVERING
+    desc: Restoring.
+  - value: RUNNING
+    desc: Normal.
+  - value: NOT_ACCEPT
+    desc: Not accepted.
+  - value: RECYCLED
+    desc: Recycled.
+  - value: DESTROYED
+    desc: Destroyed.
+  - value: CREATING_FAILED
+    desc: Creation failed.
+  - value: UPDATING_FAILED
+    desc: Update failed.
+  - value: DELETING_FAILED
+    desc: Deletion failed.
+  - value: DESTROYING_FAILED
+    desc: Destruction failed.
+  - value: RECOVERING_FAILED
+    desc: Restore failed.
+- name: endpoint-types
+  type: string-array
+  required: false
+  sdk-field: endpointTypes
+  description: Filter by endpoint type.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    Resource group ID.
+    If not specified, Private Connects in all resource groups visible to the user are returned.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: 'Page size to return. Default: 20, maximum: 1000.'
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: 'Page number to return. Default: 1.'
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    Search by tag keys.
+    Up to 20 tag keys.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    Search by tags.
+    Up to 20 tags.
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      Tag key.
+      Length: 1-64 characters.
+  - name: value
+    type: string
+    description: |-
+      Tag value.
+      Length: 1-64 characters.
+response:
+- name: totalCount
+  type: integer
+  description: Total number of Private Connects matching the criteria.
+- name: dataSet
+  type: object-array
+  description: List of Private Connects.
+  array-style: json
+  item-schema:
+  - name: privateConnectId
+    type: string
+    description: Private Connect ID.
+  - name: privateConnectName
+    type: string
+    description: Private Connect name.
+  - name: connectivityStatus
+    type: enum
+    description: Connectivity status.
+    enum-values:
+    - value: ACTIVE
+      desc: The link is connected normally.
+    - value: DOWN
+      desc: The link is down.
+    - value: ABNORMAL
+      desc: The link is partially abnormal.
+  - name: privateConnectStatus
+    type: enum
+    description: Private Connect business status.
+    enum-values:
+    - value: CREATING
+      desc: Creating.
+    - value: UPDATING
+      desc: Updating.
+    - value: DELETING
+      desc: Deleting.
+    - value: DESTROYING
+      desc: Destroying.
+    - value: RECOVERING
+      desc: Restoring.
+    - value: RUNNING
+      desc: Normal.
+    - value: NOT_ACCEPT
+      desc: Not accepted.
+    - value: RECYCLED
+      desc: Recycled.
+    - value: DESTROYED
+      desc: Destroyed.
+    - value: CREATING_FAILED
+      desc: Creation failed.
+    - value: UPDATING_FAILED
+      desc: Update failed.
+    - value: DELETING_FAILED
+      desc: Deletion failed.
+    - value: DESTROYING_FAILED
+      desc: Destruction failed.
+    - value: RECOVERING_FAILED
+      desc: Restore failed.
+  - name: bandwidthMbps
+    type: integer
+    description: Maximum bandwidth limit, in Mbps.
+  - name: resourceGroupId
+    type: string
+    description: Resource group ID.
+  - name: resourceGroupName
+    type: string
+    description: Resource group name.
+  - name: createTime
+    type: string
+    description: Creation time.
+  - name: expiredTime
+    type: string
+    description: Expiration time.
+  - name: recycledTime
+    type: string
+    description: Recycle time.
+  - name: endpointA
+    type: object
+    description: Endpoint A of the Private Connect.
+    object-schema:
+    - name: endpointId
+      type: string
+      description: Endpoint ID.
+    - name: endpointName
+      type: string
+      description: Endpoint name.
+    - name: endpointType
+      type: enum
+      description: Endpoint type.
+      enum-values:
+      - value: GOOGLE
+        desc: Google Cloud endpoint.
+      - value: TENCENT
+        desc: Tencent Cloud endpoint.
+      - value: AZURE
+        desc: Azure endpoint.
+      - value: ALI_CLOUD
+        desc: Alibaba Cloud endpoint.
+      - value: AWS
+        desc: AWS endpoint.
+      - value: HUAWEI_CLOUD
+        desc: Huawei Cloud endpoint.
+      - value: ORACLE
+        desc: Oracle endpoint.
+      - value: BYTE_PLUS
+        desc: BytePlus endpoint.
+      - value: PORT
+        desc: Data center physical port endpoint.
+      - value: Ript
+        desc: IP Transit endpoint.
+      - value: OTHER_PORT
+        desc: Third-party port endpoint.
+    - name: connectivityStatus
+      type: enum
+      description: Connectivity status.
+      enum-values:
+      - value: ACTIVE
+        desc: The link is connected normally.
+      - value: DOWN
+        desc: The link is down.
+      - value: ABNORMAL
+        desc: The link is partially abnormal.
+    - name: vlanId
+      type: integer
+      description: VLAN ID.
+    - name: dataCenter
+      type: object
+      description: Data center information.
+      object-schema:
+      - name: dcId
+        type: string
+        description: Data center four-letter code.
+      - name: dcName
+        type: string
+        description: Data center name.
+      - name: dcAddress
+        type: string
+        description: Data center address.
+      - name: cityName
+        type: string
+        description: Name of the city where the data center is located.
+      - name: countryName
+        type: string
+        description: Name of the country where the data center is located.
+      - name: areaName
+        type: string
+        description: Name of the region where the data center is located.
+      - name: latitude
+        type: float
+        description: Latitude of the data center.
+      - name: longitude
+        type: float
+        description: Longitude of the data center.
+    - name: cloudRegionId
+      type: string
+      description: |-
+        Cloud region ID.
+        Returned when the endpoint is a Cloud Connect.
+    - name: cloudAccountId
+      type: string
+      description: |-
+        Cloud account ID.
+        Returned when the endpoint is a Cloud Connect.
+    - name: sharedChannelId
+      type: string
+      description: |-
+        Shared channel ID.
+        The cloud-side connection identifier corresponding to a public cloud access point; only populated for public cloud type access points.
+  - name: endpointZ
+    type: object
+    description: Endpoint Z of the Private Connect.
+    object-schema:
+    - name: endpointId
+      type: string
+      description: Endpoint ID.
+    - name: endpointName
+      type: string
+      description: Endpoint name.
+    - name: endpointType
+      type: enum
+      description: Endpoint type.
+      enum-values:
+      - value: GOOGLE
+        desc: Google Cloud endpoint.
+      - value: TENCENT
+        desc: Tencent Cloud endpoint.
+      - value: AZURE
+        desc: Azure endpoint.
+      - value: ALI_CLOUD
+        desc: Alibaba Cloud endpoint.
+      - value: AWS
+        desc: AWS endpoint.
+      - value: HUAWEI_CLOUD
+        desc: Huawei Cloud endpoint.
+      - value: ORACLE
+        desc: Oracle endpoint.
+      - value: BYTE_PLUS
+        desc: BytePlus endpoint.
+      - value: PORT
+        desc: Data center physical port endpoint.
+      - value: Ript
+        desc: IP Transit endpoint.
+      - value: OTHER_PORT
+        desc: Third-party port endpoint.
+    - name: connectivityStatus
+      type: enum
+      description: Connectivity status.
+      enum-values:
+      - value: ACTIVE
+        desc: The link is connected normally.
+      - value: DOWN
+        desc: The link is down.
+      - value: ABNORMAL
+        desc: The link is partially abnormal.
+    - name: vlanId
+      type: integer
+      description: VLAN ID.
+    - name: dataCenter
+      type: object
+      description: Data center information.
+      object-schema:
+      - name: dcId
+        type: string
+        description: Data center four-letter code.
+      - name: dcName
+        type: string
+        description: Data center name.
+      - name: dcAddress
+        type: string
+        description: Data center address.
+      - name: cityName
+        type: string
+        description: Name of the city where the data center is located.
+      - name: countryName
+        type: string
+        description: Name of the country where the data center is located.
+      - name: areaName
+        type: string
+        description: Name of the region where the data center is located.
+      - name: latitude
+        type: float
+        description: Latitude of the data center.
+      - name: longitude
+        type: float
+        description: Longitude of the data center.
+    - name: cloudRegionId
+      type: string
+      description: |-
+        Cloud region ID.
+        Returned when the endpoint is a Cloud Connect.
+    - name: cloudAccountId
+      type: string
+      description: |-
+        Cloud account ID.
+        Returned when the endpoint is a Cloud Connect.
+    - name: sharedChannelId
+      type: string
+      description: |-
+        Shared channel ID.
+        The cloud-side connection identifier corresponding to a public cloud access point; only populated for public cloud type access points.
+  - name: source
+    type: enum
+    description: Business source.
+    enum-values:
+    - value: CONSOLE
+      desc: Created via the Console.
+    - value: OSS
+      desc: Created via the VIP process.
+  - name: tags
+    type: object
+    description: Associated tags.
+    object-schema:
+    - name: tags
+      type: object-array
+      description: List of tag pairs.
+      array-style: json
+      item-schema:
+      - name: key
+        type: string
+        description: |-
+          Tag key.
+          Length: 1-64 characters.
+      - name: value
+        type: string
+        description: |-
+          Tag value.
+          Length: 1-64 characters.

@@ -4,10 +4,13 @@ use: replace-eip-address
 short: Replaces the elastic IP addresses
 long: |-
   Replace the elastic IP addresses.
-  **Note**
+  **Notes**
 
-  * `ownIp` is required for a 3-in-1 IP pool.
-  * The API returns the elastic IP IDs that failed to operate. An empty list indicates all operations succeeded.
+  * EIPs created from a CIDR block do not support replacing the IP.
+  * When `targetIp` is specified, it cannot end in `.0` or `.255` (network/broadcast addresses are not available).
+examples:
+- cmd: zeno zec replace-eip-address --replace-ips {eipId=<eipId>}
+  desc: Replace the public IP. The system will assign one randomly.
 sdk:
   service: zec
   version: '2025-09-01'
@@ -26,13 +29,14 @@ parameters:
   - name: ownIp
     type: string
     description: |-
-      Source IP.
-      Required when the IP line type is `ThreeLine` (three-line IP).
+      Original IP address.
+      Deprecated.
   - name: targetIp
     type: string
     description: |-
-      Target IP to replace.
+      Target IP to change to.
       If not specified, the system will assign one randomly.
+      Cannot end in `.0` or `.255` (network/broadcast addresses are not available).
 response:
 - name: failedEipIds
   type: string-array

@@ -1,0 +1,292 @@
+name: QueryDataCenterPortPrice
+product: sdn
+use: query-data-center-port-price
+short: 数据中心端口询价
+long: 数据中心端口询价
+examples:
+- cmd: zeno sdn query-data-center-port-price --dc-id SIN1 --port-type 10G --build-cross-connect-with-assisted false
+  desc: 对数据中心端口进行询价，并且用户自行建设交叉连接。
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: QueryDataCenterPortPrice
+parameters:
+- name: dc-id
+  type: string
+  required: true
+  sdk-field: dcId
+  description: |-
+    数据中心ID。
+    具体取值可通过调用接口~~DescribeDataCenters~~来获得最新的数据中心列表。
+- name: port-type
+  type: string
+  required: true
+  sdk-field: portType
+  description: |-
+    数据中心端口规格。
+    具体取值可通过调用接口~~DescribeDataCenterPortPrice~~来获得最新的数据中心端口规格表。
+- name: build-cross-connect-with-assisted
+  type: boolean
+  required: false
+  sdk-field: buildCrossConnectWithAssisted
+  description: |-
+    是否需要Zenlayer协助建设交叉连接。
+    如果选择true，则价格将包含交叉连接的跳线费用，以及一次性建设费。
+    默认值为false，即用户需要自行建设交叉连接。
+response:
+- name: crossConnectPrice
+  type: object
+  description: |-
+    交叉连接价格。
+    如果当前数据中心不支持Zenlayer协助建设交叉连接，则该值为null。
+  object-schema:
+  - name: discount
+    type: float
+    description: |-
+      折扣大小。
+      如80.0代表8折。
+  - name: discountPrice
+    type: float
+    description: |-
+      后付费的单元折后价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: originalPrice
+    type: float
+    description: |-
+      预付费的原价。
+      预付费模式使用，后付费该值为 null。
+  - name: unitPrice
+    type: float
+    description: |-
+      后付费的单元原始价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: discountUnitPrice
+    type: float
+    description: |-
+      后付费的单元折后价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: chargeUnit
+    type: string
+    description: |-
+      后付费计价单元。
+      后付费模式使用，可取值范围：<br/>HOUR: 表示计价单元是按每小时来计算。
+      DAY: 表示计价单元是按天来计算。
+      MONTH: 表示计价单元是按月来计算，95计费则是这种。
+  - name: stepPrices
+    type: object-array
+    description: |-
+      后付费阶梯价格。
+      后付费模式使用，如果非阶梯价格，该项为null。
+    array-style: json
+    item-schema:
+    - name: stepStart
+      type: float
+      description: 阶梯的起始值。
+    - name: stepEnd
+      type: float
+      description: |-
+        阶梯的到达值。
+        为null代表最后一级阶梯。
+    - name: unitPrice
+      type: float
+      description: 阶梯单价。
+    - name: discountUnitPrice
+      type: float
+      description: 阶梯折后价。
+  - name: amountUnit
+    type: string
+    description: |-
+      用量单位。
+      比如Mbps, LCU等。
+      如果为null, 代表取不到值。
+  - name: excessUnitPrice
+    type: float
+    description: 超量原始价格。
+  - name: excessDiscountUnitPrice
+    type: float
+    description: 超量折扣后价格。
+  - name: excessAmountUnit
+    type: string
+    description: |-
+      超量用量单位。
+      如果为null, 代表取不到值。
+  - name: category
+    type: enum
+    description: 价格所属类别。
+    enum-values:
+    - value: STANDARD
+      desc: 标准价格。
+    - value: CUSTOMIZED
+      desc: 一口价格。
+- name: crossConnectOneTimeConstructionPrice
+  type: object
+  description: |-
+    交叉连接一次性建设费。
+    如果当前数据中心不支持Zenlayer协助建设交叉连接，则该值为null。
+  object-schema:
+  - name: discount
+    type: float
+    description: |-
+      折扣大小。
+      如80.0代表8折。
+  - name: discountPrice
+    type: float
+    description: |-
+      后付费的单元折后价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: originalPrice
+    type: float
+    description: |-
+      预付费的原价。
+      预付费模式使用，后付费该值为 null。
+  - name: unitPrice
+    type: float
+    description: |-
+      后付费的单元原始价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: discountUnitPrice
+    type: float
+    description: |-
+      后付费的单元折后价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: chargeUnit
+    type: string
+    description: |-
+      后付费计价单元。
+      后付费模式使用，可取值范围：<br/>HOUR: 表示计价单元是按每小时来计算。
+      DAY: 表示计价单元是按天来计算。
+      MONTH: 表示计价单元是按月来计算，95计费则是这种。
+  - name: stepPrices
+    type: object-array
+    description: |-
+      后付费阶梯价格。
+      后付费模式使用，如果非阶梯价格，该项为null。
+    array-style: json
+    item-schema:
+    - name: stepStart
+      type: float
+      description: 阶梯的起始值。
+    - name: stepEnd
+      type: float
+      description: |-
+        阶梯的到达值。
+        为null代表最后一级阶梯。
+    - name: unitPrice
+      type: float
+      description: 阶梯单价。
+    - name: discountUnitPrice
+      type: float
+      description: 阶梯折后价。
+  - name: amountUnit
+    type: string
+    description: |-
+      用量单位。
+      比如Mbps, LCU等。
+      如果为null, 代表取不到值。
+  - name: excessUnitPrice
+    type: float
+    description: 超量原始价格。
+  - name: excessDiscountUnitPrice
+    type: float
+    description: 超量折扣后价格。
+  - name: excessAmountUnit
+    type: string
+    description: |-
+      超量用量单位。
+      如果为null, 代表取不到值。
+  - name: category
+    type: enum
+    description: 价格所属类别。
+    enum-values:
+    - value: STANDARD
+      desc: 标准价格。
+    - value: CUSTOMIZED
+      desc: 一口价格。
+- name: dcId
+  type: string
+  description: 数据中心ID。
+- name: price
+  type: object
+  description: 价格信息。
+  object-schema:
+  - name: discount
+    type: float
+    description: |-
+      折扣大小。
+      如80.0代表8折。
+  - name: discountPrice
+    type: float
+    description: |-
+      后付费的单元折后价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: originalPrice
+    type: float
+    description: |-
+      预付费的原价。
+      预付费模式使用，后付费该值为 null。
+  - name: unitPrice
+    type: float
+    description: |-
+      后付费的单元原始价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: discountUnitPrice
+    type: float
+    description: |-
+      后付费的单元折后价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: chargeUnit
+    type: string
+    description: |-
+      后付费计价单元。
+      后付费模式使用，可取值范围：<br/>HOUR: 表示计价单元是按每小时来计算。
+      DAY: 表示计价单元是按天来计算。
+      MONTH: 表示计价单元是按月来计算，95计费则是这种。
+  - name: stepPrices
+    type: object-array
+    description: |-
+      后付费阶梯价格。
+      后付费模式使用，如果非阶梯价格，该项为null。
+    array-style: json
+    item-schema:
+    - name: stepStart
+      type: float
+      description: 阶梯的起始值。
+    - name: stepEnd
+      type: float
+      description: |-
+        阶梯的到达值。
+        为null代表最后一级阶梯。
+    - name: unitPrice
+      type: float
+      description: 阶梯单价。
+    - name: discountUnitPrice
+      type: float
+      description: 阶梯折后价。
+  - name: amountUnit
+    type: string
+    description: |-
+      用量单位。
+      比如Mbps, LCU等。
+      如果为null, 代表取不到值。
+  - name: excessUnitPrice
+    type: float
+    description: 超量原始价格。
+  - name: excessDiscountUnitPrice
+    type: float
+    description: 超量折扣后价格。
+  - name: excessAmountUnit
+    type: string
+    description: |-
+      超量用量单位。
+      如果为null, 代表取不到值。
+  - name: category
+    type: enum
+    description: 价格所属类别。
+    enum-values:
+    - value: STANDARD
+      desc: 标准价格。
+    - value: CUSTOMIZED
+      desc: 一口价格。
+- name: stock
+  type: integer
+  description: 可用库存数量。

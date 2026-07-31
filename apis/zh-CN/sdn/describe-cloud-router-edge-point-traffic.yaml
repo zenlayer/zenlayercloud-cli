@@ -1,0 +1,89 @@
+name: DescribeCloudRouterEdgePointTraffic
+product: sdn
+use: describe-cloud-router-edge-point-traffic
+short: 查询连接点流量
+long: |-
+  查询连接点流量
+  **注意事项**
+
+  * 支持数据中心端口、Tencent、Google、AWS、Virtual Edge 以及VPC连接点的带宽。
+  * 开始时间和结束时间的跨度不能超过一天。
+  * 只能查询30天内的流量数据。
+examples:
+- cmd: zeno sdn describe-cloud-router-edge-point-traffic --edge-point-id your-cloudrouter-edge-point-id --start-time 2023-01-01T00:00:00Z --end-time 2023-01-01T23:59:59Z
+  desc: 查询三层网络中连接点一天内的流量数据。
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: DescribeCloudRouterEdgePointTraffic
+parameters:
+- name: edge-point-id
+  type: string
+  required: true
+  sdk-field: edgePointId
+  description: 三层网络连接点的 ID。
+- name: start-time
+  type: string
+  required: true
+  sdk-field: startTime
+  description: |-
+    查询开始时间。
+    ISO8601 格式，UTC 时区。
+- name: end-time
+  type: string
+  required: false
+  sdk-field: endTime
+  description: |-
+    查询结束时间。
+    ISO8601 格式，UTC 时区，默认为当前时间。
+response:
+- name: dataList
+  type: object-array
+  description: 流量明细数据列表。
+  array-style: json
+  item-schema:
+  - name: internetRX
+    type: integer
+    description: |-
+      入方向带宽值。
+      单位：bps。
+  - name: internetTX
+    type: integer
+    description: |-
+      出方向带宽值。
+      单位：bps。
+  - name: time
+    type: string
+    description: |-
+      数据时间。
+      按照ISO8601标准表示，并且使用UTC时间。
+      格式为：YYYY-MM-ddTHH:mm:ssZ。
+- name: in95
+  type: integer
+  description: 入方向 95 峰值流量。
+- name: inAvg
+  type: integer
+  description: 入方向平均流量。
+- name: inMax
+  type: integer
+  description: 入方向最大流量。
+- name: inMin
+  type: integer
+  description: 入方向最小流量。
+- name: out95
+  type: integer
+  description: 出方向 95 峰值流量。
+- name: outAvg
+  type: integer
+  description: 出方向平均流量。
+- name: outMax
+  type: integer
+  description: 出方向最大流量。
+- name: outMin
+  type: integer
+  description: 出方向最小流量。
+- name: unit
+  type: string
+  description: |-
+    流量单位。
+    如 bps。

@@ -1,7 +1,7 @@
 name: InquiryPriceModifyUnmanagedEgressIpBandwidth
 product: zec
 use: inquiry-price-modify-unmanaged-egress-ip-bandwidth
-short: 查询调整非托管出口IP带宽后的价格。
+short: 查询调整非托管出口IP带宽后的价格
 long: |-
   查询调整非托管出口IP带宽后的价格。
   **注意事项**

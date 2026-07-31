@@ -121,7 +121,9 @@ response:
   item-schema:
   - name: regionIdList
     type: string-array
-    description: List of region IDs where the image is currently available.
+    description: |-
+      List of region IDs where the image is currently available.
+      If empty, the image is still being created and is not yet available in any region.
   - name: resourceGroupId
     type: string
     description: Resource group ID.
@@ -156,7 +158,9 @@ response:
       desc: Application image.
   - name: imageSize
     type: string
-    description: Size of the image.
+    description: |-
+      Size of the image, in GiB.
+      May be null when the image is a custom image; it has a value once the image status is `AVAILABLE`.
   - name: minDiskSize
     type: integer
     description: Minimum capacity required for the system disk when creating an instance, in GiB.

@@ -43,8 +43,6 @@ parameters:
     desc: 销毁中。
   - value: RECYCLED
     desc: 处于回收状态，等待销毁。
-  - value: RECYCLING
-    desc: 回收中。
   - value: FAILED
     desc: 创建失败。
   - value: SNAPSHOT_CREATING
@@ -189,8 +187,6 @@ response:
       desc: 销毁中。
     - value: RECYCLED
       desc: 处于回收状态，等待销毁。
-    - value: RECYCLING
-      desc: 回收中。
     - value: FAILED
       desc: 创建失败。
     - value: SNAPSHOT_CREATING

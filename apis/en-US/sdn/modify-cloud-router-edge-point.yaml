@@ -1,0 +1,70 @@
+name: ModifyCloudRouterEdgePoint
+product: sdn
+use: modify-cloud-router-edge-point
+short: Modify Edge Point Configuration
+long: |-
+  Modify Edge Point Configuration
+  **Notes**
+
+  * Configuration changes can only be made when the Cloud Router edge point status is **RUNNING**.
+  * This is an asynchronous API, so the change is not completed immediately. During this period the instance status will be **UPDATING**. The result can be checked by calling [DescribeCloudRouters](describe-cloud-routers.md) -- if the status (cloudRouterStatus) changes from **UPDATING** (modifying) to **RUNNING** (available), the configuration was updated successfully.
+  * Do not perform any other operation on the edge point while the change is in progress.
+examples:
+- cmd: zeno sdn modify-cloud-router-edge-point --cloud-router-id your-cloud-router-id --edge-point-id one-of-egdgePoint-id --bandwidth-mbps 100
+  desc: Modify the Cloud Router edge point bandwidth to 100 Mbps and set the BGP configuration.
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: ModifyCloudRouterEdgePoint
+parameters:
+- name: cloud-router-id
+  type: string
+  required: true
+  sdk-field: cloudRouterId
+  description: ID of the Cloud Router the edge point belongs to.
+- name: edge-point-id
+  type: string
+  required: true
+  sdk-field: edgePointId
+  description: Cloud Router edge point ID.
+- name: bandwidth-mbps
+  type: integer
+  required: false
+  sdk-field: bandwidthMbps
+  description: 'The bandwidth limit to set, in Mbps. Value range: 1-500.'
+- name: ip-address
+  type: string
+  required: false
+  sdk-field: ipAddress
+  description: Interconnect IP address of the edge point.
+- name: bgp-connection
+  type: object
+  required: false
+  sdk-field: bgpConnection
+  description: BGP connection configuration. Choose either this or static routes.
+  object-schema:
+  - name: peerIpAddress
+    type: string
+    description: Peer interconnect IP address and netmask.
+  - name: peerAsn
+    type: integer
+    description: Peer BGP ASN.
+  - name: password
+    type: string
+    description: MD5 password for the BGP session, up to 32 characters.
+  - name: localAsn
+    type: integer
+    description: Local BGP ASN.
+- name: static-routes
+  type: object-array
+  required: false
+  sdk-field: staticRoutes
+  description: Static route configuration. Choose either this or a BGP connection.
+  array-style: json
+  item-schema:
+  - name: prefix
+    type: string
+    description: Destination CIDR of the static route.
+  - name: nextHop
+    type: string
+    description: Next-hop IP address of the static route.

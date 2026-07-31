@@ -1,0 +1,80 @@
+name: DescribeDatacentersWithService
+product: sdn
+use: describe-datacenters-with-service
+short: Query Data Centers with Service
+long: Query Data Centers with Service
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: DescribeDatacentersWithService
+parameters:
+- name: cloud-region-id
+  type: string
+  required: false
+  sdk-field: cloudRegionId
+  description: Public cloud region ID.
+- name: dc-id
+  type: string
+  required: false
+  sdk-field: dcId
+  description: Data center ID.
+- name: service-type
+  type: enum
+  required: false
+  sdk-field: serviceType
+  description: Service type.
+  enum-values:
+  - value: AWS
+    desc: Amazon Web Services
+  - value: TENCENT
+    desc: Tencent Cloud
+  - value: GOOGLE
+    desc: Google Cloud
+  - value: AZURE
+    desc: Microsoft Azure
+  - value: ALI_CLOUD
+    desc: Alibaba Cloud
+  - value: HUAWEI_CLOUD
+    desc: Huawei Cloud
+  - value: DATACENTER_PORT
+    desc: Data center physical port (non-cloud service).
+  - value: BYTE_PLUS
+    desc: BytePlus
+  - value: ORACLE
+    desc: Oracle Cloud
+response:
+- name: dcSet
+  type: object-array
+  description: Result set.
+  array-style: json
+  item-schema:
+  - name: dcId
+    type: string
+    description: Data center ID.
+  - name: dcName
+    type: string
+    description: Data center name.
+  - name: dcAddress
+    type: string
+    description: Data center address.
+  - name: cityName
+    type: string
+    description: Name of the city.
+  - name: countryName
+    type: string
+    description: Name of the country.
+  - name: areaName
+    type: string
+    description: Name of the region.
+  - name: latitude
+    type: float
+    description: Latitude.
+  - name: longitude
+    type: float
+    description: Longitude.
+  - name: cloudRegionId
+    type: string
+    description: Public cloud region ID.
+  - name: serviceTypes
+    type: string-array
+    description: Set of supported service types.

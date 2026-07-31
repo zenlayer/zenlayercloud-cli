@@ -1,7 +1,7 @@
 name: UnassignNetworkInterfaceIpv6
 product: zec
 use: unassign-network-interface-ipv6
-short: Remove IPv6 from Network Interface
+short: Removes IPv6 from a network interface
 long: |-
   Remove an IPv6 address (public or private) from a network interface; the NIC stack type is downgraded from IPv4_IPv6 to IPv4, and for public IPv6 billing stops immediately.
   **Note**

@@ -10,7 +10,7 @@ long: |-
   * Cross-border copying is not allowed.
 examples:
 - cmd: zeno zec copy-image --image-id "<custom image id>" --region-id-list region-a --region-id-list region-b
-  desc: Replicate a custom image to more than one regions.
+  desc: Copy to multiple regions
 sdk:
   service: zec
   version: '2025-09-01'

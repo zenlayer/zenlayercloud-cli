@@ -120,7 +120,7 @@ response:
     description: 入方向值。
   - name: outValue
     type: float
-    description: 出方向值。
+    description: 入方向值。
   - name: loseIn
     type: float
     description: 丢失入方向值。

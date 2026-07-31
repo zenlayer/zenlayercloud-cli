@@ -1,0 +1,111 @@
+name: QueryCloudRouterBandwidthPrice
+product: sdn
+use: query-cloud-router-bandwidth-price
+short: 三层骨干带宽询价
+long: 三层骨干带宽询价
+examples:
+- cmd: zeno sdn query-cloud-router-bandwidth-price --dc-id SIN1 --bandwidth-mbps 10
+  desc: 对1个三层网络骨干网带宽进行询价,带宽为10Mbps。
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: QueryCloudRouterBandwidthPrice
+parameters:
+- name: dc-id
+  type: string
+  required: true
+  sdk-field: dcId
+  description: 三层网络骨干网的数据中心ID。
+- name: bandwidth-mbps
+  type: integer
+  required: true
+  sdk-field: bandwidthMbps
+  description: |-
+    三层网络的最大带宽限制。
+    默认值是10，单位：Mbps。
+response:
+- name: price
+  type: object
+  description: 价格信息。
+  object-schema:
+  - name: discount
+    type: float
+    description: |-
+      折扣大小。
+      如80.0代表8折。
+  - name: discountPrice
+    type: float
+    description: |-
+      后付费的单元折后价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: originalPrice
+    type: float
+    description: |-
+      预付费的原价。
+      预付费模式使用，后付费该值为 null。
+  - name: unitPrice
+    type: float
+    description: |-
+      后付费的单元原始价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: discountUnitPrice
+    type: float
+    description: |-
+      后付费的单元折后价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: chargeUnit
+    type: string
+    description: |-
+      后付费计价单元。
+      后付费模式使用，可取值范围：<br/>HOUR: 表示计价单元是按每小时来计算。
+      DAY: 表示计价单元是按天来计算。
+      MONTH: 表示计价单元是按月来计算，95计费则是这种。
+  - name: stepPrices
+    type: object-array
+    description: |-
+      后付费阶梯价格。
+      后付费模式使用，如果非阶梯价格，该项为null。
+    array-style: json
+    item-schema:
+    - name: stepStart
+      type: float
+      description: 阶梯的起始值。
+    - name: stepEnd
+      type: float
+      description: |-
+        阶梯的到达值。
+        为null代表最后一级阶梯。
+    - name: unitPrice
+      type: float
+      description: 阶梯单价。
+    - name: discountUnitPrice
+      type: float
+      description: 阶梯折后价。
+  - name: amountUnit
+    type: string
+    description: |-
+      用量单位。
+      比如Mbps, LCU等。
+      如果为null, 代表取不到值。
+  - name: excessUnitPrice
+    type: float
+    description: 超量原始价格。
+  - name: excessDiscountUnitPrice
+    type: float
+    description: 超量折扣后价格。
+  - name: excessAmountUnit
+    type: string
+    description: |-
+      超量用量单位。
+      如果为null, 代表取不到值。
+  - name: category
+    type: enum
+    description: 价格所属类别。
+    enum-values:
+    - value: STANDARD
+      desc: 标准价格。
+    - value: CUSTOMIZED
+      desc: 一口价格。
+- name: stock
+  type: integer
+  description: 可用库存数量。

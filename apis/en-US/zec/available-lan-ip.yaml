@@ -12,7 +12,10 @@ parameters:
   type: string
   required: true
   sdk-field: eipId
-  description: "ID of the elastic IP to check association eligibility for.\nOnly vNICs whose subnet is within the same region as this EIP will be returned. \nTo obtain an EIP ID, call DescribeEips."
+  description: |-
+    ID of the elastic IP to query.
+    The API returns all network interfaces and private IPs that can be bound, within the same region's subnets as this EIP.
+    The EIP ID can be obtained via the ~~DescribeEips~~ API.
 response:
 - name: lanIps
   type: object-array

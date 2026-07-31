@@ -7,6 +7,11 @@ long: |-
   **Notes**
 
   * The size of the guaranteed traffic package is only valid for billing periods of one month.
+examples:
+- cmd: zeno zec describe-eip-price --region-id asia-east-1 --amount 1 --internet-charge-type ByTrafficPackage --network-line-type PremiumBGP --bandwidth 50 --flow-package 10
+  desc: Query the price of a BGP public IP, using traffic package billing. The traffic package size is 10TB.
+- cmd: zeno zec describe-eip-price --region-id asia-east-1 --amount 1 --internet-charge-type ByBandwidth --network-line-type PathBasedBandwidthIP --bandwidth 50
+  desc: Query the price of a PathBasedBandwidthIP, billed by bandwidth, with a bandwidth of 50Mbps. Domestic and international bandwidth prices are returned separately, and bandwidthPrice is null.
 sdk:
   service: zec
   version: '2025-09-01'
@@ -97,10 +102,10 @@ parameters:
   required: false
   sdk-field: flowPackage
   description: |-
-    Data transfer package size for public IPv6.
+    Traffic package size of the EIP.
     Unit: TB.
-    Value must be 0 or a multiple of 0.1.
-    Required when the subnet stack type includes IPv6 with public internet access and the billing type is ByTrafficPackage.
+    The value must be 0 or a multiple of 0.1.
+    Required when the network billing type is traffic package billing (ByTrafficPackage).
 - name: cidr-id
   type: string
   required: false
@@ -113,8 +118,8 @@ parameters:
   required: false
   sdk-field: clusterId
   description: |-
-    Bandwidth cluster ID.
-    If the value of internetChargeType is Bandwidth , clusterld is required.
+    Shared bandwidth package ID.
+    Required when peerRegionId is specified and the network billing method is shared bandwidth package billing (BandwidthCluster).
 - name: peer-region-id
   type: string
   required: false

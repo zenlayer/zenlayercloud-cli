@@ -1,0 +1,63 @@
+name: DescribeInterconnectBorderGatewayRegions
+product: zec
+use: describe-interconnect-border-gateway-regions
+short: 查询边界网关互联节点列表
+long: 查询当前账号下边界网关可支持互联的节点与数据中心信息。边界网关可绑定 CloudRouter 以实现 VPC 的 L3 互联，本接口返回支持此功能的节点列表，可按节点ID或数据中心进行过滤。
+examples:
+- cmd: zeno zec describe-interconnect-border-gateway-regions
+  desc: 查询所有边界网关互联节点。~1123232~
+- cmd: zeno zec describe-interconnect-border-gateway-regions --region-id SEA-Tokyo-A
+  desc: 按节点ID过滤。
+- cmd: zeno zec describe-interconnect-border-gateway-regions --dc-code TYO1
+  desc: 按数据中心代码过滤。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeInterconnectBorderGatewayRegions
+parameters:
+- name: region-id
+  type: string
+  required: false
+  sdk-field: regionId
+  description: 节点ID，用于过滤指定节点。
+- name: dc-id
+  type: string
+  required: false
+  sdk-field: dcId
+  description: 数据中心UUID，用于过滤指定数据中心。
+- name: dc-code
+  type: string
+  required: false
+  sdk-field: dcCode
+  description: 数据中心代码，用于过滤指定数据中心。
+response:
+- name: regionSet
+  type: object-array
+  description: 互联节点列表。
+  array-style: json
+  item-schema:
+  - name: regionId
+    type: string
+    description: 节点ID。
+  - name: name
+    type: string
+    description: 节点名称。
+  - name: dataCenter
+    type: object
+    description: 关联的数据中心信息。
+    object-schema:
+    - name: dcId
+      type: string
+      description: 数据中心ID。
+    - name: dcCode
+      type: string
+      description: 数据中心代码。
+    - name: name
+      type: string
+      description: 数据中心英文名称。
+    - name: cityName
+      type: string
+      description: 城市英文名称。
+    - name: countryName
+      type: string
+      description: 国家英文名称。

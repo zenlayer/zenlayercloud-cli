@@ -9,7 +9,7 @@ long: |-
   * The minimum bandwidth limit is 10,000 Mbps (10G) by default.
   * If you need a bandwidth limit lower than 10G, please contact [Zenlayer Support](https://www.zenlayer.com/support/).
 examples:
-- cmd: zeno zec create-qos-policy-group --region-id SEA-A --name my-qos-group --bandwidth-limit 1000 --rate-limit-mode LOOSE
+- cmd: zeno zec create-qos-policy-group --region-id asia-east-1 --name my-qpg-group --bandwidth-limit 1000 --rate-limit-mode LOOSE
   desc: Create a QoS policy group.
 sdk:
   service: zec

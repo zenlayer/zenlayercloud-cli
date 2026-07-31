@@ -1,0 +1,56 @@
+name: DescribeVirtualEdgeDatacenters
+product: sdn
+use: describe-virtual-edge-datacenters
+short: Query Virtual Edge Gateway Data Centers
+long: Query Virtual Edge Gateway Data Centers
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: DescribeVirtualEdgeDatacenters
+parameters:
+- name: primary-dc-id
+  type: string
+  required: false
+  sdk-field: primaryDcId
+  description: |-
+    Primary data center ID.
+    Used to filter available backup data centers when the access type is IPSec and HA is required.
+response:
+- name: dcSet
+  type: object-array
+  description: Result set.
+  array-style: json
+  item-schema:
+  - name: dcId
+    type: string
+    description: Data center ID.
+  - name: dcName
+    type: string
+    description: Data center name.
+  - name: dcAddress
+    type: string
+    description: Data center address.
+  - name: cityName
+    type: string
+    description: Name of the city.
+  - name: countryName
+    type: string
+    description: Name of the country.
+  - name: areaName
+    type: string
+    description: Name of the region.
+  - name: latitude
+    type: float
+    description: Latitude.
+  - name: longitude
+    type: float
+    description: Longitude.
+  - name: isPortAvailable
+    type: boolean
+    description: Whether new data center ports can be created.
+  - name: availableBandwidth
+    type: integer
+    description: Available bandwidth (Mbps).
+  - name: regionId
+    type: string
+    description: Node ID.

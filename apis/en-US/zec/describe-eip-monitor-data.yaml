@@ -5,7 +5,7 @@ short: Queries the performance data of the elastic IP
 long: Query the performance data of the elastic IP.
 examples:
 - cmd: zeno zec describe-eip-monitor-data --eip-id "< EipId >" --metric-type BANDWIDTH --start-time 2025-06-25T01:55:00Z --end-time 2025-06-25T07:55:00Z
-  desc: Query the performance data of the elastic IP.
+  desc: Query monitoring metrics for an elastic IP
 sdk:
   service: zec
   version: '2025-09-01'
@@ -118,7 +118,7 @@ response:
     description: Inbound value.
   - name: outValue
     type: float
-    description: Outbound value.
+    description: Inbound value.
   - name: loseIn
     type: float
     description: Inbound loss value.

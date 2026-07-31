@@ -7,10 +7,11 @@ long: |-
   **注意事项**
 
   * 只有状态为 **AVAILABLE** 的EIP才能操作。
-  * Esxi操作系统的机器实例无法绑定EIP。
   * EIP与机器实例的可用区需一致。
   * 机器实例的状态需要是**RUNNING。**
-  * 一个机器实例绑定的EIP数量有限额，如需提高限额，请联系support。
+  * 开启了网关模式（gateway mode，Esxi 操作系统的实例会自动开启）的机器实例，只能绑定掩码 <= 29 的 IPv4 EIP。
+  * 绑定 IPv6 EIP 时，机器实例必须已有母 IPv6 地址；若项目开启了"IPv6 EIP 与 VLAN 互斥"配置，已加入 VLAN 的机器实例不能再绑定 IPv6 EIP。
+  * 一个机器实例能绑定的同类型（IPv4/IPv6）EIP 数量有限额，如需提高限额，请联系support。
   * 本接口属于异步接口，即系统会先返回一个请求ID，但EIP与机器实例并未绑定完成，系统后台的绑定任务仍在进行。您可以调用`DescribeEipAddresses`查询EIP的状态：
     * 当EIP处于 **ASSOCIATING** 状态时，表示EIP正在绑定中，在该状态下，您只能执行查询操作，不能执行其他操作。
     * 当EIP处于 **ASSOCIATED** 状态时，表示EIP绑定完成。

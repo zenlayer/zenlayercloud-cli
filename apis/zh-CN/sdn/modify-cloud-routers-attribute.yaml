@@ -1,0 +1,38 @@
+name: ModifyCloudRoutersAttribute
+product: sdn
+use: modify-cloud-routers-attribute
+short: 修改三层网络属性
+long: |-
+  修改三层网络属性
+  **注意事项**
+
+  * 如果指定的多个三层网络中有不存在的, 本次操作会立即失败。
+examples:
+- cmd: zeno sdn modify-cloud-routers-attribute --cloud-router-ids your-cloud-router-id --cloud-router-name Global-Edge-Router --cloud-router-description ""Global edge router for production traffic""
+  desc: 修改三层网络的名称
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: ModifyCloudRoutersAttribute
+parameters:
+- name: cloud-router-ids
+  type: string-array
+  required: true
+  sdk-field: cloudRouterIds
+  description: |-
+    三层网络的 ID 列表。
+    数量不超过 100。
+- name: cloud-router-name
+  type: string
+  required: false
+  sdk-field: cloudRouterName
+  description: |-
+    三层网络名称。
+    长度不超过 255，名称和描述至少指定其一。
+- name: cloud-router-description
+  type: string
+  required: false
+  sdk-field: cloudRouterDescription
+  description: |-
+    三层网络描述信息。
+    长度不超过 255，名称和描述至少指定其一。

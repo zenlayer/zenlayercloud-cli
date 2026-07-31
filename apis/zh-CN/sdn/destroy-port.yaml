@@ -1,0 +1,24 @@
+name: DestroyPort
+product: sdn
+use: destroy-port
+short: 销毁端口
+long: |-
+  销毁端口
+  **注意事项**
+
+  * 本操作不可逆，一旦操作成功，数据中心端口将被彻底释放，请谨慎操作。
+  * 只有在回收站中的数据中心端口才支持该操作。
+  * 本接口为异步接口，当销毁Port请求下发成功返回请求id后，销毁Port操作并未立即完成。在此期间Port的状态将会处于`DESTROYING`，Port销毁结果可以通过调用[DescribePorts](describeports.md#describeports)接口查询，如果Port状态由`DESTROYING`(创建中)变为`DESTROYED`，则代表Port销毁成功且列表不会返回。销毁过程中不可对Port进行任何操作。
+examples:
+- cmd: zeno sdn destroy-port --port-id your-port-id
+  desc: ''
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: DestroyPort
+parameters:
+- name: port-id
+  type: string
+  required: true
+  sdk-field: portId
+  description: 数据中心端口 ID。

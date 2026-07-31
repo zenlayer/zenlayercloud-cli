@@ -1,7 +1,7 @@
 name: DescribePolicys
 product: zec
 use: describe-policys
-short: 查询 DDoS 防护策略列表
+short: 获取防护策略列表
 long: 查询账户下的 DDoS 防护策略信息，支持按策略 ID、策略名称筛选，支持标签过滤和分页查询。
 examples:
 - cmd: zeno zec describe-policys --policy-ids policyId1 --policy-ids policyId2 --name xxxx --page-size 10 --page-num 1

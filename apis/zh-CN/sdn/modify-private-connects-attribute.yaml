@@ -1,0 +1,31 @@
+name: ModifyPrivateConnectsAttribute
+product: sdn
+use: modify-private-connects-attribute
+short: 修改二层网络专线属性
+long: |-
+  修改二层网络专线属性
+  **注意事项**
+
+  * 如果指定的二层网络专线中有不存在的, 本次操作会立即失败, 其他的二层网络信息不会发生变更。
+examples:
+- cmd: zeno sdn modify-private-connects-attribute --private-connect-ids your-private-connect-id --private-connect-name Seoul-Singapore-Connect
+  desc: 修改二层网络的名称
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: ModifyPrivateConnectsAttribute
+parameters:
+- name: private-connect-ids
+  type: string-array
+  required: true
+  sdk-field: privateConnectIds
+  description: |-
+    二层网络专线 ID 列表。
+    数量不得超过 100。
+- name: private-connect-name
+  type: string
+  required: true
+  sdk-field: privateConnectName
+  description: |-
+    二层网络专线名称。
+    长度不得超过 255。

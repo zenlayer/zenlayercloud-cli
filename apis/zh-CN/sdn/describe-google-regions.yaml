@@ -1,0 +1,91 @@
+name: DescribeGoogleRegions
+product: sdn
+use: describe-google-regions
+short: 查询Google接入点区域
+long: |-
+  查询Google接入点区域
+  **注意事项**
+
+  * 连接 Google Cloud 服务时的第一步是使用配对密钥并确保有可用的连接端口。
+  * Google 要求连接的带宽与配对密钥查找返回的列表中的预定义带宽之一相匹配。
+examples:
+- cmd: zeno sdn describe-google-regions --pairing-key xxxxxxxxx/asia-southeast1/1
+  desc: 通过Google 配对密钥查询对应的接入点信息
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: DescribeGoogleRegions
+parameters:
+- name: product
+  type: enum
+  required: false
+  sdk-field: product
+  description: |-
+    筛选云节点支持的产品。
+    可用值：PrivateConnect(二层网络)、CloudRouter(三层网络)。
+  enum-values:
+  - value: PrivateConnect
+    desc: 二层网络。
+  - value: CloudRouter
+    desc: 三层网络。
+- name: pairing-key
+  type: string
+  required: false
+  sdk-field: pairingKey
+  description: Google 配对密钥。
+response:
+- name: cloudRegions
+  type: object-array
+  description: 接入点相关的区域信息列表。
+  array-style: json
+  item-schema:
+  - name: cloudRegionId
+    type: string
+    description: 公有云区域 ID。
+  - name: dataCenter
+    type: object
+    description: 接入点数据中心信息。
+    object-schema:
+    - name: dcId
+      type: string
+      description: 数据中心ID。
+    - name: dcName
+      type: string
+      description: 数据中心名称。
+    - name: dcAddress
+      type: string
+      description: 数据中心地址。
+    - name: cityName
+      type: string
+      description: 数据中心所在城市名称。
+    - name: countryName
+      type: string
+      description: 数据中心所在国家名称。
+    - name: areaName
+      type: string
+      description: 数据中心所在区域名称。
+    - name: latitude
+      type: float
+      description: 数据中心所在地纬度。
+    - name: longitude
+      type: float
+      description: 数据中心所在地经度。
+  - name: products
+    type: string-array
+    description: 该区域支持的产品列表：PrivateConnect(二层网络)、CloudRouter(三层网络)。
+  - name: haTypes
+    type: object-array
+    description: 该区域支持的高可用类型列表。
+    array-style: json
+    item-schema:
+    - name: haType
+      type: enum
+      description: 高可用类型。
+      enum-values:
+      - value: PRIMARY
+        desc: 主用。
+      - value: SECONDARY
+        desc: 备用。
+    - name: isUsed
+      type: boolean
+      description: 该高可用类型是否已被使用。

@@ -1,0 +1,181 @@
+name: AddCloudRouterEdgePoints
+product: sdn
+use: add-cloud-router-edge-points
+short: Add Edge Points
+long: |-
+  Add Edge Points
+  **Notes**
+
+  * Currently only ports with connectivity status **ACTIVE** can be added to a Cloud Router.
+  * This is an asynchronous API. Once the request is successfully submitted, the operation is not completed immediately. During this period the Cloud Router status will be **UPDATING**; once the edge point is added successfully, the Cloud Router status will change to **RUNNING**.
+  * No other operations can be performed on the Cloud Router during this period.
+examples:
+- cmd: zeno sdn add-cloud-router-edge-points --cloud-router-id your-cloud-router-id --edge-points "{vpcId=your vpc id, bandwidthMbps=1}"
+  desc: Add an edge point to the specified Cloud Router. The edge point is a VPC with an access bandwidth of 1 Mbps.
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: AddCloudRouterEdgePoints
+parameters:
+- name: cloud-router-id
+  type: string
+  required: true
+  sdk-field: cloudRouterId
+  description: Cloud Router ID.
+- name: edge-points
+  type: object-array
+  required: true
+  sdk-field: edgePoints
+  description: Information about the new edge points to add.
+  array-style: json
+  item-schema:
+  - name: edgePointName
+    type: string
+    description: Edge point name. Only letters, digits, and hyphens are allowed, up to 100 characters.
+  - name: vpcId
+    type: string
+    description: VPC ID of a VPC edge point.
+  - name: zbgId
+    type: string
+    description: ZBG ID of a ZBG edge point.
+  - name: portId
+    type: string
+    description: Port ID of a physical port edge point.
+  - name: cloudType
+    type: enum
+    description: Cloud vendor type of the Cloud Connect edge point.
+    enum-values:
+    - value: AWS
+      desc: Amazon Web Services
+    - value: TENCENT
+      desc: Tencent Cloud
+    - value: GOOGLE
+      desc: Google Cloud
+    - value: AZURE
+      desc: Microsoft Azure
+    - value: ALI_CLOUD
+      desc: Alibaba Cloud
+    - value: HUAWEI_CLOUD
+      desc: Huawei Cloud
+    - value: BYTE_PLUS
+      desc: BytePlus
+    - value: ORACLE
+      desc: Oracle Cloud
+  - name: cloudAccountId
+    type: string
+    description: Cloud account ID of the Cloud Connect edge point.
+  - name: dcId
+    type: string
+    description: Data center ID where the edge point resides.
+  - name: cloudRegionId
+    type: string
+    description: Cloud region ID of the Cloud Connect edge point.
+  - name: haType
+    type: enum
+    description: HA type of the Cloud Connect edge point.
+    enum-values:
+    - value: PRIMARY
+      desc: Primary.
+    - value: SECONDARY
+      desc: Secondary.
+  - name: vlanId
+    type: integer
+    description: 'VLAN ID of the edge point. Value range: 2-4000.'
+  - name: bandwidthMbps
+    type: integer
+    description: Backbone bandwidth limit of the edge point, in Mbps.
+  - name: cloudBandwidthMbps
+    type: integer
+    description: Cloud-side bandwidth limit of the Cloud Connect edge point, in Mbps.
+  - name: ipAddress
+    type: string
+    description: Interconnect IP address and netmask of the edge point.
+  - name: bgpConnection
+    type: object
+    description: BGP connection configuration of the edge point. Choose either this or static routes.
+    object-schema:
+    - name: peerIpAddress
+      type: string
+      description: Peer interconnect IP address and netmask.
+    - name: peerAsn
+      type: integer
+      description: Peer BGP ASN.
+    - name: password
+      type: string
+      description: MD5 password for the BGP session, up to 32 characters.
+    - name: localAsn
+      type: integer
+      description: Local BGP ASN.
+  - name: staticRoutes
+    type: object-array
+    description: Static route configuration of the edge point. Choose either this or a BGP connection.
+    array-style: json
+    item-schema:
+    - name: prefix
+      type: string
+      description: Destination CIDR of the static route.
+    - name: nextHop
+      type: string
+      description: Next-hop IP address of the static route.
+  - name: ipSecTunnel
+    type: string
+    description: 'IPSec tunnel type. Valid values: FQDN or RemoteIP.'
+  - name: customerPublicIP
+    type: string
+    description: Customer-side public IP address for IPSec.
+  - name: customerPrivateIP
+    type: string
+    description: Customer-side private IP address for IPSec.
+  - name: virtualEdgePrivateIP
+    type: string
+    description: Virtual Edge-side private IP address for IPSec.
+  - name: psk
+    type: string
+    description: Pre-shared key (PSK) for IPSec.
+  - name: enableHealthCheck
+    type: boolean
+    description: Whether to enable health check. Disabled by default.
+  - name: backupIpSec
+    type: object
+    description: Backup IPSec tunnel configuration.
+    object-schema:
+    - name: dcId
+      type: string
+      description: ID of the data center where the backup IPSec tunnel resides.
+    - name: password
+      type: string
+      description: Authentication password for the backup IPSec tunnel, 8-64 characters.
+    - name: customerPrivateIP
+      type: string
+      description: Customer-side private IP address of the backup IPSec tunnel.
+    - name: virtualEdgePrivateIP
+      type: string
+      description: Virtual Edge-side private IP address of the backup IPSec tunnel.
+    - name: psk
+      type: string
+      description: Pre-shared key (PSK) for the backup IPSec tunnel.
+  - name: ipSecBgpConnection
+    type: object
+    description: BGP connection configuration for IPSec. Choose either this or IPSec static routes.
+    object-schema:
+    - name: customerAsn
+      type: integer
+      description: Customer-side BGP ASN.
+    - name: virtualEdgeAsn
+      type: integer
+      description: Virtual Edge-side BGP ASN.
+    - name: password
+      type: string
+      description: Authentication password for the BGP session, 8-64 characters.
+  - name: ipSecStaticRoutes
+    type: object-array
+    description: Static route configuration for IPSec. Choose either this or an IPSec BGP connection.
+    array-style: json
+    item-schema:
+    - name: cidr
+      type: string
+      description: Destination CIDR of the static route.
+response:
+- name: edgePointIds
+  type: string-array
+  description: List of newly added edge point IDs, in the same order as the edge points in the request.

@@ -1,0 +1,263 @@
+name: CreateCloudRouter
+product: sdn
+use: create-cloud-router
+short: 创建三层网络
+long: |-
+  创建三层网络
+  **注意事项**
+
+  * 目前只支持创建后付费的三层网络。
+  * 一个VPC仅可加入一个三层网络。
+  * 本接口为异步接口，当创建实例请求下发成功后会返回一个三层网络的`ID`，此时创建操作并未立即完成。在此期间实例的状态将会处于\*\*`DEPLOYING`，**创建结果可以通过调用**[**`DescribeCloudRouters`**](describe-cloud-routers.md) **接口查询**，**如果**状态(`cloudRouterStatus`)**由`DEPLOYING`**(创建中)**变为**RUNNING\*\*(可用)，则代表创建成功，如果未查询到任何记录，则代表创建失败，创建过程中不可对三层网络进行任何操作。
+examples:
+- cmd: zeno sdn create-cloud-router --edge-points "{ipAddress=4.4.4.4/24, vlanId=1024, portId=your-portId, bgpConnection={password=, peerIpAddress=4.4.4.3, localAsn=62610, peerAsn=6543}, bandwidthMbps=1}" --edge-points "{vpcId=your vpc id, bandwidthMbps=1}" --cloud-router-name Test --cloud-router-description
+  desc: 创建1个三层网络专线，接入点有2个, 接入点带宽大小都是 1Mbps。其中一个接入点是数据中心端口，另一个接入点是VPC。
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: CreateCloudRouter
+parameters:
+- name: cloud-router-name
+  type: string
+  required: true
+  sdk-field: cloudRouterName
+  description: |-
+    三层网络的名称。
+    长度不超过 255，不传则默认为 cloud-router-{时间戳}。
+- name: cloud-router-description
+  type: string
+  required: false
+  sdk-field: cloudRouterDescription
+  description: |-
+    三层网络的描述信息。
+    长度不超过 255。
+- name: edge-points
+  type: object-array
+  required: true
+  sdk-field: edgePoints
+  description: |-
+    边缘连接点信息。
+    至少需要 2 个连接点。
+  array-style: json
+  item-schema:
+  - name: edgePointName
+    type: string
+    description: |-
+      连接点的名称。
+      仅支持字母、数字和短横线，长度不超过 100 字符。
+  - name: vpcId
+    type: string
+    description: VPC 连接点的 VPC ID。
+  - name: zbgId
+    type: string
+    description: ZBG 连接点的 ZBG ID。
+  - name: portId
+    type: string
+    description: 数据中心端口连接点的端口 ID。
+  - name: cloudType
+    type: enum
+    description: 云连接点的云厂商类型。
+    enum-values:
+    - value: AWS
+      desc: 亚马逊云。
+    - value: TENCENT
+      desc: 腾讯云。
+    - value: GOOGLE
+      desc: 谷歌云。
+    - value: AZURE
+      desc: 微软 Azure。
+    - value: ALI_CLOUD
+      desc: 阿里云。
+    - value: HUAWEI_CLOUD
+      desc: 华为云。
+    - value: BYTE_PLUS
+      desc: 火山引擎（BytePlus）。
+    - value: ORACLE
+      desc: 甲骨文云（Oracle）。
+  - name: cloudAccountId
+    type: string
+    description: 云连接点的云账号 ID。
+  - name: dcId
+    type: string
+    description: 连接点所在的数据中心 ID。
+  - name: cloudRegionId
+    type: string
+    description: 云连接点的云地域 ID。
+  - name: haType
+    type: enum
+    description: 云连接点的高可用类型。
+    enum-values:
+    - value: PRIMARY
+      desc: 主用。
+    - value: SECONDARY
+      desc: 备用。
+  - name: vlanId
+    type: integer
+    description: |-
+      连接点的 VLAN ID。
+      取值范围 2-4000。
+  - name: bandwidthMbps
+    type: integer
+    description: |-
+      连接点的骨干带宽限速。
+      单位 Mbps。
+  - name: cloudBandwidthMbps
+    type: integer
+    description: |-
+      云连接点的云侧带宽限速。
+      单位 Mbps。
+  - name: ipAddress
+    type: string
+    description: 连接点的互联 IP 地址及掩码。
+  - name: bgpConnection
+    type: object
+    description: |-
+      连接点的 BGP 连接配置。
+      与静态路由二选一。
+    object-schema:
+    - name: peerIpAddress
+      type: string
+      description: 对端互联 IP 地址及掩码。
+    - name: peerAsn
+      type: integer
+      description: 对端 BGP ASN。
+    - name: password
+      type: string
+      description: |-
+        BGP 会话的 MD5 密码。
+        长度不超过 32 字符。
+    - name: localAsn
+      type: integer
+      description: 本端 BGP ASN。
+  - name: staticRoutes
+    type: object-array
+    description: |-
+      连接点的静态路由配置。
+      与 BGP 连接二选一。
+    array-style: json
+    item-schema:
+    - name: prefix
+      type: string
+      description: 静态路由的目的网段（CIDR）。
+    - name: nextHop
+      type: string
+      description: 静态路由的下一跳 IP 地址。
+  - name: ipSecTunnel
+    type: string
+    description: |-
+      IPSec 隧道类型。
+      取值 FQDN 或 RemoteIP。
+  - name: customerPublicIP
+    type: string
+    description: IPSec 客户侧公网 IP 地址。
+  - name: customerPrivateIP
+    type: string
+    description: IPSec 客户侧私网 IP 地址。
+  - name: virtualEdgePrivateIP
+    type: string
+    description: IPSec Virtual Edge 侧私网 IP 地址。
+  - name: psk
+    type: string
+    description: IPSec 预共享密钥（PSK）。
+  - name: enableHealthCheck
+    type: boolean
+    description: |-
+      是否开启健康检查。
+      默认不开启。
+  - name: backupIpSec
+    type: object
+    description: IPSec 备份隧道配置。
+    object-schema:
+    - name: dcId
+      type: string
+      description: 备份 IPSec 隧道所在数据中心的 ID。
+    - name: password
+      type: string
+      description: |-
+        备份 IPSec 隧道的认证密码。
+        长度 8-64 个字符。
+    - name: customerPrivateIP
+      type: string
+      description: 备份 IPSec 隧道客户侧私网 IP 地址。
+    - name: virtualEdgePrivateIP
+      type: string
+      description: 备份 IPSec 隧道 Virtual Edge 侧私网 IP 地址。
+    - name: psk
+      type: string
+      description: 备份 IPSec 隧道的预共享密钥（PSK）。
+  - name: ipSecBgpConnection
+    type: object
+    description: |-
+      IPSec 的 BGP 连接配置。
+      与 IPSec 静态路由二选一。
+    object-schema:
+    - name: customerAsn
+      type: integer
+      description: 客户侧 BGP ASN。
+    - name: virtualEdgeAsn
+      type: integer
+      description: Virtual Edge 侧 BGP ASN。
+    - name: password
+      type: string
+      description: |-
+        BGP 会话的认证密码。
+        长度 8-64 个字符。
+  - name: ipSecStaticRoutes
+    type: object-array
+    description: |-
+      IPSec 的静态路由配置。
+      与 IPSec BGP 连接二选一。
+    array-style: json
+    item-schema:
+    - name: cidr
+      type: string
+      description: |-
+        静态路由的目的网段。
+        CIDR 格式。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    资源组 ID。
+    不传则放入默认资源组。
+- name: marketing-options
+  type: object
+  required: false
+  sdk-field: marketingOptions
+  description: 市场营销活动相关信息。
+  object-schema:
+  - name: discountCode
+    type: string
+    description: |-
+      使用市场发放的折扣码。
+      如果折扣码不存在，最终折扣将不会生效。
+  - name: usePocVoucher
+    type: boolean
+    description: |-
+      是否使用POC代金券。
+      如果系统不存在POC代金券，相关创建流程会失败。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    创建三层网络时关联的标签。
+    注意：关联标签键不能重复。--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。
+response:
+- name: cloudRouterId
+  type: string
+  description: 三层网络的 ID。

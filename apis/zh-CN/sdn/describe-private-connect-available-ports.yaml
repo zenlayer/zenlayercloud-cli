@@ -1,0 +1,169 @@
+name: DescribePrivateConnectAvailablePorts
+product: sdn
+use: describe-private-connect-available-ports
+short: 查询可加入的数据中心端口
+long: |-
+  查询可加入的数据中心端口
+  **注意事项**
+
+  * 目前只允许连通性状态为**ACTIVE**的数据中心端口加入到二层网络专线中。
+examples:
+- cmd: zeno sdn describe-private-connect-available-ports
+  desc: 获取可加入二层网络的数据中心端口列表。
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: DescribePrivateConnectAvailablePorts
+parameters:
+- name: port-ids
+  type: string-array
+  required: false
+  sdk-field: portIds
+  description: |-
+    数据中心端口 ID 列表。
+    用于按数据中心端口过滤。
+- name: dc-id
+  type: string
+  required: false
+  sdk-field: dcId
+  description: |-
+    数据中心 ID。
+    用于按数据中心过滤。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    返回的分页大小。
+    默认为 20，最大为 100。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    返回的分页页码。
+    默认为 1。
+response:
+- name: totalCount
+  type: integer
+  description: 符合条件的数据中心端口总数量。
+- name: dataSet
+  type: object-array
+  description: 可加入网络的数据中心端口列表。
+  array-style: json
+  item-schema:
+  - name: portId
+    type: string
+    description: 数据中心端口 ID。
+  - name: portName
+    type: string
+    description: 数据中心端口名称。
+  - name: portRemarks
+    type: string
+    description: 数据中心端口备注信息。
+  - name: portType
+    type: string
+    description: 数据中心端口规格。
+  - name: dcId
+    type: string
+    description: 数据中心ID。
+  - name: dcName
+    type: string
+    description: 数据中心名称。
+  - name: cityName
+    type: string
+    description: 城市名称。
+  - name: areaName
+    type: string
+    description: 所在大区名称。
+  - name: businessEntityName
+    type: string
+    description: |-
+      商业实体名称。
+      用于 LOA 抬头。
+  - name: connectionStatus
+    type: enum
+    description: 数据中心端口连接状态。
+    enum-values:
+    - value: ACTIVE
+      desc: 链路正常连通。
+    - value: DOWN
+      desc: 链路断开。
+    - value: ABNORMAL
+      desc: 链路部分异常。
+  - name: portStatus
+    type: enum
+    description: 数据中心端口业务状态。
+    enum-values:
+    - value: CREATING
+      desc: 创建中。
+    - value: UPDATING
+      desc: 变更中。
+    - value: DELETING
+      desc: 删除中。
+    - value: DESTROYING
+      desc: 销毁中。
+    - value: RECOVERING
+      desc: 恢复中。
+    - value: RUNNING
+      desc: 正常。
+    - value: NOT_ACCEPT
+      desc: 未接收。
+    - value: RECYCLED
+      desc: 已回收。
+    - value: DESTROYED
+      desc: 已销毁。
+    - value: CREATING_FAILED
+      desc: 创建失败。
+    - value: UPDATING_FAILED
+      desc: 变更失败。
+    - value: DELETING_FAILED
+      desc: 删除失败。
+    - value: DESTROYING_FAILED
+      desc: 销毁失败。
+    - value: RECOVERING_FAILED
+      desc: 恢复失败。
+  - name: loaStatus
+    type: enum
+    description: LOA 状态。
+    enum-values:
+    - value: LOA_NOT_UPLOAD
+      desc: LOA 未上传。
+    - value: LOA_UPLOADED
+      desc: LOA 已上传。
+  - name: loaDownloadUrl
+    type: string
+    description: LOA 下载地址。
+  - name: createdTime
+    type: string
+    description: 创建时间。
+  - name: expiredTime
+    type: string
+    description: 到期时间。
+  - name: period
+    type: integer
+    description: |-
+      购买时长。
+      单位月。
+  - name: isCreateBusinessAllowed
+    type: boolean
+    description: 是否允许在该数据中心端口上开通业务。
+  - name: tags
+    type: object
+    description: 数据中心端口关联的标签。
+    object-schema:
+    - name: tags
+      type: object-array
+      description: 标签对列表。
+      array-style: json
+      item-schema:
+      - name: key
+        type: string
+        description: |-
+          标签键。
+          长度限制：1～64个字符。
+      - name: value
+        type: string
+        description: |-
+          标签值。
+          长度限制：1～64个字符。

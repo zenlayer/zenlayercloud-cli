@@ -1,0 +1,22 @@
+name: RenewPrivateConnect
+product: sdn
+use: renew-private-connect
+short: 恢复二层网络专线
+long: |-
+  恢复二层网络专线
+  **注意事项**
+
+  * 仅二层网络状态为**RECYCLED**的可以调用此接口进行恢复。
+examples:
+- cmd: zeno sdn renew-private-connect --private-connect-id your-private-connect-id
+  desc: 删除
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: RenewPrivateConnect
+parameters:
+- name: private-connect-id
+  type: string
+  required: true
+  sdk-field: privateConnectId
+  description: 二层网络专线 ID。

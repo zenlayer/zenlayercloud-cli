@@ -1,0 +1,123 @@
+name: DescribeDataCenterPortPrice
+product: sdn
+use: describe-data-center-port-price
+short: Get Available Data Center Port Types and Prices
+long: Get Available Data Center Port Types and Prices
+examples:
+- cmd: zeno sdn describe-data-center-port-price --dc-id SIN1
+  desc: ''
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: DescribeDataCenterPortPrice
+parameters:
+- name: dc-id
+  type: string
+  required: true
+  sdk-field: dcId
+  description: Data center four-letter code. Obtainable via the ~~DescribeDataCenters~~ API.
+response:
+- name: portPriceSet
+  type: object-array
+  description: The result set of available port types and prices.
+  array-style: json
+  item-schema:
+  - name: dcId
+    type: string
+    description: Data center four-letter code.
+  - name: portType
+    type: string
+    description: Port spec.
+  - name: portCategory
+    type: enum
+    description: Port category.
+    enum-values:
+    - value: STANDARD
+      desc: Standard port, billed at a fixed bandwidth spec.
+    - value: UNLIMITED
+      desc: Unlimited port, billed by actual traffic used.
+  - name: portPrice
+    type: object
+    description: Port price information.
+    object-schema:
+    - name: discount
+      type: float
+      description: |-
+        Discount rate.
+        E.g. 80.0 means 20% off.
+    - name: discountPrice
+      type: float
+      description: |-
+        Discounted postpaid unit price.
+        Used in postpaid mode; null if the price is a tiered price.
+    - name: originalPrice
+      type: float
+      description: |-
+        Original prepaid price.
+        Used in prepaid mode; null for postpaid.
+    - name: unitPrice
+      type: float
+      description: |-
+        Original postpaid unit price.
+        Used in postpaid mode; null if the price is a tiered price.
+    - name: discountUnitPrice
+      type: float
+      description: |-
+        Discounted postpaid unit price.
+        Used in postpaid mode; null if the price is a tiered price.
+    - name: chargeUnit
+      type: string
+      description: |-
+        Postpaid billing unit.
+        Used in postpaid mode. Possible values:<br/>HOUR: billed per hour.
+        DAY: billed per day.
+        MONTH: billed per month, used for 95th-percentile billing.
+    - name: stepPrices
+      type: object-array
+      description: |-
+        Postpaid tiered pricing.
+        Used in postpaid mode; null if not a tiered price.
+      array-style: json
+      item-schema:
+      - name: stepStart
+        type: float
+        description: Lower bound of the tier.
+      - name: stepEnd
+        type: float
+        description: |-
+          Upper bound of the tier.
+          Null represents the last tier.
+      - name: unitPrice
+        type: float
+        description: Tier unit price.
+      - name: discountUnitPrice
+        type: float
+        description: Discounted tier unit price.
+    - name: amountUnit
+      type: string
+      description: |-
+        Usage unit.
+        E.g. Mbps, LCU, etc.
+        If null, the value is unavailable.
+    - name: excessUnitPrice
+      type: float
+      description: Original excess price.
+    - name: excessDiscountUnitPrice
+      type: float
+      description: Discounted excess price.
+    - name: excessAmountUnit
+      type: string
+      description: |-
+        Excess usage unit.
+        If null, the value is unavailable.
+    - name: category
+      type: enum
+      description: Price category.
+      enum-values:
+      - value: STANDARD
+        desc: Standard price.
+      - value: CUSTOMIZED
+        desc: Fixed price.
+  - name: stock
+    type: integer
+    description: Stock quantity.

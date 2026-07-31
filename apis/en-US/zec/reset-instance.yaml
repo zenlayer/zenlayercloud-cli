@@ -6,22 +6,22 @@ long: |-
   Reinstall the operating system on an elastic compute instance.
   #### Prerequisites
 
-  * Query images: call [DescribeImages](../image/describeimages.md) to check information on images.
+  * Query images: call ~~DescribeImages~~ to query the operating system image information required for reinstallation.
 
 
-  **Note**
+  **Notes**
 
-  * If the `imageId` parameter is specified, the instance will be reinstalled using the specified image; otherwise, it will be reinstalled with its current image.
-  * Cross-OS type (`osType`) reinstallation is not supported. For example, reinstalling a `linux` instance as `windows` is not allowed.
-  * The boot disk size of the instance must be greater than or equal to the size of the reinstalled image. Otherwise, the operation will fail.
-  * The boot disk will be formatted and reset. Make sure there are no important files in the boot disk.
-  * Specify either a password or a key pair, not both.
-  * Only operations on instances that are in powered-off state are supported.
-  * `Windows` and `Generic` do not support SSH login via `key_id`.
-  * After reinstallation, the instance enters the `DEPLOYING` state. If the latest status of the instance changes to `RUNNING`, it means that the operation is successful. If it changes to `REINSTALL_FAILED`, it means that the operation has failed. Please contact the administrator. You can call `DescribeInstancesStatus` to query the instance status.
+  * If the `imageId` parameter is specified, the instance is reinstalled using the specified image; otherwise, it is reinstalled using the image currently in use by the instance.
+  * Cross-OS-type (`osType`) reinstallation is not supported — for example, reinstalling an instance with OS type `linux` as `windows`.
+  * The instance's system disk size must be greater than or equal to the size of the image being reinstalled; otherwise the operation will be rejected.
+  * The system disk will be formatted and reset; please ensure there are no important files on the system disk.
+  * You must specify either a password or a key pair — exactly one of the two.
+  * The instance must be powered off before system reinstallation can be performed.
+  * `Windows` and `Generic` do not support SSH login via a specified `key_id`.
+  * After reinstallation, the instance enters the `DEPLOYING` state. If the instance's latest status changes to `RUNNING`, the operation succeeded; if it changes to `REINSTALL_FAILED`, the operation failed — please contact the administrator. The instance status can be queried via the [`DescribeInstancesStatus`](describeinstancesstatus.md) API.
 examples:
 - cmd: zeno zec reset-instance --instance-id <instanceId> --image-id ubuntu2022 --password Example+123 --enable-agent true
-  desc: Reinstall operating system.
+  desc: Reinstall the OS.
 sdk:
   service: zec
   version: '2025-09-01'

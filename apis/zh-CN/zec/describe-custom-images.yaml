@@ -125,7 +125,9 @@ response:
   item-schema:
   - name: regionIdList
     type: string-array
-    description: 镜像当前可用的区域ID列表。
+    description: |-
+      镜像当前可用的区域ID列表。
+      为空则说明镜像还处于创建中暂无任何区域可用。
   - name: resourceGroupId
     type: string
     description: 资源组ID。
@@ -160,7 +162,9 @@ response:
       desc: 应用镜像。
   - name: imageSize
     type: string
-    description: 镜像的大小。
+    description: |-
+      镜像的大小，单位GiB。
+      当镜像为自定义镜像时此字段可能为null，当镜像状态处于`AVAILABLE`后有值。
   - name: minDiskSize
     type: integer
     description: 创建实例系统盘所需最小容量，单位GiB。

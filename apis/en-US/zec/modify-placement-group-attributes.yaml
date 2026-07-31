@@ -6,9 +6,10 @@ long: |-
   Modify the name, number of partitions, affinity of the placement group.
   **Notes**
 
-  * The partition count (partitionNum) must be greater than or equal to the current number of instances.
+  * The partition count (`partitionNum`) must be greater than or equal to the current number of instances.
   * The affinity value range is from 1 to floor(partitionNum / 2).
-  * If the modified partition count or affinity does not satisfy the current instance distribution, the modification will be rejected. Please remove the relevant instances before retrying.
+  * If the modified partition count or affinity does not fit the current instance distribution, the modification will be rejected — please remove the relevant instances before retrying.
+  * The zone of the placement group cannot be modified.
 examples:
 - cmd: zeno zec modify-placement-group-attributes --placement-group-id placementgroup-xxxxxxxx --name new-placement-group-name
   desc: Modify the placement group name.

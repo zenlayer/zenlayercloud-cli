@@ -3,6 +3,13 @@ product: zec
 use: change-eip-internet-charge-type
 short: Changes the network billing method of an elastic IP
 long: Change the network billing method of an elastic IP.
+examples:
+- cmd: zeno zec change-eip-internet-charge-type --eip-id <eipId> --internet-charge-type ByBandwidth --bandwidth 10
+  desc: Change to fixed bandwidth billing.
+- cmd: zeno zec change-eip-internet-charge-type --eip-id <eipId> --internet-charge-type ByTrafficPackage --flow-package 100
+  desc: Change to traffic package billing.
+- cmd: zeno zec change-eip-internet-charge-type --eip-id <eipId> --internet-charge-type BandwidthCluster --cluster-id <clusterId>
+  desc: Change to shared bandwidth package billing.
 sdk:
   service: zec
   version: '2025-09-01'
@@ -45,14 +52,15 @@ parameters:
   type: integer
   required: false
   sdk-field: bandwidthCap
-  description: Bandwidth peak limit (Mbps).
+  description: Deprecated, this parameter no longer takes effect.
+  deprecated: true
 - name: cluster-id
   type: string
   required: false
   sdk-field: clusterId
   description: |-
-    Bandwidth cluster ID.
-    Must be specified if changing to bandwidth cluster billing.
+    Shared bandwidth package ID.
+    Must be specified when changing to shared bandwidth package billing.
 response:
 - name: orderNumber
   type: string

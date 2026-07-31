@@ -5,7 +5,7 @@ short: Queries available zones
 long: Query availability zones available.
 examples:
 - cmd: zeno zec describe-zones --zone-ids sa-north-1a --zone-ids asia-east-1a
-  desc: Query the available zone list.
+  desc: Query the list of available zones.
 sdk:
   service: zec
   version: '2025-09-01'

@@ -1,7 +1,7 @@
 name: InquiryPriceModifyEipBandwidth
 product: zec
 use: inquiry-price-modify-eip-bandwidth
-short: 查询调整EIP带宽后的价格。
+short: 查询调整EIP带宽后的价格
 long: |-
   查询调整EIP带宽后的价格。
   **注意事项**

@@ -2,12 +2,16 @@ name: DescribeNetworkInterfaces
 product: zec
 use: describe-network-interfaces
 short: 网卡列表
-long: 查询一个或多个指定网卡的信息。用户可以根据 网卡ID、网卡名称等信息来搜索网卡信息。
+long: |-
+  查询一个或多个指定网卡的信息。用户可以根据 网卡ID、网卡名称等信息来搜索网卡信息。
+  **注意事项**
+
+  * `publicIpList` 中，网段(Block)型 EIP 会展示为带掩码的完整 CIDR（如 `80.122.125.0/31`），单个地址型 EIP 仍展示为普通IP（如 `128.0.0.2`）。
 examples:
 - cmd: zeno zec describe-network-interfaces --nic-type Secondary --page-size 1 --page-num 1
   desc: 查询辅助网卡列表。
 - cmd: zeno zec describe-network-interfaces --subnet-id <subnetId> --nic-subnet-type IPv4_IPv6 --page-size 20 --page-num 1
-  desc: 查询指定子网内持有 IPv6 的网卡列表（用于关闭子网 IPv6 前确认）。
+  desc: 查询指定子网内持有IPv6的网卡列表（用于关闭子网IPv6前确认）。
 sdk:
   service: zec
   version: '2025-09-01'

@@ -1,0 +1,32 @@
+name: ModifyCloudRoutersAttribute
+product: sdn
+use: modify-cloud-routers-attribute
+short: Modify Cloud Router Attribute
+long: |-
+  Modify Cloud Router Attribute
+  **Notes**
+
+  * If any of the specified Cloud Routers does not exist, this operation fails immediately.
+examples:
+- cmd: zeno sdn modify-cloud-routers-attribute --cloud-router-ids your-cloud-router-id --cloud-router-name Global-Edge-Router --cloud-router-description ""Global edge router for production traffic""
+  desc: Modify the Cloud Router name.
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: ModifyCloudRoutersAttribute
+parameters:
+- name: cloud-router-ids
+  type: string-array
+  required: true
+  sdk-field: cloudRouterIds
+  description: List of Cloud Router IDs, up to 100.
+- name: cloud-router-name
+  type: string
+  required: false
+  sdk-field: cloudRouterName
+  description: Cloud Router name, up to 255 characters. At least one of name or description must be specified.
+- name: cloud-router-description
+  type: string
+  required: false
+  sdk-field: cloudRouterDescription
+  description: Cloud Router description, up to 255 characters. At least one of name or description must be specified.

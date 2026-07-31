@@ -1,0 +1,423 @@
+name: InquiryCreatePrivateConnectPrice
+product: sdn
+use: inquiry-create-private-connect-price
+short: 二层网络专线询价
+long: 二层网络专线询价
+examples:
+- cmd: zeno sdn inquiry-create-private-connect-price
+  desc: 对1个二层网络专线（A 和 Z 都是数据中心端口）进行询价,带宽为默认1Mbps。
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: InquiryCreatePrivateConnectPrice
+parameters:
+- name: bandwidth-mbps
+  type: integer
+  required: false
+  sdk-field: bandwidthMbps
+  description: |-
+    二层网络专线最大带宽限制。
+    默认为 1，单位：Mbps。
+- name: internet-type
+  type: enum
+  required: false
+  sdk-field: internetType
+  description: 网络计费方式。
+  enum-values:
+  - value: ByBandwidth
+    desc: 固定带宽计费。
+  - value: ByInstanceBandwidth95
+    desc: 95带宽计费。
+- name: commit-bandwidth
+  type: integer
+  required: false
+  sdk-field: commitBandwidth
+  description: |-
+    保底带宽。
+    单位：Mbps。
+- name: endpoint-a
+  type: object
+  required: true
+  sdk-field: endpointA
+  description: 二层网络专线一端的连接点（A）。
+  object-schema:
+  - name: portId
+    type: string
+    description: |-
+      数据中心端口 ID。
+      连接点为数据中心端口时使用。
+  - name: vlanId
+    type: integer
+    description: VLAN ID。
+  - name: cloudRegionId
+    type: string
+    description: |-
+      云地域 ID。
+      连接点为云连接时使用。
+  - name: cloudAccountId
+    type: string
+    description: |-
+      云账号 ID。
+      连接点为云连接时使用。
+  - name: haType
+    type: enum
+    description: 云连接高可用类型。
+    enum-values:
+    - value: PRIMARY
+      desc: 主用。
+    - value: SECONDARY
+      desc: 备用。
+  - name: cloudBandwidthMbps
+    type: integer
+    description: |-
+      云连接带宽限制。
+      单位：Mbps。
+  - name: dcId
+    type: string
+    description: 数据中心 ID。
+  - name: cloudType
+    type: enum
+    description: 云厂商类型。
+    enum-values:
+    - value: AWS
+      desc: 亚马逊云。
+    - value: TENCENT
+      desc: 腾讯云。
+    - value: GOOGLE
+      desc: 谷歌云。
+    - value: AZURE
+      desc: 微软 Azure。
+    - value: ALI_CLOUD
+      desc: 阿里云。
+    - value: HUAWEI_CLOUD
+      desc: 华为云。
+    - value: BYTE_PLUS
+      desc: 火山引擎（BytePlus）。
+    - value: ORACLE
+      desc: 甲骨文云（Oracle）。
+  - name: endpointName
+    type: string
+    description: |-
+      连接点名称。
+      仅允许字母、数字和连字符。
+- name: endpoint-z
+  type: object
+  required: true
+  sdk-field: endpointZ
+  description: 二层网络专线另一端的连接点（Z）。
+  object-schema:
+  - name: portId
+    type: string
+    description: |-
+      数据中心端口 ID。
+      连接点为数据中心端口时使用。
+  - name: vlanId
+    type: integer
+    description: VLAN ID。
+  - name: cloudRegionId
+    type: string
+    description: |-
+      云地域 ID。
+      连接点为云连接时使用。
+  - name: cloudAccountId
+    type: string
+    description: |-
+      云账号 ID。
+      连接点为云连接时使用。
+  - name: haType
+    type: enum
+    description: 云连接高可用类型。
+    enum-values:
+    - value: PRIMARY
+      desc: 主用。
+    - value: SECONDARY
+      desc: 备用。
+  - name: cloudBandwidthMbps
+    type: integer
+    description: |-
+      云连接带宽限制。
+      单位：Mbps。
+  - name: dcId
+    type: string
+    description: 数据中心 ID。
+  - name: cloudType
+    type: enum
+    description: 云厂商类型。
+    enum-values:
+    - value: AWS
+      desc: 亚马逊云。
+    - value: TENCENT
+      desc: 腾讯云。
+    - value: GOOGLE
+      desc: 谷歌云。
+    - value: AZURE
+      desc: 微软 Azure。
+    - value: ALI_CLOUD
+      desc: 阿里云。
+    - value: HUAWEI_CLOUD
+      desc: 华为云。
+    - value: BYTE_PLUS
+      desc: 火山引擎（BytePlus）。
+    - value: ORACLE
+      desc: 甲骨文云（Oracle）。
+  - name: endpointName
+    type: string
+    description: |-
+      连接点名称。
+      仅允许字母、数字和连字符。
+response:
+- name: privateConnectPrice
+  type: object
+  description: 二层网络专线带宽价格。
+  object-schema:
+  - name: discount
+    type: float
+    description: |-
+      折扣大小。
+      如80.0代表8折。
+  - name: discountPrice
+    type: float
+    description: |-
+      后付费的单元折后价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: originalPrice
+    type: float
+    description: |-
+      预付费的原价。
+      预付费模式使用，后付费该值为 null。
+  - name: unitPrice
+    type: float
+    description: |-
+      后付费的单元原始价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: discountUnitPrice
+    type: float
+    description: |-
+      后付费的单元折后价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: chargeUnit
+    type: string
+    description: |-
+      后付费计价单元。
+      后付费模式使用，可取值范围：<br/>HOUR: 表示计价单元是按每小时来计算。
+      DAY: 表示计价单元是按天来计算。
+      MONTH: 表示计价单元是按月来计算，95计费则是这种。
+  - name: stepPrices
+    type: object-array
+    description: |-
+      后付费阶梯价格。
+      后付费模式使用，如果非阶梯价格，该项为null。
+    array-style: json
+    item-schema:
+    - name: stepStart
+      type: float
+      description: 阶梯的起始值。
+    - name: stepEnd
+      type: float
+      description: |-
+        阶梯的到达值。
+        为null代表最后一级阶梯。
+    - name: unitPrice
+      type: float
+      description: 阶梯单价。
+    - name: discountUnitPrice
+      type: float
+      description: 阶梯折后价。
+  - name: amountUnit
+    type: string
+    description: |-
+      用量单位。
+      比如Mbps, LCU等。
+      如果为null, 代表取不到值。
+  - name: excessUnitPrice
+    type: float
+    description: 超量原始价格。
+  - name: excessDiscountUnitPrice
+    type: float
+    description: 超量折扣后价格。
+  - name: excessAmountUnit
+    type: string
+    description: |-
+      超量用量单位。
+      如果为null, 代表取不到值。
+  - name: category
+    type: enum
+    description: 价格所属类别。
+    enum-values:
+    - value: STANDARD
+      desc: 标准价格。
+    - value: CUSTOMIZED
+      desc: 一口价格。
+- name: privateConnectBandwidth
+  type: integer
+  description: 二层网络专线带宽。
+- name: endpointAPrice
+  type: object
+  description: A 端连接点的建设价格。
+  object-schema:
+  - name: discount
+    type: float
+    description: |-
+      折扣大小。
+      如80.0代表8折。
+  - name: discountPrice
+    type: float
+    description: |-
+      后付费的单元折后价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: originalPrice
+    type: float
+    description: |-
+      预付费的原价。
+      预付费模式使用，后付费该值为 null。
+  - name: unitPrice
+    type: float
+    description: |-
+      后付费的单元原始价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: discountUnitPrice
+    type: float
+    description: |-
+      后付费的单元折后价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: chargeUnit
+    type: string
+    description: |-
+      后付费计价单元。
+      后付费模式使用，可取值范围：<br/>HOUR: 表示计价单元是按每小时来计算。
+      DAY: 表示计价单元是按天来计算。
+      MONTH: 表示计价单元是按月来计算，95计费则是这种。
+  - name: stepPrices
+    type: object-array
+    description: |-
+      后付费阶梯价格。
+      后付费模式使用，如果非阶梯价格，该项为null。
+    array-style: json
+    item-schema:
+    - name: stepStart
+      type: float
+      description: 阶梯的起始值。
+    - name: stepEnd
+      type: float
+      description: |-
+        阶梯的到达值。
+        为null代表最后一级阶梯。
+    - name: unitPrice
+      type: float
+      description: 阶梯单价。
+    - name: discountUnitPrice
+      type: float
+      description: 阶梯折后价。
+  - name: amountUnit
+    type: string
+    description: |-
+      用量单位。
+      比如Mbps, LCU等。
+      如果为null, 代表取不到值。
+  - name: excessUnitPrice
+    type: float
+    description: 超量原始价格。
+  - name: excessDiscountUnitPrice
+    type: float
+    description: 超量折扣后价格。
+  - name: excessAmountUnit
+    type: string
+    description: |-
+      超量用量单位。
+      如果为null, 代表取不到值。
+  - name: category
+    type: enum
+    description: 价格所属类别。
+    enum-values:
+    - value: STANDARD
+      desc: 标准价格。
+    - value: CUSTOMIZED
+      desc: 一口价格。
+- name: endpointABandwidth
+  type: integer
+  description: A 端连接点带宽。
+- name: endpointZPrice
+  type: object
+  description: Z 端连接点的建设价格。
+  object-schema:
+  - name: discount
+    type: float
+    description: |-
+      折扣大小。
+      如80.0代表8折。
+  - name: discountPrice
+    type: float
+    description: |-
+      后付费的单元折后价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: originalPrice
+    type: float
+    description: |-
+      预付费的原价。
+      预付费模式使用，后付费该值为 null。
+  - name: unitPrice
+    type: float
+    description: |-
+      后付费的单元原始价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: discountUnitPrice
+    type: float
+    description: |-
+      后付费的单元折后价格。
+      后付费模式使用，如果价格为阶梯价格，该项为null。
+  - name: chargeUnit
+    type: string
+    description: |-
+      后付费计价单元。
+      后付费模式使用，可取值范围：<br/>HOUR: 表示计价单元是按每小时来计算。
+      DAY: 表示计价单元是按天来计算。
+      MONTH: 表示计价单元是按月来计算，95计费则是这种。
+  - name: stepPrices
+    type: object-array
+    description: |-
+      后付费阶梯价格。
+      后付费模式使用，如果非阶梯价格，该项为null。
+    array-style: json
+    item-schema:
+    - name: stepStart
+      type: float
+      description: 阶梯的起始值。
+    - name: stepEnd
+      type: float
+      description: |-
+        阶梯的到达值。
+        为null代表最后一级阶梯。
+    - name: unitPrice
+      type: float
+      description: 阶梯单价。
+    - name: discountUnitPrice
+      type: float
+      description: 阶梯折后价。
+  - name: amountUnit
+    type: string
+    description: |-
+      用量单位。
+      比如Mbps, LCU等。
+      如果为null, 代表取不到值。
+  - name: excessUnitPrice
+    type: float
+    description: 超量原始价格。
+  - name: excessDiscountUnitPrice
+    type: float
+    description: 超量折扣后价格。
+  - name: excessAmountUnit
+    type: string
+    description: |-
+      超量用量单位。
+      如果为null, 代表取不到值。
+  - name: category
+    type: enum
+    description: 价格所属类别。
+    enum-values:
+    - value: STANDARD
+      desc: 标准价格。
+    - value: CUSTOMIZED
+      desc: 一口价格。
+- name: endpointZBandwidth
+  type: integer
+  description: Z 端连接点带宽。

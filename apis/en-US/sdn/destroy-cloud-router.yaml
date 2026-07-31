@@ -1,0 +1,24 @@
+name: DestroyCloudRouter
+product: sdn
+use: destroy-cloud-router
+short: Destroy Cloud Router
+long: |-
+  Destroy Cloud Router
+  **Notes**
+
+  * This operation is irreversible. Once successful, the Cloud Router will be permanently released -- proceed with caution.
+  * This API can only be called to permanently destroy a Cloud Router that is in **RECYCLED** status (i.e. after being deleted via [DeleteCloudRouter](delete-cloud-router.md)).
+  * This is an asynchronous API. After the destroy request is successfully submitted, the destroy operation is not completed immediately. During this period the Cloud Router status will be **`DESTROYING`**. Once destroyed successfully, information about the Cloud Router can no longer be queried.
+examples:
+- cmd: zeno sdn destroy-cloud-router --cloud-router-id your-cloud-router-id
+  desc: Destroy a Cloud Router.
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: DestroyCloudRouter
+parameters:
+- name: cloud-router-id
+  type: string
+  required: true
+  sdk-field: cloudRouterId
+  description: Cloud Router ID.

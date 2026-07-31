@@ -2,7 +2,7 @@ name: DescribeDiskCategory
 product: zec
 use: describe-disk-category
 short: 查询可用区支持的云盘类型
-long: 查询指定可用区支持的云硬盘类型列表，可按云盘类别进行过滤，用于创建云盘前的参数确认。
+long: 查询可用区支持的云盘类型。
 examples:
 - cmd: zeno zec describe-disk-category --zone-id europe-central-1a
   desc: 查询区域云硬盘支持的类型。

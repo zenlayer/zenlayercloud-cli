@@ -1,0 +1,157 @@
+name: DescribeCloudRouterAvailablePorts
+product: sdn
+use: describe-cloud-router-available-ports
+short: Query Available Ports
+long: |-
+  Query Available Ports
+  **Notes**
+
+  * Currently only ports with connectivity status **ACTIVE** can be added to a Cloud Router.
+examples:
+- cmd: zeno sdn describe-cloud-router-available-ports --port-ids your-port-id --dc-id SHA12 --page-size 20 --page-num 1
+  desc: Get the list of data center ports that can join a Cloud Router.
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: DescribeCloudRouterAvailablePorts
+parameters:
+- name: port-ids
+  type: string-array
+  required: false
+  sdk-field: portIds
+  description: List of physical port IDs, used to filter by port.
+- name: dc-id
+  type: string
+  required: false
+  sdk-field: dcId
+  description: Data center ID, used to filter by data center.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: 'Page size to return. Default: 20, maximum: 100.'
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: 'Page number to return. Default: 1.'
+response:
+- name: totalCount
+  type: integer
+  description: Total number of physical ports matching the criteria.
+- name: dataSet
+  type: object-array
+  description: List of physical ports that can be added to the network.
+  array-style: json
+  item-schema:
+  - name: portId
+    type: string
+    description: Port ID.
+  - name: portName
+    type: string
+    description: Port name.
+  - name: portRemarks
+    type: string
+    description: Port remarks.
+  - name: portType
+    type: string
+    description: Port spec.
+  - name: dcId
+    type: string
+    description: Data center four-letter code.
+  - name: dcName
+    type: string
+    description: Data center name.
+  - name: cityName
+    type: string
+    description: City name.
+  - name: areaName
+    type: string
+    description: Name of the region.
+  - name: businessEntityName
+    type: string
+    description: Business entity name, used as the LOA letterhead.
+  - name: connectionStatus
+    type: enum
+    description: Port connection status.
+    enum-values:
+    - value: ACTIVE
+      desc: The link is connected normally.
+    - value: DOWN
+      desc: The link is down.
+    - value: ABNORMAL
+      desc: The link is partially abnormal.
+  - name: portStatus
+    type: enum
+    description: Port business status.
+    enum-values:
+    - value: CREATING
+      desc: Creating.
+    - value: UPDATING
+      desc: Updating.
+    - value: DELETING
+      desc: Deleting.
+    - value: DESTROYING
+      desc: Destroying.
+    - value: RECOVERING
+      desc: Restoring.
+    - value: RUNNING
+      desc: Normal.
+    - value: NOT_ACCEPT
+      desc: Not accepted.
+    - value: RECYCLED
+      desc: Recycled.
+    - value: DESTROYED
+      desc: Destroyed.
+    - value: CREATING_FAILED
+      desc: Creation failed.
+    - value: UPDATING_FAILED
+      desc: Update failed.
+    - value: DELETING_FAILED
+      desc: Deletion failed.
+    - value: DESTROYING_FAILED
+      desc: Destruction failed.
+    - value: RECOVERING_FAILED
+      desc: Restore failed.
+  - name: loaStatus
+    type: enum
+    description: LOA status.
+    enum-values:
+    - value: LOA_NOT_UPLOAD
+      desc: LOA not uploaded
+    - value: LOA_UPLOADED
+      desc: LOA uploaded
+  - name: loaDownloadUrl
+    type: string
+    description: LOA download URL.
+  - name: createdTime
+    type: string
+    description: Creation time.
+  - name: expiredTime
+    type: string
+    description: Expiration time.
+  - name: period
+    type: integer
+    description: Purchase duration, in months.
+  - name: isCreateBusinessAllowed
+    type: boolean
+    description: Whether business can be provisioned on this port.
+  - name: tags
+    type: object
+    description: Tags associated with the port.
+    object-schema:
+    - name: tags
+      type: object-array
+      description: List of tag pairs.
+      array-style: json
+      item-schema:
+      - name: key
+        type: string
+        description: |-
+          Tag key.
+          Length: 1-64 characters.
+      - name: value
+        type: string
+        description: |-
+          Tag value.
+          Length: 1-64 characters.

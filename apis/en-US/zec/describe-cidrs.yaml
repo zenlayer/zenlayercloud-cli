@@ -2,10 +2,15 @@ name: DescribeCidrs
 product: zec
 use: describe-cidrs
 short: Queries the information of one or more specified CIDR blocks
-long: Query the information of one or more specified CIDR blocks. Users can search for CIDR block information based on CIDR block ID, CIDR block name, etc.
+long: |-
+  Query the information of one or more specified CIDR blocks. Users can search for CIDR block information based on CIDR block ID, CIDR block name, etc.
+  **Note**
+
+  * `usedCount` is deprecated (always empty). Use `availableCount` to determine how many IP addresses are currently available in this CIDR.
+  * `availableCount` = `totalCount` − the number of addresses actually in use (for a block-type (Block) EIP, all addresses covered by its prefix length are counted, without excluding `.0`/`.255`).
 examples:
-- cmd: zeno zec describe-cidrs --cidr-ids xxx --region-id asia-east-1 --cidr-block 128.0.0.0/24 --page-size 10 --page-num 1
-  desc: Query the list of CIDR blocks within `128.0.0.0/24`.
+- cmd: zeno zec describe-cidrs --region-id asia-east-1 --cidr-block 128.0.0.0/24 --page-size 10 --page-num 1
+  desc: Query the list of CIDR blocks with CidrBlock `128.0.0.0/24`.
 sdk:
   service: zec
   version: '2025-09-01'
@@ -119,7 +124,9 @@ response:
     description: Quantity of available CIDR IPs.
   - name: usedCount
     type: integer
-    description: Quantity of used CIDR IPs.
+    description: |-
+      Number of IP addresses already used in the CIDR block.
+      Deprecated, please refer to `availableCount`.
   - name: source
     type: enum
     description: |-
@@ -236,16 +243,16 @@ response:
         description: 'Tag value. Length limit: 1 to 64 characters.'
   - name: asnObservation
     type: object
-    description: ASN observation result.
+    description: ASN observation result. Only available when the CIDR source is BYOIP.
     object-schema:
     - name: verificationStatus
       type: enum
       description: ASN verification status.
       enum-values:
       - value: agreed
-        desc: Observation results from all data sources are consistent.
+        desc: The RIPE-observed ASN matches the declared ASN.
       - value: disagreed
-        desc: Observation results from data sources are inconsistent.
+        desc: The RIPE-observed ASN does not match the declared ASN.
       - value: unavailable
         desc: The primary data source query failed or returned no match.
       - value: querying
@@ -271,10 +278,10 @@ response:
       description: List of ASNs observed by the primary data source.
     - name: secondarySource
       type: string
-      description: Name of the secondary data source, e.g., BGP Tool.
+      description: This field has been deprecated and always returns null.
     - name: secondaryStatus
       type: enum
-      description: Query status of the secondary data source.
+      description: This field has been deprecated and always returns null.
       enum-values:
       - value: QUERYING
         desc: Querying.
@@ -284,4 +291,21 @@ response:
         desc: Query failed.
     - name: secondaryAsns
       type: integer-array
-      description: List of ASNs observed by the secondary data source.
+      description: This field has been deprecated and always returns null.
+  - name: availableCidr
+    type: object-array
+    description: |-
+      List of CIDR blocks that can currently be created from this CIDR, grouped and counted by prefix length.
+      Use this to confirm whether an available CIDR block still exists at a given prefix length before creating a block-type EIP.
+      Returns an empty list when no CIDR block is available.
+    array-style: json
+    item-schema:
+    - name: prefixLength
+      type: integer
+      description: Prefix length.
+    - name: count
+      type: integer
+      description: Number of CIDR blocks that can currently be created at this prefix length.
+  - name: availableCount
+    type: integer
+    description: Number of IP addresses currently available in the CIDR (= totalCount − the number of addresses actually in use; for a block-type (Block) EIP, all addresses covered by its prefix length are counted).

@@ -12,7 +12,7 @@ long: |-
   * 该操作为异步执行，调用成功后流量包变更将在后台处理。可通过查询EIP列表接口的 `operationInfo` 字段获取当前操作状态。
 examples:
 - cmd: zeno zec modify-eip-traffic-package --eip-id "< EipId >" --traffic-package-size 10
-  desc: 调整EIP流量包到10TB。
+  desc: 调整EIP流量包到10TB
 sdk:
   service: zec
   version: '2025-09-01'

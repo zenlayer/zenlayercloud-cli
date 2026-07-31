@@ -1,0 +1,94 @@
+name: DescribeIPTransitAvailableCidrBlocks
+product: ipt
+use: describe-ip-transit-available-cidr-blocks
+short: 查询IP Transit可用公网地址段
+long: |-
+  查询IP Transit可用公网地址段
+  **注意事项**
+
+  * `routingType` 影响可返回的掩码范围：Static 和 BGP 路由支持 /24–/32 的 IPv4 掩码；Gateway 路由仅支持 /24–/30。不传时返回全量掩码。
+  * 传入 `iptDcId` 时按该数据中心查询，`routingType` 可选。
+  * 传入 `ipUuid` 时可不传 `iptDcId` 和 `routingType`，接口会从该 IP 块所属的 RIPT 自动推导；同时只返回与当前 IP 块协议栈类型及网络类型一致、且掩码值不等于当前块的可选项。
+  * ZBG 场景下需同时传入 `zbgRegionId`，IPv6 CIDR 块在 ZBG 场景下不返回。
+examples:
+- cmd: zeno ipt describe-ip-transit-available-cidr-blocks --ipt-dc-id AMS1 --routing-type BGP
+  desc: 查询 AMS1 数据中心 BGP 路由下可用的公网 CIDR 掩码列表。
+- cmd: zeno ipt describe-ip-transit-available-cidr-blocks --ip-uuid your-ip-uuid
+  desc: 仅传 ipUuid：自动推导数据中心和路由类型，返回与当前 IP 块网络类型相同、掩码不等于当前块的可选项。
+sdk:
+  service: ipt
+  version: '2024-09-01'
+  action: DescribeIPTransitAvailableCidrBlocks
+parameters:
+- name: ipt-dc-id
+  type: string
+  required: false
+  sdk-field: iptDcId
+  description: |-
+    目标数据中心 ID。
+    传入 ipUuid 时可不传，将从该 IP 块所在数据中心自动推导。
+- name: routing-type
+  type: enum
+  required: false
+  sdk-field: routingType
+  description: |-
+    路由类型。
+    不同路由类型下可用掩码范围不同；不传则返回全量掩码。
+  enum-values:
+  - value: BGP
+    desc: BGP 路由模式。
+  - value: Static
+    desc: 静态路由模式。
+  - value: Gateway
+    desc: 网关路由模式。
+- name: zbg-region-id
+  type: string
+  required: false
+  sdk-field: zbgRegionId
+  description: |-
+    ZBG 区域 ID。
+    ZBG 场景下必传。
+- name: ip-uuid
+  type: string
+  required: false
+  sdk-field: ipUuid
+  description: |-
+    IP 地址 UUID。
+    传入后接口会自动推导所属数据中心和路由类型，仅返回掩码长度不小于当前 IP 块的可选项。
+response:
+- name: ipv4CidrBlocks
+  type: object-array
+  description: 可用 IPv4 CIDR 块列表。
+  array-style: json
+  item-schema:
+  - name: netmask
+    type: integer
+    description: |-
+      掩码长度。
+      IPv4 范围 24–32，IPv6 范围 48–64。
+  - name: ipNetworkType
+    type: enum
+    description: IP 网络类型。
+    enum-values:
+    - value: BGP_IP
+      desc: 普通 IP。
+    - value: LOCAL_IP
+      desc: 原生 IP。
+- name: ipv6CidrBlocks
+  type: object-array
+  description: 可用 IPv6 CIDR 块列表。
+  array-style: json
+  item-schema:
+  - name: netmask
+    type: integer
+    description: |-
+      掩码长度。
+      IPv4 范围 24–32，IPv6 范围 48–64。
+  - name: ipNetworkType
+    type: enum
+    description: IP 网络类型。
+    enum-values:
+    - value: BGP_IP
+      desc: 普通 IP。
+    - value: LOCAL_IP
+      desc: 原生 IP。

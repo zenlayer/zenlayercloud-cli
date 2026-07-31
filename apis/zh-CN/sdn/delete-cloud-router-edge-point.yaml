@@ -1,0 +1,29 @@
+name: DeleteCloudRouterEdgePoint
+product: sdn
+use: delete-cloud-router-edge-point
+short: 删除连接点
+long: |-
+  删除连接点
+  **注意事项**
+
+  * 三层网络中的连接点数量必须大于或等于2个，当连接点数量等于2个时，将无法移出。
+  * 本接口为异步接口，当请求下发成功后，操作并未立即完成。在此期间三层网络的状态将会处于**UPDATING**，当移除成功后，将无法再查询到该连接点的网络的相关信息。
+  * 更新中的三层网络将无法同时进行其他操作。
+examples:
+- cmd: zeno sdn delete-cloud-router-edge-point --cloud-router-id your-cloud-router-id --edge-point-id your-cloud-router-point-id
+  desc: 删除三层网络中某个边缘连接点。
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: DeleteCloudRouterEdgePoint
+parameters:
+- name: cloud-router-id
+  type: string
+  required: true
+  sdk-field: cloudRouterId
+  description: 连接点所在的三层网络 ID。
+- name: edge-point-id
+  type: string
+  required: true
+  sdk-field: edgePointId
+  description: 要移除的连接点 ID。

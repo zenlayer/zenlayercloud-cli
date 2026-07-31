@@ -1,0 +1,29 @@
+name: DescribeIPTransitAvailableAsns
+product: ipt
+use: describe-ip-transit-available-asns
+short: Query available ASNs for an IP Transit
+long: Queries available ASNs for an IP Transit.
+examples:
+- cmd: zeno ipt describe-ip-transit-available-asns
+  desc: Query the list of available ASNs under the current account.
+sdk:
+  service: ipt
+  version: '2024-09-01'
+  action: DescribeIPTransitAvailableAsns
+response:
+- name: dataSet
+  type: object-array
+  description: List of available ASNs.
+  array-style: json
+  item-schema:
+  - name: asn
+    type: string
+    description: ASN value.
+  - name: asnType
+    type: enum
+    description: ASN type (PUBLIC for public ASN, PRIVATE for private AS-SET).
+    enum-values:
+    - value: ASN
+      desc: A single ASN.
+    - value: AS_SET
+      desc: AS-SET.

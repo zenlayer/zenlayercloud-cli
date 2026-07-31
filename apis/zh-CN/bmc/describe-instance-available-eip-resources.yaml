@@ -2,9 +2,14 @@ name: DescribeInstanceAvailableEipResources
 product: bmc
 use: describe-instance-available-eip-resources
 short: 查询实例可绑定的Elastic IP列表
-long: 查询实例可绑定的EIP列表。
+long: |-
+  查询实例可绑定的EIP列表。
+  **注意事项**
+
+  * 返回结果只包含按业务规则确实可以绑定到该实例的 EIP，以下情况会被过滤掉：实例已绑定的同类型 EIP 数量达到配额上限；实例开启了网关模式（gateway mode）且 EIP 为 IPv4 掩码大于 29；查询 IPv6 类型时，该实例没有母 IPv6 地址。
+  * `ipType` 不填时默认查询 IPv4 类型的可用 EIP。
 examples:
-- cmd: zeno bmc describe-instance-available-eip-resources --instance-id instanceId1
+- cmd: zeno bmc describe-instance-available-eip-resources --instance-id instanceId1 --ip-type IPv4
   desc: 获取机器实例可用的EIP列表
 sdk:
   service: bmc
@@ -18,6 +23,16 @@ parameters:
   description: |-
     机器实例ID 。
     可通过DescribeInstances接口返回的instanceId获取。
+- name: ip-type
+  type: enum
+  required: false
+  sdk-field: ipType
+  description: EIP 类型，取值：IPv4、IPv6。不填默认查询 IPv4。
+  enum-values:
+  - value: IPv4
+    desc: IPv4。
+  - value: IPv6
+    desc: IPv6。
 response:
 - name: instanceEipResources
   type: object-array

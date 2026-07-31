@@ -1,10 +1,12 @@
 name: ModifyEipAttribute
 product: zec
 use: modify-eip-attribute
-short: Modifies the name of the elastic IP
+short: Modifies attributes of an elastic IP
 long: |-
-  Modifies the name of the specified elastic IP. To change the billing method or bandwidth, use
-  ChangeEipInternetChargeType or ModifyEipBandwidth instead.
+  Modifies attributes of an elastic IP. Currently this API supports modifying the name.
+  **Note**
+
+  * To modify the billing method or bandwidth, use the ~~ChangeEipInternetChargeType~~ or ~~ModifyEipBandwidth~~ API instead.
 examples:
 - cmd: zeno zec modify-eip-attribute --eip-id <eipId> --name Test-IP
   desc: Modify the name of the elastic IP.

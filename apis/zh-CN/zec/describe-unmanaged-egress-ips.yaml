@@ -4,7 +4,7 @@ use: describe-unmanaged-egress-ips
 short: 查询非托管出口IP列表
 long: 查询满足条件的非托管出口IP列表，返回IP基础信息及带宽限速模式。
 examples:
-- cmd: zeno zec describe-unmanaged-egress-ips --unmanaged-egress-ip-ids unmanagedEgressIp-xxx1 --unmanaged-egress-ip-ids unmanagedEgressIp-xxx2 --region-id asia-east-1 --vpc-id vpc-xxxxxx --page-size 20 --page-num 1
+- cmd: zeno zec describe-unmanaged-egress-ips --unmanaged-egress-ip-ids unmanagedEgressIp-xxx1 --unmanaged-egress-ip-ids unmanagedEgressIp-xxx2 --region-id asia-east-1a --vpc-id vpc-xxxxxx --page-size 20 --page-num 1
   desc: 查询非托管出口IP列表
 sdk:
   service: zec

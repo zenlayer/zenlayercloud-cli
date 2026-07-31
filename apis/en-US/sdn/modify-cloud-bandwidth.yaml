@@ -1,0 +1,33 @@
+name: ModifyCloudBandwidth
+product: sdn
+use: modify-cloud-bandwidth
+short: Modify Cloud Connect Bandwidth
+long: |-
+  Modify Cloud Connect Bandwidth
+  **Notes**
+
+  * The available bandwidth tiers for a Cloud Connect can be queried via the [`DescribeCloudAvailableBandwidthTiers`](describecloudavailablebandwidthtiers.md) API.
+  * AWS and Oracle do not support bandwidth limit modification; Azure only supports bandwidth expansion.
+  * For a Private Connect's Cloud Connect, the **endpointId** obtained via [`DescribePrivateConnects`](../private-connect/describeprivateconnects.md) is the Cloud Connect ID.
+  * For a Cloud Router's Cloud Connect, the edge point's **portId** obtained via [`DescribeCloudRouters`](../router/describe-cloud-routers.md) is the Cloud Connect ID.
+  * This is an asynchronous API, so the bandwidth change is not completed immediately. During this period the status of the Private Connect or Cloud Router the Cloud Connect belongs to will be **UPDATING**. For a Private Connect, the result can be checked via [`DescribePrivateConnects`](../private-connect/describeprivateconnects.md) -- if the status (privateConnectStatus) changes from **UPDATING** (modifying) to **AVAILABLE**, the bandwidth was updated successfully. For a Cloud Router, the result can be checked via [`DescribeCloudRouters`](../router/describe-cloud-routers.md) -- if the status (cloudRouterStatus) changes from **UPDATING** (modifying) to **RUNNING**, the bandwidth was updated successfully.
+  * Do not perform any other operation on the Cloud Connect or its associated Private Connect / Cloud Router while the bandwidth change is in progress.
+  * Note: after modifying the Cloud Connect's bandwidth limit via this API, subsequent bandwidth changes via [`ModifyPrivateConnectBandwidth`](../private-connect/modifyprivateconnectbandwidth.md) or [`ModifyCloudRouterEdgePointBandwidth`](../router/modifycloudrouteredgepointbandwidth.md) will only modify the backbone bandwidth and will no longer automatically modify the Cloud Connect's bandwidth.
+examples:
+- cmd: zeno sdn modify-cloud-bandwidth --cloud-port-id your-cloud-port-id --bandwidth-mbps 100
+  desc: Modify the Cloud Connect bandwidth to 100 Mbps.
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: ModifyCloudBandwidth
+parameters:
+- name: cloud-port-id
+  type: string
+  required: true
+  sdk-field: cloudPortId
+  description: Cloud Connect ID to modify.
+- name: bandwidth-mbps
+  type: integer
+  required: true
+  sdk-field: bandwidthMbps
+  description: The bandwidth limit to set, in Mbps. Must match one of the available bandwidth tiers.

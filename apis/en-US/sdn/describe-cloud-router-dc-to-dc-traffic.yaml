@@ -1,0 +1,94 @@
+name: DescribeCloudRouterDCToDCTraffic
+product: sdn
+use: describe-cloud-router-dc-to-dc-traffic
+short: Query Data Center to Data Center Traffic
+long: |-
+  Query Data Center to Data Center Traffic
+  **Notes**
+
+  * Data center information for access points in the Cloud Router can be obtained via the [DescribeCloudRouters](describe-cloud-routers.md) API.
+  * The span between the start time and end time cannot exceed one day.
+  * Only traffic data within the last 30 days can be queried.
+  * This API aggregates bandwidth by data center and cannot distinguish the traffic of individual access points within the same data center. For example, when querying bandwidth from data center A to Z, the result returned is the sum of all access points in A to Z, and the bandwidth between a specific access point and another cannot be obtained separately.
+examples:
+- cmd: zeno sdn describe-cloud-router-dc-to-dc-traffic --cloud-router-id your-cloudrouter-id --source-dc-id source-dc-id --destination-dc-id destination-dc-id --start-time 2026-01-01T00:00:00Z --end-time 2026-01-01T23:59:59Z
+  desc: Query the data center-to-data center traffic data in a Cloud Router over one day.
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: DescribeCloudRouterDCToDCTraffic
+parameters:
+- name: cloud-router-id
+  type: string
+  required: true
+  sdk-field: cloudRouterId
+  description: Cloud Router ID.
+- name: source-dc-id
+  type: string
+  required: true
+  sdk-field: sourceDcId
+  description: Source data center ID.
+- name: destination-dc-id
+  type: string
+  required: true
+  sdk-field: destinationDcId
+  description: Destination data center ID.
+- name: start-time
+  type: string
+  required: true
+  sdk-field: startTime
+  description: Query start time, in ISO 8601 format, UTC timezone.
+- name: end-time
+  type: string
+  required: false
+  sdk-field: endTime
+  description: Query end time, in ISO 8601 format, UTC timezone. Defaults to the current time.
+response:
+- name: dataList
+  type: object-array
+  description: List of traffic data points.
+  array-style: json
+  item-schema:
+  - name: internetRX
+    type: integer
+    description: |-
+      Inbound bandwidth value.
+      Unit: bps.
+  - name: internetTX
+    type: integer
+    description: |-
+      Outbound bandwidth value.
+      Unit: bps.
+  - name: time
+    type: string
+    description: |-
+      Data timestamp.
+      In ISO 8601 format, UTC timezone.
+      Format: YYYY-MM-ddTHH:mm:ssZ.
+- name: in95
+  type: integer
+  description: Inbound 95th percentile peak traffic.
+- name: inAvg
+  type: integer
+  description: Average inbound traffic.
+- name: inMax
+  type: integer
+  description: Maximum inbound traffic.
+- name: inMin
+  type: integer
+  description: Minimum inbound traffic.
+- name: out95
+  type: integer
+  description: Outbound 95th percentile peak traffic.
+- name: outAvg
+  type: integer
+  description: Average outbound traffic.
+- name: outMax
+  type: integer
+  description: Maximum outbound traffic.
+- name: outMin
+  type: integer
+  description: Minimum outbound traffic.
+- name: unit
+  type: string
+  description: Traffic unit, e.g. bps.

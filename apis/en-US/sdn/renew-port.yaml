@@ -1,0 +1,24 @@
+name: RenewPort
+product: sdn
+use: renew-port
+short: Renew Port
+long: |-
+  Renew Port
+  **Notes**
+
+  * Only ports with status **RECYCLED** can be restored via this API.
+examples:
+- cmd: zeno sdn renew-port --port-id your-port-id
+  desc: Delete
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: RenewPort
+parameters:
+- name: port-id
+  type: string
+  required: true
+  sdk-field: portId
+  description: |-
+    Port ID.
+    Can only be restored when the port status is RECYCLED.

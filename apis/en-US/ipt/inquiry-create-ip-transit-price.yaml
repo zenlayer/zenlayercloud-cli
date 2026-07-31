@@ -2,7 +2,11 @@ name: InquiryCreateIPTransitPrice
 product: ipt
 use: inquiry-create-ip-transit-price
 short: Query the price of creating an IP Transit
-long: Queries the price of creating an IP Transit.
+long: |-
+  Queries the price of creating an IP Transit.
+  **Notes**
+
+  * When `internetType=ByInstanceBandwidth95` (95th percentile billing), `commitBandwidth` is required. If `bandwidth` is also specified, it must be greater than or equal to `commitBandwidth`; otherwise the `INVALID_RIPT_BANDWIDTH_LESS_THAN_COMMIT` error is returned.
 examples:
 - cmd: zeno ipt inquiry-create-ip-transit-price --ipt-description test_ipt_desc --peer-port-id your-port-id --internet-type ByBandwidth --bandwidth 50 --ipt-dc-id AMS1 --routing-type Static --public-ipv4-block-size 25
   desc: Query the price of creating an IP Transit with a /25 public CIDR. Bandwidth cap is 50 Mbps, billing method is fixed bandwidth.
@@ -48,7 +52,8 @@ parameters:
   description: |-
     Bandwidth cap.
     Unit: Mbps.
-    Minimum value: 10 Mbps.
+    Minimum value: 5 Mbps.
+    Default value: 5 Mbps.
 - name: routing-type
   type: enum
   required: true
@@ -82,6 +87,99 @@ parameters:
     desc: All routes with default routes.
   - value: DEFAULT_ROUTES
     desc: Default routes.
+- name: ip-type
+  type: enum
+  required: false
+  sdk-field: ipType
+  description: |-
+    IP type (IPV4 / IPV6).
+    Default: IPV4.
+  enum-values:
+  - value: IPV4
+    desc: IPv4.
+  - value: IPV6
+    desc: IPv6.
+- name: public-ip-list
+  type: object-array
+  required: false
+  sdk-field: publicIpList
+  description: |-
+    List of public IP allocations.
+    Mutually exclusive with publicIPv4BlockSize and takes precedence.
+    If this field is specified, publicIPv4BlockSize is ignored.
+  array-style: json
+  item-schema:
+  - name: netmask
+    type: integer
+    description: |-
+      CIDR netmask length.
+      Valid IPv4 range: 24-30. Valid IPv6 range: 48-64.
+  - name: ipType
+    type: enum
+    description: IP type (IPV4 / IPV6).
+    enum-values:
+    - value: IPV4
+      desc: IPv4.
+    - value: IPV6
+      desc: IPv6.
+  - name: ipNetworkType
+    type: enum
+    description: |-
+      IP network type.
+      Default: BGP_IP (allocated from the IP pool).
+      LOCAL_IP indicates a native IP.
+    enum-values:
+    - value: BGP_IP
+      desc: Regular IP.
+    - value: LOCAL_IP
+      desc: Native IP.
+  - name: amount
+    type: integer
+    description: |-
+      Purchase quantity.
+      Specifies the number of IP blocks with the same netmask length. Default: 1.
+- name: zbg-region-id
+  type: string
+  required: false
+  sdk-field: zbgRegionId
+  description: |-
+    ZBG access node ID.
+    If specified, the Router RIPT price inquiry process is used.
+- name: ha-config
+  type: object
+  required: false
+  sdk-field: haConfig
+  description: |-
+    HA configuration.
+    If specified, the price inquiry includes the prices of two VLLs.
+  object-schema:
+  - name: haMode
+    type: enum
+    description: HA operating mode.
+    enum-values:
+    - value: ACTIVE_STANDBY
+      desc: |-
+        Active/standby mode.
+        Only the primary link forwards traffic.
+    - value: ACTIVE_ACTIVE
+      desc: |-
+        Active/active mode.
+        Both sub-links forward traffic simultaneously.
+  - name: secondaryPortId
+    type: string
+    description: |-
+      Access port ID of the secondary link.
+      Must be in the same city as but a different data center from the top-level peerPortId.
+  - name: secondaryPortVlanId
+    type: integer
+    description: VLAN ID of the secondary link port.
+- name: public-interconnect-netmask
+  type: integer
+  required: false
+  sdk-field: publicInterconnectNetmask
+  description: |-
+    Public interconnect block netmask.
+    If specified, the response includes the public interconnect IP block price.
 response:
 - name: privateConnectPrice
   type: object
@@ -345,3 +443,114 @@ response:
   - name: qty
     type: integer
     description: Number of IP CIDRs.
+  - name: ipNetworkType
+    type: enum
+    description: IP network type.
+    enum-values:
+    - value: BGP_IP
+      desc: Regular IP.
+    - value: LOCAL_IP
+      desc: Native IP.
+- name: publicInterconnectIpPrice
+  type: object
+  description: |-
+    Public interconnect IP price.
+    Returned only when publicInterconnectNetmask is specified.
+  object-schema:
+  - name: price
+    type: object
+    description: Price information of the IP CIDR.
+    object-schema:
+    - name: discount
+      type: float
+      description: |-
+        Discount.
+        For example, 80.0 means 20% off.
+    - name: discountPrice
+      type: float
+      description: |-
+        Discount unit price of pay-as-you-go resources.
+        Only used in pay-as-you-go model. For tiered billing, the value is empty.
+    - name: originalPrice
+      type: float
+      description: |-
+        Original price of subscription resources.
+        Only used in subscription model. For pay-as-you-go model, the value is empty.
+    - name: unitPrice
+      type: float
+      description: |-
+        Original unit price of pay-as-you-go resources.
+        Only used in pay-as-you-go model. For tiered billing, the value is empty.
+    - name: discountUnitPrice
+      type: float
+      description: |-
+        Discount unit price of pay-as-you-go resources.
+        Only used in pay-as-you-go model. For tiered billing, the value is empty.
+    - name: chargeUnit
+      type: string
+      description: |-
+        Unit of pay-as-you-go billing.
+        Only used in pay-as-you-go model. Value range:<br/>HOUR: you will be billed by hour.
+        DAY: you will be billed by day.
+        MONTH: you will be billed by month. For example, the burstable 95th pricing model.
+    - name: stepPrices
+      type: object-array
+      description: |-
+        Tiered price of pay-as-you-go billing.
+        Only used in pay-as-you-go model. If it is not tiered price, the value is empty.
+      array-style: json
+      item-schema:
+      - name: stepStart
+        type: float
+        description: First price range of a tiered price.
+      - name: stepEnd
+        type: float
+        description: Last price range of a tiered price.
+      - name: unitPrice
+        type: float
+        description: |-
+          Original unit price of current price range.
+          Only used in pay-as-you-go model.
+      - name: discountUnitPrice
+        type: float
+        description: |-
+          Discount unit price of current price range.
+          Only used in pay-as-you-go model.
+    - name: amountUnit
+      type: string
+      description: |-
+        Usage unit, such as Mbps, LCU, etc.
+        If null, the value is not available.
+    - name: excessUnitPrice
+      type: float
+      description: Original excess unit price.
+    - name: excessDiscountUnitPrice
+      type: float
+      description: Discounted excess unit price.
+    - name: excessAmountUnit
+      type: string
+      description: |-
+        Excess usage unit.
+        If null, the value is not available.
+    - name: category
+      type: enum
+      description: Price category.
+      enum-values:
+      - value: STANDARD
+        desc: Standard price.
+      - value: CUSTOMIZED
+        desc: Customized price.
+  - name: netmask
+    type: integer
+    description: IP CIDR netmask.
+  - name: qty
+    type: integer
+    description: Number of IP CIDRs.
+  - name: ipNetworkType
+    type: enum
+    description: IP network type.
+    enum-values:
+    - value: BGP_IP
+      desc: Regular IP.
+    - value: LOCAL_IP
+      desc: Native IP.

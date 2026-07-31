@@ -1,0 +1,78 @@
+name: DescribeCloudRouterAvailableVpcs
+product: sdn
+use: describe-cloud-router-available-vpcs
+short: 查询可用VPC
+long: 查询可用VPC
+examples:
+- cmd: zeno sdn describe-cloud-router-available-vpcs --vpc-id your-vpc-id --page-size 20 --page-num 1
+  desc: 获取可加入三层网络的VPC列表。
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: DescribeCloudRouterAvailableVpcs
+parameters:
+- name: vpc-id
+  type: string
+  required: false
+  sdk-field: vpcId
+  description: VPC ID。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    返回的分页大小。
+    默认为 20，最大为 100。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    返回的分页页码。
+    默认为 1。
+response:
+- name: totalCount
+  type: integer
+  description: 符合条件的 VPC 总数量。
+- name: dataSet
+  type: object-array
+  description: 可加入三层网络的 VPC 列表。
+  array-style: json
+  item-schema:
+  - name: vpcId
+    type: string
+    description: VPC 的 ID。
+  - name: vpcName
+    type: string
+    description: VPC 的名称。
+  - name: dataCenter
+    type: object
+    description: VPC 所在的数据中心信息。
+    object-schema:
+    - name: dcId
+      type: string
+      description: 数据中心ID。
+    - name: dcName
+      type: string
+      description: 数据中心名称。
+    - name: dcAddress
+      type: string
+      description: 数据中心地址。
+    - name: cityName
+      type: string
+      description: 数据中心所在城市名称。
+    - name: countryName
+      type: string
+      description: 数据中心所在国家名称。
+    - name: areaName
+      type: string
+      description: 数据中心所在区域名称。
+    - name: latitude
+      type: float
+      description: 数据中心所在地纬度。
+    - name: longitude
+      type: float
+      description: 数据中心所在地经度。
+  - name: cidrBlock
+    type: string
+    description: VPC 的 CIDR 网段。

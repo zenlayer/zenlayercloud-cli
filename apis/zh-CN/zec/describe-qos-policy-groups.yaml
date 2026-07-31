@@ -118,7 +118,7 @@ response:
     item-schema:
     - name: resourceId
       type: string
-      description: IP 资源 的ID。
+      description: IP 资源的ID。
     - name: ipType
       type: enum
       description: IP类型。

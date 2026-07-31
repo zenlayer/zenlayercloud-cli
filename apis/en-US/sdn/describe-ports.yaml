@@ -1,0 +1,196 @@
+name: DescribePorts
+product: sdn
+use: describe-ports
+short: Get Ports
+long: Get Ports
+examples:
+- cmd: zeno sdn describe-ports --port-ids your-port-id
+  desc: ''
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: DescribePorts
+parameters:
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: 'Number of items per page. Value range: 1-1000.'
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: Page number, starting from 1.
+- name: port-ids
+  type: string-array
+  required: false
+  sdk-field: portIds
+  description: 'List of port IDs. Maximum length: 100.'
+- name: port-name
+  type: string
+  required: false
+  sdk-field: portName
+  description: Port name, up to 255 characters. Supports fuzzy matching, case-insensitive.
+- name: dc-id
+  type: string
+  required: false
+  sdk-field: dcId
+  description: Data center four-letter code. Obtainable via the ~~DescribeDataCenters~~ API.
+- name: city-name
+  type: string
+  required: false
+  sdk-field: cityName
+  description: City name, up to 64 characters. Supports fuzzy matching, case-insensitive.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    Resource group ID.
+    If not specified, ports in all resource groups visible to the user are returned.
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    Search by tag keys.
+    Up to 20 tag keys.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    Search by tags.
+    Up to 20 tags.
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      Tag key.
+      Length: 1-64 characters.
+  - name: value
+    type: string
+    description: |-
+      Tag value.
+      Length: 1-64 characters.
+response:
+- name: totalCount
+  type: integer
+  description: Total number of records matching the criteria.
+- name: dataSet
+  type: object-array
+  description: The result set of the port list.
+  array-style: json
+  item-schema:
+  - name: portId
+    type: string
+    description: Port ID.
+  - name: portName
+    type: string
+    description: Port name.
+  - name: portRemarks
+    type: string
+    description: Port remarks.
+  - name: portType
+    type: string
+    description: Port spec.
+  - name: dcId
+    type: string
+    description: Data center four-letter code.
+  - name: dcName
+    type: string
+    description: Data center name.
+  - name: cityName
+    type: string
+    description: City name.
+  - name: areaName
+    type: string
+    description: Name of the region.
+  - name: businessEntityName
+    type: string
+    description: Business entity name, used as the LOA letterhead.
+  - name: connectionStatus
+    type: enum
+    description: Port connection status.
+    enum-values:
+    - value: ACTIVE
+      desc: The link is connected normally.
+    - value: DOWN
+      desc: The link is down.
+    - value: ABNORMAL
+      desc: The link is partially abnormal.
+  - name: portStatus
+    type: enum
+    description: Port business status.
+    enum-values:
+    - value: CREATING
+      desc: Creating.
+    - value: UPDATING
+      desc: Updating.
+    - value: DELETING
+      desc: Deleting.
+    - value: DESTROYING
+      desc: Destroying.
+    - value: RECOVERING
+      desc: Restoring.
+    - value: RUNNING
+      desc: Normal.
+    - value: NOT_ACCEPT
+      desc: Not accepted.
+    - value: RECYCLED
+      desc: Recycled.
+    - value: DESTROYED
+      desc: Destroyed.
+    - value: CREATING_FAILED
+      desc: Creation failed.
+    - value: UPDATING_FAILED
+      desc: Update failed.
+    - value: DELETING_FAILED
+      desc: Deletion failed.
+    - value: DESTROYING_FAILED
+      desc: Destruction failed.
+    - value: RECOVERING_FAILED
+      desc: Restore failed.
+  - name: loaStatus
+    type: enum
+    description: LOA status.
+    enum-values:
+    - value: LOA_NOT_UPLOAD
+      desc: LOA not uploaded
+    - value: LOA_UPLOADED
+      desc: LOA uploaded
+  - name: loaDownloadUrl
+    type: string
+    description: LOA download URL.
+  - name: createdTime
+    type: string
+    description: Creation time.
+  - name: expiredTime
+    type: string
+    description: Expiration time.
+  - name: period
+    type: integer
+    description: Purchase duration, in months.
+  - name: isCreateBusinessAllowed
+    type: boolean
+    description: Whether business can be provisioned on this port.
+  - name: tags
+    type: object
+    description: Tags associated with the port.
+    object-schema:
+    - name: tags
+      type: object-array
+      description: List of tag pairs.
+      array-style: json
+      item-schema:
+      - name: key
+        type: string
+        description: |-
+          Tag key.
+          Length: 1-64 characters.
+      - name: value
+        type: string
+        description: |-
+          Tag value.
+          Length: 1-64 characters.

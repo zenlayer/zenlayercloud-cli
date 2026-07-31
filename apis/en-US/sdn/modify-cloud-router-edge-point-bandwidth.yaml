@@ -1,0 +1,35 @@
+name: ModifyCloudRouterEdgePointBandwidth
+product: sdn
+use: modify-cloud-router-edge-point-bandwidth
+short: Modify Edge Point Bandwidth
+long: |-
+  Modify Edge Point Bandwidth
+  **Notes**
+
+  * Bandwidth limit changes can only be made when the Cloud Router edge point status is **RUNNING**.
+  * This is an asynchronous API, so the bandwidth change is not completed immediately. During this period the instance status will be **UPDATING**. The result can be checked by calling the DescribeCloudRouters API -- if the status (cloudRouterStatus) changes from **UPDATING** (modifying) to **RUNNING** (available), the bandwidth was updated successfully.
+  * Do not perform any other operation on the edge point while the bandwidth change is in progress.
+  * If the Cloud Router edge point is a Cloud Connect, and the Cloud Connect has not had a custom bandwidth limit set, this operation automatically sets the Cloud Connect's bandwidth limit to the bandwidth tier closest to the Cloud Router edge point's backbone bandwidth limit. You can customize the Cloud Connect's bandwidth limit via [`ModifyCloudBandwidth`](../cloud/modifycloudbandwidth.md).
+examples:
+- cmd: zeno sdn modify-cloud-router-edge-point-bandwidth --cloud-router-id your-cloud-router-id --edge-point-id one-of-egdgePoint-id --bandwidth-mbps 100
+  desc: Modify the Cloud Router edge point bandwidth to 100 Mbps.
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: ModifyCloudRouterEdgePointBandwidth
+parameters:
+- name: cloud-router-id
+  type: string
+  required: true
+  sdk-field: cloudRouterId
+  description: ID of the Cloud Router the edge point belongs to.
+- name: edge-point-id
+  type: string
+  required: true
+  sdk-field: edgePointId
+  description: Cloud Router edge point ID.
+- name: bandwidth-mbps
+  type: integer
+  required: true
+  sdk-field: bandwidthMbps
+  description: 'The bandwidth limit to set, in Mbps. Value range: 1-500.'

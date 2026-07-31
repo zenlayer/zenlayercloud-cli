@@ -4,16 +4,20 @@ use: inquiry-price-create-instance
 short: Queries the price of creating an elastic compute instance
 long: |-
   Query the price of creating an elastic compute instance.
-  * When querying the price for a GPU instance, pass the `instanceType` field returned by [`DescribeZoneGpuInstanceConfigInfos`](describezoneGpuinstanceconfiginfos.md) to `instanceType`. In this case, `gpuPrice` in the response is the GPU instance type fee, and `specPrice` is null.
+  * When querying the price for a GPU instance, pass the `instanceType` field returned by [`DescribeZoneGpuInstanceConfigInfos`](describezonegpuinstanceconfiginfos.md) to `instanceType`. In this case, `gpuPrice` in the response is the GPU instance type fee, and `specPrice` is null.
   * When querying the price for a standard instance, pass the `instanceType` field returned by [`DescribeZoneInstanceConfigInfos`](describezoneinstanceconfiginfos.md) to `instanceType`. In this case, `specPrice` in the response is the instance type fee, and `gpuPrice` is null.
   * The size of the guaranteed traffic package is only valid for billing periods of one month.
 examples:
 - cmd: zeno zec inquiry-price-create-instance --zone-id asia-east-1a --instance-type z2a.cpu.1 --instance-count 1
   desc: Query the price of creating an instance (without public IP).
 - cmd: zeno zec inquiry-price-create-instance --zone-id asia-east-1a --instance-type z2a.cpu.1 --network-line-type PremiumBGP --internet-charge-type ByBandwidth --bandwidth 1 --instance-count 1
-  desc: Query the price of creating an instance (PremiumBGP network, billed by bandwidth).
+  desc: Query the price of creating an instance (PremiumBGP line, billed by bandwidth).
 - cmd: zeno zec inquiry-price-create-instance --zone-id SEA-A --instance-type c.1c2g --network-line-type PathBasedBandwidthIP --internet-charge-type ByBandwidth --bandwidth 1 --instance-count 1
-  desc: Query the price of creating an instance (PathBasedBandwidthIP network, billed by bandwidth). ipv4BandwidthPrice is null; refer to ipv4BandwidthPrices for bandwidth details.
+  desc: Query the price of creating an instance (PathBasedBandwidthIP line, billed by bandwidth). `ipv4BandwidthPrice` is null; see `ipv4BandwidthPrices` for bandwidth details.
+- cmd: zeno zec inquiry-price-create-instance --zone-id asia-east-1a --instance-type z2a.cpu.1 --instance-count 1 --data-disks "{diskSize=100, diskCategory=Standard NVMe SSD}" --data-disks "{diskSize=200, diskCategory=Standard NVMe SSD}"
+  desc: Query the price of creating an instance configured with multiple data disks. Here `dataDiskPrice` is null; see `dataDiskPrices` for the full price breakdown.
+- cmd: zeno zec inquiry-price-create-instance --zone-id asia-east-1a --instance-type z2a.cpu.1 --instance-count 1 --data-disks "{diskSize=100, diskCategory=Standard NVMe SSD}"
+  desc: Query the price of creating an instance configured with only 1 data disk. Here both `dataDiskPrice` and `dataDiskPrices` return the price of that data disk.
 sdk:
   service: zec
   version: '2025-09-01'
@@ -28,7 +32,7 @@ parameters:
   type: string
   required: true
   sdk-field: instanceType
-  description: Instance type. For VM instances, the value can be obtained through [DescribeZoneInstanceConfigInfos](describezoneinstanceconfiginfos.md). For GPU instances, the value can be obtained through [DescribeZoneGpuInstanceConfigInfos](describezoneGpuinstanceconfiginfos.md).
+  description: Instance type. For VM instances, the value can be obtained through [DescribeZoneInstanceConfigInfos](describezoneinstanceconfiginfos.md). For GPU instances, the value can be obtained through [DescribeZoneGpuInstanceConfigInfos](describezonegpuinstanceconfiginfos.md).
 - name: eip-v4-type
   type: enum
   required: false
@@ -145,8 +149,52 @@ parameters:
   type: object
   required: false
   sdk-field: dataDisk
-  description: The size of the attached disk.
+  description: Data disk information. Only 1 data disk can be configured here; to configure multiple data disks, use dataDisks instead. If both are specified, dataDisks takes precedence.
   object-schema:
+  - name: diskId
+    type: string
+    description: |-
+      Disk ID.
+      This parameter is currently only used as a response parameter in query operations such as `DescribeInstances`, and cannot be used as an input parameter for write operations such as `CreateInstances`.
+  - name: diskName
+    type: string
+    description: |-
+      Disk name.
+      This parameter is currently only used as a response parameter for query operations such as DescribeInstances.
+  - name: diskSize
+    type: integer
+    description: |-
+      Disk size.
+      Unit: GiB.
+  - name: diskAmount
+    type: integer
+    description: |-
+      Number of disks.
+      This parameter is only used as an input parameter for APIs such as `CreateInstances` and `InquiryPriceCreateInstance`.
+  - name: portable
+    type: boolean
+    description: |-
+      Whether the disk is detachable.
+      This parameter is used  as a response parameter in query operations, not as an input parameter.
+      true means the disk will not be deleted when the instance is deleted.
+      false means the disk will be deleted when the instance is deleted.
+  - name: burstingEnabled
+    type: boolean
+    description: Whether to enable burstable performance.
+  - name: diskCategory
+    type: string
+    description: |-
+      Disk type.
+      Basic NVMe SSD: the Basic NVMe SSD.
+      Standard NVMe SSD: the Standard NVMe SSD.
+      Default value: Standard NVMe SSD.
+- name: data-disks
+  type: object-array
+  required: false
+  sdk-field: dataDisks
+  description: Data disk information; supports multiple data disks. If not specified, falls back to dataDisk.
+  array-style: json
+  item-schema:
   - name: diskId
     type: string
     description: |-
@@ -523,7 +571,10 @@ response:
       desc: Fixed price.
 - name: ipv4BandwidthPrices
   type: object-array
-  description: Detailed pricing for IPv4 bandwidth by traffic direction. Only returned when internetChargeType is specified. PathBasedBandwidthIP returns multiple entries (ipv4BandwidthPrice is null); other network types return a single entry (trafficType=ALL).
+  description: |-
+    Detailed pricing for IPv4 bandwidth by traffic direction.
+    Only returned when internetChargeType has a value.
+    PathBasedBandwidthIP lines return multiple entries (ipv4BandwidthPrice is null); other lines have this field as null, with the bandwidth price given in ipv4BandwidthPrice.
   array-style: json
   item-schema:
   - name: trafficType
@@ -867,8 +918,93 @@ response:
       desc: Fixed price.
 - name: dataDiskPrice
   type: object
-  description: The price of the attached disk.
+  description: The price of the data disk. Only returned when exactly 1 data disk is configured. See dataDiskPrices for the full price breakdown.
   object-schema:
+  - name: discount
+    type: float
+    description: |-
+      Discount.
+      For example, 80.0 means 20% off.
+  - name: discountPrice
+    type: float
+    description: |-
+      Discount price of postpaid resources.
+      Only used in pay-as-you-go model. For tiered billing, the value is empty.
+  - name: originalPrice
+    type: float
+    description: |-
+      Original price of prepaid resources.
+      Only used in subscription model. For pay-as-you-go model, the value is empty.
+  - name: unitPrice
+    type: float
+    description: |-
+      Original unit price of postpaid resources.
+      Only used in pay-as-you-go model. For tiered billing, the value is empty.
+  - name: discountUnitPrice
+    type: float
+    description: |-
+      Discount unit price of postpaid resources.
+      Only used in pay-as-you-go model. For tiered billing, the value is empty.
+  - name: chargeUnit
+    type: string
+    description: |-
+      Unit of postpaid billing.
+      Only used in pay-as-you-go model.
+      Value range:
+      HOUR : you will be billed by hour.
+      DAY : you will be billed by day.
+      MONTH : you will be billed by month. For example, the burstable 95th pricing model.
+  - name: stepPrices
+    type: object-array
+    description: |-
+      Tiered price of postpaid billing.
+      Only used in pay-as-you-go model. If it is not tiered price, the value is empty.
+    array-style: json
+    item-schema:
+    - name: stepStart
+      type: float
+      description: First price range of a tiered price.
+    - name: stepEnd
+      type: float
+      description: |-
+        Last price range of a tiered price.
+        If the value is empty, it means the last tier.
+    - name: unitPrice
+      type: float
+      description: Original unit price of current price range.
+    - name: discountUnitPrice
+      type: float
+      description: Discount unit price of current price range.
+  - name: amountUnit
+    type: string
+    description: |-
+      Unit of usage,
+      such as Mbps , LCU , and etc.
+      If the value is empty, it means there is no unit.
+  - name: excessUnitPrice
+    type: float
+    description: Original unit price of overages.
+  - name: excessDiscountUnitPrice
+    type: float
+    description: Discount unit price of overages.
+  - name: excessAmountUnit
+    type: string
+    description: |-
+      Unit of overage usage.
+      If the value is empty, it means there is no unit.
+  - name: category
+    type: enum
+    description: The category to which the price belongs.
+    enum-values:
+    - value: STANDARD
+      desc: Standard price.
+    - value: CUSTOMIZED
+      desc: Fixed price.
+- name: dataDiskPrices
+  type: object-array
+  description: The price breakdown of data disks, corresponding one-to-one, in order, with dataDisks in the request.
+  array-style: json
+  item-schema:
   - name: discount
     type: float
     description: |-

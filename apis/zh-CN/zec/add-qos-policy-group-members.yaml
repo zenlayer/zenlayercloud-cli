@@ -4,7 +4,7 @@ use: add-qos-policy-group-members
 short: 添加QoS策略组成员
 long: 向QoS策略组中添加EIP、IPv6或UNMANAGED出口IP。
 examples:
-- cmd: zeno zec add-qos-policy-group-members --qos-policy-group-id qos-xxxxxxxx --members "{resourceId=eip-xxxxxxxx, ipType=Eip}" --members "{resourceId=ipv6-xxxxxxxx, ipType=Ipv6}"
+- cmd: zeno zec add-qos-policy-group-members --qos-policy-group-id qpg-xxxxxxxx --members "{resourceId=eip-xxxxxxxx, ipType=Eip}" --members "{resourceId=ipv6-xxxxxxxx, ipType=Ipv6}"
   desc: 向QoS策略组中添加成员。
 sdk:
   service: zec
@@ -25,7 +25,7 @@ parameters:
   item-schema:
   - name: resourceId
     type: string
-    description: IP 资源 的ID。
+    description: IP 资源的ID。
   - name: ipType
     type: enum
     description: IP类型。

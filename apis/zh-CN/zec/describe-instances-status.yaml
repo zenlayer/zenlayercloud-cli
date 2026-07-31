@@ -1,7 +1,7 @@
 name: DescribeInstancesStatus
 product: zec
 use: describe-instances-status
-short: 查询实例的运行状态
+short: 查询实例的状态
 long: 批量查询一个或多个弹性计算实例的当前运行状态，支持按实例 ID 列表和资源组筛选，支持分页查询。
 examples:
 - cmd: zeno zec describe-instances-status
@@ -65,8 +65,6 @@ response:
       desc: 系统关机中。
     - value: RECYCLE
       desc: 实例处于回收站。
-    - value: RECYCLING
-      desc: 实例回收中。
     - value: CREATE_FAILED
       desc: 创建失败。
     - value: IMAGING

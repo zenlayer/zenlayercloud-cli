@@ -9,7 +9,7 @@ long: |-
   * This operation is only supported for IPv6 CIDR blocks in the recycle bin (i.e., with state `RECYCLED`).
 examples:
 - cmd: zeno zec renew-ipv6-cidr --cidr-id <cidrId>
-  desc: Restore an IPv6 CIDR block.
+  desc: Restore an IPv6 CIDR block
 sdk:
   service: zec
   version: '2025-09-01'

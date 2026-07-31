@@ -1,0 +1,35 @@
+name: DescribeTencentVlanUsage
+product: sdn
+use: describe-tencent-vlan-usage
+short: 查询腾讯云接入点VLAN使用情况
+long: 查询腾讯云接入点VLAN使用情况
+examples:
+- cmd: zeno sdn describe-tencent-vlan-usage --dc-id 11aff7e7-94b8-4aa1-ba93-85c1f5b96f29
+  desc: 查询对应VLAN的使用情况
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: DescribeTencentVlanUsage
+parameters:
+- name: dc-id
+  type: string
+  required: true
+  sdk-field: dcId
+  description: 接入点的数据中心 ID。
+- name: pairing-key
+  type: string
+  required: false
+  sdk-field: pairingKey
+  description: |-
+    云平台配对密钥。
+    用于按密钥查询对应接入点的 VLAN 使用情况。
+response:
+- name: start
+  type: integer
+  description: 可用的 VLAN 范围起始值。
+- name: end
+  type: integer
+  description: 可用的 VLAN 范围结束值。
+- name: usedVlans
+  type: integer-array
+  description: 已使用的 VLAN 列表。

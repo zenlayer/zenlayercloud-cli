@@ -8,8 +8,10 @@ long: |-
 
   * 保底流量包大小仅对计费周期为月有效。
 examples:
-- cmd: zeno zec describe-eip-price --region-id asia-east-1 --amount 1 --name Test-EIP --internet-charge-type ByTrafficPackage --network-line-type PremiumBGP --bandwidth 50 --flow-package 10
+- cmd: zeno zec describe-eip-price --region-id asia-east-1 --amount 1 --internet-charge-type ByTrafficPackage --network-line-type PremiumBGP --bandwidth 50 --flow-package 10
   desc: 查询一个BGP公网IP的价格，网络计费采用流量包计费。流量包大小为10TB。
+- cmd: zeno zec describe-eip-price --region-id asia-east-1 --amount 1 --internet-charge-type ByBandwidth --network-line-type PathBasedBandwidthIP --bandwidth 50
+  desc: 查询一个 PathBasedBandwidthIP 的价格，网络计费采用按带宽计费，带宽 50Mbps。境内和境外带宽分别返回价格，bandwidthPrice 为 null。
 sdk:
   service: zec
   version: '2025-09-01'
@@ -100,10 +102,10 @@ parameters:
   required: false
   sdk-field: flowPackage
   description: |-
-    公网IPv6的流量包大小。
+    弹性公网IP的流量包大小。
     单位为TB。
     值要求为0或0.1的倍数。
-    当子网的堆栈类型包括V6且为公网时，且网络计费方式是流量计费(ByTrafficPackage)需要指定。
+    当网络计费方式为流量计费(ByTrafficPackage)时需要指定。
 - name: cidr-id
   type: string
   required: false
@@ -116,8 +118,8 @@ parameters:
   required: false
   sdk-field: clusterId
   description: |-
-    公网IPv6所指定的共享带宽包ID。
-    当子网的堆栈类型包括V6且为公网时，且网络计费方式是共享带宽包计费(BandwidthCluster)需要指定。
+    共享带宽包ID。
+    当指定peerRegionId且网络计费方式为共享带宽包计费(BandwidthCluster)时需要指定。
 - name: peer-region-id
   type: string
   required: false

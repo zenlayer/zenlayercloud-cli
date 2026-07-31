@@ -1,7 +1,7 @@
 name: DescribeEipNetworkLineTypes
 product: zec
 use: describe-eip-network-line-types
-short: Query the types of IP lines supported by EIP.
+short: Queries the IP line types supported by EIP
 long: To view the list of IP line types supported by EIP, you can filter by node.
 examples:
 - cmd: zeno zec describe-eip-network-line-types

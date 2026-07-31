@@ -12,7 +12,7 @@ long: |-
 examples:
 - cmd: zeno zec assign-network-interface-ipv6 --nic-id <nicId>
   desc: 网卡添加的是内网IPv6地址。
-- cmd: zeno zec assign-network-interface-ipv6 --nic-id <nicId> --internet-charge-type BandwidthCluster --bandwidth 100 --cluster-id <clusterId>
+- cmd: zeno zec assign-network-interface-ipv6 --nic-id <nicId> --internet-charge-type BandwidthCluster --bandwidth 100 --cluster-id <clusterId> --rate-limit-mode LOOSE
   desc: 网卡添加的是公网IPv6地址。且计费类型为共享带宽包计费。带宽限速设置为100Mbps。
 sdk:
   service: zec
@@ -66,7 +66,9 @@ parameters:
   type: enum
   required: false
   sdk-field: rateLimitMode
-  description: 限速模式。
+  description: |-
+    限速模式。
+    严格模式(STRICT) 必须同时指定 bandwidth。
   enum-values:
   - value: LOOSE
     desc: 宽松模式：允许短时间突发超出限制。

@@ -1,0 +1,78 @@
+name: DescribeAWSRegions
+product: sdn
+use: describe-aws-regions
+short: 查询AWS接入点区域
+long: 查询AWS接入点区域
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: DescribeAWSRegions
+parameters:
+- name: product
+  type: enum
+  required: false
+  sdk-field: product
+  description: |-
+    筛选云节点支持的产品。
+    可用值：PrivateConnect(二层网络)、CloudRouter(三层网络)。
+  enum-values:
+  - value: PrivateConnect
+    desc: 二层网络。
+  - value: CloudRouter
+    desc: 三层网络。
+response:
+- name: cloudRegions
+  type: object-array
+  description: 接入点相关的区域信息列表。
+  array-style: json
+  item-schema:
+  - name: cloudRegionId
+    type: string
+    description: 公有云区域 ID。
+  - name: dataCenter
+    type: object
+    description: 接入点数据中心信息。
+    object-schema:
+    - name: dcId
+      type: string
+      description: 数据中心ID。
+    - name: dcName
+      type: string
+      description: 数据中心名称。
+    - name: dcAddress
+      type: string
+      description: 数据中心地址。
+    - name: cityName
+      type: string
+      description: 数据中心所在城市名称。
+    - name: countryName
+      type: string
+      description: 数据中心所在国家名称。
+    - name: areaName
+      type: string
+      description: 数据中心所在区域名称。
+    - name: latitude
+      type: float
+      description: 数据中心所在地纬度。
+    - name: longitude
+      type: float
+      description: 数据中心所在地经度。
+  - name: products
+    type: string-array
+    description: 该区域支持的产品列表：PrivateConnect(二层网络)、CloudRouter(三层网络)。
+  - name: haTypes
+    type: object-array
+    description: 该区域支持的高可用类型列表。
+    array-style: json
+    item-schema:
+    - name: haType
+      type: enum
+      description: 高可用类型。
+      enum-values:
+      - value: PRIMARY
+        desc: 主用。
+      - value: SECONDARY
+        desc: 备用。
+    - name: isUsed
+      type: boolean
+      description: 该高可用类型是否已被使用。

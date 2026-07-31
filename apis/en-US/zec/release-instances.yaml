@@ -12,9 +12,9 @@ long: |-
   * When `dependResource` is set to `true` (the default), the elastic public IP (non-default IP), unmountable cloud disks, and non-primary network cards associated with the instance will be synchronizedly released; when `dependResource` is set to `false`, only the instance itself will be released, while the associated resources will be retained and continue to be charged.
 examples:
 - cmd: zeno zec release-instances --instance-ids instanceId1 --instance-ids instanceId2
-  desc: Release instances in batches.
+  desc: Release instances in batches (associated resources are released synchronously by default).
 - cmd: zeno zec release-instances --instance-ids instanceId1 --depend-resource false
-  desc: Only the instance itself is released, while the associated resources (EIP, cloud disk, network card) remain intact.
+  desc: Release only the instance itself, keeping the associated resources (EIP, cloud disk, network interface).
 sdk:
   service: zec
   version: '2025-09-01'

@@ -1,8 +1,13 @@
 name: DescribeIPTransits
 product: ipt
 use: describe-ip-transits
-short: 本接口用于查询IP Transit资源列表
-long: 本接口用于查询IP Transit资源列表。
+short: 查询IP Transit列表
+long: 查询IP Transit列表
+examples:
+- cmd: zeno ipt describe-ip-transits --ipt-ids your-ipt-id
+  desc: 查询单链路 IP Transit 列表。
+- cmd: zeno ipt describe-ip-transits --ipt-ids your-ha-ipt-id
+  desc: 查询高可用（ACTIVE_STANDBY）IP Transit，响应包含两条子链路详情。
 sdk:
   service: ipt
   version: '2024-09-01'
@@ -13,55 +18,53 @@ parameters:
   required: false
   sdk-field: iptIds
   description: |-
-    IP Transit ID列表。
-    最大支持长度为100。
+    IP Transit ID 列表。
+    最多支持 100 个 ID 查询。
 - name: ipt-name
   type: string
   required: false
   sdk-field: iptName
   description: |-
-    IPT 名称。
-    支持模糊搜索。
+    IP Transit名称。
+    模糊匹配。
 - name: resource-group-id
   type: string
   required: false
   sdk-field: resourceGroupId
-  description: 资源组ID。
+  description: |-
+    资源组 ID。
+    不传则返回该用户可见的所有资源组内的IP Transit。
 - name: peer-port-id
   type: string
   required: false
   sdk-field: peerPortId
-  description: |-
-    端口ID。
-    通过该字段可以筛选与指定端口有关的IP Transit。
+  description: 对端数据中心端口 ID 过滤。
 - name: ipt-dc-id
   type: string
   required: false
   sdk-field: iptDcId
-  description: |-
-    数据中心ID。
-    具体取值可通过调用接口DescribeDataCenters来获得最新的数据中心列表。
+  description: 本端数据中心 ID 过滤。
 - name: page-size
   type: integer
   required: false
   sdk-field: pageSize
   description: |-
     返回的分页大小。
-    默认为20，最大为1000。
+    默认为 20，最大为 1000。
 - name: page-num
   type: integer
   required: false
   sdk-field: pageNum
   description: |-
     返回的分页数。
-    默认为1。
+    默认为 1。
 - name: tag-keys
   type: string-array
   required: false
   sdk-field: tagKeys
   description: |-
-    根据标签进行搜索。
-    最长不得超过20个标签。
+    根据标签键进行搜索。
+    最长不得超过20个标签键。
 - name: tags
   type: object-array
   required: false
@@ -75,19 +78,19 @@ parameters:
     type: string
     description: |-
       标签键。
-      长度限制：1～128个字符。
+      长度限制：1～64个字符。
   - name: value
     type: string
     description: |-
       标签值。
-      长度限制：1～128个字符。
+      长度限制：1～64个字符。
 response:
 - name: totalCount
   type: integer
   description: 符合条件的数据总数。
 - name: dataSet
   type: object-array
-  description: IP Transit列表结果集。
+  description: IP Transit结果集。
   array-style: json
   item-schema:
   - name: iptId
@@ -95,13 +98,13 @@ response:
     description: IP Transit ID。
   - name: iptName
     type: string
-    description: IP Transit 名称。
+    description: IP Transit名称。
   - name: iptDescription
     type: string
-    description: IP Transit 描述信息。
+    description: IP Transit描述。
   - name: dataCenter
     type: object
-    description: IP Transit 对应的数据中心。
+    description: IP Transit所在数据中心。
     object-schema:
     - name: dcId
       type: string
@@ -114,28 +117,28 @@ response:
       description: 数据中心地址。
     - name: cityName
       type: string
-      description: 城市名称。
+      description: 数据中心所在城市名称。
     - name: countryName
       type: string
-      description: 国家名称。
+      description: 数据中心所在国家名称。
     - name: areaName
       type: string
-      description: 地区名称。
+      description: 数据中心所在区域名称。
     - name: latitude
       type: float
-      description: 数据中心所在地理位置的维度。
+      description: 数据中心所在地纬度。
     - name: longitude
       type: float
-      description: 数据中心所在地理位置的经度。
+      description: 数据中心所在地经度。
   - name: peerPortId
     type: string
-    description: 连接的端口ID。
+    description: 对端数据中心端口 ID。
   - name: peerPortName
     type: string
-    description: 连接的端口名称。
+    description: 对端数据中心端口名称。
   - name: peerDataCenter
     type: object
-    description: 端口侧所属数据中心。
+    description: 对端数据中心端口所在数据中心。
     object-schema:
     - name: dcId
       type: string
@@ -148,66 +151,60 @@ response:
       description: 数据中心地址。
     - name: cityName
       type: string
-      description: 城市名称。
+      description: 数据中心所在城市名称。
     - name: countryName
       type: string
-      description: 国家名称。
+      description: 数据中心所在国家名称。
     - name: areaName
       type: string
-      description: 地区名称。
+      description: 数据中心所在区域名称。
     - name: latitude
       type: float
-      description: 数据中心所在地理位置的维度。
+      description: 数据中心所在地纬度。
     - name: longitude
       type: float
-      description: 数据中心所在地理位置的经度。
+      description: 数据中心所在地经度。
   - name: deliveryType
     type: enum
-    description: 交付类型。
+    description: 开通方式。
     enum-values:
     - value: Auto
-      desc: 自动化交付（一般在分钟内完成）。
+      desc: 自动开通。
     - value: Manual
-      desc: 手动交付（一般在3天内交付完成）。
+      desc: 人工开通。
   - name: resourceGroupId
     type: string
-    description: IP Transit 所属资源组ID。
+    description: 资源组 ID。
   - name: resourceGroupName
     type: string
-    description: IP Transit 所属资源组名称。
+    description: 资源组名称。
   - name: createTime
     type: string
-    description: |-
-      创建时间。
-      格式为：YYYY-MM-ddTHH:mm:ssZ。
+    description: 创建时间。
   - name: routingType
     type: enum
-    description: 路由类型。
+    description: 路由模式。
     enum-values:
     - value: BGP
-      desc: BGP。（目前api暂不支持该方式）
+      desc: BGP 路由模式。
     - value: Static
-      desc: 静态路由。
+      desc: 静态路由模式。
     - value: Gateway
-      desc: 网关模式。
+      desc: 网关路由模式。
   - name: internetType
     type: enum
-    description: 带宽计费方式。
+    description: 网络计费方式。
     enum-values:
     - value: ByBandwidth
-      desc: 按固定带宽计费。
+      desc: 固定带宽计费。
     - value: ByInstanceBandwidth95
-      desc: 实例95计费。
+      desc: 95带宽计费。
   - name: bandwidth
     type: integer
-    description: |-
-      带宽限速。
-      单位Mbps。
+    description: 带宽（Mbps）。
   - name: commitBandwidth
     type: integer
-    description: |-
-      承诺保底带宽。
-      仅当带宽计费方式为ByInstanceBandwidth95 可取到值。
+    description: 保底带宽（Mbps）。
   - name: bfd
     type: object
     description: BFD 配置。
@@ -231,7 +228,7 @@ response:
         取值范围：3～20。
   - name: bgp
     type: object
-    description: BGP相关配置。
+    description: BGP 相关配置。
     object-schema:
     - name: routeType
       type: enum
@@ -257,23 +254,29 @@ response:
       description: 宣告出站路由的AS-SET列表。
   - name: interconnect
     type: object
-    description: 互联IP地址信息。
+    description: 互联地址配置。
     object-schema:
     - name: vendorIpv4Address
       type: string
-      description: 运营商侧的IPv4地址。
+      description: Zenlayer 侧 IPv4 互联地址。
     - name: customerIpv4Address
       type: string
-      description: 用户侧的IPv4地址。
+      description: 客户侧 IPv4 互联地址。
+    - name: vendorIpv6Address
+      type: string
+      description: Zenlayer 侧 IPv6 互联地址。
+    - name: customerIpv6Address
+      type: string
+      description: 客户侧 IPv6 互联地址。
   - name: privateConnectId
     type: string
-    description: IP Transit 互联的专线ID。
+    description: 关联的 VLL ID。
   - name: privateConnectName
     type: string
-    description: IP Transit 互联的专线名称。
+    description: 关联的 VLL 名称。
   - name: publicIpv4Addresses
     type: object-array
-    description: 公网IP信息。
+    description: 公网 IPv4 地址列表。
     array-style: json
     item-schema:
     - name: ipAddress
@@ -287,22 +290,22 @@ response:
       description: 网关IP地址。
   - name: iptStatus
     type: enum
-    description: IP Transit 的业务状态。
+    description: 业务状态。
     enum-values:
     - value: CREATING
       desc: 创建中。
     - value: UPDATING
       desc: 更新中。
     - value: DELETING
-      desc: 终止中。
+      desc: 删除中。
     - value: DESTROYING
       desc: 销毁中。
     - value: RECOVERING
       desc: 恢复中。
     - value: RUNNING
-      desc: 正常运行中。
+      desc: 运行中。
     - value: RECYCLED
-      desc: 已入回收站。
+      desc: 已回收。
     - value: DESTROYED
       desc: 已销毁。
     - value: CREATING_FAILED
@@ -310,11 +313,21 @@ response:
     - value: UPDATING_FAILED
       desc: 更新失败。
     - value: DELETING_FAILED
-      desc: 终止失败。
+      desc: 删除失败。
     - value: DESTROYING_FAILED
       desc: 销毁失败。
     - value: RECOVERING_FAILED
       desc: 恢复失败。
+  - name: connectivityStatus
+    type: enum
+    description: 链路连通性状态。
+    enum-values:
+    - value: ACTIVE
+      desc: 链路正常连通。
+    - value: DOWN
+      desc: 链路断开。
+    - value: ABNORMAL
+      desc: 链路部分异常。
   - name: tags
     type: object
     description: 该IP Transit关联的标签。
@@ -328,9 +341,182 @@ response:
         type: string
         description: |-
           标签键。
-          长度限制：1～128个字符。
+          长度限制：1～64个字符。
       - name: value
         type: string
         description: |-
           标签值。
-          长度限制：1～128个字符。
+          长度限制：1～64个字符。
+  - name: publicIpAddresses
+    type: object-array
+    description: 公网 IP 地址列表。
+    array-style: json
+    item-schema:
+    - name: ipUuid
+      type: string
+      description: |-
+        IP 块 UUID。
+        变更（升降级/删除）时作为 ipUuid 传入。
+    - name: ipAddress
+      type: string
+      description: IP 地址（CIDR 表示法，如 192.0.2.0/30）。
+    - name: netmask
+      type: integer
+      description: 掩码长度。
+    - name: gatewayIpAddress
+      type: string
+      description: 网关 IP。
+    - name: ipType
+      type: enum
+      description: IP 类型（IPV4 / IPV6）。
+      enum-values:
+      - value: IPV4
+        desc: IPv4。
+      - value: IPV6
+        desc: IPv6。
+    - name: ipNetworkType
+      type: enum
+      description: IP 网络类型（BGP_IP / LOCAL_IP）。
+      enum-values:
+      - value: BGP_IP
+        desc: 普通 IP。
+      - value: LOCAL_IP
+        desc: 原生 IP。
+  - name: haMode
+    type: enum
+    description: 高可用模式。
+    enum-values:
+    - value: ACTIVE_STANDBY
+      desc: |-
+        主备模式。
+        仅主链路转发流量。
+    - value: ACTIVE_ACTIVE
+      desc: |-
+        负载均衡模式。
+        两条子链路同时转发流量。
+  - name: zbgRegionId
+    type: string
+    description: |-
+      ZBG 区域 ID。
+      ZBG 场景下的 IP Transit 将返回此字段。
+  - name: peerPortType
+    type: enum
+    description: 对端数据中心端口类型。
+    enum-values:
+    - value: PORT
+      desc: 数据中心端口。
+    - value: KEY_PORT
+      desc: Key Port。
+    - value: ZBG
+      desc: 边界网关（ZBG）。
+  - name: haLinks
+    type: object-array
+    description: |-
+      HA 子链路列表。
+      非 HA 模式下为 null；HA 模式下含两个子链路对象。
+    array-style: json
+    item-schema:
+    - name: isPrimary
+      type: boolean
+      description: |-
+        当前是否为主线。
+        ACTIVE_STANDBY 模式下动态反映主备切换状态；ACTIVE_ACTIVE 模式下为 null。
+    - name: iptStatus
+      type: enum
+      description: 子链路业务状态。
+      enum-values:
+      - value: CREATING
+        desc: 创建中。
+      - value: UPDATING
+        desc: 更新中。
+      - value: DELETING
+        desc: 删除中。
+      - value: DESTROYING
+        desc: 销毁中。
+      - value: RECOVERING
+        desc: 恢复中。
+      - value: RUNNING
+        desc: 运行中。
+      - value: RECYCLED
+        desc: 已回收。
+      - value: DESTROYED
+        desc: 已销毁。
+      - value: CREATING_FAILED
+        desc: 创建失败。
+      - value: UPDATING_FAILED
+        desc: 更新失败。
+      - value: DELETING_FAILED
+        desc: 删除失败。
+      - value: DESTROYING_FAILED
+        desc: 销毁失败。
+      - value: RECOVERING_FAILED
+        desc: 恢复失败。
+    - name: connectivityStatus
+      type: enum
+      description: 子链路连通性状态。
+      enum-values:
+      - value: ACTIVE
+        desc: 链路正常连通。
+      - value: DOWN
+        desc: 链路断开。
+      - value: ABNORMAL
+        desc: 链路部分异常。
+    - name: privateConnectId
+      type: string
+      description: 所属 VLL ID。
+    - name: privateConnectName
+      type: string
+      description: 所属 VLL 名称。
+    - name: peerPortId
+      type: string
+      description: 对端数据中心端口 ID。
+    - name: peerPortName
+      type: string
+      description: 对端数据中心端口名称。
+    - name: peerDataCenter
+      type: object
+      description: 数据中心端口所在数据中心。
+      object-schema:
+      - name: dcId
+        type: string
+        description: 数据中心ID。
+      - name: dcName
+        type: string
+        description: 数据中心名称。
+      - name: dcAddress
+        type: string
+        description: 数据中心地址。
+      - name: cityName
+        type: string
+        description: 数据中心所在城市名称。
+      - name: countryName
+        type: string
+        description: 数据中心所在国家名称。
+      - name: areaName
+        type: string
+        description: 数据中心所在区域名称。
+      - name: latitude
+        type: float
+        description: 数据中心所在地纬度。
+      - name: longitude
+        type: float
+        description: 数据中心所在地经度。
+    - name: peerPortVlan
+      type: integer
+      description: VLAN ID。
+    - name: interconnect
+      type: object
+      description: 互联 IP 配置。
+      object-schema:
+      - name: vendorIpv4Address
+        type: string
+        description: Zenlayer 侧 IPv4 互联地址。
+      - name: customerIpv4Address
+        type: string
+        description: 客户侧 IPv4 互联地址。
+      - name: vendorIpv6Address
+        type: string
+        description: Zenlayer 侧 IPv6 互联地址。
+      - name: customerIpv6Address
+        type: string
+        description: 客户侧 IPv6 互联地址。

@@ -1,0 +1,174 @@
+name: ModifyIPTransitConfig
+product: ipt
+use: modify-ip-transit-config
+short: 修改IP Transit配置
+long: |-
+  修改IP Transit配置
+  **注意事项**
+
+  * 仅当 IP Transit 状态为 **AVAILABLE** 时，才能发起变更操作。
+  * 本接口为异步接口，请求成功后 IP Transit 状态将变为 **UPDATING**，可通过 [DescribeIPTransits](describe-iptransits.md) 轮询状态，变回 **AVAILABLE** 表示变更成功。
+  * 变更期间不得对该 IP Transit 进行其他任何操作。
+  * **type 说明：**
+    * `BANDWIDTH`：修改带宽限速，须传 `bandwidth`；传 `commitBandwidth` 可设置保底带宽，否则保底与限速相同。95 计费（`internetType=ByInstanceBandwidth95`）下 `bandwidth` 必须大于等于生效后的保底带宽，否则返回 `INVALID_RIPT_BANDWIDTH_LESS_THAN_COMMIT` 错误。
+    * `BFD`：修改 BFD 配置，须传 `bfd`；传 `null` 表示关闭 BFD。高可用 IP Transit 不允许关闭 BFD，传 `null` 或不完整的 `bfd` 会返回 `OPERATION_DENIED_HA_BFD_DISABLE` 错误。
+    * `BGP_ROUTE_TYPE`：修改 BGP inbound 路由类型，须传 `bgp.routeType`。仅路由类型为 BGP 的 IP Transit 支持，否则返回 `INVALID_RIPT_ROUTING_TYPE_NOT_BGP` 错误。
+    * `BGP_ASN_AS_SET`：修改 BGP 允许 ASN/AS-SET 名单，`asn` 创建后不支持修改，须在 `bgp` 中传 `asnList` 或 `asSetList` 二选一，否则返回 `INVALID_RIPT_BGP_ASN_LIST_MISSING` 错误。仅路由类型为 BGP 的 IP Transit 支持，否则返回 `INVALID_RIPT_ROUTING_TYPE_NOT_BGP` 错误。
+    * `BGP_PASSWORD`：修改 BGP MD5 密码，须传 `bgp.password`。仅路由类型为 BGP 的 IP Transit 支持，否则返回 `INVALID_RIPT_ROUTING_TYPE_NOT_BGP` 错误。
+    * `ADD_CIDR_BLOCK`：新增公网 IPv4 CIDR 块，须传 `publicIPv4BlockSize`；可选传 `ipNetworkType`，默认 `BGP_IP`。
+    * `DEL_CIDR_BLOCK`：删除公网 IPv4 CIDR 块，须传 `ipUuid`。
+    * `EXPAND_CIDR_BLOCK`：扩大已有 CIDR 块（缩小掩码），须传 `ipUuid` 和 `publicIPv4BlockSize`；目标掩码不能小于该 IP 块底层实际可扩容到的最小掩码，否则返回 `OPERATION_DENIED_INVALID_CIDR_SIZE` 错误。
+    * `SHRINK_CIDR_BLOCK`：缩小已有 CIDR 块（增大掩码），须传 `ipUuid` 和 `publicIPv4BlockSize`；目标掩码同样不能小于该 IP 块底层实际可扩容到的最小掩码。
+    * `HA_SWITCH_PRIMARY`：HA 主备切换，仅 HA 模式 IP Transit 可用。
+    * `HA_SWITCH_MODE`：切换 HA 模式（主备模式 ↔ 负载均衡模式），仅 HA 模式 IP Transit 可用。
+examples:
+- cmd: zeno ipt modify-ip-transit-config --ipt-id your-ipt-id --type BANDWIDTH --bandwidth 200 --commit-bandwidth 100
+  desc: 将 IP Transit 带宽修改为 200Mbps，保底带宽设为 100Mbps。
+- cmd: zeno ipt modify-ip-transit-config --ipt-id your-ipt-id --type BGP_ROUTE_TYPE
+  desc: 修改 BGP inbound 路由类型为仅接收默认路由。
+- cmd: zeno ipt modify-ip-transit-config --ipt-id your-ipt-id --type ADD_CIDR_BLOCK --public-ipv4-block-size 28
+  desc: 新增一个 /28 公网 IPv4 CIDR 块。
+- cmd: zeno ipt modify-ip-transit-config --ipt-id your-ipt-id --type BFD
+  desc: 关闭 BFD 检测。
+sdk:
+  service: ipt
+  version: '2024-09-01'
+  action: ModifyIPTransitConfig
+parameters:
+- name: ipt-id
+  type: string
+  required: true
+  sdk-field: iptId
+  description: IP Transit 实例 ID。
+- name: type
+  type: enum
+  required: true
+  sdk-field: type
+  description: 变配操作类型。
+  enum-values:
+  - value: BANDWIDTH
+    desc: 带宽。
+  - value: BFD
+    desc: BFD 开关。
+  - value: BGP_ROUTE_TYPE
+    desc: BGP 路由类型。
+  - value: BGP_ASN_AS_SET
+    desc: BGP ASN/AS-SET。
+  - value: BGP_PASSWORD
+    desc: BGP 密码。
+  - value: ADD_CIDR_BLOCK
+    desc: 新增公网 IP 地址段。
+  - value: DEL_CIDR_BLOCK
+    desc: 删除公网 IP 地址段。
+  - value: EXPAND_CIDR_BLOCK
+    desc: 扩容公网 IP 地址段。
+  - value: SHRINK_CIDR_BLOCK
+    desc: 缩容公网 IP 地址段。
+  - value: HA_SWITCH_PRIMARY
+    desc: HA 主备切换。
+  - value: HA_SWITCH_MODE
+    desc: HA 模式切换。
+- name: bandwidth
+  type: integer
+  required: false
+  sdk-field: bandwidth
+  description: |-
+    目标带宽（Mbps）。
+    type=BANDWIDTH 时必填。
+    95 计费下必须大于等于生效后的 commitBandwidth。
+- name: commit-bandwidth
+  type: integer
+  required: false
+  sdk-field: commitBandwidth
+  description: |-
+    保底带宽（Mbps）。
+    type=BANDWIDTH 时有效，不填则与 bandwidth 相同。
+- name: bfd
+  type: object
+  required: false
+  sdk-field: bfd
+  description: |-
+    BFD 配置。
+    type=BFD 时填写；传 null 表示关闭 BFD。
+    高可用 IP Transit 不允许关闭 BFD。
+  object-schema:
+  - name: bfdTxInterval
+    type: integer
+    description: |-
+      发送间隔。
+      单位：ms。
+      取值范围：100～60000。
+  - name: bfdRxInterval
+    type: integer
+    description: |-
+      接收间隔。
+      单位：ms
+      取值范围：100～60000。
+  - name: bfdMultiplier
+    type: integer
+    description: |-
+      本地检测倍数。
+      取值范围：3～20。
+- name: bgp
+  type: object
+  required: false
+  sdk-field: bgp
+  description: |-
+    BGP 配置参数。
+    type=BGP_ROUTE_TYPE、BGP_ASN_AS_SET、BGP_PASSWORD 时必填，并填写对应子字段。
+  object-schema:
+  - name: routeType
+    type: enum
+    description: |-
+      BGP inbound 路由类型。
+      type=BGP_ROUTE_TYPE 时必填。
+    enum-values:
+    - value: ALL_ROUTES
+      desc: 全路由。
+    - value: ALL_ROUTES_WITH_DEFAULT_ROUTES
+      desc: 全路由+默认路由。
+    - value: DEFAULT_ROUTES
+      desc: 默认路由。
+  - name: asnList
+    type: integer-array
+    description: |-
+      ASN 列表。
+      type=BGP_ASN_AS_SET 时与 `asSetList` 二选一。
+      `asn` 创建后不支持修改。
+  - name: asSetList
+    type: string-array
+    description: |-
+      AS-SET 列表。
+      type=BGP_ASN_AS_SET 时与 `asnList` 二选一。
+      `asn` 创建后不支持修改。
+  - name: password
+    type: string
+    description: |-
+      BGP MD5 密码（长度 8–64）。
+      type=BGP_PASSWORD 时必填。
+- name: public-ipv4-block-size
+  type: integer
+  required: false
+  sdk-field: publicIPv4BlockSize
+  description: |-
+    IPv4 CIDR 掩码长度（24–32）。
+    type=ADD_CIDR_BLOCK、EXPAND_CIDR_BLOCK、SHRINK_CIDR_BLOCK 时必填。
+- name: ip-uuid
+  type: string
+  required: false
+  sdk-field: ipUuid
+  description: |-
+    目标 IP 块 UUID。
+    type=DEL_CIDR_BLOCK、EXPAND_CIDR_BLOCK、SHRINK_CIDR_BLOCK 时必填。
+- name: ip-network-type
+  type: enum
+  required: false
+  sdk-field: ipNetworkType
+  description: |-
+    IP 网络类型。
+    type=ADD_CIDR_BLOCK 时有效，默认 BGP_IP。
+  enum-values:
+  - value: BGP_IP
+    desc: 普通 IP。
+  - value: LOCAL_IP
+    desc: 原生 IP。

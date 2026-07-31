@@ -1,0 +1,213 @@
+name: CreatePrivateConnect
+product: sdn
+use: create-private-connect
+short: 创建二层网络专线
+long: |-
+  创建二层网络专线
+  **注意事项**
+
+  * 目前只支持创建后付费固定带宽计费的二层网络专线。
+  * 云接入操作详见[云接入操作指南](https://docs.console.zenlayer.com/welcome/cloud-networking/get-started/validate-connection-in-public-cloud)
+  * 本接口为异步接口，当创建实例请求下发成功后会返回一个二层网络专线的`ID`，此时创建操作并未立即完成。在此期间实例的状态将会处于\*\*`DEPLOYING`\*\*，创建结果可以通过调用[**`DescribePrivateConnects`**](describeprivateconnects.md) **接口查询，如果状态(privateConnectStatus)由`DEPLOYING`(创建中)变为AVAILABLE**(可用)，则代表创建成功，如果未查询到任何记录，则代表创建失败，创建过程中不可对二层网络专线进行任何操作。
+examples:
+- cmd: zeno sdn create-private-connect --private-connect-name fra-sel-prviate-line --bandwidth-mbps 10
+  desc: 创建1个二层网络专线, A端为数据中心端口，Z端为数据中心端口，专线的带宽为10Mbps。
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: CreatePrivateConnect
+parameters:
+- name: private-connect-name
+  type: string
+  required: true
+  sdk-field: privateConnectName
+  description: |-
+    二层网络专线名称。
+    长度不超过 255，默认为 private-connect-{当前时间戳}。
+- name: bandwidth-mbps
+  type: integer
+  required: true
+  sdk-field: bandwidthMbps
+  description: |-
+    二层网络专线最大带宽限制。
+    单位：Mbps。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    资源组 ID。
+    不传则放入默认资源组。
+- name: endpoint-a
+  type: object
+  required: true
+  sdk-field: endpointA
+  description: 二层网络专线一端的连接点（A）。
+  object-schema:
+  - name: portId
+    type: string
+    description: |-
+      数据中心端口 ID。
+      连接点为数据中心端口时使用。
+  - name: vlanId
+    type: integer
+    description: VLAN ID。
+  - name: cloudRegionId
+    type: string
+    description: |-
+      云地域 ID。
+      连接点为云连接时使用。
+  - name: cloudAccountId
+    type: string
+    description: |-
+      云账号 ID。
+      连接点为云连接时使用。
+  - name: haType
+    type: enum
+    description: 云连接高可用类型。
+    enum-values:
+    - value: PRIMARY
+      desc: 主用。
+    - value: SECONDARY
+      desc: 备用。
+  - name: cloudBandwidthMbps
+    type: integer
+    description: |-
+      云连接带宽限制。
+      单位：Mbps。
+  - name: dcId
+    type: string
+    description: 数据中心 ID。
+  - name: cloudType
+    type: enum
+    description: 云厂商类型。
+    enum-values:
+    - value: AWS
+      desc: 亚马逊云。
+    - value: TENCENT
+      desc: 腾讯云。
+    - value: GOOGLE
+      desc: 谷歌云。
+    - value: AZURE
+      desc: 微软 Azure。
+    - value: ALI_CLOUD
+      desc: 阿里云。
+    - value: HUAWEI_CLOUD
+      desc: 华为云。
+    - value: BYTE_PLUS
+      desc: 火山引擎（BytePlus）。
+    - value: ORACLE
+      desc: 甲骨文云（Oracle）。
+  - name: endpointName
+    type: string
+    description: |-
+      连接点名称。
+      仅允许字母、数字和连字符。
+- name: endpoint-z
+  type: object
+  required: true
+  sdk-field: endpointZ
+  description: 二层网络专线另一端的连接点（Z）。
+  object-schema:
+  - name: portId
+    type: string
+    description: |-
+      数据中心端口 ID。
+      连接点为数据中心端口时使用。
+  - name: vlanId
+    type: integer
+    description: VLAN ID。
+  - name: cloudRegionId
+    type: string
+    description: |-
+      云地域 ID。
+      连接点为云连接时使用。
+  - name: cloudAccountId
+    type: string
+    description: |-
+      云账号 ID。
+      连接点为云连接时使用。
+  - name: haType
+    type: enum
+    description: 云连接高可用类型。
+    enum-values:
+    - value: PRIMARY
+      desc: 主用。
+    - value: SECONDARY
+      desc: 备用。
+  - name: cloudBandwidthMbps
+    type: integer
+    description: |-
+      云连接带宽限制。
+      单位：Mbps。
+  - name: dcId
+    type: string
+    description: 数据中心 ID。
+  - name: cloudType
+    type: enum
+    description: 云厂商类型。
+    enum-values:
+    - value: AWS
+      desc: 亚马逊云。
+    - value: TENCENT
+      desc: 腾讯云。
+    - value: GOOGLE
+      desc: 谷歌云。
+    - value: AZURE
+      desc: 微软 Azure。
+    - value: ALI_CLOUD
+      desc: 阿里云。
+    - value: HUAWEI_CLOUD
+      desc: 华为云。
+    - value: BYTE_PLUS
+      desc: 火山引擎（BytePlus）。
+    - value: ORACLE
+      desc: 甲骨文云（Oracle）。
+  - name: endpointName
+    type: string
+    description: |-
+      连接点名称。
+      仅允许字母、数字和连字符。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    创建二层网络专线时关联的标签。
+    注意：关联标签键不能重复。--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。
+- name: marketing-options
+  type: object
+  required: false
+  sdk-field: marketingOptions
+  description: 市场营销活动相关信息。
+  object-schema:
+  - name: discountCode
+    type: string
+    description: |-
+      使用市场发放的折扣码。
+      如果折扣码不存在，最终折扣将不会生效。
+  - name: usePocVoucher
+    type: boolean
+    description: |-
+      是否使用POC代金券。
+      如果系统不存在POC代金券，相关创建流程会失败。
+response:
+- name: orderNumber
+  type: string
+  description: 订单号。
+- name: privateConnectId
+  type: string
+  description: 二层网络专线 ID。

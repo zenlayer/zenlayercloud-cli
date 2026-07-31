@@ -48,8 +48,6 @@ parameters:
     desc: The cross-region bandwidth is available.
   - value: CHANGING
     desc: The cross-region bandwidth is being changed.
-  - value: RECYCLING
-    desc: The cross-region bandwidth is being recycled.
   - value: RECYCLED
     desc: The cross-region bandwidth is recycled.
   - value: DELETING
@@ -101,8 +99,6 @@ response:
       desc: The cross-region bandwidth is available.
     - value: CHANGING
       desc: The cross-region bandwidth is being changed.
-    - value: RECYCLING
-      desc: The cross-region bandwidth is being recycled.
     - value: RECYCLED
       desc: The cross-region bandwidth is recycled.
     - value: DELETING

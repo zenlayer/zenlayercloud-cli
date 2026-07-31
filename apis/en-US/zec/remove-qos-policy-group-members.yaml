@@ -4,9 +4,9 @@ use: remove-qos-policy-group-members
 short: Remove QoS Policy Group Members
 long: Remove members from a QoS policy group.
 examples:
-- cmd: zeno zec remove-qos-policy-group-members --qos-policy-group-id qos-xxxxxxxx --resource-ids eip-xxxxxxxx --resource-ids ipv6-xxxxxxxx
+- cmd: zeno zec remove-qos-policy-group-members --qos-policy-group-id qpg-xxxxxxxx --resource-ids eip-xxxxxxxx --resource-ids ipv6-xxxxxxxx
   desc: Remove specified members from a QoS policy group.
-- cmd: zeno zec remove-qos-policy-group-members --qos-policy-group-id qos-xxxxxxxx
+- cmd: zeno zec remove-qos-policy-group-members --qos-policy-group-id qpg-xxxxxxxx
   desc: Remove all members from a QoS policy group (without passing resourceIds).
 sdk:
   service: zec
