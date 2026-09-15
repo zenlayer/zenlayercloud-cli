@@ -1,11 +1,13 @@
 name: CreateCommand
 product: zos
 use: create-command
-short: 创建命令
-long: 创建一个命令。
+short: 创建命令。
+long: 创建命令。
 examples:
-- cmd: zeno zos create-command --name ""Test Command"" --content ""echo 1"" --type SHELL
-  desc: 创建一个Shell命令。
+- cmd: zeno zos create-command --name ""Test Command"" --content ZWNobyAx --type SHELL
+  desc: 创建一个Shell命令。`content`需传入命令内容的Base64编码值，示例中的`content`为`echo 1`的Base64编码值。
+- cmd: zeno zos create-command --name ""Init Script"" --content IyEvYmluL2Jhc2gKZWNobyAiaGVsbG8gemVubGF5ZXIiID4gL3RtcC9pbml0LmxvZwo= --type SHELL
+  desc: 创建一个多行Shell命令。示例中的`content`为脚本`#!/bin/bash\necho "hello zenlayer" > /tmp/init.log`的Base64编码值。
 sdk:
   service: zos
   version: '2025-10-10'
@@ -23,8 +25,8 @@ parameters:
   required: true
   sdk-field: content
   description: |-
-    命令内容。
-    长度不能超过16K(16384)个字符。
+    命令内容，需使用Base64编码后传入。
+    解码后长度不能超过16K(16384)个字符。
 - name: type
   type: enum
   required: true

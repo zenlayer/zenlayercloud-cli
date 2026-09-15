@@ -1,0 +1,91 @@
+name: DescribeResources
+product: zrm
+use: describe-resources
+short: Searches resources
+long: Search all resources under the current team by resource ID or resource name.
+examples:
+- cmd: zeno zrm describe-resources --page-num 1 --page-size 20 --resource-ids 123456789012345678 --resource-name web-server
+  desc: Search resources
+sdk:
+  service: zrm
+  version: '2025-10-14'
+  action: DescribeResources
+parameters:
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: 'Page number. Default: 1.'
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: 'Number of items per page. Default: 20.'
+- name: resource-ids
+  type: string-array
+  required: false
+  sdk-field: resourceIds
+  description: List of resource IDs. Exact match. Multiple IDs are combined with OR.
+- name: resource-name
+  type: string
+  required: false
+  sdk-field: resourceName
+  description: Resource name. Fuzzy match.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: List of resource group IDs. Exact match. If left empty, all resource groups are queried.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: List of tags.
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: List of tag keys.
+response:
+- name: totalCount
+  type: integer
+  description: Number of resources meeting the filtering conditions.
+- name: dataSet
+  type: object-array
+  description: List of resources.
+  array-style: json
+  item-schema:
+  - name: resourceId
+    type: string
+    description: ID of resource.
+  - name: name
+    type: string
+    description: Resource name.
+  - name: resourceType
+    type: string
+    description: |-
+      Resource type.
+      For available values, see ~~DescribeResourceTypes~~.
+  - name: createTime
+    type: string
+    description: Resource creation time.
+  - name: resourceGroupId
+    type: string
+    description: ID of resource group.
+  - name: resourceGroupName
+    type: string
+    description: Resource group name.
+  - name: location
+    type: string
+    description: Location that the resource belongs to.
+  - name: service
+    type: string
+    description: Service that the resource belongs to.

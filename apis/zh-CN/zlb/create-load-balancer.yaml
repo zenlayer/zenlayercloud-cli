@@ -6,15 +6,19 @@ long: |-
   创建负载均衡器实例。
   **注意事项**
 
-  * 你可以通过 [`DescribeLoadBalancerRegions`](../location/describeloadbalancerregions.md) 接口来查看支持购买负载均衡的地域。
-  * 本接口为异步接口，接口成功返回后，可使用 [`DescribeLoadBalancers`](describeloadbalancers.md) 接口查询负载均衡实例的状态。其中状态为`RUNNING`则代表创建成功。
+  * 你可以通过调用 ~~DescribeLoadBalancerRegions~~ 来查看支持购买负载均衡的地域。
+  * 本接口为异步接口，接口成功返回后，可调用 ~~DescribeLoadBalancers~~ 查询负载均衡实例的状态。其中状态为`RUNNING`则代表创建成功。
   * 当前只支持为ZEC服务器创建负载均衡实例。
   * 只支持后付费负载均衡实例创建。
-  * 创建负载均衡实例时，请确保该VPC下有Ipv4类型的子网，并且子网内至少有2个可用的ip地址供分配。
-  * 保底流量包大小仅对计费周期为月有效。
+  * 创建负载均衡实例时，请确保该VPC下存在满足`ipStackType`要求的子网，并且子网内至少有2个可用地址供分配。
+  * 通过`eipIds`指定已有EIP时，EIP在负载均衡实例创建完成（状态变为`RUNNING`）后才完成绑定，绑定结果可通过 ~~zec:DescribeEips~~ 查询。
 examples:
 - cmd: zeno zlb create-load-balancer --region-id asia-east-1 --vpc-id <vpcId> --security-group-id <securityGroupId> --load-balancer-name sample --internet-charge-type ByBandwidth --network-line-type PremiumBGP --bandwidth-mbps 2 --bandwidth-cluster-id --number 1
   desc: 创建一个公网负载均衡实例。 IP计费方式为固定带宽。
+- cmd: zeno zlb create-load-balancer --region-id asia-east-1 --subnet-id <subnetId> --load-balancer-name sample --internet-charge-type ByBandwidth --network-line-type PremiumBGP --bandwidth-mbps 2 --number 1
+  desc: 不指定`vpcId`，仅指定`subnetId`：负载均衡实例归属该子网所属的VPC，并从该子网中随机分配2个内网IPv4地址作为健康检查源IP。
+- cmd: zeno zlb create-load-balancer --region-id asia-east-1 --vpc-id <vpcId> --load-balancer-name sample --eip-ids <eipId1> --eip-ids <eipId2> --number 1
+  desc: 指定已有的弹性公网IP（EIP）创建负载均衡实例，不再新建EIP。
 sdk:
   service: zlb
   version: '2025-04-01'
@@ -27,9 +31,31 @@ parameters:
   description: 区域节点ID。
 - name: vpc-id
   type: string
-  required: true
+  required: false
   sdk-field: vpcId
-  description: 负载均衡后端服务器所属的VPC网络 ID。
+  description: |-
+    负载均衡后端服务器所属的VPC网络 ID。
+    vpcId和subnetId至少指定一个。
+    仅指定subnetId时，取该子网所属的VPC。
+- name: subnet-id
+  type: string
+  required: false
+  sdk-field: subnetId
+  description: |-
+    子网ID。
+    可以通过调用 ~~DescribeSubnets~~ 获取。
+    vpcId和subnetId至少指定一个。
+    该子网需与regionId同区域，同时指定vpcId时还须属于该VPC。
+    ipStackType为IPv4时该子网需支持IPv4，此参数可不指定（由系统在该VPC内选择）；为IPv6时该子网需含公网IPv6网段（内网IPv6不满足），且**此参数必填**——公网IPv6 VIP与健康检查段都从该子网分配，不指定将返回MISSING_PARAMETER。
+- name: health-check-private-ips
+  type: string-array
+  required: false
+  sdk-field: healthCheckPrivateIps
+  description: |-
+    健康检查内网源IP地址，数量必须为2。
+    指定subnetId时，不填则从该子网中随机分配2个可用的内网IPv4地址作为健康检查源IP，每个负载均衡实例占用2个地址，该子网剩余可用内网IPv4地址不足时将返回INVALID_SUBNET_IPV4_INSUFFICIENT，分配结果可调用 ~~DescribeLoadBalancers~~ 查询。
+    不指定subnetId时，此参数无效。
+    仅ipStackType为IPv4时可指定：为IPv6时健康检查段由系统从该子网的公网IPv6网段自动分配，指定本参数将返回INVALID_PARAMETER_CONFLICT。
 - name: load-balancer-name
   type: string
   required: true
@@ -37,11 +63,36 @@ parameters:
   description: |-
     负载均衡实例名称。
     长度为1～64个字符。
+- name: ip-stack-type
+  type: enum
+  required: false
+  sdk-field: ipStackType
+  description: |-
+    IP堆栈类型。
+    负载均衡实例只支持单栈，即IPv4或IPv6，不支持双栈。
+    指定为IPv6时不支持配置公网网络参数（internetChargeType、networkLineType、bandwidthMbps、trafficPackageSize、bandwidthClusterId），也不能指定eipIds——EIP均为IPv4，IPv6负载均衡的公网地址通过AssignLoadBalancerIpv6接口单独分配。
+  enum-values:
+  - value: IPv4
+    desc: 仅IPv4。
+  - value: IPv6
+    desc: 仅IPv6。
+- name: eip-ids
+  type: string-array
+  required: false
+  sdk-field: eipIds
+  description: |-
+    指定绑定到新建负载均衡实例的已有弹性公网IP的ID列表。
+    支持单IP（掩码/32）与网段类型的EIP，可调用 ~~zec:DescribeEips~~ 查询。
+    所有EIP需与regionId同区域且处于未绑定状态。
+    指定此参数时，internetChargeType、networkLineType、bandwidthMbps、trafficPackageSize、bandwidthClusterId均不生效，系统不再为该实例新建EIP，且number只能为1。
+    仅ipStackType为IPv4时可指定。
 - name: internet-charge-type
   type: enum
   required: false
   sdk-field: internetChargeType
-  description: IP网络计费模式。
+  description: |-
+    IP网络计费模式。
+    指定eipIds时该参数不生效。
   enum-values:
   - value: ByBandwidth
     desc: 固定带宽计费方式。
@@ -69,7 +120,7 @@ parameters:
   - value: ChinaUnicom
     desc: 中国联通线路。
   - value: ChinaTelecom
-    desc: 中国联通线路。
+    desc: 中国电信线路。
   - value: Cogent
     desc: Cogent。
   - value: PathBasedBandwidthIP
@@ -112,6 +163,7 @@ parameters:
   description: |-
     流量包大小。
     指定此参数时，IP网络计费模式(internetChargeType) 需为ByTrafficPackage, 否则该参数不生效。
+    仅当计费周期为月时支持设置，小时计费不支持。
 - name: bandwidth-cluster-id
   type: string
   required: false
@@ -146,7 +198,7 @@ parameters:
     type: boolean
     description: |-
       是否使用POC代金券。
-       如果系统不存在POC代金券，相关创建流程会失败。
+      如果系统不存在POC代金券，相关创建流程会失败。
 - name: tags
   type: object-array
   required: false
@@ -167,29 +219,13 @@ parameters:
     description: |-
       标签值。
       长度限制：1～64个字符。
-- name: subnet-id
-  type: string
-  required: false
-  sdk-field: subnetId
-  description: |-
-    健康检查内网源IP所属的subnetId。
-    可以通过[DescribeSubnets](../../zec/vpc-network/describesubnets.md)接口获取。
-- name: health-check-private-ips
-  type: string-array
-  required: false
-  sdk-field: healthCheckPrivateIps
-  description: |-
-    健康检查内网IP地址。
-    指定subnetId时，此参数必填，且数量必须为2。
-    不指定subnetId时，此参数无效。
-    不填时系统将自动分配。
 - name: security-group-id
   type: string
   required: false
   sdk-field: securityGroupId
   description: |-
     负载均衡实例绑定的安全组ID。
-    可以通过[DescribeSecurityGroups](../../zec/security-group/describesecuritygroups.md)接口获取。
+    可以通过调用 ~~DescribeSecurityGroups~~ 获取。
 response:
 - name: orderNumber
   type: string

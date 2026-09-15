@@ -15,8 +15,16 @@ long: |-
   * This API is an async API. An instance ID list is returned after the creation request is sent. However, it does not mean the creation has been completed. The status of the instance will be `PENDING` or `DEPLOYING` during the creation. You can use `DescribeInstances` to query the status of the instance. If the status (`instanceStatus`) changes from `PENDING` or `DEPLOYING` to `Running`, it means that the instance has been created successfully; if no instance has been queried, it means the instance has been created failed. Any operations on the instances are not allowed while creating.
   * A maximum of 100 instances can be created in one request.
 examples:
-- cmd: zeno vm create-instances --zone-id SEL-A --instance-type c.1c2g --image-id img-yKK4q6XybymPgfx7ynUUqC3N8 --instance-charge-type POSTPAID --internet-charge-type ByBandwidth
-  desc: ''
+- cmd: zeno vm create-instances --zone-id SEL-A --instance-type c.1c2g --image-id img-yKK4q6XybymPgfx7ynUUqC3N8 --instance-charge-type POSTPAID --internet-charge-type ByBandwidth --cidr-block-id <cidrBlockId>
+  desc: Create a pay-as-you-go instance with the simplest parameters.
+- cmd: zeno vm create-instances --zone-id SEL-A --instance-type c.1c2g --image-id img-yKK4q6XybymPgfx7ynUUqC3N8 --instance-charge-type POSTPAID --internet-charge-type ByBandwidth --data-disks "{diskSize=40, diskCategory=STANDARD}"
+  desc: Based on example 1, attach a 40 GB standard data disk.
+- cmd: zeno vm create-instances --instance-charge-type PREPAID --instance-count 2 --instance-name SEL-1C2G-[1,2] --internet-max-bandwidth-out 10 --password Password-12345~ --instance-type c.1c2g --internet-charge-type ByBandwidth --zone-id SEL-A --image-id image-xxxxx
+  desc: Create 2 subscription instances.
+- cmd: zeno vm create-instances --instance-charge-type PREPAID --instance-count 2 --instance-name SEL-1C2G-[1,2] --internet-max-bandwidth-out 100 --password Password-12345~ --instance-type c.1c2g --internet-charge-type ByTrafficPackage --traffic-package-size 10 --zone-id SEL-A --image-id image-xxxxx
+  desc: Create 2 subscription instances whose network billing method is a traffic package.
+- cmd: zeno vm create-instances --zone-id SEL-A --instance-type c.1c2g --image-id img-yKK4q6XybymPgfx7ynUUqC3N8 --instance-charge-type POSTPAID --internet-charge-type ByBandwidth --cidr-block-id <cidrBlockId> --init-script IyEvYmluL2Jhc2gKZWNobyAiaGVsbG8gemVubGF5ZXIiID4gL3RtcC9pbml0LmxvZwo=
+  desc: Create an instance with a specified initialization script.
 sdk:
   service: vm
   version: '2026-04-01'
@@ -320,12 +328,14 @@ parameters:
   type: boolean
   required: false
   sdk-field: cpuPassThrough
-  description: Whether CPU passthrough is enabled.
+  description: |-
+    Whether CPU passthrough is enabled.
+    This permission is not granted by default. To enable it, contact Zenlayer Support.
 - name: init-script
   type: string
   required: false
   sdk-field: initScript
-  description: Initialize the script. The string's byte size must not exceed 32 KB.
+  description: Initialization script. The value must be Base64-encoded, and the script content size must not exceed 32 KB.
 - name: network-mode
   type: enum
   required: false
@@ -375,12 +385,16 @@ parameters:
   type: string
   required: false
   sdk-field: cidrBlockId
-  description: CIDR Address Block ID. This field specifies the public IP address to be assigned from the CIDR address block.
+  description: |-
+    CIDR block ID.
+    If this field is specified, the public IP address is assigned from the CIDR block.
 - name: start-cidr-ipv4
   type: string
   required: false
   sdk-field: startCidrIpv4
-  description: "The starting IP address within the CIDR address range. \nThis field requires the quota cidrBlockId to be used together, and it represents the public IP address to be assigned to the machine from the address range starting at this address."
+  description: |-
+    The starting IP address within the CIDR block.
+    This field must be used together with cidrBlockId. It indicates that public IP addresses are assigned to the instance from the CIDR block starting at this address.
 - name: marketing-options
   type: object
   required: false

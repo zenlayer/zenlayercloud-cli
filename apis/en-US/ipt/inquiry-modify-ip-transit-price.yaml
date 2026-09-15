@@ -8,7 +8,8 @@ long: |-
 
   * BFD and BGP related operations (`BFD`, `BGP_ROUTE_TYPE`, `BGP_ASN_AS_SET`, `BGP_PASSWORD`) and HA switchover operations (`HA_SWITCH_PRIMARY`, `HA_SWITCH_MODE`) do not involve pricing changes. Calling this API with these types returns the `INVALID_RIPT_CONFIG_TYPE_NO_PRICE_CHANGE` error; you can call `ModifyIPTransitConfig` directly without a price inquiry.
   * When `type=BANDWIDTH`, `bandwidth` is required. Returns `privateConnectPrice` (private connect price) and `iptPrice` (bandwidth price).
-  * When `type=ADD_CIDR_BLOCK` or `EXPAND_CIDR_BLOCK`, `publicIPv4BlockSize` is required. Returns `iptIpPrices` (public IP block prices).
+  * For IP Transits with 95th percentile billing (`internetType=ByInstanceBandwidth95`), the price is determined solely by `commitBandwidth`: when `type=BANDWIDTH`, `commitBandwidth` must be specified explicitly and cannot be replaced by `bandwidth`. If `commitBandwidth` is unchanged from the current value, the price does not change and the `INVALID_RIPT_CONFIG_TYPE_NO_PRICE_CHANGE` error is returned; you can call `ModifyIPTransitConfig` directly without a price inquiry. `bandwidth` must be greater than or equal to `commitBandwidth`; otherwise the `INVALID_RIPT_BANDWIDTH_LESS_THAN_COMMIT` error is returned.
+  * When `type=ADD_CIDR_BLOCK` or `EXPAND_CIDR_BLOCK`, `publicIPv4BlockSize` is required. Returns `iptIpPrices` (public IP block prices). IP Transits with the Standard BGP tier (`bgp.tier=STANDARD`) do not support `ADD_CIDR_BLOCK`; otherwise the `OPERATION_DENIED_STANDARD_BGP_ADD_CIDR` error is returned.
   * When `type=DEL_CIDR_BLOCK` or `SHRINK_CIDR_BLOCK`, `ipUuid` is required, indicating the target IP block to unsubscribe from or shrink.
 examples:
 - cmd: zeno ipt inquiry-modify-ip-transit-price --ipt-id your-ipt-id --type BANDWIDTH --bandwidth 200
@@ -44,7 +45,9 @@ parameters:
   - value: BGP_PASSWORD
     desc: BGP password.
   - value: ADD_CIDR_BLOCK
-    desc: Add a public IP address block.
+    desc: |-
+      Add a public IP address block.
+      Not supported for instances with the Standard BGP tier (`bgp.tier=STANDARD`).
   - value: DEL_CIDR_BLOCK
     desc: Delete a public IP address block.
   - value: EXPAND_CIDR_BLOCK

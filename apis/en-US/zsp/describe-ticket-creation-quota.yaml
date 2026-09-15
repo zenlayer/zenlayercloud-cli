@@ -1,0 +1,30 @@
+name: DescribeTicketCreationQuota
+product: zsp
+use: describe-ticket-creation-quota
+short: Query Ticket Creation Quota
+long: |-
+  Query whether the current team can still create tickets within one hour.
+  **Notes**
+
+  * The quota is counted by team, based on the number of tickets created by the team within the last hour. All members of the same team share the quota.
+  * When `canCreate` is `false`, calling ~~CreateTicket~~ returns `OPERATION_DENIED_TICKET_QUOTA_EXCEEDED`.
+  * This API requires no request parameters.
+examples:
+- cmd: zeno zsp describe-ticket-creation-quota
+  desc: Query whether a ticket can still be submitted.
+- cmd: zeno zsp describe-ticket-creation-quota
+  desc: The response when the limit has been reached.
+sdk:
+  service: zsp
+  version: '2026-08-01'
+  action: DescribeTicketCreationQuota
+response:
+- name: canCreate
+  type: boolean
+  description: Whether tickets can still be created currently.
+- name: createdCountLastHour
+  type: integer
+  description: The number of tickets created within the last hour.
+- name: limitPerHour
+  type: integer
+  description: The maximum number of tickets that can be created per hour.

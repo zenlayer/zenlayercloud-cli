@@ -247,12 +247,14 @@ response:
     object-schema:
     - name: verificationStatus
       type: enum
-      description: ASN verification status.
+      description: |-
+        ASN verification status.
+        It is `agreed` if any ASN observed by RIPE matches the declared ASN.
       enum-values:
       - value: agreed
-        desc: The RIPE-observed ASN matches the declared ASN.
+        desc: Any ASN observed by RIPE matches the declared ASN.
       - value: disagreed
-        desc: The RIPE-observed ASN does not match the declared ASN.
+        desc: None of the ASNs observed by RIPE match the declared ASN.
       - value: unavailable
         desc: The primary data source query failed or returned no match.
       - value: querying

@@ -15,9 +15,18 @@ long: |-
 
   * Due to equipment reasons, some regions only support manual delivery, with a delivery cycle of 1-3 days. You can check the **deliveryType** field of [DescribeIPTransitDatacenters](describe-iptransit-datacenters.md) to determine whether it is automated delivery.
   * This is an asynchronous API. After the creation request is successfully submitted, an IP Transit `ID` will be returned. The creation is not immediately completed. During this period, the instance state will be **`DEPLOYING`**. You can call DescribeIpTransit to query the result. If the state (`iptStatus`) changes from **`DEPLOYING`** to **`AVAILABLE`**, the creation is successful. If the state changes to **`FAILED`**, the creation has failed. No operations are allowed on the IP Transit during the creation process.
+  * When `internetType=ByInstanceBandwidth95` (95th percentile billing), `commitBandwidth` is required. If `bandwidth` is also specified, it must be greater than or equal to `commitBandwidth`; otherwise the `INVALID_RIPT_BANDWIDTH_LESS_THAN_COMMIT` error is returned.
+  * When creating a high-availability IP Transit with `haConfig`, both `iptDcId` and `bfd` are required. A missing `iptDcId` returns the `MISSING_PARAMETER` error, and a missing or incomplete `bfd` returns the `INVALID_RIPT_HA_BFD_REQUIRED` error. BFD cannot be disabled after a high-availability IP Transit is created.
+  * When `routingType=BGP`, `bgp` is required and `bgp.asn` must be specified. You must also provide either `bgp.asnList` or `bgp.asSetList` (at least one of them). A missing `bgp` or `bgp.asn` returns the `MISSING_PARAMETER` error; if neither `asnList` nor `asSetList` is provided, the `INVALID_RIPT_BGP_ASN_LIST_MISSING` error is returned; if the ASN does not belong to you, the `INVALID_RIPT_BGP_ASN` error is returned.
+  * `bgp.tier` specifies the BGP tier: `PREMIUM` (Premium, the default) or `STANDARD` (Standard). The Standard tier is available only in some data centers (see `availableBgpTiers` in [DescribeIPTransitDatacenters](describe-iptransit-datacenters.md)), supports only `internetType=ByBandwidth` (fixed bandwidth), and `bandwidth` must be one of the fixed tier levels of that data center (for example, 10000/50000/100000 Mbps; if a value outside the tier levels is passed, the `INVALID_RIPT_BANDWIDTH_NOT_IN_TIER_LEVELS` error message returns the full list of available tier levels). If these conditions are not met, the `INVALID_RIPT_BGP_TIER_NOT_SUPPORTED`, `INVALID_RIPT_INTERNET_TYPE_FOR_STANDARD_BGP`, or `INVALID_RIPT_BANDWIDTH_NOT_IN_TIER_LEVELS` error is returned respectively. `STANDARD` is not supported when `zbgRegionId` is specified (router-based IP Transit).
+  * The Zenlayer-side (peer) AS numbers differ between the two tiers: `29752` for Standard BGP and `21859` for Premium BGP. Configure the BGP neighbor on your local router based on the `peerAsns` returned by [DescribeIPTransitDatacenters](describe-iptransit-datacenters.md).
 examples:
 - cmd: zeno ipt create-ip-transit --ipt-name test_IPT --ipt-description test_ipt_desc --peer-port-id 1170556726903057557 --peer-port-vlan 1042 --internet-type ByBandwidth --bandwidth 50 --ipt-dc-id AMS1 --routing-type Static --public-ipv4-block-size 28
-  desc: Create an IP Transit with static routing, /28 public CIDR, and BFD configuration.
+  desc: Create an IP Transit with static routing, a /28 public CIDR, and BFD configured.
+- cmd: zeno ipt create-ip-transit --ipt-name test_IPT_v4v6 --peer-port-id 1170556726903057557 --peer-port-vlan 1042 --internet-type ByBandwidth --bandwidth 100 --ipt-dc-id AMS1 --routing-type BGP --public-ip-list "{netmask=28, ipType=IPV4, ipNetworkType=BGP_IP, amount=2}" --public-ip-list "{netmask=64, ipType=IPV6, ipNetworkType=BGP_IP}"
+  desc: Create an IP Transit and use `publicIpList` to allocate a /28 IPv4 block and a /64 IPv6 block at the same time.
+- cmd: zeno ipt create-ip-transit --ipt-name test_IPT_standard_bgp --peer-port-id 1170556726903057557 --peer-port-vlan 1043 --internet-type ByBandwidth --bandwidth 10000 --ipt-dc-id SIN1 --routing-type BGP --public-ipv4-block-size 28
+  desc: Create an IP Transit with the Standard BGP tier (`STANDARD`) and a fixed bandwidth of 10 Gbps.
 sdk:
   service: ipt
   version: '2024-09-01'
@@ -156,6 +165,21 @@ parameters:
       desc: All routes with default routes.
     - value: DEFAULT_ROUTES
       desc: Default routes.
+  - name: tier
+    type: enum
+    description: |-
+      BGP tier.
+      STANDARD: Standard BGP. PREMIUM: Premium BGP.
+      Defaults to PREMIUM if not specified (consistent with the behavior before the tier split).
+    enum-values:
+    - value: STANDARD
+      desc: |-
+        Standard BGP.
+        Available only in some data centers. It supports fixed bandwidth billing only, and the bandwidth must be one of the fixed tier levels of that data center.
+    - value: PREMIUM
+      desc: |-
+        Premium BGP.
+        A low-latency line directly connected to the backbone. This is the default tier. Existing instances created before the tier split uniformly return this tier.
   - name: asn
     type: integer
     description: ASN for announcing outbound routes.

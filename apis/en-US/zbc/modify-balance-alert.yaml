@@ -1,0 +1,33 @@
+name: ModifyBalanceAlert
+product: zbc
+use: modify-balance-alert
+short: Modify balance alert settings
+long: Enables or disables the balance alert for the current account, and can set the alert threshold at the same time. Once enabled, the system sends a reminder email when the purchasing power (account balance + credit) falls below the threshold.
+examples:
+- cmd: zeno zbc modify-balance-alert --enabled true --alert-threshold 100.0
+  desc: Enable the balance alert and set the alert threshold.
+- cmd: zeno zbc modify-balance-alert --enabled false
+  desc: Disable the balance alert and retain the configured threshold.
+- cmd: zeno zbc modify-balance-alert --enabled true --alert-threshold 500.0
+  desc: Adjust only the alert threshold and keep the alert enabled.
+sdk:
+  service: zbc
+  version: '2024-08-09'
+  action: ModifyBalanceAlert
+parameters:
+- name: enabled
+  type: boolean
+  required: true
+  sdk-field: enabled
+  description: |-
+    Whether to enable the balance alert.
+    true indicates enabled, and false indicates disabled.
+    Disabling only stops the reminder emails. The configured threshold is retained and can be reused directly when the alert is enabled again.
+- name: alert-threshold
+  type: float
+  required: false
+  sdk-field: alertThreshold
+  description: |-
+    Balance alert threshold.
+    When the purchasing power (account balance + credit) falls below this value, a reminder email is sent daily until the purchasing power rises back above the threshold.
+    Required when the balance alert is enabled for the first time. If not specified, the existing threshold of the account is retained.

@@ -1,0 +1,66 @@
+name: ModifyEipBlockThreshold
+product: zec
+use: modify-eip-block-threshold
+short: Modifies blocking thresholds of the elastic IP
+long: |-
+  Modify the custom blocking thresholds of the elastic IP.
+  * When a threshold exceeds the quota limit of your team, the API returns a quota exceeded error. You can apply for a higher limit on the quota page of the console.
+  * The modified thresholds can be queried through the `blockInfoList` returned by ~~DescribeEips~~. Note that the units returned by the query are bps, pps and count, which differ from the units of the request parameters of this API.
+examples:
+- cmd: zeno zec modify-eip-block-threshold --eip-id eipId1 --enable true --bps 20000 --pps 2000 --in-cps 100 --out-cps 100
+  desc: Enable custom blocking thresholds and set all four values
+- cmd: zeno zec modify-eip-block-threshold --eip-id eipId1 --enable true --bps 15000
+  desc: Modify only the bandwidth threshold and keep the other three unchanged
+- cmd: zeno zec modify-eip-block-threshold --eip-id eipId1 --enable false
+  desc: Disable custom blocking thresholds and restore the system defaults
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyEipBlockThreshold
+parameters:
+- name: eip-id
+  type: string
+  required: true
+  sdk-field: eipId
+  description: |-
+    The elastic IP ID for modifying blocking thresholds.
+    Network segment (IP block) type elastic IPs do not support modifying blocking thresholds.
+- name: enable
+  type: boolean
+  required: true
+  sdk-field: enable
+  description: |-
+    Whether to enable custom blocking thresholds.
+    When false is passed, the existing custom thresholds are removed and the system default thresholds are restored. The four thresholds do not need to be passed in this case.
+- name: bps
+  type: integer
+  required: false
+  sdk-field: bps
+  description: |-
+    Bandwidth blocking threshold. Unit: Mbps.
+    The upper limit is controlled by the quota ZEC_EIP_Block_threshold_bps_cap.
+    When custom thresholds are enabled, at least one of the four thresholds must be passed. Thresholds that are not passed keep their current values.
+- name: pps
+  type: integer
+  required: false
+  sdk-field: pps
+  description: |-
+    Packet rate blocking threshold. Unit: kpps.
+    The upper limit is controlled by the quota ZEC_EIP_Block_threshold_pps_cap.
+    When custom thresholds are enabled, at least one of the four thresholds must be passed. Thresholds that are not passed keep their current values.
+- name: in-cps
+  type: integer
+  required: false
+  sdk-field: inCps
+  description: |-
+    Inbound connection rate blocking threshold. Unit: kcps.
+    The upper limit is controlled by the quota ZEC_EIP_Block_threshold_cps_in_cap.
+    When custom thresholds are enabled, at least one of the four thresholds must be passed. Thresholds that are not passed keep their current values.
+- name: out-cps
+  type: integer
+  required: false
+  sdk-field: outCps
+  description: |-
+    Outbound connection rate blocking threshold. Unit: kcps.
+    The upper limit is controlled by the quota ZEC_EIP_Block_threshold_cps_out_cap.
+    When custom thresholds are enabled, at least one of the four thresholds must be passed. Thresholds that are not passed keep their current values.

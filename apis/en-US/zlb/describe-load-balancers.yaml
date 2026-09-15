@@ -21,6 +21,18 @@ parameters:
   required: false
   sdk-field: vpcId
   description: Filter by the VPC ID to which the load balance backend server belongs.
+- name: ip-stack-type
+  type: enum
+  required: false
+  sdk-field: ipStackType
+  description: |-
+    Filter by IP stack type.
+    A load balancer instance supports only a single stack, that is, IPv4 or IPv6.
+  enum-values:
+  - value: IPv4
+    desc: IPv4 only.
+  - value: IPv6
+    desc: IPv6 only.
 - name: load-balancer-ids
   type: string-array
   required: false
@@ -103,6 +115,22 @@ response:
   - name: vpcId
     type: string
     description: VPC ID to which the load balance backend server belongs.
+  - name: subnetId
+    type: string
+    description: |-
+      ID of the subnet that the load balancer instance belongs to.
+      The private IP for health check is assigned in this subnet. When `ipStackType` is `IPv6`, the public IPv6 block is also assigned in this subnet.
+      This field is empty for the instances created without a specified subnet.
+  - name: ipStackType
+    type: enum
+    description: |-
+      IP stack type.
+      A load balancer instance supports only a single stack, that is, `IPv4` or `IPv6`.
+    enum-values:
+    - value: IPv4
+      desc: IPv4 only.
+    - value: IPv6
+      desc: IPv6 only.
   - name: status
     type: enum
     description: Load balance instance state.
@@ -119,7 +147,9 @@ response:
       desc: Releasing.
   - name: publicIpAddress
     type: string-array
-    description: Public Virtual IP list of the load balancer instance.
+    description: |-
+      Public Virtual IP list of the load balancer instance.
+      An `IPv4` load balancer returns a single address (such as `128.0.0.1`), while an `IPv6` load balancer returns a block with a mask (such as `2001:db8::/96`) instead of a single address within the block.
   - name: privateIpAddress
     type: string-array
     description: Private Virtual IP list of the load balancer instance.
@@ -129,6 +159,11 @@ response:
   - name: listenerCount
     type: integer
     description: Listener quantity.
+  - name: backendServerCount
+    type: integer
+    description: |-
+      Total number of backend servers added to all listeners of the load balancer.
+      Counted by the private IP of the backend servers; multiple private IPs of the same server are counted separately.
   - name: createTime
     type: string
     description: |-

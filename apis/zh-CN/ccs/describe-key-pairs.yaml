@@ -1,8 +1,8 @@
 name: DescribeKeyPairs
 product: ccs
 use: describe-key-pairs
-short: 查询密钥对列表
-long: 查询账户下的 SSH 密钥对信息，支持按密钥对 ID 或名称筛选，支持分页查询。
+short: 查询密钥对列表。
+long: 查询密钥对列表。
 examples:
 - cmd: zeno ccs describe-key-pairs
   desc: 获取密钥对列表。
@@ -34,7 +34,9 @@ parameters:
   type: integer
   required: false
   sdk-field: pageNum
-  description: 返回的分页数。
+  description: |-
+    返回的分页数。
+    默认为1。
 response:
 - name: totalCount
   type: integer

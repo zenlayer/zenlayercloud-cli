@@ -8,12 +8,15 @@ long: |-
 
   * This is an asynchronous API. The request returns immediately after submission, but the operation is not yet complete. You can query the instance operation result by calling [`DescribeInstancesStatus`](describeinstancesstatus.md). If the instance status (`instanceStatus`) changes from `RESIZING` to `STOPPED`, the instance type change was successful. No operations can be performed on the instance during the change process.
   * Only instances in `STOPPED` state can perform this operation.
-  * For VM instances, `instanceType` is the instance type ID, such as `z2a.cpu.4`. For GPU instances, `instanceType` is the GPU instance type ID, such as `z3a.g.C49.c8m32.1`.
+  * For VM instances, `instanceType` is the instance type ID, such as `z2a.cpu.4`. For GPU instances, `instanceType` is the GPU instance type ID, such as `z3a.g.C49.c8m32.1`. For accelerator instances, `instanceType` is the accelerator instance type ID, such as `z2a.v.T1U.c16m64.1`.
+  * For accelerator instances, modifying the instance type can only adjust the CPU, memory and card count. Switching to a different accelerator card model is not supported.
 examples:
 - cmd: zeno zec modify-instance-type --instance-id instanceId --instance-type z2a.cpu.4
   desc: Modify the type of a VM instance.
 - cmd: zeno zec modify-instance-type --instance-id instanceId --instance-type z3a.g.C49.c8m32.1
   desc: Modify the type of a GPU instance.
+- cmd: zeno zec modify-instance-type --instance-id instanceId --instance-type z2a.v.T1U.c16m64.1
+  desc: Modify the type of an accelerator instance.
 sdk:
   service: zec
   version: '2025-09-01'

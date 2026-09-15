@@ -40,6 +40,22 @@ parameters:
   required: true
   sdk-field: publicVirtualInterfaceId
   description: The unique identifier of the public VLAN.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    The tags associated with the byoip when it is created.
+    Note: The associated tag key cannot be repeated.--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 128 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 128 characters.'
 response:
 - name: byoipId
   type: string

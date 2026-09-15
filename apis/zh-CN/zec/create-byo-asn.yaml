@@ -1,0 +1,82 @@
+name: CreateByoAsn
+product: zec
+use: create-byo-asn
+short: 创建 BYO ASN
+long: |-
+  提交自带ASN并获取用于归属校验的校验码。
+  **注意事项**
+
+  * `asn` 支持 2 字节与 4 字节 ASN，最大值 **4294967295**（2^32-1），超过该值的请求会被拒绝。具体哪些 ASN 号可接入（私有段、保留段等）由底层判定。
+  * 本接口只生成校验码，不代表ASN已可用。需要客户按响应中的`exportDeclaration`在管理该ASN的RIR（ARIN、RIPE NCC、APNIC等）上完成声明后，调用 ~~VerifyByoAsn~~ 确认归属，状态变为`AVAILABLE`才能用于创建 BYOIP。
+examples:
+- cmd: zeno zec create-byo-asn --asn 12340
+  desc: 提交自带ASN并获取校验码。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CreateByoAsn
+parameters:
+- name: asn
+  type: integer
+  required: true
+  sdk-field: asn
+  description: |-
+    待接入的公网ASN号。
+    支持 2 字节与 4 字节 ASN，最大值 4294967295。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    创建后 BYO ASN 所在的资源组ID。
+    如不指定则放入默认资源组。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    创建 BYO ASN 时关联的标签。
+    注意：关联「标签键」不能重复。--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。
+response:
+- name: byoAsnId
+  type: string
+  description: 新建 BYO ASN 的ID。
+- name: asn
+  type: integer
+  description: ASN号。
+- name: status
+  type: enum
+  description: 当前状态。
+  enum-values:
+  - value: VERIFYING
+    desc: 验证中。
+  - value: AVAILABLE
+    desc: 可用。
+  - value: EXPIRED
+    desc: 验证失效。
+- name: verifyCode
+  type: string
+  description: |-
+    校验码。
+    需要客户将其写入 RIR 上该ASN的 aut-num 对象。
+- name: exportDeclaration
+  type: string
+  description: |-
+    完整的 export 声明语句。
+    客户直接复制该语句写入 RIR 上该ASN的 aut-num 对象即可。
+- name: createTime
+  type: string
+  description: 创建时间。

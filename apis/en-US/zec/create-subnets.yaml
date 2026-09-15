@@ -1,0 +1,98 @@
+name: CreateSubnets
+product: zec
+use: create-subnets
+short: Batch Create Subnets
+long: |-
+  Creates multiple subnets in batches under the same VPC.
+  **Important Notes**
+
+  * Subnets created in batches must belong to the same VPC. A single request can create a maximum of 10 subnets.
+  * Subnets within this batch will either all be created successfully or none will be created: if the parameter validation or creation of any one subnet fails, the entire request will not create any subnets.
+  * There is a limit to the number of subnet resources that can be created within the same VPC, and the CIDR segment of each subnet must belong to the CIDR segment of the VPC.
+  * Within the same VPC, the CIDR address ranges of subnets cannot overlap, and the CIDR address ranges between multiple subnets in this request also cannot overlap: if there is a conflict with an existing subnet under the VPC, return `OPERATION_DENIED_SUBNET_CIDR_CONFLICT`, and if there is a conflict with other subnets in this request, return `OPERATION_DENIED_SUBNET_CIDR_CONFLICT_WITH_BATCH`.
+  * Call the ~~DescribeSubnetRegion~~ interface to query whether the subnet region supports creation.
+examples:
+- cmd: zeno zec create-subnets --vpc-id <vpcId> --subnets "{regionId=asia-east-1, stackType=IPv4_IPv6, ipv6Type=Public, name=Subnet-asia-east-1-01, cidrBlock=10.0.0.0/24}" --subnets "{regionId=asia-east-1, stackType=IPv4, name=Subnet-asia-east-1-02, cidrBlock=10.0.1.0/24}"
+  desc: Batch create 2 subnets under the same VPC.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CreateSubnets
+parameters:
+- name: vpc-id
+  type: string
+  required: true
+  sdk-field: vpcId
+  description: |-
+    The ID of the VPC to add subnets to.
+    All subnets created in the batch belong to the same VPC.
+- name: subnets
+  type: object-array
+  required: true
+  sdk-field: subnets
+  description: |-
+    The list of subnets to be created.
+    A single request supports creating up to 10 subnets.
+    Subnets within this batch are created all-or-nothing.
+  array-style: json
+  item-schema:
+  - name: name
+    type: string
+    description: |-
+      Subnet name.
+      The range is 2 to 63 characters.
+      Only letters, numbers, hyphens (-), underscores (_), forward slashes (/), periods (.), and spaces are supported.
+      And it must begin and end with a number or a letter.
+  - name: regionId
+    type: string
+    description: |-
+      The ID of the region where the subnet resides.
+      Must be one of the regions the VPC belongs to.
+  - name: stackType
+    type: enum
+    description: |-
+      The IP stack type of the subnet.
+      Valid values: IPv4 (IPv4 only), IPv4_IPv6 (dual stack of IPv4 and IPv6), IPv6 (IPv6 only).
+    enum-values:
+    - value: IPv4
+      desc: IPv4 stack type only.
+    - value: IPv4_IPv6
+      desc: IPv4 and IPv6 stack type.
+    - value: IPv6
+      desc: IPv6 stack type only.
+  - name: cidrBlock
+    type: string
+    description: |-
+      The IPv4 CIDR block of the subnet.
+      Required if the specified stack type `stackType` includes `IPv4`.
+      The specified CIDR block must fall within the VPC's CIDR range, and must not overlap with existing subnets under the VPC or with other subnets in this batch request.
+  - name: ipv6Type
+    type: enum
+    description: |-
+      The type of IPv6 address.
+      Required if the specified stack type `stackType` includes `IPv6`.
+    enum-values:
+    - value: Private
+      desc: Private network.
+    - value: Public
+      desc: Public network.
+  - name: dhcpOptionsSetId
+    type: string
+    description: The ID of the DHCP options set to bind.
+  - name: ipv6CidrBlockId
+    type: string
+    description: |-
+      The public IPv6 CIDR block ID.
+      This field can only be specified when `ipv6Type` is public (`Public`).
+      If not specified, it will be allocated from the system's default IP pool.
+  - name: ipv6MaskLength
+    type: integer
+    description: |-
+      The prefix length of the IPv6 CIDR assigned to the virtual machine (VM).
+      This parameter must be used together with the `ipv6CidrBlockId` parameter.
+      Defaults to 96 when not explicitly specified.
+      The minimum value must be greater than or equal to the prefix length of the specified `ipv6CidrBlockId`, and the maximum value cannot exceed 96.
+response:
+- name: subnetIds
+  type: string-array
+  description: The list of created subnet IDs, in the same order as the subnet list in the request.

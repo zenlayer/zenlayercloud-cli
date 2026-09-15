@@ -5,7 +5,7 @@ short: 获取实例VNC地址
 long: 获取实例VNC地址。
 examples:
 - cmd: zeno vm describe-vnc-url --instance-id <instanceId>
-  desc: 获取VNC URL地址。
+  desc: 获取vncUrl
 sdk:
   service: vm
   version: '2026-04-01'

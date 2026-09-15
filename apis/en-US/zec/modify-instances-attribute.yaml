@@ -9,8 +9,10 @@ long: |-
   * Batch operations are supported. The maximum number of instances in each request is 100.
   * If any of the instance IDs does not exist, the operation will fail immediately.
 examples:
-- cmd: zeno zec modify-instances-attribute --instance-ids instanceId1 --instance-ids instanceId2 --instance-name myInstanceName
-  desc: Batch modify instance names. Modify names of two instances to `myInstanceName`.
+- cmd: zeno zec modify-instances-attribute --instance-ids instanceId1 --instance-ids instanceId2 --instance-name Test-Instance
+  desc: Batch modify the names of instances.
+- cmd: zeno zec modify-instances-attribute --instance-ids instanceId1 --instance-ids instanceId2 --instance-ids instanceId3 --instance-name Test-Instance-[1,1]
+  desc: ''
 sdk:
   service: zec
   version: '2025-09-01'
@@ -29,4 +31,12 @@ parameters:
   sdk-field: instanceName
   description: |-
     Instance name.
-    This parameter can contain up to 64 characters. Only letters, numbers, - and periods (.) are supported.
+    2 to 63 characters in length.
+    Only letters, digits, periods (.), underscores (_), slashes (/) and hyphens (-) are supported, and it must start and end with a letter or a digit.
+    When modifying multiple instances at a time, you can specify a pattern string [begin_number,bits]. The instances are numbered in the order of the instanceIds list.
+    begin_number: the starting value of the ordered number, value range: [0,99999].
+    bits: the number of digits occupied by the ordered number, value range: [1,6]. It is padded with leading zeros when the value has fewer digits, and it is not truncated when the value exceeds the specified digits.
+    Note that spaces are not allowed in the pattern string.
+    For example, when modifying 2 instances with server-[3,3] specified, the instance names are server-003 and server-004.
+    Multiple pattern strings are supported, such as server-[3,3]-[1,1].
+    When no pattern string is specified, all the instances are renamed to the same name.

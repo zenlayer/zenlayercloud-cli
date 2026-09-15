@@ -3,7 +3,7 @@ product: ipt
 use: modify-ip-transits-attribute
 short: 修改IP Transit属性
 long: |-
-  修改IP Transit属性
+  修改IP Transit属性。
   **注意事项**
 
   * 如果指定的ID中有不存在的IP Transit, 本次操作会立即失败。

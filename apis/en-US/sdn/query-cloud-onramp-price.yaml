@@ -33,6 +33,8 @@ parameters:
     desc: Huawei Cloud
   - value: BYTE_PLUS
     desc: BytePlus
+  - value: VOLCENGINE
+    desc: Volcengine
   - value: ORACLE
     desc: Oracle Cloud
 - name: dc-id

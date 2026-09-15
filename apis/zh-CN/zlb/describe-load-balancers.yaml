@@ -21,6 +21,18 @@ parameters:
   required: false
   sdk-field: vpcId
   description: 根据负载均衡后端服务器所属的VPC网络 ID过滤。
+- name: ip-stack-type
+  type: enum
+  required: false
+  sdk-field: ipStackType
+  description: |-
+    根据IP堆栈类型过滤。
+    负载均衡实例只支持单栈，即IPv4或IPv6。
+  enum-values:
+  - value: IPv4
+    desc: 仅IPv4。
+  - value: IPv6
+    desc: 仅IPv6。
 - name: load-balancer-ids
   type: string-array
   required: false
@@ -58,14 +70,14 @@ parameters:
   sdk-field: tagKeys
   description: |-
     根据标签键进行搜索。
-     最长不得超过20个标签键。
+    最长不得超过20个标签键。
 - name: tags
   type: object-array
   required: false
   sdk-field: tags
   description: |-
     根据标签进行搜索。
-     最长不得超过20个标签。
+    最长不得超过20个标签。
   array-style: json
   item-schema:
   - name: key
@@ -104,6 +116,22 @@ response:
   - name: vpcId
     type: string
     description: 负载均衡后端服务器所属的VPC网络 ID。
+  - name: subnetId
+    type: string
+    description: |-
+      负载均衡实例所属的子网 ID。
+      健康检查内网 IP 分配在该子网；`ipStackType`为`IPv6`时，公网 IPv6 网段也分配在该子网。
+      创建时未指定子网的实例该字段为空。
+  - name: ipStackType
+    type: enum
+    description: |-
+      IP堆栈类型。
+      负载均衡实例只支持单栈，即`IPv4`或`IPv6`。
+    enum-values:
+    - value: IPv4
+      desc: 仅IPv4。
+    - value: IPv6
+      desc: 仅IPv6。
   - name: status
     type: enum
     description: 负载均衡实例的状态。
@@ -120,7 +148,9 @@ response:
       desc: 实例正在释放中。
   - name: publicIpAddress
     type: string-array
-    description: 负载均衡实例的公网 VIP 列表。
+    description: |-
+      负载均衡实例的公网 VIP 列表。
+      `IPv4`类型返回单个地址（如`128.0.0.1`）；`IPv6`类型返回带掩码的网段（如`2001:db8::/96`），而非网段内的单个地址。
   - name: privateIpAddress
     type: string-array
     description: 负载均衡实例的内网 VIP 列表。
@@ -130,6 +160,11 @@ response:
   - name: listenerCount
     type: integer
     description: 负载均衡器下监听器的数量。
+  - name: backendServerCount
+    type: integer
+    description: |-
+      负载均衡器下所有监听器绑定的后端服务器数量之和。
+      按后端服务器的内网IP统计，同一台服务器的多个内网IP分别计数。
   - name: createTime
     type: string
     description: |-

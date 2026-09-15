@@ -1,0 +1,85 @@
+name: AssignLoadBalancerIpv6
+product: zlb
+use: assign-load-balancer-ipv6
+short: 为负载均衡器实例分配公网IPv6
+long: |-
+  为负载均衡实例分配公网IPv6。
+  **注意事项**
+
+  * 负载均衡实例状态需为`RUNNING`。
+  * 公网IPv6从负载均衡实例创建时指定的子网中分配，**本接口不接受子网参数**。该子网需含公网IPv6网段。
+  * 本接口为异步接口，接口成功返回后地址尚未就绪，可通过负载均衡实例详情查询分配结果。
+  * 公网IPv6网段本身不计费，仅按带宽计费。
+  * 单个负载均衡实例可分配的公网IP数量受配额`VIPs_per_LB`限制。
+examples:
+- cmd: zeno zlb assign-load-balancer-ipv6 --load-balancer-id <loadBalancerId> --internet-charge-type ByBandwidth --bandwidth 100 --rate-limit-mode LOOSE
+  desc: 为负载均衡实例分配1个公网IPv6。计费类型为固定带宽计费，带宽限速设置为100Mbps。
+- cmd: zeno zlb assign-load-balancer-ipv6 --load-balancer-id <loadBalancerId> --vip-count 3 --internet-charge-type BandwidthCluster --cluster-id <clusterId> --rate-limit-mode LOOSE
+  desc: 为负载均衡实例一次分配3个公网IPv6。计费类型为共享带宽包计费。
+sdk:
+  service: zlb
+  version: '2025-04-01'
+  action: AssignLoadBalancerIpv6
+parameters:
+- name: load-balancer-id
+  type: string
+  required: true
+  sdk-field: loadBalancerId
+  description: |-
+    要分配公网IPv6的负载均衡实例ID。
+    仅ipStackType为IPv6的负载均衡实例可用。
+- name: vip-count
+  type: integer
+  required: false
+  sdk-field: vipCount
+  description: |-
+    本次分配的公网IPv6数量。
+    子网剩余可用公网IPv6不足时将返回INVALID_SUBNET_IPV6_INSUFFICIENT。
+- name: internet-charge-type
+  type: enum
+  required: true
+  sdk-field: internetChargeType
+  description: 公网IPv6的网络计费方式。
+  enum-values:
+  - value: ByBandwidth
+    desc: 固定带宽计费方式。
+  - value: ByTrafficPackage
+    desc: 流量包计费方式。
+  - value: BandwidthCluster
+    desc: 共享带宽包计费方式。
+- name: bandwidth
+  type: integer
+  required: false
+  sdk-field: bandwidth
+  description: |-
+    公网IPv6的带宽限速。
+    单位Mbps。
+    网络计费方式为固定带宽(ByBandwidth)时必填。
+- name: package-size
+  type: float
+  required: false
+  sdk-field: packageSize
+  description: |-
+    公网IPv6的流量包大小。
+    单位为TB。
+    值要求为0或0.1的倍数。
+    网络计费方式为流量计费(ByTrafficPackage)时必填，且仅计费周期为月时支持设置。
+- name: cluster-id
+  type: string
+  required: false
+  sdk-field: clusterId
+  description: |-
+    公网IPv6所指定的共享带宽包ID。
+    网络计费方式为共享带宽包计费(BandwidthCluster)时必填。
+- name: rate-limit-mode
+  type: enum
+  required: false
+  sdk-field: rateLimitMode
+  description: |-
+    限速模式。
+    严格模式(STRICT)必须同时指定bandwidth，否则返回INVALID_RATE_LIMIT_MODE_REQUIRES_BANDWIDTH。
+  enum-values:
+  - value: LOOSE
+    desc: 宽松模式：允许短时间突发超出限制。
+  - value: STRICT
+    desc: 严格模式：严格限制，不允许任何突发。

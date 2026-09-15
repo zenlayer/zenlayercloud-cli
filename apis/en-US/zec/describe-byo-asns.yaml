@@ -1,0 +1,182 @@
+name: DescribeByoAsns
+product: zec
+use: describe-byo-asns
+short: Queries the list of BYO ASNs
+long: Query the details of one or more bring-your-own ASNs.
+examples:
+- cmd: zeno zec describe-byo-asns --page-num 1 --page-size 20
+  desc: Query the list of BYO ASNs under the current account.
+- cmd: zeno zec describe-byo-asns --order-by ASN --direction ASC
+  desc: Sort by ASN number in ascending order.
+- cmd: zeno zec describe-byo-asns --status AVAILABLE
+  desc: Query only the BYO ASNs that are already available.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeByoAsns
+parameters:
+- name: byo-asn-ids
+  type: string-array
+  required: false
+  sdk-field: byoAsnIds
+  description: |-
+    List of BYO ASN IDs.
+    A maximum of 100 IDs can be queried.
+- name: asn
+  type: integer
+  required: false
+  sdk-field: asn
+  description: Filter by the exact ASN number.
+- name: status
+  type: enum
+  required: false
+  sdk-field: status
+  description: Filter by status.
+  enum-values:
+  - value: VERIFYING
+    desc: Verifying.
+  - value: AVAILABLE
+    desc: Available.
+  - value: EXPIRED
+    desc: Verification expired.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: Filter by resource group ID.
+- name: order-by
+  type: enum
+  required: false
+  sdk-field: orderBy
+  description: |-
+    Sorting field.
+    Sorts by creation time if not specified.
+  enum-values:
+  - value: ASN
+    desc: Sorts by ASN number.
+  - value: CREATE_TIME
+    desc: Sorts by creation time.
+- name: direction
+  type: enum
+  required: false
+  sdk-field: direction
+  description: |-
+    Sorting direction.
+    Sorts in descending order if not specified.
+  enum-values:
+  - value: ASC
+    desc: Ascending order.
+  - value: DESC
+    desc: Descending order.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    Number of items in the current page result.
+    Default value: 20;
+    Maximum value: 1000.
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    Number of pages returned.
+    Default value: 1.
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    Search by tag key.
+    A maximum of 20 tag keys can be used.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    Search by tags.
+    Maximum 20 tags.
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'
+response:
+- name: totalCount
+  type: integer
+  description: Number of BYO ASNs meeting the filtering conditions.
+- name: dataSet
+  type: object-array
+  description: BYO ASN result set.
+  array-style: json
+  item-schema:
+  - name: byoAsnId
+    type: string
+    description: ID of the BYO ASN.
+  - name: asn
+    type: integer
+    description: ASN number.
+  - name: status
+    type: enum
+    description: Current status.
+    enum-values:
+    - value: VERIFYING
+      desc: Verifying.
+    - value: AVAILABLE
+      desc: Available.
+    - value: EXPIRED
+      desc: Verification expired.
+  - name: type
+    type: enum
+    description: Source type.
+    enum-values:
+    - value: BYOASN
+      desc: Bring your own ASN (BYO ASN).
+  - name: verifyCode
+    type: string
+    description: |-
+      Verification code.
+      You need to write it into the aut-num object of the ASN on the RIR.
+  - name: exportDeclaration
+    type: string
+    description: |-
+      The complete export declaration statement.
+      You can copy this statement directly into the aut-num object of the ASN on the RIR.
+  - name: ipv4CidrCount
+    type: integer
+    description: Number of the IPv4 CIDR blocks advertised under the ASN.
+  - name: ipv6CidrCount
+    type: integer
+    description: Number of the IPv6 CIDR blocks advertised under the ASN.
+  - name: createTime
+    type: string
+    description: Creation time.
+  - name: resourceGroup
+    type: object
+    description: Resource group information.
+    object-schema:
+    - name: resourceGroupId
+      type: string
+      description: Resource group ID.
+    - name: resourceGroupName
+      type: string
+      description: Resource group name.
+  - name: tags
+    type: object
+    description: Tag list.
+    object-schema:
+    - name: tags
+      type: object-array
+      description: List of tags.
+      array-style: json
+      item-schema:
+      - name: key
+        type: string
+        description: 'Tag key. Length limit: 1 to 64 characters.'
+      - name: value
+        type: string
+        description: 'Tag value. Length limit: 1 to 64 characters.'

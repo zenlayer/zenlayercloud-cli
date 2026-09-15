@@ -1,0 +1,29 @@
+name: DescribeBalanceAlert
+product: zbc
+use: describe-balance-alert
+short: 查询余额提醒设置
+long: 查询当前账户的余额提醒开关状态与提醒阈值。
+examples:
+- cmd: zeno zbc describe-balance-alert
+  desc: 查询余额提醒设置。
+- cmd: zeno zbc describe-balance-alert
+  desc: 查询未开启提醒的账户。
+sdk:
+  service: zbc
+  version: '2024-08-09'
+  action: DescribeBalanceAlert
+response:
+- name: accountUid
+  type: string
+  description: 账户唯一标识。
+- name: enabled
+  type: boolean
+  description: |-
+    余额提醒是否开启。
+    本字段为 true 但 alertThreshold 为空时，提醒不会实际触发。
+- name: alertThreshold
+  type: float
+  description: |-
+    余额提醒阈值。
+    可用金（账户余额 + 信用值）低于该值时触发提醒邮件。
+    账户从未设置过阈值时为空；提醒关闭后阈值仍然保留，因此本字段有值不代表提醒已开启。

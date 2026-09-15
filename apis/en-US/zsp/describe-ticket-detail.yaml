@@ -1,0 +1,124 @@
+name: DescribeTicketDetail
+product: zsp
+use: describe-ticket-detail
+short: Query Ticket Details
+long: |-
+  Query the details and communication records of a specified ticket.
+  **Notes**
+
+  * You can query only the tickets submitted by the current team. Querying a ticket of another team and querying a nonexistent ticket return the same error code.
+  * `messages` contains only the initial description provided when the ticket was submitted in either of the following cases: the ticket status is `CREATING` (it has not been synchronized to the customer service system yet), or `contactEmail` was not specified when the ticket was submitted (it is impossible to determine which correspondence emails belong to the customer).
+  * `ticketId` can be obtained by calling ~~DescribeTickets~~, or taken from the return value of ~~CreateTicket~~. `ticketNumber` can be obtained by calling ~~DescribeTickets~~.
+examples:
+- cmd: zeno zsp describe-ticket-detail --ticket-id T-1000000000000001
+  desc: Query the details of a ticket in the processing status by ticket ID.
+- cmd: zeno zsp describe-ticket-detail --ticket-number 00123457
+  desc: Query the details of a finished ticket by ticket number.
+- cmd: zeno zsp describe-ticket-detail --ticket-id T-1000000000000003
+  desc: Query the details of a ticket that is still being synchronized. The ticket does not have a ticket number yet, so it can be queried only by ticket ID.
+sdk:
+  service: zsp
+  version: '2026-08-01'
+  action: DescribeTicketDetail
+parameters:
+- name: ticket-id
+  type: string
+  required: false
+  sdk-field: ticketId
+  description: |-
+    Ticket ID.
+    Specify at least one of the ticket ID and the ticket number. If both are specified, the ticket ID takes precedence.
+- name: ticket-number
+  type: string
+  required: false
+  sdk-field: ticketNumber
+  description: |-
+    Ticket number.
+    Specify at least one of the ticket ID and the ticket number. If both are specified, the ticket ID takes precedence.
+    A ticket that is still being created (the status is CREATING) does not have a ticket number yet, so it can be queried only by ticket ID.
+response:
+- name: ticketId
+  type: string
+  description: Ticket ID.
+- name: ticketNumber
+  type: string
+  description: |-
+    Ticket number.
+    It is null while the ticket is still being created (the status is CREATING).
+- name: type
+  type: enum
+  description: Ticket type.
+  enum-values:
+  - value: SERVICE_FAILURE
+    desc: 'Service failure: a purchased service is unavailable or malfunctioning.'
+  - value: FINANCIAL_INQUIRIES
+    desc: 'Billing inquiry: financial issues such as billing amounts, billing cycles, and invoices.'
+  - value: ACCOUNT_TEAM_RELATED
+    desc: 'Account inquiry: issues related to accounts, teams, and member permissions.'
+  - value: PURCHASE_CONSULTATION
+    desc: 'Purchase consultation: pre-sales inquiries about prices, specifications, and solutions.'
+  - value: PRODUCT_SUGGESTIONS
+    desc: 'Product inquiry: inquiries about product features and suggestions for improvement.'
+  - value: OTHERS
+    desc: 'Others: issues that do not fall into the categories above.'
+- name: status
+  type: enum
+  description: Ticket status.
+  enum-values:
+  - value: CREATING
+    desc: 'Creating: the ticket has been accepted and stored and is being synchronized to the customer service system. The ticket number has not been generated yet.'
+  - value: NEW
+    desc: 'New: the ticket has been synchronized to the customer service system and is waiting to be picked up by customer support.'
+  - value: PROCESSING
+    desc: 'Processing: customer support is handling the ticket, including the cases of waiting for the customer''s reply and the customer having provided additional information.'
+  - value: UPGRADE_IN_PROGRESS
+    desc: 'Upgrade in progress: the ticket has been escalated to a higher-level support team.'
+  - value: FINISHED
+    desc: 'Finished: the issue has been resolved or the ticket has been closed.'
+  - value: MERGED
+    desc: 'Merged: the ticket has been merged into another ticket, and subsequent communication takes place in the merged ticket.'
+- name: description
+  type: string
+  description: Issue description.
+- name: contactName
+  type: string
+  description: Contact name.
+- name: contactEmail
+  type: string
+  description: Contact email.
+- name: contactPhone
+  type: string
+  description: Contact phone number.
+- name: createTime
+  type: string
+  description: Creation time.
+- name: messages
+  type: object-array
+  description: |-
+    The ticket communication records, sorted by time in descending order, with the last one being the initial description provided when the ticket was submitted.
+    Only the emails related to the contact email are included.
+  array-style: json
+  item-schema:
+  - name: subject
+    type: string
+    description: Email subject.
+  - name: content
+    type: string
+    description: |-
+      Email body.
+      Only the content of the current reply is kept, excluding the quoted historical emails.
+  - name: fromName
+    type: string
+    description: Sender name.
+  - name: fromAddress
+    type: string
+    description: Sender email address.
+  - name: toAddress
+    type: string
+    description: Recipient email address.
+  - name: ccAddress
+    type: string
+    description: CC email address.
+  - name: messageDate
+    type: string
+    description: Email time.

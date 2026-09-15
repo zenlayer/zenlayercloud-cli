@@ -145,7 +145,7 @@ parameters:
   sdk-field: prefixLength
   description: |-
     Filters by the prefix length of the EIP.
-    32 indicates a single IP address; 24–31 indicates a CIDR block.
+    32 indicates a single IP address; 20–31 indicates a CIDR block.
 response:
 - name: totalCount
   type: integer

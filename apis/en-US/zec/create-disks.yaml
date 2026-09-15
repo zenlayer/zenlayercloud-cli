@@ -8,13 +8,30 @@ long: |-
 
   This API is an async API. A disk `ID` list is returned after the creation request is sent. However, it does not mean the creation has been completed. You can use [`DescribeDisks`](describedisks.md) to query the status of the disk. If disk has been queried with the **AVAILABLE** status, it means that the disk has been created successfully; if disk has been attached to a certain instance while creating, the **IN\_USE** status means attaching successfully.
 examples:
-- cmd: zeno zec create-disks --disk-name Test-Disk --disk-size 30 --disk-amount 1 --zone-id HKG-A
-  desc: Create one or more disks.
+- cmd: zeno zec create-disks --disk-name Test-Disk --disk-size 30 --disk-amount 1 --zone-id asia-east-1a
+  desc: Create one 30 GiB disk.
+- cmd: zeno zec create-disks --disk-name Test-Disk --disk-size 20 --disk-amount 3 --zone-id asia-east-1a --instance-id <instanceId>
+  desc: Create three 20 GiB disks and attach them to the same instance.
+- cmd: zeno zec create-disks --disk-name Test-Disk --disk-names Test-Disk-1 --disk-names Test-Disk-2 --disk-size 20 --disk-amount 2 --zone-id asia-east-1a --instance-ids <instanceId1> --instance-ids <instanceId2>
+  desc: Create two 20 GiB disks, attach them to two different instances, and specify a name for each.
 sdk:
   service: zec
   version: '2025-09-01'
   action: CreateDisks
 parameters:
+- name: instance-charge-postpaid
+  type: object
+  required: false
+  sdk-field: instanceChargePostpaid
+  description: |-
+    The commitment period for a postpaid cloud disk.
+    Only pass this when a commitment period needs to be specified.
+  object-schema:
+  - name: period
+    type: integer
+    description: |-
+      Postpaid duration.
+      Unit: month.
 - name: zone-id
   type: string
   required: true
@@ -22,12 +39,22 @@ parameters:
   description: ID of availability zone to which the disk belongs.
 - name: disk-name
   type: string
-  required: true
+  required: false
   sdk-field: diskName
   description: |-
     Disk name.
-    This parameter must start with a number or a letter, containing up to 64 characters.
-    Only letters, numbers, - and periods (.) are supported.
+    Length: 1 to 64 characters.
+    Only letters, digits, hyphens (-), slashes (/), underscores (_) and periods (.) are allowed.
+    Must start and end with a digit or a letter.
+    Required when diskNames is not specified.
+- name: disk-names
+  type: string-array
+  required: false
+  sdk-field: diskNames
+  description: |-
+    The individual name for each cloud disk.
+    The number of names must match the diskAmount field, and the naming rules are the same as diskName.
+    If not passed, all disks in this batch use the name specified by diskName.
 - name: disk-size
   type: integer
   required: true
@@ -47,6 +74,13 @@ parameters:
   description: |-
     ID of instance to which the disks are attached.
     Specify the ID of an instance in the current zone to which the disks are attached.
+- name: instance-ids
+  type: string-array
+  required: false
+  sdk-field: instanceIds
+  description: |-
+    IDs of the instances to attach.
+    The number of IDs must match the diskAmount field, and each disk is attached to a different instance. If instanceId is passed at the same time, instanceId takes precedence.
 - name: resource-group-id
   type: string
   required: false
@@ -59,10 +93,10 @@ parameters:
   required: false
   sdk-field: diskCategory
   description: |-
-    Disk type.
-    Basic NVMe SSD : the Basic NVMe SSD. Standard NVMe SSD : the Standard NVMe SSD.
-    Default value: Standard NVMe SSD .
-    Call DescribeDiskCategory to obtain disk type.
+    Disk category.
+    Basic NVMe SSD/BASIC_NVME_SSD: economical NVMe SSD.
+    Standard NVMe SSD/NVME_SSD: standard NVMe SSD.
+    Default value: Standard NVMe SSD.
 - name: snapshot-id
   type: string
   required: false
@@ -102,13 +136,6 @@ parameters:
   - name: value
     type: string
     description: 'Tag value. Length limit: 1 to 64 characters.'
-- name: instance-ids
-  type: string-array
-  required: false
-  sdk-field: instanceIds
-  description: |-
-    IDs of instances to be attached.
-    The number of IDs should be the same as diskAmount .
 - name: bursting-enabled
   type: boolean
   required: false

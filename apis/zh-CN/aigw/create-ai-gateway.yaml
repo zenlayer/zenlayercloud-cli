@@ -31,9 +31,19 @@ parameters:
     范围2到63个字符。
     仅支持输入字母、数字、-和英文句点(.)。
     且必须以数字或字母开头和结尾。
+- name: daily-limit
+  type: integer
+  required: false
+  sdk-field: dailyLimit
+  description: 日额度限制。
+- name: monthly-limit
+  type: integer
+  required: false
+  sdk-field: monthlyLimit
+  description: 月额度限制。
 - name: token-limit
   type: integer
-  required: true
+  required: false
   sdk-field: tokenLimit
   description: token配额。
 - name: expire-type

@@ -1,0 +1,40 @@
+name: DescribeRegions
+product: zec
+use: describe-regions
+short: 查询节点信息
+long: 查询节点信息。包括名称、所属的行政区划等。
+examples:
+- cmd: zeno zec describe-regions --region-ids asia-east-1 --region-ids sa-north-1
+  desc: 查询节点列表。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeRegions
+parameters:
+- name: region-ids
+  type: string-array
+  required: false
+  sdk-field: regionIds
+  description: 根据节点ID过滤。
+response:
+- name: regionSet
+  type: object-array
+  description: 节点列表。
+  array-style: json
+  item-schema:
+  - name: regionId
+    type: string
+    description: 节点ID。
+  - name: regionName
+    type: string
+    description: 节点名称。
+  - name: administrativeRegion
+    type: enum
+    description: |-
+      节点所属的行政区划。
+      区域配置缺失时为null。
+    enum-values:
+    - value: CHINESE_MAINLAND
+      desc: 中国大陆。
+    - value: FOREIGN
+      desc: 中国大陆以外的国家和地区。

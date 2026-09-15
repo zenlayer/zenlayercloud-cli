@@ -4,16 +4,18 @@ use: associate-eip-address
 short: Associates elastic IPs to resources in the same region
 long: |-
   Associate elastic IPs to resources in the same region.
-  **Note**
+  **Notes**
 
-  * You can call [DescribeLoadBalancers](../../../networking/zlb/load-balancer-instance/describeloadbalancers.md) to query supported load balancers.
-  * You can call [DescribeNetworkInterfaces](../vnic/describenetworkinterfaces.md) to query supported vNIC.
-  * You can call [DescribeNatGateways](../nat-gateway/describenatgateways.md) to query supported NAT gateway.
-  * You can call [DescribeHaVips](../havip/describehavips.md) to query supported high availability virtual IPs.
-  * You must specify exactly one of the following parameters: `loadBalancerId`, `nicId`, `natId`, or `haVipId`, in order of priority: `loadBalancerId` > `nicId` > `natId` > `haVipId`.
-  * When associating via `haVipId`, `bindType` must be `FullNat`. Any other value will cause all elastic IPs in this request to fail to associate.
-  * If the upper limit is exceeded, please contact us to request a quota increase.
-  * The API returns the elastic IP IDs that failed to operate. An empty list indicates all operations succeeded.
+  * You can call [`DescribeLoadBalancers`](../../../networking/zlb/load-balancer-instance/describeloadbalancers.md) to query the load balancers that support association.
+  * You can call [`DescribeNetworkInterfaces`](../vnic/describenetworkinterfaces.md) to query the vNICs that support association.
+  * You can call [`DescribeNatGateways`](../nat-gateway/describenatgateways.md) to query the NAT gateways that support association.
+  * You can call [`DescribeHaVips`](../havip/describehavips.md) to query the high availability virtual IPs that support association.
+  * Exactly one of the parameters `loadBalancerId`, `nicId`, `natId`, and `haVipId` must be specified. If more than one is specified, they take effect in the following order of priority: `loadBalancerId`, `nicId`, `natId`, `haVipId`.
+  * When associating with a load balancer via `loadBalancerId`, `bindType` does not take effect (a load balancer does not require a binding mode) and the value passed in is ignored.
+  * When associating with a load balancer via `loadBalancerId`, both single-IP EIPs (mask `/32`) and block-type EIPs are supported. A block-type EIP associated with a vNIC supports only `Passthrough` (bypass mode), and block-type EIPs are not supported when associating with a NAT gateway or a high availability virtual IP.
+  * When associating with a high availability virtual IP via `haVipId`, `bindType` can only be `FullNat` (NAT mode). If any other value is passed in, all elastic IPs in this request fail to associate.
+  * If the association limit is exceeded, contact Support to request a quota increase.
+  * The API returns the set of elastic IP IDs that failed to associate. An empty set indicates that all of them succeeded.
 examples:
 - cmd: zeno zec associate-eip-address --nic-id <nicId> --lan-ip 10.0.0.2 --eip-ids <eipId1> --eip-ids <eipId2> --bind-type Passthrough
   desc: Associate elastic IPs to a specified vNIC with the Cut-through Mode.
@@ -34,7 +36,9 @@ parameters:
   type: string
   required: false
   sdk-field: loadBalancerId
-  description: Load balancer ID.
+  description: |-
+    Load balancer ID.
+    Only load balancers whose ipStackType is IPv4 can be bound to an elastic IP. A load balancer supports a single stack only; public IPv6 addresses are assigned through the AssignLoadBalancerIpv6 API.
 - name: nic-id
   type: string
   required: false

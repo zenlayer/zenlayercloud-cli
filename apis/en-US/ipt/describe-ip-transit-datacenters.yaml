@@ -2,7 +2,13 @@ name: DescribeIPTransitDatacenters
 product: ipt
 use: describe-ip-transit-datacenters
 short: Query data centers supported by the IP Transit service
-long: Queries data centers supported by the IP Transit service.
+long: |-
+  Queries data centers supported by the IP Transit service.
+  **BGP tier**
+
+  * For entries with `routingType=BGP`, the response returns `availableBgpTiers` (the BGP tiers available in this data center: `STANDARD` or `PREMIUM`) and `peerAsns` (the Zenlayer-side peer AS number of each tier: `29752` for Standard and `21859` for Premium). Configure the BGP neighbor on your local router based on `peerAsns`.
+  * Standard BGP is available only in some data centers. It supports fixed bandwidth billing only, and the bandwidth must be one of the fixed tier levels (for example, 10000/50000/100000 Mbps; if a value outside the tier levels is passed, the error message returns the full list of available tier levels).
+  * When `zbgRegionId` is specified (router-based IP Transit), the Standard tier is not supported: `availableBgpTiers` contains only `PREMIUM` and `peerAsns` contains only `21859`. Data centers without the underlying Premium tier capability are not returned.
 sdk:
   service: ipt
   version: '2024-09-01'
@@ -79,6 +85,33 @@ response:
       description: |-
         List of available BGP route types.
         Returned only when `routingType` is BGP.
+    - name: availableBgpTiers
+      type: string-array
+      description: |-
+        Available BGP tiers.
+        Only available when `routingType` is BGP.
+    - name: peerAsns
+      type: object-array
+      description: |-
+        Zenlayer-side (peer) AS numbers for each BGP tier, used to configure the BGP neighbor on your local router.
+        Only available when `routingType` is BGP.
+      array-style: json
+      item-schema:
+      - name: tier
+        type: enum
+        description: BGP tier.
+        enum-values:
+        - value: STANDARD
+          desc: |-
+            Standard BGP.
+            Available only in some data centers. It supports fixed bandwidth billing only, and the bandwidth must be one of the fixed tier levels of that data center.
+        - value: PREMIUM
+          desc: |-
+            Premium BGP.
+            A low-latency line directly connected to the backbone. This is the default tier. Existing instances created before the tier split uniformly return this tier.
+      - name: asn
+        type: integer
+        description: The Zenlayer-side (peer) AS number of this tier.
     - name: deliveryType
       type: enum
       description: Delivery type.

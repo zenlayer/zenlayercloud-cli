@@ -1,0 +1,54 @@
+name: ReplaceNetworkInterfacePrimaryIpv4
+product: zec
+use: replace-network-interface-primary-ipv4
+short: 变更网卡主内网IPv4地址
+long: |-
+  变更网卡当前的主内网IPv4地址。
+  **注意事项**
+
+  * 仅存在主内网IPv4的网卡（IPv4或IPv4_IPv6堆栈类型）支持此操作，纯IPv6网卡不支持。
+  * 网卡状态需为`AVAILABLE`或`USED`。
+  * 如果未指定`primaryIpAddress`，将自动分配子网内当前可用的最小IP地址。
+  * `rebootInstance`默认为true：如果网卡已绑定处于运行中状态的实例，且本次产生了实际的IP变更，会自动重启该实例使新IP在实例内立即生效；如果传false，则不会自动重启，需自行重启实例后新IP才会生效。网卡未绑定实例、绑定的实例未处于运行中、或本次未产生实际变更（如指定了与当前相同的IP）时，无论`rebootInstance`取值如何都不会触发重启。
+  * 绑定在该网卡上的弹性公网IP会自动指向新的主内网IP，无需处理。
+  * NAT网关的DNAT/SNAT规则、负载均衡的后端/转发规则、安全组/白名单中对旧IP的引用、应用内配置（如数据库连接、服务发现）引用了旧IP的，均不会自动更新，需自行修改。
+examples:
+- cmd: zeno zec replace-network-interface-primary-ipv4 --nic-id <nicId> --primary-ip-address 10.130.0.5
+  desc: 指定目标IP变更网卡主内网IPv4地址。
+- cmd: zeno zec replace-network-interface-primary-ipv4 --nic-id <nicId>
+  desc: 不指定目标IP，由系统自动分配子网内可用的最小IP地址。
+- cmd: zeno zec replace-network-interface-primary-ipv4 --nic-id <nicId> --primary-ip-address 10.130.0.5 --reboot-instance false
+  desc: 指定目标IP，且不希望自动重启已绑定的实例（后续需自行重启实例，新IP才会生效）。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ReplaceNetworkInterfacePrimaryIpv4
+parameters:
+- name: nic-id
+  type: string
+  required: true
+  sdk-field: nicId
+  description: 需要变更的网卡ID。
+- name: primary-ip-address
+  type: string
+  required: false
+  sdk-field: primaryIpAddress
+  description: |-
+    变更的目标内网IPv4地址。
+    该地址必须属于子网的CIDR内，且未被使用。
+    如果未指定，将自动分配子网内当前可用的最小IP地址。
+- name: reboot-instance
+  type: boolean
+  required: false
+  sdk-field: rebootInstance
+  description: |-
+    是否在变更成功后自动重启已绑定的运行中实例，使新的主内网IPv4地址在实例内立即生效。
+    默认为true。
+    如果网卡未绑定实例、绑定的实例未处于运行中、或本次未产生实际变更（如指定了与当前相同的IP），则不会触发重启。
+response:
+- name: nicId
+  type: string
+  description: 网卡ID。
+- name: primaryIpAddress
+  type: string
+  description: 变更后生效的主内网IPv4地址。

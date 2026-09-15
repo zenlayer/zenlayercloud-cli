@@ -10,7 +10,11 @@ long: |-
   * If `ipv4Address` is specified in CIDR notation, the prefix length must be between 20 and 31.
 examples:
 - cmd: zeno zec describe-instances --instance-ids xxx --page-size 10 --page-num 1
-  desc: Query list of elastic compute instances.
+  desc: Query the list of virtual machine instances
+- cmd: zeno zec describe-instances --instance-type z2a.cpu.1 --page-size 10 --page-num 1
+  desc: Filter by instance type ID (the value is the same as the `instanceType` in the response and can be passed back directly)
+- cmd: zeno zec describe-instances --instance-type-series z2a --page-size 10 --page-num 1
+  desc: Filter by instance type series (all the instances of every instance type in the series are returned)
 sdk:
   service: zec
   version: '2025-09-01'
@@ -33,6 +37,20 @@ parameters:
   required: false
   sdk-field: imageId
   description: Image ID.
+- name: instance-type
+  type: string
+  required: false
+  sdk-field: instanceType
+  description: |-
+    Filter by the exact instance type ID, such as z2a.cpu.1.
+    The value is the same as the instanceType in the response and can be passed back directly.
+- name: instance-type-series
+  type: string
+  required: false
+  sdk-field: instanceTypeSeries
+  description: |-
+    Filter by the exact instance type series, such as z2a.
+    An instance type series contains multiple instance types. Once specified, all the instances of this series are returned.
 - name: ipv4-address
   type: string
   required: false

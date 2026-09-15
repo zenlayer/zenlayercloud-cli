@@ -1,0 +1,23 @@
+name: DeleteByoAsn
+product: zec
+use: delete-byo-asn
+short: 删除 BYO ASN
+long: |-
+  删除指定自带ASN。删除前需确保该ASN下没有已宣告的 BYOIP 段。
+  **注意事项**
+
+  * 删除前需先释放该ASN下已宣告的所有 BYOIP 段，否则删除会被拒绝。可调用 ~~DescribeCidrs~~ 与 ~~DescribeIpv6Cidrs~~ 按`asn`查询。
+  * 删除后该ASN不再可用于创建 BYOIP，如需重新接入需再次调用 ~~CreateByoAsn~~ 并重新完成归属验证。
+examples:
+- cmd: zeno zec delete-byo-asn --byo-asn-id byoasn-3JK29DKS
+  desc: 删除 BYO ASN。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DeleteByoAsn
+parameters:
+- name: byo-asn-id
+  type: string
+  required: true
+  sdk-field: byoAsnId
+  description: 待删除的 BYO ASN 的ID。

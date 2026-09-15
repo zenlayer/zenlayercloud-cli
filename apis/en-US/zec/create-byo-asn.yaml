@@ -1,0 +1,78 @@
+name: CreateByoAsn
+product: zec
+use: create-byo-asn
+short: Creates a BYO ASN
+long: |-
+  Submit a bring-your-own ASN and obtain the verification code used for ownership verification.
+  **Notes**
+
+  * `asn` supports both 2-byte and 4-byte ASNs, with a maximum value of **4294967295** (2^32-1). Requests exceeding this value are rejected. Which ASNs can be onboarded (private ranges, reserved ranges, and so on) is determined by the underlying system.
+  * This operation only generates a verification code, which does not mean that the ASN is ready for use. After you complete the declaration on the RIR that manages the ASN (ARIN, RIPE NCC, APNIC, and so on) according to the `exportDeclaration` in the response, call ~~VerifyByoAsn~~ to confirm the ownership. The ASN can be used to create BYOIP only after its status becomes `AVAILABLE`.
+examples:
+- cmd: zeno zec create-byo-asn --asn 12340
+  desc: Submit a bring-your-own ASN and obtain the verification code.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: CreateByoAsn
+parameters:
+- name: asn
+  type: integer
+  required: true
+  sdk-field: asn
+  description: |-
+    The public ASN to be onboarded.
+    Both 2-byte and 4-byte ASNs are supported, with a maximum value of 4294967295.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: |-
+    ID of the resource group where the BYO ASN resides after creation.
+    If the value is empty, the BYO ASN will be added into the default resource group.
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    Bound tags when creating the BYO ASN.
+    Tag keys must be unique.--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: 'Tag key. Length limit: 1 to 64 characters.'
+  - name: value
+    type: string
+    description: 'Tag value. Length limit: 1 to 64 characters.'
+response:
+- name: byoAsnId
+  type: string
+  description: ID of the new BYO ASN.
+- name: asn
+  type: integer
+  description: ASN number.
+- name: status
+  type: enum
+  description: Current status.
+  enum-values:
+  - value: VERIFYING
+    desc: Verifying.
+  - value: AVAILABLE
+    desc: Available.
+  - value: EXPIRED
+    desc: Verification expired.
+- name: verifyCode
+  type: string
+  description: |-
+    Verification code.
+    You need to write it into the aut-num object of the ASN on the RIR.
+- name: exportDeclaration
+  type: string
+  description: |-
+    The complete export declaration statement.
+    You can copy this statement directly into the aut-num object of the ASN on the RIR.
+- name: createTime
+  type: string
+  description: Creation time.

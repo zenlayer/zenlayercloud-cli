@@ -7,7 +7,7 @@ long: |-
   **Notes**
 
   * Switching from `IPv4` to `IPv4_IPv6` is supported: after the switch, an IPv6 address block is assigned to the subnet.
-  * Switching from `IPv4_IPv6` to `IPv4` (disabling IPv6) is supported: this is supported for both public and private IPv6 subnets; before disabling, ensure all network interfaces in the subnet have had their IPv6 addresses removed via `UnassignNetworkInterfaceIpv6`.
+  * Switching from `IPv4_IPv6` to `IPv4` (disabling IPv6) is supported: this is supported for both public and private IPv6 subnets. Before disabling, make sure that no IPv6 address in the subnet is still in use — the IPv6 addresses of vNICs are removed through `UnassignNetworkInterfaceIpv6`, and the IPv6 VIPs of load balancers are removed through `DeleteIpv6Addresses`.
 examples:
 - cmd: zeno zec modify-subnet-stack-type --subnet-id XXX --stack-type IPv4_IPv6 --ipv6-type Private
   desc: 'Modify the subnet stack type: IPv4 → IPv4_IPv6, specifying private IPv6.'
@@ -30,7 +30,7 @@ parameters:
   description: |-
     IP stack type of the subnet.
     IPv4_IPv6: enables public IPv6; whether it is public or private is determined by ipv6Type.
-    IPv4: disables IPv6 — before disabling, ensure all network interfaces in the subnet have had their IPv6 addresses removed via UnassignNetworkInterfaceIpv6.
+    IPv4: disables IPv6. Before disabling, make sure that no IPv6 address in the subnet is still in use: the IPv6 addresses of vNICs are removed through UnassignNetworkInterfaceIpv6, and the IPv6 VIPs of load balancers are removed through DeleteIpv6Addresses.
   enum-values:
   - value: IPv4
     desc: IPv4 stack type only.

@@ -1,0 +1,190 @@
+name: DescribeIpv6Addresses
+product: zec
+use: describe-ipv6-addresses
+short: Queries the list of public IPv6 addresses
+long: Query the information of assigned public IPv6 addresses by specified conditions. You can search by ID, address, associated resource, and other information.
+examples:
+- cmd: zeno zec describe-ipv6-addresses --associated-ids <loadBalancerId> --page-size 20 --page-num 1
+  desc: Query the public IPv6 addresses assigned to a specified load balancer.
+- cmd: zeno zec describe-ipv6-addresses --associated-ids <nicId>
+  desc: Query the public IPv6 addresses assigned to a specified vNIC. Both vNICs and load balancers are filtered through `associatedIds`, and multiple values can be passed in at once.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeIpv6Addresses
+parameters:
+- name: ipv6-ids
+  type: string-array
+  required: false
+  sdk-field: ipv6Ids
+  description: |-
+    Filter by the unique ID of the public IPv6.
+    A maximum of 100 IDs can be specified.
+- name: region-id
+  type: string
+  required: false
+  sdk-field: regionId
+  description: Filter by the region ID that the public IPv6 belongs to.
+- name: ipv6-cidr
+  type: string
+  required: false
+  sdk-field: ipv6Cidr
+  description: Filter by the CIDR block of the public IPv6. This field supports fuzzy matching.
+- name: status
+  type: enum
+  required: false
+  sdk-field: status
+  description: Filter by the status of the public IPv6.
+  enum-values:
+  - value: RUNNING
+    desc: Running.
+  - value: RECYCLED
+    desc: |-
+      Recycled.
+      The associated vNIC or load balancer has been deleted and the retention period has not yet expired.
+- name: associated-ids
+  type: string-array
+  required: false
+  sdk-field: associatedIds
+  description: |-
+    Filter by the ID of the resource that the public IPv6 is associated with.
+    The value can be a vNIC ID or a load balancer ID.
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: Filter by the resource group ID that the public IPv6 belongs to.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    Number of items in the current page result.
+    Default value: 20.
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    Number of pages returned.
+    Default value: 1.
+response:
+- name: totalCount
+  type: integer
+  description: Number of public IPv6 addresses meeting the filtering conditions.
+- name: dataSet
+  type: object-array
+  description: List of public IPv6 addresses.
+  array-style: json
+  item-schema:
+  - name: ipv6Id
+    type: string
+    description: Unique ID of the public IPv6.
+  - name: regionId
+    type: string
+    description: Region ID.
+  - name: status
+    type: enum
+    description: Status of the public IPv6.
+    enum-values:
+    - value: RUNNING
+      desc: Running.
+    - value: RECYCLED
+      desc: |-
+        Recycled.
+        The associated vNIC or load balancer has been deleted and the retention period has not yet expired.
+  - name: ipv6Cidr
+    type: string
+    description: CIDR block of the public IPv6.
+  - name: primaryIpv6Address
+    type: string
+    description: Primary IPv6 address.
+  - name: associatedId
+    type: string
+    description: |-
+      Resource ID that the public IPv6 is associated with.
+      It may be a vNIC ID or a load balancer ID.
+  - name: associatedType
+    type: enum
+    description: Type of the resource that the public IPv6 is associated with.
+    enum-values:
+    - value: NIC
+      desc: vNIC.
+    - value: NAT
+      desc: NAT gateway.
+    - value: LB
+      desc: Load balancer.
+    - value: HAVIP
+      desc: High availability virtual IP.
+  - name: nicId
+    type: string
+    description: |-
+      vNIC ID that the public IPv6 is associated with.
+      This field has a value if and only if `associatedType` is `NIC`.
+  - name: instanceId
+    type: string
+    description: |-
+      ID of the instance that the public IPv6 is associated with.
+      This field has a value if and only if `associatedType` is `NIC` and the vNIC is bound to an instance.
+  - name: internetChargeType
+    type: enum
+    description: Network billing method of the public IPv6.
+    enum-values:
+    - value: ByBandwidth
+      desc: Billed by the flat rate bandwidth.
+    - value: ByTrafficPackage
+      desc: Billed by the traffic package size purchased.
+    - value: BandwidthCluster
+      desc: Billed by the burstable 95th bandwidth of all compute resources in a city-based or regional bandwidth cluster with a shared commitment.
+  - name: bandwidth
+    type: integer
+    description: |-
+      Bandwidth limit of the public IPv6.
+      Unit: Mbps.
+  - name: rateLimitMode
+    type: enum
+    description: Rate limit mode.
+    enum-values:
+    - value: LOOSE
+      desc: 'Loose mode: allows short-term bursts exceeding the limit.'
+    - value: STRICT
+      desc: 'Strict mode: strictly enforced, no bursts allowed.'
+  - name: trafficPackageSize
+    type: float
+    description: |-
+      Traffic package size of the public IPv6.
+      Unit: TB.
+      This value is available only when the network billing method is billing by traffic package.
+  - name: bandwidthCluster
+    type: object
+    description: |-
+      Information of the associated bandwidth cluster.
+      This value is available only when the network billing method is billing by shared bandwidth package.
+    object-schema:
+    - name: bandwidthClusterId
+      type: string
+      description: Bandwidth Cluster ID.
+    - name: bandwidthClusterName
+      type: string
+      description: Bandwidth Cluster name.
+  - name: resourceGroupId
+    type: string
+    description: Resource group ID that the public IPv6 belongs to.
+  - name: resourceGroupName
+    type: string
+    description: Resource group name that the public IPv6 belongs to.
+  - name: createTime
+    type: string
+    description: Creation time of the public IPv6.
+  - name: operationInfo
+    type: object
+    description: |-
+      The bandwidth and traffic package operation status of the public IPv6.
+      This field is empty when the operation is completed.
+    object-schema:
+    - name: operation
+      type: string
+      description: 'Operation action. Value range: `ModifyBandwidth` (adjust bandwidth), `ModifyFlowPackage` (adjust flow package).'
+    - name: status
+      type: string
+      description: 'Operation status. Value range: `OPERATING` (in operation), `FAILED` (operation failed).'

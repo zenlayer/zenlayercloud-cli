@@ -1,0 +1,23 @@
+name: DeleteByoAsn
+product: zec
+use: delete-byo-asn
+short: Deletes a BYO ASN
+long: |-
+  Delete a specified bring-your-own ASN. Before the deletion, make sure that no BYOIP block is advertised under the ASN.
+  **Notes**
+
+  * Before the deletion, release all the BYOIP blocks advertised under the ASN. Otherwise, the deletion is rejected. You can call ~~DescribeCidrs~~ and ~~DescribeIpv6Cidrs~~ to query them by `asn`.
+  * After the deletion, the ASN can no longer be used to create BYOIP. To onboard it again, call ~~CreateByoAsn~~ and complete the ownership verification once more.
+examples:
+- cmd: zeno zec delete-byo-asn --byo-asn-id byoasn-3JK29DKS
+  desc: Delete a BYO ASN.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DeleteByoAsn
+parameters:
+- name: byo-asn-id
+  type: string
+  required: true
+  sdk-field: byoAsnId
+  description: ID of the BYO ASN to be deleted.

@@ -20,8 +20,18 @@ parameters:
   required: true
   sdk-field: gatewayUuid
   description: 网关UUID。
+- name: daily-limit
+  type: integer
+  required: false
+  sdk-field: dailyLimit
+  description: 日额度限制。
+- name: monthly-limit
+  type: integer
+  required: false
+  sdk-field: monthlyLimit
+  description: 月额度限制。
 - name: token-limit
   type: integer
-  required: true
+  required: false
   sdk-field: tokenLimit
-  description: Token限制（访问限制）。
+  description: token配额。

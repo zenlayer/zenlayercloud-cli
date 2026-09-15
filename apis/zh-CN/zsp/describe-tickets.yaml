@@ -1,0 +1,157 @@
+name: DescribeTickets
+product: zsp
+use: describe-tickets
+short: 查询工单列表
+long: |-
+  查询当前团队提交的工单列表。
+  **注意事项**
+
+  * 本接口只返回当前团队提交的工单。
+  * `ticketId` 与 `ticketNumber` 都支持模糊查询，两者可以同时传，此时取交集。
+  * 需要联系人信息与邮件往来记录时，调用 ~~DescribeTicketDetail~~。
+examples:
+- cmd: zeno zsp describe-tickets --page-num 1 --page-size 20
+  desc: 查询本团队所有工单。
+- cmd: zeno zsp describe-tickets --type SERVICE_FAILURE --statuses NEW --statuses PROCESSING
+  desc: 按状态与类型过滤。
+- cmd: zeno zsp describe-tickets --ticket-number 001234 --create-time-desc false
+  desc: 按工单编号模糊查询，并按创建时间正序返回。
+- cmd: zeno zsp describe-tickets --ticket-id T-10000000000000
+  desc: 按工单ID模糊查询。
+- cmd: zeno zsp describe-tickets --start-time 2026-08-01T00:00:00Z --end-time 2026-08-19T23:59:59Z
+  desc: 按创建时间范围过滤。
+sdk:
+  service: zsp
+  version: '2026-08-01'
+  action: DescribeTickets
+parameters:
+- name: ticket-id
+  type: string
+  required: false
+  sdk-field: ticketId
+  description: 工单ID，支持模糊查询。
+- name: ticket-number
+  type: string
+  required: false
+  sdk-field: ticketNumber
+  description: |-
+    工单编号，支持模糊查询。
+    工单尚在创建中（状态为CREATING）时还没有编号，按本条件过滤会把这类工单排除在外。
+- name: type
+  type: enum
+  required: false
+  sdk-field: type
+  description: 工单类型。
+  enum-values:
+  - value: SERVICE_FAILURE
+    desc: 服务故障：已购买的服务不可用或功能异常。
+  - value: FINANCIAL_INQUIRIES
+    desc: 账单咨询：账单金额、计费周期、发票等财务问题。
+  - value: ACCOUNT_TEAM_RELATED
+    desc: 账号咨询：账号、团队、成员权限相关问题。
+  - value: PURCHASE_CONSULTATION
+    desc: 费用咨询：购买前的价格、规格与方案咨询。
+  - value: PRODUCT_SUGGESTIONS
+    desc: 产品咨询：产品功能咨询与改进建议。
+  - value: OTHERS
+    desc: 其他：不属于以上分类的问题。
+- name: description
+  type: string
+  required: false
+  sdk-field: description
+  description: 问题描述，支持模糊查询。
+- name: statuses
+  type: string-array
+  required: false
+  sdk-field: statuses
+  description: |-
+    工单状态列表。
+    不填时返回所有状态的工单。
+- name: start-time
+  type: string
+  required: false
+  sdk-field: startTime
+  description: |-
+    创建时间的查询起点。
+    时间格式：yyyy-MM-ddTHH:mm:ssZ。
+- name: end-time
+  type: string
+  required: false
+  sdk-field: endTime
+  description: |-
+    创建时间的查询终点。
+    时间格式：yyyy-MM-ddTHH:mm:ssZ。
+- name: create-time-desc
+  type: boolean
+  required: false
+  sdk-field: createTimeDesc
+  description: 返回结果是否按创建时间倒序排列。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    分页大小。
+    当未传递时，默认值为20。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    分页页码。
+    当未传递时，默认值为1。
+response:
+- name: totalCount
+  type: integer
+  description: 符合条件的数据总数。
+- name: dataSet
+  type: object-array
+  description: 工单结果集。
+  array-style: json
+  item-schema:
+  - name: ticketId
+    type: string
+    description: 工单ID。
+  - name: ticketNumber
+    type: string
+    description: |-
+      工单编号。
+      工单尚在创建中（状态为CREATING）时为null。
+  - name: type
+    type: enum
+    description: 工单类型。
+    enum-values:
+    - value: SERVICE_FAILURE
+      desc: 服务故障：已购买的服务不可用或功能异常。
+    - value: FINANCIAL_INQUIRIES
+      desc: 账单咨询：账单金额、计费周期、发票等财务问题。
+    - value: ACCOUNT_TEAM_RELATED
+      desc: 账号咨询：账号、团队、成员权限相关问题。
+    - value: PURCHASE_CONSULTATION
+      desc: 费用咨询：购买前的价格、规格与方案咨询。
+    - value: PRODUCT_SUGGESTIONS
+      desc: 产品咨询：产品功能咨询与改进建议。
+    - value: OTHERS
+      desc: 其他：不属于以上分类的问题。
+  - name: status
+    type: enum
+    description: 工单状态。
+    enum-values:
+    - value: CREATING
+      desc: 同步中：工单已受理入库，正在同步到客服系统，此时尚未生成工单编号。
+    - value: NEW
+      desc: 待受理：已同步到客服系统，等待客服接单。
+    - value: PROCESSING
+      desc: 处理中：客服正在处理，包含等待客户回复与客户已补充信息的情形。
+    - value: UPGRADE_IN_PROGRESS
+      desc: 升级处理中：已升级给更高级别的支持团队处理。
+    - value: FINISHED
+      desc: 已完成：问题已解决或工单已关闭。
+    - value: MERGED
+      desc: 已合单：已合并到另一个工单，后续沟通在合并后的工单中进行。
+  - name: description
+    type: string
+    description: 问题描述。
+  - name: createTime
+    type: string
+    description: 创建时间。

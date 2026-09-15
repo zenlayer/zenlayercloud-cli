@@ -1,7 +1,7 @@
 name: DescribeCommands
 product: zos
 use: describe-commands
-short: 查询命令列表
+short: 查询命令列表。
 long: 查询命令列表。
 examples:
 - cmd: zeno zos describe-commands
@@ -39,7 +39,7 @@ parameters:
   type: integer
   required: false
   sdk-field: pageNum
-  description: 返回的分页数。
+  description: 返回的分页数，默认为1。
 - name: tag-keys
   type: string-array
   required: false

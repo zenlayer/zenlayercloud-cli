@@ -18,7 +18,7 @@ long: |-
   * 本接口为异步接口，当创建实例请求下发成功后会返回一个实例`ID`列表，此时创建实例操作并未立即完成。在此期间实例的状态将会处于`PENDING`或`DEPLOYING`，实例创建结果可以通过调用`DescribeInstances` 接口查询，如果实例状态(instanceStatus)由`CREATING`(创建中)或`PENDING`(等待创建）变为`RUNNING`(运行中)，则代表实例创建成功，如果未查询到任何实例，则代表创建失败，创建过程中不可对实例进行任何操作。
   * 单次最多能创建**100**台实例。
 examples:
-- cmd: zeno vm create-instances --zone-id SEL-A --instance-type c.1c2g --image-id img-yKK4q6XybymPgfx7ynUUqC3N8 --instance-charge-type POSTPAID --internet-charge-type ByBandwidth
+- cmd: zeno vm create-instances --zone-id SEL-A --instance-type c.1c2g --image-id img-yKK4q6XybymPgfx7ynUUqC3N8 --instance-charge-type POSTPAID --internet-charge-type ByBandwidth --cidr-block-id <cidrBlockId>
   desc: 用最简单的参数创建一台后付费的实例
 - cmd: zeno vm create-instances --zone-id SEL-A --instance-type c.1c2g --image-id img-yKK4q6XybymPgfx7ynUUqC3N8 --instance-charge-type POSTPAID --internet-charge-type ByBandwidth --data-disks "{diskSize=40, diskCategory=STANDARD}"
   desc: 在1的基础上附带一块大小为40GB的标准数据盘
@@ -26,6 +26,8 @@ examples:
   desc: 创建2台预付费的实例
 - cmd: zeno vm create-instances --instance-charge-type PREPAID --instance-count 2 --instance-name SEL-1C2G-[1,2] --internet-max-bandwidth-out 100 --password Password-12345~ --instance-type c.1c2g --internet-charge-type ByTrafficPackage --traffic-package-size 10 --zone-id SEL-A --image-id image-xxxxx
   desc: 创建2台预付费的实例，其网络计费方式为流量包
+- cmd: zeno vm create-instances --zone-id SEL-A --instance-type c.1c2g --image-id img-yKK4q6XybymPgfx7ynUUqC3N8 --instance-charge-type POSTPAID --internet-charge-type ByBandwidth --cidr-block-id <cidrBlockId> --init-script IyEvYmluL2Jhc2gKZWNobyAiaGVsbG8gemVubGF5ZXIiID4gL3RtcC9pbml0LmxvZwo=
+  desc: 创建一台实例，并指定初始化脚本
 sdk:
   service: vm
   version: '2026-04-01'
@@ -281,12 +283,14 @@ parameters:
   type: boolean
   required: false
   sdk-field: cpuPassThrough
-  description: 是否开启CPU穿透。
+  description: |-
+    是否开启CPU穿透。
+    默认不开放该权限，如需开放请联系Zenlayer Support。
 - name: init-script
   type: string
   required: false
   sdk-field: initScript
-  description: 初始化脚本。
+  description: 初始化脚本，需进行Base64编码后传入，脚本内容大小不超过32KB。
 - name: network-mode
   type: enum
   required: false
@@ -331,7 +335,9 @@ parameters:
   type: string
   required: false
   sdk-field: cidrBlockId
-  description: CIDR 地址块ID。指定该字段将从CIDR 地址块里分配公网IP
+  description: |-
+    CIDR 地址块ID。
+    指定该字段将从CIDR 地址块里分配公网IP。
 - name: start-cidr-ipv4
   type: string
   required: false

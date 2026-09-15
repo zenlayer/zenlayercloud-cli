@@ -24,3 +24,9 @@ response:
 - name: tokenLimit
   type: integer
   description: Token quota limit.
+- name: dailyLimit
+  type: integer
+  description: Daily quota limit.
+- name: monthlyLimit
+  type: integer
+  description: Monthly quota limit.

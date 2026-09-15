@@ -2,7 +2,11 @@ name: DescribeIPTransits
 product: ipt
 use: describe-ip-transits
 short: Query IP Transit resource list
-long: Queries IP Transit resource list.
+long: |-
+  Queries IP Transit resource list.
+  **BGP tier**
+
+  * For instances with `routingType=BGP`, `bgp.tier` returns the BGP tier (`STANDARD` or `PREMIUM`). Existing instances created before the tier split uniformly return `PREMIUM`.
 sdk:
   service: ipt
   version: '2024-09-01'
@@ -243,6 +247,21 @@ response:
         desc: All routes with default routes.
       - value: DEFAULT_ROUTES
         desc: Default routes.
+    - name: tier
+      type: enum
+      description: |-
+        BGP tier.
+        STANDARD: Standard BGP. PREMIUM: Premium BGP.
+        Defaults to PREMIUM if not specified (consistent with the behavior before the tier split).
+      enum-values:
+      - value: STANDARD
+        desc: |-
+          Standard BGP.
+          Available only in some data centers. It supports fixed bandwidth billing only, and the bandwidth must be one of the fixed tier levels of that data center.
+      - value: PREMIUM
+        desc: |-
+          Premium BGP.
+          A low-latency line directly connected to the backbone. This is the default tier. Existing instances created before the tier split uniformly return this tier.
     - name: asn
       type: integer
       description: ASN for announcing outbound routes.

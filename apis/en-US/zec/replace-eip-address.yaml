@@ -6,8 +6,8 @@ long: |-
   Replace the elastic IP addresses.
   **Notes**
 
+  * The EIP to be replaced must be unassociated, that is, not associated with any resource such as an instance or a vNIC.
   * EIPs created from a CIDR block do not support replacing the IP.
-  * When `targetIp` is specified, it cannot end in `.0` or `.255` (network/broadcast addresses are not available).
 examples:
 - cmd: zeno zec replace-eip-address --replace-ips {eipId=<eipId>}
   desc: Replace the public IP. The system will assign one randomly.

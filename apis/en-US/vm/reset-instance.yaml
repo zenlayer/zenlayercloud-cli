@@ -15,7 +15,9 @@ long: |-
   * If the API is called successfully, the instance status will become `REBUILDING`. After the instance is reset, its status will become `RUNNING` again. You can use [`DescribeInstancesStatus`](describeinstancesstatus.md) to query the status of the instance.
 examples:
 - cmd: zeno vm reset-instance --instance-id instanceId --image-id img-xxxxxxxxx --password Example+123
-  desc: Reset an instance with a specified image and a specified password.
+  desc: Reset an instance with the specified ID using a specified image and password.
+- cmd: zeno vm reset-instance --instance-id instanceId --image-id img-xxxxxxxxx --password Example+123 --init-script IyEvYmluL2Jhc2gKZWNobyAiaGVsbG8gemVubGF5ZXIiID4gL3RtcC9pbml0LmxvZwo=
+  desc: Reset an instance with a specified initialization script.
 sdk:
   service: vm
   version: '2026-04-01'
@@ -76,4 +78,4 @@ parameters:
   type: string
   required: false
   sdk-field: initScript
-  description: Initialization script.
+  description: Initialization script. The value must be Base64-encoded, and the script content size must not exceed 32 KB.

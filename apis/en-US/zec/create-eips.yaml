@@ -11,16 +11,19 @@ long: |-
   * If you need to create a `Remote EIP`, you can first call [`DescribeEipRemoteRegions`](describeeipremoteregions.md) to query the supported remote regions.
   * If you need to allocate via a `CIDR`, you can first call [`DescribeCidrs`](../cidr-block/describecidrs.md) to query the `CIDR` blocks under your account.
   * If binding to an instance at the same time, ensure that the `primary private IP` on the selected instance's `primary network interface` can still be assigned an EIP.
-  * Specifying a `prefixLength` less than 32 creates an EIP Block resource; when binding an instance at the same time, `bindType` can only be `Passthrough`.
-  * When `publicIp` is specified, a `prefixLength` of 32 means a plain IPv4 starting address is specified; a value less than 32 means a starting subnet with a mask is specified (the mask must match `prefixLength`, e.g. `88.0.5.64/26`). When `cidrId` is specified, this starting address/subnet must be one of the currently allocatable candidates within the selected `CIDR`; when `cidrId` is not specified (only `prefixLength` of 32 is supported), the address is allocated sequentially from the public IP pool starting at this address.
-  * The guaranteed traffic package size is only valid for monthly billing periods.
 examples:
 - cmd: zeno zec create-eips --region-id asia-east-1 --amount 1 --name Test-EIP --internet-charge-type ByTrafficPackage --network-line-type PremiumBGP --bandwidth 50 --flow-package 10 --rate-limit-mode LOOSE
   desc: Create a public elastic IP on a BGP line, billed by traffic package. The traffic package size is 10TB. The bandwidth limit is 50Mbps.
 - cmd: zeno zec create-eips --region-id asia-east-1 --amount 2 --name Test-EIP --internet-charge-type ByBandwidth --cidr-id <cidrId> --bandwidth 50
   desc: Allocate 2 public elastic IPs from a CIDR block, billed by fixed bandwidth. The bandwidth limit is 50Mbps.
-- cmd: zeno zec create-eips --region-id asia-east-1 --amount 1 --name Test-RemoteIP --internet-charge-type BandwidthCluster --network-line-type PremiumBGP --bandwidth 50 --cluster-id <clusterId> --resource-group-id xxxx --peer-region-id asia-southwest-1
-  desc: Create a `Remote IP` with a remote region of `asia-southwest-1`, billed by shared bandwidth package.
+- cmd: zeno zec create-eips --region-id na-east-1 --amount 1 --name Test-EIP --internet-charge-type BandwidthCluster --cluster-id <clusterId> --cidr-id <cidrId> --prefix-length 32 --instance-ids <instanceId> --bind-type FullNat
+  desc: Allocate a single `/32` elastic IP from a BYOIP `CIDR` (e.g. `128.0.0.0/24`) and bind it to an instance. `prefixLength` defaults to 32 and can be omitted; both NAT mode (default) and `Passthrough` mode are supported.
+- cmd: zeno zec create-eips --region-id na-east-1 --amount 1 --name Test-EIP --internet-charge-type BandwidthCluster --cluster-id <clusterId> --cidr-id <cidrId> --prefix-length 24 --instance-ids <instanceId> --bind-type Passthrough
+  desc: Allocate a `/24` elastic IP (EIP Block) from a BYOIP `CIDR` with a `/24` mask and bind it to an instance. A `/24` BYOIP `CIDR` can only allocate a single `/24` EIP, so `amount` can only be 1. An EIP Block (`prefixLength` less than 32) only supports `Passthrough` binding mode, not NAT mode.
+- cmd: zeno zec create-eips --region-id asia-east-1 --amount 3 --name Test-EIP --internet-charge-type ByBandwidth --network-line-type PremiumBGP --bandwidth 50 --instance-id <instanceId>
+  desc: Create 3 public elastic IPs, all bound to the same instance (`instanceId`).
+- cmd: zeno zec create-eips --region-id asia-east-1 --amount 2 --name Test-EIP --internet-charge-type ByBandwidth --network-line-type PremiumBGP --bandwidth 50 --instance-ids <instanceId1> --instance-ids <instanceId2>
+  desc: Create 2 public elastic IPs, each bound to a different instance (`instanceIds`, the quantity must match `amount`).
 sdk:
   service: zec
   version: '2025-09-01'
@@ -42,7 +45,7 @@ parameters:
   type: enum
   required: true
   sdk-field: internetChargeType
-  description: Network billing methods .
+  description: Network billing method of the elastic IP.
   enum-values:
   - value: ByBandwidth
     desc: Billed by the flat rate bandwidth.
@@ -60,7 +63,7 @@ parameters:
   required: false
   sdk-field: prefixLength
   description: |-
-    Prefix length. Value range: 24–32. Default: 32.
+    Prefix length. Value range: 20–32. Default: 32.
     When a value less than 32 is specified, an EIP Block resource is created; cidrId must also be specified, and the value must not be less than the prefix length of the selected CIDR itself.
 - name: eip-v4-type
   type: enum
@@ -141,9 +144,8 @@ parameters:
   required: false
   sdk-field: bandwidth
   description: |-
-    Public outbound bandwidth cap.
-    Unit: Mbps .
-    Bandwidth cap varies by instance size.
+    Bandwidth limit of the elastic IP.
+    Unit: Mbps.
 - name: cidr-id
   type: string
   required: false
@@ -159,6 +161,7 @@ parameters:
     Creates an EIP starting from the specified public IP address.
     When cidrId is not specified, the address is allocated sequentially from the public IP pool starting at this address (only prefixLength of 32 is supported); when cidrId is specified, the address is allocated starting at this address within that CIDR block.
     When prefixLength is 32, provide a plain IPv4 address; when prefixLength is less than 32, cidrId must also be specified, and you must provide a starting subnet with a mask (the mask must match prefixLength, e.g. 88.0.5.64/26).
+    When cidrId is specified, this starting address or subnet must be one of the currently allocatable candidates within the selected CIDR block.
 - name: resource-group-id
   type: string
   required: false
@@ -173,6 +176,7 @@ parameters:
     Unit: TB.
     The value must be 0 or a multiple of 0.1.
     Required when the network billing type is traffic package billing (ByTrafficPackage).
+    Can only be set when the billing period is monthly; hourly billing is not supported.
 - name: cluster-id
   type: string
   required: false
@@ -217,13 +221,20 @@ parameters:
   - name: value
     type: string
     description: 'Tag value. Length limit: 1 to 64 characters.'
+- name: instance-id
+  type: string
+  required: false
+  sdk-field: instanceId
+  description: |-
+    The instance ID to be bound.
+    All EIPs created in this batch are bound to this instance.
 - name: instance-ids
   type: string-array
   required: false
   sdk-field: instanceIds
   description: |-
-    IDs of instances to be attached.
-    The number of IDs should be the same as diskAmount .
+    Set of instance IDs to bind.
+    The quantity must match the amount field, with each EIP bound to a different instance; if passed together with instanceId, instanceId takes precedence.
 - name: bind-type
   type: enum
   required: false
@@ -232,6 +243,7 @@ parameters:
     Binding mode.
     Effective when instanceIds is specified.
     Defaults to standard NAT mode.
+    When prefixLength is less than 32 (EIP Block), the value can only be Passthrough.
   enum-values:
   - value: FullNat
     desc: NAT mode.

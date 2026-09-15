@@ -144,7 +144,7 @@ parameters:
   sdk-field: prefixLength
   description: |-
     按照 EIP 的掩码长度过滤。
-    32 表示单 IP，24–31 表示网段。
+    32 表示单 IP，20–31 表示网段。
 response:
 - name: totalCount
   type: integer

@@ -4,8 +4,8 @@ use: describe-resource-tags
 short: Retrieves all tags bound to a specific resource
 long: Retrieve all tags bound to a specific resource.
 examples:
-- cmd: zeno zrm describe-resource-tags --resource-uuid resourceUuid_5250a2c5dc3d
-  desc: Retrieve all tags bound to an instance.
+- cmd: zeno zrm describe-resource-tags --resource-uuid 123456789012345678
+  desc: Retrieve all tags bound to a resource
 sdk:
   service: zrm
   version: '2025-10-14'
@@ -19,10 +19,10 @@ parameters:
 response:
 - name: totalCount
   type: integer
-  description: Number of tags meeting the filtering conditions.
+  description: Total number of tags bound to the resource.
 - name: dataSet
   type: object-array
-  description: Information on tags.
+  description: List of tags bound to the resource.
   array-style: json
   item-schema:
   - name: key
@@ -33,4 +33,4 @@ response:
     description: Tag value.
   - name: createdDate
     type: string
-    description: Creation time.
+    description: Tag creation time.

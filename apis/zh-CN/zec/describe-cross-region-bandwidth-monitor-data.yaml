@@ -69,6 +69,24 @@ response:
 - name: outTotalValue
   type: float
   description: 出方向总和值。
+- name: loseInMaxValue
+  type: float
+  description: 入方向丢弃量最大值。
+- name: loseInMinValue
+  type: float
+  description: 入方向丢弃量最小值。
+- name: loseInTotalValue
+  type: float
+  description: 入方向丢弃量总和值。
+- name: loseOutMaxValue
+  type: float
+  description: 出方向丢弃量最大值。
+- name: loseOutMinValue
+  type: float
+  description: 出方向丢弃量最小值。
+- name: loseOutTotalValue
+  type: float
+  description: 出方向丢弃量总和值。
 - name: dataList
   type: object-array
   description: 监控数据集合。
@@ -80,6 +98,12 @@ response:
   - name: inValue
     type: float
     description: 入方向值。
+  - name: loseInValue
+    type: float
+    description: 入方向丢弃值。
   - name: outValue
     type: float
-    description: 入方向值。
+    description: 出方向值。
+  - name: loseOutValue
+    type: float
+    description: 出方向丢弃值。

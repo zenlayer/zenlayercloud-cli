@@ -1,7 +1,7 @@
 name: ImportKeyPair
 product: ccs
 use: import-key-pair
-short: 导入密钥对
+short: 导入密钥对。
 long: |-
   导入公钥到密钥对。
   **注意事项**

@@ -211,6 +211,8 @@ response:
         desc: Huawei Cloud access point
       - value: BYTEPLUS
         desc: BytePlus access point
+      - value: VOLCENGINE
+        desc: Volcengine access point
     - name: cloudType
       type: enum
       description: Cloud vendor type of the Cloud Connect edge point.
@@ -229,6 +231,8 @@ response:
         desc: Huawei Cloud
       - value: BYTE_PLUS
         desc: BytePlus
+      - value: VOLCENGINE
+        desc: Volcengine
       - value: ORACLE
         desc: Oracle Cloud
     - name: cloudAccountId

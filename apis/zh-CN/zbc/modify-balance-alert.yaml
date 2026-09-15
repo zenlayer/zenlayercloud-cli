@@ -1,0 +1,33 @@
+name: ModifyBalanceAlert
+product: zbc
+use: modify-balance-alert
+short: 修改余额提醒设置
+long: 打开或关闭当前账户的余额提醒，并可同时设置提醒阈值。开启后，可用金（账户余额 + 信用值）低于阈值时系统发送提醒邮件。
+examples:
+- cmd: zeno zbc modify-balance-alert --enabled true --alert-threshold 100.0
+  desc: 开启余额提醒并设置提醒阈值。
+- cmd: zeno zbc modify-balance-alert --enabled false
+  desc: 关闭余额提醒，保留已设置的阈值。
+- cmd: zeno zbc modify-balance-alert --enabled true --alert-threshold 500.0
+  desc: 仅调整提醒阈值，保持提醒开启。
+sdk:
+  service: zbc
+  version: '2024-08-09'
+  action: ModifyBalanceAlert
+parameters:
+- name: enabled
+  type: boolean
+  required: true
+  sdk-field: enabled
+  description: |-
+    是否开启余额提醒。
+    true 表示开启，false 表示关闭。
+    关闭仅停止发送提醒邮件，已设置的阈值仍然保留，再次开启时可直接复用。
+- name: alert-threshold
+  type: float
+  required: false
+  sdk-field: alertThreshold
+  description: |-
+    余额提醒阈值。
+    可用金（账户余额 + 信用值）低于该值时按天发送提醒邮件，直至可用金回升到阈值以上。
+    首次开启提醒时必填；不传时保留账户原有阈值。

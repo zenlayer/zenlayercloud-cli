@@ -82,9 +82,8 @@ response:
       type: string
       description: |-
         Access strategy.
-        Available values:
-        accept: allows access by default.
-        Only accept strategy is supported for now.
+        accept: allows access.
+        Only the accept strategy is supported for now.
     - name: priority
       type: integer
       description: Rule priority.
@@ -102,7 +101,7 @@ response:
       type: string
       description: |-
         Source IP address range.
-        Default value: 0.0.XX.XX/0.
+        Both CIDR format and IPv4 format IP address ranges are supported.
     - name: description
       type: string
       description: Rule description.

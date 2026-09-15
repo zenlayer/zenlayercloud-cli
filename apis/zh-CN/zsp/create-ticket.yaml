@@ -1,0 +1,74 @@
+name: CreateTicket
+product: zsp
+use: create-ticket
+short: 创建工单
+long: |-
+  创建一个工单。
+  **注意事项**
+
+  * 工单创建后会异步同步到客服系统，`CreateTicket` 返回成功即表示工单已入库，此时状态为 `CREATING`、工单编号尚未生成。
+  * `contactName` 与 `contactEmail` 不填时，自动取当前登录用户的姓名与邮箱；需要由他人跟进工单时显式传入对应联系信息。
+  * `contactEmail` 是工单后续沟通的唯一渠道：既未传递、当前登录用户也查不到邮箱时，将收不到客服回复，~~DescribeTicketDetail~~ 也无法返回邮件往来记录。
+  * 每个团队一小时内可创建的工单数有上限，提单前可调用 ~~DescribeTicketCreationQuota~~ 查询剩余额度。
+  * 工单类型决定问题影响等级，无需另外传递优先级参数。
+examples:
+- cmd: zeno zsp create-ticket --type SERVICE_FAILURE --description ""SEA-A 区域的实例 vm-xxxxxxxx 从 2026-08-19 10:00 起无法通过 SSH 登录，端口 22 超时。"" --contact-name ""Alice Chen"" --contact-email alice@example.com --contact-phone +8613800000000
+  desc: 创建一个服务故障类工单。
+- cmd: zeno zsp create-ticket --type FINANCIAL_INQUIRIES --description ""2026 年 7 月账单中跨地域带宽费用与用量不匹配，请协助核对。""
+  desc: 创建一个账单咨询类工单，联系人信息自动取当前登录用户。
+sdk:
+  service: zsp
+  version: '2026-08-01'
+  action: CreateTicket
+parameters:
+- name: type
+  type: enum
+  required: true
+  sdk-field: type
+  description: 工单类型。
+  enum-values:
+  - value: SERVICE_FAILURE
+    desc: 服务故障：已购买的服务不可用或功能异常。
+  - value: FINANCIAL_INQUIRIES
+    desc: 账单咨询：账单金额、计费周期、发票等财务问题。
+  - value: ACCOUNT_TEAM_RELATED
+    desc: 账号咨询：账号、团队、成员权限相关问题。
+  - value: PURCHASE_CONSULTATION
+    desc: 费用咨询：购买前的价格、规格与方案咨询。
+  - value: PRODUCT_SUGGESTIONS
+    desc: 产品咨询：产品功能咨询与改进建议。
+  - value: OTHERS
+    desc: 其他：不属于以上分类的问题。
+- name: description
+  type: string
+  required: true
+  sdk-field: description
+  description: |-
+    问题描述。
+    长度1到4000个字符。
+- name: contact-name
+  type: string
+  required: false
+  sdk-field: contactName
+  description: |-
+    联系人姓名。
+    不填时取当前登录用户的姓名。
+- name: contact-email
+  type: string
+  required: false
+  sdk-field: contactEmail
+  description: |-
+    联系邮箱。
+    工单的后续沟通邮件发送到该邮箱，工单详情也按该邮箱过滤邮件往来记录。
+    不填时取当前登录用户的邮箱。
+- name: contact-phone
+  type: string
+  required: false
+  sdk-field: contactPhone
+  description: 联系电话。
+response:
+- name: ticketId
+  type: string
+  description: |-
+    工单ID。
+    后续查询工单详情使用该ID。

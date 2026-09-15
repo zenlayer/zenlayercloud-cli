@@ -45,6 +45,16 @@ response:
   - name: listenerName
     type: string
     description: 监听器的名称。
+  - name: ipStackType
+    type: enum
+    description: |-
+      所属负载均衡实例的IP堆栈类型。
+      监听器本身没有堆栈类型，该值取自其所属的负载均衡实例。
+    enum-values:
+    - value: IPv4
+      desc: 仅IPv4。
+    - value: IPv6
+      desc: 仅IPv6。
   - name: protocol
     type: enum
     description: 监听器协议。
@@ -59,6 +69,7 @@ response:
       监听器端口。
       多个端口使用,分隔。
       当端口是范围时用`-`连接，例如：10000-10005。
+      端口的取值范围为0～65535，0代表全范围端口。
       如果传多个单独的端口连续，将会被自动聚合为范围端口。
   - name: healthCheck
     type: object
@@ -83,8 +94,8 @@ response:
       type: integer
       description: |-
         健康检查端口。
-        当监听器端口为全端口（0）且健康检查类型为TCP或HTTP时，必须指定该端口。
         默认为后端服务的端口，除非您希望指定特定端口，否则建议留空。
+        当监听器端口为全端口（0）或范围端口且健康检查类型为`TCP`或`HTTP_GET`时，必须指定该端口。
     - name: checkDelayLoop
       type: integer
       description: |-
@@ -119,7 +130,7 @@ response:
       description: 开启后，当所有后端健康检查均失败时，负载均衡器将暂视所有节点为健康，继续转发流量，以保障业务连续性。
   - name: scheduler
     type: enum
-    description: 监听器转发的方式。
+    description: 监听器的调度算法。
     enum-values:
     - value: mh
       desc: 磁力哈希方式。
@@ -153,7 +164,25 @@ response:
       格式为：YYYY-MM-ddTHH:mm:ssZ。
   - name: persistent
     type: integer
-    description: 会话保持时间，单位秒。
+    description: |-
+      会话保持时间，单位秒。
+      与`algoOpts`（调度算法高级选项）互斥，该监听器开启`algoOpts`时该字段恒为空/0。
+  - name: algoOpts
+    type: enum
+    description: |-
+      调度算法高级选项。
+      仅当工作模式（`kind`）为`DR`且调度算法（`scheduler`）为`mh`时才可能有值；未开启时该字段为空，查询接口不会返回`None`。
+      开启后与会话保持（`persistent`）互斥。
+    enum-values:
+    - value: StatelessForwarding
+      desc: |-
+        MH 无状态转发（One-Packet Scheduling）。
+        开启后 LB 不维护连接跟踪表，基于 MH 哈希对每个数据包实时选择后端，可提升抗 DDoS 能力与转发性能；仅在转发模式为 DR 且调度算法为 MH 时可用，后端节点增减或健康状态变化时可能导致部分连接中断。
+    - value: None
+      desc: |-
+        显式关闭调度算法高级选项。
+        仅用于 Create/Modify 请求语义：传此值表示清空已开启的高级选项；不传该字段表示不改动。
+        查询接口（Describe 等）不会返回此值，关闭状态一律表现为该字段为空。
   - name: idleTimeout
     type: integer
     description: 空闲超时时间，单位秒。

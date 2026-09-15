@@ -22,6 +22,8 @@ long: |-
 examples:
 - cmd: zeno zec reset-instances --instance-ids <instanceId1> --instance-ids <instanceId2> --image-id ubuntu2022 --password Example+123 --enable-agent true
   desc: 批量重装系统。
+- cmd: zeno zec reset-instances --instance-ids <instanceId1> --instance-ids <instanceId2> --image-id ubuntu2022 --password Example+123 --enable-agent true --user-data IyEvYmluL2Jhc2gKZWNobyAiaGVsbG8gemVubGF5ZXIiID4gL3RtcC9pbml0LmxvZwo=
+  desc: 批量重装系统，通过`userData`指定初始化脚本。示例中的`userData`为脚本`#!/bin/bash\necho "hello zenlayer" > /tmp/init.log`的Base64编码值。
 sdk:
   service: zec
   version: '2025-09-01'
@@ -75,12 +77,12 @@ parameters:
   description: |-
     修改的实例名称。
     2～63个字符。
-    仅支持输入字母、数字、-和英文句点(.)。
+    仅支持输入字母、数字、英文句点(.)、下划线(_)、斜杠(/)和连字符(-)，且必须以字母或数字开头和结尾。
 - name: user-data
   type: string
   required: false
   sdk-field: userData
-  description: 初始化命令。
+  description: 实例初始化自定义脚本，需使用Base64编码后传入，解码后大小需小于64KiB。
 response:
 - name: instanceIds
   type: string-array

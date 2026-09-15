@@ -2,7 +2,11 @@ name: DescribeIPTransits
 product: ipt
 use: describe-ip-transits
 short: 查询IP Transit列表
-long: 查询IP Transit列表
+long: |-
+  查询IP Transit列表。
+  **BGP 档位**
+
+  * `routingType=BGP` 的实例，`bgp.tier` 返回 BGP 档位（`STANDARD` 普通 / `PREMIUM` 优质）；档位拆分前创建的存量实例统一返回 `PREMIUM`。
 examples:
 - cmd: zeno ipt describe-ip-transits --ipt-ids your-ipt-id
   desc: 查询单链路 IP Transit 列表。
@@ -240,6 +244,21 @@ response:
         desc: 全路由+默认路由。
       - value: DEFAULT_ROUTES
         desc: 默认路由。
+    - name: tier
+      type: enum
+      description: |-
+        BGP 档位。
+        STANDARD-普通 BGP，PREMIUM-优质 BGP。
+        不传默认优质档（与拆分前行为一致）。
+      enum-values:
+      - value: STANDARD
+        desc: |-
+          普通 BGP。
+          仅在部分数据中心开放，仅支持固定带宽计费，带宽只能取该数据中心的固定档位值。
+      - value: PREMIUM
+        desc: |-
+          优质 BGP。
+          骨干直连低时延线路，为档位缺省值；档位拆分前创建的存量实例统一返回该档位。
     - name: asn
       type: integer
       description: 宣告出站路由的ASN号。

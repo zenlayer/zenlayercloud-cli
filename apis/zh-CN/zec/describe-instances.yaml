@@ -11,6 +11,10 @@ long: |-
 examples:
 - cmd: zeno zec describe-instances --instance-ids xxx --page-size 10 --page-num 1
   desc: 查询虚拟机实例列表
+- cmd: zeno zec describe-instances --instance-type z2a.cpu.1 --page-size 10 --page-num 1
+  desc: 按实例规格ID过滤（取值与返回结果中的 `instanceType` 一致，可直接回传）
+- cmd: zeno zec describe-instances --instance-type-series z2a --page-size 10 --page-num 1
+  desc: 按机型系列过滤（返回该系列下全部规格的实例）
 sdk:
   service: zec
   version: '2025-09-01'
@@ -33,6 +37,20 @@ parameters:
   required: false
   sdk-field: imageId
   description: 镜像ID。
+- name: instance-type
+  type: string
+  required: false
+  sdk-field: instanceType
+  description: |-
+    根据实例规格ID精确过滤，如z2a.cpu.1。
+    取值与返回结果中的instanceType一致，可直接回传。
+- name: instance-type-series
+  type: string
+  required: false
+  sdk-field: instanceTypeSeries
+  description: |-
+    根据实例的机型系列精确过滤，如z2a。
+    一个机型系列下包含多种规格，指定后返回该系列下的全部实例。
 - name: ipv4-address
   type: string
   required: false

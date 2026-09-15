@@ -91,7 +91,9 @@ response:
     description: Global VPC name.
   - name: cidrBlock
     type: string
-    description: CIDR block of global VPC.
+    description: |-
+      IPv4 CIDR block of the VPC.
+      If the VPC has multiple CIDR blocks, they are separated by commas, for example: `21.0.0.0/8,22.0.0.0/8`.
   - name: ipv6CidrBlock
     type: string
     description: IPv6 CIDR block of global VPC.

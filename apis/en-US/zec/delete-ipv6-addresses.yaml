@@ -1,0 +1,41 @@
+name: DeleteIpv6Addresses
+product: zec
+use: delete-ipv6-addresses
+short: Batch Delete Public IPv6
+long: |-
+  Delete public IPv6 addresses in batches. Each address is processed independently, and a partial failure does not affect the remaining items. Failed items are returned in failedIpv6Addresses with their error codes and error messages.
+  **Notes**
+
+  * After the public IPv6 on a vNIC is deleted, the stack type of the vNIC is downgraded from `IPv4_IPv6` to `IPv4`. The public IPv6 of a vNIC that has only an IPv6 address cannot be deleted.
+  * The public IPv6 on a load balancer can be deleted separately. When the load balancer itself is deleted, its public IPv6 addresses are recycled together, and there is no need to call this API separately.
+  * The public IPv6 addresses passed in are processed independently one by one, and a partial failure does not affect the deletion of the remaining items. Failed items are returned in `failedIpv6Addresses` with their respective error codes and error messages, and the API itself still returns success.
+examples:
+- cmd: zeno zec delete-ipv6-addresses --ipv6-ids <ipv6Id1> --ipv6-ids <ipv6Id2>
+  desc: Delete public IPv6 addresses in batches, all succeeded.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DeleteIpv6Addresses
+parameters:
+- name: ipv6-ids
+  type: string-array
+  required: true
+  sdk-field: ipv6Ids
+  description: List of IDs of the public IPv6 addresses to be deleted.
+response:
+- name: failedIpv6Addresses
+  type: object-array
+  description: |-
+    List of details of the public IPv6 addresses that failed to be deleted.
+    Empty if all deletions succeed.
+  array-style: json
+  item-schema:
+  - name: ipv6Id
+    type: string
+    description: ID of the public IPv6 that failed to be deleted.
+  - name: errorCode
+    type: string
+    description: Error code.
+  - name: errorMsg
+    type: string
+    description: Error message.

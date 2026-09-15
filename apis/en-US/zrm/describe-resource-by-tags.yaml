@@ -8,8 +8,8 @@ long: |-
 
   * At least one of `tags` or `tagKeys` must be provided.
 examples:
-- cmd: zeno zrm describe-resource-by-tags --tags "{key=key_b1b29f0f5533, value=value_0827e7e1a82b}" --tag-keys tagKeys_fb657b711e3a
-  desc: Query all resources bound to tags.
+- cmd: zeno zrm describe-resource-by-tags --tags "{key=env, value=production}" --tag-keys env
+  desc: Retrieve all resources bound to tags
 sdk:
   service: zrm
   version: '2025-10-14'
@@ -36,10 +36,10 @@ parameters:
 response:
 - name: totalCount
   type: integer
-  description: Total number of results.
+  description: Total number of resources bound to the specified tags.
 - name: dataSet
   type: object-array
-  description: Detailed result information.
+  description: List of resources bound to the specified tags.
   array-style: json
   item-schema:
   - name: resourceType

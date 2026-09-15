@@ -11,6 +11,8 @@ long: |-
   * 你可以通过 DescribeNatGateways 接口来查看支持绑定的NAT网关。
   * 你可以通过 DescribeHaVips 接口来查看支持绑定的高可用虚拟IP。
   * 参数`loadBalancerId`、`nicId`、`natId`、`haVipId`必须传1个。如果多个字段同时传入，则按`loadBalancerId`、`nicId`、`natId`、`haVipId`顺序优先使用。
+  * 通过`loadBalancerId`绑定负载均衡实例时，`bindType`不生效（负载均衡无需指定绑定方式），传入的值会被忽略。
+  * 通过`loadBalancerId`绑定负载均衡实例时，支持单IP（掩码`/32`）与网段类型的EIP；绑定到虚拟网卡的网段类型EIP只支持`Passthrough`（可见模式），绑定NAT网关与高可用虚拟IP不支持网段类型的EIP。
   * 通过`haVipId`绑定高可用虚拟IP时，`bindType`只能为`FullNat`（普通NAT模式），传其他值本次请求的EIP将全部绑定失败。
   * 如果遇到绑定数量超过了限制，可以联系Support来提高配额。
   * 接口会返回绑定失败的eip id集合，如果是空的则说明全部成功。
@@ -34,7 +36,9 @@ parameters:
   type: string
   required: false
   sdk-field: loadBalancerId
-  description: 负载均衡实例的ID。
+  description: |-
+    负载均衡实例的ID。
+    仅ipStackType为IPv4的负载均衡可绑定弹性IP——负载均衡只支持单栈，IPv6的公网地址通过AssignLoadBalancerIpv6接口分配。
 - name: nic-id
   type: string
   required: false

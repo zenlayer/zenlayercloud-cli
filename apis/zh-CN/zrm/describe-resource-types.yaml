@@ -1,0 +1,52 @@
+name: DescribeResourceTypes
+product: zrm
+use: describe-resource-types
+short: 资源类型列表
+long: |-
+  查询当前支持的资源类型，支持按所属服务与资源类型筛选。
+  **注意事项**
+
+  * `services` 与 `resourceTypes` 均不传时返回全部资源类型
+  * 同一个筛选参数内的多个值之间为或的关系，两个参数之间为且的关系
+examples:
+- cmd: zeno zrm describe-resource-types
+  desc: 查询全部资源类型
+- cmd: zeno zrm describe-resource-types --services ""Bare Metal"" --resource-types BMC_SUBNET
+  desc: 按所属服务与资源类型筛选
+sdk:
+  service: zrm
+  version: '2025-10-14'
+  action: DescribeResourceTypes
+parameters:
+- name: services
+  type: string-array
+  required: false
+  sdk-field: services
+  description: |-
+    按所属服务筛选，精确匹配，多个服务之间为或的关系。
+    不传时返回全部服务的资源类型。
+- name: resource-types
+  type: string-array
+  required: false
+  sdk-field: resourceTypes
+  description: |-
+    按资源类型筛选，精确匹配，多个类型之间为或的关系。
+    不传时返回全部资源类型。
+response:
+- name: totalCount
+  type: integer
+  description: 符合条件的资源类型总数量。
+- name: dataSet
+  type: object-array
+  description: 资源类型列表。
+  array-style: json
+  item-schema:
+  - name: resourceType
+    type: string
+    description: 资源类型。
+  - name: name
+    type: string
+    description: 资源类型名称。
+  - name: service
+    type: string
+    description: 资源类型所属的服务。

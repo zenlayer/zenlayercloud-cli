@@ -40,7 +40,7 @@ parameters:
   type: integer
   required: false
   sdk-field: pageNum
-  description: 返回的分页数。
+  description: 返回的分页数，默认为1。
 response:
 - name: dataSet
   type: object-array

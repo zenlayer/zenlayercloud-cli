@@ -8,12 +8,15 @@ long: |-
 
   * 本接口为异步接口，变更规格请求发送成功后会立即返回，此时操作并未完成。实例操作结果可以通过调用[`DescribeInstancesStatus`](describeinstancesstatus.md)接口查询，如果实例状态(`instanceStatus`)由`RESIZING`变为`STOPPED`，则代表规格变更成功，变更过程中不可对实例进行任何操作。
   * 仅实例状态为`STOPPED` 状态的实例才能进行此操作。
-  * VM实例的`instanceType`为规格ID，如`z2a.cpu.4`；GPU实例的`instanceType`为GPU规格ID，如`z3a.g.C49.c8m32.1`。
+  * VM实例的`instanceType`为规格ID，如`z2a.cpu.4`；GPU实例的`instanceType`为GPU规格ID，如`z3a.g.C49.c8m32.1`；加速卡实例的`instanceType`为加速卡规格ID，如`z2a.v.T1U.c16m64.1`。
+  * 加速卡实例变配只能调整 CPU/内存/卡数量，不能通过变配更换加速卡型号。
 examples:
 - cmd: zeno zec modify-instance-type --instance-id instanceId --instance-type z2a.cpu.4
   desc: 变更VM实例的规格。
 - cmd: zeno zec modify-instance-type --instance-id instanceId --instance-type z3a.g.C49.c8m32.1
   desc: 变更GPU实例的规格。
+- cmd: zeno zec modify-instance-type --instance-id instanceId --instance-type z2a.v.T1U.c16m64.1
+  desc: 变更加速卡实例的规格。
 sdk:
   service: zec
   version: '2025-09-01'

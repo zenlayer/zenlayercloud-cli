@@ -1,7 +1,7 @@
 name: DeleteCommand
 product: zos
 use: delete-command
-short: 删除命令
+short: 删除命令。
 long: |-
   删除命令。
   **注意事项**

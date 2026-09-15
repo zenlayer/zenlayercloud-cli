@@ -1,0 +1,22 @@
+name: DescribeUsableByoAsns
+product: zec
+use: describe-usable-byo-asns
+short: Queries the list of ASNs available for creating BYOIP
+long: |-
+  Query the list of the ASNs that can be used as the origin ASN of BYOIP.
+  **Notes**
+
+  * This operation is used to select the origin ASN when creating BYOIP. To view the self-service onboarded ASNs together with their verification status, resource group and tags, call ~~DescribeByoAsns~~.
+examples:
+- cmd: zeno zec describe-usable-byo-asns
+  desc: Query the list of ASNs available for creating BYOIP.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeUsableByoAsns
+response:
+- name: asns
+  type: integer-array
+  description: |-
+    List of the ASNs that can be used as the origin ASN of BYOIP.
+    It contains the bring-your-own ASNs that have passed the ownership verification, as well as the ASNs authorized offline to the account.

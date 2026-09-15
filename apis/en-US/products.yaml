@@ -12,3 +12,5 @@ aigw: "Manage AI gateway resources: AI gateway instances, models, and usage stat
 mcpgw: "Manage MCP gateway resources: query monthly billing details and token usage"
 vm: "Manage virtual machine resources: instances, disks, security groups, images, and subnets (legacy)"
 sdn: "Manage SDN network resources: cloud connections, private connects, layer-3 networks, ports, and edge points, with multi-cloud interconnection across Alibaba Cloud, AWS, Azure, BytePlus, and Google"
+zls: "Manage audit log resources: query operation audit logs by time range"
+zsp: "Manage support ticket resources: create tickets, query ticket lists, details, and creation quota"

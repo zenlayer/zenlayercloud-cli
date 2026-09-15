@@ -38,6 +38,14 @@ parameters:
     desc: |-
       Disk write operations.
       Unit: IOPS .
+  - value: DISK_TRIM_BYTES
+    desc: |-
+      Disk TRIM throughput, that is, the amount of space released by discard operations.
+      Unit: KiB/s.
+  - value: DISK_TRIM_OPS
+    desc: |-
+      Disk TRIM operations.
+      Unit: IOPS.
   - value: DISK_UTIL
     desc: |-
       Disk utilization.

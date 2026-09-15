@@ -38,6 +38,14 @@ parameters:
     desc: |-
       云硬盘写数量。
       单位IOPS。
+  - value: DISK_TRIM_BYTES
+    desc: |-
+      云硬盘 TRIM 吞吐量，即 discard 操作释放的空间量。
+      单位KiB/s。
+  - value: DISK_TRIM_OPS
+    desc: |-
+      云硬盘 TRIM 操作数量。
+      单位IOPS。
   - value: DISK_UTIL
     desc: |-
       云硬盘利用率。

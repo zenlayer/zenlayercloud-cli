@@ -7,6 +7,7 @@ long: |-
   #### Prerequisites
   * Query standard instance types: call ~~DescribeZoneInstanceConfigInfos~~ to query instance type information.
   * Query GPU instance types: call ~~DescribeZoneGpuInstanceConfigInfos~~ to query GPU instance type information.
+  * Query accelerator instance types: call ~~DescribeZoneAcceleratorConfigInfos~~ to query accelerator instance type information.
   * Query images: call ~~DescribeImages~~ to query image information.
   * Query key pairs: call ~~ccs:DescribeKeyPairs~~ to query key pair ID information.
 
@@ -29,6 +30,8 @@ examples:
   desc: Create 1 instance and assign both a public IPv4 and public IPv6 address. The IPv4 line type is BGP, and network billing uses a shared bandwidth package. The bandwidth limit is 10Mbps.
 - cmd: zeno zec create-zec-instances --zone-id asia-east-1a --instance-type z2a.cpu.1 --image-id ubuntu2404_20240712 --instance-name Test-InstanceName --key-id key-rcfljdP5 --subnet-id 1272168087751233112 --nic-network-type Auto --data-disks "{diskSize=100, diskCategory=Standard NVMe SSD}" --data-disks "{diskSize=200, diskCategory=Standard NVMe SSD}"
   desc: Create 1 instance configured with multiple data disks.
+- cmd: zeno zec create-zec-instances --zone-id asia-east-1a --instance-type z2a.cpu.1 --image-id ubuntu2404_20240712 --instance-name Test-InstanceName --key-id key-rcfljdP5 --subnet-id 1272168087751233112 --nic-network-type Auto --user-data IyEvYmluL2Jhc2gKZWNobyAiaGVsbG8gemVubGF5ZXIiID4gL3RtcC9pbml0LmxvZwo=
+  desc: Create 1 instance and specify an initialization script through `userData`. The `userData` in this example is the Base64-encoded value of the script `#!/bin/bash\necho "hello zenlayer" > /tmp/init.log`.
 sdk:
   service: zec
   version: '2025-09-01'
@@ -64,14 +67,16 @@ parameters:
   sdk-field: instanceName
   description: |-
     Instance name to be displayed.
+    2 to 63 characters in length.
+    Only letters, digits, periods (.), underscores (_), slashes (/) and hyphens (-) are supported.
+    It must start and end with a digit or a letter.
+    When you purchase multiple instances, you can specify a pattern string [begin_number,bits].
+    begin_number: the starting value of the ordered number, value range: [0,99999], default value: 0.
+    bits: the number of digits occupied by the ordered number, value range: [1,6], default value: 6.
+    Note that spaces are not allowed in the pattern string.
+    For example, if you purchase 1 instance with server-[3,3], the instance is displayed as server-003; if you purchase 2 instances, they are displayed as server-003 and server-004.
+    Multiple pattern strings are supported, such as server-[3,3]-[1,1].
     Default value: instance.
-    This parameter must start with a number or a letter, containing 2 to 63 characters. Only letters, numbers, - and periods (.) are supported.
-    If you purchase multiple instances at the same time, you can specify a pattern string [begin_number,bits] .
-    begin_number : the starting value of an ordered number, value range: [0,99999], default value: 0.
-    bits : the number of digits occupied by an ordered value, value range: [1,6], default value: 6.
-    For example, if you purchase 1 instance and the instance name body is server_[3,3] , the instance name will be server003 ; if you purchase 2 instances, the instance names will be server003 , server004 .
-    Note:
-    Spaces are not supported in the pattern string. Multiple pattern strings are supported, such as server_[3,3]_[1,1] .
 - name: password
   type: string
   required: false
@@ -397,7 +402,9 @@ parameters:
   type: string
   required: false
   sdk-field: userData
-  description: Initialization command.
+  description: |-
+    Custom initialization script for the instance.
+    The value must be Base64-encoded, and the decoded size must be less than 64 KiB.
 - name: instance-options
   type: object
   required: false

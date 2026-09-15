@@ -6,8 +6,7 @@ long: |-
   为负载均衡器实例添加内网IP。
   **注意事项**
 
-  * Subnet所属的区域和VPC需要和负载均衡器实例一致。
-  * 指定的内网IP需要在Subnet的CIDR范围内且没被其它资源占用。
+  * 本接口添加的是内网IPv4地址，**仅适用于`ipStackType`为`IPv4`的负载均衡实例**。IPv6类型的负载均衡不支持绑定内网IPv4。
 examples:
 - cmd: zeno zlb add-load-balancers-private-ips --private-ips 10.0.0.0 --load-balancer-id "<your lb id>" --subnet-id "<your subnet id>"
   desc: 为负载均衡器实例添加内网IP
@@ -23,6 +22,7 @@ parameters:
   description: |-
     要加入的内网Ip。
     单次最多20个。
+    需在subnetId对应子网的CIDR范围内，且未被其它资源占用。
 - name: load-balancer-id
   type: string
   required: true
@@ -34,4 +34,5 @@ parameters:
   sdk-field: subnetId
   description: |-
     作为内网ip的subnetId。
-    可以通过[DescribeSubnets](../../zec/vpc-network/describesubnets.md)接口获取。
+    可以通过调用 ~~DescribeSubnets~~ 获取。
+    该子网所属的区域和VPC需与负载均衡实例一致。

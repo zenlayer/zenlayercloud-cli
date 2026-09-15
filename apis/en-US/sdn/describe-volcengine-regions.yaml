@@ -1,0 +1,78 @@
+name: DescribeVolcengineRegions
+product: sdn
+use: describe-volcengine-regions
+short: Query Volcengine Access Point Regions
+long: Query Volcengine Access Point Regions
+sdk:
+  service: sdn
+  version: '2026-04-01'
+  action: DescribeVolcengineRegions
+parameters:
+- name: product
+  type: enum
+  required: false
+  sdk-field: product
+  description: |-
+    Filter by product supported by the cloud access point.
+    Available values: PrivateConnect (Layer 2 network), CloudRouter (Layer 3 network).
+  enum-values:
+  - value: PrivateConnect
+    desc: Private Connect
+  - value: CloudRouter
+    desc: Cloud Router
+response:
+- name: cloudRegions
+  type: object-array
+  description: List of region information related to the access point.
+  array-style: json
+  item-schema:
+  - name: cloudRegionId
+    type: string
+    description: Public cloud region ID.
+  - name: dataCenter
+    type: object
+    description: Data center information of the access point.
+    object-schema:
+    - name: dcId
+      type: string
+      description: Data center four-letter code.
+    - name: dcName
+      type: string
+      description: Data center name.
+    - name: dcAddress
+      type: string
+      description: Data center address.
+    - name: cityName
+      type: string
+      description: Name of the city where the data center is located.
+    - name: countryName
+      type: string
+      description: Name of the country where the data center is located.
+    - name: areaName
+      type: string
+      description: Name of the region where the data center is located.
+    - name: latitude
+      type: float
+      description: Latitude of the data center.
+    - name: longitude
+      type: float
+      description: Longitude of the data center.
+  - name: products
+    type: string-array
+    description: 'List of products supported in this region: PrivateConnect (Layer 2 network), CloudRouter (Layer 3 network).'
+  - name: haTypes
+    type: object-array
+    description: List of HA types supported in this region.
+    array-style: json
+    item-schema:
+    - name: haType
+      type: enum
+      description: HA type.
+      enum-values:
+      - value: PRIMARY
+        desc: Primary.
+      - value: SECONDARY
+        desc: Secondary.
+    - name: isUsed
+      type: boolean
+      description: Whether this HA type has already been used.

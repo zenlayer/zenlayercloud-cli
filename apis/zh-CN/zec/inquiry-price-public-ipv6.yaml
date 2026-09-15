@@ -7,9 +7,12 @@ long: |-
   **注意事项**
 
   * 保底流量包大小仅对计费周期为月有效。
+  * `amount`用于一次询多个公网IPv6的价格（如负载均衡一次分配多个公网IPv6），不指定时为1，价格按数量累计。
 examples:
 - cmd: zeno zec inquiry-price-public-ipv6 --region-id asia-east-1 --package-size 10
   desc: 在asia-east-1节点，公网Ipv6流量计费10TB的询价。
+- cmd: zeno zec inquiry-price-public-ipv6 --region-id asia-east-1 --bandwidth 100 --amount 3
+  desc: 在asia-east-1节点，一次询3个固定带宽100Mbps的公网IPv6的价格。
 sdk:
   service: zec
   version: '2025-09-01'
@@ -35,6 +38,13 @@ parameters:
     公网出带宽上限。
     单位：Mbps。
     不同机型带宽上限范围不一致，具体限制详见购买网络带宽。
+- name: amount
+  type: integer
+  required: false
+  sdk-field: amount
+  description: |-
+    询价的公网IPv6数量。
+    价格按数量累计。
 response:
 - name: bandwidthPrice
   type: object

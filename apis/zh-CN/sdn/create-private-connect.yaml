@@ -96,6 +96,8 @@ parameters:
       desc: 华为云。
     - value: BYTE_PLUS
       desc: 火山引擎（BytePlus）。
+    - value: VOLCENGINE
+      desc: 火山引擎。
     - value: ORACLE
       desc: 甲骨文云（Oracle）。
   - name: endpointName
@@ -161,6 +163,8 @@ parameters:
       desc: 华为云。
     - value: BYTE_PLUS
       desc: 火山引擎（BytePlus）。
+    - value: VOLCENGINE
+      desc: 火山引擎。
     - value: ORACLE
       desc: 甲骨文云（Oracle）。
   - name: endpointName

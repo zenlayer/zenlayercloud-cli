@@ -230,6 +230,8 @@ response:
         desc: Oracle 连接点。
       - value: BYTE_PLUS
         desc: 火山引擎连接点。
+      - value: VOLCENGINE
+        desc: 火山引擎连接点。
       - value: PORT
         desc: 数据中心端口连接点。
       - value: Ript
@@ -321,6 +323,8 @@ response:
       - value: ORACLE
         desc: Oracle 连接点。
       - value: BYTE_PLUS
+        desc: 火山引擎连接点。
+      - value: VOLCENGINE
         desc: 火山引擎连接点。
       - value: PORT
         desc: 数据中心端口连接点。

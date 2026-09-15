@@ -40,6 +40,26 @@ parameters:
   required: true
   sdk-field: publicVirtualInterfaceId
   description: 公网VLAN 唯一标识。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  sdk-wrapper: tags
+  description: |-
+    创建byoip时关联的标签。
+    注意：关联标签键不能重复。--tags 'key=env,value=prod'
+  array-style: kv
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～128字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～128字符。
 response:
 - name: byoipId
   type: string

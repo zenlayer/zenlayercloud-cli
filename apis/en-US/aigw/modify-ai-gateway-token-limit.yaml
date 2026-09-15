@@ -20,8 +20,18 @@ parameters:
   required: true
   sdk-field: gatewayUuid
   description: Gateway UUID.
+- name: daily-limit
+  type: integer
+  required: false
+  sdk-field: dailyLimit
+  description: Daily quota limit.
+- name: monthly-limit
+  type: integer
+  required: false
+  sdk-field: monthlyLimit
+  description: Monthly quota limit.
 - name: token-limit
   type: integer
-  required: true
+  required: false
   sdk-field: tokenLimit
   description: Token limit (access limit).

@@ -18,7 +18,7 @@ response:
   item-schema:
   - name: regionId
     type: string
-    description: 节点ID。
+    description: 支持售卖的区域。
   - name: cityName
     type: string
     description: 节点所属的城市名称。

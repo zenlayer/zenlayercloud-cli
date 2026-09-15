@@ -1,0 +1,22 @@
+name: DescribeUsableByoAsns
+product: zec
+use: describe-usable-byo-asns
+short: 查询可用于创建 BYOIP 的 ASN 列表
+long: |-
+  返回可作为 BYOIP 起源ASN使用的ASN号列表。
+  **注意事项**
+
+  * 本接口供创建 BYOIP 时选择起源ASN使用。需要查看自助接入的ASN及其验证状态、资源组、标签时，调用 ~~DescribeByoAsns~~。
+examples:
+- cmd: zeno zec describe-usable-byo-asns
+  desc: 查询可用于创建 BYOIP 的 ASN 列表。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeUsableByoAsns
+response:
+- name: asns
+  type: integer-array
+  description: |-
+    可作为 BYOIP 起源ASN使用的ASN号列表。
+    包含已通过归属验证的自带ASN，以及线下已授权给该账号的ASN。

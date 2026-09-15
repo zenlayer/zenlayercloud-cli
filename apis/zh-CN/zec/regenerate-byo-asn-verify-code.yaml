@@ -1,0 +1,50 @@
+name: RegenerateByoAsnVerifyCode
+product: zec
+use: regenerate-byo-asn-verify-code
+short: 重新生成 BYO ASN 校验码
+long: |-
+  为指定自带ASN重新签发校验码，旧校验码同时失效。
+  **注意事项**
+
+  * 客户按新的`exportDeclaration`更新RIR上该ASN的 aut-num 对象后，需再调用 ~~VerifyByoAsn~~ 确认归属。
+  * **仅`EXPIRED`状态支持本操作**。`VERIFYING`状态下校验码仍然有效，无需重新签发；若确认声明配置有误，请调用 ~~DeleteByoAsn~~ 后重新接入。
+examples:
+- cmd: zeno zec regenerate-byo-asn-verify-code --byo-asn-id byoasn-3JK29DKS
+  desc: 校验码已失效，重新生成。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: RegenerateByoAsnVerifyCode
+parameters:
+- name: byo-asn-id
+  type: string
+  required: true
+  sdk-field: byoAsnId
+  description: 待重新生成校验码的 BYO ASN 的ID。
+response:
+- name: byoAsnId
+  type: string
+  description: BYO ASN 的ID。
+- name: asn
+  type: integer
+  description: ASN号。
+- name: status
+  type: enum
+  description: 重新生成校验码后的状态，回到VERIFYING。
+  enum-values:
+  - value: VERIFYING
+    desc: 验证中。
+  - value: AVAILABLE
+    desc: 可用。
+  - value: EXPIRED
+    desc: 验证失效。
+- name: verifyCode
+  type: string
+  description: |-
+    新的校验码。
+    旧校验码立即失效，需要客户将新校验码写入 RIR 上该ASN的 aut-num 对象。
+- name: exportDeclaration
+  type: string
+  description: |-
+    完整的 export 声明语句。
+    客户直接复制该语句更新 RIR 上该ASN的 aut-num 对象即可。

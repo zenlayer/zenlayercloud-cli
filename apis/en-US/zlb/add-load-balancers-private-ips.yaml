@@ -4,10 +4,9 @@ use: add-load-balancers-private-ips
 short: Adds private IPs to a load balancer
 long: |-
   Add private IPs to a load balancer.
-  **Note**
+  **Notes**
 
-  * The regions of the subnet and the load balancer should be the same.
-  * The specified private IP should be within the range of the subnet CIDR and not be occupied.
+  * This operation adds private IPv4 addresses and **applies only to the load balancer instances whose `ipStackType` is `IPv4`**. An IPv6 load balancer does not support binding private IPv4 addresses.
 examples:
 - cmd: zeno zlb add-load-balancers-private-ips --private-ips 10.0.0.0 --load-balancer-id "<your lb id>" --subnet-id "<your subnet id>"
   desc: Add private IPs to a load balancer.
@@ -23,6 +22,7 @@ parameters:
   description: |-
     The private IPs to be added.
     You can add up to 20 private IPs at a time.
+    They must be within the CIDR range of the subnet specified by subnetId and must not be occupied by other resources.
 - name: load-balancer-id
   type: string
   required: true
@@ -34,4 +34,5 @@ parameters:
   sdk-field: subnetId
   description: |-
     Subnet ID of the private IPs.
-    You can call DescribeSubnets to obtain details.
+    You can call ~~DescribeSubnets~~ to obtain details.
+    The region and VPC of the subnet must be the same as those of the load balancer instance.

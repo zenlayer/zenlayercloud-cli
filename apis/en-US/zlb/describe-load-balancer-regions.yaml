@@ -18,7 +18,7 @@ response:
   item-schema:
   - name: regionId
     type: string
-    description: Region ID.
+    description: Region available for purchase.
   - name: cityName
     type: string
     description: Name of the city where the region is located.

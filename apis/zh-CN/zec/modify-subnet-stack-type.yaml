@@ -7,7 +7,7 @@ long: |-
   **注意事项**
 
   * 支持`IPv4`切换为`IPv4_IPv6`：切换后，将得到一个IPv6地址段。
-  * 支持`IPv4_IPv6`切换为`IPv4`（关闭IPv6）：公网和内网IPv6类型的子网均支持；关闭前须确保子网内所有网卡已通过`UnassignNetworkInterfaceIpv6`删除其IPv6地址。
+  * 支持`IPv4_IPv6`切换为`IPv4`（关闭IPv6）：公网和内网IPv6类型的子网均支持；关闭前须确保子网内已无IPv6地址被占用——网卡的IPv6通过`UnassignNetworkInterfaceIpv6`删除，负载均衡的IPv6 VIP通过`DeleteIpv6Addresses`删除。
 examples:
 - cmd: zeno zec modify-subnet-stack-type --subnet-id XXX --stack-type IPv4_IPv6 --ipv6-type Private
   desc: 修改子网的堆栈类型：IPv4 → IPv4_IPv6，指定内网IPv6。
@@ -30,7 +30,7 @@ parameters:
   description: |-
     子网堆栈类型。
     IPv4_IPv6: 开启公网IPv6; 公网或内网由ipv6Type指定。
-    IPv4: 将关闭IPv6，关闭前须确保子网内所有网卡已通过 UnassignNetworkInterfaceIpv6 删除其 IPv6 地址。
+    IPv4: 将关闭IPv6，关闭前须确保子网内已无 IPv6 地址被占用：网卡的 IPv6 通过 UnassignNetworkInterfaceIpv6 删除，负载均衡的 IPv6 VIP 通过 DeleteIpv6Addresses 删除。
   enum-values:
   - value: IPv4
     desc: 仅IPv4。

@@ -221,6 +221,8 @@ response:
         desc: 华为云接入点。
       - value: BYTEPLUS
         desc: 火山引擎接入点。
+      - value: VOLCENGINE
+        desc: 火山引擎接入点。
     - name: cloudType
       type: enum
       description: 云连接点的云厂商类型。
@@ -239,6 +241,8 @@ response:
         desc: 华为云。
       - value: BYTE_PLUS
         desc: 火山引擎（BytePlus）。
+      - value: VOLCENGINE
+        desc: 火山引擎。
       - value: ORACLE
         desc: 甲骨文云（Oracle）。
     - name: cloudAccountId

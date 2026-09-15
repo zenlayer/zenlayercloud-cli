@@ -1,0 +1,189 @@
+name: DescribeByoAsns
+product: zec
+use: describe-byo-asns
+short: 查询 BYO ASN 列表
+long: 查询一个或多个自带ASN的详细信息。
+examples:
+- cmd: zeno zec describe-byo-asns --page-num 1 --page-size 20
+  desc: 查询当前账号下的 BYO ASN 列表。
+- cmd: zeno zec describe-byo-asns --order-by ASN --direction ASC
+  desc: 按ASN号升序排序。
+- cmd: zeno zec describe-byo-asns --status AVAILABLE
+  desc: 只查询已可用的 BYO ASN。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeByoAsns
+parameters:
+- name: byo-asn-ids
+  type: string-array
+  required: false
+  sdk-field: byoAsnIds
+  description: |-
+    BYO ASN 的ID列表。
+    最多支持100个ID查询。
+- name: asn
+  type: integer
+  required: false
+  sdk-field: asn
+  description: 根据ASN号进行精确过滤。
+- name: status
+  type: enum
+  required: false
+  sdk-field: status
+  description: 根据状态进行过滤。
+  enum-values:
+  - value: VERIFYING
+    desc: 验证中。
+  - value: AVAILABLE
+    desc: 可用。
+  - value: EXPIRED
+    desc: 验证失效。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: 根据资源组ID进行过滤。
+- name: order-by
+  type: enum
+  required: false
+  sdk-field: orderBy
+  description: |-
+    排序字段。
+    未指定时按创建时间排序。
+  enum-values:
+  - value: ASN
+    desc: 按ASN号排序。
+  - value: CREATE_TIME
+    desc: 按创建时间排序。
+- name: direction
+  type: enum
+  required: false
+  sdk-field: direction
+  description: |-
+    排序方向。
+    未指定时为降序。
+  enum-values:
+  - value: ASC
+    desc: 升序。
+  - value: DESC
+    desc: 降序。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    返回的分页大小。
+    默认为20，最大为1000。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    返回的分页数。
+    默认为1。
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: |-
+    根据标签键进行搜索。
+    最长不得超过20个标签键。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: |-
+    根据标签进行搜索。
+    最长不得超过20个标签。
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。
+response:
+- name: totalCount
+  type: integer
+  description: 符合条件的数据总数。
+- name: dataSet
+  type: object-array
+  description: BYO ASN 结果集。
+  array-style: json
+  item-schema:
+  - name: byoAsnId
+    type: string
+    description: BYO ASN 的ID。
+  - name: asn
+    type: integer
+    description: ASN号。
+  - name: status
+    type: enum
+    description: 当前状态。
+    enum-values:
+    - value: VERIFYING
+      desc: 验证中。
+    - value: AVAILABLE
+      desc: 可用。
+    - value: EXPIRED
+      desc: 验证失效。
+  - name: type
+    type: enum
+    description: 来源类型。
+    enum-values:
+    - value: BYOASN
+      desc: 客户自带的ASN(bring your own ASN)。
+  - name: verifyCode
+    type: string
+    description: |-
+      校验码。
+      需要客户将其写入 RIR 上该ASN的 aut-num 对象。
+  - name: exportDeclaration
+    type: string
+    description: |-
+      完整的 export 声明语句。
+      客户直接复制该语句写入 RIR 上该ASN的 aut-num 对象即可。
+  - name: ipv4CidrCount
+    type: integer
+    description: 该ASN下已宣告的IPv4 CIDR数量。
+  - name: ipv6CidrCount
+    type: integer
+    description: 该ASN下已宣告的IPv6 CIDR数量。
+  - name: createTime
+    type: string
+    description: 创建时间。
+  - name: resourceGroup
+    type: object
+    description: 所属资源组信息。
+    object-schema:
+    - name: resourceGroupId
+      type: string
+      description: 资源组ID。
+    - name: resourceGroupName
+      type: string
+      description: 资源组名称。
+  - name: tags
+    type: object
+    description: 标签列表。
+    object-schema:
+    - name: tags
+      type: object-array
+      description: 标签对列表。
+      array-style: json
+      item-schema:
+      - name: key
+        type: string
+        description: |-
+          标签键。
+          长度限制：1～64个字符。
+      - name: value
+        type: string
+        description: |-
+          标签值。
+          长度限制：1～64个字符。

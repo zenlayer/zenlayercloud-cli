@@ -2,7 +2,13 @@ name: DescribeIPTransitDatacenters
 product: ipt
 use: describe-ip-transit-datacenters
 short: 查询IP Transit可连接数据中心
-long: 查询IP Transit可连接数据中心
+long: |-
+  查询IP Transit可连接数据中心。
+  **BGP 档位**
+
+  * `routingType=BGP` 的条目会返回 `availableBgpTiers`（该数据中心可选的 BGP 档位：`STANDARD` 普通 / `PREMIUM` 优质）与 `peerAsns`（各档位对应的 Zenlayer 侧对端 AS 号，普通 `29752` / 优质 `21859`），请以 `peerAsns` 为准配置您本地路由器的 BGP 邻居。
+  * 普通 BGP 仅在部分数据中心开放；仅支持固定带宽计费，带宽只能取固定档位值（如 10000/50000/100000，单位 Mbps；传入非档位值时错误信息中会返回完整的可选档位列表）。
+  * `zbgRegionId` 非空（基于 router 的 IP Transit）时不支持普通档：返回的 `availableBgpTiers` 只含 `PREMIUM`，`peerAsns` 只含 `21859`；不具备优质档底层能力的数据中心不会出现在结果中。
 sdk:
   service: ipt
   version: '2024-09-01'
@@ -81,6 +87,33 @@ response:
       description: |-
         可选的 BGP 路由通告类型列表。
         仅 `routingType` 为 BGP 时有值。
+    - name: availableBgpTiers
+      type: string-array
+      description: |-
+        可选的 BGP 档位列表。
+        仅 `routingType` 为 BGP 时有值。
+    - name: peerAsns
+      type: object-array
+      description: |-
+        各 BGP 档位对应的 Zenlayer 侧（对端）AS 号，供客户本地路由器 BGP 邻居配置。
+        仅 `routingType` 为 BGP 时有值。
+      array-style: json
+      item-schema:
+      - name: tier
+        type: enum
+        description: BGP 档位。
+        enum-values:
+        - value: STANDARD
+          desc: |-
+            普通 BGP。
+            仅在部分数据中心开放，仅支持固定带宽计费，带宽只能取该数据中心的固定档位值。
+        - value: PREMIUM
+          desc: |-
+            优质 BGP。
+            骨干直连低时延线路，为档位缺省值；档位拆分前创建的存量实例统一返回该档位。
+      - name: asn
+        type: integer
+        description: 该档位对应的 Zenlayer 侧（对端）AS 号。
     - name: deliveryType
       type: enum
       description: 开通方式。

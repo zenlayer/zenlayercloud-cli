@@ -24,3 +24,9 @@ response:
 - name: tokenLimit
   type: integer
   description: Token配额限制。
+- name: dailyLimit
+  type: integer
+  description: 日额度限制。
+- name: monthlyLimit
+  type: integer
+  description: 月额度限制。

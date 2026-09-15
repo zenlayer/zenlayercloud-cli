@@ -1,0 +1,29 @@
+name: DescribeBalanceAlert
+product: zbc
+use: describe-balance-alert
+short: Query balance alert settings
+long: Queries whether the balance alert is enabled for the current account and the configured alert threshold.
+examples:
+- cmd: zeno zbc describe-balance-alert
+  desc: Query the balance alert settings.
+- cmd: zeno zbc describe-balance-alert
+  desc: Query an account for which the alert is disabled.
+sdk:
+  service: zbc
+  version: '2024-08-09'
+  action: DescribeBalanceAlert
+response:
+- name: accountUid
+  type: string
+  description: Unique identifier of the account.
+- name: enabled
+  type: boolean
+  description: |-
+    Whether the balance alert is enabled.
+    When this field is true but alertThreshold is empty, the alert is not actually triggered.
+- name: alertThreshold
+  type: float
+  description: |-
+    Balance alert threshold.
+    A reminder email is triggered when the purchasing power (account balance + credit) falls below this value.
+    Empty if the account has never configured a threshold. The threshold is retained after the alert is disabled, so a value in this field does not mean that the alert is enabled.

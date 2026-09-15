@@ -1,0 +1,157 @@
+name: DescribeTickets
+product: zsp
+use: describe-tickets
+short: Query Ticket List
+long: |-
+  Query the list of tickets submitted by the current team.
+  **Notes**
+
+  * This API returns only the tickets submitted by the current team.
+  * Both `ticketId` and `ticketNumber` support fuzzy queries. They can be specified at the same time, in which case the intersection is returned.
+  * Call ~~DescribeTicketDetail~~ when you need the contact information and the email correspondence records.
+examples:
+- cmd: zeno zsp describe-tickets --page-num 1 --page-size 20
+  desc: Query all tickets of the current team.
+- cmd: zeno zsp describe-tickets --type SERVICE_FAILURE --statuses NEW --statuses PROCESSING
+  desc: Filter by status and type.
+- cmd: zeno zsp describe-tickets --ticket-number 001234 --create-time-desc false
+  desc: Query by ticket number with a fuzzy match, and return the results in ascending order of creation time.
+- cmd: zeno zsp describe-tickets --ticket-id T-10000000000000
+  desc: Query by ticket ID with a fuzzy match.
+- cmd: zeno zsp describe-tickets --start-time 2026-08-01T00:00:00Z --end-time 2026-08-19T23:59:59Z
+  desc: Filter by creation time range.
+sdk:
+  service: zsp
+  version: '2026-08-01'
+  action: DescribeTickets
+parameters:
+- name: ticket-id
+  type: string
+  required: false
+  sdk-field: ticketId
+  description: Ticket ID. Fuzzy query is supported.
+- name: ticket-number
+  type: string
+  required: false
+  sdk-field: ticketNumber
+  description: |-
+    Ticket number. Fuzzy query is supported.
+    A ticket that is still being created (the status is CREATING) does not have a ticket number yet, so filtering by this condition excludes such tickets.
+- name: type
+  type: enum
+  required: false
+  sdk-field: type
+  description: Ticket type.
+  enum-values:
+  - value: SERVICE_FAILURE
+    desc: 'Service failure: a purchased service is unavailable or malfunctioning.'
+  - value: FINANCIAL_INQUIRIES
+    desc: 'Billing inquiry: financial issues such as billing amounts, billing cycles, and invoices.'
+  - value: ACCOUNT_TEAM_RELATED
+    desc: 'Account inquiry: issues related to accounts, teams, and member permissions.'
+  - value: PURCHASE_CONSULTATION
+    desc: 'Purchase consultation: pre-sales inquiries about prices, specifications, and solutions.'
+  - value: PRODUCT_SUGGESTIONS
+    desc: 'Product inquiry: inquiries about product features and suggestions for improvement.'
+  - value: OTHERS
+    desc: 'Others: issues that do not fall into the categories above.'
+- name: description
+  type: string
+  required: false
+  sdk-field: description
+  description: Issue description. Fuzzy query is supported.
+- name: statuses
+  type: string-array
+  required: false
+  sdk-field: statuses
+  description: |-
+    The list of ticket statuses.
+    If left empty, tickets in all statuses are returned.
+- name: start-time
+  type: string
+  required: false
+  sdk-field: startTime
+  description: |-
+    The start of the creation time query range.
+    Time format: yyyy-MM-ddTHH:mm:ssZ.
+- name: end-time
+  type: string
+  required: false
+  sdk-field: endTime
+  description: |-
+    The end of the creation time query range.
+    Time format: yyyy-MM-ddTHH:mm:ssZ.
+- name: create-time-desc
+  type: boolean
+  required: false
+  sdk-field: createTimeDesc
+  description: Whether the returned results are sorted by creation time in descending order.
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    The page size.
+    If not specified, the default value is 20.
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    The page number.
+    If not specified, the default value is 1.
+response:
+- name: totalCount
+  type: integer
+  description: The total number of records that match the query conditions.
+- name: dataSet
+  type: object-array
+  description: The ticket result set.
+  array-style: json
+  item-schema:
+  - name: ticketId
+    type: string
+    description: Ticket ID.
+  - name: ticketNumber
+    type: string
+    description: |-
+      Ticket number.
+      It is null while the ticket is still being created (the status is CREATING).
+  - name: type
+    type: enum
+    description: Ticket type.
+    enum-values:
+    - value: SERVICE_FAILURE
+      desc: 'Service failure: a purchased service is unavailable or malfunctioning.'
+    - value: FINANCIAL_INQUIRIES
+      desc: 'Billing inquiry: financial issues such as billing amounts, billing cycles, and invoices.'
+    - value: ACCOUNT_TEAM_RELATED
+      desc: 'Account inquiry: issues related to accounts, teams, and member permissions.'
+    - value: PURCHASE_CONSULTATION
+      desc: 'Purchase consultation: pre-sales inquiries about prices, specifications, and solutions.'
+    - value: PRODUCT_SUGGESTIONS
+      desc: 'Product inquiry: inquiries about product features and suggestions for improvement.'
+    - value: OTHERS
+      desc: 'Others: issues that do not fall into the categories above.'
+  - name: status
+    type: enum
+    description: Ticket status.
+    enum-values:
+    - value: CREATING
+      desc: 'Creating: the ticket has been accepted and stored and is being synchronized to the customer service system. The ticket number has not been generated yet.'
+    - value: NEW
+      desc: 'New: the ticket has been synchronized to the customer service system and is waiting to be picked up by customer support.'
+    - value: PROCESSING
+      desc: 'Processing: customer support is handling the ticket, including the cases of waiting for the customer''s reply and the customer having provided additional information.'
+    - value: UPGRADE_IN_PROGRESS
+      desc: 'Upgrade in progress: the ticket has been escalated to a higher-level support team.'
+    - value: FINISHED
+      desc: 'Finished: the issue has been resolved or the ticket has been closed.'
+    - value: MERGED
+      desc: 'Merged: the ticket has been merged into another ticket, and subsequent communication takes place in the merged ticket.'
+  - name: description
+    type: string
+    description: Issue description.
+  - name: createTime
+    type: string
+    description: Creation time.

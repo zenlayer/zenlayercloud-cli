@@ -22,6 +22,8 @@ long: |-
 examples:
 - cmd: zeno zec reset-instance --instance-id <instanceId> --image-id ubuntu2022 --password Example+123 --enable-agent true
   desc: Reinstall the OS.
+- cmd: zeno zec reset-instance --instance-id <instanceId> --image-id ubuntu2022 --password Example+123 --enable-agent true --user-data IyEvYmluL2Jhc2gKZWNobyAiaGVsbG8gemVubGF5ZXIiID4gL3RtcC9pbml0LmxvZwo=
+  desc: Reinstall the OS and specify an initialization script through `userData`. The `userData` in this example is the Base64-encoded value of the script `#!/bin/bash\necho "hello zenlayer" > /tmp/init.log`.
 sdk:
   service: zec
   version: '2025-09-01'
@@ -74,10 +76,10 @@ parameters:
   sdk-field: instanceName
   description: |-
     The modified instance name.
-    2–63 characters in length.
-    Only letters, numbers, hyphens (-), and periods (.) are allowed.
+    2 to 63 characters in length.
+    Only letters, digits, periods (.), underscores (_), slashes (/) and hyphens (-) are supported, and it must start and end with a letter or a digit.
 - name: user-data
   type: string
   required: false
   sdk-field: userData
-  description: Initialization command.
+  description: Custom initialization script for the instance. The value must be Base64-encoded, and the decoded size must be less than 64 KiB.

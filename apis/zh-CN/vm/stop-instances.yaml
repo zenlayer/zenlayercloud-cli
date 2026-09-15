@@ -27,6 +27,4 @@ parameters:
   type: boolean
   required: false
   sdk-field: forceShutdown
-  description: |-
-    是否强制关机。
-    如果不指定默认为是。
+  description: 是否强制关机。

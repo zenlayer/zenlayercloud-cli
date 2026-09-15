@@ -3,13 +3,13 @@ product: ipt
 use: inquiry-modify-ip-transit-price
 short: IP Transit变配询价
 long: |-
-  IP Transit变配询价
+  IP Transit变配询价。
   **注意事项**
 
   * BFD、BGP 相关操作（`BFD`、`BGP_ROUTE_TYPE`、`BGP_ASN_AS_SET`、`BGP_PASSWORD`）以及 HA 切换操作（`HA_SWITCH_PRIMARY`、`HA_SWITCH_MODE`）不涉及计价变化，传入此接口会返回 `INVALID_RIPT_CONFIG_TYPE_NO_PRICE_CHANGE` 错误，无需询价可直接调用 `ModifyIPTransitConfig`。
   * `type=BANDWIDTH` 时须传 `bandwidth`，返回 `privateConnectPrice`（专线价格）和 `iptPrice`（带宽价格）。
   * 95 计费（`internetType=ByInstanceBandwidth95`）的 IP Transit，价格只由 `commitBandwidth` 决定：`type=BANDWIDTH` 时必须显式传入 `commitBandwidth`，不能用 `bandwidth` 代替；若 `commitBandwidth` 相比当前值未变化，价格不变，会返回 `INVALID_RIPT_CONFIG_TYPE_NO_PRICE_CHANGE` 错误，无需询价可直接调用 `ModifyIPTransitConfig`。`bandwidth` 必须大于等于 `commitBandwidth`，否则返回 `INVALID_RIPT_BANDWIDTH_LESS_THAN_COMMIT` 错误。
-  * `type=ADD_CIDR_BLOCK` 或 `EXPAND_CIDR_BLOCK` 时须传 `publicIPv4BlockSize`，返回 `iptIpPrices`（公网 IP 块价格）。
+  * `type=ADD_CIDR_BLOCK` 或 `EXPAND_CIDR_BLOCK` 时须传 `publicIPv4BlockSize`，返回 `iptIpPrices`（公网 IP 块价格）。普通 BGP 档位（`bgp.tier=STANDARD`）的 IP Transit 不支持 `ADD_CIDR_BLOCK`，否则返回 `OPERATION_DENIED_STANDARD_BGP_ADD_CIDR` 错误。
   * `type=DEL_CIDR_BLOCK` 或 `SHRINK_CIDR_BLOCK` 时须传 `ipUuid`，表示退订或缩减的目标 IP 块。
 examples:
 - cmd: zeno ipt inquiry-modify-ip-transit-price --ipt-id your-ipt-id --type BANDWIDTH --bandwidth 200
@@ -45,7 +45,9 @@ parameters:
   - value: BGP_PASSWORD
     desc: BGP 密码。
   - value: ADD_CIDR_BLOCK
-    desc: 新增公网 IP 地址段。
+    desc: |-
+      新增公网 IP 地址段。
+      普通 BGP 档位（`bgp.tier=STANDARD`）的实例不支持。
   - value: DEL_CIDR_BLOCK
     desc: 删除公网 IP 地址段。
   - value: EXPAND_CIDR_BLOCK

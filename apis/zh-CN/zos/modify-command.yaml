@@ -1,15 +1,17 @@
 name: ModifyCommand
 product: zos
 use: modify-command
-short: 修改命令
+short: 修改命令。
 long: |-
-  修改一个命令。
+  修改命令。
   **注意事项**
 
   * 如果存在运行的执行记录，则无法进行命令内容修改。
 examples:
-- cmd: zeno zos modify-command --command-id <commandId> --name Test --content ""echo 2""
-  desc: 修改命令内容和名称。
+- cmd: zeno zos modify-command --command-id <commandId> --name Test --content ZWNobyAy
+  desc: 修改命令内容和名称。`content`需传入命令内容的Base64编码值，示例中的`content`为`echo 2`的Base64编码值。
+- cmd: zeno zos modify-command --command-id <commandId> --content IyEvYmluL2Jhc2gKZWNobyAiaGVsbG8gemVubGF5ZXIiID4gL3RtcC9pbml0LmxvZwo=
+  desc: 修改命令内容为多行脚本。示例中的`content`为脚本`#!/bin/bash\necho "hello zenlayer" > /tmp/init.log`的Base64编码值。
 sdk:
   service: zos
   version: '2025-10-10'
@@ -32,8 +34,8 @@ parameters:
   required: false
   sdk-field: content
   description: |-
-    命令内容。
-    长度不能超过16K(16384)个字符。
+    命令内容，需使用Base64编码后传入。
+    解码后长度不能超过16K(16384)个字符。
 - name: description
   type: string
   required: false

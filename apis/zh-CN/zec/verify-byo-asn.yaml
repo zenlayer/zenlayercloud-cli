@@ -1,0 +1,54 @@
+name: VerifyByoAsn
+product: zec
+use: verify-byo-asn
+short: 校验 BYO ASN 归属
+long: |-
+  确认指定自带ASN在 RIR 上的 export 声明是否已生效。
+  **注意事项**
+
+  * 调用前请确认已按 ~~CreateByoAsn~~ 返回的`exportDeclaration`在管理该ASN的RIR上完成声明。
+  * 处于`EXPIRED`状态的 BYO ASN 不支持本操作，需先调用 ~~RegenerateByoAsnVerifyCode~~ 重新生成校验码。
+examples:
+- cmd: zeno zec verify-byo-asn --byo-asn-id byoasn-3JK29DKS
+  desc: 声明已添加，确认ASN归属。
+- cmd: zeno zec verify-byo-asn --byo-asn-id byoasn-7PQ41MZX
+  desc: 尚未检测到声明。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: VerifyByoAsn
+parameters:
+- name: byo-asn-id
+  type: string
+  required: true
+  sdk-field: byoAsnId
+  description: 待校验的 BYO ASN 的ID。
+response:
+- name: byoAsnId
+  type: string
+  description: BYO ASN 的ID。
+- name: asn
+  type: integer
+  description: ASN号。
+- name: status
+  type: enum
+  description: |-
+    校验后的状态。
+    AVAILABLE表示归属确认通过，该ASN已可用于创建 BYOIP；仍为VERIFYING表示尚未检测到 export 声明，可稍后重试。
+  enum-values:
+  - value: VERIFYING
+    desc: 验证中。
+  - value: AVAILABLE
+    desc: 可用。
+  - value: EXPIRED
+    desc: 验证失效。
+- name: verifyCode
+  type: string
+  description: |-
+    校验码。
+    需要客户将其写入 RIR 上该ASN的 aut-num 对象。
+- name: exportDeclaration
+  type: string
+  description: |-
+    完整的 export 声明语句。
+    客户直接复制该语句写入 RIR 上该ASN的 aut-num 对象即可。

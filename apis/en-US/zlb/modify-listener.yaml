@@ -4,12 +4,14 @@ use: modify-listener
 short: Modifies the properties of a load balancer listener
 long: |-
   Modify the properties of a load balance listener, including its name, health check parameters, and forwarding rules. The listening protocol cannot be modified.
-  **Note**
+  **Notes**
 
-  * When the listener port is set to all ports (0) and the health check type is `TCP` or `HTTP_GET`, the `healthCheck.checkPort` (health check port) must be specified.
+  * Modifying the listening protocol of a listener is not supported.
+  * `algoOpts` (stateless forwarding) and `persistent` (session persistence) are mutually exclusive because stateless forwarding hashes packets individually and does not maintain a connection-tracking table, so it cannot guarantee that the same client always hits the same backend.
+  * A disabled `algoOpts` is not represented as `None` on the query side: query interfaces such as ~~DescribeListeners~~ never return `None`; when the option is not enabled, the field is always empty.
 examples:
-- cmd: zeno zlb modify-listener --load-balancer-id <loadBalancerId> --listener-id <listenerId> --listener-name sampleName --scheduler mh
-  desc: Modify the name, health check parameters, and forwarding rules of a load balance listener.
+- cmd: zeno zlb modify-listener --load-balancer-id <loadBalancerId> --listener-id <listenerId> --listener-name sampleName --persistent 60 --idle-timeout 60 --scheduler mh
+  desc: Modify the name, health check parameters, and forwarding policy of a load balancer listener.
 sdk:
   service: zlb
   version: '2025-04-01'
@@ -59,8 +61,8 @@ parameters:
     type: integer
     description: |-
       Health check port.
-      When the listener port is set to all ports (0) and the health check type is TCP or HTTP_GET, the value must be specified.
       Defaults to the backend server port. Unless you need a specific port, it is recommended to leave this field empty.
+      When the listener port is all ports (0) or a port range and the health check type is `TCP` or `HTTP_GET`, this port must be specified.
   - name: checkDelayLoop
     type: integer
     description: |-
@@ -108,7 +110,7 @@ parameters:
   required: false
   sdk-field: scheduler
   description: |-
-    The scheduling method for the listener of the load balancer.
+    Scheduling algorithm of the listener.
     It will not be modified if not passed in.
   enum-values:
   - value: mh
@@ -135,11 +137,18 @@ parameters:
     Port ranges can be defined using a hyphen (-), for example: 10000-10005.
     Valid port values range from 0 to 65535, where 0 indicates all ports.
     It will not be modified if not specified.
+    Both a port range and all ports (0) are counted as 1 port for quota calculation.
+    Consecutive individual ports will be automatically merged into a port range before being saved and returned. For example, 1,2,3,4,5 will be saved as 1-5.
 - name: kind
   type: enum
   required: false
   sdk-field: kind
-  description: Forwarding mode.
+  description: |-
+    Forwarding mode.
+    If it is changed to DR mode, any port specified on the backend server becomes invalid and follows the listener's port instead.
+    After modification, it must remain consistent with the forwarding mode of other listeners under the same load balancer.
+    In DR mode, the listener does not support being set to all ports (0); if the listener's current port is already all ports (0), it cannot be modified to DR either.
+    When the ipStackType of the load balancer instance is IPv6, only DR is supported.
   enum-values:
   - value: FNAT
     desc: Full NAT.
@@ -151,9 +160,26 @@ parameters:
   type: integer
   required: false
   sdk-field: persistent
-  description: Session persistence duration, in seconds.
+  description: |-
+    Session persistence duration, in seconds.
+    Mutually exclusive with algoOpts (advanced scheduling-algorithm option): if this listener already has algoOpts enabled, it cannot be modified to a non-zero value unless algoOpts=None is passed in the same request to clear it.
 - name: idle-timeout
   type: integer
   required: false
   sdk-field: idleTimeout
   description: 'Idle timeout period. Unit: seconds.'
+- name: algo-opts
+  type: enum
+  required: false
+  sdk-field: algoOpts
+  description: |-
+    Advanced scheduling-algorithm option.
+    Can only be set when the forwarding mode (kind) is DR and the scheduling algorithm (scheduler) is mh.
+    Omitting this field leaves it unchanged; passing None explicitly clears an already-enabled option.
+    Validation is based on the final effective state after the update: if this option is already enabled on the listener, changing kind or scheduler to a combination that no longer supports it also requires passing None in the same request.
+    Once enabled, it is mutually exclusive with session persistence (persistent): if this option is already enabled on the listener, changing persistent to a non-zero value will also be rejected — None must be passed in the same request to clear it.
+  enum-values:
+  - value: StatelessForwarding
+    desc: MH stateless forwarding (One-Packet Scheduling). When enabled, the load balancer no longer maintains a connection-tracking table and instead selects a backend for each packet in real time based on MH hashing, improving anti-DDoS capability and forwarding performance. Only available when the forwarding mode is `DR` and the scheduling algorithm is `MH`; adding or removing backend nodes, or health-status changes, may interrupt some connections.
+  - value: None
+    desc: 'Explicitly disables the advanced scheduling-algorithm option. Only meaningful in Create/Modify request semantics: passing this value clears an already-enabled option, while omitting the field leaves it unchanged. Query interfaces (e.g. Describe) never return this value — a disabled state is always represented by an empty field.'

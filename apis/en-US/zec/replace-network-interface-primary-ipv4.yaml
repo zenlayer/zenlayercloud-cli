@@ -1,0 +1,54 @@
+name: ReplaceNetworkInterfacePrimaryIpv4
+product: zec
+use: replace-network-interface-primary-ipv4
+short: Change Network Interface Primary Private IPv4 Address
+long: |-
+  Changes the current primary private IPv4 address of a network interface.
+  **Notes**
+
+  * This operation is only supported for network interfaces with a primary private IPv4 address (IPv4 or IPv4_IPv6 stack type); pure IPv6 network interfaces are not supported.
+  * The network interface status must be `AVAILABLE` or `USED`.
+  * If `primaryIpAddress` is not specified, the smallest currently available IP address within the subnet is automatically assigned.
+  * `rebootInstance` defaults to true: if the network interface is bound to a running instance and this change actually results in an IP change, the instance is automatically rebooted so the new IP takes effect immediately within the instance; if set to false, the instance is not automatically rebooted, and it must be rebooted manually for the new IP to take effect. A reboot is never triggered—regardless of the `rebootInstance` value—if the network interface is not bound to an instance, the bound instance is not running, or the change does not actually take effect (e.g., the specified IP is the same as the current one).
+  * Elastic IPs bound to this network interface automatically point to the new primary private IP; no action is required.
+  * References to the old IP in NAT gateway DNAT/SNAT rules, load balancer backend/forwarding rules, security group/allowlist entries, or application-level configuration (e.g., database connections, service discovery) are not automatically updated and must be updated manually.
+examples:
+- cmd: zeno zec replace-network-interface-primary-ipv4 --nic-id <nicId> --primary-ip-address 10.130.0.5
+  desc: Change a network interface's primary private IPv4 address to a specified target IP.
+- cmd: zeno zec replace-network-interface-primary-ipv4 --nic-id <nicId>
+  desc: Without specifying a target IP, the system automatically assigns the smallest available IP address within the subnet.
+- cmd: zeno zec replace-network-interface-primary-ipv4 --nic-id <nicId> --primary-ip-address 10.130.0.5 --reboot-instance false
+  desc: Specify a target IP without automatically rebooting the bound instance (the instance must be manually rebooted afterward for the new IP to take effect).
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ReplaceNetworkInterfacePrimaryIpv4
+parameters:
+- name: nic-id
+  type: string
+  required: true
+  sdk-field: nicId
+  description: The ID of the network interface to change.
+- name: primary-ip-address
+  type: string
+  required: false
+  sdk-field: primaryIpAddress
+  description: |-
+    The target private IPv4 address to change to.
+    This address must be within the subnet's CIDR range and must not already be in use.
+    If not specified, the smallest currently available IP address within the subnet is automatically assigned.
+- name: reboot-instance
+  type: boolean
+  required: false
+  sdk-field: rebootInstance
+  description: |-
+    Whether to automatically reboot the bound running instance after a successful change, so the new primary private IPv4 address takes effect immediately within the instance.
+    Defaults to true.
+    A reboot is not triggered if the network interface is not bound to an instance, the bound instance is not running, or the change does not actually take effect (e.g., the specified IP is the same as the current one).
+response:
+- name: nicId
+  type: string
+  description: The network interface ID.
+- name: primaryIpAddress
+  type: string
+  description: The primary private IPv4 address that takes effect after the change.

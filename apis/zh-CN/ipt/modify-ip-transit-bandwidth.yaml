@@ -3,7 +3,7 @@ product: ipt
 use: modify-ip-transit-bandwidth
 short: 修改IP Transit带宽
 long: |-
-  修改IP Transit带宽
+  修改IP Transit带宽。
   **注意事项**
 
   * 仅当IP Transit线状态为**AVAILABLE**时，才能进行带宽限速的变更操作。

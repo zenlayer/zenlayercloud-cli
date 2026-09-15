@@ -1,0 +1,52 @@
+name: DescribeResourceTypes
+product: zrm
+use: describe-resource-types
+short: Queries resource types
+long: |-
+  Query the currently supported resource types, with optional filtering by service and resource type.
+  **Note**
+
+  * If neither `services` nor `resourceTypes` is provided, all resource types are returned.
+  * Multiple values within the same filter are combined with OR; the two filters are combined with AND.
+examples:
+- cmd: zeno zrm describe-resource-types
+  desc: Query all resource types
+- cmd: zeno zrm describe-resource-types --services ""Bare Metal"" --resource-types BMC_SUBNET
+  desc: Filter by service and resource type
+sdk:
+  service: zrm
+  version: '2025-10-14'
+  action: DescribeResourceTypes
+parameters:
+- name: services
+  type: string-array
+  required: false
+  sdk-field: services
+  description: |-
+    Filters by the service the resource type belongs to. Exact match. Multiple services are combined with OR.
+    If not provided, resource types of all services are returned.
+- name: resource-types
+  type: string-array
+  required: false
+  sdk-field: resourceTypes
+  description: |-
+    Filters by resource type. Exact match. Multiple resource types are combined with OR.
+    If not provided, all resource types are returned.
+response:
+- name: totalCount
+  type: integer
+  description: Number of resource types meeting the filtering conditions.
+- name: dataSet
+  type: object-array
+  description: List of resource types.
+  array-style: json
+  item-schema:
+  - name: resourceType
+    type: string
+    description: Resource type.
+  - name: name
+    type: string
+    description: Resource type name.
+  - name: service
+    type: string
+    description: Service that the resource type belongs to.

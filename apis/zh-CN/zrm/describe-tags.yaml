@@ -2,9 +2,9 @@ name: DescribeTags
 product: zrm
 use: describe-tags
 short: 标签分页列表
-long: 获取某个资源下绑定的所有标签列表。
+long: 标签分页列表。
 examples:
-- cmd: zeno zrm describe-tags --page-num 1 --page-size 20 --created-date-sort ascend --tag-keys tagKeys_0a847c6582a7 --tags "{key=key_e8a77c6a9fab, value=value_b1c085a59870}"
+- cmd: zeno zrm describe-tags --page-num 1 --page-size 20 --created-date-sort ascend --tag-keys env --tags "{key=env, value=production}"
   desc: 获取一页标签集合
 sdk:
   service: zrm
@@ -15,12 +15,12 @@ parameters:
   type: integer
   required: false
   sdk-field: pageNum
-  description: 页码。
+  description: 页码，默认值1。
 - name: page-size
   type: integer
   required: false
   sdk-field: pageSize
-  description: 每页面展示数量。
+  description: 每页面展示数量，默认值20。
 - name: key-sort
   type: string
   required: false
@@ -58,10 +58,10 @@ parameters:
 response:
 - name: totalCount
   type: integer
-  description: 列表总数量。
+  description: 符合条件的标签总数量。
 - name: dataSet
   type: object-array
-  description: 数据列表。
+  description: 标签列表。
   array-style: json
   item-schema:
   - name: key
@@ -75,4 +75,4 @@ response:
     description: 标签下绑定的资源总数。
   - name: createdDate
     type: string
-    description: 创建时间。
+    description: 标签创建时间。

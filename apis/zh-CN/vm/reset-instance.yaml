@@ -20,6 +20,8 @@ long: |-
 examples:
 - cmd: zeno vm reset-instance --instance-id instanceId --image-id img-xxxxxxxxx --password Example+123
   desc: 指定镜像和密码重装指定ID的实例
+- cmd: zeno vm reset-instance --instance-id instanceId --image-id img-xxxxxxxxx --password Example+123 --init-script IyEvYmluL2Jhc2gKZWNobyAiaGVsbG8gemVubGF5ZXIiID4gL3RtcC9pbml0LmxvZwo=
+  desc: 重装实例并指定初始化脚本
 sdk:
   service: vm
   version: '2026-04-01'
@@ -64,4 +66,4 @@ parameters:
   type: string
   required: false
   sdk-field: initScript
-  description: 初始化脚本。
+  description: 初始化脚本，需进行Base64编码后传入，脚本内容大小不超过32KB。

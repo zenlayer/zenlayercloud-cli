@@ -1,0 +1,66 @@
+name: ModifyEipBlockThreshold
+product: zec
+use: modify-eip-block-threshold
+short: 修改弹性公网IP封堵阈值
+long: |-
+  修改弹性公网IP（EIP）的自定义封堵阈值。
+  * 阈值超出团队配额上限时接口返回配额超限错误，可在控制台配额页面申请提升。
+  * 修改后的阈值可通过 ~~DescribeEips~~ 返回的`blockInfoList`查询，注意查询返回的单位为bps、pps、个，与本接口入参单位不同。
+examples:
+- cmd: zeno zec modify-eip-block-threshold --eip-id eipId1 --enable true --bps 20000 --pps 2000 --in-cps 100 --out-cps 100
+  desc: 启用自定义封堵阈值并设置全部四项
+- cmd: zeno zec modify-eip-block-threshold --eip-id eipId1 --enable true --bps 15000
+  desc: 只修改带宽阈值，其余三项保持原值
+- cmd: zeno zec modify-eip-block-threshold --eip-id eipId1 --enable false
+  desc: 关闭自定义封堵阈值，恢复系统默认
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: ModifyEipBlockThreshold
+parameters:
+- name: eip-id
+  type: string
+  required: true
+  sdk-field: eipId
+  description: |-
+    修改封堵阈值的EIP ID。
+    网段（IP块）类型的EIP不支持修改封堵阈值。
+- name: enable
+  type: boolean
+  required: true
+  sdk-field: enable
+  description: |-
+    是否启用自定义封堵阈值。
+    传false时删除已有的自定义阈值，恢复为系统默认阈值，此时无需传递四项阈值。
+- name: bps
+  type: integer
+  required: false
+  sdk-field: bps
+  description: |-
+    带宽封堵阈值，单位Mbps。
+    上限由配额ZEC_EIP_Block_threshold_bps_cap控制。
+    启用自定义阈值时，四项阈值至少传一项；未传的项保持原值不变。
+- name: pps
+  type: integer
+  required: false
+  sdk-field: pps
+  description: |-
+    报文速率封堵阈值，单位kpps。
+    上限由配额ZEC_EIP_Block_threshold_pps_cap控制。
+    启用自定义阈值时，四项阈值至少传一项；未传的项保持原值不变。
+- name: in-cps
+  type: integer
+  required: false
+  sdk-field: inCps
+  description: |-
+    入向连接速率封堵阈值，单位kcps。
+    上限由配额ZEC_EIP_Block_threshold_cps_in_cap控制。
+    启用自定义阈值时，四项阈值至少传一项；未传的项保持原值不变。
+- name: out-cps
+  type: integer
+  required: false
+  sdk-field: outCps
+  description: |-
+    出向连接速率封堵阈值，单位kcps。
+    上限由配额ZEC_EIP_Block_threshold_cps_out_cap控制。
+    启用自定义阈值时，四项阈值至少传一项；未传的项保持原值不变。

@@ -2,7 +2,7 @@ name: DescribeIPTransitAvailableAsns
 product: ipt
 use: describe-ip-transit-available-asns
 short: 查询IP Transit可用 ASN
-long: 查询IP Transit可用 ASN
+long: 查询IP Transit可用 ASN。
 examples:
 - cmd: zeno ipt describe-ip-transit-available-asns
   desc: 查询当前账号下可用的 ASN 列表。

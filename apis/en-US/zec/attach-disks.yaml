@@ -4,16 +4,16 @@ use: attach-disks
 short: Attaches disks to instance
 long: |-
   Attach disks to instance.
-  **Note**
+  **Notes**
 
-  * A maximum of 10 disks can be attached to an instance in one request.
-  * Quantity of attached disks cannot exceed available disk numbers of an instance. See quota limit for details.
-  * The disk and the instance to which you want to attach the disk reside in the same availability zone.
-  * You can only attach disks to the available instance. Please note that status of **DEPLOYING** or **PENDING** is not available.
-  * Disks must be detachable.
+  * A maximum of 10 disks can be attached in a single request.
+  * The target instance must exist and be in an available state (states such as creating or initializing are not considered available), and the number of disks in this request must not exceed the maximum number the instance can accommodate (see quota for details) — if either condition is not met, the entire request returns an error immediately, no disks in this request are processed, and `failedDiskIds` **will not** be returned.
+  * If a disk is already attached to the target instance in this request, the target state is considered achieved and it is simply skipped.
+  * If a disk does not meet the attach conditions (region differs from the instance, already attached to another instance, status does not support attaching, etc.), only that disk will fail to attach — its ID will appear in the response's `failedDiskIds`, without affecting the attachment of the other disks.
+  * Disk IDs in the request that do not exist are silently ignored; they will not cause the request to fail, nor will they appear in `failedDiskIds`.
 examples:
 - cmd: zeno zec attach-disks --disk-ids your-disk-id --instance-id your-instance-id
-  desc: Attach disks to an instance.
+  desc: Attach cloud disks to an instance.
 sdk:
   service: zec
   version: '2025-09-01'
@@ -29,3 +29,7 @@ parameters:
   required: true
   sdk-field: instanceId
   description: ID of the instance to which the disks to be attached.
+response:
+- name: failedDiskIds
+  type: string-array
+  description: Cloud disk mounting failed.

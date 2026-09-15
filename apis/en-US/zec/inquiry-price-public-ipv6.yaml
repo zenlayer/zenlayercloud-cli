@@ -7,9 +7,12 @@ long: |-
   **Notes**
 
   * The size of the guaranteed traffic package is only valid for billing periods of one month.
+  * `amount` is used to inquire the price of multiple public IPv6 addresses at once (for example, when a load balancer is assigned multiple public IPv6 addresses). If not specified, it defaults to 1, and the price accumulates by quantity.
 examples:
-- cmd: zeno zec inquiry-price-public-ipv6 --region-id xxx --package-size 10
-  desc: ''
+- cmd: zeno zec inquiry-price-public-ipv6 --region-id asia-east-1 --package-size 10
+  desc: Inquire the price of a public IPv6 billed by a 10 TB traffic package in the asia-east-1 region.
+- cmd: zeno zec inquiry-price-public-ipv6 --region-id asia-east-1 --bandwidth 100 --amount 3
+  desc: Inquire the price of 3 public IPv6 addresses with a fixed bandwidth of 100 Mbps in the asia-east-1 region in a single request.
 sdk:
   service: zec
   version: '2025-09-01'
@@ -36,6 +39,13 @@ parameters:
   description: |-
     Outbound public network bandwidth cap (Mbps). Unit: Mbps.
     The value differs with different instance types.
+- name: amount
+  type: integer
+  required: false
+  sdk-field: amount
+  description: |-
+    Number of public IPv6 addresses for the price inquiry.
+    The price accumulates by quantity.
 response:
 - name: bandwidthPrice
   type: object

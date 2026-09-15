@@ -3,7 +3,7 @@ product: ipt
 use: describe-ip-transit-available-cidr-blocks
 short: 查询IP Transit可用公网地址段
 long: |-
-  查询IP Transit可用公网地址段
+  查询IP Transit可用公网地址段。
   **注意事项**
 
   * `routingType` 影响可返回的掩码范围：Static 和 BGP 路由支持 /24–/32 的 IPv4 掩码；Gateway 路由仅支持 /24–/30。不传时返回全量掩码。

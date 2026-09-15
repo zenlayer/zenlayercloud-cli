@@ -1,0 +1,38 @@
+name: DeleteSubnets
+product: zec
+use: delete-subnets
+short: Batch Delete Private Subnets
+long: |-
+  Deletes one or more subnets.
+  **Notes**
+
+  * Before deleting a subnet, clean up all resources under it, including network interfaces, instances, NAT gateways, HA VIPs, etc.
+  * The default subnet cannot be deleted.
+  * Batch deletion is supported. A failure to delete one subnet does not affect the others; failure details (subnet ID, error code, error message) are returned in the `failedSubnets` field of the response.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DeleteSubnets
+parameters:
+- name: subnet-ids
+  type: string-array
+  required: true
+  sdk-field: subnetIds
+  description: The list of subnet IDs to delete.
+response:
+- name: failedSubnets
+  type: object-array
+  description: |-
+    The list of details for subnets that failed to delete.
+    Empty if all subnets were deleted successfully.
+  array-style: json
+  item-schema:
+  - name: subnetId
+    type: string
+    description: The ID of the subnet that failed to delete.
+  - name: errorCode
+    type: string
+    description: Error code.
+  - name: errorMsg
+    type: string
+    description: Error message.

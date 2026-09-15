@@ -1,0 +1,95 @@
+name: DescribeResources
+product: zrm
+use: describe-resources
+short: 资源搜索列表
+long: 按资源唯一标识或资源名称搜索当前Team下的所有资源。
+examples:
+- cmd: zeno zrm describe-resources --page-num 1 --page-size 20 --resource-ids 123456789012345678 --resource-name web-server
+  desc: 资源搜索列表
+sdk:
+  service: zrm
+  version: '2025-10-14'
+  action: DescribeResources
+parameters:
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: 页码，默认值1。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: 每页面展示数量，默认值20。
+- name: resource-ids
+  type: string-array
+  required: false
+  sdk-field: resourceIds
+  description: 资源唯一标识列表，精确匹配，多个标识之间为或的关系。
+- name: resource-name
+  type: string
+  required: false
+  sdk-field: resourceName
+  description: 资源名称，模糊匹配。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: 资源组唯一标识列表，精确匹配，为空代表查询所有资源组。
+- name: tags
+  type: object-array
+  required: false
+  sdk-field: tags
+  description: 查询的标签列表。
+  array-style: json
+  item-schema:
+  - name: key
+    type: string
+    description: |-
+      标签键。
+      长度限制：1～64个字符。
+  - name: value
+    type: string
+    description: |-
+      标签值。
+      长度限制：1～64个字符。
+- name: tag-keys
+  type: string-array
+  required: false
+  sdk-field: tagKeys
+  description: 查询的标签键列表。
+response:
+- name: totalCount
+  type: integer
+  description: 符合条件的资源总数量。
+- name: dataSet
+  type: object-array
+  description: 资源列表。
+  array-style: json
+  item-schema:
+  - name: resourceId
+    type: string
+    description: 资源唯一标识。
+  - name: name
+    type: string
+    description: 资源名称。
+  - name: resourceType
+    type: string
+    description: |-
+      资源类型。
+      取值见 ~~DescribeResourceTypes~~。
+  - name: createTime
+    type: string
+    description: 资源创建时间。
+  - name: resourceGroupId
+    type: string
+    description: 资源组唯一标识。
+  - name: resourceGroupName
+    type: string
+    description: 资源组名称。
+  - name: location
+    type: string
+    description: 资源所属的地域信息。
+  - name: service
+    type: string
+    description: 资源所属的服务。

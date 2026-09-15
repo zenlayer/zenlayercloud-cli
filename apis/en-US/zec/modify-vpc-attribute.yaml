@@ -5,7 +5,11 @@ short: Modifies the attributes of a global VPC
 long: Modify the attributes of a global VPC.
 examples:
 - cmd: zeno zec modify-vpc-attribute --vpc-id <vpcId> --vpc-name TestVpcName --enable-ipv6 true
-  desc: Modify the information of a global VPC, and enable the private IPv6 CIDR block.
+  desc: Modify the attributes of a VPC and enable IPv6.
+- cmd: zeno zec modify-vpc-attribute --vpc-id <vpcId> --cidr-block 21.0.0.0/9,22.0.0.0/9
+  desc: ''
+- cmd: zeno zec modify-vpc-attribute --vpc-id <vpcId> --cidr-block 21.0.0.0/9
+  desc: ''
 sdk:
   service: zec
   version: '2025-09-01'
@@ -28,11 +32,14 @@ parameters:
   required: false
   sdk-field: cidrBlock
   description: |-
-    IPv4 CIDR block to be modified.
-    The IPv4 CIDR block should be a valid subnet within these ranges:
-    10.0.0.0/9 10.128.0.0/9 172.16.0.0/12 192.168.0.0/16
-    If the global VPC has subnets, the new CIDR must include the original CIDR.
-    The default global VPC cannot be modified.
+    The IPv4 CIDR block to be modified.
+    The mask length ranges from 9 to 29, and the starting address of the CIDR block must be specified, for example 10.0.0.0/16.
+    Multiple CIDR blocks are supported and must be separated by commas, for example: 21.0.0.0/9,22.0.0.0/9. The CIDR blocks must not overlap with each other.
+    The maximum number of CIDR blocks of a single VPC is controlled by the quota ZEC_CIDR_IPv4_Blocks_per_VPC, which is 5 by default. You can apply for a higher limit.
+    The CIDR block must not overlap with the following reserved CIDR blocks: 0.0.0.0/8, 100.64.0.0/10, 127.0.0.0/8, 169.254.0.0/16, and 224.0.0.0/4.
+    This parameter is a full overwrite: the CIDR blocks you want to keep must also be passed in, and any CIDR block that is not passed in is removed.
+    After the modification, every subnet in the VPC must still fall within the new CIDR blocks; otherwise, the request is rejected. Therefore, a CIDR block that has no subnets can be freely narrowed or removed.
+    The default global VPC does not support CIDR modification.
 - name: enable-ipv6
   type: boolean
   required: false

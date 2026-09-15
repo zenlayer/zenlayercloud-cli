@@ -10,15 +10,15 @@ long: |-
   * This is an asynchronous API. After the request succeeds, the IP Transit state changes to **UPDATING**. You can poll the state via [DescribeIPTransits](describe-iptransits.md); when it changes back to **AVAILABLE**, the change has succeeded.
   * No other operations are allowed on this IP Transit during the change.
   * **About type:**
-    * `BANDWIDTH`: Modifies the bandwidth cap. Requires `bandwidth`. You can pass `commitBandwidth` to set the committed bandwidth; otherwise, it defaults to the same value as the bandwidth cap.
-    * `BFD`: Modifies the BFD configuration. Requires `bfd`. Pass `null` to disable BFD.
-    * `BGP_ROUTE_TYPE`: Modifies the BGP inbound route type. Requires `bgp.routeType`.
-    * `BGP_ASN_AS_SET`: Modifies the allowed ASN/AS-SET list for BGP. Requires exactly one of `asn`, `asnList`, or `asSetList` in `bgp`.
-    * `BGP_PASSWORD`: Modifies the BGP MD5 password. Requires `bgp.password`.
-    * `ADD_CIDR_BLOCK`: Adds a public IPv4 CIDR block. Requires `publicIPv4BlockSize`. You can optionally pass `ipNetworkType`, which defaults to `BGP_IP`.
+    * `BANDWIDTH`: Modifies the bandwidth cap. Requires `bandwidth`. You can pass `commitBandwidth` to set the committed bandwidth; otherwise, it defaults to the same value as the bandwidth cap. Under 95th percentile billing (`internetType=ByInstanceBandwidth95`), `bandwidth` must be greater than or equal to the effective committed bandwidth; otherwise the `INVALID_RIPT_BANDWIDTH_LESS_THAN_COMMIT` error is returned.
+    * `BFD`: Modifies the BFD configuration. Requires `bfd`. Pass `null` to disable BFD. BFD cannot be disabled for a high-availability IP Transit: passing `null` or an incomplete `bfd` returns the `OPERATION_DENIED_HA_BFD_DISABLE` error.
+    * `BGP_ROUTE_TYPE`: Modifies the BGP inbound route type. Requires `bgp.routeType`. Supported only for IP Transits with BGP routing; otherwise the `INVALID_RIPT_ROUTING_TYPE_NOT_BGP` error is returned.
+    * `BGP_ASN_AS_SET`: Modifies the allowed ASN/AS-SET list for BGP. `asn` cannot be modified after creation. You must provide either `asnList` or `asSetList` in `bgp`; otherwise the `INVALID_RIPT_BGP_ASN_LIST_MISSING` error is returned. Supported only for IP Transits with BGP routing; otherwise the `INVALID_RIPT_ROUTING_TYPE_NOT_BGP` error is returned.
+    * `BGP_PASSWORD`: Modifies the BGP MD5 password. Requires `bgp.password`. Supported only for IP Transits with BGP routing; otherwise the `INVALID_RIPT_ROUTING_TYPE_NOT_BGP` error is returned.
+    * `ADD_CIDR_BLOCK`: Adds a public IPv4 CIDR block. Requires `publicIPv4BlockSize`. You can optionally pass `ipNetworkType`, which defaults to `BGP_IP`. Not supported for IP Transits with the Standard BGP tier (`bgp.tier=STANDARD`); otherwise the `OPERATION_DENIED_STANDARD_BGP_ADD_CIDR` error is returned.
     * `DEL_CIDR_BLOCK`: Deletes a public IPv4 CIDR block. Requires `ipUuid`.
-    * `EXPAND_CIDR_BLOCK`: Expands an existing CIDR block (smaller netmask). Requires `ipUuid` and `publicIPv4BlockSize`.
-    * `SHRINK_CIDR_BLOCK`: Shrinks an existing CIDR block (larger netmask). Requires `ipUuid` and `publicIPv4BlockSize`.
+    * `EXPAND_CIDR_BLOCK`: Expands an existing CIDR block (smaller netmask). Requires `ipUuid` and `publicIPv4BlockSize`. The target netmask cannot be smaller than the minimum netmask that the IP block can actually be expanded to at the underlying layer; otherwise the `OPERATION_DENIED_INVALID_CIDR_SIZE` error is returned.
+    * `SHRINK_CIDR_BLOCK`: Shrinks an existing CIDR block (larger netmask). Requires `ipUuid` and `publicIPv4BlockSize`. The target netmask likewise cannot be smaller than the minimum netmask that the IP block can actually be expanded to at the underlying layer.
     * `HA_SWITCH_PRIMARY`: HA primary/secondary switchover. Available only for HA-mode IP Transits.
     * `HA_SWITCH_MODE`: Switches the HA mode (active/standby ↔ active/active). Available only for HA-mode IP Transits.
 examples:
@@ -57,7 +57,9 @@ parameters:
   - value: BGP_PASSWORD
     desc: BGP password.
   - value: ADD_CIDR_BLOCK
-    desc: Add a public IP address block.
+    desc: |-
+      Add a public IP address block.
+      Not supported for instances with the Standard BGP tier (`bgp.tier=STANDARD`).
   - value: DEL_CIDR_BLOCK
     desc: Delete a public IP address block.
   - value: EXPAND_CIDR_BLOCK

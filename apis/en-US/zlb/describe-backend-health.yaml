@@ -70,7 +70,9 @@ response:
       You can obtain this value from the InstanceId field in the response of the DescribeInstances API.
   - name: privateIpAddress
     type: string
-    description: The private IP of the vNIC attached to the instance.
+    description: |-
+      The private IP of the vNIC attached to the instance.
+      When the `ipStackType` of the load balancer instance is `IPv6`, the IPv6 address on the vNIC of the instance is returned.
   - name: weight
     type: integer
     description: |-

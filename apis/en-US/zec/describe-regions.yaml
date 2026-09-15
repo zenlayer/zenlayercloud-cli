@@ -1,0 +1,40 @@
+name: DescribeRegions
+product: zec
+use: describe-regions
+short: Queries region information
+long: Query region information, including the region name and the administrative region it belongs to.
+examples:
+- cmd: zeno zec describe-regions --region-ids asia-east-1 --region-ids sa-north-1
+  desc: Query the region list.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeRegions
+parameters:
+- name: region-ids
+  type: string-array
+  required: false
+  sdk-field: regionIds
+  description: Filter by region ID.
+response:
+- name: regionSet
+  type: object-array
+  description: List of regions.
+  array-style: json
+  item-schema:
+  - name: regionId
+    type: string
+    description: Region ID.
+  - name: regionName
+    type: string
+    description: Region name.
+  - name: administrativeRegion
+    type: enum
+    description: |-
+      The administrative region to which the region belongs.
+      Null when the region configuration is missing.
+    enum-values:
+    - value: CHINESE_MAINLAND
+      desc: The Chinese mainland.
+    - value: FOREIGN
+      desc: Countries and regions outside the Chinese mainland.

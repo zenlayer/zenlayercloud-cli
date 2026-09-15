@@ -1,0 +1,50 @@
+name: RegenerateByoAsnVerifyCode
+product: zec
+use: regenerate-byo-asn-verify-code
+short: Regenerates the verification code of a BYO ASN
+long: |-
+  Reissue the verification code for a specified bring-your-own ASN. The old verification code becomes invalid at the same time.
+  **Notes**
+
+  * After you update the aut-num object of the ASN on the RIR according to the new `exportDeclaration`, call ~~VerifyByoAsn~~ again to confirm the ownership.
+  * **Only the `EXPIRED` status supports this operation.** In the `VERIFYING` status, the verification code is still valid and does not need to be reissued. If you confirm that the declaration is configured incorrectly, call ~~DeleteByoAsn~~ and then onboard the ASN again.
+examples:
+- cmd: zeno zec regenerate-byo-asn-verify-code --byo-asn-id byoasn-3JK29DKS
+  desc: The verification code has expired and needs to be regenerated.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: RegenerateByoAsnVerifyCode
+parameters:
+- name: byo-asn-id
+  type: string
+  required: true
+  sdk-field: byoAsnId
+  description: ID of the BYO ASN whose verification code is to be regenerated.
+response:
+- name: byoAsnId
+  type: string
+  description: ID of the BYO ASN.
+- name: asn
+  type: integer
+  description: ASN number.
+- name: status
+  type: enum
+  description: Status after the verification code is regenerated, which returns to VERIFYING.
+  enum-values:
+  - value: VERIFYING
+    desc: Verifying.
+  - value: AVAILABLE
+    desc: Available.
+  - value: EXPIRED
+    desc: Verification expired.
+- name: verifyCode
+  type: string
+  description: |-
+    The new verification code.
+    The old verification code becomes invalid immediately. You need to write the new one into the aut-num object of the ASN on the RIR.
+- name: exportDeclaration
+  type: string
+  description: |-
+    The complete export declaration statement.
+    You can copy this statement directly to update the aut-num object of the ASN on the RIR.

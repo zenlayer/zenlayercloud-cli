@@ -1,0 +1,54 @@
+name: VerifyByoAsn
+product: zec
+use: verify-byo-asn
+short: Verifies the ownership of a BYO ASN
+long: |-
+  Confirm whether the export declaration of a specified bring-your-own ASN has taken effect on the RIR.
+  **Notes**
+
+  * Before calling this operation, make sure that the declaration has been completed on the RIR that manages the ASN according to the `exportDeclaration` returned by ~~CreateByoAsn~~.
+  * A BYO ASN in the `EXPIRED` status does not support this operation. Call ~~RegenerateByoAsnVerifyCode~~ first to regenerate the verification code.
+examples:
+- cmd: zeno zec verify-byo-asn --byo-asn-id byoasn-3JK29DKS
+  desc: The declaration has been added; confirm the ASN ownership.
+- cmd: zeno zec verify-byo-asn --byo-asn-id byoasn-7PQ41MZX
+  desc: The declaration has not been detected yet.
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: VerifyByoAsn
+parameters:
+- name: byo-asn-id
+  type: string
+  required: true
+  sdk-field: byoAsnId
+  description: ID of the BYO ASN to be verified.
+response:
+- name: byoAsnId
+  type: string
+  description: ID of the BYO ASN.
+- name: asn
+  type: integer
+  description: ASN number.
+- name: status
+  type: enum
+  description: |-
+    Status after the verification.
+    AVAILABLE indicates that the ownership is confirmed and the ASN can be used to create BYOIP. If the status remains VERIFYING, the export declaration has not been detected yet and you can try again later.
+  enum-values:
+  - value: VERIFYING
+    desc: Verifying.
+  - value: AVAILABLE
+    desc: Available.
+  - value: EXPIRED
+    desc: Verification expired.
+- name: verifyCode
+  type: string
+  description: |-
+    Verification code.
+    You need to write it into the aut-num object of the ASN on the RIR.
+- name: exportDeclaration
+  type: string
+  description: |-
+    The complete export declaration statement.
+    You can copy this statement directly into the aut-num object of the ASN on the RIR.

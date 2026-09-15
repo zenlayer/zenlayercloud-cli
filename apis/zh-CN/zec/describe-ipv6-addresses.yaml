@@ -1,0 +1,190 @@
+name: DescribeIpv6Addresses
+product: zec
+use: describe-ipv6-addresses
+short: 查询公网IPv6列表
+long: 指定条件查询已分配的公网 IPv6 信息。用户可以根据 ID、名称、绑定的资源等信息来搜索。
+examples:
+- cmd: zeno zec describe-ipv6-addresses --associated-ids <loadBalancerId> --page-size 20 --page-num 1
+  desc: 查询指定负载均衡上分配的公网IPv6。
+- cmd: zeno zec describe-ipv6-addresses --associated-ids <nicId>
+  desc: 查询指定网卡上分配的公网IPv6。网卡与负载均衡都通过 `associatedIds` 过滤，一次可传多个。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeIpv6Addresses
+parameters:
+- name: ipv6-ids
+  type: string-array
+  required: false
+  sdk-field: ipv6Ids
+  description: |-
+    按照公网 IPv6 的唯一 ID 过滤。
+    最大不能超过100个。
+- name: region-id
+  type: string
+  required: false
+  sdk-field: regionId
+  description: 按照公网 IPv6 所属节点ID过滤。
+- name: ipv6-cidr
+  type: string
+  required: false
+  sdk-field: ipv6Cidr
+  description: 按照公网 IPv6 的 CIDR 地址段过滤，该字段支持模糊匹配。
+- name: status
+  type: enum
+  required: false
+  sdk-field: status
+  description: 按照公网 IPv6 的状态过滤。
+  enum-values:
+  - value: RUNNING
+    desc: 运行中。
+  - value: RECYCLED
+    desc: |-
+      处于回收站中。
+      归属的网卡或负载均衡已被删除，尚未过保留期。
+- name: associated-ids
+  type: string-array
+  required: false
+  sdk-field: associatedIds
+  description: |-
+    按照公网 IPv6 绑定的资源 ID 过滤。
+    取值可以是网卡ID或负载均衡ID。
+- name: resource-group-id
+  type: string
+  required: false
+  sdk-field: resourceGroupId
+  description: 按照公网 IPv6 所属的资源组ID过滤。
+- name: page-size
+  type: integer
+  required: false
+  sdk-field: pageSize
+  description: |-
+    返回的分页大小。
+    当未传递时，默认值为20。
+- name: page-num
+  type: integer
+  required: false
+  sdk-field: pageNum
+  description: |-
+    返回的分页数。
+    当未传递时，默认值为1。
+response:
+- name: totalCount
+  type: integer
+  description: 满足过滤条件的公网 IPv6 总数。
+- name: dataSet
+  type: object-array
+  description: 返回的公网 IPv6 列表。
+  array-style: json
+  item-schema:
+  - name: ipv6Id
+    type: string
+    description: 公网 IPv6 的唯一 ID。
+  - name: regionId
+    type: string
+    description: 节点ID。
+  - name: status
+    type: enum
+    description: 公网 IPv6 的状态。
+    enum-values:
+    - value: RUNNING
+      desc: 运行中。
+    - value: RECYCLED
+      desc: |-
+        处于回收站中。
+        归属的网卡或负载均衡已被删除，尚未过保留期。
+  - name: ipv6Cidr
+    type: string
+    description: 公网 IPv6 的地址段。
+  - name: primaryIpv6Address
+    type: string
+    description: 主 IPv6 地址。
+  - name: associatedId
+    type: string
+    description: |-
+      公网 IPv6 绑定的资源ID。
+      可能为网卡ID或负载均衡ID。
+  - name: associatedType
+    type: enum
+    description: 公网 IPv6 绑定的资源类型。
+    enum-values:
+    - value: NIC
+      desc: 网卡类型。
+    - value: NAT
+      desc: NAT网关类型。
+    - value: LB
+      desc: 负载均衡类型。
+    - value: HAVIP
+      desc: 高可用虚拟IP类型。
+  - name: nicId
+    type: string
+    description: |-
+      公网 IPv6 绑定的网卡ID。
+      当且仅当`associatedType`字段为`NIC`时有值。
+  - name: instanceId
+    type: string
+    description: |-
+      公网 IPv6 绑定的实例ID。
+      当且仅当`associatedType`字段为`NIC`且该网卡已绑定实例时有值。
+  - name: internetChargeType
+    type: enum
+    description: 公网 IPv6 的网络计费方式。
+    enum-values:
+    - value: ByBandwidth
+      desc: 固定带宽计费方式。
+    - value: ByTrafficPackage
+      desc: 流量包计费方式。
+    - value: BandwidthCluster
+      desc: 共享带宽包计费方式。
+  - name: bandwidth
+    type: integer
+    description: |-
+      公网 IPv6 的带宽限速。
+      单位：Mbps。
+  - name: rateLimitMode
+    type: enum
+    description: 限速模式。
+    enum-values:
+    - value: LOOSE
+      desc: 宽松模式：允许短时间突发超出限制。
+    - value: STRICT
+      desc: 严格模式：严格限制，不允许任何突发。
+  - name: trafficPackageSize
+    type: float
+    description: |-
+      公网 IPv6 的流量包大小。
+      单位：TB。
+      仅当网络计费方式为流量包计费时可取到值。
+  - name: bandwidthCluster
+    type: object
+    description: |-
+      关联的带宽组信息。
+      仅当网络计费方式为共享带宽包计费时可取到值。
+    object-schema:
+    - name: bandwidthClusterId
+      type: string
+      description: 共享带宽包ID。
+    - name: bandwidthClusterName
+      type: string
+      description: 共享带宽包名称。
+  - name: resourceGroupId
+    type: string
+    description: 公网 IPv6 所属的资源组ID。
+  - name: resourceGroupName
+    type: string
+    description: 公网 IPv6 所属的资源组名称。
+  - name: createTime
+    type: string
+    description: 公网 IPv6 的创建时间。
+  - name: operationInfo
+    type: object
+    description: |-
+      公网 IPv6 的带宽、流量包操作状态。
+      操作已完成时该字段为空。
+    object-schema:
+    - name: operation
+      type: string
+      description: 操作动作。取值范围：`ModifyBandwidth`（调整带宽）、`ModifyFlowPackage`（调整流量包）。
+    - name: status
+      type: string
+      description: 操作状态。取值范围：`OPERATING`（操作中）、`FAILED`（操作失败）。

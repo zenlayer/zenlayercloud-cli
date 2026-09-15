@@ -220,6 +220,8 @@ response:
         desc: Oracle endpoint.
       - value: BYTE_PLUS
         desc: BytePlus endpoint.
+      - value: VOLCENGINE
+        desc: Volcengine endpoint.
       - value: PORT
         desc: Data center physical port endpoint.
       - value: Ript
@@ -312,6 +314,8 @@ response:
         desc: Oracle endpoint.
       - value: BYTE_PLUS
         desc: BytePlus endpoint.
+      - value: VOLCENGINE
+        desc: Volcengine endpoint.
       - value: PORT
         desc: Data center physical port endpoint.
       - value: Ript

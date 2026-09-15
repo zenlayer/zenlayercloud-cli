@@ -7,6 +7,7 @@ long: |-
   #### 准备工作
   * 查询普通机型规格：调用 ~~DescribeZoneInstanceConfigInfos~~ 可以查询到规格信息。
   * 查询 GPU 机型规格：调用 ~~DescribeZoneGpuInstanceConfigInfos~~ 可以查询到 GPU 规格信息。
+  * 查询加速卡机型规格：调用 ~~DescribeZoneAcceleratorConfigInfos~~ 可以查询到加速卡规格信息。
   * 查询镜像：调用 ~~DescribeImages~~ 可以查询到镜像信息。
   * 查询密钥对：调用 ~~ccs:DescribeKeyPairs~~ 可以查询到密钥对ID信息。
 
@@ -29,6 +30,8 @@ examples:
   desc: 创建1台实例，分配公网IPv4 & 公网IPv6。IPv4线路类型为BGP, 网络计费使用共享带宽包。带宽限速为10Mbps。
 - cmd: zeno zec create-zec-instances --zone-id asia-east-1a --instance-type z2a.cpu.1 --image-id ubuntu2404_20240712 --instance-name Test-InstanceName --key-id key-rcfljdP5 --subnet-id 1272168087751233112 --nic-network-type Auto --data-disks "{diskSize=100, diskCategory=Standard NVMe SSD}" --data-disks "{diskSize=200, diskCategory=Standard NVMe SSD}"
   desc: 创建1台实例，配置多块数据盘。
+- cmd: zeno zec create-zec-instances --zone-id asia-east-1a --instance-type z2a.cpu.1 --image-id ubuntu2404_20240712 --instance-name Test-InstanceName --key-id key-rcfljdP5 --subnet-id 1272168087751233112 --nic-network-type Auto --user-data IyEvYmluL2Jhc2gKZWNobyAiaGVsbG8gemVubGF5ZXIiID4gL3RtcC9pbml0LmxvZwo=
+  desc: 创建1台实例，通过`userData`指定初始化脚本。示例中的`userData`为脚本`#!/bin/bash\necho "hello zenlayer" > /tmp/init.log`的Base64编码值。
 sdk:
   service: zec
   version: '2025-09-01'
@@ -65,13 +68,13 @@ parameters:
   description: |-
     实例显示名称。
     范围2到63个字符。
-    仅支持输入字母、数字、-和英文句点(.)。
+    仅支持输入字母、数字、英文句点(.)、下划线(_)、斜杠(/)和连字符(-)。
     且必须以数字或字母开头和结尾。
     购买多台实例，可以指定模式串[begin_number,bits]。
     begin_number：有序数值的起始值，取值支持[0,99999]，默认值为0。
     bits：有序数值所占的位数，取值支持[1,6]，默认值为6。
     注意模式串中不得有空格。
-    购买1台时，例如server-[3,3]实例显示为server003；购买2台时，实例显示名分别为server003，server004。
+    购买1台时，例如server-[3,3]实例显示为server-003；购买2台时，实例显示名分别为server-003，server-004。
     支持指定多个模式串，如server-[3,3]-[1,1]。
     默认值为 instance。
 - name: password
@@ -398,7 +401,9 @@ parameters:
   type: string
   required: false
   sdk-field: userData
-  description: 初始化命令。
+  description: |-
+    实例初始化自定义脚本。
+    需使用Base64编码后传入，解码后大小需小于64KiB。
 - name: instance-options
   type: object
   required: false

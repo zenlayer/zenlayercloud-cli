@@ -2,14 +2,14 @@ name: InquiryPriceCreateLoadBalancer
 product: zlb
 use: inquiry-price-create-load-balancer
 short: 创建负载均衡器实例询价
-long: |-
-  查询创建负载均衡的价格。
-  **注意事项**
-
-  * 保底流量包大小仅对计费周期为月有效。
+long: 查询创建负载均衡的价格。
 examples:
 - cmd: zeno zlb inquiry-price-create-load-balancer --region-id asia-east-1 --vpc-id <vpcId> --internet-charge-type ByBandwidth --network-line-type PremiumBGP --bandwidth-mbps 2 --number 1
-  desc: 查询创建一个公网负载均衡实例价格。
+  desc: 查询创建一个公网负载均衡实例价格（PremiumBGP 线路，按带宽计费）。
+- cmd: zeno zlb inquiry-price-create-load-balancer --region-id asia-east-1 --vpc-id <vpcId> --internet-charge-type ByBandwidth --network-line-type PathBasedBandwidthIP --bandwidth-mbps 2 --number 1
+  desc: 查询创建一个公网负载均衡实例价格（PathBasedBandwidthIP 线路，按带宽计费）。eipNetworkPrice 为 null，带宽明细见 eipNetworkPrices。
+- cmd: zeno zlb inquiry-price-create-load-balancer --region-id asia-east-1 --vpc-id <vpcId> --number 1
+  desc: 使用已有的弹性公网IP（EIP）创建负载均衡实例的询价。不传IP网络相关参数即表示不新建EIP，故`eipPrice`、`eipNetworkPrice`、`eipNetworkPrices`均为空。
 sdk:
   service: zlb
   version: '2025-04-01'
@@ -20,11 +20,26 @@ parameters:
   required: true
   sdk-field: regionId
   description: 区域节点ID。
+- name: ip-stack-type
+  type: enum
+  required: false
+  sdk-field: ipStackType
+  description: |-
+    IP堆栈类型。
+    负载均衡实例只支持单栈，即IPv4或IPv6，不支持双栈。
+    指定为IPv6时不支持配置公网网络参数（internetChargeType、networkLineType、bandwidthMbps、trafficPackageSize、bandwidthClusterId）——IPv6负载均衡的公网地址通过AssignLoadBalancerIpv6接口单独分配。
+  enum-values:
+  - value: IPv4
+    desc: 仅IPv4。
+  - value: IPv6
+    desc: 仅IPv6。
 - name: internet-charge-type
   type: enum
   required: false
   sdk-field: internetChargeType
-  description: IP网络计费模式。
+  description: |-
+    IP网络计费模式。
+    **使用已有EIP创建负载均衡时请勿传本参数**——不传表示本次不新建EIP，询价结果中不含EIP相关费用；传了则按新建EIP计价，会多算一份EIP费用。
   enum-values:
   - value: ByBandwidth
     desc: 固定带宽计费方式。
@@ -52,7 +67,7 @@ parameters:
   - value: ChinaUnicom
     desc: 中国联通线路。
   - value: ChinaTelecom
-    desc: 中国联通线路。
+    desc: 中国电信线路。
   - value: Cogent
     desc: Cogent。
   - value: PathBasedBandwidthIP
@@ -95,6 +110,7 @@ parameters:
   description: |-
     流量包大小。
     指定此参数时，IP网络计费模式(internetChargeType) 需为ByTrafficPackage, 否则该参数不生效。
+    仅当计费周期为月时支持设置，小时计费不支持。
 - name: bandwidth-cluster-id
   type: string
   required: false

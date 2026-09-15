@@ -2,27 +2,31 @@ name: DescribeCustomerBalance
 product: zbc
 use: describe-customer-balance
 short: 查询账户余额
-long: 查询当前账户的余额信息，包括现金余额、信用额度和购买力等。
+long: 查询当前账户的余额信息，包括账户余额、信用额度、可用金、冻结金等数据信息。
 examples:
 - cmd: zeno zbc describe-customer-balance
-  desc: 查询当前账户余额信息
+  desc: 获取用户余额。
 sdk:
   service: zbc
-  version: '2024-08-08'
+  version: '2024-08-09'
   action: DescribeCustomerBalance
 response:
 - name: accountUid
   type: string
-  description: 账户UID。
+  description: 账户唯一标识。
 - name: cashBalance
   type: float
-  description: 现金余额。
+  description: |-
+    账户余额。
+    可能为负值，表示账户欠费。
 - name: creditValue
   type: float
   description: 信用额度。
 - name: purchasingPower
   type: float
-  description: 购买力（现金余额与信用额度之和）。
+  description: |-
+    可用金。
+    由账户余额与信用额度之和实时计算得出。
 - name: orderFrozenAmount
   type: float
-  description: 订单冻结金额。
+  description: 订单冻结金。

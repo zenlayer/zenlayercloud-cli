@@ -10,8 +10,8 @@ long: |-
   * Tag value is optional.
   * Duplicate key-value tags are not allowed.
 examples:
-- cmd: zeno zrm create-tags --tags "{key=key_f7105ccd1a94, value=value_5a4be6ee5544}"
-  desc: Create tags in batches.
+- cmd: zeno zrm create-tags --tags "{key=env, value=production}"
+  desc: Create a group of tags.
 sdk:
   service: zrm
   version: '2025-10-14'

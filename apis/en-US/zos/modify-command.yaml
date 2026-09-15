@@ -8,8 +8,10 @@ long: |-
 
   If the command is running, you cannot edit it.
 examples:
-- cmd: zeno zos modify-command --command-id <commandId> --name Test --content ""echo 2""
-  desc: Edit command name and script content.
+- cmd: zeno zos modify-command --command-id <commandId> --name Test --content ZWNobyAy
+  desc: Edit the command name and script content. `content` must be passed in as the Base64-encoded value of the script content. The `content` in this example is the Base64 encoding of `echo 2`.
+- cmd: zeno zos modify-command --command-id <commandId> --content IyEvYmluL2Jhc2gKZWNobyAiaGVsbG8gemVubGF5ZXIiID4gL3RtcC9pbml0LmxvZwo=
+  desc: Edit the script content to a multi-line script. The `content` in this example is the Base64 encoding of the script `#!/bin/bash\necho "hello zenlayer" > /tmp/init.log`.
 sdk:
   service: zos
   version: '2025-10-10'
@@ -32,8 +34,8 @@ parameters:
   required: false
   sdk-field: content
   description: |-
-    Script content.
-    The length should be no more than 16K(16384) characters.
+    Script content. The value must be Base64-encoded.
+    The decoded length should be no more than 16K(16384) characters.
 - name: description
   type: string
   required: false

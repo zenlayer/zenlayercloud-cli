@@ -2,14 +2,14 @@ name: InquiryPriceCreateLoadBalancer
 product: zlb
 use: inquiry-price-create-load-balancer
 short: Queries the price for creating a load balancer
-long: |-
-  Query the price for creating a load balancer.
-  **Notes**
-
-  * The size of the guaranteed traffic package is only valid for billing periods of one month.
+long: Query the price for creating a load balancer.
 examples:
-- cmd: zeno zlb inquiry-price-create-load-balancer --region-id asia-east-1 --vpc-id <vpcId> --internet-charge-type ByBandwidth --ip-network-type BGPLine --bandwidth-mbps 2 --number 1
-  desc: Query the price for creating a public network load balance instance.
+- cmd: zeno zlb inquiry-price-create-load-balancer --region-id asia-east-1 --vpc-id <vpcId> --internet-charge-type ByBandwidth --network-line-type PremiumBGP --bandwidth-mbps 2 --number 1
+  desc: Inquire the price of creating a public network load balancer instance (PremiumBGP line, bandwidth billing).
+- cmd: zeno zlb inquiry-price-create-load-balancer --region-id asia-east-1 --vpc-id <vpcId> --internet-charge-type ByBandwidth --network-line-type PathBasedBandwidthIP --bandwidth-mbps 2 --number 1
+  desc: Inquire the price of creating a public network load balancer instance (PathBasedBandwidthIP line, bandwidth billing). eipNetworkPrice is null; the bandwidth details are in eipNetworkPrices.
+- cmd: zeno zlb inquiry-price-create-load-balancer --region-id asia-east-1 --vpc-id <vpcId> --number 1
+  desc: Inquire the price of creating a load balancer instance with an existing elastic IP (EIP). Omitting the IP network parameters means no new EIP is created, so `eipPrice`, `eipNetworkPrice`, and `eipNetworkPrices` are all empty.
 sdk:
   service: zlb
   version: '2025-04-01'
@@ -20,11 +20,26 @@ parameters:
   required: true
   sdk-field: regionId
   description: Region ID.
+- name: ip-stack-type
+  type: enum
+  required: false
+  sdk-field: ipStackType
+  description: |-
+    IP stack type.
+    A load balancer instance supports only a single stack, that is, IPv4 or IPv6. Dual stack is not supported.
+    When IPv6 is specified, the public network parameters (internetChargeType, networkLineType, bandwidthMbps, trafficPackageSize, bandwidthClusterId) cannot be configured. The public addresses of an IPv6 load balancer are assigned separately through the AssignLoadBalancerIpv6 operation.
+  enum-values:
+  - value: IPv4
+    desc: IPv4 only.
+  - value: IPv6
+    desc: IPv6 only.
 - name: internet-charge-type
   type: enum
   required: false
   sdk-field: internetChargeType
-  description: IP network billing model.
+  description: |-
+    IP network billing model.
+    **Do not pass this parameter when creating a load balancer with an existing EIP** — omitting it means no new EIP is created and the inquiry result contains no EIP-related fees; passing it prices the request as if a new EIP were created, which adds an extra EIP fee.
   enum-values:
   - value: ByBandwidth
     desc: Flat rate billing method.
@@ -93,9 +108,9 @@ parameters:
   required: false
   sdk-field: trafficPackageSize
   description: |-
-    Data transfer package size.
-    The parameter is only required when internetChargeType is ByTrafficPackage.
-    Available range: [0.0, 999999.0].
+    Traffic package size.
+    When this parameter is specified, the IP network billing model (internetChargeType) must be ByTrafficPackage; otherwise this parameter does not take effect.
+    It can only be set when the billing period is monthly; hourly billing is not supported.
 - name: bandwidth-cluster-id
   type: string
   required: false

@@ -45,7 +45,6 @@ parameters:
   description: |-
     Number of pages returned.
     Default value: 1.
-    Value range: [1, +).
 - name: tag-keys
   type: string-array
   required: false

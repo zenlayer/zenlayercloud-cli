@@ -25,8 +25,9 @@ parameters:
   required: false
   sdk-field: subnetName
   description: |-
-    Subnet name.
-    This parameter must start and end with a number or a letter. Only letters, numbers, - and periods (.) are supported.
+    The subnet name.
+    Only letters, digits, hyphens (-), underscores (_), slashes (/), periods (.) and spaces are allowed.
+    Must start and end with a digit or a letter.
 - name: cidr-block
   type: string
   required: false

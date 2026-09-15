@@ -1,0 +1,104 @@
+name: DescribeLogs
+product: zls
+use: describe-logs
+short: Query the audit log list.
+long: Query the audit log list.
+examples:
+- cmd: zeno zls describe-logs --start-time 2023-07-26T16:00:00Z --end-time 2023-08-03T15:59:59Z --size 20
+  desc: Query audit logs within a specified time range.
+sdk:
+  service: zls
+  version: '2025-09-01'
+  action: DescribeLogs
+parameters:
+- name: cursor
+  type: integer-array
+  required: false
+  sdk-field: cursor
+  description: |-
+    Cursor for the next page.
+    After the current page is requested, the cursor for the next page is returned in the response. To retrieve the next page, include the returned cursor in the request parameters, and repeat this process to obtain all data within the specified time range.
+    For example, if the current page returns "cursor": [1691028715371], assign [1691028715371] to cursor when requesting the next page.
+- name: start-time
+  type: string
+  required: true
+  sdk-field: startTime
+  description: |-
+    Start time.
+    Time format: yyyy-MM-ddTHH:mm:ssZ.
+- name: end-time
+  type: string
+  required: true
+  sdk-field: endTime
+  description: |-
+    End time.
+    Time format: yyyy-MM-ddTHH:mm:ssZ.
+    The start time cannot be later than the end time. The interval between the start time and the end time cannot exceed 30 days. The start time cannot be more than 90 days ago.
+- name: res-uid
+  type: string
+  required: false
+  sdk-field: resUid
+  description: Resource ID.
+- name: res-event
+  type: string
+  required: false
+  sdk-field: resEvent
+  description: Event name.
+- name: client-ip
+  type: string
+  required: false
+  sdk-field: clientIP
+  description: Client IP address of the operation.
+- name: size
+  type: integer
+  required: false
+  sdk-field: size
+  description: |-
+    Number of entries returned per page.
+    Default: 20. Maximum: 1000.
+response:
+- name: dataSet
+  type: object-array
+  description: Result set.
+  array-style: json
+  item-schema:
+  - name: resUid
+    type: string
+    description: Resource ID.
+  - name: resType
+    type: string
+    description: Resource type.
+  - name: resEvent
+    type: string
+    description: Event name.
+  - name: opsTime
+    type: string
+    description: |-
+      Operation time.
+      Time format: yyyy-MM-ddTHH:mm:ssZ.
+  - name: eventSource
+    type: string
+    description: |-
+      Event source.
+      Possible values: CONSOLE_CALL (console operation); API_CALL (API call).
+  - name: apiVersion
+    type: string
+    description: API version.
+  - name: opsUser
+    type: string
+    description: Operator.
+  - name: clientIP
+    type: string
+    description: Client IP address of the operation.
+  - name: request
+    type: string
+    description: Request parameters.
+  - name: response
+    type: string
+    description: Response result.
+- name: cursor
+  type: integer-array
+  description: |-
+    Cursor for the next page.
+    After the current page is requested, the cursor for the next page is returned in the response. To retrieve the next page, include the returned cursor in the request parameters, and repeat this process to obtain all data within the specified time range.
+    For example, if the current page returns "cursor": [1691028715371], assign [1691028715371] to cursor when requesting the next page.

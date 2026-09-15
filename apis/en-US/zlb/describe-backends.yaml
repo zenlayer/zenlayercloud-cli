@@ -36,7 +36,9 @@ response:
       To obtain valid instance ID, you can call DescribeInstances, and find InstanceId in the response.
   - name: privateIpAddress
     type: string
-    description: Private IP address of the network interface attached to the instance.
+    description: |-
+      Private IP address of the network interface attached to the instance.
+      When the `ipStackType` of the load balancer instance is `IPv6`, the IPv6 address on the network interface of the instance is returned.
   - name: weight
     type: integer
     description: |-

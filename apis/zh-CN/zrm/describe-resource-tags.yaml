@@ -4,7 +4,7 @@ use: describe-resource-tags
 short: 获取资源绑定标签
 long: 获取某个资源下绑定的所有标签列表。
 examples:
-- cmd: zeno zrm describe-resource-tags --resource-uuid resourceUuid_5250a2c5dc3d
+- cmd: zeno zrm describe-resource-tags --resource-uuid 123456789012345678
   desc: 获取某个资源下绑定的所有标签列表
 sdk:
   service: zrm
@@ -19,10 +19,10 @@ parameters:
 response:
 - name: totalCount
   type: integer
-  description: 列表总数量。
+  description: 该资源绑定的标签总数量。
 - name: dataSet
   type: object-array
-  description: 数据列表。
+  description: 该资源绑定的标签列表。
   array-style: json
   item-schema:
   - name: key
@@ -33,4 +33,4 @@ response:
     description: 标签值。
   - name: createdDate
     type: string
-    description: 创建时间。
+    description: 标签创建时间。

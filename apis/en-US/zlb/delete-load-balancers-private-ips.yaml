@@ -2,11 +2,7 @@ name: DeleteLoadBalancersPrivateIps
 product: zlb
 use: delete-load-balancers-private-ips
 short: Unbinds private IPs from a load balancer
-long: |-
-  Unbind private IPs from a load balancer.
-  **Note**
-
-  You can unbind up to `1` private IP currently.
+long: Unbind private IPs from a load balancer.
 examples:
 - cmd: zeno zlb delete-load-balancers-private-ips --private-ips 10.0.0.0 --load-balancer-id "<your lb id>"
   desc: Unbind private IPs from a load balancer.

@@ -1,0 +1,104 @@
+name: DescribeLogs
+product: zls
+use: describe-logs
+short: 查询审计日志列表。
+long: 查询审计日志列表。
+examples:
+- cmd: zeno zls describe-logs --start-time 2023-07-26T16:00:00Z --end-time 2023-08-03T15:59:59Z --size 20
+  desc: 查询指定时间范围内的审计日志。
+sdk:
+  service: zls
+  version: '2025-09-01'
+  action: DescribeLogs
+parameters:
+- name: cursor
+  type: integer-array
+  required: false
+  sdk-field: cursor
+  description: |-
+    下一页的游标。
+    当请求完该页数据后，响应结果中会返回下一页的游标，当需要获取下一页数据时，请求参数需要加上该页返回的游标，依次循环，可以获取到该段时间内的所有数据。
+    例如：请求当页返回： "cursor": [1691028715371]，请求下一页时将[1691028715371]赋值给cursor。
+- name: start-time
+  type: string
+  required: true
+  sdk-field: startTime
+  description: |-
+    开始时间。
+    时间格式：yyyy-MM-ddTHH:mm:ssZ。
+- name: end-time
+  type: string
+  required: true
+  sdk-field: endTime
+  description: |-
+    结束时间。
+    时间格式：yyyy-MM-ddTHH:mm:ssZ。
+    开始时间不能大于结束时间；开始时间和结束时间的间隔不能超过30天；开始时间不能超过90天前。
+- name: res-uid
+  type: string
+  required: false
+  sdk-field: resUid
+  description: 资源ID。
+- name: res-event
+  type: string
+  required: false
+  sdk-field: resEvent
+  description: 事件名称。
+- name: client-ip
+  type: string
+  required: false
+  sdk-field: clientIP
+  description: 客户端操作IP。
+- name: size
+  type: integer
+  required: false
+  sdk-field: size
+  description: |-
+    返回的分页大小。
+    默认为20，最大为1000。
+response:
+- name: dataSet
+  type: object-array
+  description: 结果集。
+  array-style: json
+  item-schema:
+  - name: resUid
+    type: string
+    description: 资源ID。
+  - name: resType
+    type: string
+    description: 资源类型。
+  - name: resEvent
+    type: string
+    description: 事件名称。
+  - name: opsTime
+    type: string
+    description: |-
+      操作时间。
+      时间格式：yyyy-MM-ddTHH:mm:ssZ。
+  - name: eventSource
+    type: string
+    description: |-
+      事件来源。
+      可能值：CONSOLE_CALL（控制台操作）；API_CALL（API调用）。
+  - name: apiVersion
+    type: string
+    description: API版本。
+  - name: opsUser
+    type: string
+    description: 操作人。
+  - name: clientIP
+    type: string
+    description: 客户端操作IP。
+  - name: request
+    type: string
+    description: 请求参数。
+  - name: response
+    type: string
+    description: 返回结果。
+- name: cursor
+  type: integer-array
+  description: |-
+    下一页的游标。
+    当请求完该页数据后，响应结果中会返回下一页的游标，当需要获取下一页数据时，请求参数需要加上该页返回的游标，依次循环，可以获取到该段时间内的所有数据。
+    例如：请求当页返回： "cursor": [1691028715371]，请求下一页时将[1691028715371]赋值给cursor。

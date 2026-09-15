@@ -16,7 +16,7 @@ long: |-
   * This API is an async API. Use `DescribeInstanceInternetStatus` to query data transfer status of an instance.
 examples:
 - cmd: zeno vm modify-instance-traffic-package --instance-id instanceIdxxx --traffic-package-size 100
-  desc: Upgrade instance data transfer package.
+  desc: Upgrade the instance data transfer package.
 sdk:
   service: vm
   version: '2026-04-01'

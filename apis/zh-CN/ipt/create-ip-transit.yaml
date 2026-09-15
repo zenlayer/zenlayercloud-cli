@@ -3,7 +3,7 @@ product: ipt
 use: create-ip-transit
 short: 创建IP Transit
 long: |-
-  创建IP Transit
+  创建IP Transit。
   **注意事项**
 
   * 因设备原因部分区域只支持手动交付，交付周期会在1～3d完成。可以通过 [DescribeIPTransitDatacenters](describe-iptransit-datacenters.md) 的 **deliveryType**`字段来判断是否是极速交付。`
@@ -11,11 +11,15 @@ long: |-
   * `internetType=ByInstanceBandwidth95`（95 计费）时须传 `commitBandwidth`；若同时传了 `bandwidth`，必须大于等于 `commitBandwidth`，否则返回 `INVALID_RIPT_BANDWIDTH_LESS_THAN_COMMIT` 错误。
   * 传 `haConfig` 创建高可用 IP Transit 时必须同时传 `iptDcId` 和 `bfd`；缺少 `iptDcId` 返回 `MISSING_PARAMETER` 错误，缺少或不完整的 `bfd` 返回 `INVALID_RIPT_HA_BFD_REQUIRED` 错误；高可用 IP Transit 创建后不允许关闭 BFD。
   * `routingType=BGP` 时须传 `bgp`，且 `bgp.asn` 必传；`bgp.asnList`、`bgp.asSetList` 二选一（至少传一个）。缺少 `bgp`/`bgp.asn` 返回 `MISSING_PARAMETER` 错误，`asnList`/`asSetList` 都未传返回 `INVALID_RIPT_BGP_ASN_LIST_MISSING` 错误，ASN 不在您名下返回 `INVALID_RIPT_BGP_ASN` 错误。
+  * `bgp.tier` 为 BGP 档位：`PREMIUM`（优质，缺省）/ `STANDARD`（普通）。普通档仅在部分数据中心开放（见 [DescribeIPTransitDatacenters](describe-iptransit-datacenters.md) 的 `availableBgpTiers`），仅支持 `internetType=ByBandwidth`（固定带宽），且 `bandwidth` 只能取该数据中心的固定档位值（如 10000/50000/100000，单位 Mbps；传入非档位值时 `INVALID_RIPT_BANDWIDTH_NOT_IN_TIER_LEVELS` 错误信息中会返回完整的可选档位列表）；不满足分别返回 `INVALID_RIPT_BGP_TIER_NOT_SUPPORTED`、`INVALID_RIPT_INTERNET_TYPE_FOR_STANDARD_BGP`、`INVALID_RIPT_BANDWIDTH_NOT_IN_TIER_LEVELS` 错误。`zbgRegionId` 非空（基于 router 的 IP Transit）时不支持 `STANDARD`。
+  * 两档对应的 Zenlayer 侧（对端）AS 号不同：普通 BGP 为 `29752`，优质 BGP 为 `21859`，请以 [DescribeIPTransitDatacenters](describe-iptransit-datacenters.md) 返回的 `peerAsns` 为准配置您本地路由器的 BGP 邻居。
 examples:
 - cmd: zeno ipt create-ip-transit --ipt-name test_IPT --ipt-description test_ipt_desc --peer-port-id 1170556726903057557 --peer-port-vlan 1042 --internet-type ByBandwidth --bandwidth 50 --ipt-dc-id AMS1 --routing-type Static --public-ipv4-block-size 28
   desc: 创建一条IP Transit，路由设置成静态路由，公网地址使用/28的CIDR。并且配置BFD。
 - cmd: zeno ipt create-ip-transit --ipt-name test_IPT_v4v6 --peer-port-id 1170556726903057557 --peer-port-vlan 1042 --internet-type ByBandwidth --bandwidth 100 --ipt-dc-id AMS1 --routing-type BGP --public-ip-list "{netmask=28, ipType=IPV4, ipNetworkType=BGP_IP, amount=2}" --public-ip-list "{netmask=64, ipType=IPV6, ipNetworkType=BGP_IP}"
   desc: 创建一条 IP Transit，使用 publicIpList 同时分配一个 /28 IPv4 块和一个 /64 IPv6 块。
+- cmd: zeno ipt create-ip-transit --ipt-name test_IPT_standard_bgp --peer-port-id 1170556726903057557 --peer-port-vlan 1043 --internet-type ByBandwidth --bandwidth 10000 --ipt-dc-id SIN1 --routing-type BGP --public-ipv4-block-size 28
+  desc: 创建一条普通 BGP（STANDARD）档位的 IP Transit，固定带宽 10G。
 sdk:
   service: ipt
   version: '2024-09-01'
@@ -140,6 +144,21 @@ parameters:
       desc: 全路由+默认路由。
     - value: DEFAULT_ROUTES
       desc: 默认路由。
+  - name: tier
+    type: enum
+    description: |-
+      BGP 档位。
+      STANDARD-普通 BGP，PREMIUM-优质 BGP。
+      不传默认优质档（与拆分前行为一致）。
+    enum-values:
+    - value: STANDARD
+      desc: |-
+        普通 BGP。
+        仅在部分数据中心开放，仅支持固定带宽计费，带宽只能取该数据中心的固定档位值。
+    - value: PREMIUM
+      desc: |-
+        优质 BGP。
+        骨干直连低时延线路，为档位缺省值；档位拆分前创建的存量实例统一返回该档位。
   - name: asn
     type: integer
     description: 宣告出站路由的ASN号。

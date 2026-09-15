@@ -1,0 +1,85 @@
+name: AssignLoadBalancerIpv6
+product: zlb
+use: assign-load-balancer-ipv6
+short: Assigns public IPv6 to a load balancer instance
+long: |-
+  Assign public IPv6 addresses to a load balancer instance.
+  **Notes**
+
+  * The load balancer instance must be in the `RUNNING` state.
+  * The public IPv6 addresses are assigned from the subnet specified when the load balancer instance was created. **This operation does not accept a subnet parameter.** The subnet must contain a public IPv6 block.
+  * This operation is asynchronous. The addresses are not ready when the call returns successfully. You can query the assignment result in the details of the load balancer instance.
+  * The public IPv6 block itself is not billed. Only the bandwidth is billed.
+  * The number of the public IPs that can be assigned to a single load balancer instance is limited by the `VIPs_per_LB` quota.
+examples:
+- cmd: zeno zlb assign-load-balancer-ipv6 --load-balancer-id <loadBalancerId> --internet-charge-type ByBandwidth --bandwidth 100 --rate-limit-mode LOOSE
+  desc: Assign one public IPv6 to a load balancer instance. The billing type is fixed bandwidth and the bandwidth limit is set to 100 Mbps.
+- cmd: zeno zlb assign-load-balancer-ipv6 --load-balancer-id <loadBalancerId> --vip-count 3 --internet-charge-type BandwidthCluster --cluster-id <clusterId> --rate-limit-mode LOOSE
+  desc: Assign three public IPv6 addresses to a load balancer instance at a time. The billing type is bandwidth cluster.
+sdk:
+  service: zlb
+  version: '2025-04-01'
+  action: AssignLoadBalancerIpv6
+parameters:
+- name: load-balancer-id
+  type: string
+  required: true
+  sdk-field: loadBalancerId
+  description: |-
+    ID of the load balancer instance to which the public IPv6 addresses are assigned.
+    Only available for the load balancer instances whose ipStackType is IPv6.
+- name: vip-count
+  type: integer
+  required: false
+  sdk-field: vipCount
+  description: |-
+    Number of the public IPv6 addresses to be assigned this time.
+    INVALID_SUBNET_IPV6_INSUFFICIENT is returned when the available public IPv6 addresses left in the subnet are insufficient.
+- name: internet-charge-type
+  type: enum
+  required: true
+  sdk-field: internetChargeType
+  description: Network billing method of the public IPv6.
+  enum-values:
+  - value: ByBandwidth
+    desc: Flat rate billing method.
+  - value: ByTrafficPackage
+    desc: Data transfer package billing method.
+  - value: BandwidthCluster
+    desc: Bandwidth cluster billing method.
+- name: bandwidth
+  type: integer
+  required: false
+  sdk-field: bandwidth
+  description: |-
+    Bandwidth limit of the public IPv6.
+    Unit: Mbps.
+    Required when the network billing method is fixed bandwidth (ByBandwidth).
+- name: package-size
+  type: float
+  required: false
+  sdk-field: packageSize
+  description: |-
+    Traffic package size of the public IPv6.
+    Unit: TB.
+    The value must be 0 or a multiple of 0.1.
+    Required when the network billing method is traffic package (ByTrafficPackage), and it can be set only when the billing period is month.
+- name: cluster-id
+  type: string
+  required: false
+  sdk-field: clusterId
+  description: |-
+    ID of the bandwidth cluster specified for the public IPv6.
+    Required when the network billing method is bandwidth cluster (BandwidthCluster).
+- name: rate-limit-mode
+  type: enum
+  required: false
+  sdk-field: rateLimitMode
+  description: |-
+    Rate limit mode.
+    The strict mode (STRICT) requires bandwidth to be specified at the same time. Otherwise, INVALID_RATE_LIMIT_MODE_REQUIRES_BANDWIDTH is returned.
+  enum-values:
+  - value: LOOSE
+    desc: 'Loose mode: short-time bursts exceeding the limit are allowed.'
+  - value: STRICT
+    desc: 'Strict mode: the limit is strictly enforced and no burst is allowed.'

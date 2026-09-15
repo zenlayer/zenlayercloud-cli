@@ -7,13 +7,13 @@ long: |-
   **注意事项**
 
   * 单次最多可挂载10块云硬盘。
-  * 挂载云硬盘的数量不能超过实例可用的最大数量，具体数量详见配额。
-  * 实例与云硬盘的所在区域必须一致。
-  * 实例必须处于可用状态（创建中、初始化中等状态均不属于可用状态）。
-  * 云硬盘必须处于未挂载状态（`AVAILABLE`)。
+  * 目标实例必须存在，且处于可用状态（创建中、初始化中等状态均不属于可用状态），本次请求的云硬盘数量也不能超过实例可用的最大数量（具体数量详见配额）——以上任一条不满足，整个请求会直接返回错误码失败，本次请求里所有云硬盘都不会被处理，**不会**返回 `failedDiskIds`。
+  * 若某块云硬盘已经挂载在本次请求的目标实例上，视为已达成目标状态，直接跳过。
+  * 若某块云硬盘不满足挂载条件（与实例所在区域不一致、已挂载在其他实例上、状态不支持挂载等），只会导致这一块云硬盘挂载失败，其 ID 会出现在响应的 `failedDiskIds` 中，不影响其余云硬盘正常挂载。
+  * 请求中包含不存在的云硬盘 ID 会被静默忽略，不会导致请求失败，也不会出现在 `failedDiskIds` 中。
 examples:
 - cmd: zeno zec attach-disks --disk-ids your-disk-id --instance-id your-instance-id
-  desc: 挂载云硬盘到云主机实例。P
+  desc: 挂载云硬盘到云主机实例。
 sdk:
   service: zec
   version: '2025-09-01'
@@ -29,3 +29,7 @@ parameters:
   required: true
   sdk-field: instanceId
   description: 被挂载的实例ID。
+response:
+- name: failedDiskIds
+  type: string-array
+  description: 挂载失败的云硬盘。

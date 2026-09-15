@@ -3,7 +3,7 @@ product: ipt
 use: describe-ip-transit-traffic
 short: 查询IP Transit流量
 long: |-
-  查询IP Transit流量
+  查询IP Transit流量。
   **注意事项**
 
   * 只能查询30天内的流量数据。

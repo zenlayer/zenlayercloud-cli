@@ -1,0 +1,124 @@
+name: DescribeTicketDetail
+product: zsp
+use: describe-ticket-detail
+short: 查询工单详情
+long: |-
+  查询指定工单的详细信息与沟通记录。
+  **注意事项**
+
+  * 只能查询当前团队提交的工单；查询其他团队的工单与查询不存在的工单返回同一个错误码。
+  * 以下两种情形 `messages` 只包含提单时的初始描述：工单状态为 `CREATING`（尚未同步到客服系统），或提单时未填写 `contactEmail`（无法判定哪些往来邮件属于该客户）。
+  * `ticketId` 可通过 ~~DescribeTickets~~ 查询，或取 ~~CreateTicket~~ 的返回值；`ticketNumber` 可通过 ~~DescribeTickets~~ 查询。
+examples:
+- cmd: zeno zsp describe-ticket-detail --ticket-id T-1000000000000001
+  desc: 按工单ID查询处理中工单的详情。
+- cmd: zeno zsp describe-ticket-detail --ticket-number 00123457
+  desc: 按工单编号查询已完成工单的详情。
+- cmd: zeno zsp describe-ticket-detail --ticket-id T-1000000000000003
+  desc: 查询尚在同步中的工单详情。工单此时还没有编号，只能按工单ID查询。
+sdk:
+  service: zsp
+  version: '2026-08-01'
+  action: DescribeTicketDetail
+parameters:
+- name: ticket-id
+  type: string
+  required: false
+  sdk-field: ticketId
+  description: |-
+    工单ID。
+    与工单编号至少指定一个，两者都指定时以工单ID为准。
+- name: ticket-number
+  type: string
+  required: false
+  sdk-field: ticketNumber
+  description: |-
+    工单编号。
+    与工单ID至少指定一个，两者都指定时以工单ID为准。
+    工单尚在创建中（状态为CREATING）时还没有编号，此时只能按工单ID查询。
+response:
+- name: ticketId
+  type: string
+  description: 工单ID。
+- name: ticketNumber
+  type: string
+  description: |-
+    工单编号。
+    工单尚在创建中（状态为CREATING）时为null。
+- name: type
+  type: enum
+  description: 工单类型。
+  enum-values:
+  - value: SERVICE_FAILURE
+    desc: 服务故障：已购买的服务不可用或功能异常。
+  - value: FINANCIAL_INQUIRIES
+    desc: 账单咨询：账单金额、计费周期、发票等财务问题。
+  - value: ACCOUNT_TEAM_RELATED
+    desc: 账号咨询：账号、团队、成员权限相关问题。
+  - value: PURCHASE_CONSULTATION
+    desc: 费用咨询：购买前的价格、规格与方案咨询。
+  - value: PRODUCT_SUGGESTIONS
+    desc: 产品咨询：产品功能咨询与改进建议。
+  - value: OTHERS
+    desc: 其他：不属于以上分类的问题。
+- name: status
+  type: enum
+  description: 工单状态。
+  enum-values:
+  - value: CREATING
+    desc: 同步中：工单已受理入库，正在同步到客服系统，此时尚未生成工单编号。
+  - value: NEW
+    desc: 待受理：已同步到客服系统，等待客服接单。
+  - value: PROCESSING
+    desc: 处理中：客服正在处理，包含等待客户回复与客户已补充信息的情形。
+  - value: UPGRADE_IN_PROGRESS
+    desc: 升级处理中：已升级给更高级别的支持团队处理。
+  - value: FINISHED
+    desc: 已完成：问题已解决或工单已关闭。
+  - value: MERGED
+    desc: 已合单：已合并到另一个工单，后续沟通在合并后的工单中进行。
+- name: description
+  type: string
+  description: 问题描述。
+- name: contactName
+  type: string
+  description: 联系人姓名。
+- name: contactEmail
+  type: string
+  description: 联系邮箱。
+- name: contactPhone
+  type: string
+  description: 联系电话。
+- name: createTime
+  type: string
+  description: 创建时间。
+- name: messages
+  type: object-array
+  description: |-
+    工单沟通记录，按时间倒序排列，末条为提单时的初始描述。
+    仅包含与联系邮箱相关的往来邮件。
+  array-style: json
+  item-schema:
+  - name: subject
+    type: string
+    description: 邮件主题。
+  - name: content
+    type: string
+    description: |-
+      邮件正文。
+      仅保留本次回复内容，不含被引用的历史邮件。
+  - name: fromName
+    type: string
+    description: 发件人姓名。
+  - name: fromAddress
+    type: string
+    description: 发件人邮箱。
+  - name: toAddress
+    type: string
+    description: 收件人邮箱。
+  - name: ccAddress
+    type: string
+    description: 抄送邮箱。
+  - name: messageDate
+    type: string
+    description: 邮件时间。

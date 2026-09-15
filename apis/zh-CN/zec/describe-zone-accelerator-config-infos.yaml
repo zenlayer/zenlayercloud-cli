@@ -1,0 +1,180 @@
+name: DescribeZoneAcceleratorConfigInfos
+product: zec
+use: describe-zone-accelerator-config-infos
+short: 查询可用区售卖的加速卡规格信息
+long: |-
+  查询可用区售卖的加速卡规格信息。
+  **注意事项**
+
+  * `instanceType` 字段为加速卡规格 ID，如 `z2a.v.T1U.c16m64.1`。创建加速卡实例时，将此值传入 [`CreateZecInstances`](createzecinstances.md) 的 `instanceType` 参数。
+  * `acceleratorType` 表示加速卡类型，当前取值范围：`VPU`（视频转码卡）。未来可能扩展 `TPU`/`NPU`/`LPU` 等类型。
+  * `inventoryCapacity` 表示该加速卡系列在对应可用区所在区域的库存档位：`LIMITED`（< 1000）、`NORMAL`（1000–2000）、`SUFFICIENT`（2000–5000）、`ABUNDANT`（≥ 5000）。加速卡实例数量远低于上述阈值，实际可用时通常为 `LIMITED`。
+  * `price` 为该规格的实际售卖价格。
+examples:
+- cmd: zeno zec describe-zone-accelerator-config-infos
+  desc: 查询所有可用区的加速卡规格信息。
+- cmd: zeno zec describe-zone-accelerator-config-infos --zone-id asia-east-1a
+  desc: 查询指定可用区的加速卡规格信息。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DescribeZoneAcceleratorConfigInfos
+parameters:
+- name: zone-id
+  type: string
+  required: false
+  sdk-field: zoneId
+  description: |-
+    要查询的可用区 ID。
+    例如：na-us-la-2a。
+    不传时返回所有可用区的加速卡规格。
+- name: instance-type
+  type: string
+  required: false
+  sdk-field: instanceType
+  description: |-
+    要查询的加速卡规格 ID。
+    例如：z2a.v.T1U.c16m64.1。
+    不传时返回所有规格。
+response:
+- name: instanceTypeQuotaSet
+  type: object-array
+  required: true
+  description: 加速卡规格售卖信息列表。
+  array-style: json
+  item-schema:
+  - name: zoneId
+    type: string
+    description: 可用区 ID。
+  - name: instanceType
+    type: string
+    description: |-
+      加速卡规格 ID。
+      例如：z2a.v.T1U.c16m64.1。
+      创建实例时将此值传入 CreateZecInstances 的 instanceType 参数。
+  - name: acceleratorType
+    type: string
+    description: |-
+      加速卡类型。
+      取值范围：VPU。
+      未来可能扩展 TPU/NPU/LPU 等。
+  - name: cpuCount
+    type: integer
+    description: |-
+      CPU 核数。
+      单位：核。
+  - name: memory
+    type: integer
+    description: |-
+      内存容量。
+      单位：GiB。
+  - name: acceleratorAmount
+    type: integer
+    description: 加速卡卡数。
+  - name: instanceTypeName
+    type: string
+    description: 加速卡规格描述。
+  - name: bps
+    type: integer
+    description: |-
+      单张网卡的带宽上限。
+      单位：比特/秒。
+  - name: pps
+    type: integer
+    description: |-
+      单张网卡的收发包上限。
+      单位：个/秒。
+  - name: inventoryCapacity
+    type: enum
+    description: 加速卡系列库存档位。
+    enum-values:
+    - value: LIMITED
+      desc: 库存有限，可售核数 < 1000。
+    - value: NORMAL
+      desc: 库存一般，可售核数 1000–2000。
+    - value: SUFFICIENT
+      desc: 库存充足，可售核数 2000–5000。
+    - value: ABUNDANT
+      desc: 库存富余，可售核数 ≥ 5000。
+  - name: price
+    type: object
+    description: 该规格的价格。
+    object-schema:
+    - name: discount
+      type: float
+      description: |-
+        折扣大小。
+        如80.0代表8折。
+    - name: discountPrice
+      type: float
+      description: |-
+        后付费的单元折后价格。
+        后付费模式使用，如果价格为阶梯价格，该项为null。
+    - name: originalPrice
+      type: float
+      description: |-
+        预付费的原价。
+        预付费模式使用，后付费该值为 null。
+    - name: unitPrice
+      type: float
+      description: |-
+        后付费的单元原始价格。
+        后付费模式使用，如果价格为阶梯价格，该项为null。
+    - name: discountUnitPrice
+      type: float
+      description: |-
+        后付费的单元折后价格。
+        后付费模式使用，如果价格为阶梯价格，该项为null。
+    - name: chargeUnit
+      type: string
+      description: |-
+        后付费计价单元。
+        后付费模式使用，可取值范围：<br/>HOUR: 表示计价单元是按每小时来计算。
+        DAY: 表示计价单元是按天来计算。
+        MONTH: 表示计价单元是按月来计算，95计费则是这种。
+    - name: stepPrices
+      type: object-array
+      description: |-
+        后付费阶梯价格。
+        后付费模式使用，如果非阶梯价格，该项为null。
+      array-style: json
+      item-schema:
+      - name: stepStart
+        type: float
+        description: 阶梯的起始值。
+      - name: stepEnd
+        type: float
+        description: |-
+          阶梯的到达值。
+          为null代表最后一级阶梯。
+      - name: unitPrice
+        type: float
+        description: 阶梯单价。
+      - name: discountUnitPrice
+        type: float
+        description: 阶梯折后价。
+    - name: amountUnit
+      type: string
+      description: |-
+        用量单位。
+        比如Mbps, LCU等。
+        如果为null, 代表取不到值。
+    - name: excessUnitPrice
+      type: float
+      description: 超量原始价格。
+    - name: excessDiscountUnitPrice
+      type: float
+      description: 超量折扣后价格。
+    - name: excessAmountUnit
+      type: string
+      description: |-
+        超量用量单位。
+        如果为null, 代表取不到值。
+    - name: category
+      type: enum
+      description: 价格所属类别。
+      enum-values:
+      - value: STANDARD
+        desc: 标准价格。
+      - value: CUSTOMIZED
+        desc: 一口价格。

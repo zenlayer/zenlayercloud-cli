@@ -10,11 +10,28 @@ long: |-
 examples:
 - cmd: zeno zec create-disks --disk-name Test-Disk --disk-size 30 --disk-amount 1 --zone-id asia-east-1a
   desc: 创建1块30G大小的云硬盘。
+- cmd: zeno zec create-disks --disk-name Test-Disk --disk-size 20 --disk-amount 3 --zone-id asia-east-1a --instance-id <instanceId>
+  desc: 创建3块20G大小的云硬盘，并绑定到同一个实例。
+- cmd: zeno zec create-disks --disk-name Test-Disk --disk-names Test-Disk-1 --disk-names Test-Disk-2 --disk-size 20 --disk-amount 2 --zone-id asia-east-1a --instance-ids <instanceId1> --instance-ids <instanceId2>
+  desc: 创建2块20G大小的云硬盘，分别绑定到2个不同实例，并分别指定各自名称。
 sdk:
   service: zec
   version: '2025-09-01'
   action: CreateDisks
 parameters:
+- name: instance-charge-postpaid
+  type: object
+  required: false
+  sdk-field: instanceChargePostpaid
+  description: |-
+    后付费云硬盘的承诺周期。
+    仅在需要指定承诺周期时传递。
+  object-schema:
+  - name: period
+    type: integer
+    description: |-
+      后付费时长。
+      单位：月。
 - name: zone-id
   type: string
   required: true
@@ -22,13 +39,22 @@ parameters:
   description: 云硬盘所属的可用区ID。
 - name: disk-name
   type: string
-  required: true
+  required: false
   sdk-field: diskName
   description: |-
     云盘名称。
     范围1到64个字符。
     仅支持输入字母、数字、-/_和英文句点(.)。
     且必须以数字或字母开头和结尾。
+    当不传diskNames时必填。
+- name: disk-names
+  type: string-array
+  required: false
+  sdk-field: diskNames
+  description: |-
+    每块云硬盘各自的名称。
+    数量需要与diskAmount字段一致，命名规则同diskName。
+    不传则本批次云硬盘均使用diskName命名。
 - name: disk-size
   type: integer
   required: true
@@ -44,6 +70,13 @@ parameters:
   required: false
   sdk-field: instanceId
   description: 云硬盘挂载的实例ID。
+- name: instance-ids
+  type: string-array
+  required: false
+  sdk-field: instanceIds
+  description: |-
+    要绑定的实例ID。
+    数量需要与diskAmount字段一致，每个云硬盘各绑定一个不同实例；与instanceId同时传递时以instanceId为准。
 - name: resource-group-id
   type: string
   required: false
@@ -57,8 +90,8 @@ parameters:
   sdk-field: diskCategory
   description: |-
     云硬盘种类。
-    Basic NVMe SSD: 经济型 NVMe SSD。
-    Standard NVMe SSD: 标准型 NVMe SSD。
+    Basic NVMe SSD/BASIC_NVME_SSD: 经济型 NVMe SSD。
+    Standard NVMe SSD/NVME_SSD: 标准型 NVMe SSD。
     默认为Standard NVMe SSD。
 - name: snapshot-id
   type: string
@@ -103,13 +136,6 @@ parameters:
     description: |-
       标签值。
       长度限制：1～64个字符。
-- name: instance-ids
-  type: string-array
-  required: false
-  sdk-field: instanceIds
-  description: |-
-    要绑定的实例ID。
-    数量需要与diskAmount字段一致。
 - name: bursting-enabled
   type: boolean
   required: false

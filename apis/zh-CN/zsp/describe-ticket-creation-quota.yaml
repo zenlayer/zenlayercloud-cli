@@ -1,0 +1,30 @@
+name: DescribeTicketCreationQuota
+product: zsp
+use: describe-ticket-creation-quota
+short: 查询工单创建配额
+long: |-
+  查询当前团队一小时内是否还可以创建工单。
+  **注意事项**
+
+  * 配额按团队统计，统计口径为最近一小时内该团队创建的工单数；同一团队的所有成员共享额度。
+  * `canCreate` 为 `false` 时调用 ~~CreateTicket~~ 会返回 `OPERATION_DENIED_TICKET_QUOTA_EXCEEDED`。
+  * 本接口无需请求参数。
+examples:
+- cmd: zeno zsp describe-ticket-creation-quota
+  desc: 查询当前是否还可以提单。
+- cmd: zeno zsp describe-ticket-creation-quota
+  desc: 已达上限时的返回。
+sdk:
+  service: zsp
+  version: '2026-08-01'
+  action: DescribeTicketCreationQuota
+response:
+- name: canCreate
+  type: boolean
+  description: 当前是否还可以创建工单。
+- name: createdCountLastHour
+  type: integer
+  description: 最近一小时内已创建的工单数。
+- name: limitPerHour
+  type: integer
+  description: 每小时可创建的工单数上限。

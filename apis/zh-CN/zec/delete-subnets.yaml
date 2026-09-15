@@ -1,0 +1,38 @@
+name: DeleteSubnets
+product: zec
+use: delete-subnets
+short: 批量删除私有子网
+long: |-
+  删除一个或多个子网。
+  **注意事项**
+
+  * 删除子网前，请清理该子网下所有资源，包括网卡、实例、NAT网关、高可用虚拟IP等。
+  * 不能删除默认子网。
+  * 支持批量删除，单个子网删除失败不影响其他子网，失败详情（子网ID、错误码、错误消息）会在响应中的 `failedSubnets` 返回。
+sdk:
+  service: zec
+  version: '2025-09-01'
+  action: DeleteSubnets
+parameters:
+- name: subnet-ids
+  type: string-array
+  required: true
+  sdk-field: subnetIds
+  description: 要删除的子网ID列表。
+response:
+- name: failedSubnets
+  type: object-array
+  description: |-
+    删除失败的子网详情列表。
+    若全量成功则为空。
+  array-style: json
+  item-schema:
+  - name: subnetId
+    type: string
+    description: 删除失败的子网ID。
+  - name: errorCode
+    type: string
+    description: 错误码。
+  - name: errorMsg
+    type: string
+    description: 错误消息。

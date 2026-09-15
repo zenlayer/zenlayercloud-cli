@@ -3,11 +3,11 @@ product: ipt
 use: modify-ip-transit-config
 short: 修改IP Transit配置
 long: |-
-  修改IP Transit配置
+  修改IP Transit配置。
   **注意事项**
 
   * 仅当 IP Transit 状态为 **AVAILABLE** 时，才能发起变更操作。
-  * 本接口为异步接口，请求成功后 IP Transit 状态将变为 **UPDATING**，可通过 [DescribeIPTransits](describe-iptransits.md) 轮询状态，变回 **AVAILABLE** 表示变更成功。
+  * 本接口为异步接口，请求成功后 IP Transit 状态将变为 **UPDATING**，可通过 ~~DescribeIPTransits~~ 轮询状态，变回 **AVAILABLE** 表示变更成功。
   * 变更期间不得对该 IP Transit 进行其他任何操作。
   * **type 说明：**
     * `BANDWIDTH`：修改带宽限速，须传 `bandwidth`；传 `commitBandwidth` 可设置保底带宽，否则保底与限速相同。95 计费（`internetType=ByInstanceBandwidth95`）下 `bandwidth` 必须大于等于生效后的保底带宽，否则返回 `INVALID_RIPT_BANDWIDTH_LESS_THAN_COMMIT` 错误。
@@ -15,7 +15,7 @@ long: |-
     * `BGP_ROUTE_TYPE`：修改 BGP inbound 路由类型，须传 `bgp.routeType`。仅路由类型为 BGP 的 IP Transit 支持，否则返回 `INVALID_RIPT_ROUTING_TYPE_NOT_BGP` 错误。
     * `BGP_ASN_AS_SET`：修改 BGP 允许 ASN/AS-SET 名单，`asn` 创建后不支持修改，须在 `bgp` 中传 `asnList` 或 `asSetList` 二选一，否则返回 `INVALID_RIPT_BGP_ASN_LIST_MISSING` 错误。仅路由类型为 BGP 的 IP Transit 支持，否则返回 `INVALID_RIPT_ROUTING_TYPE_NOT_BGP` 错误。
     * `BGP_PASSWORD`：修改 BGP MD5 密码，须传 `bgp.password`。仅路由类型为 BGP 的 IP Transit 支持，否则返回 `INVALID_RIPT_ROUTING_TYPE_NOT_BGP` 错误。
-    * `ADD_CIDR_BLOCK`：新增公网 IPv4 CIDR 块，须传 `publicIPv4BlockSize`；可选传 `ipNetworkType`，默认 `BGP_IP`。
+    * `ADD_CIDR_BLOCK`：新增公网 IPv4 CIDR 块，须传 `publicIPv4BlockSize`；可选传 `ipNetworkType`，默认 `BGP_IP`。普通 BGP 档位（`bgp.tier=STANDARD`）的 IP Transit 不支持，否则返回 `OPERATION_DENIED_STANDARD_BGP_ADD_CIDR` 错误。
     * `DEL_CIDR_BLOCK`：删除公网 IPv4 CIDR 块，须传 `ipUuid`。
     * `EXPAND_CIDR_BLOCK`：扩大已有 CIDR 块（缩小掩码），须传 `ipUuid` 和 `publicIPv4BlockSize`；目标掩码不能小于该 IP 块底层实际可扩容到的最小掩码，否则返回 `OPERATION_DENIED_INVALID_CIDR_SIZE` 错误。
     * `SHRINK_CIDR_BLOCK`：缩小已有 CIDR 块（增大掩码），须传 `ipUuid` 和 `publicIPv4BlockSize`；目标掩码同样不能小于该 IP 块底层实际可扩容到的最小掩码。
@@ -57,7 +57,9 @@ parameters:
   - value: BGP_PASSWORD
     desc: BGP 密码。
   - value: ADD_CIDR_BLOCK
-    desc: 新增公网 IP 地址段。
+    desc: |-
+      新增公网 IP 地址段。
+      普通 BGP 档位（`bgp.tier=STANDARD`）的实例不支持。
   - value: DEL_CIDR_BLOCK
     desc: 删除公网 IP 地址段。
   - value: EXPAND_CIDR_BLOCK

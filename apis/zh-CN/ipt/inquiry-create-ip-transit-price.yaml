@@ -3,10 +3,11 @@ product: ipt
 use: inquiry-create-ip-transit-price
 short: IP Transit创建询价
 long: |-
-  IP Transit创建询价
+  IP Transit创建询价。
   **注意事项**
 
   * `internetType=ByInstanceBandwidth95`（95 计费）时须传 `commitBandwidth`；若同时传了 `bandwidth`，必须大于等于 `commitBandwidth`，否则返回 `INVALID_RIPT_BANDWIDTH_LESS_THAN_COMMIT` 错误。
+  * `routingType=BGP` 时可传 `bgpTier` 指定 BGP 档位（`PREMIUM` 优质，缺省 / `STANDARD` 普通），两档 SKU 与价格不同；普通档仅支持固定带宽计费，`bandwidth` 只能取该数据中心的固定档位值（如 10000/50000/100000，单位 Mbps）。`zbgRegionId` 非空（基于 router 的 IP Transit）时不支持 `STANDARD`。
 examples:
 - cmd: zeno ipt inquiry-create-ip-transit-price --peer-port-id your-port-id --internet-type ByBandwidth --bandwidth 50 --ipt-dc-id AMS1 --routing-type Static --public-ipv4-block-size 25
   desc: 查询创建一条IP Transit，公网地址使用/25的CIDR。带宽限速为50Mbps, 计费方式为固定带宽。
@@ -88,6 +89,23 @@ parameters:
     desc: 全路由+默认路由。
   - value: DEFAULT_ROUTES
     desc: 默认路由。
+- name: bgp-tier
+  type: enum
+  required: false
+  sdk-field: bgpTier
+  description: |-
+    BGP 档位。
+    不传默认 PREMIUM（优质档）。
+    zbgRegionId 非空（基于 router 的 IP Transit）时不支持 STANDARD。
+  enum-values:
+  - value: STANDARD
+    desc: |-
+      普通 BGP。
+      仅在部分数据中心开放，仅支持固定带宽计费，带宽只能取该数据中心的固定档位值。
+  - value: PREMIUM
+    desc: |-
+      优质 BGP。
+      骨干直连低时延线路，为档位缺省值；档位拆分前创建的存量实例统一返回该档位。
 - name: ip-type
   type: enum
   required: false

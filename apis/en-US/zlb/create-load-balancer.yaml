@@ -4,17 +4,21 @@ use: create-load-balancer
 short: Creates a load balancer instance
 long: |-
   Create a load balancer instance.
-  **Note**
+  **Notes**
 
-  * You can call [DescribeLoadBalancerRegions](../location/describeloadbalancerregions.md) to check the available regions supporting the creating of load balancers.
-  * This API is an async API. A response is returned after the request is sent. However, it does not mean the operation has been completed. You can call [DescribeLoadBalancers](describeloadbalancers.md) to query the state of the load balancer instance. The `RUNNING` state means creating successfully.
-  * Currently only creating load balance instances for Elastic Compute is supported.
-  * Only pay-as-you-go load balance instance creation is supported.
-  * Please ensure that the global VPC contains an **IPv4 subnet**, and that the subnet has **at least two available IP addresses** for allocation.
-  * The size of the guaranteed traffic package is only valid for billing periods of one month.
+  * You can call ~~DescribeLoadBalancerRegions~~ to check the regions that support purchasing load balancers.
+  * This API is asynchronous. After the request returns successfully, you can call ~~DescribeLoadBalancers~~ to query the state of the load balancer instance. A state of `RUNNING` indicates that the instance was created successfully.
+  * Currently, load balancer instances can only be created for ZEC servers.
+  * Only postpaid load balancer instances can be created.
+  * When creating a load balancer instance, make sure that the VPC has a subnet meeting the `ipStackType` requirement and that at least 2 addresses in the subnet are available for allocation.
+  * When an existing EIP is specified through `eipIds`, the EIP is associated only after the load balancer instance is created (its state becomes `RUNNING`). You can call ~~zec:DescribeEips~~ to query the association result.
 examples:
-- cmd: zeno zlb create-load-balancer --region-id asia-east-1 --vpc-id <vpcId> --security-group-id <securityGroupId> --load-balancer-name sample --internet-charge-type ByBandwidth --ip-network-type BGPLine --bandwidth-mbps 2 --bandwidth-cluster-id --number 1
-  desc: Create a public network load balancer. IP billing method is flat rate.
+- cmd: zeno zlb create-load-balancer --region-id asia-east-1 --vpc-id <vpcId> --security-group-id <securityGroupId> --load-balancer-name sample --internet-charge-type ByBandwidth --network-line-type PremiumBGP --bandwidth-mbps 2 --bandwidth-cluster-id --number 1
+  desc: Create a public network load balancer instance. The IP billing method is flat rate bandwidth.
+- cmd: zeno zlb create-load-balancer --region-id asia-east-1 --subnet-id <subnetId> --load-balancer-name sample --internet-charge-type ByBandwidth --network-line-type PremiumBGP --bandwidth-mbps 2 --number 1
+  desc: 'Without specifying `vpcId`, only specify `subnetId`: the load balancer instance belongs to the VPC to which the subnet belongs, and 2 private IPv4 addresses are randomly allocated from that subnet as the health probe source IPs.'
+- cmd: zeno zlb create-load-balancer --region-id asia-east-1 --vpc-id <vpcId> --load-balancer-name sample --eip-ids <eipId1> --eip-ids <eipId2> --number 1
+  desc: Create a load balancer instance with an existing elastic IP (EIP) instead of creating a new EIP.
 sdk:
   service: zlb
   version: '2025-04-01'
@@ -27,9 +31,31 @@ parameters:
   description: Region ID.
 - name: vpc-id
   type: string
-  required: true
+  required: false
   sdk-field: vpcId
-  description: VPC ID to which the load balance backend server belongs.
+  description: |-
+    ID of the VPC network to which the load balancer backend servers belong.
+    At least one of vpcId and subnetId must be specified.
+    If only subnetId is specified, the VPC to which the subnet belongs is used.
+- name: subnet-id
+  type: string
+  required: false
+  sdk-field: subnetId
+  description: |-
+    Subnet ID.
+    You can call ~~DescribeSubnets~~ to obtain details.
+    At least one of vpcId and subnetId must be specified.
+    The subnet must be in the same region as regionId; if vpcId is also specified, the subnet must belong to that VPC.
+    When ipStackType is IPv4, the subnet must support IPv4 and this parameter is optional (the system selects one within the VPC). When ipStackType is IPv6, the subnet must contain a public IPv6 block (a private IPv6 block does not qualify) and **this parameter is required** — both the public IPv6 VIP and the health probe block are allocated from this subnet, and MISSING_PARAMETER is returned if it is not specified.
+- name: health-check-private-ips
+  type: string-array
+  required: false
+  sdk-field: healthCheckPrivateIps
+  description: |-
+    Health probe source private IP addresses; the quantity must be 2.
+    When subnetId is specified and this field is left empty, 2 available private IPv4 addresses are randomly allocated from that subnet as the health probe source IPs. Each load balancer instance occupies 2 addresses; if the subnet does not have enough available private IPv4 addresses remaining, INVALID_SUBNET_IPV4_INSUFFICIENT is returned. The allocation result can be queried by calling ~~DescribeLoadBalancers~~.
+    When subnetId is not specified, this parameter is invalid.
+    It can be specified only when ipStackType is IPv4. When ipStackType is IPv6, the health probe block is automatically allocated by the system from the public IPv6 block of the subnet, and specifying this parameter returns INVALID_PARAMETER_CONFLICT.
 - name: load-balancer-name
   type: string
   required: true
@@ -38,11 +64,36 @@ parameters:
     Load balance instance name.
     Containing 1 to 64 characters.
     Available range: [1.0, +).
+- name: ip-stack-type
+  type: enum
+  required: false
+  sdk-field: ipStackType
+  description: |-
+    IP stack type.
+    A load balancer instance supports only a single stack, that is, IPv4 or IPv6. Dual stack is not supported.
+    When IPv6 is specified, the public network parameters (internetChargeType, networkLineType, bandwidthMbps, trafficPackageSize, bandwidthClusterId) cannot be configured, and eipIds cannot be specified either because all the EIPs are IPv4. The public addresses of an IPv6 load balancer are assigned separately through the AssignLoadBalancerIpv6 operation.
+  enum-values:
+  - value: IPv4
+    desc: IPv4 only.
+  - value: IPv6
+    desc: IPv6 only.
+- name: eip-ids
+  type: string-array
+  required: false
+  sdk-field: eipIds
+  description: |-
+    List of IDs of existing elastic IPs to be associated with the new load balancer instance.
+    Both single-IP EIPs (mask /32) and block-type EIPs are supported. You can call ~~zec:DescribeEips~~ to query them.
+    All EIPs must be in the same region as regionId and in the unassociated state.
+    When this parameter is specified, internetChargeType, networkLineType, bandwidthMbps, trafficPackageSize, and bandwidthClusterId do not take effect, no new EIP is created for the instance, and number can only be 1.
+    It can be specified only when ipStackType is IPv4.
 - name: internet-charge-type
   type: enum
   required: false
   sdk-field: internetChargeType
-  description: IP network billing model.
+  description: |-
+    IP network billing model.
+    This parameter does not take effect when eipIds is specified.
   enum-values:
   - value: ByBandwidth
     desc: Flat rate billing method.
@@ -111,9 +162,9 @@ parameters:
   required: false
   sdk-field: trafficPackageSize
   description: |-
-    Data transfer package size.
-    The parameter is only required when internetChargeType is ByTrafficPackage.
-    Available range: [0.0, 999999.0].
+    Traffic package size.
+    When this parameter is specified, the IP network billing model (internetChargeType) must be ByTrafficPackage; otherwise this parameter does not take effect.
+    It can only be set when the billing period is monthly; hourly billing is not supported.
 - name: bandwidth-cluster-id
   type: string
   required: false
@@ -165,28 +216,13 @@ parameters:
   - name: value
     type: string
     description: 'Tag value. Length limit: 1 to 64 characters.'
-- name: subnet-id
-  type: string
-  required: false
-  sdk-field: subnetId
-  description: |-
-    ID of the subnet where the health check private source IP belong.
-    You can call DescribeSubnets to obtain details.
-- name: health-check-private-ips
-  type: string-array
-  required: false
-  sdk-field: healthCheckPrivateIps
-  description: |-
-    Health probe private IP.
-    When subnetId is specified, this parameter is required with a quantity of 2.
-    If subnetId is not specified, this parameter is invalid. When this value is left empty, IP addresses will be allocated automatically.
 - name: security-group-id
   type: string
   required: false
   sdk-field: securityGroupId
   description: |-
-    Security group ID.
-    You can call DescribeSecurityGroups to obtain details.
+    Security group ID associated with the load balancer instance.
+    You can call ~~DescribeSecurityGroups~~ to obtain details.
 response:
 - name: orderNumber
   type: string

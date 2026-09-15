@@ -6,8 +6,8 @@ long: |-
   替换一个或者多个弹性公网IP地址。
   **注意事项**
 
+  * 待替换的EIP必须处于未绑定状态，即未关联任何实例或网卡等资源。
   * 来自CIDR创建的EIP不支持更换IP。
-  * 指定`targetIp`时，不能以`.0`或`.255`结尾（网络地址/广播地址不可用）。
 examples:
 - cmd: zeno zec replace-eip-address --replace-ips {eipId=<eipId>}
   desc: 替换公网IP。系统随机分配。

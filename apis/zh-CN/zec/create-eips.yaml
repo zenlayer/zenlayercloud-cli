@@ -6,21 +6,24 @@ long: |-
   创建弹性公网IP。
   **注意事项**
 
-  * 可以通过调用[`DescribeEipRegions`](describeeipregions.md) 来查询支持弹性IP的区域。
-  * 可以通过调用 [`DescribeEipInternetChargeTypes`](describeeipinternetchargetypes.md) 来查询公网IP支持的网络计费方式。
-  * 如果需要创建`Remote EIP`,可以先查询[`DescribeEipRemoteRegions`](describeeipremoteregions.md)来查询支持远端节点。
-  * 如果需要通过`CIDR`进行分配，可以先查询[`DescribeCidrs`](../cidr-block/describecidrs.md)来查询账号下的`CIDR`。
+  * 可以通过调用 ~~DescribeEipRegions~~ 来查询支持弹性IP的区域。
+  * 可以通过调用 ~~DescribeEipInternetChargeTypes~~ 来查询公网IP支持的网络计费方式。
+  * 如果需要创建`Remote EIP`，可以先调用 ~~DescribeEipRemoteRegions~~ 来查询支持的远端节点。
+  * 如果需要通过`CIDR`进行分配，可以先调用 ~~DescribeCidrs~~ 来查询账号下的`CIDR`。
   * 如果同时绑定实例，需要保证所选实例的`主网卡`上的`主内网IP`还能再分配EIP。
-  * 指定`prefixLength`小于32时创建EIP Block资源，同时绑定实例时`bindType`只能为`Passthrough`。
-  * 指定`publicIp`时，`prefixLength`为32表示指定纯IPv4起始地址，小于32时表示指定带掩码的起始网段（掩码须与`prefixLength`一致，如`88.0.5.64/26`）。指定`cidrId`时，该起始地址/网段必须是所选`CIDR`当前可分配的候选之一；不指定`cidrId`时（仅支持`prefixLength`为32），从公网IP池按此地址开始顺序分配。
-  * 保底流量包大小仅对计费周期为月有效。
 examples:
 - cmd: zeno zec create-eips --region-id asia-east-1 --amount 1 --name Test-EIP --internet-charge-type ByTrafficPackage --network-line-type PremiumBGP --bandwidth 50 --flow-package 10 --rate-limit-mode LOOSE
   desc: 创建一个BGP线路的公网弹性IP, 使用流量包计费。流量包大小为10TB。带宽限速为50Mbps。
 - cmd: zeno zec create-eips --region-id asia-east-1 --amount 2 --name Test-EIP --internet-charge-type ByBandwidth --cidr-id <cidrId> --bandwidth 50
   desc: 从CIDR里分配2个公网弹性IP, 使用固定带宽计费。带宽限速为50Mbps。
-- cmd: zeno zec create-eips --region-id asia-east-1 --amount 1 --name Test-RemoteIP --internet-charge-type BandwidthCluster --network-line-type PremiumBGP --bandwidth 50 --cluster-id <clusterId> --resource-group-id xxxx --peer-region-id asia-southwest-1
-  desc: 创建一个`Remote IP`,远端节点为`asia-southwest-1`, 使用共享带宽包计费。
+- cmd: zeno zec create-eips --region-id na-east-1 --amount 1 --name Test-EIP --internet-charge-type BandwidthCluster --cluster-id <clusterId> --cidr-id <cidrId> --prefix-length 32 --instance-ids <instanceId> --bind-type FullNat
+  desc: 从BYOIP的`CIDR`（如`128.0.0.0/24`）里分配单个`/32`的弹性IP并绑定实例。`prefixLength`默认为32，可以省略；NAT模式（默认）与`Passthrough`模式均支持。
+- cmd: zeno zec create-eips --region-id na-east-1 --amount 1 --name Test-EIP --internet-charge-type BandwidthCluster --cluster-id <clusterId> --cidr-id <cidrId> --prefix-length 24 --instance-ids <instanceId> --bind-type Passthrough
+  desc: 从掩码为`/24`的BYOIP `CIDR`里分配一个`/24`的弹性IP（EIP Block）并绑定实例。`/24`的BYOIP `CIDR`只能分配出一个`/24`的EIP，因此`amount`只能为1。EIP Block（`prefixLength`小于32）只支持`Passthrough`绑定模式，不支持NAT模式。
+- cmd: zeno zec create-eips --region-id asia-east-1 --amount 3 --name Test-EIP --internet-charge-type ByBandwidth --network-line-type PremiumBGP --bandwidth 50 --instance-id <instanceId>
+  desc: 创建3个公网弹性IP，全部绑定到同一台实例上（`instanceId`）。
+- cmd: zeno zec create-eips --region-id asia-east-1 --amount 2 --name Test-EIP --internet-charge-type ByBandwidth --network-line-type PremiumBGP --bandwidth 50 --instance-ids <instanceId1> --instance-ids <instanceId2>
+  desc: 创建2个公网弹性IP，每个各绑定一台不同的实例（`instanceIds`，数量需与`amount`一致）。
 sdk:
   service: zec
   version: '2025-09-01'
@@ -62,7 +65,7 @@ parameters:
   required: false
   sdk-field: prefixLength
   description: |-
-    掩码长度，取值范围24–32，默认32。
+    掩码长度，取值范围20–32，默认32。
     指定小于32时，创建EIP Block资源，必须同时指定cidrId，且不能小于所选CIDR自身的掩码长度。
 - name: eip-v4-type
   type: enum
@@ -160,6 +163,7 @@ parameters:
     指定公网起始地址开始创建弹性IP。
     不指定cidrId时，从公网IP池按此地址开始顺序分配（仅支持prefixLength为32）；指定cidrId时，从该CIDR内按此地址开始分配。
     prefixLength为32时填纯IPv4地址；prefixLength小于32时必须同时指定cidrId，填带掩码的起始网段（掩码须与prefixLength一致，如88.0.5.64/26）。
+    指定cidrId时，该起始地址/网段必须是所选CIDR当前可分配的候选之一。
 - name: resource-group-id
   type: string
   required: false
@@ -174,6 +178,7 @@ parameters:
     单位为TB。
     值要求为0或0.1的倍数。
     当网络计费方式为流量计费(ByTrafficPackage)时需要指定。
+    仅当计费周期为月时支持设置，小时计费不支持。
 - name: cluster-id
   type: string
   required: false
@@ -222,13 +227,20 @@ parameters:
     description: |-
       标签值。
       长度限制：1～64个字符。
+- name: instance-id
+  type: string
+  required: false
+  sdk-field: instanceId
+  description: |-
+    要绑定的实例ID。
+    本批次创建的EIP全部绑定到该实例。
 - name: instance-ids
   type: string-array
   required: false
   sdk-field: instanceIds
   description: |-
     要绑定的实例ID集合。
-    数量需要与amount字段一致。
+    数量需要与amount字段一致，每个EIP各绑定一个不同实例；与instanceId同时传递时以instanceId为准。
 - name: bind-type
   type: enum
   required: false
@@ -237,6 +249,7 @@ parameters:
     绑定类型。
     当指定instanceIds时生效。
     默认为普通NAT模式。
+    prefixLength小于32（EIP Block）时只能为Passthrough。
   enum-values:
   - value: FullNat
     desc: 普通NAT模式。

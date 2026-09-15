@@ -1,7 +1,7 @@
 name: ModifyKeyPairAttribute
 product: ccs
 use: modify-key-pair-attribute
-short: 修改一个密钥对的属性
+short: 修改一个密钥对的属性。
 long: |-
   修改一个密钥对的属性。
   **注意事项**

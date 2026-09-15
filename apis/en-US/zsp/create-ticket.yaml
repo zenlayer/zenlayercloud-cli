@@ -1,0 +1,74 @@
+name: CreateTicket
+product: zsp
+use: create-ticket
+short: Create Ticket
+long: |-
+  Create a ticket.
+  **Notes**
+
+  * After a ticket is created, it is asynchronously synchronized to the customer service system. A successful `CreateTicket` response means the ticket has been stored, at which point its status is `CREATING` and the ticket number has not been generated yet.
+  * If `contactName` and `contactEmail` are left empty, the name and email of the currently logged-in user are used automatically. Pass the corresponding contact information explicitly when the ticket is to be followed up by someone else.
+  * `contactEmail` is the only channel for subsequent communication about the ticket: if it is neither passed nor available for the currently logged-in user, you will not receive replies from customer support, and ~~DescribeTicketDetail~~ cannot return the email correspondence records either.
+  * There is an upper limit on the number of tickets each team can create within one hour. You can call ~~DescribeTicketCreationQuota~~ before submitting a ticket to query the remaining quota.
+  * The ticket type determines the impact level of the issue, so no additional priority parameter is required.
+examples:
+- cmd: zeno zsp create-ticket --type SERVICE_FAILURE --description ""Instance vm-xxxxxxxx in region SEA-A cannot be logged in via SSH since 2026-08-19 10:00, and port 22 times out."" --contact-name ""Alice Chen"" --contact-email alice@example.com --contact-phone +8613800000000
+  desc: Create a service failure ticket.
+- cmd: zeno zsp create-ticket --type FINANCIAL_INQUIRIES --description ""The inter-region bandwidth charges in the July 2026 bill do not match the usage. Please help verify.""
+  desc: Create a billing inquiry ticket, with the contact information taken automatically from the currently logged-in user.
+sdk:
+  service: zsp
+  version: '2026-08-01'
+  action: CreateTicket
+parameters:
+- name: type
+  type: enum
+  required: true
+  sdk-field: type
+  description: Ticket type.
+  enum-values:
+  - value: SERVICE_FAILURE
+    desc: 'Service failure: a purchased service is unavailable or malfunctioning.'
+  - value: FINANCIAL_INQUIRIES
+    desc: 'Billing inquiry: financial issues such as billing amounts, billing cycles, and invoices.'
+  - value: ACCOUNT_TEAM_RELATED
+    desc: 'Account inquiry: issues related to accounts, teams, and member permissions.'
+  - value: PURCHASE_CONSULTATION
+    desc: 'Purchase consultation: pre-sales inquiries about prices, specifications, and solutions.'
+  - value: PRODUCT_SUGGESTIONS
+    desc: 'Product inquiry: inquiries about product features and suggestions for improvement.'
+  - value: OTHERS
+    desc: 'Others: issues that do not fall into the categories above.'
+- name: description
+  type: string
+  required: true
+  sdk-field: description
+  description: |-
+    Issue description.
+    The length ranges from 1 to 4000 characters.
+- name: contact-name
+  type: string
+  required: false
+  sdk-field: contactName
+  description: |-
+    Contact name.
+    If left empty, the name of the currently logged-in user is used.
+- name: contact-email
+  type: string
+  required: false
+  sdk-field: contactEmail
+  description: |-
+    Contact email.
+    Subsequent communication emails for the ticket are sent to this address, and the ticket details filter the email correspondence records by this address.
+    If left empty, the email of the currently logged-in user is used.
+- name: contact-phone
+  type: string
+  required: false
+  sdk-field: contactPhone
+  description: Contact phone number.
+response:
+- name: ticketId
+  type: string
+  description: |-
+    Ticket ID.
+    Use this ID to query the ticket details later.

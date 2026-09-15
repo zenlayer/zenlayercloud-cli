@@ -45,6 +45,16 @@ response:
   - name: listenerName
     type: string
     description: Listener name.
+  - name: ipStackType
+    type: enum
+    description: |-
+      IP stack type of the load balancer instance that the listener belongs to.
+      A listener itself does not have a stack type. The value comes from the load balancer instance that it belongs to.
+    enum-values:
+    - value: IPv4
+      desc: IPv4 only.
+    - value: IPv6
+      desc: IPv6 only.
   - name: protocol
     type: enum
     description: Listening protocols.
@@ -59,6 +69,7 @@ response:
       Listening port.
       Use commas (,) to separate multiple ports.
       Use a hyphen (-) to define a port range, e.g., 10000-10005.
+      Valid port values range from 0 to 65535, where 0 indicates all ports.
       If multiple consecutive individual ports are provided, they will be automatically aggregated into a port range.
   - name: healthCheck
     type: object
@@ -83,8 +94,8 @@ response:
       type: integer
       description: |-
         Health check port.
-        When the listener port is set to all ports (0) and the health check type is TCP or HTTP_GET, the value must be specified.
         Defaults to the backend server port. Unless you need a specific port, it is recommended to leave this field empty.
+        When the listener port is all ports (0) or a port range and the health check type is `TCP` or `HTTP_GET`, this port must be specified.
     - name: checkDelayLoop
       type: integer
       description: |-
@@ -129,7 +140,7 @@ response:
       description: If all backends fail health checks, the load balancer will fail open and continue forwarding traffic to all servers to maintain service continuity.
   - name: scheduler
     type: enum
-    description: Scheduling algorithm.
+    description: Scheduling algorithm of the listener.
     enum-values:
     - value: mh
       desc: Maglev Hashing (mh).
@@ -162,7 +173,20 @@ response:
       Format: YYYY-MM-ddTHH:mm:ssZ
   - name: persistent
     type: integer
-    description: Session persistence duration, in seconds.
+    description: |-
+      Session persistence duration, in seconds.
+      Mutually exclusive with `algoOpts` (advanced scheduling-algorithm option) — when this listener has `algoOpts` enabled, this field is always empty/0.
+  - name: algoOpts
+    type: enum
+    description: |-
+      Advanced scheduling-algorithm option.
+      Only has a value when the forwarding mode (`kind`) is `DR` and the scheduling algorithm (`scheduler`) is `mh`; when disabled, this field is empty — query interfaces never return `None`.
+      Once enabled, it is mutually exclusive with session persistence (`persistent`).
+    enum-values:
+    - value: StatelessForwarding
+      desc: MH stateless forwarding (One-Packet Scheduling). When enabled, the load balancer no longer maintains a connection-tracking table and instead selects a backend for each packet in real time based on MH hashing, improving anti-DDoS capability and forwarding performance. Only available when the forwarding mode is `DR` and the scheduling algorithm is `MH`; adding or removing backend nodes, or health-status changes, may interrupt some connections.
+    - value: None
+      desc: 'Explicitly disables the advanced scheduling-algorithm option. Only meaningful in Create/Modify request semantics: passing this value clears an already-enabled option, while omitting the field leaves it unchanged. Query interfaces (e.g. Describe) never return this value — a disabled state is always represented by an empty field.'
   - name: idleTimeout
     type: integer
     description: 'Idle timeout period. Unit: seconds.'

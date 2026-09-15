@@ -7,6 +7,7 @@ long: |-
   **Notes**
 
   * When `internetType=ByInstanceBandwidth95` (95th percentile billing), `commitBandwidth` is required. If `bandwidth` is also specified, it must be greater than or equal to `commitBandwidth`; otherwise the `INVALID_RIPT_BANDWIDTH_LESS_THAN_COMMIT` error is returned.
+  * When `routingType=BGP`, you can pass `bgpTier` to specify the BGP tier (`PREMIUM` for Premium, the default, or `STANDARD` for Standard). The two tiers use different SKUs and prices. The Standard tier supports fixed bandwidth billing only, and `bandwidth` must be one of the fixed tier levels of that data center (for example, 10000/50000/100000 Mbps). `STANDARD` is not supported when `zbgRegionId` is specified (router-based IP Transit).
 examples:
 - cmd: zeno ipt inquiry-create-ip-transit-price --ipt-description test_ipt_desc --peer-port-id your-port-id --internet-type ByBandwidth --bandwidth 50 --ipt-dc-id AMS1 --routing-type Static --public-ipv4-block-size 25
   desc: Query the price of creating an IP Transit with a /25 public CIDR. Bandwidth cap is 50 Mbps, billing method is fixed bandwidth.
@@ -87,6 +88,23 @@ parameters:
     desc: All routes with default routes.
   - value: DEFAULT_ROUTES
     desc: Default routes.
+- name: bgp-tier
+  type: enum
+  required: false
+  sdk-field: bgpTier
+  description: |-
+    BGP tier.
+    Defaults to PREMIUM if not specified.
+    STANDARD is not supported when zbgRegionId is specified (router-based IP Transit).
+  enum-values:
+  - value: STANDARD
+    desc: |-
+      Standard BGP.
+      Available only in some data centers. It supports fixed bandwidth billing only, and the bandwidth must be one of the fixed tier levels of that data center.
+  - value: PREMIUM
+    desc: |-
+      Premium BGP.
+      A low-latency line directly connected to the backbone. This is the default tier. Existing instances created before the tier split uniformly return this tier.
 - name: ip-type
   type: enum
   required: false
